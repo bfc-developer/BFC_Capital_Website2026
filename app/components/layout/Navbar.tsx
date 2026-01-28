@@ -50,9 +50,13 @@ const Navbar = () => {
 
         {/* Action Buttons (Desktop) */}
         <div className="hidden md:flex items-center gap-6">
-          <button className="px-6 py-2 bg-bfc-green text-white text-sm font-semibold rounded-full hover:bg-opacity-90 transition-opacity whitespace-nowrap shadow-md hover:shadow-lg">
+          <a
+            href="https://app.prodigypro.co.in/"
+            className="inline-block px-6 py-2 bg-bfc-green text-white text-sm font-semibold rounded-full hover:bg-opacity-90 transition-opacity whitespace-nowrap shadow-md hover:shadow-lg"
+          >
             Login / Sign-up
-          </button>
+          </a>
+
           <div className="flex items-center gap-1">
             <Image
               src="/Logo/ProdigyPro_horizontal.svg"
