@@ -414,24 +414,81 @@ const Credentials = () => {
 
 const SuccessHighlight = () => {
     return (
-        <section className="bg-bfc-green py-0 mt-16 md:mt-24">
-            <div className="container mx-auto px-4">
-                <div className="flex flex-col md:flex-row items-center justify-between">
-                    <div className="md:w-1/2 py-16 text-white md:pr-12">
-                        <h2 className="text-3xl md:text-5xl font-bold leading-tight mb-6">Over 16,000+ Happy Investors <br /><span className="opacity-90 text-2xl md:text-4xl font-normal">Trust BFC Capital.</span></h2>
-                        <div className="flex items-center gap-2 mb-8"><div className="flex">{[1, 2, 3, 4, 5].map(i => (<span key={i} className="text-yellow-400 text-2xl">★</span>))}</div><span className="font-semibold text-lg">4.9/5 Rating</span></div>
-                        <p className="opacity-90 text-lg leading-relaxed mb-8 max-w-xl">"Investing with BFC Capital has been a game changer. Their tailored advice and transparent approach gave me the confidence to plan for my retirement."</p>
-                        <button className="bg-white text-bfc-green px-8 py-3 rounded-full font-bold hover:bg-gray-100 transition-colors shadow-lg">Join our Family</button>
-                    </div>
-                    <div className="md:w-1/2 relative h-[400px] md:h-[500px] w-full flex justify-center md:justify-end items-end overflow-hidden md:overflow-visible">
-                        <div className="relative h-full w-full max-w-md">
-                            <img src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?q=80&w=1000&auto=format&fit=crop" alt="Happy Investor" className="object-cover h-full w-full rounded-t-full border-4 border-white/20 shadow-2xl" />
-                            <div className="absolute bottom-10 -left-6 bg-white p-4 rounded-xl shadow-lg hidden md:block"><p className="font-bold text-gray-800 text-lg">₹ 1 Cr+</p><p className="text-xs text-gray-500">Portfolio Managed</p></div>
+        <div className="bg-white pt-32 md:pt-48">
+            <section
+                className="py-20 overflow-visible relative"
+                style={{ background: 'linear-gradient(269.9deg, #06A358 24.53%, #001EFE 156.82%)' }}
+            >
+                <div className="container mx-auto px-4 max-w-7xl relative">
+                    <div className="flex flex-col md:flex-row items-center justify-between gap-12">
+                        {/* Left Content */}
+                        <div className="md:w-1/2 text-white">
+                            <h2 className="text-4xl md:text-5xl font-extrabold leading-[1.1] mb-8 max-w-xl">
+                                The BFC Experience:<br className="hidden md:block" />
+                                20 Years of Wealth<br className="hidden md:block" />
+                                Wisdom
+                            </h2>
+
+                            <div className="flex items-center gap-1 mb-6 text-yellow-500">
+                                {[1, 2, 3, 4, 5].map(i => (
+                                    <svg key={i} className="w-5 h-5 fill-current" viewBox="0 0 20 20">
+                                        <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
+                                    </svg>
+                                ))}
+                            </div>
+
+                            <div className="space-y-6 mb-10">
+                                <p className="text-[14px] leading-relaxed max-w-md opacity-80 font-medium">
+                                    Based in Bengaluru, I've been investing with BFC Capital via the Prodigy Pro app for five years. Gained financial confidence and trust, great team, seamless app, and truly positive experience overall.
+                                </p>
+                                <div className="w-8 h-px bg-white/40"></div>
+                                <div>
+                                    <p className="font-extrabold text-[15px]">Mitya Moitra</p>
+                                    <p className="opacity-80 text-xs">Lucknow</p>
+                                </div>
+                            </div>
+
+                            <button className="bg-white text-bfc-blue px-5 py-2.5 rounded-full font-bold flex items-center gap-2 hover:bg-gray-100 transition-all shadow-md group text-[13px]">
+                                See All
+                                <span className="text-bfc-blue group-hover:translate-x-1 transition-transform">→</span>
+                            </button>
+                        </div>
+
+                        {/* Right Content: Image with Play Button and Particles */}
+                        <div className="md:w-1/2 relative flex justify-center md:justify-end">
+                            {/* Decorative Particles Background - Right Group (Sticking out from right top) */}
+                            <div className="absolute -right-16 -top-20 lg:-top-24 opacity-40 hidden lg:block z-0">
+                                <Image
+                                    src="/Home/particle.svg"
+                                    alt="dots"
+                                    width={120}
+                                    height={120}
+                                    className="object-contain"
+                                />
+                            </div>
+
+                            <div className="relative z-10 w-full max-w-[420px] md:-mt-48 lg:-mt-56">
+                                {/* Asymmetric Shaped Image Container */}
+                                <div className="aspect-[2/3] rounded-tl-[200px] rounded-bl-[200px] rounded-br-[200px] rounded-tr-none overflow-hidden relative group cursor-pointer shadow-none">
+                                    <Image
+                                        src="/Home/TestimonialHome.svg"
+                                        alt="Testimonial Video"
+                                        fill
+                                        className="object-cover"
+                                    />
+                                    {/* Play Button Overlay */}
+                                    <div className="absolute inset-0 bg-transparent flex items-center justify-center transition-colors">
+                                        <div className="w-16 h-16 bg-white rounded-full flex items-center justify-center shadow-2xl group-hover:scale-110 transition-transform">
+                                            <div className="w-0 h-0 border-t-[10px] border-t-transparent border-l-[16px] border-l-bfc-blue border-b-[10px] border-b-transparent ml-1"></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
-            </div>
-        </section>
+            </section>
+        </div>
     );
 };
 
