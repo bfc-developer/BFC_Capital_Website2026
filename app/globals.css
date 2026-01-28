@@ -32,7 +32,18 @@ body {
 }
 
 @layer utilities {
-  .text-gradient {
-    @apply bg-clip-text text-transparent bg-gradient-to-r from-bfc-blue to-bfc-green;
+  .text-gradient-green-blue {
+    @apply bg-clip-text text-transparent bg-gradient-to-r from-bfc-green to-bfc-blue;
+  }
+
+  .border-gradient-blue-green {
+    border: 4px solid transparent;
+    background-image: linear-gradient(white, white), linear-gradient(to right, #0056B3, #00A65A);
+    background-origin: border-box;
+    background-clip: content-box, border-box;
+  }
+
+  .clip-path-triangle {
+    clip-path: polygon(50% 0%, 0% 100%, 100% 100%);
   }
 }
