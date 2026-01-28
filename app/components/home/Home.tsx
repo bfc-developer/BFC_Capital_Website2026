@@ -264,7 +264,7 @@ const AppTrustSection = () => {
                 <div className="md:w-1/2 relative flex justify-center md:justify-start">
                     <div className="relative w-full max-w-lg md:-mb-24">
                         <Image
-                            src="/Home/iphone17.svg"
+                            src="/Home/iPhone17.svg"
                             alt="BFC App Trust"
                             width={1200}
                             height={1200}
