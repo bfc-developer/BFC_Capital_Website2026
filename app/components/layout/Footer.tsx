@@ -1,5 +1,4 @@
 import Link from 'next/link';
-import { Instagram, Twitter, Facebook, Youtube, MessageCircle } from 'lucide-react';
 import Image from 'next/image';
 
 const Footer = () => {
@@ -72,20 +71,20 @@ const Footer = () => {
                         </div>
 
                         <div className="flex items-center gap-4">
-                            <div className="w-9 h-9 rounded-full bg-[#00A389] flex items-center justify-center text-white cursor-pointer hover:bg-opacity-80 transition-all">
-                                <Instagram size={18} />
+                            <div className="cursor-pointer hover:scale-110 transition-transform">
+                                <Image src="/SocialMedia/insta.svg" alt="Instagram" width={36} height={36} />
                             </div>
-                            <div className="w-9 h-9 rounded-full bg-[#1DA1F2] bg-white border border-gray-100 shadow-sm flex items-center justify-center text-[#1DA1F2] cursor-pointer hover:shadow-md transition-all">
-                                <Twitter size={18} />
+                            <div className="cursor-pointer hover:scale-110 transition-transform">
+                                <Image src="/SocialMedia/twitter.svg" alt="Twitter" width={36} height={36} />
                             </div>
-                            <div className="w-9 h-9 rounded-full bg-[#1877F2] flex items-center justify-center text-white cursor-pointer hover:bg-opacity-80 transition-all">
-                                <Facebook size={18} />
+                            <div className="cursor-pointer hover:scale-110 transition-transform">
+                                <Image src="/SocialMedia/fb.svg" alt="Facebook" width={36} height={36} />
                             </div>
-                            <div className="w-9 h-9 rounded-full bg-[#FF0000] flex items-center justify-center text-white cursor-pointer hover:bg-opacity-80 transition-all">
-                                <Youtube size={18} />
+                            <div className="cursor-pointer hover:scale-110 transition-transform">
+                                <Image src="/SocialMedia/YT.svg" alt="YouTube" width={36} height={36} />
                             </div>
-                            <div className="w-9 h-9 rounded-full bg-[#25D366] flex items-center justify-center text-white cursor-pointer hover:bg-opacity-80 transition-all">
-                                <MessageCircle size={18} />
+                            <div className="cursor-pointer hover:scale-110 transition-transform">
+                                <Image src="/SocialMedia/whatsapp.svg" alt="WhatsApp" width={36} height={36} />
                             </div>
                         </div>
                     </div>
