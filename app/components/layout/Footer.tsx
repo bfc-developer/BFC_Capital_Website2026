@@ -1,5 +1,6 @@
 import Link from 'next/link';
 import { Instagram, Twitter, Facebook, Youtube, MessageCircle } from 'lucide-react';
+import Image from 'next/image';
 
 const Footer = () => {
     return (
@@ -18,7 +19,7 @@ const Footer = () => {
                                     <div className="w-2 h-2 rounded-full bg-[#E11D48]"></div>
                                 </div>
                             </div>
-                            <span className="text-xl font-bold tracking-tight text-[#E11D48]">BFC CAPITAL</span>
+                            <Image src="/Logo/CAPLOGO.svg" alt="Logo" width={100} height={100} />
                         </div>
 
                         <div className="space-y-4 text-[13px] leading-relaxed">
