@@ -14,9 +14,6 @@ const Footer = () => {
                     {/* Column 1: Compliance & Info */}
                     <div className="space-y-6">
                         <div className="flex items-center gap-2 mb-2">
-                            <div className="w-8 h-8 rounded-full bg-red-100 flex items-center justify-center">
-
-                            </div>
                             <Image src="/Logo/CAPLOGO.svg" alt="Logo" width={100} height={100} />
                         </div>
 
