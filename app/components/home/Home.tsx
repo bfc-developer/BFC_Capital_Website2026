@@ -653,12 +653,14 @@ const ComplaintsTable = () => {
                 {/* Investor Charter Section */}
                 <div className={`transition-all duration-700 overflow-hidden ${showCharter ? 'max-h-[1000px] opacity-100 mt-24 mb-12' : 'max-h-0 opacity-0'}`}>
                     <div className="text-center mb-16 relative">
-                        <h2
-                            className="text-5xl font-extrabold inline-block pb-1 bg-clip-text text-transparent"
-                            style={{ backgroundImage: 'linear-gradient(90deg, #04B488 39.5%, #011EFE 100%)' }}
-                        >
-                            Investor Charter
-                        </h2>
+                        <a href="https://www.vivekam.co.in/wp-content/uploads/2025/07/Investment-charter.pdf" target="_blank" rel="noopener noreferrer">
+                            <h2
+                                className="text-5xl font-extrabold inline-block pb-1 bg-clip-text text-transparent hover:opacity-80 transition-opacity"
+                                style={{ backgroundImage: 'linear-gradient(90deg, #04B488 39.5%, #011EFE 100%)' }}
+                            >
+                                Investor Charter
+                            </h2>
+                        </a>
                         <div
                             className="w-64 h-1.5 mx-auto rounded-full mt-1"
                             style={{ background: 'linear-gradient(90deg, #04B488 39.5%, #011EFE 100%)' }}
