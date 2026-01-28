@@ -15,9 +15,7 @@ const Footer = () => {
                     <div className="space-y-6">
                         <div className="flex items-center gap-2 mb-2">
                             <div className="w-8 h-8 rounded-full bg-red-100 flex items-center justify-center">
-                                <div className="w-5 h-5 rounded-full border-2 border-[#E11D48] flex items-center justify-center">
-                                    <div className="w-2 h-2 rounded-full bg-[#E11D48]"></div>
-                                </div>
+
                             </div>
                             <Image src="/Logo/CAPLOGO.svg" alt="Logo" width={100} height={100} />
                         </div>
