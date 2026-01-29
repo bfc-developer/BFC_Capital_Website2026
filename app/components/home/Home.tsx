@@ -720,7 +720,7 @@ const ComplaintsTable = () => {
                                 width={30}
                                 height={30}
                                 onClick={() => setShowPopup(false)}
-                                className="absolute right-4 top-4 text-gray-400 hover:text-[#BBB2B2] text-2xl"
+                                className="absolute right-4 top-4 text-2xl"
                             />
 
                             {/* Title */}
