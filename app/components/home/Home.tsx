@@ -14,6 +14,7 @@ import VideoCarousel from "../common/VideoCarousel";
 
 // --- Sub-Components ---
 
+
 const HeroSection = () => {
     const [currentSlide, setCurrentSlide] = useState(0);
 
