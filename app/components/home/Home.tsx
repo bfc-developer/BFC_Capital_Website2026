@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import {
@@ -104,12 +104,26 @@ const HeroSection = () => {
                             </h2>
 
                             <div className=" pt-2 md:pt-5 lg:pt-7 flex justify-center md:justify-start gap-4">
-                                <button className="flex items-center justify-center transition-all hover:scale-105 active:scale-95 group">
-                                    <Image src="/Home/Playstore.svg" alt="Google Play" width={160} height={47} className="object-contain" />
-                                </button>
-                                <button className="flex items-center justify-center transition-all hover:scale-105 active:scale-95 group">
-                                    <Image src="/Home/applestore.svg" alt="App Store" width={160} height={47} className="object-contain" />
-                                </button>
+                                <a
+                                    href="https://play.google.com/store/apps/details?id=com.bfc_mf.prodigy_app"
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                    className="inline-block"
+                                >
+                                    <button className="flex items-center justify-center transition-all hover:scale-105 active:scale-95 group">
+                                        <Image src="/Home/Playstore.svg" alt="Google Play" width={160} height={47} className="object-contain" />
+                                    </button>
+                                </a>
+                                <a
+                                    href="https://apps.apple.com/in/app/prodigy-pro-mutual-funds-sip/id1575700744"
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                    className="inline-block"
+                                >
+                                    <button className="flex items-center justify-center transition-all hover:scale-105 active:scale-95 group">
+                                        <Image src="/Home/applestore.svg" alt="App Store" width={160} height={47} className="object-contain" />
+                                    </button>
+                                </a>
                             </div>
                         </div>
                         <div className="relative order-1 lg:order-2 flex items-center justify-center lg:justify-end">
@@ -286,7 +300,7 @@ const AppTrustSection = () => {
                         </p>
                     </div>
                     <div className="flex flex-wrap gap-4 mb-2">
-                        <Link href="#" className="transition-transform hover:scale-105 active:scale-95">
+                        <Link href="https://play.google.com/store/apps/details?id=com.bfc_mf.prodigy_app" target="_blank" className="transition-transform hover:scale-105 active:scale-95">
                             <Image
                                 src="/Home/Playstore.svg"
                                 alt="Get it on Google Play"
@@ -295,7 +309,7 @@ const AppTrustSection = () => {
                                 className="w-[160px] h-[47px]"
                             />
                         </Link>
-                        <Link href="#" className="transition-transform hover:scale-105 active:scale-95">
+                        <Link href="https://apps.apple.com/in/app/prodigy-pro-mutual-funds-sip/id1575700744" target="_blank" className="transition-transform hover:scale-105 active:scale-95">
                             <Image
                                 src="/Home/applestore.svg"
                                 alt="Download on the App Store"
@@ -339,7 +353,7 @@ const EventsSection = () => {
                     ))}
                 </div>
                 <div className="mt-12 text-center relative">
-                    <button className="px-8 py-2 bg-bfc-green text-white font-base rounded-full hover:bg-green-700 transition-colors relative z-10">See All →</button>
+                    <a href="https://bfccapital.com/event/" className="px-8 py-2 bg-bfc-green text-white font-base rounded-full hover:bg-green-700 transition-colors relative z-10">See All →</a>
 
                 </div>
             </div>
@@ -637,7 +651,6 @@ const FAQSection = () => {
 
 
 const ComplaintsTable = () => {
-    const [showPopup, setShowPopup] = useState(false);
     const data = [
         { sr: 1, from: "Directly from Investors", lastMonth: 0, received: 0, resolved: 0, totalPending: 0, pending3Months: 0, avgTime: "NA" },
         { sr: 2, from: "SEBI (SCORES)", lastMonth: 0, received: 0, resolved: 0, totalPending: 0, pending3Months: 0, avgTime: "NA" },
@@ -702,90 +715,16 @@ const ComplaintsTable = () => {
                     <p className="text-[13px] text-[#44475B] max-w-2xl leading-relaxed italic font-medium">
                         ^ Average Resolution time is the sum total of time taken to resolve each complaint in days, in the current month divided by total number of complaints resolved in the current month.
                     </p>
-                    <button
-                        onClick={() => setShowPopup(!showPopup)}
-                        className="bg-bfc-green text-white px-10 py-3 rounded-full font-bold hover:bg-green-700 transition-all shadow-md active:scale-95 whitespace-nowrap"
-                    >
-                        {showPopup ? 'View Less' : 'View More'}
-                    </button>
+                    <Link href="/investor-complaints">
+                        <button
+
+                            className="bg-bfc-green text-white px-10 py-3 rounded-full font-bold hover:bg-green-700 transition-all shadow-md active:scale-95 whitespace-nowrap"
+                        >
+                            View More
+                        </button>
+                    </Link>
+
                 </div>
-                {/* Beware of Impersonation Popup */}
-                {showPopup && (
-                    <div className="fixed inset-0 z-[9999] flex items-center justify-center bg-black/40 backdrop-blur-sm px-4">
-
-                        <div className="relative w-full max-w-3xl bg-white p-8 shadow-xl max-h-[85vh] rounded-[15px]">
-
-                            {/* Close Button */}
-                            <Image
-                                src="/Home/X.svg"
-                                alt="Close"
-                                width={30}
-                                height={30}
-                                onClick={() => setShowPopup(false)}
-                                className="absolute right-4 top-4 text-2xl"
-                            />
-
-                            {/* Title */}
-                            <h2 className="text-2xl font-bold mb-4 text-[#44475B] text-[35px] letter-spacing-[0px] line-height-[100%]">
-                                Beware of Impersonation
-                            </h2>
-
-                            {/* Content */}
-                            <div className="text-sm space-y-3 leading-tight text-[12px] letter-spacing-[0px] line-height-[100%] text-[#44475B]
-                            ">
-
-                                <p>
-                                    This is to inform the general public that BFC Capital, including its affiliates, subsidiaries, employees, directors, key managerial personnel, authorised representatives, and its product Prodigy Pro (collectively referred to as “BFC Capital”), does not:
-                                </p>
-
-                                <ul className="list-disc pl-5 space-y-2">
-                                    <li>Solicit or accept cash or payments outside its official and authorised banking channels</li>
-                                    <li>Assure or guarantee returns on any investment</li>
-                                    <li>Provide unsolicited investment advice, stock tips, cryptocurrency advice, derivatives strategies, or any form of “assured income” or “quick profit” schemes</li>
-                                    <li>Operate or authorise any WhatsApp groups, Telegram channels, social media groups, or third-party platforms offering investment advice, meetings, employment, or services in exchange for payment</li>
-                                </ul>
-                                <p>Prodigy Pro is an official product developed and operated by BFC Capital.</p>
-                                <p>
-                                    Any individual or entity claiming to represent BFC Capital or Prodigy Pro outside authorised channels should be treated as unauthorised and fraudulent.
-                                </p>
-
-                                <p>
-                                    Official communications of BFC Capital and Prodigy Pro are issued only through verified channels:
-                                </p>
-                                <p>[official website / authorised links]</p>
-
-                                <p>Members of the public are advised to exercise due caution.</p>
-                                <p>In case of any impersonation or suspicious activity, please:</p>
-
-                                <ul className="list-disc pl-5 space-y-1">
-                                    <li>Report the matter to appropriate law enforcement authorities</li>
-                                    <li>Inform BFC Capital immediately at: {" "} <a
-                                        href="mailto:customersupport@bfccapital.com"
-                                        className="text-blue-600 underline"
-                                    >
-                                        customersupport@bfccapital.com
-                                    </a></li>
-                                </ul>
-
-                                <p>
-                                    BFC Capital shall not be responsible for any loss arising from transactions conducted through unauthorised persons or platforms.
-                                </p>
-
-                            </div>
-
-                            {/* Button */}
-                            <div className="mt-6 flex justify-end">
-                                <button
-                                    onClick={() => setShowPopup(false)}
-                                    className="bg-bfc-green hover:bg-green-700 text-white px-6 py-2 rounded-full font-semibold"
-                                >
-                                    I Understand
-                                </button>
-                            </div>
-
-                        </div>
-                    </div>
-                )}
 
 
 
@@ -838,6 +777,33 @@ const ComplaintsTable = () => {
 // --- Main Container ---
 
 const Home = () => {
+    const [showPopup, setShowPopup] = useState(false);
+    const footerRef = useRef<HTMLDivElement>(null);
+
+    useEffect(() => {
+        const observer = new IntersectionObserver(
+            ([entry]) => {
+                if (entry.isIntersecting) {
+                    setShowPopup(true);
+                    observer.disconnect();
+                }
+            },
+            {
+                threshold: 0.1 // Trigger when 10% of footer is visible
+            }
+        );
+
+        if (footerRef.current) {
+            observer.observe(footerRef.current);
+        }
+
+        return () => {
+            if (footerRef.current) {
+                observer.unobserve(footerRef.current);
+            }
+        };
+    }, []);
+
     return (
         <div className="flex flex-col min-h-screen">
             <Navbar />
@@ -859,7 +825,90 @@ const Home = () => {
 
                 </div>
             </main>
-            <Footer />
+            <div ref={footerRef}>
+                <Footer />
+            </div>
+
+            {/* Beware of Impersonation Popup */}
+            {showPopup && (
+                <div className="fixed inset-0 z-[9999] flex items-center justify-center bg-black/40 backdrop-blur-sm px-4">
+
+                    <div className="relative w-full max-w-3xl bg-white p-8 shadow-xl max-h-[85vh] rounded-[15px] overflow-y-auto">
+
+                        {/* Close Button */}
+                        <div
+                            onClick={() => setShowPopup(false)}
+                            className="absolute right-4 top-4 cursor-pointer"
+                        >
+                            <Image
+                                src="/Home/X.svg"
+                                alt="Close"
+                                width={30}
+                                height={30}
+                            />
+                        </div>
+
+                        {/* Title */}
+                        <h2 className="font-bold mb-4 text-[#44475B] text-[24px] md:text-[35px] letter-spacing-[0px] leading-tight">
+                            Beware of Impersonation
+                        </h2>
+
+                        {/* Content */}
+                        <div className="text-sm space-y-3 leading-tight text-[12px] letter-spacing-[0px] line-height-[100%] text-[#44475B]
+                            ">
+
+                            <p>
+                                This is to inform the general public that BFC Capital, including its affiliates, subsidiaries, employees, directors, key managerial personnel, authorised representatives, and its product Prodigy Pro (collectively referred to as “BFC Capital”), does not:
+                            </p>
+
+                            <ul className="list-disc pl-5 space-y-2">
+                                <li>Solicit or accept cash or payments outside its official and authorised banking channels</li>
+                                <li>Assure or guarantee returns on any investment</li>
+                                <li>Provide unsolicited investment advice, stock tips, cryptocurrency advice, derivatives strategies, or any form of “assured income” or “quick profit” schemes</li>
+                                <li>Operate or authorise any WhatsApp groups, Telegram channels, social media groups, or third-party platforms offering investment advice, meetings, employment, or services in exchange for payment</li>
+                            </ul>
+                            <p>Prodigy Pro is an official product developed and operated by BFC Capital.</p>
+                            <p>
+                                Any individual or entity claiming to represent BFC Capital or Prodigy Pro outside authorised channels should be treated as unauthorised and fraudulent.
+                            </p>
+
+                            <p>
+                                Official communications of BFC Capital and Prodigy Pro are issued only through verified channels:
+                            </p>
+                            <p>[official website / authorised links]</p>
+
+                            <p>Members of the public are advised to exercise due caution.</p>
+                            <p>In case of any impersonation or suspicious activity, please:</p>
+
+                            <ul className="list-disc pl-5 space-y-1">
+                                <li>Report the matter to appropriate law enforcement authorities</li>
+                                <li>Inform BFC Capital immediately at: {" "} <a
+                                    href="mailto:customersupport@bfccapital.com"
+                                    className="text-blue-600 underline"
+                                >
+                                    customersupport@bfccapital.com
+                                </a></li>
+                            </ul>
+
+                            <p>
+                                BFC Capital shall not be responsible for any loss arising from transactions conducted through unauthorised persons or platforms.
+                            </p>
+
+                        </div>
+
+                        {/* Button */}
+                        <div className="mt-6 flex justify-end">
+                            <button
+                                onClick={() => setShowPopup(false)}
+                                className="bg-bfc-green hover:bg-green-700 text-white px-6 py-2 rounded-full font-semibold"
+                            >
+                                I Understand
+                            </button>
+                        </div>
+
+                    </div>
+                </div>
+            )}
         </div>
     );
 };
