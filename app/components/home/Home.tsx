@@ -635,7 +635,7 @@ const FAQSection = () => {
 
 
 const ComplaintsTable = () => {
-    const [showCharter, setShowCharter] = useState(false);
+    const [showPopup, setShowPopup] = useState(false);
     const data = [
         { sr: 1, from: "Directly from Investors", lastMonth: 0, received: 0, resolved: 0, totalPending: 0, pending3Months: 0, avgTime: "NA" },
         { sr: 2, from: "SEBI (SCORES)", lastMonth: 0, received: 0, resolved: 0, totalPending: 0, pending3Months: 0, avgTime: "NA" },
@@ -701,15 +701,94 @@ const ComplaintsTable = () => {
                         ^ Average Resolution time is the sum total of time taken to resolve each complaint in days, in the current month divided by total number of complaints resolved in the current month.
                     </p>
                     <button
-                        onClick={() => setShowCharter(!showCharter)}
+                        onClick={() => setShowPopup(!showPopup)}
                         className="bg-bfc-green text-white px-10 py-3 rounded-full font-bold hover:bg-green-700 transition-all shadow-md active:scale-95 whitespace-nowrap"
                     >
-                        {showCharter ? 'View Less' : 'View More'}
+                        {showPopup ? 'View Less' : 'View More'}
                     </button>
                 </div>
+                {/* Beware of Impersonation Popup */}
+                {showPopup && (
+                    <div className="fixed inset-0 z-[9999] flex items-center justify-center bg-black/40 backdrop-blur-sm px-4">
+
+                        <div className="relative w-full max-w-3xl bg-white p-8 shadow-xl max-h-[85vh] rounded-[15px]">
+
+                            {/* Close Button */}
+                            <Image
+                                src="/Home/X.svg"
+                                alt="Close"
+                                width={30}
+                                height={30}
+                                onClick={() => setShowPopup(false)}
+                                className="absolute right-4 top-4 text-gray-400 hover:text-[#BBB2B2] text-2xl"
+                            />
+
+                            {/* Title */}
+                            <h2 className="text-2xl font-bold mb-4 text-[#44475B] text-[35px] letter-spacing-[0px] line-height-[100%]">
+                                Beware of Impersonation
+                            </h2>
+
+                            {/* Content */}
+                            <div className="text-sm space-y-3 leading-tight text-[12px] letter-spacing-[0px] line-height-[100%] text-[#44475B]
+                            ">
+
+                                <p>
+                                    This is to inform the general public that BFC Capital, including its affiliates, subsidiaries, employees, directors, key managerial personnel, authorised representatives, and its product Prodigy Pro (collectively referred to as “BFC Capital”), does not:
+                                </p>
+
+                                <ul className="list-disc pl-5 space-y-2">
+                                    <li>Solicit or accept cash or payments outside its official and authorised banking channels</li>
+                                    <li>Assure or guarantee returns on any investment</li>
+                                    <li>Provide unsolicited investment advice, stock tips, cryptocurrency advice, derivatives strategies, or any form of “assured income” or “quick profit” schemes</li>
+                                    <li>Operate or authorise any WhatsApp groups, Telegram channels, social media groups, or third-party platforms offering investment advice, meetings, employment, or services in exchange for payment</li>
+                                </ul>
+                                <p>Prodigy Pro is an official product developed and operated by BFC Capital.</p>
+                                <p>
+                                    Any individual or entity claiming to represent BFC Capital or Prodigy Pro outside authorised channels should be treated as unauthorised and fraudulent.
+                                </p>
+
+                                <p>
+                                    Official communications of BFC Capital and Prodigy Pro are issued only through verified channels:
+                                </p>
+                                <p>[official website / authorised links]</p>
+
+                                <p>Members of the public are advised to exercise due caution.</p>
+                                <p>In case of any impersonation or suspicious activity, please:</p>
+
+                                <ul className="list-disc pl-5 space-y-1">
+                                    <li>Report the matter to appropriate law enforcement authorities</li>
+                                    <li>Inform BFC Capital immediately at: {" "} <a
+                                        href="mailto:customersupport@bfccapital.com"
+                                        className="text-blue-600 underline"
+                                    >
+                                        customersupport@bfccapital.com
+                                    </a></li>
+                                </ul>
+
+                                <p>
+                                    BFC Capital shall not be responsible for any loss arising from transactions conducted through unauthorised persons or platforms.
+                                </p>
+
+                            </div>
+
+                            {/* Button */}
+                            <div className="mt-6 flex justify-end">
+                                <button
+                                    onClick={() => setShowPopup(false)}
+                                    className="bg-bfc-green hover:bg-green-700 text-white px-6 py-2 rounded-full font-semibold"
+                                >
+                                    I Understand
+                                </button>
+                            </div>
+
+                        </div>
+                    </div>
+                )}
+
+
 
                 {/* Investor Charter Section */}
-                <div className={`transition-all duration-700 overflow-hidden ${showCharter ? 'max-h-[1000px] opacity-100 mt-24 mb-12' : 'max-h-0 opacity-0'}`}>
+                <div className={`transition-all duration-700 overflow-hidden max-h-[1000px] opacity-100 mt-24 mb-12`}>
                     <div className="text-center mb-16 relative">
                         <a href="https://www.vivekam.co.in/wp-content/uploads/2025/07/Investment-charter.pdf" target="_blank" rel="noopener noreferrer">
                             <h2
