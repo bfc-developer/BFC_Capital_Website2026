@@ -16,7 +16,7 @@ const Footer = () => {
                             <Image src="/Logo/CAPLOGO.svg" alt="Logo" width={100} height={100} />
                         </div>
 
-                        <div className="space-y-4 text-[13px] leading-relaxed">
+                        <div className="space-y-4 text-[13px] leading-tight">
                             <div className="space-y-1">
                                 <p className="font-extrabold uppercase">BFC CAPITAL PRIVATE LIMITED</p>
                                 <p>SEBI-Registered Investment Adviser: INA000021669</p>
@@ -26,8 +26,8 @@ const Footer = () => {
                             </div>
 
                             <div className="space-y-0.5">
-                                <p className="font-bold">Grievance Cell</p>
-                                <a href="https://scores.sebi.gov.in" className="hover:text-bfc-blue transition-colors underline break-all">https://scores.sebi.gov.in</a>
+                                <p className="">Grievance Cell</p>
+                                <a href="https://scores.sebi.gov.in" className="hover:text-bfc-blue transition-colors break-all">https://scores.sebi.gov.in</a>
                             </div>
 
                             <div className="space-y-1">
@@ -57,11 +57,11 @@ const Footer = () => {
                     <div className="space-y-10">
                         <div className="space-y-6">
                             <h4 className="text-base font-bold text-[#475569]">Company Info</h4>
-                            <div className="space-y-4 text-[13px] leading-relaxed">
+                            <div className="space-y-4 text-[13px] leading-tight">
                                 <p>C.P.-61, Viraj Khand-4, Gomti Nagar, Lucknow,<br />Uttar Pradesh 226010</p>
                                 <div className="space-y-1">
                                     <p><span className="font-bold">Hours:</span> Mon - Sat :- 09:30 am - 6:30 pm</p>
-                                    <p className="text-gray-500 italic">(Second & Fourth Saturday Closed)</p>
+                                    <p>(Second & Fourth Saturday Closed)</p>
                                 </div>
                                 <div className="space-y-1">
                                     <p><span className="font-bold">Call:</span> +91-522-3514141</p>
@@ -106,7 +106,7 @@ const Footer = () => {
                 <div className="space-y-8">
                     <div className="space-y-2">
                         <p className="text-[14px] font-extrabold uppercase tracking-wide">DISCLAIMER</p>
-                        <p className="text-[13px] text-gray-500 leading-relaxed italic">
+                        <p className="text-[13px] text-gray-500 leading-tight">
                             "Investment in securities market are subject to market risks. Read all the related documents carefully before investing."
                         </p>
                     </div>
