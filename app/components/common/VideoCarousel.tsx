@@ -45,7 +45,7 @@ const VideoCarousel = ({ videos, autoPlayInterval = 4000 }: VideoCarouselProps) 
 
     return (
         <>
-            <div className="relative mx-auto max-w-4xl overflow-hidden aspect-video group cursor-pointer">
+            <div className="relative mx-auto max-w-1xl lg:max-w-3xl overflow-hidden aspect-video group cursor-pointer">
                 {videos.map((video, idx) => {
                     const videoId = getYouTubeId(video.youtubeUrl);
                     const thumbnailUrl = video.thumbnail || (videoId ? `https://img.youtube.com/vi/${videoId}/maxresdefault.jpg` : '');
@@ -89,7 +89,7 @@ const VideoCarousel = ({ videos, autoPlayInterval = 4000 }: VideoCarouselProps) 
 
             {/* Video Modal Overlay */}
             {playingVideoId && (
-                <div className="fixed inset-0 z-[100] flex items-center justify-center p-4 bg-black/90 backdrop-blur-sm animate-in fade-in duration-300">
+                <div className="fixed inset-0 z-55 flex items-center justify-center p-4 bg-black/90 backdrop-blur-sm animate-in fade-in duration-300">
                     <div className="relative w-full max-w-5xl aspect-video rounded-2xl overflow-hidden shadow-2xl">
                         <button
                             onClick={() => setPlayingVideoId(null)}

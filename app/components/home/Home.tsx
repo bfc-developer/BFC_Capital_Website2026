@@ -45,13 +45,13 @@ const HeroSection = () => {
 
     return (
         <section
-            className={`relative w-full overflow-hidden transition-all duration-700 min-h-[650px] flex items-center ${activeSlide.type === 'app' ? 'bg-gradient-to-r from-blue-700 via-bfc-blue to-bfc-green' : 'bg-gradient-to-b from-blue-50 to-white'}`}
+            className={`relative w-full overflow-hidden transition-all duration-700 min-h-[600px] flex items-center ${activeSlide.type === 'app' ? ' bg-[linear-gradient(269.9deg,#06A358_24.53%,#001EFE_156.82%)] via-bfc-blue to-bfc-green' : 'bg-gradient-to-b from-blue-50 to-white'}`}
         >
             {/* Background Images for Wealth Slides */}
             {slides.map((slide, index) => slide.type === 'wealth' && (
                 <div
                     key={index}
-                    className={`absolute inset-0 transition-opacity duration-1000 ${index === currentSlide ? "opacity-50 pointer-events-none" : "opacity-0"}`}
+                    className={`absolute inset-0 transition-opacity duration-1000 ${index === currentSlide ? "pointer-events-none" : "opacity-0"}`}
                 >
                     <div
                         className="h-full w-full bg-cover bg-center"
@@ -60,50 +60,50 @@ const HeroSection = () => {
                 </div>
             ))}
 
-            <div className="container relative mx-auto px-4 z-10 py-12">
+            <div className="container relative mx-auto px-4 z-10 pb-12 pt-10 md:pt-10 xl:pt-0">
                 {activeSlide.type === 'wealth' ? (
+
                     <div className="animate-in fade-in zoom-in duration-500 text-center">
-                        <h1 className="mx-auto max-w-5xl text-4xl font-extrabold leading-tight tracking-tight md:text-5xl lg:text-7xl text-gradient-green-blue py-2">
+                        <h1 className="mx-auto max-w-5xl text-3xl font-extrabold leading-tight tracking-tight md:text-4xl lg:text-5xl bg-[linear-gradient(to_right,#04B488_42%,#011EFE_85%)] bg-clip-text text-transparent pb-2 font-inter">
                             {activeSlide.title} <br className="hidden md:block" />
                             {activeSlide.highlight}
                         </h1>
 
                         {/* Stats Circles */}
-                        <div className="mt-16 flex flex-wrap justify-center gap-6 md:gap-8">
-                            <div className="flex bg-white flex-col items-center justify-center w-40 h-40 md:w-52 md:h-52 rounded-full border-gradient-blue-green shadow-xl p-4">
-                                <Image src="/Home/image1.svg" alt="" width={100} height={100} className="mb-1" />
-                                <p className="text-[10px] text-gray-500 uppercase tracking-widest leading-tight">RIA :</p>
-                                <p className="text-[10px] text-gray-500 uppercase tracking-widest leading-tight">INA000021669</p>
+                        <div className="mt-10 md:mt-10 xl:mt-15 flex flex-wrap justify-center gap-6 md:gap-10 xl:gap-15">
+                            <div className="flex bg-white flex-col items-center justify-center w-35 h-35 md:w-40 md:h-40 rounded-full border-gradient-blue-green shadow-xl p-1">
+                                <Image src="/Home/image1.svg" alt="" width={5} height={5} className="mb-1 w-15 h-10 md:h-10 md:w-20" />
+                                <p className="text-[10px] md:text-[12px]  pt-1 font-bold text-[#44475B] uppercase tracking-widest leading-tight font-inter">RIA :</p>
+                                <p className="text-[10px] md:text-[12px] text-[#44475B] font-bold uppercase tracking-widest leading-tight font-inter">INA000021669</p>
                             </div>
-                            <div className="flex bg-white flex-col items-center justify-center w-40 h-40 md:w-52 md:h-52 rounded-full border-gradient-blue-green shadow-xl p-4">
-                                <h3 className="text-2xl md:text-3xl font-extrabold text-gray-800">1000+ Cr.</h3>
-                                <p className="text-[10px] md:text-xs text-gray-600 font-semibold text-center mt-1 uppercase tracking-wide">Assets Under <br /> Advisory</p>
+                            <div className="flex bg-white flex-col items-center justify-center w-35 h-35 font-inter md:w-40 md:h-40 rounded-full border-gradient-blue-green shadow-xl p-1">
+                                <h3 className="text-1xl md:text-2xl font-extrabold text-[#44475B] font-inter">1000+ Cr.</h3>
+                                <p className="text-[10px] md:text-[12px] text-gray-600 font-semibold text-center mt-1 font-inter tracking-wide">Assets Under <br /> Advisory</p>
                             </div>
-                            <div className="flex bg-white flex-col items-center justify-center w-40 h-40 md:w-52 md:h-52 rounded-full border-gradient-blue-green shadow-xl p-4">
-                                <h3 className="text-2xl md:text-3xl font-extrabold text-gray-800">16000+</h3>
-                                <p className="text-[10px] md:text-xs text-gray-600 font-semibold text-center mt-1 uppercase tracking-wide">Retail Client <br /> Base</p>
+                            <div className="flex bg-white flex-col items-center justify-center w-35 h-35 md:w-40 md:h-40 rounded-full font-inter border-gradient-blue-green shadow-xl p-1">
+                                <h3 className="text-1xl md:text-2xl font-extrabold text-[#44475B] font-inter">16000+</h3>
+                                <p className="text-[10px] md:text-[12px]  text-gray-600 font-semibold text-center font-inter mt-1 uppercase tracking-wide">Retail Client <br /> Base</p>
                             </div>
-                            <div className="flex bg-white flex-col items-center justify-center w-40 h-40 md:w-52 md:h-52 rounded-full border-gradient-blue-green shadow-xl p-4">
-                                <h3 className="text-2xl md:text-3xl font-extrabold text-gray-800">80+</h3>
-                                <p className="text-[10px] md:text-xs text-gray-600 font-semibold text-center mt-1 uppercase tracking-wide">Cities</p>
+                            <div className="flex bg-white flex-col items-center justify-center w-35 font-inter h-35 md:w-40 md:h-40 rounded-full border-gradient-blue-green shadow-xl p-1">
+                                <h3 className="text-1xl md:text-2xl font-extrabold text-[#44475B] font-inter">80+</h3>
+                                <p className="text-[10px] md:text-[12px] text-gray-600 font-semibold text-center mt-1 uppercase tracking-wide">Cities</p>
                             </div>
-                            <div className="flex bg-white flex-col items-center justify-center w-40 h-40 md:w-52 md:h-52 rounded-full border-gradient-blue-green shadow-xl p-4">
-                                <h3 className="text-2xl md:text-3xl font-extrabold text-gray-800">22+</h3>
-                                <p className="text-[10px] md:text-xs text-gray-600 font-semibold text-center mt-1 uppercase tracking-wide">Managers</p>
+                            <div className="flex bg-white flex-col items-center justify-center w-35 font-inter h-35 md:w-40 md:h-40 rounded-full border-gradient-blue-green shadow-xl p-1">
+                                <h3 className="text-1xl md:text-3xl font-extrabold text-[#44475B] font-inter">22+</h3>
+                                <p className="text-[10px] md:text-[12px] md:text-xs text-gray-600  font-inter font-semibold text-center mt-1 uppercase tracking-wide">Managers</p>
                             </div>
                         </div>
                     </div>
+
                 ) : (
                     // App Slide Content
-                    <div className="flex flex-col items-center gap-12 lg:flex-row lg:justify-between text-white animate-in fade-in slide-in-from-right duration-500 w-full px-4 lg:px-0">
+                    <div className="flex flex-col items-center gap-1 lg:gap-12 lg:flex-row lg:justify-between text-white animate-in fade-in slide-in-from-right duration-500 w-full px-4 lg:px-0" >
                         <div className="text-center lg:w-1/2 lg:text-left lg:pr-12 order-2 lg:order-1">
-                            <h2 className="mb-6 text-3xl font-extrabold leading-tight md:text-5xl lg:text-6xl drop-shadow-lg max-w-2xl">
-                                Your future won't build itself — start investing with Prodigy Pro today!
+                            <h2 className="mb-6 font-extrabold leading-tight text-2xl md:text-4xl lg:text-5xl drop-shadow-lg max-w-2xl">
+                                Smart investing starts with the right platform – meet Prodigy Pro.
                             </h2>
-                            <p className="mb-10 text-lg opacity-90 font-medium max-w-xl leading-relaxed">
-                                Building investors' trust is one thing, maintaining it is another. We strive for both, and that's why today, we are the biggest mutual fund distributor in the region.
-                            </p>
-                            <div className="flex flex-col justify-center gap-4 sm:flex-row lg:justify-start">
+
+                            <div className=" pt-2 md:pt-5 lg:pt-7 flex justify-center md:justify-start gap-4">
                                 <button className="flex items-center justify-center transition-all hover:scale-105 active:scale-95 group">
                                     <Image src="/Home/Playstore.svg" alt="Google Play" width={160} height={47} className="object-contain" />
                                 </button>
@@ -112,37 +112,39 @@ const HeroSection = () => {
                                 </button>
                             </div>
                         </div>
-                        <div className="relative h-[350px] w-full max-w-lg lg:h-[600px] lg:w-1/2 order-1 lg:order-2 flex items-center justify-center lg:justify-end">
+                        <div className="relative order-1 lg:order-2 flex items-center justify-center lg:justify-end">
                             <div className="relative w-full h-full transform hover:scale-105 transition-transform duration-500">
                                 <Image
                                     src="/Home/iPhone16Pro.svg"
                                     alt="Prodigy Pro App Mockup"
-                                    fill
-                                    className="object-contain drop-shadow-2xl"
-                                    priority
+                                    width={260}
+                                    height={260}
+                                    className="object-cover drop-shadow-2xl w-[400px] h-[400px] md:w-[500px] md:h-[500px] lg:w-[555px]"
                                 />
                             </div>
                         </div>
                     </div>
+
+
                 )}
 
-                {/* Pagination Dots */}
-                <div className="mt-12 flex justify-center gap-3">
-                    {slides.map((_, idx) => (
-                        <button
-                            key={idx}
-                            onClick={() => setCurrentSlide(idx)}
-                            className={`h-3 rounded-full transition-all duration-300 shadow-sm ${idx === currentSlide ? "w-10 bg-white" : "w-3 bg-white/50 hover:bg-white/80"}`}
-                            style={{ backgroundColor: activeSlide.type === 'wealth' ? (idx === currentSlide ? '#0056B3' : '#cbd5e1') : (idx === currentSlide ? 'white' : 'rgba(255,255,255,0.4)') }}
-                            aria-label={`Go to slide ${idx + 1}`}
-                        ></button>
-                    ))}
-                </div>
+
+            </div>
+            {/* Pagination Dots */}
+            <div className="mt-5 flex justify-center gap-3 absolute bottom-5 md:bottom-10 left-[48%]">
+                {slides.map((_, idx) => (
+                    <button
+                        key={idx}
+                        onClick={() => setCurrentSlide(idx)}
+                        className={`h-3 rounded-full transition-all duration-300 shadow-sm ${idx === currentSlide ? "w-3 bg-white" : "w-3 bg-white/50 hover:bg-white/80"}`}
+                        style={{ backgroundColor: activeSlide.type === 'wealth' ? (idx === currentSlide ? '#0056B3' : '#cbd5e1') : (idx === currentSlide ? 'white' : '#818181') }}
+                        aria-label={`Go to slide ${idx + 1}`}
+                    ></button>
+                ))}
             </div>
         </section>
     );
 };
-
 
 const VideoSection = () => {
     const videos = [
@@ -173,10 +175,10 @@ const VideoSection = () => {
                 backgroundRepeat: 'no-repeat'
             }}
         >
-            <div className="container mx-auto px-4 text-center relative z-10">
-                <h2 className="mb-2 text-3xl font-bold text-gray-800 md:text-4xl lg:text-5xl">Investment Simplified: <br />Empowering You to Invest Wisely</h2>
+            <div className=" mx-auto px-4 text-center relative z-10">
+                <h2 className="mb-2 text-3xl font-bold text-[#44475B] md:text-4xl lg:text-5xl font-inter">Investment Simplified: <br />Empowering You to Invest Wisely</h2>
 
-                <p className="mx-auto mb-12 max-w-3xl text-gray-600 leading-relaxed font-medium opacity-90">
+                <p className="mx-auto mb-12 max-w-6xl text-[#44475B] leading-relaxed font-inter opacity-90 font-inter">
                     Join the BFC community to learn about investing, saving, and budgeting in the easiest ways possible!
                     Whether you're a seasoned investor or just figuring out your financial journey, dive in for treasured
                     insights and expert advice. Get tips on mutual funds, saving, budgeting, and retirement planning.
@@ -209,7 +211,7 @@ const AdvantageSection = () => {
         <section className="bg-gray-50 py-16 md:py-24">
             <div className="container mx-auto px-4">
                 <div className="mb-16 text-center">
-                    <h2 className="text-3xl font-bold text-gray-800 md:text-4xl">BFC Advantage</h2>
+                    <h2 className="text-3xl font-bold text-[#44475B] md:text-4xl">BFC Advantage</h2>
                     <p className="mt-2 text-gray-600">Invest smart! Give your investments the BFC Advantage</p>
                 </div>
                 <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3 justify-items-center">
@@ -227,8 +229,8 @@ const AdvantageSection = () => {
                                     className="object-contain"
                                 />
                             </div>
-                            <h3 className="text-xl font-bold text-gray-800 mb-[20px] leading-tight">{feature.title}</h3>
-                            <p className="text-[15px] leading-relaxed text-gray-500 font-medium line-clamp-4">{feature.desc}</p>
+                            <h3 className="text-xl font-bold text-[#44475B] mb-[20px] leading-tight">{feature.title}</h3>
+                            <p className="text-[16px] leading-relaxed text-[#44475B] font-inter line-clamp-4">{feature.desc}</p>
                         </div>
                     ))}
                 </div>
@@ -239,18 +241,18 @@ const AdvantageSection = () => {
 
 const ProcessSection = () => {
     return (
-        <section className="bg-white pt-16 md:pt-24 pb-8 overflow-hidden">
-            <div className="container mx-auto px-4 text-center">
-                <h2 className="mb-12 text-3xl font-bold text-gray-800 md:text-4xl text-[#334155]">
+        <section className="bg-white py-16 md:py-24 pb-8 overflow-hidden">
+            <div className=" mx-auto text-center">
+                <h2 className="mb-12 text-3xl font-bold md:text-4xl text-[#44475B]">
                     A Seamless & User-Friendly Investor Experience
                 </h2>
-                <div className="flex justify-center items-center">
+                <div className="flex justify-center py-4 mb-5 items-center">
                     <Image
                         src="/Home/seemless.svg"
                         alt="Seamless Investor Experience"
-                        width={1592}
-                        height={279}
-                        className="w-full max-w-7xl h-auto object-contain"
+                        width={100}
+                        height={250}
+                        className="w-full h-auto object-contain"
                     />
                 </div>
             </div>
@@ -260,28 +262,30 @@ const ProcessSection = () => {
 
 const AppTrustSection = () => {
     return (
-        <section className="relative w-full bg-[linear-gradient(to_right,#001EFE_0%,#06A358_35%,#06A358_100%)] py-16 md:py-0 overflow-hidden min-h-[595px] flex items-center">
-            <div className="container mx-auto px-4 flex flex-col md:flex-row items-center justify-between">
+        <section className="relative w-full bg-[linear-gradient(to_right,#001EFE_0%,#06A358_35%,#06A358_100%)] py-3 md:py-10 lg:py-0 overflow-hidden items-center">
+            <div className="container mx-auto px-4 flex flex-col md:flex-row items-center justify-between ">
                 <div className="md:w-1/2 relative flex justify-center md:justify-start">
-                    <div className="relative w-full max-w-lg md:-mb-24">
+                    <div className="">
                         <Image
                             src="/Home/iPhone17.svg"
                             alt="BFC App Trust"
                             width={1200}
                             height={1200}
-                            className="w-full h-auto object-contain drop-shadow-2xl"
+                            className="w-full h-auto object-cover drop-shadow-2xl w-[400px] h-[400px] md:w-[400px] md:h-[400px] lg:w-[575px] lg:h-[575px]"
                         />
                     </div>
                 </div>
-                <div className="md:w-1/2 text-white mt-12 md:mt-0 md:pl-12">
-                    <h2 className="text-4xl md:text-5xl lg:text-5xl font-extrabold leading-tight mb-6">
-                        Experience you trust.<br />
-                        Technology you deserve.
-                    </h2>
-                    <p className="text-lg opacity-90 mb-10 max-w-md leading-relaxed">
-                        Built on two decades on trusted advice, now reimagined for modern investors.
-                    </p>
-                    <div className="flex flex-wrap gap-4">
+                <div className="md:w-1/2 text-white mt-5 md:mt-0 md:pl-12 align-self-center">
+                    <div className="text-center md:text-start">
+                        <h2 className="text-[20px] md:text-[25px] lg:text-[33px] xl:text-[45px] font-extrabold leading-tight mb-3">
+                            Experience you trust. <br />
+                            Technology you deserve.
+                        </h2>
+                        <p className="text-base font-inter opacity-90 mb-5 md:mb-10 leading-relaxed">
+                            Built on two decades on trusted advice, now reimagined for modern investors.
+                        </p>
+                    </div>
+                    <div className="flex flex-wrap gap-4 mb-2">
                         <Link href="#" className="transition-transform hover:scale-105 active:scale-95">
                             <Image
                                 src="/Home/Playstore.svg"
@@ -307,8 +311,6 @@ const AppTrustSection = () => {
     );
 };
 
-
-
 const EventsSection = () => {
     const events = [
         { image: "/Home/QC1.svg", venue: "Lineage", title: "316th Quality Circle Program by BFC Capital for Medical Professionals", date: "January 13, 2026", desc: "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard Lorem Ipsum is simply dummy text of the printing and typesetting industry. " },
@@ -320,8 +322,8 @@ const EventsSection = () => {
         <section className="bg-white py-16 md:py-24">
             <div className="container mx-auto px-4">
                 <div className="mb-16 text-center">
-                    <h2 className="text-3xl font-extrabold text-[#334155] md:text-4xl lg:text-5xl uppercase tracking-tight">Quality Circle Programmes</h2>
-                    <p className="mt-4 text-gray-500 text-lg max-w-2xl mx-auto">An honest attempt to educate investors on the Dos and Don'ts of investing.</p>
+                    <h2 className="text-3xl font-extrabold text-[#44475B] md:text-4xl lg:text-4xl tracking-tight">Quality Circle Programmes</h2>
+                    <p className="mt-4 text-[#44475B] text-sm max-w-2xl mx-auto">An honest attempt to educate investors on the Dos and Don'ts of investing.</p>
                 </div>
                 <div className="grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
                     {events.map((event, idx) => (
@@ -329,15 +331,15 @@ const EventsSection = () => {
                             <div className="h-48 w-full bg-gray-200 relative"><img src={event.image} alt={event.title} className="w-full h-full object-cover" /></div>
                             <div className="p-6 flex flex-col flex-1">
                                 <p className="text-sm font-semibold text-blue-600 mb-2">Venue: {event.venue}</p>
-                                <h3 className="text-xl font-bold text-gray-800 mb-3 line-clamp-2">{event.title}</h3>
+                                <h3 className="text-xl font-bold text-[#44475B] mb-3 line-clamp-2">{event.title}</h3>
                                 <p className="text-gray-600 text-sm mb-4 flex-1 line-clamp-4">{event.desc}</p>
-                                <div className="mt-auto pt-4 border-t border-gray-100 text-xs text-gray-500 font-medium">{event.date}</div>
+                                <div className="mt-auto pt-4 border-t border-gray-100 text-xs text-[#44475B] font-medium">{event.date}</div>
                             </div>
                         </div>
                     ))}
                 </div>
                 <div className="mt-12 text-center relative">
-                    <button className="px-8 py-3 bg-bfc-green text-white font-semibold rounded-full hover:bg-green-700 transition-colors relative z-10">See All →</button>
+                    <button className="px-8 py-2 bg-bfc-green text-white font-base rounded-full hover:bg-green-700 transition-colors relative z-10">See All →</button>
 
                 </div>
             </div>
@@ -374,10 +376,10 @@ const Credentials = () => {
     ];
 
     return (
-        <section className="bg-white py-12 relative overflow-hidden">
-            <div className="container mx-auto px-4 pt-8">
-                <div className="bg-[#CFE4F3] border-2 border-blue-400/30 rounded-none p-10 md:p-14 shadow-sm">
-                    <h2 className="text-3xl font-extrabold text-[#334155] text-center mb-16 tracking-tight">Our Credentials!</h2>
+        <section className="py-12 relative ">
+            <div className=" mx-auto pt-8">
+                <div className="bg-[#CFE4F3] rounded-none p-10 md:p-14 shadow-sm">
+                    <h2 className="text-3xl font-extrabold text-[#44475B] text-center mb-16 tracking-tight">Our Credentials!</h2>
 
                     <div className="grid grid-cols-1 md:grid-cols-4 gap-12 md:gap-8">
                         {credentialData.map((item, idx) => (
@@ -396,13 +398,16 @@ const Credentials = () => {
                                 <div className="flex flex-col flex-1">
                                     {/* Title with min-height to ensure horizontal alignment of descriptions */}
                                     <div className="min-h-[3rem] flex items-center justify-center mb-1">
-                                        <p className="text-[12px] font-bold text-slate-700 tracking-wide uppercase leading-tight">
-                                            {item.title}
-                                        </p>
+                                        <div className="">
+                                            <p className="text-[11px] font-bold text-slate-700 tracking-wide uppercase leading-tight">
+                                                {item.title}
+                                            </p>
+                                            <p className="text-[11px] font-semibold text-slate-700 leading-relaxed">
+                                                {item.desc}
+                                            </p>
+                                        </div>
                                     </div>
-                                    <p className="text-[12px] font-semibold text-slate-700 leading-relaxed">
-                                        {item.desc}
-                                    </p>
+
                                 </div>
                             </div>
                         ))}
@@ -421,10 +426,10 @@ const SuccessHighlight = () => {
                 style={{ background: 'linear-gradient(269.9deg, #06A358 24.53%, #001EFE 156.82%)' }}
             >
                 <div className="container mx-auto px-4 max-w-7xl relative">
-                    <div className="flex flex-col md:flex-row items-center justify-between gap-12">
+                    <div className="flex flex-col lg:flex-row items-center justify-between gap-12">
                         {/* Left Content */}
-                        <div className="md:w-1/2 text-white">
-                            <h2 className="text-4xl md:text-5xl font-extrabold leading-[1.1] mb-8 max-w-xl">
+                        <div className="md:w-1/2 w-full text-white order-2 lg:order-1">
+                            <h2 className="text-3xl md:text-4xl font-extrabold leading-[1.1] mb-8 max-w-xl">
                                 The BFC Experience:<br className="hidden md:block" />
                                 20 Years of Wealth<br className="hidden md:block" />
                                 Wisdom
@@ -439,12 +444,12 @@ const SuccessHighlight = () => {
                             </div>
 
                             <div className="space-y-6 mb-10">
-                                <p className="text-[14px] leading-relaxed max-w-md opacity-80 font-medium">
+                                <p className="text-[12px] leading-relaxed max-w-md opacity-80 font-medium">
                                     Based in Bengaluru, I've been investing with BFC Capital via the Prodigy Pro app for five years. Gained financial confidence and trust, great team, seamless app, and truly positive experience overall.
                                 </p>
                                 <div className="w-8 h-px bg-white/40"></div>
                                 <div>
-                                    <p className="font-extrabold text-[15px]">Mitya Moitra</p>
+                                    <p className="font-extrabold text-[14px]">Mitya Moitra</p>
                                     <p className="opacity-80 text-xs">Lucknow</p>
                                 </div>
                             </div>
@@ -456,9 +461,8 @@ const SuccessHighlight = () => {
                         </div>
 
                         {/* Right Content: Image with Play Button and Particles */}
-                        <div className="md:w-1/2 relative flex justify-center md:justify-end">
-                            {/* Decorative Particles Background - Right Group (Sticking out from right top) */}
-                            <div className="absolute -right-16 -top-20 lg:-top-24 opacity-40 hidden lg:block z-0">
+                        <div className="md:w-1/2 relative order-1 lg:order-2">
+                            <div className="lg:absolute right-16 top-0 lg:-top-24 opacity-40 z-0">
                                 <Image
                                     src="/Home/particle.svg"
                                     alt="dots"
@@ -467,9 +471,7 @@ const SuccessHighlight = () => {
                                     className="object-contain"
                                 />
                             </div>
-
-                            <div className="relative z-10 w-full max-w-[420px] md:-mt-48 lg:-mt-56">
-                                {/* Asymmetric Shaped Image Container */}
+                            <div className="lg:relative z-10 w-full lg:max-w-[420px] lg:-mt-30 lg:-mt-40 -right-15">
                                 <div className="aspect-[2/3] rounded-tl-[200px] rounded-bl-[200px] rounded-br-[200px] rounded-tr-none overflow-hidden relative group cursor-pointer shadow-none">
                                     <Image
                                         src="/Home/TestimonialHome.svg"
@@ -510,8 +512,8 @@ const Team = () => {
         <section className="bg-gray-50 py-16 md:py-24">
             <div className="container mx-auto px-4">
                 <div className="text-center mb-24">
-                    <h2 className="text-4xl font-extrabold text-[#334155] mb-4">Meet the Team</h2>
-                    <p className="text-gray-500 max-w-2xl mx-auto font-medium leading-relaxed">
+                    <h2 className="text-4xl font-extrabold text-[#44475B] mb-4">Meet the Team</h2>
+                    <p className="text-[#44475B] max-w-2xl mx-auto font-base leading-relaxed">
                         Money matters are serious business. Don't take them lightly. Reach out to our
                         experts and make informed financial decisions.
                     </p>
@@ -532,7 +534,7 @@ const Team = () => {
                                 />
                             </div>
                             <h3 className="font-bold text-[#334155] text-lg leading-tight mb-1">{member.name}</h3>
-                            <p className="text-[14px] text-gray-500 font-medium">{member.role}</p>
+                            <p className="text-[14px] text-[#44475B] font-medium">{member.role}</p>
                         </div>
                     ))}
                 </div>
@@ -548,7 +550,7 @@ const FAQSection = () => {
         {
             question: "What is financial planning and why do I need it?",
             answer: (
-                <div className="space-y-4 text-gray-500 leading-relaxed font-medium">
+                <div className="space-y-4 text-[#44475B] leading-relaxed font-base">
                     <p>
                         Think of financial planning as creating a roadmap for your money, its almost like planning a road trip. You wouldn't just hop in a car and drive without knowing where you're going, right? Financial planning works the same way. It's about knowing your goals, understanding your income and expenses, and figuring out the best path to reach those goals.
                     </p>
@@ -561,7 +563,7 @@ const FAQSection = () => {
         {
             question: "How does financial planning help achieve life goals?",
             answer: (
-                <div className="text-gray-500 leading-relaxed font-medium">
+                <div className="text-[#44475B] leading-relaxed font-base">
                     <p>
                         Financial planning turns your goals into clear and structured action plans. By managing your income, savings, and investments wisely, it helps you stay on track and make your dreams— like buying a home, traveling, or retiring comfortably— a beautiful reality.
                     </p>
@@ -571,7 +573,7 @@ const FAQSection = () => {
         {
             question: "How does a financial advisor help in financial planning?",
             answer: (
-                <div className="space-y-4 text-gray-500 leading-relaxed font-medium">
+                <div className="space-y-4 text-[#44475B] leading-relaxed font-base">
                     <p>
                         Think of a financial advisor as your personal guide to everything money! They help you plan, invest, save, budget, and map your money based on your risk profile ( the amount of risk you are willing to take) and time horizon ( the tenure for which you would want to stay invested to achieve your goals) with certified expertise up their sleeves.
                     </p>
@@ -584,7 +586,7 @@ const FAQSection = () => {
         {
             question: "Are mutual funds safe for long-term wealth creation?",
             answer: (
-                <div className="space-y-4 text-gray-500 leading-relaxed font-medium">
+                <div className="space-y-4 text-[#44475B] leading-relaxed font-base">
 
                     <p>
                         Absolutely yes! In fact mutual funds are one of the most effective tools for long-term wealth creation when you stay invested with discipline. They help you benefit from compounding, professional fund management, and diversification– making them the suitable choice for long term wealth creation.
@@ -598,8 +600,8 @@ const FAQSection = () => {
         <section className="bg-white py-20 pb-24">
             <div className="container mx-auto px-4 max-w-5xl">
                 <div className="text-center mb-16 px-4">
-                    <h2 className="text-4xl font-extrabold text-[#334155] mb-4">Frequently Asked Questions</h2>
-                    <p className="text-gray-500 font-medium">Questions on your mind? Don't worry we have the answers!</p>
+                    <h2 className="text-4xl font-extrabold text-[#44475B] mb-4">Frequently Asked Questions</h2>
+                    <p className="text-[#44475B] font-base">Questions on your mind? Don't worry we have the answers!</p>
                 </div>
 
                 <div className="space-y-4">
@@ -612,15 +614,15 @@ const FAQSection = () => {
                                 onClick={() => setOpenIndex(openIndex === index ? null : index)}
                                 className="w-full py-6 flex items-center justify-between text-left group transition-all"
                             >
-                                <span className={`text-xl md:text-2xl font-bold transition-colors tracking-tight ${openIndex === index ? 'text-[#334155]' : 'text-[#334155]/80 group-hover:text-[#334155]'}`}>
+                                <span className={`text-xl md:text-1xl font-bold transition-colors tracking-tight ${openIndex === index ? 'text-[#334155]' : 'text-[#334155]/80 group-hover:text-[#334155]'}`}>
                                     {faq.question}
                                 </span>
                                 <ChevronDown
-                                    className={`w-6 h-6 text-gray-400 transition-transform duration-300 ${openIndex === index ? 'rotate-180' : ''}`}
+                                    className={`w-6 h-6 text-[#44475B] transition-transform duration-300 ${openIndex === index ? 'rotate-180' : ''}`}
                                 />
                             </button>
                             <div
-                                className={`overflow-hidden transition-all duration-300 ease-in-out ${openIndex === index ? 'max-h-[500px] opacity-100 pb-8' : 'max-h-0 opacity-0'
+                                className={`overflow-hidden transition-all text-[#44475B] duration-300 ease-in-out ${openIndex === index ? 'max-h-[500px] opacity-100 pb-8' : 'max-h-0 opacity-0'
                                     }`}
                             >
                                 {faq.answer}
@@ -646,7 +648,7 @@ const ComplaintsTable = () => {
         <section className="py-20 bg-white">
             <div className="container mx-auto px-4">
                 <div className="text-center mb-16 px-4">
-                    <h2 className="text-4xl font-extrabold text-[#334155] tracking-tight">Number of Complaints as per SEBI Guidelines</h2>
+                    <h2 className="text-4xl font-extrabold text-[#44475B] tracking-tight">Number of Complaints as per SEBI Guidelines</h2>
                 </div>
 
                 <div className="max-w-6xl mx-auto overflow-x-auto shadow-sm border border-gray-100 rounded-[16px]">
@@ -676,7 +678,7 @@ const ComplaintsTable = () => {
                                     <td className="py-[12px] px-[12px] text-sm font-bold">{row.resolved}</td>
                                     <td className="py-[12px] px-[12px] text-sm font-bold">{row.totalPending}</td>
                                     <td className="py-[12px] px-[12px] text-sm font-bold">{row.pending3Months}</td>
-                                    <td className="py-[12px] px-[12px] text-sm font-bold text-gray-500">{row.avgTime}</td>
+                                    <td className="py-[12px] px-[12px] text-sm font-bold text-[#44475B]">{row.avgTime}</td>
                                 </tr>
                             ))}
                             <tr
@@ -690,14 +692,14 @@ const ComplaintsTable = () => {
                                 <td className="py-[10px] px-[12px] text-[13px]">0</td>
                                 <td className="py-[10px] px-[12px] text-[13px]">0</td>
                                 <td className="py-[10px] px-[12px] text-[13px]">0</td>
-                                <td className="py-[10px] px-[12px] text-[13px] text-gray-500 font-bold uppercase">NA</td>
+                                <td className="py-[10px] px-[12px] text-[13px] text-[#44475B] font-bold uppercase">NA</td>
                             </tr>
                         </tbody>
                     </table>
                 </div>
 
                 <div className="max-w-6xl mx-auto mt-8 flex flex-col md:flex-row justify-between items-start md:items-center gap-6 px-4">
-                    <p className="text-[13px] text-gray-500 max-w-2xl leading-relaxed italic font-medium">
+                    <p className="text-[13px] text-[#44475B] max-w-2xl leading-relaxed italic font-medium">
                         ^ Average Resolution time is the sum total of time taken to resolve each complaint in days, in the current month divided by total number of complaints resolved in the current month.
                     </p>
                     <button
