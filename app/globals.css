@@ -1,9 +1,11 @@
 @import "tailwindcss";
 
+
 :root {
   --background: #F9FAFB;
   --foreground: #171717;
-  --bfc-green: #00A65A;
+  /* --bfc-green: #00A65A; */
+  --bfc-green: #04B488;
   --bfc-blue: #0056B3;
   --bfc-teal: #008080;
 }
@@ -14,13 +16,13 @@
   --color-bfc-green: var(--bfc-green);
   --color-bfc-blue: var(--bfc-blue);
   --color-bfc-teal: var(--bfc-teal);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  /* --font-sans: var(--font-geist-sans);
+  --font-mono: var(--font-geist-mono); */
 }
 
 @media (prefers-color-scheme: dark) {
   :root {
-    --background: #0a0a0a;
+    --background: #ffffff;
     --foreground: #ededed;
   }
 }
@@ -28,7 +30,8 @@
 body {
   background: var(--background);
   color: var(--foreground);
-  font-family: var(--font-sans), Arial, Helvetica, sans-serif;
+  /* font-family: var(--font-sans), Arial, Helvetica, sans-serif; */
+  font-family: var(--font-inter);
 }
 
 @layer utilities {
