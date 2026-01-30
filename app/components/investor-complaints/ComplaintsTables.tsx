@@ -3,18 +3,18 @@ import React from 'react';
 const ComplaintsTables = () => {
     return (
         <div className="container mx-auto px-4 py-12 max-w-5xl">
-            <h1 className="text-3xl font-bold text-gray-800 mb-12 text-center text-bfc-blue">
+            <h1 className="mb-2 text-3xl font-bold text-[#44475B] md:text-4xl lg:text-5xl font-inter pb-5">
                 Investor Complaints: Investment Advisory
             </h1>
 
             {/* Table 1: Data for the month */}
             <div className="mb-12">
-                <h2 className="text-xl font-bold text-gray-700 mb-6">
+                <h2 className="text-xl font-bold text-[#44475B] mb-6">
                     Data for the month ending January, 2026
                 </h2>
                 <div className="overflow-x-auto rounded-lg shadow border border-gray-200">
                     <table className="w-full text-sm text-left text-gray-700">
-                        <thead className="bg-blue-100 text-gray-800 uppercase font-bold text-xs">
+                        <thead className="text-gray-800 uppercase font-bold text-xs" style={{ background: 'linear-gradient(270deg, #CFE4F3 0%, #FAFAFA 63.46%)' }}>
                             <tr>
                                 <th className="px-6 py-4">Sr.No.</th>
                                 <th className="px-6 py-4">Received from</th>
@@ -57,7 +57,7 @@ const ComplaintsTables = () => {
                                 <td className="px-6 py-4">0</td>
                                 <td className="px-6 py-4">NA</td>
                             </tr>
-                            <tr className="bg-gray-50 font-bold">
+                            <tr className="font-bold border-t border-gray-100" style={{ background: 'linear-gradient(270deg, rgba(207, 228, 243, 0.5) 0%, rgba(250, 250, 250, 0.5) 63.46%)' }}>
                                 <td className="px-6 py-4"></td>
                                 <td className="px-6 py-4">Grand Total</td>
                                 <td className="px-6 py-4">0</td>
@@ -82,7 +82,7 @@ const ComplaintsTables = () => {
                 </h2>
                 <div className="overflow-x-auto rounded-lg shadow border border-gray-200">
                     <table className="w-full text-sm text-left text-gray-700">
-                        <thead className="bg-blue-100 text-gray-800 uppercase font-bold text-xs">
+                        <thead className="text-gray-800 uppercase font-bold text-xs" style={{ background: 'linear-gradient(270deg, #CFE4F3 0%, #FAFAFA 63.46%)' }}>
                             <tr>
                                 <th className="px-6 py-4">Sr.No.</th>
                                 <th className="px-6 py-4">Month</th>
@@ -117,7 +117,7 @@ const ComplaintsTables = () => {
                 </h2>
                 <div className="overflow-x-auto rounded-lg shadow border border-gray-200">
                     <table className="w-full text-sm text-left text-gray-700">
-                        <thead className="bg-blue-100 text-gray-800 uppercase font-bold text-xs">
+                        <thead className="text-gray-800 uppercase font-bold text-xs" style={{ background: 'linear-gradient(270deg, #CFE4F3 0%, #FAFAFA 63.46%)' }}>
                             <tr>
                                 <th className="px-6 py-4">Sr.No.</th>
                                 <th className="px-6 py-4">Year</th>

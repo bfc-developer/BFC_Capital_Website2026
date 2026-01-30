@@ -526,7 +526,7 @@ const Team = () => {
         <section className="bg-gray-50 py-16 md:py-24">
             <div className="container mx-auto px-4">
                 <div className="text-center mb-24">
-                    <h2 className="text-4xl font-extrabold text-[#44475B] mb-4">Meet the Team</h2>
+                    <h2 className="text-4xl font-extrabold text-[#44475B] mb-4">Meet the Experts</h2>
                     <p className="text-[#44475B] max-w-2xl mx-auto font-base leading-relaxed">
                         Money matters are serious business. Don't take them lightly. Reach out to our
                         experts and make informed financial decisions.
