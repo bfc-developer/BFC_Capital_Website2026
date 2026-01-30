@@ -115,7 +115,7 @@ const Footer = () => {
                         <p>© 2026, BFC Capital. All Rights Reserved.</p>
                         <div className="flex items-center gap-8">
                             <Link href="#" className="hover:text-bfc-blue transition-colors">Privacy Policy</Link>
-                            <Link href="/terms&conditions" className="hover:text-bfc-blue transition-colors">Terms and Conditions</Link>
+                            <Link href="#" className="hover:text-bfc-blue transition-colors">Terms and Conditions</Link>
                             <Link href="#" className="hover:text-bfc-blue transition-colors">Legal Disclaimer</Link>
                         </div>
                     </div>
