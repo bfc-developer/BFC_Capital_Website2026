@@ -185,6 +185,7 @@ const HeroSection = () => {
 };
 
 const VideoSection = () => {
+    const [isVideoActive, setIsVideoActive] = useState(false);
     const videos = [
         {
             youtubeUrl: "https://youtu.be/M59P6tNdAvA",
@@ -202,7 +203,16 @@ const VideoSection = () => {
             thumbnail: "/Home/VideoSlider/WhatHappens.svg"
         }
     ];
+    useEffect(() => {
+        if (!isVideoActive) return;
 
+        const originalOverflow = document.body.style.overflow;
+        document.body.style.overflow = "hidden";
+
+        return () => {
+            document.body.style.overflow = originalOverflow;
+        };
+    }, [isVideoActive]);
     return (
         <section
             className="w-full py-16 md:py-24 relative"
