@@ -20,17 +20,17 @@ export default function TermsAndConditions() {
                 >
                     Home
                 </Link>
-                <ChevronRight className="h-4 w-4 mx-2 text-gray-400" />
-                <span className="text-gray-500">Terms & Conditions</span>
+                <ChevronRight className="h-4 w-4 mx-2 text-[#7A7A7A]" />
+                <span className="text-[#7A7A7A]">Terms & Conditions</span>
             </nav>
 
             {/* Title */}
-            <h1 className="text-3xl md:text-4xl font-bold text-gray-800 mb-8">
+            <h1 className="text-3xl md:text-4xl font-bold text-[#44475B] mb-8">
                 Terms & Conditions – Prodigy Pro
             </h1>
 
             {/* Content */}
-            <div className="space-y-6 text-gray-600 leading-relaxed text-justify">
+            <div className="space-y-6 text-[#44475B] leading-relaxed text-justify">
                 <p>
                     BFC Capital is a SEBI Registered Investment Advisor (SEBI-RIA) that provides investment advisory services to users. Through its technology platform, BFC Capital facilitates access to mutual fund schemes, allowing users to independently execute transactions in mutual fund units based on their own decisions and/or advisory recommendations received.
                 </p>

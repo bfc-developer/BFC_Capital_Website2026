@@ -18,7 +18,7 @@ const Footer = () => {
 
                         <div className="space-y-4 text-[13px] leading-tight">
                             <div className="space-y-1">
-                                <p className="font-extrabold uppercase">BFC CAPITAL PRIVATE LIMITED</p>
+                                <p className="font-bold uppercase">BFC CAPITAL PRIVATE LIMITED</p>
                                 <p>SEBI-Registered Investment Adviser: INA000021669</p>
                                 <p>Type of Registration: Non-Individual.</p>
                                 <p>Valid till cancellation by SEBI.</p>
