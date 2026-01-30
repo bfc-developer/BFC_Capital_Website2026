@@ -934,21 +934,21 @@ const Home = () => {
                                 {/* Links Section */}
                                 <div className="space-y-4 mt-2">
                                     <div className="space-y-0.5">
-                                        <p className="mb-0"><span className="text-blue-600 font-medium">Website:</span> https://bfccapital.com/</p>
-                                        <p className="mb-0"><span className="text-blue-600 font-medium">Facebook:</span> https://www.facebook.com/bfccapital/</p>
-                                        <p className="mb-0"><span className="text-blue-600 font-medium">Instagram:</span> https://www.instagram.com/bfccapitalpvtltd/</p>
-                                        <p className="mb-0"><span className="text-blue-600 font-medium">LinkedIn:</span> https://www.linkedin.com/company/bfccapitalpvtltd/</p>
-                                        <p className="mb-0"><span className="text-blue-600 font-medium">Twitter:</span> https://x.com/BFCCapital/</p>
-                                        <p className="mb-0"><span className="text-blue-600 font-medium">YouTube:</span> https://www.youtube.com/@bfccapitalpvtltd</p>
+                                        <p className="mb-0"><span className="text-[#001EFE] font-medium">Website:</span> https://bfccapital.com/</p>
+                                        <p className="mb-0"><span className="text-[#001EFE] font-medium">Facebook:</span> https://www.facebook.com/bfccapital/</p>
+                                        <p className="mb-0"><span className="text-[#001EFE] font-medium">Instagram:</span> https://www.instagram.com/bfccapitalpvtltd/</p>
+                                        <p className="mb-0"><span className="text-[#001EFE] font-medium">LinkedIn:</span> https://www.linkedin.com/company/bfccapitalpvtltd/</p>
+                                        <p className="mb-0"><span className="text-[#001EFE] font-medium">Twitter:</span> https://x.com/BFCCapital/</p>
+                                        <p className="mb-0"><span className="text-[#001EFE] font-medium">YouTube:</span> https://www.youtube.com/@bfccapitalpvtltd</p>
                                     </div>
 
                                     <div className="space-y-0.5">
-                                        <p className="mb-0"><span className="text-blue-600 font-medium">Website:</span> https://prodigypro.co.in/</p>
-                                        <p className="mb-0"><span className="text-blue-600 font-medium">Facebook:</span> https://www.facebook.com/bfcprodigy/</p>
-                                        <p className="mb-0"><span className="text-blue-600 font-medium">Instagram:</span> https://www.instagram.com/bfcprodigypro/</p>
-                                        <p className="mb-0"><span className="text-blue-600 font-medium">Twitter:</span> https://x.com/BFCProdigy_Pro</p>
-                                        <p className="mb-0"><span className="text-blue-600 font-medium">LinkedIn:</span> https://www.linkedin.com/company/bfcprodigypro/</p>
-                                        <p className="mb-0"><span className="text-blue-600 font-medium">YouTube:</span> https://www.youtube.com/@bfcprodigypro</p>
+                                        <p className="mb-0"><span className="text-[#001EFE] font-medium">Website:</span> https://prodigypro.co.in/</p>
+                                        <p className="mb-0"><span className="text-[#001EFE] font-medium">Facebook:</span> https://www.facebook.com/bfcprodigy/</p>
+                                        <p className="mb-0"><span className="text-[#001EFE] font-medium">Instagram:</span> https://www.instagram.com/bfcprodigypro/</p>
+                                        <p className="mb-0"><span className="text-[#001EFE] font-medium">Twitter:</span> https://x.com/BFCProdigy_Pro</p>
+                                        <p className="mb-0"><span className="text-[#001EFE] font-medium">LinkedIn:</span> https://www.linkedin.com/company/bfcprodigypro/</p>
+                                        <p className="mb-0"><span className="text-[#001EFE] font-medium">YouTube:</span> https://www.youtube.com/@bfcprodigypro</p>
                                     </div>
                                 </div>
 
@@ -964,7 +964,7 @@ const Home = () => {
                                         <span className="mt-1.5 w-1.5 h-1.5 rounded-full bg-[#44475B] flex-shrink-0"></span>
                                         <span>
                                             Inform BFC Capital immediately at:{" "}
-                                            <a href="mailto:customersupport@bfccapital.com" className="text-blue-600 hover:underline">
+                                            <a href="mailto:customersupport@bfccapital.com" className="text-[#001EFE] hover:underline">
                                                 customersupport@bfccapital.com
                                             </a>
                                         </span>
@@ -980,7 +980,7 @@ const Home = () => {
                             <div className="flex justify-end pt-4 pb-2">
                                 <button
                                     onClick={() => setShowPopup(false)}
-                                    className="bg-[#00A651] hover:bg-[#009045] text-white px-8 py-2 rounded-full font-inter text-sm transition-colors shadow-sm"
+                                    className="bg-[#06A358] text-white px-8 py-2 rounded-full font-inter text-sm transition-colors shadow-sm"
                                 >
                                     I Understand
                                 </button>
