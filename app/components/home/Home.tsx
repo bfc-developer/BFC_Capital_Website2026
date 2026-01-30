@@ -11,12 +11,33 @@ import {
 import Navbar from "../layout/Navbar";
 import Footer from "../layout/Footer";
 import VideoCarousel from "../common/VideoCarousel";
+import { useSwipeable } from "react-swipeable";
+
 
 // --- Sub-Components ---
 
 
 const HeroSection = () => {
     const [currentSlide, setCurrentSlide] = useState(0);
+    const nextSlide = () => {
+        setCurrentSlide((prev) => (prev + 1) % slides.length);
+    };
+
+    const prevSlide = () => {
+        setCurrentSlide((prev) =>
+            prev === 0 ? slides.length - 1 : prev - 1
+        );
+    };
+    const swipeHandlers = useSwipeable({
+        onSwipedLeft: nextSlide,    // 👉 left swipe
+        onSwipedRight: prevSlide,  // 👈 right swipe
+        trackTouch: true,
+        trackMouse: false,
+        preventScrollOnSwipe: true,
+    });
+
+
+
 
     const slides = [
         {
@@ -45,13 +66,16 @@ const HeroSection = () => {
 
     return (
         <section
+            {...swipeHandlers}
             className={`relative w-full overflow-hidden transition-all duration-700 min-h-[600px] flex items-center ${activeSlide.type === 'app' ? ' bg-[linear-gradient(269.9deg,#06A358_24.53%,#001EFE_156.82%)] via-bfc-blue to-bfc-green' : 'bg-gradient-to-b from-blue-50 to-white'}`}
         >
             {/* Background Images for Wealth Slides */}
             {slides.map((slide, index) => slide.type === 'wealth' && (
                 <div
                     key={index}
-                    className={`absolute inset-0 transition-opacity duration-1000 ${index === currentSlide ? "pointer-events-none" : "opacity-0"}`}
+                    className={`absolute inset-0 transition-opacity duration-1000 pointer-events-none ${index === currentSlide ? "opacity-100" : "opacity-0"
+                        }`}
+
                 >
                     <div
                         className="h-full w-full bg-cover bg-center"
@@ -145,7 +169,7 @@ const HeroSection = () => {
 
             </div>
             {/* Pagination Dots */}
-            <div className="mt-5 flex justify-center gap-3 absolute bottom-5 md:bottom-10 left-[48%]">
+            <div className="mt-5 flex justify-center gap-3 absolute bottom-5 md:bottom-10 left-[48%] z-20">
                 {slides.map((_, idx) => (
                     <button
                         key={idx}
