@@ -327,9 +327,29 @@ const AppTrustSection = () => {
 
 const EventsSection = () => {
     const events = [
-        { image: "/Home/QC1.svg", venue: "Lineage", title: "316th Quality Circle Program by BFC Capital for Medical Professionals", date: "January 13, 2026", desc: "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard Lorem Ipsum is simply dummy text of the printing and typesetting industry. " },
-        { image: "/Home/QC2.svg", venue: "HPCL, Ayodhya", title: `BFC Capital's 314th Quality Circle Program "HUMSAFAR"`, date: "January 13, 2026", desc: "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard Lorem Ipsum is simply dummy text of the printing and typesetting industry. " },
-        { image: "/Home/QC3.svg", venue: "BSIP, Lucknow", title: "BFC Capital's 312th Quality Circle Program BSIP, Lucknow", date: "January 13, 2026", desc: "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard Lorem Ipsum is simply dummy text of the printing and typesetting industry. " }
+        {
+            image: "/Home/QC1.svg",
+            venue: "Lineage",
+            title: "316th Quality Circle – Medical Professionals (Lineage)",
+            date: "January 13, 2026",
+            desc: "A warm, engaging session for medical professionals on investing wisely, understanding risks, and building long-term financial peace of mind."
+        },
+
+        {
+            image: "/Home/QC2.svg",
+            venue: "HPCL, Ayodhya",
+            title: `314th Quality Circle “HUMSAFAR” – HPCL, Ayodhya"`,
+            date: "January 13, 2026",
+            desc: "A thoughtful conversation on money, goals, and long-term investing, helping participants feel more confident about their financial choices."
+        },
+
+        {
+            image: "/Home/QC3.svg",
+            venue: "BSIP, Lucknow",
+            title: "312th Quality Circle – BSIP, Lucknow",
+            date: "January 13, 2026",
+            desc: "An interactive discussion that broke down investing basics, behavioural mistakes, and smart financial planning in a simple, relatable way."
+        }
     ];
 
     return (
@@ -341,13 +361,13 @@ const EventsSection = () => {
                 </div>
                 <div className="grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
                     {events.map((event, idx) => (
-                        <div key={idx} className="bg-white overflow-hidden rounded-xl shadow-md hover:shadow-lg transition-shadow border border-gray-100 flex flex-col h-full">
+                        <div key={idx} className="bg-white overflow-hidden rounded p-3 shadow-md hover:shadow-lg transition-shadow border border-gray-100 flex flex-col h-full">
                             <div className="h-48 w-full bg-gray-200 relative"><img src={event.image} alt={event.title} className="w-full h-full object-cover" /></div>
-                            <div className="p-6 flex flex-col flex-1">
+                            <div className="pt-3 flex flex-col flex-1">
                                 <p className="text-sm font-semibold text-blue-600 mb-2">Venue: {event.venue}</p>
                                 <h3 className="text-xl font-bold text-[#44475B] mb-3 line-clamp-2">{event.title}</h3>
                                 <p className="text-gray-600 text-sm mb-4 flex-1 line-clamp-4">{event.desc}</p>
-                                <div className="mt-auto pt-4 border-t border-gray-100 text-xs text-[#44475B] font-medium">{event.date}</div>
+                                <div className="mt-auto pt-4 text-xs text-[#44475B] font-medium">{event.date}</div>
                             </div>
                         </div>
                     ))}
@@ -475,8 +495,8 @@ const SuccessHighlight = () => {
                         </div>
 
                         {/* Right Content: Image with Play Button and Particles */}
-                        <div className="md:w-1/2 relative order-1 lg:order-2">
-                            <div className="lg:absolute right-16 top-0 lg:-top-24 opacity-40 z-0">
+                        <div className="md:w-1/2 w-full relative order-1 lg:order-2">
+                            <div className="lg:absolute right-16 top-0 lg:-top-24 opacity-40 z-0 hidden md:block">
                                 <Image
                                     src="/Home/particle.svg"
                                     alt="dots"
@@ -485,7 +505,7 @@ const SuccessHighlight = () => {
                                     className="object-contain"
                                 />
                             </div>
-                            <div className="lg:relative z-10 w-full lg:max-w-[420px] lg:-mt-30 lg:-mt-40 -right-15">
+                            <div className="lg:relative z-10 w-full lg:max-w-[420px] mt-0 md:-mt-30 lg:-mt-40 -right-15">
                                 <div className="aspect-[2/3] rounded-tl-[200px] rounded-bl-[200px] rounded-br-[200px] rounded-tr-none overflow-hidden relative group cursor-pointer shadow-none">
                                     <Image
                                         src="/Home/TestimonialHome.svg"
@@ -832,12 +852,12 @@ const Home = () => {
             {/* Beware of Impersonation Popup */}
             {showPopup && (
                 <div className="fixed inset-0 z-[9999] flex items-center justify-center bg-black/60 backdrop-blur-sm px-4">
-                    <div className="relative w-full max-w-4xl bg-white p-6 md:p-8 lg:p-10 shadow-2xl rounded-[30px] max-h-[90vh] flex flex-col">
+                    <div className="relative w-full max-w-7xl bg-white p-6 md:p-8 lg:p-10 shadow-2xl rounded-[30px] max-h-[90vh] flex flex-col">
 
                         {/* Close Button */}
                         <div
                             onClick={() => setShowPopup(false)}
-                            className="absolute right-6 top-6 cursor-pointer opacity-60 hover:opacity-100 transition-opacity z-10"
+                            className="absolute right-4 top-4 cursor-pointer opacity-60 hover:opacity-100 transition-opacity z-10"
                         >
                             <Image
                                 src="/Home/X.svg"
@@ -848,75 +868,75 @@ const Home = () => {
                         </div>
 
                         {/* Content Container - Scrollable with hidden scrollbar */}
-                        <div className="overflow-y-auto [&::-webkit-scrollbar]:hidden [-ms-overflow-style:'none'] [scrollbar-width:'none']">
+                        <div className="overflow-y-auto ">
                             {/* Title */}
-                            <h2 className="text-[#44475B] text-3xl md:text-[32px] font-bold mb-6 leading-tight">
+                            <h2 className="text-[#44475B] text-2xl md:text-[32px] font-bold mb-2 leading-tight font-inter">
                                 Beware of Impersonation
                             </h2>
 
                             {/* Main Text Content */}
-                            <div className="text-[#44475B] text-[13px] md:text-[14px] leading-relaxed space-y-4 font-normal">
-                                <p>
+                            <div className="text-[#44475B] text-[13px] md:text-[14px] space-y-4 font-normal">
+                                <p className="mb-0 font-inter ">
                                     This is to inform the general public that BFC Capital, including its affiliates, subsidiaries, employees, directors, key managerial personnel, authorised representatives, and its product Prodigy Pro (collectively referred to as “BFC Capital”), does not:
                                 </p>
 
-                                <ul className="space-y-1 pl-1">
-                                    <li className="flex items-start gap-2">
+                                <ul className="space-y-1 pl-1 mb-0">
+                                    <li className="flex items-start gap-2 mb-0">
                                         <span className="mt-1.5 w-1.5 h-1.5 rounded-full bg-[#44475B] flex-shrink-0"></span>
                                         <span>Solicit or accept cash or payments outside its official and authorised banking channels</span>
                                     </li>
-                                    <li className="flex items-start gap-2">
+                                    <li className="flex items-start gap-2 mb-0">
                                         <span className="mt-1.5 w-1.5 h-1.5 rounded-full bg-[#44475B] flex-shrink-0"></span>
                                         <span>Assure or guarantee returns on any investment</span>
                                     </li>
-                                    <li className="flex items-start gap-2">
+                                    <li className="flex items-start gap-2 mb-0">
                                         <span className="mt-1.5 w-1.5 h-1.5 rounded-full bg-[#44475B] flex-shrink-0"></span>
                                         <span>Provide unsolicited investment advice, stock tips, cryptocurrency advice, derivatives strategies, or any form of “assured income” or “quick profit” schemes</span>
                                     </li>
-                                    <li className="flex items-start gap-2">
+                                    <li className="flex items-start gap-2 mb-0">
                                         <span className="mt-1.5 w-1.5 h-1.5 rounded-full bg-[#44475B] flex-shrink-0"></span>
                                         <span>Operate or authorise any WhatsApp groups, Telegram channels, social media groups, or third-party platforms offering investment advice, meetings, employment, or services in exchange for payment</span>
                                     </li>
                                 </ul>
 
-                                <p>Prodigy Pro is an official product developed and operated by BFC Capital.</p>
-                                <p>
+                                <p className="mb-0">Prodigy Pro is an official product developed and operated by BFC Capital.</p>
+                                <p className="mb-0">
                                     Any individual or entity claiming to represent BFC Capital or Prodigy Pro outside authorised channels should be treated as unauthorised and fraudulent.
                                 </p>
-                                <p>
+                                <p className="mb-0">
                                     Official communications of BFC Capital and Prodigy Pro are issued only through verified channels:
                                 </p>
 
                                 {/* Links Section */}
                                 <div className="space-y-4 mt-2">
                                     <div className="space-y-0.5">
-                                        <p><span className="text-blue-600 font-medium">Website:</span> https://bfccapital.com/</p>
-                                        <p><span className="text-blue-600 font-medium">Facebook:</span> https://www.facebook.com/bfccapital/</p>
-                                        <p><span className="text-blue-600 font-medium">Instagram:</span> https://www.instagram.com/bfccapitalpvtltd/</p>
-                                        <p><span className="text-blue-600 font-medium">LinkedIn:</span> https://www.linkedin.com/company/bfccapitalpvtltd/</p>
-                                        <p><span className="text-blue-600 font-medium">Twitter:</span> https://x.com/BFCCapital/</p>
-                                        <p><span className="text-blue-600 font-medium">YouTube:</span> https://www.youtube.com/@bfccapitalpvtltd</p>
+                                        <p className="mb-0"><span className="text-blue-600 font-medium">Website:</span> https://bfccapital.com/</p>
+                                        <p className="mb-0"><span className="text-blue-600 font-medium">Facebook:</span> https://www.facebook.com/bfccapital/</p>
+                                        <p className="mb-0"><span className="text-blue-600 font-medium">Instagram:</span> https://www.instagram.com/bfccapitalpvtltd/</p>
+                                        <p className="mb-0"><span className="text-blue-600 font-medium">LinkedIn:</span> https://www.linkedin.com/company/bfccapitalpvtltd/</p>
+                                        <p className="mb-0"><span className="text-blue-600 font-medium">Twitter:</span> https://x.com/BFCCapital/</p>
+                                        <p className="mb-0"><span className="text-blue-600 font-medium">YouTube:</span> https://www.youtube.com/@bfccapitalpvtltd</p>
                                     </div>
 
                                     <div className="space-y-0.5">
-                                        <p><span className="text-blue-600 font-medium">Website:</span> https://prodigypro.co.in/</p>
-                                        <p><span className="text-blue-600 font-medium">Facebook:</span> https://www.facebook.com/bfcprodigy/</p>
-                                        <p><span className="text-blue-600 font-medium">Instagram:</span> https://www.instagram.com/bfcprodigypro/</p>
-                                        <p><span className="text-blue-600 font-medium">Twitter:</span> https://x.com/BFCProdigy_Pro</p>
-                                        <p><span className="text-blue-600 font-medium">LinkedIn:</span> https://www.linkedin.com/company/bfcprodigypro/</p>
-                                        <p><span className="text-blue-600 font-medium">YouTube:</span> https://www.youtube.com/@bfcprodigypro</p>
+                                        <p className="mb-0"><span className="text-blue-600 font-medium">Website:</span> https://prodigypro.co.in/</p>
+                                        <p className="mb-0"><span className="text-blue-600 font-medium">Facebook:</span> https://www.facebook.com/bfcprodigy/</p>
+                                        <p className="mb-0"><span className="text-blue-600 font-medium">Instagram:</span> https://www.instagram.com/bfcprodigypro/</p>
+                                        <p className="mb-0"><span className="text-blue-600 font-medium">Twitter:</span> https://x.com/BFCProdigy_Pro</p>
+                                        <p className="mb-0"><span className="text-blue-600 font-medium">LinkedIn:</span> https://www.linkedin.com/company/bfcprodigypro/</p>
+                                        <p className="mb-0"><span className="text-blue-600 font-medium">YouTube:</span> https://www.youtube.com/@bfcprodigypro</p>
                                     </div>
                                 </div>
 
-                                <p className="mt-4">Members of the public are advised to exercise due caution.</p>
-                                <p>In case of any impersonation or suspicious activity, please:</p>
+                                <p className="mt-1 mb-0">Members of the public are advised to exercise due caution.</p>
+                                <p className="mb-0">In case of any impersonation or suspicious activity, please:</p>
 
-                                <ul className="space-y-1 pl-1">
-                                    <li className="flex items-start gap-2">
+                                <ul className="space-y-1 pl-1 mb-0">
+                                    <li className="flex items-start gap-2 mb-0">
                                         <span className="mt-1.5 w-1.5 h-1.5 rounded-full bg-[#44475B] flex-shrink-0"></span>
                                         <span>Report the matter to appropriate law enforcement authorities</span>
                                     </li>
-                                    <li className="flex items-start gap-2">
+                                    <li className="flex items-start gap-2 mb-0">
                                         <span className="mt-1.5 w-1.5 h-1.5 rounded-full bg-[#44475B] flex-shrink-0"></span>
                                         <span>
                                             Inform BFC Capital immediately at:{" "}
@@ -927,7 +947,7 @@ const Home = () => {
                                     </li>
                                 </ul>
 
-                                <p className="mt-4 mb-4">
+                                <p className="mt-4 mb-0">
                                     BFC Capital shall not be responsible for any loss arising from transactions conducted through unauthorised persons or platforms.
                                 </p>
                             </div>
@@ -936,7 +956,7 @@ const Home = () => {
                             <div className="flex justify-end pt-4 pb-2">
                                 <button
                                     onClick={() => setShowPopup(false)}
-                                    className="bg-[#00A651] hover:bg-[#009045] text-white px-8 py-2.5 rounded-full font-bold text-sm transition-colors shadow-sm"
+                                    className="bg-[#00A651] hover:bg-[#009045] text-white px-8 py-2 rounded-full font-inter text-sm transition-colors shadow-sm"
                                 >
                                     I Understand
                                 </button>
