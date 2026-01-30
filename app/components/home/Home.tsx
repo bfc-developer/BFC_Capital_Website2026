@@ -831,14 +831,13 @@ const Home = () => {
 
             {/* Beware of Impersonation Popup */}
             {showPopup && (
-                <div className="fixed inset-0 z-[9999] flex items-center justify-center bg-black/40 backdrop-blur-sm px-4">
-
-                    <div className="relative w-full max-w-3xl bg-white p-8 shadow-xl max-h-[85vh] rounded-[15px] overflow-y-auto">
+                <div className="fixed inset-0 z-[9999] flex items-center justify-center bg-black/60 backdrop-blur-sm px-4">
+                    <div className="relative w-full max-w-4xl bg-white p-6 md:p-8 lg:p-10 shadow-2xl rounded-[30px] max-h-[90vh] flex flex-col">
 
                         {/* Close Button */}
                         <div
                             onClick={() => setShowPopup(false)}
-                            className="absolute right-4 top-4 cursor-pointer"
+                            className="absolute right-6 top-6 cursor-pointer opacity-60 hover:opacity-100 transition-opacity z-10"
                         >
                             <Image
                                 src="/Home/X.svg"
@@ -848,67 +847,105 @@ const Home = () => {
                             />
                         </div>
 
-                        {/* Title */}
-                        <h2 className="font-bold mb-4 text-[#44475B] text-[24px] md:text-[35px] letter-spacing-[0px] leading-tight">
-                            Beware of Impersonation
-                        </h2>
+                        {/* Content Container - Scrollable with hidden scrollbar */}
+                        <div className="overflow-y-auto [&::-webkit-scrollbar]:hidden [-ms-overflow-style:'none'] [scrollbar-width:'none']">
+                            {/* Title */}
+                            <h2 className="text-[#44475B] text-3xl md:text-[32px] font-bold mb-6 leading-tight">
+                                Beware of Impersonation
+                            </h2>
 
-                        {/* Content */}
-                        <div className="text-sm space-y-3 leading-tight text-[12px] letter-spacing-[0px] line-height-[100%] text-[#44475B]
-                            ">
+                            {/* Main Text Content */}
+                            <div className="text-[#44475B] text-[13px] md:text-[14px] leading-relaxed space-y-4 font-normal">
+                                <p>
+                                    This is to inform the general public that BFC Capital, including its affiliates, subsidiaries, employees, directors, key managerial personnel, authorised representatives, and its product Prodigy Pro (collectively referred to as “BFC Capital”), does not:
+                                </p>
 
-                            <p>
-                                This is to inform the general public that BFC Capital, including its affiliates, subsidiaries, employees, directors, key managerial personnel, authorised representatives, and its product Prodigy Pro (collectively referred to as “BFC Capital”), does not:
-                            </p>
+                                <ul className="space-y-1 pl-1">
+                                    <li className="flex items-start gap-2">
+                                        <span className="mt-1.5 w-1.5 h-1.5 rounded-full bg-[#44475B] flex-shrink-0"></span>
+                                        <span>Solicit or accept cash or payments outside its official and authorised banking channels</span>
+                                    </li>
+                                    <li className="flex items-start gap-2">
+                                        <span className="mt-1.5 w-1.5 h-1.5 rounded-full bg-[#44475B] flex-shrink-0"></span>
+                                        <span>Assure or guarantee returns on any investment</span>
+                                    </li>
+                                    <li className="flex items-start gap-2">
+                                        <span className="mt-1.5 w-1.5 h-1.5 rounded-full bg-[#44475B] flex-shrink-0"></span>
+                                        <span>Provide unsolicited investment advice, stock tips, cryptocurrency advice, derivatives strategies, or any form of “assured income” or “quick profit” schemes</span>
+                                    </li>
+                                    <li className="flex items-start gap-2">
+                                        <span className="mt-1.5 w-1.5 h-1.5 rounded-full bg-[#44475B] flex-shrink-0"></span>
+                                        <span>Operate or authorise any WhatsApp groups, Telegram channels, social media groups, or third-party platforms offering investment advice, meetings, employment, or services in exchange for payment</span>
+                                    </li>
+                                </ul>
 
-                            <ul className="list-disc pl-5 space-y-2">
-                                <li>Solicit or accept cash or payments outside its official and authorised banking channels</li>
-                                <li>Assure or guarantee returns on any investment</li>
-                                <li>Provide unsolicited investment advice, stock tips, cryptocurrency advice, derivatives strategies, or any form of “assured income” or “quick profit” schemes</li>
-                                <li>Operate or authorise any WhatsApp groups, Telegram channels, social media groups, or third-party platforms offering investment advice, meetings, employment, or services in exchange for payment</li>
-                            </ul>
-                            <p>Prodigy Pro is an official product developed and operated by BFC Capital.</p>
-                            <p>
-                                Any individual or entity claiming to represent BFC Capital or Prodigy Pro outside authorised channels should be treated as unauthorised and fraudulent.
-                            </p>
+                                <p>Prodigy Pro is an official product developed and operated by BFC Capital.</p>
+                                <p>
+                                    Any individual or entity claiming to represent BFC Capital or Prodigy Pro outside authorised channels should be treated as unauthorised and fraudulent.
+                                </p>
+                                <p>
+                                    Official communications of BFC Capital and Prodigy Pro are issued only through verified channels:
+                                </p>
 
-                            <p>
-                                Official communications of BFC Capital and Prodigy Pro are issued only through verified channels:
-                            </p>
-                            <p>[official website / authorised links]</p>
+                                {/* Links Section */}
+                                <div className="space-y-4 mt-2">
+                                    <div className="space-y-0.5">
+                                        <p><span className="text-blue-600 font-medium">Website:</span> https://bfccapital.com/</p>
+                                        <p><span className="text-blue-600 font-medium">Facebook:</span> https://www.facebook.com/bfccapital/</p>
+                                        <p><span className="text-blue-600 font-medium">Instagram:</span> https://www.instagram.com/bfccapitalpvtltd/</p>
+                                        <p><span className="text-blue-600 font-medium">LinkedIn:</span> https://www.linkedin.com/company/bfccapitalpvtltd/</p>
+                                        <p><span className="text-blue-600 font-medium">Twitter:</span> https://x.com/BFCCapital/</p>
+                                        <p><span className="text-blue-600 font-medium">YouTube:</span> https://www.youtube.com/@bfccapitalpvtltd</p>
+                                    </div>
 
-                            <p>Members of the public are advised to exercise due caution.</p>
-                            <p>In case of any impersonation or suspicious activity, please:</p>
+                                    <div className="space-y-0.5">
+                                        <p><span className="text-blue-600 font-medium">Website:</span> https://prodigypro.co.in/</p>
+                                        <p><span className="text-blue-600 font-medium">Facebook:</span> https://www.facebook.com/bfcprodigy/</p>
+                                        <p><span className="text-blue-600 font-medium">Instagram:</span> https://www.instagram.com/bfcprodigypro/</p>
+                                        <p><span className="text-blue-600 font-medium">Twitter:</span> https://x.com/BFCProdigy_Pro</p>
+                                        <p><span className="text-blue-600 font-medium">LinkedIn:</span> https://www.linkedin.com/company/bfcprodigypro/</p>
+                                        <p><span className="text-blue-600 font-medium">YouTube:</span> https://www.youtube.com/@bfcprodigypro</p>
+                                    </div>
+                                </div>
 
-                            <ul className="list-disc pl-5 space-y-1">
-                                <li>Report the matter to appropriate law enforcement authorities</li>
-                                <li>Inform BFC Capital immediately at: {" "} <a
-                                    href="mailto:customersupport@bfccapital.com"
-                                    className="text-blue-600 underline"
+                                <p className="mt-4">Members of the public are advised to exercise due caution.</p>
+                                <p>In case of any impersonation or suspicious activity, please:</p>
+
+                                <ul className="space-y-1 pl-1">
+                                    <li className="flex items-start gap-2">
+                                        <span className="mt-1.5 w-1.5 h-1.5 rounded-full bg-[#44475B] flex-shrink-0"></span>
+                                        <span>Report the matter to appropriate law enforcement authorities</span>
+                                    </li>
+                                    <li className="flex items-start gap-2">
+                                        <span className="mt-1.5 w-1.5 h-1.5 rounded-full bg-[#44475B] flex-shrink-0"></span>
+                                        <span>
+                                            Inform BFC Capital immediately at:{" "}
+                                            <a href="mailto:customersupport@bfccapital.com" className="text-blue-600 hover:underline">
+                                                customersupport@bfccapital.com
+                                            </a>
+                                        </span>
+                                    </li>
+                                </ul>
+
+                                <p className="mt-4 mb-4">
+                                    BFC Capital shall not be responsible for any loss arising from transactions conducted through unauthorised persons or platforms.
+                                </p>
+                            </div>
+
+                            {/* Button */}
+                            <div className="flex justify-end pt-4 pb-2">
+                                <button
+                                    onClick={() => setShowPopup(false)}
+                                    className="bg-[#00A651] hover:bg-[#009045] text-white px-8 py-2.5 rounded-full font-bold text-sm transition-colors shadow-sm"
                                 >
-                                    customersupport@bfccapital.com
-                                </a></li>
-                            </ul>
-
-                            <p>
-                                BFC Capital shall not be responsible for any loss arising from transactions conducted through unauthorised persons or platforms.
-                            </p>
-
+                                    I Understand
+                                </button>
+                            </div>
                         </div>
-
-                        {/* Button */}
-                        <div className="mt-6 flex justify-end">
-                            <button
-                                onClick={() => setShowPopup(false)}
-                                className="bg-bfc-green hover:bg-green-700 text-white px-6 py-2 rounded-full font-semibold"
-                            >
-                                I Understand
-                            </button>
-                        </div>
-
                     </div>
                 </div>
             )}
+
         </div>
     );
 };
