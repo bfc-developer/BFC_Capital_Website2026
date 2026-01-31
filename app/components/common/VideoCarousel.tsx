@@ -17,7 +17,8 @@ interface VideoCarouselProps {
 
 const VideoCarousel = ({ videos, autoPlayInterval = 4000 }: VideoCarouselProps) => {
     const [activeVideo, setActiveVideo] = useState(0);
-    const [playingVideoId, setPlayingVideoId] = useState<string | null>(null);
+    const [isOpen, setIsOpen] = useState(false);
+    const [videoSrc, setVideoSrc] = useState("");
 
     // Helper to extract YouTube ID from various URL formats
     const getYouTubeId = (url: string) => {
@@ -26,24 +27,34 @@ const VideoCarousel = ({ videos, autoPlayInterval = 4000 }: VideoCarouselProps) 
         return (match && match[2].length === 11) ? match[2] : null;
     };
 
+    // Convert YouTube URL to embed format
+    const getEmbedUrl = (url: string) => {
+        const videoId = getYouTubeId(url);
+        return videoId ? `https://www.youtube.com/embed/${videoId}?autoplay=1` : url;
+    };
+
     useEffect(() => {
-        if (videos.length <= 1 || playingVideoId) return;
+        if (videos.length <= 1 || isOpen) return;
 
         const timer = setInterval(() => {
             setActiveVideo((prev) => (prev + 1) % videos.length);
         }, autoPlayInterval);
 
         return () => clearInterval(timer);
-    }, [videos.length, autoPlayInterval, playingVideoId]);
+    }, [videos.length, autoPlayInterval, isOpen]);
 
-    const handleVideoClick = (url: string) => {
-        const id = getYouTubeId(url);
-        if (id) {
-            setPlayingVideoId(id);
-        }
+    const openPopup = (url: string) => {
+        setVideoSrc(getEmbedUrl(url));
+        setIsOpen(true);
     };
+
+    const closePopup = () => {
+        setIsOpen(false);
+        setVideoSrc("");
+    };
+
     useEffect(() => {
-        if (!playingVideoId) return;
+        if (!isOpen) return;
 
         const originalOverflow = document.body.style.overflow;
         const originalPaddingRight = document.body.style.paddingRight;
@@ -58,7 +69,7 @@ const VideoCarousel = ({ videos, autoPlayInterval = 4000 }: VideoCarouselProps) 
             document.body.style.overflow = originalOverflow;
             document.body.style.paddingRight = originalPaddingRight;
         };
-    }, [playingVideoId]);
+    }, [isOpen]);
 
     return (
         <>
@@ -70,7 +81,7 @@ const VideoCarousel = ({ videos, autoPlayInterval = 4000 }: VideoCarouselProps) 
                     return (
                         <div
                             key={video.youtubeUrl}
-                            onClick={() => handleVideoClick(video.youtubeUrl)}
+                            onClick={() => openPopup(video.youtubeUrl)}
                             className={`absolute inset-0 transition-all duration-1000 ease-in-out ${idx === activeVideo ? "opacity-100 scale-100" : "opacity-0 scale-95 pointer-events-none"
                                 }`}
                         >
@@ -104,29 +115,20 @@ const VideoCarousel = ({ videos, autoPlayInterval = 4000 }: VideoCarouselProps) 
                 })}
             </div>
 
-            {/* Video Modal Overlay */}
-            {playingVideoId && (
-                <div className="fixed inset-0 z-55 flex items-center justify-center p-4 bg-black/90 backdrop-blur-sm animate-in fade-in duration-300">
-                    <div className="relative w-full max-w-5xl aspect-video rounded-2xl overflow-hidden shadow-2xl">
-                        <button
-                            onClick={() => setPlayingVideoId(null)}
-                            className="absolute -top-12 right-0 text-white hover:text-red-500 transition-colors flex items-center gap-2 font-bold uppercase tracking-widest text-sm"
-                        >
-                            Close <span className="text-2xl">×</span>
+            {/* Popup Overlay */}
+            {isOpen && (
+                <div className="popup-overlay" onClick={closePopup}>
+                    <div className="popup-video" onClick={(e) => e.stopPropagation()}>
+                        <button className="close-btn" onClick={closePopup}>
+                            &times;
                         </button>
                         <iframe
-                            src={`https://www.youtube.com/embed/${playingVideoId}?autoplay=1`}
-                            title="YouTube video player"
+                            src={videoSrc}
                             frameBorder="0"
-                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                            allow="autoplay; encrypted-media"
                             allowFullScreen
-                            className="w-full h-full"
                         ></iframe>
                     </div>
-                    <div
-                        className="absolute inset-0 -z-10"
-                        onClick={() => setPlayingVideoId(null)}
-                    ></div>
                 </div>
             )}
         </>
