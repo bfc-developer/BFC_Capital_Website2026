@@ -95,24 +95,24 @@ const HeroSection = () => {
 
                         {/* Stats Circles */}
                         <div className="mt-10 md:mt-10 xl:mt-15 flex flex-wrap justify-center gap-6 md:gap-10 xl:gap-15">
-                            <div className="flex bg-white flex-col items-center justify-center w-35 h-35 md:w-40 md:h-40 rounded-full border-gradient-blue-green shadow-xl p-1">
+                            <div className="flex bg-white flex-col items-center justify-center w-30 h-30 md:w-40 md:h-40 rounded-full border-gradient-blue-green shadow-xl p-1">
                                 <Image src="/Home/image1.svg" alt="" width={5} height={5} className="mb-1 w-15 h-10 md:h-10 md:w-20" />
                                 <p className="text-[10px] md:text-[12px]  pt-1 font-bold text-[#44475B] uppercase tracking-widest leading-tight font-inter">RIA :</p>
-                                <p className="text-[10px] md:text-[12px] text-[#44475B] font-bold uppercase tracking-widest leading-tight font-inter">INA000021669</p>
+                                <p className="text-[8px] md:text-[12px] text-[#44475B] font-bold uppercase tracking-widest leading-tight font-inter">INA000021669</p>
                             </div>
-                            <div className="flex bg-white flex-col items-center justify-center w-35 h-35 font-inter md:w-40 md:h-40 rounded-full border-gradient-blue-green shadow-xl p-1">
+                            <div className="flex bg-white flex-col items-center justify-center w-30 h-30 font-inter md:w-40 md:h-40 rounded-full border-gradient-blue-green shadow-xl p-1">
                                 <h3 className="text-1xl md:text-2xl font-extrabold text-[#44475B] font-inter">1000+ Cr.</h3>
                                 <p className="text-[10px] md:text-[12px] text-gray-600 font-semibold text-center mt-1 font-inter tracking-wide">Assets Under <br /> Advisory</p>
                             </div>
-                            <div className="flex bg-white flex-col items-center justify-center w-35 h-35 md:w-40 md:h-40 rounded-full font-inter border-gradient-blue-green shadow-xl p-1">
+                            <div className="flex bg-white flex-col items-center justify-center w-30 h-30 md:w-40 md:h-40 rounded-full font-inter border-gradient-blue-green shadow-xl p-1">
                                 <h3 className="text-1xl md:text-2xl font-extrabold text-[#44475B] font-inter">16000+</h3>
                                 <p className="text-[10px] md:text-[12px]  text-gray-600 font-semibold text-center font-inter mt-1 uppercase tracking-wide">Retail Client <br /> Base</p>
                             </div>
-                            <div className="flex bg-white flex-col items-center justify-center w-35 font-inter h-35 md:w-40 md:h-40 rounded-full border-gradient-blue-green shadow-xl p-1">
+                            <div className="flex bg-white flex-col items-center justify-center w-30 font-inter h-30 md:w-40 md:h-40 rounded-full border-gradient-blue-green shadow-xl p-1">
                                 <h3 className="text-1xl md:text-2xl font-extrabold text-[#44475B] font-inter">80+</h3>
                                 <p className="text-[10px] md:text-[12px] text-gray-600 font-semibold text-center mt-1 uppercase tracking-wide">Cities</p>
                             </div>
-                            <div className="flex bg-white flex-col items-center justify-center w-35 font-inter h-35 md:w-40 md:h-40 rounded-full border-gradient-blue-green shadow-xl p-1">
+                            <div className="flex bg-white flex-col items-center justify-center w-30 font-inter h-30 md:w-40 md:h-40 rounded-full border-gradient-blue-green shadow-xl p-1">
                                 <h3 className="text-1xl md:text-3xl font-extrabold text-[#44475B] font-inter">22+</h3>
                                 <p className="text-[10px] md:text-[12px] md:text-xs text-gray-600  font-inter font-semibold text-center mt-1 uppercase tracking-wide">Managers</p>
                             </div>
@@ -278,7 +278,7 @@ const AdvantageSection = () => {
                                 />
                             </div>
                             <h3 className="text-xl font-bold text-[#44475B] mb-[20px] leading-tight">{feature.title}</h3>
-                            <p className="text-[16px] leading-relaxed text-[#44475B] font-inter line-clamp-4">{feature.desc}</p>
+                            <p className="text-[16px] leading-relaxed text-[#44475B] font-inter">{feature.desc}</p>
                         </div>
                     ))}
                 </div>
@@ -310,7 +310,7 @@ const ProcessSection = () => {
 
 const AppTrustSection = () => {
     return (
-        <section className="relative w-full bg-[linear-gradient(to_right,#001EFE_0%,#06A358_35%,#06A358_100%)] py-3 md:py-10 lg:py-0 overflow-hidden items-center">
+        <section className="relative w-full bg-[linear-gradient(269.9deg,#06A358_24.53%,#001EFE_156.82%)] py-3 md:py-10 lg:py-0 overflow-hidden items-center">
             <div className="container mx-auto px-4 flex flex-col md:flex-row items-center justify-between ">
                 <div className="md:w-1/2 relative flex justify-center md:justify-start">
                     <div className="">
@@ -333,14 +333,14 @@ const AppTrustSection = () => {
                             Built on two decades on trusted advice, now reimagined for modern investors.
                         </p>
                     </div>
-                    <div className="flex flex-wrap gap-4 mb-2">
+                    <div className="flex justify-center md:justify-start flex-wrap gap-4 mb-2">
                         <Link href="https://play.google.com/store/apps/details?id=com.bfc_mf.prodigy_app" target="_blank" className="transition-transform hover:scale-105 active:scale-95">
                             <Image
                                 src="/Home/Playstore.svg"
                                 alt="Get it on Google Play"
                                 width={160}
                                 height={47}
-                                className="w-[160px] h-[47px]"
+                                className="w-[160px] h-[47px] lg:w-full"
                             />
                         </Link>
                         <Link href="https://apps.apple.com/in/app/prodigy-pro-mutual-funds-sip/id1575700744" target="_blank" className="transition-transform hover:scale-105 active:scale-95">
@@ -349,7 +349,7 @@ const AppTrustSection = () => {
                                 alt="Download on the App Store"
                                 width={160}
                                 height={47}
-                                className="w-[160px] h-[47px]"
+                                className="w-[160px] h-[47px] lg:w-full"
                             />
                         </Link>
                     </div>
@@ -427,7 +427,7 @@ const Credentials = () => {
             logo: "/Home/AMFI.svg",
             alt: "AMFI",
             title: "AMFI Registered Mutual Fund Distributor:",
-            desc: "ARN : 21399, Date of initial Registration : 31-July-2004, Current validity of ARN : 29-July-2026"
+            desc: "ARN : 21399,  <br/> Date of initial Registration : 31-July-2004, Current validity of ARN : 29-July-2026"
         },
         {
             logo: "/Home/BSE.svg",
