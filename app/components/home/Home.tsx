@@ -253,7 +253,7 @@ const VideoSection = () => {
                     Take control of your financial future today!
                 </p>
 
-                <VideoCarousel videos={videos} autoPlayInterval={4000} />
+                <VideoCarousel videos={videos} autoPlayInterval={2000} />
             </div>
         </section>
     );
