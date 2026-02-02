@@ -19,15 +19,23 @@ import { useSwipeable } from "react-swipeable";
 
 const HeroSection = () => {
     const [currentSlide, setCurrentSlide] = useState(0);
-    const nextSlide = () => {
-        setCurrentSlide((prev) => (prev + 1) % slides.length);
+    const [isFading, setIsFading] = useState(false);
+
+    const changeSlide = (direction: "next" | "prev") => {
+        setIsFading(true);
+
+        setTimeout(() => {
+            setCurrentSlide((prev) => {
+                if (direction === "next") return (prev + 1) % slides.length;
+                return prev === 0 ? slides.length - 1 : prev - 1;
+            });
+            setIsFading(false);
+        }, 1200); // 👈 fade-out duration
     };
 
-    const prevSlide = () => {
-        setCurrentSlide((prev) =>
-            prev === 0 ? slides.length - 1 : prev - 1
-        );
-    };
+    const nextSlide = () => changeSlide("next");
+    const prevSlide = () => changeSlide("prev");
+
     const swipeHandlers = useSwipeable({
         onSwipedLeft: nextSlide,    // 👉 left swipe
         onSwipedRight: prevSlide,  // 👈 right swipe
@@ -57,37 +65,48 @@ const HeroSection = () => {
 
     useEffect(() => {
         const timer = setInterval(() => {
-            setCurrentSlide((prev) => (prev + 1) % slides.length);
-        }, 6000); // Slightly longer for mixed content
+            changeSlide("next");
+        }, 6000);
+
         return () => clearInterval(timer);
-    }, [slides.length]);
+    }, []);
+
 
     const activeSlide = slides[currentSlide];
 
     return (
         <section
             {...swipeHandlers}
-            className={`relative w-full overflow-hidden transition-all duration-700 md:min-h-[600px] flex items-center ${activeSlide.type === 'app' ? ' bg-[linear-gradient(269.9deg,#06A358_24.53%,#001EFE_156.82%)] via-bfc-blue to-bfc-green' : 'bg-gradient-to-b from-blue-50 to-white'}`}
+            className={`relative w-full overflow-hidden transition-all duration-1200 ease-in-out md:min-h-[600px] flex items-center ${activeSlide.type === 'app' ? ' bg-[linear-gradient(269.9deg,#06A358_24.53%,#001EFE_156.82%)] via-bfc-blue to-bfc-green' : 'bg-gradient-to-b from-blue-50 to-white'}`}
         >
+            {/* Background Images for Wealth Slides */}
             {/* Background Images for Wealth Slides */}
             {slides.map((slide, index) => slide.type === 'wealth' && (
                 <div
                     key={index}
-                    className={`absolute inset-0 transition-opacity duration-1000 pointer-events-none ${index === currentSlide ? "opacity-100" : "opacity-0"
+                    className={`absolute inset-0 transition-opacity duration-[1200ms] ease-in-out pointer-events-none
+        ${index === currentSlide
+                            ? "opacity-100"
+                            : "opacity-0"
                         }`}
-
                 >
                     <div
                         className="h-full w-full bg-cover bg-center"
                         style={{ backgroundImage: `url('${slide.image}')` }}
-                    ></div>
+                    />
                 </div>
             ))}
 
-            <div className="container relative mx-auto px-4 z-10 pb-12 pt-5 md:pt-10 xl:pt-0">
+
+            <div
+                className={`container relative mx-auto px-4 z-10 pb-12 pt-5 md:pt-10 xl:pt-0
+  transition-opacity duration-[1200ms] ease-in-out
+  ${isFading ? "opacity-0" : "opacity-100"}`}
+            >
+
                 {activeSlide.type === 'wealth' ? (
 
-                    <div className="animate-in fade-in zoom-in duration-500 text-center">
+                    <div className=" text-center">
                         <h1 className="mx-auto max-w-[350px] md:max-w-5xl font-extrabold leading-tight tracking-tight text-[20px] md:text-3xl lg:text-5xl bg-[linear-gradient(to_right,#04B488_42%,#011EFE_85%)] bg-clip-text text-transparent pb-2 font-inter">
                             {activeSlide.title} <br className="hidden md:block" />
                             {activeSlide.highlight}
@@ -121,7 +140,8 @@ const HeroSection = () => {
 
                 ) : (
                     // App Slide Content
-                    <div className="flex flex-col items-center gap-1 lg:gap-12 lg:flex-row lg:justify-evenly text-white animate-in fade-in slide-in-from-right duration-500 w-full px-4 lg:px-0" >
+                    <div className="flex flex-col items-center gap-1 lg:gap-12 lg:flex-row lg:justify-evenly text-white
+ w-full px-4 lg:px-0" >
                         <div className="text-center lg:w-1/2 lg:text-left lg:pr-12 order-2 lg:order-1">
                             <h2 className="mb-6 font-extrabold leading-tight text-[18px] md:text-3xl lg:text-4xl xl:text-5xl drop-shadow-lg max-w-2xl">
                                 Smart investing starts with the right platform – meet Prodigy Pro.
