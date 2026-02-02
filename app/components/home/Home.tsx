@@ -499,7 +499,6 @@ const SuccessHighlight = () => {
             >
                 <div className="container mx-auto px-4 max-w-7xl relative">
                     <div className="flex flex-col lg:flex-row items-center justify-between gap-12">
-                        {/* Left Content */}
                         <div className="md:w-1/2 w-full text-white order-2 lg:order-1">
                             <h2 className="text-2xl md:text-4xl font-extrabold leading-[1.1] mb-3 md:mb-8 max-w-xl">
                                 The BFC Experience:<br className="hidden md:block" />
@@ -531,10 +530,8 @@ const SuccessHighlight = () => {
                                 <span className="text-bfc-blue group-hover:translate-x-1 transition-transform">→</span>
                             </button>
                         </div>
-
-                        {/* Right Content: Image with Play Button and Particles */}
-                        <div className="md:w-1/2 w-full relative order-1 lg:order-2">
-                            <div className="lg:absolute right-16 top-0 lg:-top-24 opacity-40 z-0 hidden md:block">
+                        <div className="md:w-1/2 relative order-1 lg:order-2">
+                            <div className="lg:absolute right-10 top-0 lg:-top-24 opacity-40 z-0 hidden md:block">
                                 <Image
                                     src="/Home/particle.svg"
                                     alt="dots"
@@ -543,17 +540,18 @@ const SuccessHighlight = () => {
                                     className="object-contain"
                                 />
                             </div>
-                            <div className="lg:relative z-10 w-full lg:max-w-[420px] mt-0 md:-mt-30 lg:-mt-40 -right-15">
-                                <div className="aspect-[2/3] rounded-tl-[200px] rounded-bl-[200px] rounded-br-[200px] rounded-tr-none overflow-hidden relative group cursor-pointer shadow-none">
+                            <div className="md:-mt-40">
+                                <div className="relative cursor-pointer">
                                     <Image
                                         src="/Home/TestimonialHome.svg"
                                         alt="Testimonial Video"
-                                        fill
-                                        className="object-cover"
+                                        width={120}
+                                        height={120}
+                                        className="w-[180px] md:w-[300px] lg:w-[400px] m-auto h-full"
                                     />
                                     {/* Play Button Overlay */}
                                     <div className="absolute inset-0 bg-transparent flex items-center justify-center transition-colors">
-                                        <div className="w-16 h-16 bg-white rounded-full flex items-center justify-center shadow-2xl group-hover:scale-110 transition-transform">
+                                        <div className="w-10 h-10 md:w-16 md:h-16 bg-white rounded-full flex items-center justify-center shadow-2xl group-hover:scale-110 transition-transform">
                                             <div className="w-0 h-0 border-t-[10px] border-t-transparent border-l-[16px] border-l-bfc-blue border-b-[10px] border-b-transparent ml-1"></div>
                                         </div>
                                     </div>
