@@ -262,11 +262,11 @@ const AdvantageSection = () => {
                     <h2 className="font-bold text-[#44475B] text-[20px] md:text-3xl lg:text-5xl">BFC Advantage</h2>
                     <p className="md:mt-2 text-gray-600 text-[12px] md:text-[14px] lg:text-[17px]">Invest smart! Give your investments the BFC Advantage</p>
                 </div>
-                <div className="grid gap-3 md:gap-6 grid-cols-2 lg:grid-cols-3 justify-items-center">
+                <div className="grid gap-3 md:gap-x-8 md:gap-y-12 grid-cols-2 lg:grid-cols-3 justify-items-center">
                     {features.map((feature, idx) => (
                         <div
                             key={idx}
-                            className="flex flex-col items-center bg-white border border-[#EBEAEA] rounded-[24px] w-full max-w-[367px] pt-[10px] md:pt-[28px] pb-[10px] md:pb-[28px] px-[10px] md:px-[32px] text-center transition-all hover:shadow-md group"
+                            className="flex flex-col items-center bg-white border border-[#EBEAEA] rounded-[24px] w-full pt-[10px] md:pt-[28px] pb-[10px] md:pb-[28px] px-[10px] md:px-[32px] text-center transition-all hover:shadow-md group"
                         >
                             <div className="relative items-center justify-center mb-[20px]">
                                 <Image
@@ -396,7 +396,9 @@ const EventsSection = () => {
                 <div className="grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
                     {events.map((event, idx) => (
                         <div key={idx} className="bg-white overflow-hidden rounded p-3 shadow-md hover:shadow-lg transition-shadow border border-gray-100 flex flex-col h-full">
-                            <div className="h-48 w-full bg-gray-200 relative"><img src={event.image} alt={event.title} className="w-full h-full object-cover" /></div>
+                            <div className="w-full bg-gray-200 relative">
+                                <img src={event.image} alt={event.title} className="w-full h-full object-cover" />
+                            </div>
                             <div className="pt-3 flex flex-col flex-1">
                                 <p className="text-sm font-semibold text-blue-600 mb-2">Venue: {event.venue}</p>
                                 <h3 className="md:text-xl font-bold text-[#44475B] mb-2 md:mb-3 line-clamp-2">{event.title}</h3>
@@ -447,38 +449,40 @@ const Credentials = () => {
         <section className="py-5 md:py-12 relative ">
             <div className=" mx-auto md:pt-8">
                 <div className="bg-[#CFE4F3] rounded-none p-10 md:p-14 shadow-sm">
-                    <h2 className="text-[20px] md:text-3xl lg:text-5xl font-extrabold text-[#44475B] text-center mb-10 md:mb-16 tracking-tight">Our Credentials!</h2>
+                    <div className="container w-full m-auto">
+                        <h2 className="text-[20px] md:text-3xl lg:text-5xl font-extrabold text-[#44475B] text-center mb-10 md:mb-16 tracking-tight">Our Credentials!</h2>
 
-                    <div className="grid grid-cols-2 md:grid-cols-4 gap-5 md:gap-8">
-                        {credentialData.map((item, idx) => (
-                            <div key={idx} className="flex flex-col items-center text-center">
-                                {/* Logo Container with fixed height for alignment */}
-                                <div className="h-28 w-full flex items-center justify-center mb-6">
-                                    <Image
-                                        src={item.logo}
-                                        alt={item.alt}
-                                        width={200}
-                                        height={80}
-                                        className="object-contain w-[100px] md:w-full md:max-h-full"
-                                    />
-                                </div>
-
-                                <div className="flex flex-col flex-1">
-
-                                    <div className="min-h-[3rem] flex items-center justify-center mb-1">
-                                        <div className="">
-                                            <p className="text-[11px] font-bold text-slate-700 tracking-wide uppercase leading-tight">
-                                                {item.title}
-                                            </p>
-                                            <p className="text-[11px] font-semibold text-slate-700 leading-relaxed">
-                                                {item.desc}
-                                            </p>
-                                        </div>
+                        <div className="grid grid-cols-2 md:grid-cols-4 gap-5 md:gap-8">
+                            {credentialData.map((item, idx) => (
+                                <div key={idx} className="flex flex-col items-center text-center">
+                                    {/* Logo Container with fixed height for alignment */}
+                                    <div className="h-28 w-full flex items-center justify-center mb-6">
+                                        <Image
+                                            src={item.logo}
+                                            alt={item.alt}
+                                            width={200}
+                                            height={80}
+                                            className="object-contain w-[100px] md:w-full md:max-h-full"
+                                        />
                                     </div>
 
+                                    <div className="flex flex-col flex-1">
+
+                                        <div className="min-h-[3rem] flex items-center justify-center mb-1">
+                                            <div className="">
+                                                <p className="text-[11px] font-bold text-slate-700 tracking-wide uppercase leading-tight">
+                                                    {item.title}
+                                                </p>
+                                                <p className="text-[11px] font-semibold text-slate-700 leading-relaxed">
+                                                    {item.desc}
+                                                </p>
+                                            </div>
+                                        </div>
+
+                                    </div>
                                 </div>
-                            </div>
-                        ))}
+                            ))}
+                        </div>
                     </div>
                 </div>
             </div>
@@ -899,7 +903,7 @@ const Home = () => {
                         </div>
 
                         {/* Content Container - Scrollable with hidden scrollbar */}
-                        <div className="overflow-y-auto ">
+                        <div className="overscroll-contain">
                             {/* Title */}
                             <h2 className="text-[#44475B] text-2xl md:text-[32px] font-bold mb-2 leading-tight font-inter">
                                 Beware of Impersonation
