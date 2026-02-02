@@ -256,7 +256,7 @@ const VideoSection = () => {
                 <VideoCarousel videos={videos} autoPlayInterval={2000} />
             </div>
 
-            
+
         </section>
     );
 };
@@ -580,7 +580,7 @@ const SuccessHighlight = () => {
                                 </div>
                             </div>
 
-                            
+
                         </div>
                     </div>
                 </div>
@@ -859,7 +859,20 @@ const ComplaintsTable = () => {
 const Home = () => {
     const [showPopup, setShowPopup] = useState(false);
     const footerRef = useRef<HTMLDivElement>(null);
+    useEffect(() => {
+        if (showPopup) {
+            // Prevent body scroll when popup is open
+            document.body.style.overflow = 'hidden';
+        } else {
+            // Restore body scroll when popup is closed
+            document.body.style.overflow = 'unset';
+        }
 
+        // Cleanup function to restore scroll when component unmounts
+        return () => {
+            document.body.style.overflow = 'unset';
+        };
+    }, [showPopup]);
     useEffect(() => {
         const observer = new IntersectionObserver(
             ([entry]) => {
@@ -885,9 +898,9 @@ const Home = () => {
     }, []);
 
     return (
-        <div className="flex flex-col min-h-screen">
+        <div className="flex flex-col min-h-screen overflow-x-hidden">
             <Navbar />
-            <main className="flex-grow">
+            <main className="flex-grow overflow-x-hidden">
                 <HeroSection />
                 <VideoSection />
                 <AdvantageSection />
@@ -908,13 +921,13 @@ const Home = () => {
 
             {/* Beware of Impersonation Popup */}
             {showPopup && (
-                <div className="fixed inset-0 z-[9999] flex items-center justify-center bg-black/60 backdrop-blur-sm px-4">
-                    <div className="relative w-full max-w-3xl bg-white p-6 md:p-8 lg:p-10 shadow-2xl rounded-[30px] max-h-[90vh] flex flex-col">
+                <div className="fixed inset-0 z-[9999] flex items-center justify-center bg-black/60 backdrop-blur-sm px-4 overflow-x-hidden overflow-y-auto">
+                    <div className="relative w-full max-w-3xl bg-white p-6 md:p-8 lg:p-10 shadow-2xl rounded-[30px] max-h-[90vh] flex flex-col overflow-x-hidden">
 
                         {/* Close Button */}
                         <div
                             onClick={() => setShowPopup(false)}
-                            className="absolute right-4 top-4 cursor-pointer opacity-60 hover:opacity-100 transition-opacity bg-white"
+                            className="absolute right-4 top-4 cursor-pointer opacity-60 hover:opacity-100 transition-opacity bg-white z-10"
                         >
                             <Image
                                 src="/Home/X.svg"
@@ -925,7 +938,7 @@ const Home = () => {
                         </div>
 
                         {/* Content Container - Scrollable with hidden scrollbar */}
-                        <div className="overflow-y-auto">
+                        <div className="overflow-y-auto overflow-x-hidden">
                             {/* Title */}
                             <h2 className="text-[#44475B] text-2xl md:text-[32px] font-bold mb-2 leading-tight font-inter">
                                 Beware of Impersonation
@@ -933,8 +946,8 @@ const Home = () => {
 
                             {/* Main Text Content */}
                             <div className="text-[#44475B] text-[13px] md:text-[14px] space-y-4 font-normal">
-                                <p className="mb-0 font-inter ">
-                                    This is to inform the general public that BFC Capital, including its affiliates, subsidiaries, employees, directors, key managerial personnel, authorised representatives, and its product Prodigy Pro (collectively referred to as “BFC Capital”), does not:
+                                <p className="mb-0 font-inter">
+                                    This is to inform the general public that BFC Capital, including its affiliates, subsidiaries, employees, directors, key managerial personnel, authorised representatives, and its product Prodigy Pro (collectively referred to as "BFC Capital"), does not:
                                 </p>
 
                                 <ul className="space-y-1 pl-1 mb-0">
@@ -948,7 +961,7 @@ const Home = () => {
                                     </li>
                                     <li className="flex items-start gap-2 mb-0">
                                         <span className="mt-1.5 w-1.5 h-1.5 rounded-full bg-[#44475B] flex-shrink-0"></span>
-                                        <span>Provide unsolicited investment advice, stock tips, cryptocurrency advice, derivatives strategies, or any form of “assured income” or “quick profit” schemes</span>
+                                        <span>Provide unsolicited investment advice, stock tips, cryptocurrency advice, derivatives strategies, or any form of "assured income" or "quick profit" schemes</span>
                                     </li>
                                     <li className="flex items-start gap-2 mb-0">
                                         <span className="mt-1.5 w-1.5 h-1.5 rounded-full bg-[#44475B] flex-shrink-0"></span>
@@ -967,21 +980,21 @@ const Home = () => {
                                 {/* Links Section */}
                                 <div className="space-y-4 mt-2">
                                     <div className="space-y-0.5">
-                                        <p className="mb-0"><span className="text-[#001EFE] font-medium">Website:</span> https://bfccapital.com/</p>
-                                        <p className="mb-0"><span className="text-[#001EFE] font-medium">Facebook:</span> https://www.facebook.com/bfccapital/</p>
-                                        <p className="mb-0"><span className="text-[#001EFE] font-medium">Instagram:</span> https://www.instagram.com/bfccapitalpvtltd/</p>
-                                        <p className="mb-0"><span className="text-[#001EFE] font-medium">LinkedIn:</span> https://www.linkedin.com/company/bfccapitalpvtltd/</p>
-                                        <p className="mb-0"><span className="text-[#001EFE] font-medium">Twitter:</span> https://x.com/BFCCapital/</p>
-                                        <p className="mb-0"><span className="text-[#001EFE] font-medium">YouTube:</span> https://www.youtube.com/@bfccapitalpvtltd</p>
+                                        <p className="mb-0 break-words"><span className="text-[#001EFE] font-medium">Website:</span> https://bfccapital.com/</p>
+                                        <p className="mb-0 break-words"><span className="text-[#001EFE] font-medium">Facebook:</span> https://www.facebook.com/bfccapital/</p>
+                                        <p className="mb-0 break-words"><span className="text-[#001EFE] font-medium">Instagram:</span> https://www.instagram.com/bfccapitalpvtltd/</p>
+                                        <p className="mb-0 break-words"><span className="text-[#001EFE] font-medium">LinkedIn:</span> https://www.linkedin.com/company/bfccapitalpvtltd/</p>
+                                        <p className="mb-0 break-words"><span className="text-[#001EFE] font-medium">Twitter:</span> https://x.com/BFCCapital/</p>
+                                        <p className="mb-0 break-words"><span className="text-[#001EFE] font-medium">YouTube:</span> https://www.youtube.com/@bfccapitalpvtltd</p>
                                     </div>
 
                                     <div className="space-y-0.5">
-                                        <p className="mb-0"><span className="text-[#001EFE] font-medium">Website:</span> https://prodigypro.co.in/</p>
-                                        <p className="mb-0"><span className="text-[#001EFE] font-medium">Facebook:</span> https://www.facebook.com/bfcprodigy/</p>
-                                        <p className="mb-0"><span className="text-[#001EFE] font-medium">Instagram:</span> https://www.instagram.com/bfcprodigypro/</p>
-                                        <p className="mb-0"><span className="text-[#001EFE] font-medium">Twitter:</span> https://x.com/BFCProdigy_Pro</p>
-                                        <p className="mb-0"><span className="text-[#001EFE] font-medium">LinkedIn:</span> https://www.linkedin.com/company/bfcprodigypro/</p>
-                                        <p className="mb-0"><span className="text-[#001EFE] font-medium">YouTube:</span> https://www.youtube.com/@bfcprodigypro</p>
+                                        <p className="mb-0 break-words"><span className="text-[#001EFE] font-medium">Website:</span> https://prodigypro.co.in/</p>
+                                        <p className="mb-0 break-words"><span className="text-[#001EFE] font-medium">Facebook:</span> https://www.facebook.com/bfcprodigy/</p>
+                                        <p className="mb-0 break-words"><span className="text-[#001EFE] font-medium">Instagram:</span> https://www.instagram.com/bfcprodigypro/</p>
+                                        <p className="mb-0 break-words"><span className="text-[#001EFE] font-medium">Twitter:</span> https://x.com/BFCProdigy_Pro</p>
+                                        <p className="mb-0 break-words"><span className="text-[#001EFE] font-medium">LinkedIn:</span> https://www.linkedin.com/company/bfcprodigypro/</p>
+                                        <p className="mb-0 break-words"><span className="text-[#001EFE] font-medium">YouTube:</span> https://www.youtube.com/@bfcprodigypro</p>
                                     </div>
                                 </div>
 
@@ -997,7 +1010,7 @@ const Home = () => {
                                         <span className="mt-1.5 w-1.5 h-1.5 rounded-full bg-[#44475B] flex-shrink-0"></span>
                                         <span>
                                             Inform BFC Capital immediately at:{" "}
-                                            <a href="mailto:customersupport@bfccapital.com" className="text-[#001EFE] hover:underline">
+                                            <a href="mailto:customersupport@bfccapital.com" className="text-[#001EFE] hover:underline break-all">
                                                 customersupport@bfccapital.com
                                             </a>
                                         </span>
@@ -1013,7 +1026,7 @@ const Home = () => {
                             <div className="flex justify-end pt-4 pb-2">
                                 <button
                                     onClick={() => setShowPopup(false)}
-                                    className="bg-[#06A358] text-white px-8 py-2 rounded-full font-inter text-sm transition-colors shadow-sm"
+                                    className="bg-[#06A358] text-white px-8 py-2 rounded-full font-inter text-sm transition-colors shadow-sm hover:bg-[#058a48]"
                                 >
                                     I Understand
                                 </button>
@@ -1022,7 +1035,6 @@ const Home = () => {
                     </div>
                 </div>
             )}
-
         </div>
     );
 };
