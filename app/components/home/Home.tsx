@@ -914,7 +914,7 @@ const Home = () => {
                         {/* Close Button */}
                         <div
                             onClick={() => setShowPopup(false)}
-                            className="absolute right-4 top-4 cursor-pointer opacity-60 hover:opacity-100 transition-opacity "
+                            className="absolute right-4 top-4 cursor-pointer opacity-60 hover:opacity-100 transition-opacity bg-white"
                         >
                             <Image
                                 src="/Home/X.svg"
@@ -925,7 +925,7 @@ const Home = () => {
                         </div>
 
                         {/* Content Container - Scrollable with hidden scrollbar */}
-                        <div className="overscroll-contain">
+                        <div className="overflow-y-auto">
                             {/* Title */}
                             <h2 className="text-[#44475B] text-2xl md:text-[32px] font-bold mb-2 leading-tight font-inter">
                                 Beware of Impersonation
