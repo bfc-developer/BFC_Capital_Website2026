@@ -108,8 +108,8 @@ const VideoCarousel = ({ videos, autoPlayInterval = 2500 }: VideoCarouselProps) 
 
                                 {/* Play Button */}
                                 <div className="absolute inset-0 flex items-center justify-center">
-                                    <div className="flex h-16 w-24 items-center justify-center rounded-2xl bg-red-600 text-white shadow-2xl transition-all group-hover:scale-110 active:scale-95 group-hover:bg-red-700">
-                                        <Play fill="currentColor" className="ml-1 h-10 w-10" />
+                                    <div className="flex h-10 w-15 md:h-16 md:w-24 items-center justify-center rounded-md md:rounded-2xl bg-red-600 text-white shadow-2xl transition-all group-hover:scale-110 active:scale-95 group-hover:bg-red-700">
+                                        <Play fill="currentColor" className="ml-1 h-7 w-7 md:h-10 md:w-10" />
                                     </div>
                                 </div>
 
@@ -132,13 +132,13 @@ const VideoCarousel = ({ videos, autoPlayInterval = 2500 }: VideoCarouselProps) 
                         );
                     })}
                 </div>
-            </div>
 
+            </div>
 
             {/* Popup Overlay */}
             {isOpen && (
-                <div className="popup-overlay" onClick={closePopup}>
-                    <div className="popup-video" onClick={(e) => e.stopPropagation()}>
+                <div className="fixed inset-0 z-[9999] flex items-center justify-center bg-black/60" onClick={closePopup}>
+                    <div className="popup-video relative bg-white shadow-2xl flex flex-col" onClick={(e) => e.stopPropagation()}>
                         <button className="close-btn" onClick={closePopup}>
                             &times;
                         </button>
@@ -151,6 +151,7 @@ const VideoCarousel = ({ videos, autoPlayInterval = 2500 }: VideoCarouselProps) 
                     </div>
                 </div>
             )}
+
         </>
     );
 };
