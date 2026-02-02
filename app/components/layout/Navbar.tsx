@@ -14,7 +14,7 @@ const Navbar = () => {
     { name: "Home", href: "/" },
     { name: "Mutual Funds", href: "/mutual-funds" },
     { name: "Financial Planning", href: "/financial-planning" },
-    { name: "About", href: "/about" },
+    { name: "About", href: "/about-us" },
     { name: "More", href: "/more" },
   ];
 
@@ -24,14 +24,14 @@ const Navbar = () => {
         {/* Logo Section */}
         <div className="flex-shrink-0 flex items-center gap-2">
           <div className="flex items-center gap-2">
-            <div className="text-2xl font-bold tracking-tight text-red-500">
+            <a href="/" className="">
               <Image
                 src="/Logo/CAPLOGO.svg"
                 alt=""
                 width={155}
                 height={155}
               />
-            </div>
+            </a>
           </div>
         </div>
 
