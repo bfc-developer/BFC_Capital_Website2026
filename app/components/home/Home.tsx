@@ -67,7 +67,7 @@ const HeroSection = () => {
     return (
         <section
             {...swipeHandlers}
-            className={`relative w-full overflow-hidden transition-all duration-700 min-h-[600px] flex items-center ${activeSlide.type === 'app' ? ' bg-[linear-gradient(269.9deg,#06A358_24.53%,#001EFE_156.82%)] via-bfc-blue to-bfc-green' : 'bg-gradient-to-b from-blue-50 to-white'}`}
+            className={`relative w-full overflow-hidden transition-all duration-700 md:min-h-[600px] flex items-center ${activeSlide.type === 'app' ? ' bg-[linear-gradient(269.9deg,#06A358_24.53%,#001EFE_156.82%)] via-bfc-blue to-bfc-green' : 'bg-gradient-to-b from-blue-50 to-white'}`}
         >
             {/* Background Images for Wealth Slides */}
             {slides.map((slide, index) => slide.type === 'wealth' && (
@@ -84,50 +84,50 @@ const HeroSection = () => {
                 </div>
             ))}
 
-            <div className="container relative mx-auto px-4 z-10 pb-12 pt-10 md:pt-10 xl:pt-0">
+            <div className="container relative mx-auto px-4 z-10 pb-12 pt-5 md:pt-10 xl:pt-0">
                 {activeSlide.type === 'wealth' ? (
 
                     <div className="animate-in fade-in zoom-in duration-500 text-center">
-                        <h1 className="mx-auto max-w-5xl text-3xl font-extrabold leading-tight tracking-tight md:text-4xl lg:text-5xl bg-[linear-gradient(to_right,#04B488_42%,#011EFE_85%)] bg-clip-text text-transparent pb-2 font-inter">
+                        <h1 className="mx-auto max-w-[350px] md:max-w-5xl font-extrabold leading-tight tracking-tight text-[20px] md:text-3xl lg:text-5xl bg-[linear-gradient(to_right,#04B488_42%,#011EFE_85%)] bg-clip-text text-transparent pb-2 font-inter">
                             {activeSlide.title} <br className="hidden md:block" />
                             {activeSlide.highlight}
                         </h1>
 
                         {/* Stats Circles */}
-                        <div className="mt-10 md:mt-10 xl:mt-15 flex flex-wrap justify-center gap-6 md:gap-10 xl:gap-15">
-                            <div className="flex bg-white flex-col items-center justify-center w-30 h-30 md:w-40 md:h-40 rounded-full border-gradient-blue-green shadow-xl p-1">
-                                <Image src="/Home/image1.svg" alt="" width={5} height={5} className="mb-1 w-15 h-10 md:h-10 md:w-20" />
-                                <p className="text-[10px] md:text-[12px]  pt-1 font-bold text-[#44475B] uppercase tracking-widest leading-tight font-inter">RIA :</p>
-                                <p className="text-[8px] md:text-[12px] text-[#44475B] font-bold uppercase tracking-widest leading-tight font-inter">INA000021669</p>
+                        <div className="mt-5 md:mt-10 xl:mt-15 flex flex-wrap justify-center gap-4 md:gap-10 xl:gap-15">
+                            <div className="flex bg-white flex-col items-center justify-center w-25 h-25 md:w-40 md:h-40 rounded-full border-gradient-blue-green shadow-xl p-1">
+                                <Image src="/Home/image1.svg" alt="" width={5} height={5} className="mb-1 w-10 md:h-10 md:w-20" />
+                                <p className="text-[9px] md:text-[12px]  pt-1 font-bold text-[#44475B] uppercase tracking-widest leading-tight font-inter">RIA :</p>
+                                <p className="text-[7px] md:text-[12px] text-[#44475B] font-bold uppercase tracking-widest leading-tight font-inter">INA000021669</p>
                             </div>
-                            <div className="flex bg-white flex-col items-center justify-center w-30 h-30 font-inter md:w-40 md:h-40 rounded-full border-gradient-blue-green shadow-xl p-1">
-                                <h3 className="text-1xl md:text-2xl font-extrabold text-[#44475B] font-inter">1000+ Cr.</h3>
-                                <p className="text-[10px] md:text-[12px] text-gray-600 font-semibold text-center mt-1 font-inter tracking-wide">Assets Under <br /> Advisory</p>
+                            <div className="flex bg-white flex-col items-center justify-center w-25 h-25 font-inter md:w-40 md:h-40 rounded-full border-gradient-blue-green shadow-xl p-1">
+                                <h3 className="text-[14px] md:text-2xl font-extrabold text-[#44475B] font-inter">1000+ Cr.</h3>
+                                <p className="text-[7px] md:text-[12px] text-gray-600 font-semibold text-center mt-1 font-inter tracking-wide">Assets Under <br /> Advisory</p>
                             </div>
-                            <div className="flex bg-white flex-col items-center justify-center w-30 h-30 md:w-40 md:h-40 rounded-full font-inter border-gradient-blue-green shadow-xl p-1">
-                                <h3 className="text-1xl md:text-2xl font-extrabold text-[#44475B] font-inter">16000+</h3>
-                                <p className="text-[10px] md:text-[12px]  text-gray-600 font-semibold text-center font-inter mt-1 uppercase tracking-wide">Retail Client <br /> Base</p>
+                            <div className="flex bg-white flex-col items-center justify-center w-25 h-25 md:w-40 md:h-40 rounded-full font-inter border-gradient-blue-green shadow-xl p-1">
+                                <h3 className="text-[14px] md:text-2xl font-extrabold text-[#44475B] font-inter">16000+</h3>
+                                <p className="text-[7px] md:text-[12px]  text-gray-600 font-semibold text-center font-inter mt-1 uppercase tracking-wide">Retail Client <br /> Base</p>
                             </div>
-                            <div className="flex bg-white flex-col items-center justify-center w-30 font-inter h-30 md:w-40 md:h-40 rounded-full border-gradient-blue-green shadow-xl p-1">
-                                <h3 className="text-1xl md:text-2xl font-extrabold text-[#44475B] font-inter">80+</h3>
-                                <p className="text-[10px] md:text-[12px] text-gray-600 font-semibold text-center mt-1 uppercase tracking-wide">Cities</p>
+                            <div className="flex bg-white flex-col items-center justify-center font-inter w-25 h-25 md:w-40 md:h-40 rounded-full border-gradient-blue-green shadow-xl p-1">
+                                <h3 className="text-[14px] md:text-2xl font-extrabold text-[#44475B] font-inter">80+</h3>
+                                <p className="text-[7px] md:text-[12px] text-gray-600 font-semibold text-center mt-1 uppercase tracking-wide">Cities</p>
                             </div>
-                            <div className="flex bg-white flex-col items-center justify-center w-30 font-inter h-30 md:w-40 md:h-40 rounded-full border-gradient-blue-green shadow-xl p-1">
-                                <h3 className="text-1xl md:text-3xl font-extrabold text-[#44475B] font-inter">22+</h3>
-                                <p className="text-[10px] md:text-[12px] md:text-xs text-gray-600  font-inter font-semibold text-center mt-1 uppercase tracking-wide">Managers</p>
+                            <div className=" flex bg-white flex-col items-center justify-center font-inter w-25 h-25 md:w-40 md:h-40 rounded-full border-gradient-blue-green shadow-xl p-1">
+                                <h3 className="text-[14px] md:text-3xl font-extrabold text-[#44475B] font-inter">22+</h3>
+                                <p className="text-[7px] md:text-[12px] md:text-xs text-gray-600  font-inter font-semibold text-center mt-1 uppercase tracking-wide">Managers</p>
                             </div>
                         </div>
                     </div>
 
                 ) : (
                     // App Slide Content
-                    <div className="flex flex-col items-center gap-1 lg:gap-12 lg:flex-row lg:justify-between text-white animate-in fade-in slide-in-from-right duration-500 w-full px-4 lg:px-0" >
+                    <div className="flex flex-col items-center gap-1 lg:gap-12 lg:flex-row lg:justify-evenly text-white animate-in fade-in slide-in-from-right duration-500 w-full px-4 lg:px-0" >
                         <div className="text-center lg:w-1/2 lg:text-left lg:pr-12 order-2 lg:order-1">
-                            <h2 className="mb-6 font-extrabold leading-tight text-2xl md:text-4xl lg:text-5xl drop-shadow-lg max-w-2xl">
+                            <h2 className="mb-6 font-extrabold leading-tight text-[18px] md:text-3xl lg:text-4xl xl:text-5xl drop-shadow-lg max-w-2xl">
                                 Smart investing starts with the right platform – meet Prodigy Pro.
                             </h2>
 
-                            <div className=" pt-2 md:pt-5 lg:pt-7 flex justify-center md:justify-start gap-4">
+                            <div className=" pt-2 md:pt-5 lg:pt-7 flex justify-center lg:justify-start gap-4">
                                 <a
                                     href="https://play.google.com/store/apps/details?id=com.bfc_mf.prodigy_app"
                                     target="_blank"
@@ -135,7 +135,7 @@ const HeroSection = () => {
                                     className="inline-block"
                                 >
                                     <button className="flex items-center justify-center transition-all hover:scale-105 active:scale-95 group">
-                                        <Image src="/Home/Playstore.svg" alt="Google Play" width={160} height={47} className="object-contain" />
+                                        <Image src="/Home/Playstore.svg" alt="Google Play" width={160} height={47} className="object-contain w-[120px] md:w-full" />
                                     </button>
                                 </a>
                                 <a
@@ -145,19 +145,19 @@ const HeroSection = () => {
                                     className="inline-block"
                                 >
                                     <button className="flex items-center justify-center transition-all hover:scale-105 active:scale-95 group">
-                                        <Image src="/Home/applestore.svg" alt="App Store" width={160} height={47} className="object-contain" />
+                                        <Image src="/Home/applestore.svg" alt="App Store" width={160} height={47} className="object-contain w-[120px] md:w-full" />
                                     </button>
                                 </a>
                             </div>
                         </div>
-                        <div className="relative order-1 lg:order-2 flex items-center justify-center lg:justify-end">
-                            <div className="relative w-full h-full transform hover:scale-105 transition-transform duration-500">
+                        <div className=" order-1 lg:order-2">
+                            <div className="w-full h-full transform hover:scale-105 transition-transform duration-500">
                                 <Image
                                     src="/Home/iPhone16Pro.svg"
                                     alt="Prodigy Pro App Mockup"
-                                    width={260}
+                                    width={220}
                                     height={260}
-                                    className="object-cover drop-shadow-2xl w-[400px] h-[400px] md:w-[500px] md:h-[500px] lg:w-[555px]"
+                                    className="drop-shadow-2xl w-[120px] md:w-[220px] lg:w-[350px] xl:w-[370px]"
                                 />
                             </div>
                         </div>
@@ -169,7 +169,7 @@ const HeroSection = () => {
 
             </div>
             {/* Pagination Dots */}
-            <div className="mt-5 flex justify-center gap-3 absolute bottom-5 md:bottom-10 left-[48%] z-20">
+            <div className="mt-5 flex justify-center gap-3 absolute bottom-5 md:bottom-5 lg:bottom-10 left-[48%] z-20">
                 {slides.map((_, idx) => (
                     <button
                         key={idx}
@@ -215,7 +215,7 @@ const VideoSection = () => {
     }, [isVideoActive]);
     return (
         <section
-            className="w-full py-16 md:py-24 relative"
+            className="w-full py-5 md:py-15 lg:py-24 relative"
             style={{
                 backgroundImage: "url('/Home/filter.svg')",
                 backgroundSize: 'cover',
@@ -224,9 +224,9 @@ const VideoSection = () => {
             }}
         >
             <div className=" mx-auto px-4 text-center relative z-10">
-                <h2 className="mb-2 text-3xl font-bold text-[#44475B] md:text-4xl lg:text-5xl font-inter">Investment Simplified: <br />Empowering You to Invest Wisely</h2>
+                <h2 className="md:mb-2 font-bold text-[#44475B] text-[20px] md:text-3xl lg:text-5xl font-inter">Investment Simplified: <br />Empowering You to Invest Wisely</h2>
 
-                <p className="mx-auto mb-12 max-w-6xl text-[#44475B] leading-relaxed font-inter opacity-90 font-inter">
+                <p className="mx-auto mb-12 max-w-6xl text-[12px] md:text-[14px] lg:text-[17px] text-[#44475B] leading-relaxed font-inter opacity-90 font-inter">
                     Join the BFC community to learn about investing, saving, and budgeting in the easiest ways possible!
                     Whether you're a seasoned investor or just figuring out your financial journey, dive in for treasured
                     insights and expert advice. Get tips on mutual funds, saving, budgeting, and retirement planning.
@@ -256,29 +256,29 @@ const AdvantageSection = () => {
     ];
 
     return (
-        <section className="bg-gray-50 py-16 md:py-24">
+        <section className="bg-gray-50 py-5 md:py-15 lg:py-24">
             <div className="container mx-auto px-4">
-                <div className="mb-16 text-center">
-                    <h2 className="text-3xl font-bold text-[#44475B] md:text-4xl">BFC Advantage</h2>
-                    <p className="mt-2 text-gray-600">Invest smart! Give your investments the BFC Advantage</p>
+                <div className="mb-10 md:mb-16 text-center">
+                    <h2 className="font-bold text-[#44475B] text-[20px] md:text-3xl lg:text-5xl">BFC Advantage</h2>
+                    <p className="md:mt-2 text-gray-600 text-[12px] md:text-[14px] lg:text-[17px]">Invest smart! Give your investments the BFC Advantage</p>
                 </div>
-                <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3 justify-items-center">
+                <div className="grid gap-3 md:gap-6 grid-cols-2 lg:grid-cols-3 justify-items-center">
                     {features.map((feature, idx) => (
                         <div
                             key={idx}
-                            className="flex flex-col items-center bg-white border border-[#EBEAEA] rounded-[24px] w-full max-w-[367px] h-[334px] pt-[28px] pb-[28px] px-[32px] text-center transition-all hover:shadow-md group"
+                            className="flex flex-col items-center bg-white border border-[#EBEAEA] rounded-[24px] w-full max-w-[367px] pt-[10px] md:pt-[28px] pb-[10px] md:pb-[28px] px-[10px] md:px-[32px] text-center transition-all hover:shadow-md group"
                         >
-                            <div className="relative h-20 w-20 flex items-center justify-center mb-[20px]">
+                            <div className="relative items-center justify-center mb-[20px]">
                                 <Image
                                     src={feature.icon}
                                     alt={feature.title}
                                     width={80}
                                     height={80}
-                                    className="object-contain"
+                                    className="object-contain w-[40px] sm:w-[50px] md:w-[80px] lg:w-full"
                                 />
                             </div>
-                            <h3 className="text-xl font-bold text-[#44475B] mb-[20px] leading-tight">{feature.title}</h3>
-                            <p className="text-[16px] leading-relaxed text-[#44475B] font-inter">{feature.desc}</p>
+                            <h3 className="text-[13px] md:text-[20px] lg:text-[24px] font-bold text-[#44475B] mb-[10px] md:mb-[20px] leading-tight">{feature.title}</h3>
+                            <p className="text-[11px] md:text-[14px] lg:text-[17px] leading-4 md:leading-6 text-[#44475B] font-inter">{feature.desc}</p>
                         </div>
                     ))}
                 </div>
@@ -289,12 +289,12 @@ const AdvantageSection = () => {
 
 const ProcessSection = () => {
     return (
-        <section className="bg-white py-16 md:py-24 pb-8 overflow-hidden">
+        <section className="bg-white py-5 md:py-15 lg:py-24 md:pb-8 overflow-hidden">
             <div className=" mx-auto text-center">
-                <h2 className="mb-12 text-3xl font-bold md:text-4xl text-[#44475B]">
+                <h2 className="mb-6 md:mb-12 text-3xl font-bold text-[20px] md:text-3xl lg:text-5xl text-[#44475B]">
                     A Seamless & User-Friendly Investor Experience
                 </h2>
-                <div className="flex justify-center py-4 mb-5 items-center">
+                <div className="flex justify-center py-4 md:mb-5 items-center">
                     <Image
                         src="/Home/seemless.svg"
                         alt="Seamless Investor Experience"
@@ -310,7 +310,7 @@ const ProcessSection = () => {
 
 const AppTrustSection = () => {
     return (
-        <section className="relative w-full bg-[linear-gradient(269.9deg,#06A358_24.53%,#001EFE_156.82%)] py-3 md:py-10 lg:py-0 overflow-hidden items-center">
+        <section className="relative w-full bg-[linear-gradient(269.9deg,#06A358_24.53%,#001EFE_156.82%)] pb-3 lg:pb-0 sm:py-3 md:py-5 lg:py-0 overflow-hidden items-center">
             <div className="container mx-auto px-4 flex flex-col md:flex-row items-center justify-between ">
                 <div className="md:w-1/2 relative flex justify-center md:justify-start">
                     <div className="">
@@ -329,7 +329,7 @@ const AppTrustSection = () => {
                             Experience you trust. <br />
                             Technology you deserve.
                         </h2>
-                        <p className="text-base font-inter opacity-90 mb-5 md:mb-10 leading-relaxed">
+                        <p className="text-base font-inter opacity-90 mb-5 md:mb-10 leading-5">
                             Built on two decades on trusted advice, now reimagined for modern investors.
                         </p>
                     </div>
@@ -387,11 +387,11 @@ const EventsSection = () => {
     ];
 
     return (
-        <section className="bg-white py-16 md:py-24">
+        <section className="bg-white py-5 md:py-15 lg:py-24">
             <div className="container mx-auto px-4">
-                <div className="mb-16 text-center">
-                    <h2 className="text-3xl font-extrabold text-[#44475B] md:text-4xl lg:text-4xl tracking-tight">Quality Circle Programmes</h2>
-                    <p className="mt-4 text-[#44475B] text-sm max-w-2xl mx-auto">An honest attempt to educate investors on the Dos and Don'ts of investing.</p>
+                <div className="mb-5 md:mb-16 text-center">
+                    <h2 className="font-extrabold text-[#44475B] text-[20px] md:text-3xl lg:text-5xl tracking-tight">Quality Circle Programmes</h2>
+                    <p className="md:mt-4 text-[#44475B] text-[12px] md:text-[14px] lg:text-[17px] leading-5 max-w-2xl mx-auto">An honest attempt to educate investors on the Dos and Don'ts of investing.</p>
                 </div>
                 <div className="grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
                     {events.map((event, idx) => (
@@ -399,14 +399,14 @@ const EventsSection = () => {
                             <div className="h-48 w-full bg-gray-200 relative"><img src={event.image} alt={event.title} className="w-full h-full object-cover" /></div>
                             <div className="pt-3 flex flex-col flex-1">
                                 <p className="text-sm font-semibold text-blue-600 mb-2">Venue: {event.venue}</p>
-                                <h3 className="text-xl font-bold text-[#44475B] mb-3 line-clamp-2">{event.title}</h3>
-                                <p className="text-gray-600 text-sm mb-4 flex-1 line-clamp-4">{event.desc}</p>
+                                <h3 className="md:text-xl font-bold text-[#44475B] mb-2 md:mb-3 line-clamp-2">{event.title}</h3>
+                                <p className="text-gray-600 text-sm mb-2 md:mb-4 flex-1 line-clamp-4">{event.desc}</p>
                                 <div className="mt-auto pt-4 text-xs text-[#44475B] font-medium">{event.date}</div>
                             </div>
                         </div>
                     ))}
                 </div>
-                <div className="mt-12 text-center relative">
+                <div className="mt-10 md:mt-12 text-center relative">
                     <a href="https://bfccapital.com/event/" className="px-8 py-2 bg-bfc-green text-white font-base rounded-full hover:bg-green-700 transition-colors relative z-10">See All →</a>
 
                 </div>
@@ -427,7 +427,7 @@ const Credentials = () => {
             logo: "/Home/AMFI.svg",
             alt: "AMFI",
             title: "AMFI Registered Mutual Fund Distributor:",
-            desc: "ARN : 21399,  <br/> Date of initial Registration : 31-July-2004, Current validity of ARN : 29-July-2026"
+            desc: "ARN : 21399, Date of initial Registration : 31-July-2004, Current validity of ARN : 29-July-2026"
         },
         {
             logo: "/Home/BSE.svg",
@@ -444,12 +444,12 @@ const Credentials = () => {
     ];
 
     return (
-        <section className="py-12 relative ">
-            <div className=" mx-auto pt-8">
+        <section className="py-5 md:py-12 relative ">
+            <div className=" mx-auto md:pt-8">
                 <div className="bg-[#CFE4F3] rounded-none p-10 md:p-14 shadow-sm">
-                    <h2 className="text-3xl font-extrabold text-[#44475B] text-center mb-16 tracking-tight">Our Credentials!</h2>
+                    <h2 className="text-[20px] md:text-3xl lg:text-5xl font-extrabold text-[#44475B] text-center mb-10 md:mb-16 tracking-tight">Our Credentials!</h2>
 
-                    <div className="grid grid-cols-1 md:grid-cols-4 gap-12 md:gap-8">
+                    <div className="grid grid-cols-2 md:grid-cols-4 gap-5 md:gap-8">
                         {credentialData.map((item, idx) => (
                             <div key={idx} className="flex flex-col items-center text-center">
                                 {/* Logo Container with fixed height for alignment */}
@@ -459,12 +459,12 @@ const Credentials = () => {
                                         alt={item.alt}
                                         width={200}
                                         height={80}
-                                        className="object-contain max-h-full"
+                                        className="object-contain w-[100px] md:w-full md:max-h-full"
                                     />
                                 </div>
 
                                 <div className="flex flex-col flex-1">
-                                    {/* Title with min-height to ensure horizontal alignment of descriptions */}
+
                                     <div className="min-h-[3rem] flex items-center justify-center mb-1">
                                         <div className="">
                                             <p className="text-[11px] font-bold text-slate-700 tracking-wide uppercase leading-tight">
@@ -488,16 +488,16 @@ const Credentials = () => {
 
 const SuccessHighlight = () => {
     return (
-        <div className="bg-white pt-32 md:pt-48">
+        <div className="bg-white pt-10 md:pt-15 lg:pt-48">
             <section
-                className="py-20 overflow-visible relative"
+                className="py-5 md:py-20 overflow-visible relative"
                 style={{ background: 'linear-gradient(269.9deg, #06A358 24.53%, #001EFE 156.82%)' }}
             >
                 <div className="container mx-auto px-4 max-w-7xl relative">
                     <div className="flex flex-col lg:flex-row items-center justify-between gap-12">
                         {/* Left Content */}
                         <div className="md:w-1/2 w-full text-white order-2 lg:order-1">
-                            <h2 className="text-3xl md:text-4xl font-extrabold leading-[1.1] mb-8 max-w-xl">
+                            <h2 className="text-2xl md:text-4xl font-extrabold leading-[1.1] mb-3 md:mb-8 max-w-xl">
                                 The BFC Experience:<br className="hidden md:block" />
                                 20 Years of Wealth<br className="hidden md:block" />
                                 Wisdom
@@ -577,16 +577,16 @@ const Team = () => {
         { name: "Sandeep Yadav", role: "Relationship Manager", img: "/Home/Team/sandeep.svg" },
     ];
     return (
-        <section className="bg-gray-50 py-16 md:py-24">
+        <section className="bg-gray-50 py-5 md:py-15 lg:py-24">
             <div className="container mx-auto px-4">
-                <div className="text-center mb-24">
-                    <h2 className="text-4xl font-extrabold text-[#44475B] mb-4">Meet the Experts</h2>
-                    <p className="text-[#44475B] max-w-2xl mx-auto font-base leading-relaxed">
+                <div className="text-center mb-10 md:mb-24">
+                    <h2 className="text-[20px] md:text-3xl lg:text-5xl font-extrabold text-[#44475B] mb-4">Meet the Experts</h2>
+                    <p className="text-[#44475B] max-w-2xl mx-auto font-base leading-5 text-[12px] md:text-[14px] lg:text-[17px]">
                         Money matters are serious business. Don't take them lightly. Reach out to our
                         experts and make informed financial decisions.
                     </p>
                 </div>
-                <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-x-8 gap-y-20">
+                <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-x-8 gap-y-10 md:gap-y-20">
                     {teamMembers.map((member, idx) => (
                         <div
                             key={idx}
@@ -665,11 +665,11 @@ const FAQSection = () => {
     ];
 
     return (
-        <section className="bg-white py-20 pb-24">
+        <section className="bg-white py-5 md:py-20 pb-10 md:pb-24">
             <div className="container mx-auto px-4 max-w-5xl">
-                <div className="text-center mb-16 px-4">
-                    <h2 className="text-4xl font-extrabold text-[#44475B] mb-4">Frequently Asked Questions</h2>
-                    <p className="text-[#44475B] font-base">Questions on your mind? Don't worry we have the answers!</p>
+                <div className="text-center mb-5 md:mb-16 px-4">
+                    <h2 className="text-[20px] md:text-3xl lg:text-5xl font-extrabold text-[#44475B] md:mb-4">Frequently Asked Questions</h2>
+                    <p className="text-[#44475B] font-base text-[12px] md:text-[14px] lg:text-[17px] leading-5">Questions on your mind? Don't worry we have the answers!</p>
                 </div>
 
                 <div className="space-y-4">
@@ -680,9 +680,9 @@ const FAQSection = () => {
                         >
                             <button
                                 onClick={() => setOpenIndex(openIndex === index ? null : index)}
-                                className="w-full py-6 flex items-center justify-between text-left group transition-all"
+                                className="w-full py-2 md:py-6 flex items-center justify-between text-left group transition-all"
                             >
-                                <span className={`text-xl md:text-1xl font-bold transition-colors tracking-tight ${openIndex === index ? 'text-[#334155]' : 'text-[#334155]/80 group-hover:text-[#334155]'}`}>
+                                <span className={`text-[15px] md:text-[25px] lg:text-xl font-bold transition-colors tracking-tight ${openIndex === index ? 'text-[#334155]' : 'text-[#334155]/80 group-hover:text-[#334155]'}`}>
                                     {faq.question}
                                 </span>
                                 <ChevronDown
@@ -690,7 +690,7 @@ const FAQSection = () => {
                                 />
                             </button>
                             <div
-                                className={`overflow-hidden transition-all text-[#44475B] duration-300 ease-in-out ${openIndex === index ? 'max-h-[500px] opacity-100 pb-8' : 'max-h-0 opacity-0'
+                                className={`overflow-hidden transition-all text-[#44475B] duration-300 ease-in-out text-[12px] md:text-[14px] lg:text-[17px] leading-5 ${openIndex === index ? 'max-h-[500px] opacity-100 pb-8' : 'max-h-0 opacity-0'
                                     }`}
                             >
                                 {faq.answer}
@@ -712,10 +712,10 @@ const ComplaintsTable = () => {
     ];
 
     return (
-        <section className="py-20 bg-white">
+        <section className="py-5 md:py-20 bg-white">
             <div className="container mx-auto px-4">
-                <div className="text-center mb-16 px-4">
-                    <h2 className="text-4xl font-extrabold text-[#44475B] tracking-tight">Number of Complaints as per SEBI Guidelines</h2>
+                <div className="text-center mb-5 md:mb-16 px-4">
+                    <h2 className="text-[20px] md:text-3xl lg:text-5xl font-extrabold text-[#44475B] tracking-tight">Number of Complaints as per SEBI Guidelines</h2>
                 </div>
 
                 <div className="max-w-6xl mx-auto overflow-x-auto shadow-sm border border-gray-100 rounded-[16px]">
@@ -787,7 +787,7 @@ const ComplaintsTable = () => {
                     <div className="text-center mb-16 relative">
                         <a href="https://www.vivekam.co.in/wp-content/uploads/2025/07/Investment-charter.pdf" target="_blank" rel="noopener noreferrer">
                             <h2
-                                className="text-5xl font-extrabold inline-block pb-1 bg-clip-text text-transparent hover:opacity-80 transition-opacity"
+                                className="text-[20px] md:text-3xl lg:text-5xl font-extrabold inline-block pb-1 bg-clip-text text-transparent hover:opacity-80 transition-opacity"
                                 style={{ backgroundImage: 'linear-gradient(90deg, #04B488 39.5%, #011EFE 100%)' }}
                             >
                                 Investor Charter
@@ -874,10 +874,7 @@ const Home = () => {
                 <SuccessHighlight />
                 <Team />
                 <FAQSection />
-                <div className="bg-gray-50 pb-16">
-                    <ComplaintsTable />
-
-                </div>
+                <ComplaintsTable />
             </main>
             <div ref={footerRef}>
                 <Footer />
@@ -886,7 +883,7 @@ const Home = () => {
             {/* Beware of Impersonation Popup */}
             {showPopup && (
                 <div className="fixed inset-0 z-[9999] flex items-center justify-center bg-black/60 backdrop-blur-sm px-4">
-                    <div className="relative w-full max-w-7xl bg-white p-6 md:p-8 lg:p-10 shadow-2xl rounded-[30px] max-h-[90vh] flex flex-col">
+                    <div className="relative w-full max-w-3xl bg-white p-6 md:p-8 lg:p-10 shadow-2xl rounded-[30px] max-h-[90vh] flex flex-col">
 
                         {/* Close Button */}
                         <div
