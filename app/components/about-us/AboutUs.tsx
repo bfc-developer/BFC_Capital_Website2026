@@ -4,7 +4,7 @@ export default function AboutUs() {
     return (
         <>
             <section>
-                <div className="relative">
+                <div className="relative w-full h-full lg:h-[550px] 2xl:h-full">
                     <Image
                         src="/AboutUs/GroupPhoto.svg"
                         alt="Group Photo"
