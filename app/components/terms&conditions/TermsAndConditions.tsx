@@ -3,7 +3,7 @@ import { ChevronRight } from "lucide-react";
 
 export default function TermsAndConditions() {
     return (
-        <div className="container mx-auto px-4 py-8 md:py-12 md:px-45">
+        <div className="container mx-auto px-4 py-8 md:py-12 md:px-15 lg:px-20">
 
             {/* Breadcrumb */}
             <nav className="flex items-center text-sm mb-8">
@@ -25,12 +25,12 @@ export default function TermsAndConditions() {
             </nav>
 
             {/* Title */}
-            <h1 className="text-3xl md:text-4xl font-bold text-[#44475B] mb-8">
+            <h1 className="text-[20px] md:text-3xl lg:text-4xl font-bold text-[#44475B] mb-5 md:mb-8">
                 Terms & Conditions – Prodigy Pro
             </h1>
 
             {/* Content */}
-            <div className="space-y-6 text-[#44475B] leading-relaxed text-justify">
+            <div className="space-y-6 text-[#44475B] leading-relaxed text-justify text-[11px] md:text-[14px] lg:text-[17px]">
                 <p>
                     BFC Capital is a SEBI Registered Investment Advisor (SEBI-RIA) that provides investment advisory services to users. Through its technology platform, BFC Capital facilitates access to mutual fund schemes, allowing users to independently execute transactions in mutual fund units based on their own decisions and/or advisory recommendations received.
                 </p>

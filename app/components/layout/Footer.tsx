@@ -12,43 +12,50 @@ const Footer = () => {
 
                     {/* Column 1: Compliance & Info */}
                     <div className="space-y-6">
-                        <div className="flex items-center gap-2 mb-2">
-                            <Image src="/Logo/CAPLOGO.svg" alt="Logo" width={100} height={100} />
+                        <div className="flex items-center gap-2 mb-4">
+                            <Image src="/Logo/CAPLOGO.svg" alt="Logo" width={100} height={100}
+                                className='w-[70%] md:w-[50%]' />
                         </div>
 
                         <div className="space-y-4 text-[13px] leading-tight">
-                            <div className="space-y-1">
-                                <p className="font-bold uppercase">BFC CAPITAL PRIVATE LIMITED</p>
-                                <p>SEBI-Registered Investment Adviser: INA000021669</p>
-                                <p>Type of Registration: Non-Individual.</p>
-                                <p>Valid till cancellation by SEBI.</p>
-                                <p>AMFI Registration No. ARN-21399</p>
+                            <div className="space-y-1 ">
+                                <h2 className="font-bold uppercase text-[#44475B] text-[15px]">BFC CAPITAL PRIVATE LIMITED</h2>
+                                <div className="text-[11px] md:text-[12px] lg:text-[15px] leading-relaxed lg:leading-6">
+                                    <p>SEBI-Registered Investment Adviser: INA000021669</p>
+                                    <p>Type of Registration: Non-Individual.</p>
+                                    <p>Valid till cancellation by SEBI.</p>
+                                    <p>AMFI Registration No. ARN-21399</p>
+                                </div>
                             </div>
 
-                            <div className="space-y-0.5">
+                            <div className="space-y-0.5 text-[11px] md:text-[12px] lg:text-[15px] leading-relaxed lg:leading-6">
                                 <p className="">Grievance Cell</p>
                                 <a href="https://scores.sebi.gov.in" className="hover:text-bfc-blue transition-colors break-all">https://scores.sebi.gov.in</a>
                             </div>
 
                             <div className="space-y-1">
-                                <p className="font-bold">Principal Officer</p>
-                                <p>Akash Gupta, Phone: +91 6307937533</p>
-                                <p>akashgupta@bfccapital.com</p>
+                                <h2 className="font-bold text-[#44475B] text-[15px]">Principal Officer</h2>
+                                <div className="text-[11px] md:text-[12px] lg:text-[15px] leading-relaxed lg:leading-6">
+                                    <p>Akash Gupta, Phone: +91 6307937533</p>
+                                    <p>akashgupta@bfccapital.com</p>
+                                </div>
                             </div>
-
                             <div className="space-y-1">
-                                <p className="font-bold">Compliance Officer:</p>
-                                <p>Sunil Gupta, Phone: +91 89600 06601</p>
-                                <p>sunilgupta@bfccapital.com</p>
+                                <h2 className="font-bold text-[#44475B] text-[15px]">Compliance Officer:</h2>
+                                <div className="text-[11px] md:text-[12px] lg:text-[15px] leading-relaxed lg:leading-6">
+                                    <p>Sunil Gupta, Phone: +91 89600 06601</p>
+                                    <p>sunilgupta@bfccapital.com</p>
+                                </div>
                             </div>
-
                             <div className="space-y-1">
-                                <p className="font-bold">Corresponding SEBI Address:</p>
-                                <p>SEBI Northern Regional Office (Delhi):</p>
-                                <p>NBCC Complex, Office Tower-1,</p>
-                                <p>8th Floor, Plate B,</p>
-                                <p>East Kidwai Nagar,</p>
-                                <p>New Delhi - 110023.</p>
+                                <h2 className="font-bold text-[#44475B] text-[15px]">Corresponding SEBI Address:</h2>
+                                <div className="text-[11px] md:text-[12px] lg:text-[15px] leading-relaxed lg:leading-6">
+                                    <p>SEBI Northern Regional Office (Delhi):</p>
+                                    <p>NBCC Complex, Office Tower-1,</p>
+                                    <p>8th Floor, Plate B,</p>
+                                    <p>East Kidwai Nagar,</p>
+                                    <p>New Delhi - 110023.</p>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -56,8 +63,8 @@ const Footer = () => {
                     {/* Column 2: Company Info & Social */}
                     <div className="space-y-10">
                         <div className="space-y-6">
-                            <h4 className="text-base font-bold text-[#475569]">Company Info</h4>
-                            <div className="space-y-4 text-[13px] leading-tight">
+                            <h2 className="text-[17px] font-bold text-[#475569]">Company Info</h2>
+                            <div className="space-y-4 text-[11px] md:text-[12px] lg:text-[15px] leading-relaxed lg:leading-6">
                                 <p>C.P.-61, Viraj Khand-4, Gomti Nagar, Lucknow,<br />Uttar Pradesh 226010</p>
                                 <div className="space-y-1">
                                     <p><span className="font-bold">Hours:</span> Mon - Sat :- 09:30 am - 6:30 pm</p>
@@ -72,7 +79,7 @@ const Footer = () => {
 
                         <div className="flex items-center gap-4">
                             <div className="cursor-pointer hover:scale-110 transition-transform">
-                                <Image src="/SocialMedia/insta.svg" alt="Instagram" width={36} height={36} />
+                                <Image src="/SocialMedia/insta.svg" alt="Instagram" width={36} height={36} className=''/>
                             </div>
                             <div className="cursor-pointer hover:scale-110 transition-transform">
                                 <Image src="/SocialMedia/twitter.svg" alt="Twitter" width={36} height={36} />
@@ -91,8 +98,8 @@ const Footer = () => {
 
                     {/* Column 3: Quick Links */}
                     <div className="space-y-6">
-                        <h4 className="text-base font-bold text-[#475569]">Quick Links</h4>
-                        <ul className="space-y-3 text-[13px]">
+                        <h4 className="text-[17px] font-bold text-[#475569]">Quick Links</h4>
+                        <ul className="space-y-1 text-[11px] md:text-[12px] lg:text-[15px] leading-relaxed lg:leading-6">
                             <li><Link href="#" className="hover:text-bfc-blue transition-colors">Best Mutual Funds to Invest in 2026</Link></li>
                             <li><Link href="#" className="hover:text-bfc-blue transition-colors">Best ELSS Funds</Link></li>
                             <li><Link href="#" className="hover:text-bfc-blue transition-colors">Best SIP Plans to Invest</Link></li>
@@ -105,15 +112,15 @@ const Footer = () => {
 
                 <div className="space-y-8">
                     <div className="space-y-2">
-                        <p className="text-[14px] font-extrabold uppercase tracking-wide">DISCLAIMER</p>
-                        <p className="text-[13px] text-gray-500 leading-tight">
+                        <p className="text-[17px] font-extrabold uppercase tracking-wide mb-0">DISCLAIMER</p>
+                        <p className="text-[11px] md:text-[12px] lg:text-[15px] leading-relaxed lg:leading-6 text-gray-500">
                             "Investment in securities market are subject to market risks. Read all the related documents carefully before investing."
                         </p>
                     </div>
 
-                    <div className="pt-8 border-t border-[#ABC3D7] border-opacity-[0.37] flex flex-col md:flex-row justify-between items-center gap-4 text-[13px] font-medium text-gray-600">
+                    <div className="pt-8 border-t border-[#ABC3D7] border-opacity-[0.37] flex flex-col md:flex-row justify-between items-center gap-4 text-[11px] md:text-[12px] lg:text-[15px] leading-relaxed lg:leading-6 text-gray-600">
                         <p>© 2026, BFC Capital. All Rights Reserved.</p>
-                        <div className="flex items-center gap-8">
+                        <div className="flex items-center gap-8 text-[11px] md:text-[12px] lg:text-[15px] leading-relaxed lg:leading-6">
                             <Link href="privacy-policy" className="hover:text-bfc-blue transition-colors">Privacy Policy</Link>
                             <Link href="terms&conditions" className="hover:text-bfc-blue transition-colors">Terms and Conditions</Link>
                             <Link href="legal-disclaimer" className="hover:text-bfc-blue transition-colors">Legal Disclaimer</Link>
