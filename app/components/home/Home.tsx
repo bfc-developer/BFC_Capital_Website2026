@@ -30,7 +30,7 @@ const HeroSection = () => {
                 return prev === 0 ? slides.length - 1 : prev - 1;
             });
             setIsFading(false);
-        }, 1200); // 👈 fade-out duration
+        }, 900); // 👈 fade-out duration
     };
 
     const nextSlide = () => changeSlide("next");
