@@ -196,7 +196,7 @@ export default function AboutUs() {
 
             <section className="py-5 md:py-15">
                 <div className="container m-auto px-5 md:px-10 lg:px-20">
-                    <div className="text-[#44475B] text-justify">
+                    <div className="text-[#44475B] text-justify text-[11px] md:text-[14px] lg:text-[17px] leading-relaxed">
                         <p className="mb-5">Welcome to BFC Capital, where we turn your financial dreams into achievable goals. As a SEBI-registered Investment Adviser (RIA)- registration number INA000021669- we are committed to delivering transparent, compliant, and goal-oriented wealth management solutions for individuals, families, and institutions. </p>
 
                         <p className="mb-5">BFC Capital began its journey over 21 years ago with a singular focus: to make wealth management accessible, reliable, and insightful for every investor. From the very beginning, we recognized that financial decisions are only as strong as the clarity and knowledge behind them. This understanding has guided us in building services that not only manage assets but also educate and empower investors at every stage of their financial journey.</p>
@@ -208,7 +208,7 @@ export default function AboutUs() {
                     </div>
                     <h3 className="text-[#44475B] font-semibold text-[22px]">Our expertise:</h3>
 
-                    <ul className="list-disc text-[#44475B] px-6 mb-5">
+                    <ul className="list-disc text-[#44475B] px-6 mb-5 text-justify text-[11px] md:text-[14px] lg:text-[17px] leading-relaxed">
                         <li><strong>SEBI-Registered & Compliant:</strong> Our recommendations adhere strictly to SEBI guidelines, ensuring ethical, unbiased, and credible advice</li>
                         <li><strong>Personalized Guidance:</strong> Dedicated advisors provide tailored strategies aligned with your goals, risk appetite, and life stage</li>
                         <li><strong>Goal-Based Planning:</strong> Plan for retirement, education, wealth creation, or financial security with strategies designed for long-term growth</li>
@@ -220,7 +220,7 @@ export default function AboutUs() {
 
                     <h3 className="text-[#44475B] font-semibold text-[22px] mb-3">Who Is It For?</h3>
 
-                    <ul className="list-disc text-[#44475B] px-6 pb-5">
+                    <ul className="list-disc text-[#44475B] px-6 pb-5 text-justify text-[11px] md:text-[14px] lg:text-[17px] leading-relaxed">
                         <li>First-time investors seeking clarity, structured guidance, and confidence in mutual fund investing</li>
                         <li>Families who want a consolidated view and seamless management of all household investments</li>
                         <li>Experienced investors looking for research-backed insights, tactical calls, and advanced wealth optimization tools</li>
@@ -228,22 +228,23 @@ export default function AboutUs() {
 
                     </ul>
 
-                    <p className="text-justify mb-5 text-[#44475B]">
+                    <p className="text-justify mb-5 text-[#44475B] text-justify text-[11px] md:text-[14px] lg:text-[17px] leading-relaxed">
                         At its core, BFC Capital Private Limited is about empowering investors with knowledge, trust, and confidence. Our mission is to make wealth management accessible, goal-oriented, and transparent– helping every client make informed financial decisions and secure a financially independent future
                     </p>
-                    <p className="text-justify mb-5 text-[#44475B]">
+                    <p className="text-justify mb-5 text-[#44475B] text-justify text-[11px] md:text-[14px] lg:text-[17px] leading-relaxed">
                         BFC Capital– Your Trusted SEBI RIA for Transparent, Goal-Oriented, and Secure Investment Advisory.
                     </p>
                 </div>
             </section>
-            <section className="bg-white pb-10">
+
+            <section className="bg-white py-5 md:py-15">
                 <div className="container m-auto px-5 md:px-10 lg:px-20">
-                    <h2 className="text-[#44475B] text-center text-3xl md:text-4xl font-bold mb-10">
+                    <h2 className="text-[#44475B] text-center text-[25px] md:text-3xl lg:text-4xl font-bold mb-10">
                         Wealth Management Team
                     </h2>
                     <div className="flex flex-wrap justify-center gap-10">
                         {wealthManagementTeam.map((member, index) => (
-                            <div key={index} className="flex flex-col items-center text-center w-full sm:w-[calc(50%-2.5rem)] lg:w-[calc(33.333%-2.5rem)] max-w-[400px]">
+                            <div key={index} className="flex flex-col items-center text-center w-[calc(50%-1.5rem)] lg:w-[calc(33.333%-2.5rem)]">
                                 <div className="w-full relative mb-4 overflow-hidden group">
                                     <Image
                                         src={member.image}
@@ -253,27 +254,27 @@ export default function AboutUs() {
                                         className="w-full h-auto transition-transform duration-300 group-hover:scale-105"
                                     />
                                     <div className="absolute inset-0 bg-black/70 flex items-center justify-center p-4 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                                        <p className="text-white text-[9px] sm:text-[10px] md:text-xs lg:text-[13px] text-center leading-snug">
+                                        <p className="text-white text-[8px] md:text-[14px] lg:text-[16px] md:leading-relaxed text-justify">
                                             {member.bio || `${member.name} is a dedicated ${member.role} at BFC Capital, committed to providing excellence and helping clients reach their goals.`}
                                         </p>
                                     </div>
                                 </div>
-                                <h4 className="text-[#44475B] font-bold text-lg mb-1">{member.name}</h4>
-                                <p className="text-[#44475B] text-sm">{member.role}</p>
+                                <h4 className="text-[#44475B] font-bold text-[15px] md:text-[20px] lg:text-[24px] mb-1">{member.name}</h4>
+                                <p className="text-[#44475B] text-[12px] text-[14px] lg:text-[17px] leading-relaxed">{member.role}</p>
                             </div>
                         ))}
                     </div>
                 </div>
             </section>
 
-            <section className="bg-white pb-10">
+            <section className="bg-white py-5 md:py-15">
                 <div className="container m-auto px-5 md:px-10 lg:px-20">
-                    <h2 className="text-[#44475B] text-center text-3xl md:text-4xl font-bold mb-10">
+                    <h2 className="text-[#44475B] text-center text-[25px] md:text-3xl lg:text-4xl font-bold mb-10">
                         Operations
                     </h2>
                     <div className="flex flex-wrap justify-center gap-10">
                         {operationsTeam.map((member, index) => (
-                            <div key={index} className="flex flex-col items-center text-center w-full sm:w-[calc(50%-2.5rem)] lg:w-[calc(33.333%-2.5rem)] max-w-[400px]">
+                            <div key={index} className="flex flex-col items-center text-center w-[calc(50%-1.5rem)] lg:w-[calc(33.333%-2.5rem)]">
                                 <div className="w-full relative mb-4 overflow-hidden group">
                                     <Image
                                         src={member.image}
@@ -283,27 +284,27 @@ export default function AboutUs() {
                                         className="w-full h-auto transition-transform duration-300 group-hover:scale-105"
                                     />
                                     <div className="absolute inset-0 bg-black/70 flex items-center justify-center p-4 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                                        <p className="text-white text-[9px] sm:text-[10px] md:text-xs lg:text-[13px] text-center leading-snug">
+                                        <p className="text-white text-[8px] md:text-[14px] lg:text-[16px] md:leading-relaxed text-justify">
                                             {member.bio || `${member.name} is a dedicated ${member.role} at BFC Capital, committed to providing excellence and helping clients reach their goals.`}
                                         </p>
                                     </div>
                                 </div>
-                                <h4 className="text-[#44475B] font-bold text-lg mb-1">{member.name}</h4>
-                                <p className="text-[#44475B] text-sm">{member.role}</p>
+                                <h4 className="text-[#44475B] font-bold text-[15px] md:text-[20px] lg:text-[24px] mb-1">{member.name}</h4>
+                                <p className="text-[#44475B] text-[12px] text-[14px] lg:text-[17px] leading-relaxed">{member.role}</p>
                             </div>
                         ))}
                     </div>
                 </div>
             </section>
 
-            <section className="bg-white pb-10">
+            <section className="bg-white py-5 md:py-15">
                 <div className="container m-auto px-5 md:px-10 lg:px-20">
-                    <h2 className="text-[#44475B] text-center text-3xl md:text-4xl font-bold mb-10">
+                    <h2 className="text-[#44475B] text-center text-[25px] md:text-3xl lg:text-4xl font-bold mb-10">
                         HR & Accounts
                     </h2>
                     <div className="flex flex-wrap justify-center gap-10">
                         {hrAccountsTeam.map((member, index) => (
-                            <div key={index} className="flex flex-col items-center text-center w-full sm:w-[calc(50%-2.5rem)] lg:w-[calc(33.333%-2.5rem)] max-w-[400px]">
+                            <div key={index} className="flex flex-col items-center text-center w-[calc(50%-1.5rem)] lg:w-[calc(33.333%-2.5rem)]">
                                 <div className="w-full relative mb-4 overflow-hidden group">
                                     <Image
                                         src={member.image}
@@ -313,27 +314,27 @@ export default function AboutUs() {
                                         className="w-full h-auto transition-transform duration-300 group-hover:scale-105"
                                     />
                                     <div className="absolute inset-0 bg-black/70 flex items-center justify-center p-4 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                                        <p className="text-white text-[9px] sm:text-[10px] md:text-xs lg:text-[13px] text-center leading-snug">
+                                        <p className="text-white text-[8px] md:text-[14px] lg:text-[16px] md:leading-relaxed text-justify">
                                             {member.bio || `${member.name} is a dedicated ${member.role} at BFC Capital, committed to providing excellence and helping clients reach their goals.`}
                                         </p>
                                     </div>
                                 </div>
-                                <h4 className="text-[#44475B] font-bold text-lg mb-1">{member.name}</h4>
-                                <p className="text-[#44475B] text-sm">{member.role}</p>
+                                <h4 className="text-[#44475B] font-bold text-[15px] md:text-[20px] lg:text-[24px] mb-1">{member.name}</h4>
+                                <p className="text-[#44475B] text-[12px] text-[14px] lg:text-[17px] leading-relaxed">{member.role}</p>
                             </div>
                         ))}
                     </div>
                 </div>
             </section>
 
-            <section className="bg-white pb-10">
+            <section className="bg-white py-5 md:py-15">
                 <div className="container m-auto px-5 md:px-10 lg:px-20">
-                    <h2 className="text-[#44475B] text-center text-3xl md:text-4xl font-bold mb-10">
+                    <h2 className="text-[#44475B] text-center text-[25px] md:text-3xl lg:text-4xl font-bold mb-10">
                         Customer Support
                     </h2>
                     <div className="flex flex-wrap justify-center gap-10">
                         {customerSupportTeam.map((member, index) => (
-                            <div key={index} className="flex flex-col items-center text-center w-full sm:w-[calc(50%-2.5rem)] lg:w-[calc(33.333%-2.5rem)] max-w-[400px]">
+                            <div key={index} className="flex flex-col items-center text-center w-[calc(50%-1.5rem)] lg:w-[calc(33.333%-2.5rem)]">
                                 <div className="w-full relative mb-4 overflow-hidden group">
                                     <Image
                                         src={member.image}
@@ -343,27 +344,27 @@ export default function AboutUs() {
                                         className="w-full h-auto transition-transform duration-300 group-hover:scale-105"
                                     />
                                     <div className="absolute inset-0 bg-black/70 flex items-center justify-center p-4 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                                        <p className="text-white text-[9px] sm:text-[10px] md:text-xs lg:text-[13px] text-center leading-snug">
+                                        <p className="text-white text-[8px] md:text-[14px] lg:text-[16px] md:leading-relaxed text-justify">
                                             {member.bio || `${member.name} is a dedicated ${member.role} at BFC Capital, committed to providing excellence and helping clients reach their goals.`}
                                         </p>
                                     </div>
                                 </div>
-                                <h4 className="text-[#44475B] font-bold text-lg mb-1">{member.name}</h4>
-                                <p className="text-[#44475B] text-sm">{member.role}</p>
+                                <h4 className="text-[#44475B] font-bold text-[15px] md:text-[20px] lg:text-[24px] mb-1">{member.name}</h4>
+                                <p className="text-[#44475B] text-[12px] text-[14px] lg:text-[17px] leading-relaxed">{member.role}</p>
                             </div>
                         ))}
                     </div>
                 </div>
             </section>
 
-            <section className="bg-white pb-10">
+            <section className="bg-white py-5 md:py-15">
                 <div className="container m-auto px-5 md:px-10 lg:px-20">
-                    <h2 className="text-[#44475B] text-center text-3xl md:text-4xl font-bold mb-10">
+                    <h2 className="text-[#44475B] text-center text-[25px] md:text-3xl lg:text-4xl font-bold mb-10">
                         Research Team
                     </h2>
                     <div className="flex flex-wrap justify-center gap-10">
                         {researchTeam.map((member, index) => (
-                            <div key={index} className="flex flex-col items-center text-center w-full sm:w-[calc(50%-2.5rem)] lg:w-[calc(33.333%-2.5rem)] max-w-[400px]">
+                            <div key={index} className="flex flex-col items-center text-center w-[calc(50%-1.5rem)] lg:w-[calc(33.333%-2.5rem)]">
                                 <div className="w-full relative mb-4 overflow-hidden group">
                                     <Image
                                         src={member.image}
@@ -373,27 +374,27 @@ export default function AboutUs() {
                                         className="w-full h-auto transition-transform duration-300 group-hover:scale-105"
                                     />
                                     <div className="absolute inset-0 bg-black/70 flex items-center justify-center p-4 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                                        <p className="text-white text-[9px] sm:text-[10px] md:text-xs lg:text-[13px] text-center leading-snug">
+                                        <p className="text-white text-[8px] md:text-[14px] lg:text-[16px] md:leading-relaxed text-justify">
                                             {member.bio || `${member.name} is a dedicated ${member.role} at BFC Capital, committed to providing excellence and helping clients reach their goals.`}
                                         </p>
                                     </div>
                                 </div>
-                                <h4 className="text-[#44475B] font-bold text-lg mb-1">{member.name}</h4>
-                                <p className="text-[#44475B] text-sm">{member.role}</p>
+                                <h4 className="text-[#44475B] font-bold text-[15px] md:text-[20px] lg:text-[24px] mb-1">{member.name}</h4>
+                                <p className="text-[#44475B] text-[12px] text-[14px] lg:text-[17px] leading-relaxed">{member.role}</p>
                             </div>
                         ))}
                     </div>
                 </div>
             </section>
 
-            <section className="bg-white pb-10">
+            <section className="bg-white py-5 md:py-15">
                 <div className="container m-auto px-5 md:px-10 lg:px-20">
-                    <h2 className="text-[#44475B] text-center text-3xl md:text-4xl font-bold mb-10">
+                    <h2 className="text-[#44475B] text-center text-[25px] md:text-3xl lg:text-4xl font-bold mb-10">
                         Digital Marketing Team
                     </h2>
                     <div className="flex flex-wrap justify-center gap-10">
                         {digitalMarketingTeam.map((member, index) => (
-                            <div key={index} className="flex flex-col items-center text-center w-full sm:w-[calc(50%-2.5rem)] lg:w-[calc(33.333%-2.5rem)] max-w-[400px]">
+                            <div key={index} className="flex flex-col items-center text-center w-[calc(50%-1.5rem)] lg:w-[calc(33.333%-2.5rem)]">
                                 <div className="w-full relative mb-4 overflow-hidden group">
                                     <Image
                                         src={member.image}
@@ -403,27 +404,27 @@ export default function AboutUs() {
                                         className="w-full h-auto transition-transform duration-300 group-hover:scale-105"
                                     />
                                     <div className="absolute inset-0 bg-black/70 flex items-center justify-center p-4 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                                        <p className="text-white text-[9px] sm:text-[10px] md:text-xs lg:text-[13px] text-center leading-snug">
+                                        <p className="text-white text-[8px] md:text-[14px] lg:text-[16px] md:leading-relaxed text-justify">
                                             {member.bio || `${member.name} is a dedicated ${member.role} at BFC Capital, committed to providing excellence and helping clients reach their goals.`}
                                         </p>
                                     </div>
                                 </div>
-                                <h4 className="text-[#44475B] font-bold text-lg mb-1">{member.name}</h4>
-                                <p className="text-[#44475B] text-sm">{member.role}</p>
+                                <h4 className="text-[#44475B] font-bold text-[15px] md:text-[20px] lg:text-[24px] mb-1">{member.name}</h4>
+                                <p className="text-[#44475B] text-[12px] text-[14px] lg:text-[17px] leading-relaxed">{member.role}</p>
                             </div>
                         ))}
                     </div>
                 </div>
             </section>
 
-            <section className="bg-white pb-10">
+            <section className="bg-white py-5 md:py-15">
                 <div className="container m-auto px-5 md:px-10 lg:px-20">
-                    <h2 className="text-[#44475B] text-center text-3xl md:text-4xl font-bold mb-10">
+                    <h2 className="text-[#44475B] text-center text-[25px] md:text-3xl lg:text-4xl font-bold mb-10">
                         Technical Support Team
                     </h2>
                     <div className="flex flex-wrap justify-center gap-10">
                         {technicalSupportTeam.map((member, index) => (
-                            <div key={index} className="flex flex-col items-center text-center w-full sm:w-[calc(50%-2.5rem)] lg:w-[calc(33.333%-2.5rem)] max-w-[400px]">
+                            <div key={index} className="flex flex-col items-center text-center w-[calc(50%-1.5rem)] lg:w-[calc(33.333%-2.5rem)] ">
                                 <div className="w-full relative mb-4 overflow-hidden group">
                                     <Image
                                         src={member.image}
@@ -433,13 +434,13 @@ export default function AboutUs() {
                                         className="w-full h-auto transition-transform duration-300 group-hover:scale-105"
                                     />
                                     <div className="absolute inset-0 bg-black/70 flex items-center justify-center p-4 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                                        <p className="text-white text-[9px] sm:text-[10px] md:text-xs lg:text-[13px] text-center leading-snug">
+                                        <p className="text-white text-[8px] md:text-[14px] lg:text-[16px] md:leading-relaxed text-justify">
                                             {member.bio || `${member.name} is a dedicated ${member.role} at BFC Capital, committed to providing excellence and helping clients reach their goals.`}
                                         </p>
                                     </div>
                                 </div>
-                                <h4 className="text-[#44475B] font-bold text-lg mb-1">{member.name}</h4>
-                                <p className="text-[#44475B] text-sm">{member.role}</p>
+                                <h4 className="text-[#44475B] font-bold text-[15px] md:text-[20px] lg:text-[24px] mb-1">{member.name}</h4>
+                                <p className="text-[#44475B] text-[12px] text-[14px] lg:text-[17px] leading-relaxed">{member.role}</p>
                             </div>
                         ))}
                     </div>

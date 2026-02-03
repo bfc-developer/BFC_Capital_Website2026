@@ -2,14 +2,13 @@ import React from 'react';
 
 const ComplaintsTables = () => {
     return (
-        <div className="container mx-auto px-4 py-12 max-w-5xl">
-            <h1 className="mb-2 text-3xl font-bold text-[#44475B] md:text-4xl lg:text-5xl font-inter pb-5">
+        <div className="container mx-auto px-4 py-8 md:py-12 md:px-15 lg:px-20">
+            <h1 className="mb-2 text-[25px] md:text-3xl lg:text-5xl font-bold text-[#44475B] font-inter md:pb-5">
                 Investor Complaints: Investment Advisory
             </h1>
-
-            {/* Table 1: Data for the month */}
+            
             <div className="mb-12 pt-4">
-                <h2 className="text-2xl font-bold text-[#44475B] mb-6 lg:text-4xl">
+                <h2 className="font-bold text-[#44475B] mb-6 text-[20px] md:text-3xl lg:text-4xl">
                     Data for the month ending January, 2026
                 </h2>
                 <div className="overflow-x-auto rounded-lg ">
@@ -78,9 +77,8 @@ const ComplaintsTables = () => {
                 </div>
             </div>
 
-            {/* Table 2: Monthly Disposal Trend */}
             <div className="mb-12">
-                <h2 className="text-2xl font-bold text-[#44475B] mb-6 lg:text-4xl">
+                <h2 className="font-bold text-[#44475B] mb-6 text-[20px] md:text-3xl lg:text-4xl">
                     Trend of monthly disposal of complaints
                 </h2>
                 <div className="overflow-x-auto rounded-lg">
@@ -113,9 +111,8 @@ const ComplaintsTables = () => {
                 </div>
             </div>
 
-            {/* Table 3: Annual Disposal Trend */}
             <div className="mb-12">
-                <h2 className="text-2xl font-bold text-[#44475B] mb-6 lg:text-4xl">
+                <h2 className="font-bold text-[#44475B] mb-6 text-[20px] md:text-3xl lg:text-4xl">
                     Trend of annually disposal of complaints
                 </h2>
                 <div className="overflow-x-auto rounded-lg shadow border border-gray-200">

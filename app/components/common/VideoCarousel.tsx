@@ -137,7 +137,7 @@ const VideoCarousel = ({ videos, autoPlayInterval = 2500 }: VideoCarouselProps) 
 
             {/* Popup Overlay */}
             {isOpen && (
-                <div className="fixed inset-0 z-[9999] flex items-center justify-center bg-black/60" onClick={closePopup}>
+                <div className="fixed inset-0 z-[9999] flex items-center justify-center bg-black/85" onClick={closePopup}>
                     <div className="popup-video relative bg-white shadow-2xl flex flex-col" onClick={(e) => e.stopPropagation()}>
                         <button className="close-btn" onClick={closePopup}>
                             &times;

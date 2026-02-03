@@ -522,7 +522,7 @@ const SuccessHighlight = () => {
                 <div className="container mx-auto px-4 max-w-7xl relative">
                     <div className="flex flex-col lg:flex-row items-center justify-between gap-12">
                         <div className="md:w-1/2 w-full text-white order-2 lg:order-1">
-                            <h2 className="text-2xl md:text-4xl font-extrabold leading-[1.1] mb-3 md:mb-8 max-w-xl">
+                            <h2 className="text-2xl md:text-5xl font-extrabold leading-[1.2] mb-3 md:mb-8 max-w-xl">
                                 The BFC Experience:<br className="hidden md:block" />
                                 20 Years of Wealth<br className="hidden md:block" />
                                 Wisdom
@@ -537,13 +537,13 @@ const SuccessHighlight = () => {
                             </div>
 
                             <div className="space-y-6 mb-10">
-                                <p className="text-[12px] leading-relaxed max-w-md opacity-80 font-medium">
+                                <p className="text-[12px] md:text-[16px] leading-relaxed max-w-md">
                                     Based in Bengaluru, I've been investing with BFC Capital via the Prodigy Pro app for five years. Gained financial confidence and trust, great team, seamless app, and truly positive experience overall.
                                 </p>
                                 <div className="w-8 h-px bg-white/40"></div>
                                 <div>
-                                    <p className="font-extrabold text-[14px]">Mitya Moitra</p>
-                                    <p className="opacity-80 text-xs">Lucknow</p>
+                                    <p className="font-extrabold text-[14px] md:text-[20px]">Mitya Moitra</p>
+                                    <p className="opacity-80 text-xs md:text-[15px]">Lucknow</p>
                                 </div>
                             </div>
 
@@ -795,7 +795,7 @@ const ComplaintsTable = () => {
                     <p className="text-[13px] text-[#44475B] max-w-2xl leading-relaxed italic font-medium">
                         ^ Average Resolution time is the sum total of time taken to resolve each complaint in days, in the current month divided by total number of complaints resolved in the current month.
                     </p>
-                    <Link href="#">
+                    <Link href="/investor-complaints">
                         <button
 
                             className="bg-bfc-green text-white px-10 py-3 rounded-full font-bold hover:bg-green-700 transition-all shadow-md active:scale-95 whitespace-nowrap"
