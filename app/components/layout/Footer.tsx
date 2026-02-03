@@ -46,6 +46,8 @@ const Footer = () => {
                                     <p>Sunil Gupta, <a href="tel:+918960006601" className="hover:text-[#001EFE]">Phone: +91 89600 06601</a></p>
                                     <p><a href="mailto:sunilgupta@bfccapital.com" className="hover:text-[#001EFE]">sunilgupta@bfccapital.com</a></p>
                                 </div>
+
+                                
                             </div>
                             <div className="space-y-1">
                                 <h2 className="font-bold text-[#44475B] text-[17px]">Corresponding SEBI Address:</h2>
