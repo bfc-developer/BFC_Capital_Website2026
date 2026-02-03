@@ -58,12 +58,15 @@ const Navbar = () => {
           </a>
 
           <div className="flex items-center gap-1">
-            <Image
-              src="/Logo/ProdigyPro_horizontal.svg"
-              alt=""
-              width={145}
-              height={145}
-            />
+            <a href="https://app.prodigypro.co.in/">
+              <Image
+                src="/Logo/ProdigyPro_horizontal.svg"
+                alt=""
+                width={145}
+                height={145}
+              />
+            </a>
+
           </div>
         </div>
 

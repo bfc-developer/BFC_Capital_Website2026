@@ -980,21 +980,21 @@ const Home = () => {
                                 {/* Links Section */}
                                 <div className="space-y-4 mt-2">
                                     <div className="space-y-0.5">
-                                        <p className="mb-0 break-words"><span className="text-[#001EFE] font-medium">Website:</span> https://bfccapital.com/</p>
-                                        <p className="mb-0 break-words"><span className="text-[#001EFE] font-medium">Facebook:</span> https://www.facebook.com/bfccapital/</p>
-                                        <p className="mb-0 break-words"><span className="text-[#001EFE] font-medium">Instagram:</span> https://www.instagram.com/bfccapitalpvtltd/</p>
-                                        <p className="mb-0 break-words"><span className="text-[#001EFE] font-medium">LinkedIn:</span> https://www.linkedin.com/company/bfccapitalpvtltd/</p>
-                                        <p className="mb-0 break-words"><span className="text-[#001EFE] font-medium">Twitter:</span> https://x.com/BFCCapital/</p>
-                                        <p className="mb-0 break-words"><span className="text-[#001EFE] font-medium">YouTube:</span> https://www.youtube.com/@bfccapitalpvtltd</p>
+                                        <p className="mb-0 break-words"><span className="text-[#001EFE] font-medium">Website:</span> <a href="https://bfccapital.com/" className="hover:text-[#001EFE]">https://bfccapital.com/</a></p>
+                                        <p className="mb-0 break-words"><span className="text-[#001EFE] font-medium">Facebook:</span> <a href="https://www.facebook.com/bfccapital/" className="hover:text-[#001EFE]">https://www.facebook.com/bfccapital/</a></p>
+                                        <p className="mb-0 break-words"><span className="text-[#001EFE] font-medium">Instagram:</span> <a href="https://www.instagram.com/bfccapitalpvtltd/" className="hover:text-[#001EFE]">https://www.instagram.com/bfccapitalpvtltd/</a></p>
+                                        <p className="mb-0 break-words"><span className="text-[#001EFE] font-medium">LinkedIn:</span> <a href="https://www.linkedin.com/company/bfccapitalpvtltd/" className="hover:text-[#001EFE]">https://www.linkedin.com/company/bfccapitalpvtltd/</a></p>
+                                        <p className="mb-0 break-words"><span className="text-[#001EFE] font-medium">Twitter:</span> <a href="https://x.com/BFCCapital/" className="hover:text-[#001EFE]">https://x.com/BFCCapital/</a></p>
+                                        <p className="mb-0 break-words"><span className="text-[#001EFE] font-medium">YouTube:</span> <a href="https://www.youtube.com/@bfccapitalpvtltd" className="hover:text-[#001EFE]">https://www.youtube.com/@bfccapitalpvtltd</a></p>
                                     </div>
 
                                     <div className="space-y-0.5">
-                                        <p className="mb-0 break-words"><span className="text-[#001EFE] font-medium">Website:</span> https://prodigypro.co.in/</p>
-                                        <p className="mb-0 break-words"><span className="text-[#001EFE] font-medium">Facebook:</span> https://www.facebook.com/bfcprodigy/</p>
-                                        <p className="mb-0 break-words"><span className="text-[#001EFE] font-medium">Instagram:</span> https://www.instagram.com/bfcprodigypro/</p>
-                                        <p className="mb-0 break-words"><span className="text-[#001EFE] font-medium">Twitter:</span> https://x.com/BFCProdigy_Pro</p>
-                                        <p className="mb-0 break-words"><span className="text-[#001EFE] font-medium">LinkedIn:</span> https://www.linkedin.com/company/bfcprodigypro/</p>
-                                        <p className="mb-0 break-words"><span className="text-[#001EFE] font-medium">YouTube:</span> https://www.youtube.com/@bfcprodigypro</p>
+                                        <p className="mb-0 break-words"><span className="text-[#001EFE] font-medium">Website:</span> <a href="https://prodigypro.co.in/" className="hover:text-[#001EFE]">https://prodigypro.co.in/</a></p>
+                                        <p className="mb-0 break-words"><span className="text-[#001EFE] font-medium">Facebook:</span> <a href="https://www.facebook.com/bfcprodigy/" className="hover:text-[#001EFE]">https://www.facebook.com/bfcprodigy/</a></p>
+                                        <p className="mb-0 break-words"><span className="text-[#001EFE] font-medium">Instagram:</span> <a href="https://www.instagram.com/bfcprodigypro/" className="hover:text-[#001EFE]">https://www.instagram.com/bfcprodigypro/</a></p>
+                                        <p className="mb-0 break-words"><span className="text-[#001EFE] font-medium">Twitter:</span> <a href="https://x.com/BFCProdigy_Pro" className="hover:text-[#001EFE]">https://x.com/BFCProdigy_Pro</a></p>
+                                        <p className="mb-0 break-words"><span className="text-[#001EFE] font-medium">LinkedIn:</span> <a href="https://www.linkedin.com/company/bfcprodigypro/" className="hover:text-[#001EFE]">https://www.linkedin.com/company/bfcprodigypro/</a></p>
+                                        <p className="mb-0 break-words"><span className="text-[#001EFE] font-medium">YouTube:</span> <a href="https://www.youtube.com/@bfcprodigypro" className="hover:text-[#001EFE]">https://www.youtube.com/@bfcprodigypro</a></p>
                                     </div>
                                 </div>
 
@@ -1010,7 +1010,7 @@ const Home = () => {
                                         <span className="mt-1.5 w-1.5 h-1.5 rounded-full bg-[#44475B] flex-shrink-0"></span>
                                         <span>
                                             Inform BFC Capital immediately at:{" "}
-                                            <a href="mailto:customersupport@bfccapital.com" className="text-[#001EFE] hover:underline break-all">
+                                            <a href="mailto:customersupport@bfccapital.com" className="text-[#001EFE]">
                                                 customersupport@bfccapital.com
                                             </a>
                                         </span>

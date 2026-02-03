@@ -30,21 +30,21 @@ const Footer = () => {
 
                             <div className="space-y-0.5 text-[11px] md:text-[12px] lg:text-[15px] leading-relaxed lg:leading-6">
                                 <p className="">Grievance Cell</p>
-                                <a href="https://scores.sebi.gov.in" className="hover:text-bfc-blue transition-colors break-all">https://scores.sebi.gov.in</a>
+                                <a href="https://scores.sebi.gov.in" className="hover:text-[#001EFE]">https://scores.sebi.gov.in</a>
                             </div>
 
                             <div className="space-y-1">
                                 <h2 className="font-bold text-[#44475B] text-[15px]">Principal Officer</h2>
                                 <div className="text-[11px] md:text-[12px] lg:text-[15px] leading-relaxed lg:leading-6">
-                                    <p>Akash Gupta, Phone: +91 6307937533</p>
-                                    <p>akashgupta@bfccapital.com</p>
+                                    <p>Akash Gupta, <a href="tel:+916307937533" className="hover:text-[#001EFE]">Phone: +91 6307937533</a></p>
+                                    <p><a href="mailto:akashgupta@bfccapital.com" className="hover:text-[#001EFE]">akashgupta@bfccapital.com</a></p>
                                 </div>
                             </div>
                             <div className="space-y-1">
                                 <h2 className="font-bold text-[#44475B] text-[15px]">Compliance Officer:</h2>
                                 <div className="text-[11px] md:text-[12px] lg:text-[15px] leading-relaxed lg:leading-6">
-                                    <p>Sunil Gupta, Phone: +91 89600 06601</p>
-                                    <p>sunilgupta@bfccapital.com</p>
+                                    <p>Sunil Gupta, <a href="tel:+918960006601" className="hover:text-[#001EFE]">Phone: +91 89600 06601</a></p>
+                                    <p><a href="mailto:sunilgupta@bfccapital.com" className="hover:text-[#001EFE]">sunilgupta@bfccapital.com</a></p>
                                 </div>
                             </div>
                             <div className="space-y-1">
@@ -72,14 +72,14 @@ const Footer = () => {
                                 </div>
                                 <div className="space-y-1">
                                     <p><span className="font-bold">Call:</span> +91-522-3514141</p>
-                                    <p><span className="font-bold">E-mail:</span> customersupport@bfccapital.com</p>
+                                    <p><span className="font-bold">E-mail:</span> <a href="mailto:customersupport@bfccapital.com" className="hover:text-[#001EFE]">customersupport@bfccapital.com</a></p>
                                 </div>
                             </div>
                         </div>
 
                         <div className="flex items-center gap-4">
                             <div className="cursor-pointer hover:scale-110 transition-transform">
-                                <Image src="/SocialMedia/insta.svg" alt="Instagram" width={36} height={36} className=''/>
+                                <Image src="/SocialMedia/insta.svg" alt="Instagram" width={36} height={36} className='' />
                             </div>
                             <div className="cursor-pointer hover:scale-110 transition-transform">
                                 <Image src="/SocialMedia/twitter.svg" alt="Twitter" width={36} height={36} />
