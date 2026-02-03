@@ -15,7 +15,7 @@ const ComplaintsTables = () => {
                     <table className="w-full text-sm text-left text-[#212121]">
                         <thead>
                             <tr
-                                className="text-[#334155] border-b-[1.5px] border-[#ABC3D7] border-opacity-[0.37]"
+                                className="text-[#334155] border-b border-gray-100"
                                 style={{ background: 'linear-gradient(270deg, #CFE4F3 0%, #FAFAFA 63.46%)' }}
                             >
                                 <th className="px-6 py-4 text-[#4D4D4D] font-bold">Sr.No.</th>
@@ -59,7 +59,7 @@ const ComplaintsTables = () => {
                             <td className="px-6 py-4 font-semibold">0</td>
                             <td className="px-6 py-4">NA</td>
                         </tr>
-                        <tr className="text-[#212121]" style={{ background: 'linear-gradient(270deg, #CFE4F3 0%, #FAFAFA 63.46%)' }}>
+                        <tr className="text-[#212121] border-t border-gray-100" style={{ background: 'linear-gradient(270deg, #CFE4F3 0%, #FAFAFA 63.46%)' }}>
                             <td className="px-6 py-4"></td>
                             <td className="px-6 py-4 text-[#212121]">Grand Total</td>
                             <td className="px-6 py-4 text-[#212121] font-semibold">0</td>
@@ -84,7 +84,7 @@ const ComplaintsTables = () => {
                 <div className="overflow-x-auto rounded-lg">
                     <table className="w-full text-sm text-left">
                         <thead className="text-gray-800 uppercase font-bold text-xs" style={{ background: 'linear-gradient(270deg, #CFE4F3 0%, #FAFAFA 63.46%)' }}>
-                            <tr>
+                            <tr className='border-b border-gray-100'>
                                 <th className="px-6 py-4 text-[#4D4D4D]">Sr.No.</th>
                                 <th className="px-6 py-4 text-[#4D4D4D]">Month</th>
                                 <th className="px-6 py-4 text-[#4D4D4D]">Carried forward from previous month</th>
@@ -115,10 +115,10 @@ const ComplaintsTables = () => {
                 <h2 className="font-bold text-[#44475B] mb-6 text-[20px] md:text-3xl lg:text-4xl">
                     Trend of annually disposal of complaints
                 </h2>
-                <div className="overflow-x-auto rounded-lg shadow border border-gray-200">
+                <div className="overflow-x-auto rounded-lg ">
                     <table className="w-full text-sm text-left text-gray-700">
                         <thead className="text-gray-800 uppercase font-bold text-xs" style={{ background: 'linear-gradient(270deg, #CFE4F3 0%, #FAFAFA 63.46%)' }}>
-                            <tr>
+                            <tr className='border-b border-gray-100'>
                                 <th className="px-6 py-4 text-[#4D4D4D]">Sr.No.</th>
                                 <th className="px-6 py-4 text-[#4D4D4D]">Year</th>
                                 <th className="px-6 py-4 text-[#4D4D4D]">Carried forward from previous year</th>
