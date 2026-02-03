@@ -196,7 +196,7 @@ export default function AboutUs() {
 
             <section className="py-5 md:py-15">
                 <div className="container m-auto px-5 md:px-10 lg:px-20">
-                    <div className="text-[#44475B] text-justify text-[11px] md:text-[14px] lg:text-[17px] leading-relaxed">
+                    <div className="text-[#44475B] text-justify text-[15px] md:text-[17px] leading-relaxed">
                         <p className="mb-5">Welcome to BFC Capital, where we turn your financial dreams into achievable goals. As a SEBI-registered Investment Adviser (RIA)- registration number INA000021669- we are committed to delivering transparent, compliant, and goal-oriented wealth management solutions for individuals, families, and institutions. </p>
 
                         <p className="mb-5">BFC Capital began its journey over 21 years ago with a singular focus: to make wealth management accessible, reliable, and insightful for every investor. From the very beginning, we recognized that financial decisions are only as strong as the clarity and knowledge behind them. This understanding has guided us in building services that not only manage assets but also educate and empower investors at every stage of their financial journey.</p>
@@ -208,7 +208,7 @@ export default function AboutUs() {
                     </div>
                     <h3 className="text-[#44475B] font-semibold text-[22px]">Our expertise:</h3>
 
-                    <ul className="list-disc text-[#44475B] px-6 mb-5 text-justify text-[11px] md:text-[14px] lg:text-[17px] leading-relaxed">
+                    <ul className="list-disc text-[#44475B] px-6 mb-5 text-justify text-[15px] md:text-[17px] leading-relaxed">
                         <li><strong>SEBI-Registered & Compliant:</strong> Our recommendations adhere strictly to SEBI guidelines, ensuring ethical, unbiased, and credible advice</li>
                         <li><strong>Personalized Guidance:</strong> Dedicated advisors provide tailored strategies aligned with your goals, risk appetite, and life stage</li>
                         <li><strong>Goal-Based Planning:</strong> Plan for retirement, education, wealth creation, or financial security with strategies designed for long-term growth</li>
@@ -220,7 +220,7 @@ export default function AboutUs() {
 
                     <h3 className="text-[#44475B] font-semibold text-[22px] mb-3">Who Is It For?</h3>
 
-                    <ul className="list-disc text-[#44475B] px-6 pb-5 text-justify text-[11px] md:text-[14px] lg:text-[17px] leading-relaxed">
+                    <ul className="list-disc text-[#44475B] px-6 pb-5 text-justify text-[15px] md:text-[17px] leading-relaxed">
                         <li>First-time investors seeking clarity, structured guidance, and confidence in mutual fund investing</li>
                         <li>Families who want a consolidated view and seamless management of all household investments</li>
                         <li>Experienced investors looking for research-backed insights, tactical calls, and advanced wealth optimization tools</li>
@@ -228,10 +228,10 @@ export default function AboutUs() {
 
                     </ul>
 
-                    <p className="text-justify mb-5 text-[#44475B] text-justify text-[11px] md:text-[14px] lg:text-[17px] leading-relaxed">
+                    <p className="text-justify mb-5 text-[#44475B] text-justify text-[15px] md:text-[17px] leading-relaxed">
                         At its core, BFC Capital Private Limited is about empowering investors with knowledge, trust, and confidence. Our mission is to make wealth management accessible, goal-oriented, and transparent– helping every client make informed financial decisions and secure a financially independent future
                     </p>
-                    <p className="text-justify mb-5 text-[#44475B] text-justify text-[11px] md:text-[14px] lg:text-[17px] leading-relaxed">
+                    <p className="text-justify mb-5 text-[#44475B] text-justify text-[15px] md:text-[17px] leading-relaxed">
                         BFC Capital– Your Trusted SEBI RIA for Transparent, Goal-Oriented, and Secure Investment Advisory.
                     </p>
                 </div>

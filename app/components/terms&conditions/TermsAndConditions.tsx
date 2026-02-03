@@ -30,7 +30,7 @@ export default function TermsAndConditions() {
             </h1>
 
             {/* Content */}
-            <div className="space-y-6 text-[#44475B] leading-relaxed text-justify text-[11px] md:text-[14px] lg:text-[17px]">
+            <div className="space-y-6 text-[#44475B] leading-relaxed text-justify text-[15px] md:text-[17px]">
                 <p>
                     BFC Capital is a SEBI Registered Investment Advisor (SEBI-RIA) that provides investment advisory services to users. Through its technology platform, BFC Capital facilitates access to mutual fund schemes, allowing users to independently execute transactions in mutual fund units based on their own decisions and/or advisory recommendations received.
                 </p>

@@ -246,7 +246,7 @@ const VideoSection = () => {
             <div className=" mx-auto px-4 text-center relative ">
                 <h2 className="md:mb-2 font-bold text-[#44475B] text-[20px] md:text-3xl lg:text-5xl font-inter">Investment Simplified: <br />Empowering You to Invest Wisely</h2>
 
-                <p className="mx-auto mb-12 max-w-6xl text-[12px] md:text-[14px] lg:text-[17px] text-[#44475B] leading-relaxed font-inter opacity-90 font-inter">
+                <p className="mx-auto mb-12 max-w-6xl text-[15px] md:text-[17px] text-[#44475B] leading-relaxed font-inter opacity-90 font-inter">
                     Join the BFC community to learn about investing, saving, and budgeting in the easiest ways possible!
                     Whether you're a seasoned investor or just figuring out your financial journey, dive in for treasured
                     insights and expert advice. Get tips on mutual funds, saving, budgeting, and retirement planning.
@@ -282,13 +282,13 @@ const AdvantageSection = () => {
             <div className="container mx-auto px-4">
                 <div className="mb-10 md:mb-16 text-center">
                     <h2 className="font-bold text-[#44475B] text-[20px] md:text-3xl lg:text-5xl">BFC Advantage</h2>
-                    <p className="md:mt-2 text-gray-600 text-[12px] md:text-[14px] lg:text-[17px]">Invest smart! Give your investments the BFC Advantage</p>
+                    <p className="md:mt-2 text-gray-600 text-[15px] md:text-[17px]">Invest smart! Give your investments the BFC Advantage</p>
                 </div>
                 <div className="grid gap-3 md:gap-x-8 md:gap-y-12 grid-cols-2 lg:grid-cols-3 justify-items-center">
                     {features.map((feature, idx) => (
                         <div
                             key={idx}
-                            className="flex flex-col items-center bg-white border border-[#EBEAEA] rounded-[24px] w-full pt-[10px] md:pt-[28px] pb-[10px] md:pb-[28px] px-[10px] md:px-[32px] text-center transition-all hover:shadow-md group"
+                            className="flex flex-col items-center bg-white border border-[#EBEAEA] rounded-[15px] md:rounded-[24px] w-full pt-[10px] md:pt-[28px] pb-[10px] md:pb-[28px] px-[10px] md:px-[32px] text-center transition-all hover:shadow-md group"
                         >
                             <div className="relative items-center justify-center mb-[20px]">
                                 <Image
@@ -299,8 +299,8 @@ const AdvantageSection = () => {
                                     className="object-contain w-[40px] sm:w-[50px] md:w-[80px] lg:w-full"
                                 />
                             </div>
-                            <h3 className="text-[13px] md:text-[20px] lg:text-[24px] font-bold text-[#44475B] mb-[10px] md:mb-[20px] leading-tight">{feature.title}</h3>
-                            <p className="text-[11px] md:text-[14px] lg:text-[17px] leading-4 md:leading-6 text-[#44475B] font-inter">{feature.desc}</p>
+                            <h3 className="text-[15px] md:text-[24px] font-bold text-[#44475B] mb-[10px] md:mb-[20px] leading-tight">{feature.title}</h3>
+                            <p className="text-[13px] md:text-[17px] leading-4 md:leading-6 text-[#44475B] font-inter">{feature.desc}</p>
                         </div>
                     ))}
                 </div>
@@ -413,7 +413,7 @@ const EventsSection = () => {
             <div className="container mx-auto px-4">
                 <div className="mb-5 md:mb-16 text-center">
                     <h2 className="font-extrabold text-[#44475B] text-[20px] md:text-3xl lg:text-5xl tracking-tight">Quality Circle Programmes</h2>
-                    <p className="md:mt-4 text-[#44475B] text-[12px] md:text-[14px] lg:text-[17px] leading-5 max-w-2xl mx-auto">An honest attempt to educate investors on the Dos and Don'ts of investing.</p>
+                    <p className="md:mt-4 text-[#44475B] text-[15px] md:text-[17px] leading-5 max-w-2xl mx-auto">An honest attempt to educate investors on the Dos and Don'ts of investing.</p>
                 </div>
                 <div className="grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
                     {events.map((event, idx) => (
@@ -607,7 +607,7 @@ const Team = () => {
             <div className="container mx-auto px-4">
                 <div className="text-center mb-10 md:mb-24">
                     <h2 className="text-[20px] md:text-3xl lg:text-5xl font-extrabold text-[#44475B] mb-4">Meet the Experts</h2>
-                    <p className="text-[#44475B] max-w-2xl mx-auto font-base leading-5 text-[12px] md:text-[14px] lg:text-[17px]">
+                    <p className="text-[#44475B] max-w-2xl mx-auto font-base leading-5 text-[15px] md:text-[17px]">
                         Money matters are serious business. Don't take them lightly. Reach out to our
                         experts and make informed financial decisions.
                     </p>
@@ -695,7 +695,7 @@ const FAQSection = () => {
             <div className="container mx-auto px-4 max-w-5xl">
                 <div className="text-center mb-5 md:mb-16 px-4">
                     <h2 className="text-[20px] md:text-3xl lg:text-5xl font-extrabold text-[#44475B] md:mb-4">Frequently Asked Questions</h2>
-                    <p className="text-[#44475B] font-base text-[12px] md:text-[14px] lg:text-[17px] leading-5">Questions on your mind? Don't worry we have the answers!</p>
+                    <p className="text-[#44475B] font-base text-[15px] md:text-[17px] leading-5">Questions on your mind? Don't worry we have the answers!</p>
                 </div>
 
                 <div className="space-y-4">
@@ -716,7 +716,7 @@ const FAQSection = () => {
                                 />
                             </button>
                             <div
-                                className={`overflow-hidden transition-all text-[#44475B] duration-300 ease-in-out text-[12px] md:text-[14px] lg:text-[17px] leading-5 ${openIndex === index ? 'max-h-[500px] opacity-100 pb-8' : 'max-h-0 opacity-0'
+                                className={`overflow-hidden transition-all text-[#44475B] duration-300 ease-in-out text-[15px] md:text-[17px] leading-5 ${openIndex === index ? 'max-h-[500px] opacity-100 pb-8' : 'max-h-0 opacity-0'
                                     }`}
                             >
                                 {faq.answer}
@@ -748,7 +748,7 @@ const ComplaintsTable = () => {
                     <table className="w-full text-center border-collapse">
                         <thead>
                             <tr
-                                className="text-[#334155] border-b-[1.5px] border-[#ABC3D7] border-opacity-[0.37]"
+                                className="text-[#334155] border-b border-gray-100"
                                 style={{ background: 'linear-gradient(270deg, #CFE4F3 0%, #FAFAFA 63.46%)' }}
                             >
                                 <th className="py-[10px] px-[12px] text-[12px] font-extrabold uppercase tracking-tight text-left whitespace-nowrap">Sr.No.</th>
@@ -761,7 +761,7 @@ const ComplaintsTable = () => {
                                 <th className="py-[10px] px-[12px] text-[12px] font-extrabold uppercase tracking-tight">Average Resolution<br />time^ (in days)</th>
                             </tr>
                         </thead>
-                        <tbody className="divide-y divide-gray-50 text-[#334155]">
+                        <tbody className="text-[#334155]">
                             {data.map((row, idx) => (
                                 <tr key={idx} className="hover:bg-gray-50/50 transition-colors">
                                     <td className="py-[12px] px-[12px] text-sm font-bold text-left">{row.sr}</td>
@@ -829,7 +829,7 @@ const ComplaintsTable = () => {
                         <table className="w-full text-center border-collapse">
                             <thead>
                                 <tr
-                                    className="text-[#334155] border-b-[1.5px] border-[#ABC3D7] border-opacity-[0.37]"
+                                    className="text-[#334155] border-b border-gray-100"
                                     style={{ background: 'linear-gradient(270deg, #CFE4F3 0%, #FAFAFA 63.46%)' }}
                                 >
                                     <th className="py-[10px] px-[12px] text-[13px] font-extrabold uppercase tracking-tight">Sr.No.</th>
