@@ -68,7 +68,7 @@ export default function AboutUs() {
         },
         {
             name: "Vanshika Gupta",
-            role: "Vanshika Gupta",
+            role: "Manager-Operations",
             image: "/AboutUs/Operations/Vanshika.svg",
             bio: "Vanshika is a voracious reader. And what does she read? Regulatory guidelines, compliance norms, and process updates. What draws her to read them? First, it's her duty to stay current, and second, because she's a nerd who can't stop learning."
         },
