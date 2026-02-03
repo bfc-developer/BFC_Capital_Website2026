@@ -243,7 +243,7 @@ const VideoSection = () => {
                 backgroundRepeat: 'no-repeat'
             }}
         >
-            <div className=" mx-auto px-4 text-center relative ">
+            <div className="container mx-auto px-4 text-center relative ">
                 <h2 className="md:mb-2 font-bold text-[#44475B] text-[20px] md:text-3xl lg:text-5xl font-inter">Investment Simplified: <br />Empowering You to Invest Wisely</h2>
 
                 <p className="mx-auto mb-12 max-w-6xl text-[15px] md:text-[17px] text-[#44475B] leading-relaxed font-inter opacity-90 font-inter">
@@ -255,8 +255,6 @@ const VideoSection = () => {
 
                 <VideoCarousel videos={videos} autoPlayInterval={2000} />
             </div>
-
-
         </section>
     );
 };
@@ -692,7 +690,7 @@ const FAQSection = () => {
 
     return (
         <section className="bg-white py-5 md:py-20 pb-10 md:pb-24">
-            <div className="container mx-auto px-4 max-w-5xl">
+            <div className="container mx-auto px-4">
                 <div className="text-center mb-5 md:mb-16 px-4">
                     <h2 className="text-[20px] md:text-3xl lg:text-5xl font-extrabold text-[#44475B] md:mb-4">Frequently Asked Questions</h2>
                     <p className="text-[#44475B] font-base text-[15px] md:text-[17px] leading-5">Questions on your mind? Don't worry we have the answers!</p>
