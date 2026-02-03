@@ -16,7 +16,7 @@ export const metadata: Metadata = {
 
 export default function TermsAndConditionsPage() {
     return (
-        <div className="flex flex-col min-h-screen font-sans bg-gray-50">
+        <div className="flex flex-col min-h-screen font-inter">
             <Navbar />
             <main className="flex-grow">
                 <TermsAndConditions />
