@@ -47,7 +47,7 @@ const Footer = () => {
                                     <p><a href="mailto:sunilgupta@bfccapital.com" className="hover:text-[#001EFE]">sunilgupta@bfccapital.com</a></p>
                                 </div>
 
-                                
+
                             </div>
                             <div className="space-y-1">
                                 <h2 className="font-bold text-[#44475B] text-[17px]">Corresponding SEBI Address:</h2>
@@ -115,7 +115,7 @@ const Footer = () => {
                 <div className="space-y-8">
                     <div className="space-y-2">
                         <p className="text-[17px] font-extrabold uppercase tracking-wide mb-0">DISCLAIMER</p>
-                        <p className="text-[14px] md:text-[17px] leading-relaxed lg:leading-6 text-gray-500">
+                        <p className="text-[14px] md:text-[17px] leading-relaxed lg:leading-6 text-[#44475B]">
                             "Investment in securities market are subject to market risks. Read all the related documents carefully before investing."
                         </p>
                     </div>
@@ -123,9 +123,9 @@ const Footer = () => {
                     <div className="pt-8 border-t border-[#ABC3D7] border-opacity-[0.37] flex flex-col md:flex-row justify-between items-center gap-4 text-[14px] md:text-[17px] leading-relaxed lg:leading-6 text-gray-600">
                         <p>© 2026, BFC Capital. All Rights Reserved.</p>
                         <div className="flex items-center gap-8 text-[14px] md:text-[17px] leading-relaxed lg:leading-6">
-                            <Link href="privacy-policy" className="hover:text-bfc-blue transition-colors">Privacy Policy</Link>
-                            <Link href="terms&conditions" className="hover:text-bfc-blue transition-colors">Terms and Conditions</Link>
-                            <Link href="legal-disclaimer" className="hover:text-bfc-blue transition-colors">Legal Disclaimer</Link>
+                            <Link href="privacy-policy" className="hover:text-[#001EFE] transition-colors">Privacy Policy</Link>
+                            <Link href="terms&conditions" className="hover:text-[#001EFE] transition-colors">Terms and Conditions</Link>
+                            <Link href="legal-disclaimer" className="hover:text-[#001EFE] transition-colors">Legal Disclaimer</Link>
                         </div>
                     </div>
                 </div>
