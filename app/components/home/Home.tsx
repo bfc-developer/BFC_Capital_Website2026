@@ -1071,10 +1071,10 @@ const ComplaintsTable = () => {
                 </tr>
               ))}
               <tr
-                className="font-extrabold border-t border-gray-100"
+                className="text-[#334155] border-b border-gray-100"
                 style={{
                   background:
-                    "linear-gradient(270deg, rgba(207, 228, 243, 0.5) 0%, rgba(250, 250, 250, 0.5) 63.46%)",
+                    "linear-gradient(270deg, #CFE4F3 0%, #FAFAFA 63.46%)",
                 }}
               >
                 <td className="py-[10px] px-[12px] text-[13px]"></td>
