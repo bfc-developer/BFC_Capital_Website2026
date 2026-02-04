@@ -39,6 +39,11 @@ body {
   font-family: var(--font-inter);
 }
 
+.mutual-funds-hrd {
+  border: 1px groove #011EFE !important;
+  opacity: 1;
+}
+
 @layer utilities {
   .text-gradient-green-blue {
     @apply bg-clip-text text-transparent bg-gradient-to-r from-bfc-green to-bfc-blue;

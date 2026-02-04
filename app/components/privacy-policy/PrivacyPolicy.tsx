@@ -44,7 +44,7 @@ export default function PrivacyPolicy() {
 
                 <li>Throughout “Your” Investment Journey, “You” may be required to provide certain information mandatorily (such as KYC information or other regulatory requirements). Any such information disclosed by “You”, may be disclosed willingly on a voluntary basis and without any coercion.</li>
             </ul>
-            <div className="w-24 h-[2px] bg-[#011EFE] rounded my-3 md:my-5 lg:my-8"></div>
+            <hr className="mutual-funds-hrd mt-5 lg:mt-8 w-[25%] md:w-[15%] lg:w-[10%]" />
 
             <h2 className="text-[18px] md:text-[24px] font-bold mt-8 text-[#44475B] pb-4 mb-4">2. Investment Journey</h2>
             <p className="text-[#44475B] mb-4 text-justify text-[15px] md:text-[17px] leading-relaxed">The following information needs to be provided by “You“ mandatorily and voluntarily, when starting “Your” investment journey on our platforms:</p>
@@ -53,11 +53,11 @@ export default function PrivacyPolicy() {
                 <li>Income Slab, Profession, Address Details, Father's Name, Mother's Name, Tax Residency, Birth Country, Nationality, Nominee Details, Gender, Marital Status.</li>
                 <li>Bank Account Number, “Your” Name on Bank Passbook/Cheque and IFSC of the Bank.</li>
             </ul>
-            <div className="w-24 h-[2px] bg-[#011EFE] rounded my-3 md:my-5 lg:my-8"></div>
+            <hr className="mutual-funds-hrd mt-5 lg:mt-8 w-[25%] md:w-[15%] lg:w-[10%]" />
 
             <h2 className="text-[18px] md:text-[24px] font-bold mt-8 text-[#44475B] pb-4 mb-4">3. KYC Details</h2>
             <p className="text-[#44475B] text-justify text-[15px] md:text-[17px] leading-relaxed">Based on your explicit consent, we may fetch your KYC details from regulatory repositories such as CDSL Ventures Limited (CVL KRA) or other authorized agencies to ensure compliance with applicable laws and regulations.</p>
-            <div className="w-24 h-[2px] bg-[#011EFE] rounded my-3 md:my-5 lg:my-8"></div>
+            <hr className="mutual-funds-hrd mt-5 lg:mt-8 w-[25%] md:w-[15%] lg:w-[10%]" />
 
             <h2 className="text-[18px] md:text-[24px] font-bold mt-8 text-[#44475B] pb-4 mb-4">4. Other Information</h2>
             <p className="text-[#44475B] mb-4">Cookies & Other Similar Technologies</p>
@@ -65,7 +65,7 @@ export default function PrivacyPolicy() {
                 <li>To improve the responsiveness of “Our” Platforms, and to make the User Experience effectively seamless and/or to analyse the efficacy of our services; “We” may use cookies, or other similar electronic tools to collect information. Please note, unless “You” voluntarily identify yourself (through registration, for example), we will have no way of identifying who “You” are, even if “We” assign a cookie to “Your” computer or device. The only personal information a cookie can obtain is the information “You” voluntarily provide.</li>
                 <li>Any Information provided by “You” and/or collected from other sources shall be deemed confidential by “Us”, provided it is not freely available and/or accessible in the public domain like comments, messages, blogs, scribbles available on social platforms, such as Facebook, Twitter, etc. Also, if any information posted, uploaded, conveyed, communicated by “You” on the public sections of these websites becomes published content, it shall not be considered confidential and/or personal or personally identifiable information.</li>
             </ul>
-            <div className="w-24 h-[2px] bg-[#011EFE] rounded my-3 md:my-5 lg:my-8"></div>
+            <hr className="mutual-funds-hrd mt-5 lg:mt-8 w-[25%] md:w-[15%] lg:w-[10%]" />
 
             <h2 className="text-[18px] md:text-[24px] font-bold mt-8 text-[#44475B] pb-4 mb-4">5. User Data Policy</h2>
             <ul className="text-[#44475B] list-disc ml-7 text-justify text-[15px] md:text-[17px] leading-relaxed">
@@ -76,11 +76,11 @@ export default function PrivacyPolicy() {
                 <li>Users have the right to request for the Correction of their personal data held by "Us". To initiate the date correction process, users can contact us via email at <a href="mailto:dataprotectionbfc@gmail.com" className="underline hover:text-[#001EFE]">dataprotectionbfc@gmail.com</a> or submit a data correction request through our website using the following link: <a href="https://bfccapital.com/contact-us" target="_blank" rel="noopener noreferrer" className="underline hover:text-[#001EFE]">https://bfccapital.com/contact-us</a>.</li>
                 <li>Upon receiving a personal data correction request, We will verify the identity of the requester to ensure the security of user information. Following successful verification, we will proceed with the correction of the user's account data from our systems within a reasonable timeframe.</li>
             </ul>
-            <div className="w-24 h-[2px] bg-[#011EFE] rounded my-3 md:my-5 lg:my-8"></div>
+            <hr className="mutual-funds-hrd mt-5 lg:mt-8 w-[25%] md:w-[15%] lg:w-[10%]" />
 
             <h2 className="text-[18px] md:text-[24px] font-bold mt-8 text-[#44475B] pb-4 mb-4">6. Data Protection Officer</h2>
             <p className="text-[#44475B]  text-justify text-[15px] md:text-[17px] leading-relaxed">Ms. Vertika Singh has been appointed as Data Protection Officer for the compliance of the DPDP Act 2023. She can be contacted at <a href="mailto:dataprotectionbfc@gmail.com" className="underline">dataprotectionbfc@gmail.com</a> for any query, concern, grievance related to protection, processing, erase, correction of your personal data.</p>
-            <div className="w-24 h-[2px] bg-[#011EFE] rounded my-3 md:my-5 lg:my-8"></div>
+            <hr className="mutual-funds-hrd mt-5 lg:mt-8 w-[25%] md:w-[15%] lg:w-[10%]" />
 
             <h2 className="text-[18px] md:text-[24px] font-bold mt-8 text-[#44475B] pb-4 mb-4">7. Changes in Privacy Policy</h2>
             <p className="text-[#44475B] text-justify text-[15px] md:text-[17px] leading-relaxed">“We” may update and/or modify this “Privacy Policy” from time to time to incorporate necessary changes in technology, applicable laws, or any other variant. In any case, “We” reserve the right to change (at any point of time) the terms of this Privacy Policy. Any changes “We” make shall take effect immediately, after getting posted on our Platform. Although we will make reasonable efforts to keep you posted on any updates to this Privacy Policy, to make sure that you are aware of any changes, we advise “You” to review this policy periodically for the latest version. Continued use of “Our” Sites or Services, after such notice, will be deemed acceptance of such changes on “Your” part.</p>
