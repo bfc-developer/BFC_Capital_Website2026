@@ -284,7 +284,7 @@ const VideoSection = () => {
         backgroundRepeat: "no-repeat",
       }}
     >
-      <div className="container mx-auto px-4 text-center relative ">
+      <div className="container mx-auto px-5 md:px-10 lg:px-20 text-center relative ">
         <h2 className="md:mb-2 font-bold text-[#44475B] text-[20px] md:text-3xl lg:text-5xl font-inter">
           Investment Simplified: <br />
           Empowering You to Invest Wisely
@@ -371,7 +371,7 @@ const AdvantageSection = () => {
 
   return (
     <section className="bg-gray-50 py-5 md:py-15 lg:py-24">
-      <div className="container mx-auto px-4">
+      <div className="container mx-auto px-5 md:px-10 lg:px-20">
         <div className="mb-10 md:mb-16 text-center">
           <h2 className="font-bold text-[#44475B] text-[20px] md:text-3xl lg:text-5xl">
             BFC Advantage
@@ -519,7 +519,7 @@ const EventsSection = () => {
 
   return (
     <section className="bg-white py-5 md:py-15 lg:py-24">
-      <div className="container mx-auto px-4">
+      <div className="container mx-auto px-5 md:px-10 lg:px-20">
         <div className="mb-5 md:mb-16 text-center">
           <h2 className="font-extrabold text-[#44475B] text-[20px] md:text-3xl lg:text-5xl tracking-tight">
             Quality Circle Programmes
@@ -798,7 +798,7 @@ const Team = () => {
   ];
   return (
     <section className="bg-gray-50 py-5 md:py-15 lg:py-24">
-      <div className="container mx-auto px-4">
+      <div className="container mx-auto px-5 md:px-10 lg:px-20">
         <div className="text-center mb-10 md:mb-24">
           <h2 className="text-[20px] md:text-3xl lg:text-5xl font-extrabold text-[#44475B] mb-4">
             Meet the Experts
@@ -914,7 +914,7 @@ const FAQSection = () => {
 
   return (
     <section className="bg-white py-5 md:py-20 pb-10 md:pb-24">
-      <div className="container mx-auto px-4">
+      <div className="container mx-auto px-5 md:px-10 lg:px-20">
         <div className="text-center mb-5 md:mb-16 px-4">
           <h2 className="text-[20px] md:text-3xl lg:text-5xl font-extrabold text-[#44475B] md:mb-4">
             Frequently Asked Questions
@@ -942,8 +942,8 @@ const FAQSection = () => {
               </button>
               <div
                 className={`overflow-hidden transition-all text-[#44475B] duration-300 ease-in-out text-[15px] md:text-[17px] leading-5 ${openIndex === index
-                    ? "max-h-[500px] opacity-100 pb-8"
-                    : "max-h-0 opacity-0"
+                  ? "max-h-[500px] opacity-100 pb-8"
+                  : "max-h-0 opacity-0"
                   }`}
               >
                 {faq.answer}
