@@ -575,7 +575,7 @@ const EventsSection = () => {
 const Credentials = () => {
   const credentialData = [
     {
-      logo: "/Home/image1.svg",
+      logo: "/Home/SEBI.svg",
       alt: "SEBI",
       title: "SEBI-RIA:",
       desc: "INA000021669",
@@ -627,7 +627,7 @@ const Credentials = () => {
                   </div>
 
                   <div className="flex flex-col flex-1">
-                    <div className="min-h-[3rem] flex items-center justify-center mb-1">
+                    <div className="min-h-[3rem] flex justify-center mb-1">
                       <div className="">
                         <p className="text-[11px] font-bold text-slate-700 tracking-wide uppercase leading-tight">
                           {item.title}
