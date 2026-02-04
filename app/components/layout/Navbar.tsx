@@ -17,6 +17,9 @@ const Navbar = () => {
     { name: "About", href: "/about" },
     { name: "More", href: "/more" },
   ];
+  const scrollToTop = () => {
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  };
 
   return (
     <nav className="sticky top-0 z-[10] w-full bg-white shadow-sm font-sans">
@@ -24,14 +27,14 @@ const Navbar = () => {
         {/* Logo Section */}
         <div className="flex-shrink-0 flex items-center gap-2">
           <div className="flex items-center gap-2">
-            <a href="/" className="">
+            <Link href="/" onClick={scrollToTop}>
               <Image
                 src="/Logo/CAPLOGO.svg"
                 alt=""
                 width={155}
                 height={155}
               />
-            </a>
+            </Link>
           </div>
         </div>
 
