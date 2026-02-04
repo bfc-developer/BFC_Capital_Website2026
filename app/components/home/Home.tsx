@@ -1003,7 +1003,7 @@ const ComplaintsTable = () => {
           <table className="w-full text-center border-collapse">
             <thead>
               <tr
-                className="text-[#334155] border-b border-gray-100"
+                className="text-[#4D4D4D] border-b border-gray-100"
                 style={{
                   background:
                     "linear-gradient(270deg, #CFE4F3 0%, #FAFAFA 63.46%)",
@@ -1041,7 +1041,7 @@ const ComplaintsTable = () => {
                 </th>
               </tr>
             </thead>
-            <tbody className="text-[#334155] bg-[#FFFFFF]">
+            <tbody className="text-[#212121] bg-[#FFFFFF]">
               {data.map((row, idx) => (
                 <tr key={idx} className="hover:bg-gray-50/50 transition-colors">
                   <td className="py-[12px] px-[12px] text-sm font-bold text-left">
@@ -1071,7 +1071,7 @@ const ComplaintsTable = () => {
                 </tr>
               ))}
               <tr
-                className="text-[#334155] border-b border-gray-100"
+                className="text-[#4D4D4D] border-b border-gray-100"
                 style={{
                   background:
                     "linear-gradient(270deg, #CFE4F3 0%, #FAFAFA 63.46%)",
@@ -1140,7 +1140,7 @@ const ComplaintsTable = () => {
             <table className="w-full text-center border-collapse">
               <thead>
                 <tr
-                  className="text-[#334155] border-b border-gray-100"
+                  className="text-[#4D4D4D] border-b border-gray-100"
                   style={{
                     background:
                       "linear-gradient(270deg, #CFE4F3 0%, #FAFAFA 63.46%)",
@@ -1160,7 +1160,7 @@ const ComplaintsTable = () => {
                   </th>
                 </tr>
               </thead>
-              <tbody className="text-[#334155] bg-[#FFFFFF]">
+              <tbody className="text-[#212121] bg-[#FFFFFF]">
                 <tr className="">
                   <td className="py-[12px] px-[12px] text-sm font-bold">1</td>
                   <td className="py-[12px] px-[12px] text-sm font-bold">
