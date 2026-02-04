@@ -384,7 +384,7 @@ const AdvantageSection = () => {
           {features.map((feature, idx) => (
             <div
               key={idx}
-              className="flex flex-col items-center  border border-[#EBEAEA] rounded-[15px] md:rounded-[24px] w-full pt-[10px] md:pt-[28px] pb-[10px] md:pb-[28px] px-[10px] md:px-[32px] text-center transition-all hover:shadow-md group"
+              className="flex flex-col items-center  border border-[#EBEAEA] rounded-[15px] md:rounded-[24px] w-full pt-[10px] md:pt-[28px] pb-[10px] md:pb-[28px] px-[10px] md:px-[32px] text-center transition-all hover:shadow-md group bg-[#FFFFFF]"
             >
               <div className="relative items-center justify-center mb-[20px]">
                 <Image
@@ -533,7 +533,7 @@ const EventsSection = () => {
           {events.map((event, idx) => (
             <div
               key={idx}
-              className=" overflow-hidden rounded p-3 shadow-md hover:shadow-lg transition-shadow border border-gray-100 flex flex-col h-full"
+              className=" overflow-hidden rounded p-3 shadow-md hover:shadow-lg transition-shadow border border-gray-100 flex flex-col h-full bg-[#FFFFFF]"
             >
               <div className="w-full bg-gray-200 relative">
                 <img
@@ -697,7 +697,7 @@ const SuccessHighlight = () => {
                 </div>
               </div>
 
-              <button className=" text-bfc-blue px-5 py-2.5 rounded-full font-bold flex items-center gap-2 hover:bg-gray-100 transition-all shadow-md group text-[13px]">
+              <button className=" text-bfc-blue px-5 py-2.5 rounded-full font-bold flex items-center gap-2 hover:bg-gray-100 transition-all shadow-md group text-[13px] bg-[#FFFFFF]">
                 <Link href="https://www.youtube.com/playlist?list=PLfOMOlOYTqnXx3yxcrbxx0uMN2_xTt4Rj">
                   See All
                   <span className="text-bfc-blue group-hover:translate-x-1 transition-transform">
@@ -729,7 +729,7 @@ const SuccessHighlight = () => {
                   <Link href="https://youtube.com/shorts/TD4Sf-Vo-BU?si=TEcAgF1lWsj5Gs6G">
                     <div className="absolute inset-0 bg-transparent flex items-center justify-center transition-colors transition-all hover:scale-110">
                       <div className="w-10 h-10 md:w-16 md:h-16  rounded-full flex items-center justify-center shadow-2xl group-hover:scale-110 transition-transform">
-                        <div className="w-0 h-0 border-t-[10px] border-t-transparent border-l-[16px] border-l-bfc-blue border-b-[10px] border-b-transparent ml-1"></div>
+                        <Image src="/Home/Vector.svg" alt="play" width={120} height={120} className="w-10 h-10 md:w-16 md:h-16  rounded-full flex items-center justify-center shadow-2xl group-hover:scale-110 transition-transform" />
                       </div>
                     </div>
                   </Link>
