@@ -1041,7 +1041,7 @@ const ComplaintsTable = () => {
                 </th>
               </tr>
             </thead>
-            <tbody className="text-[#334155]">
+            <tbody className="text-[#334155] bg-[#FFFFFF]">
               {data.map((row, idx) => (
                 <tr key={idx} className="hover:bg-gray-50/50 transition-colors">
                   <td className="py-[12px] px-[12px] text-sm font-bold text-left">
@@ -1160,7 +1160,7 @@ const ComplaintsTable = () => {
                   </th>
                 </tr>
               </thead>
-              <tbody className="text-[#334155]">
+              <tbody className="text-[#334155] bg-[#FFFFFF]">
                 <tr className="">
                   <td className="py-[12px] px-[12px] text-sm font-bold">1</td>
                   <td className="py-[12px] px-[12px] text-sm font-bold">
