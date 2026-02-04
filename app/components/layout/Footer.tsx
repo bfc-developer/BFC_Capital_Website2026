@@ -5,7 +5,7 @@ const Footer = () => {
     return (
         <footer
             className="text-[#334155] py-20 px-4"
-            style={{ background: 'linear-gradient(0deg, #CFE4F3 0%, #ffffff 68.29%)' }}
+            style={{ background: 'linear-gradient(0deg, #CFE4F3 0%, #FAFAFA 68.29%)' }}
         >
             <div className="container mx-auto px-5">
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-16 mb-16">
