@@ -49,7 +49,7 @@ export default function PrivacyPolicy() {
             <h2 className="text-[18px] md:text-[24px] font-bold mt-8 text-[#44475B] pb-4 mb-4">2. Investment Journey</h2>
             <p className="text-[#44475B] mb-4 text-justify text-[15px] md:text-[17px] leading-relaxed">The following information needs to be provided by “You“ mandatorily and voluntarily, when starting “Your” investment journey on our platforms:</p>
             <ul className="text-[#44475B] list-disc ml-7 text-justify text-[15px] md:text-[17px]">
-                <li>Mobile Number, First Name, Last Name, PAN, e-Mail Address, Date of Birth. AADHAR, Address.</li>
+                <li>Mobile Number, First Name, Last Name, PAN, e-Mail Address, Date of Birth, AADHAR, Address.</li>
                 <li>Income Slab, Profession, Address Details, Father's Name, Mother's Name, Tax Residency, Birth Country, Nationality, Nominee Details, Gender, Marital Status.</li>
                 <li>Bank Account Number, “Your” Name on Bank Passbook/Cheque and IFSC of the Bank.</li>
             </ul>
