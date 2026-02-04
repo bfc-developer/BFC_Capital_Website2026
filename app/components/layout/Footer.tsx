@@ -4,7 +4,7 @@ import Image from 'next/image';
 const Footer = () => {
     return (
         <footer
-            className="text-[#334155] py-20 px-4"
+            className="text-[#334155] py-40 px-4"
             style={{ background: 'linear-gradient(0deg, #CFE4F3 0%, #FAFAFA 68.29%)' }}
         >
             <div className="container mx-auto px-5">
