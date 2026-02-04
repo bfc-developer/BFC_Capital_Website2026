@@ -178,7 +178,7 @@ export default function AboutUs() {
             <section>
                 <div className="relative w-full h-full lg:h-[550px] 2xl:h-full">
                     <Image
-                        src="/AboutUs/GroupPhoto.webp"
+                        src="/AboutUs/Discard/GroupPhoto.svg"
                         alt="Group Photo"
                         width={100}
                         height={100}
