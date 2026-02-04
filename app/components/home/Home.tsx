@@ -766,7 +766,7 @@ const Team = () => {
       img: "/Home/Team/sparsh.svg",
     },
     {
-      name: "Naini Rastogi",
+      name: "Nainie Rastogi",
       role: "Wealth Manager",
       img: "/Home/Team/nainee 1.svg",
     },
@@ -812,9 +812,8 @@ const Team = () => {
           {teamMembers.map((member, idx) => (
             <div
               key={idx}
-              className={`flex flex-col items-center group text-center transition-all duration-500 ${
-                idx % 2 === 1 ? "lg:mt-12" : "lg:mt-0"
-              }`}
+              className={`flex flex-col items-center group text-center transition-all duration-500 ${idx % 2 === 1 ? "lg:mt-12" : "lg:mt-0"
+                }`}
             >
               <div className="relative aspect-[3/4] w-full mb-6 overflow-hidden rounded-none shadow-sm transition-all duration-300 group-hover:shadow-lg">
                 <Image
@@ -942,11 +941,10 @@ const FAQSection = () => {
                 />
               </button>
               <div
-                className={`overflow-hidden transition-all text-[#44475B] duration-300 ease-in-out text-[15px] md:text-[17px] leading-5 ${
-                  openIndex === index
+                className={`overflow-hidden transition-all text-[#44475B] duration-300 ease-in-out text-[15px] md:text-[17px] leading-5 ${openIndex === index
                     ? "max-h-[500px] opacity-100 pb-8"
                     : "max-h-0 opacity-0"
-                }`}
+                  }`}
               >
                 {faq.answer}
               </div>
