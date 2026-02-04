@@ -237,7 +237,7 @@ export default function AboutUs() {
                 </div>
             </section>
 
-            <section className="bg-white py-5 md:py-15">
+            <section className="py-5 md:py-15">
                 <div className="container m-auto px-5 md:px-10 lg:px-20">
                     <h2 className="text-[#44475B] text-center text-[25px] md:text-3xl lg:text-4xl font-bold mb-10">
                         Wealth Management Team
@@ -254,7 +254,7 @@ export default function AboutUs() {
                                         className="w-full h-auto transition-transform duration-300 group-hover:scale-105"
                                     />
                                     <div className="absolute inset-0 bg-black/70 flex items-center justify-center p-4 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                                        <p className="text-white text-[8px] md:text-[14px] lg:text-[16px] md:leading-relaxed text-justify">
+                                        <p className="text-white text-[8px] md:text-[12px] lg:text-[14px] xl:text-[16px] md:leading-relaxed text-justify">
                                             {member.bio || `${member.name} is a dedicated ${member.role} at BFC Capital, committed to providing excellence and helping clients reach their goals.`}
                                         </p>
                                     </div>
@@ -267,7 +267,7 @@ export default function AboutUs() {
                 </div>
             </section>
 
-            <section className="bg-white py-5 md:py-15">
+            <section className="py-5 md:py-15">
                 <div className="container m-auto px-5 md:px-10 lg:px-20">
                     <h2 className="text-[#44475B] text-center text-[25px] md:text-3xl lg:text-4xl font-bold mb-10">
                         Operations
@@ -284,7 +284,7 @@ export default function AboutUs() {
                                         className="w-full h-auto transition-transform duration-300 group-hover:scale-105"
                                     />
                                     <div className="absolute inset-0 bg-black/70 flex items-center justify-center p-4 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                                        <p className="text-white text-[8px] md:text-[14px] lg:text-[16px] md:leading-relaxed text-justify">
+                                        <p className="text-white text-[8px] md:text-[12px] lg:text-[14px] xl:text-[16px] md:leading-relaxed text-justify">
                                             {member.bio || `${member.name} is a dedicated ${member.role} at BFC Capital, committed to providing excellence and helping clients reach their goals.`}
                                         </p>
                                     </div>
@@ -297,7 +297,7 @@ export default function AboutUs() {
                 </div>
             </section>
 
-            <section className="bg-white py-5 md:py-15">
+            <section className="py-5 md:py-15">
                 <div className="container m-auto px-5 md:px-10 lg:px-20">
                     <h2 className="text-[#44475B] text-center text-[25px] md:text-3xl lg:text-4xl font-bold mb-10">
                         HR & Accounts
@@ -314,7 +314,7 @@ export default function AboutUs() {
                                         className="w-full h-auto transition-transform duration-300 group-hover:scale-105"
                                     />
                                     <div className="absolute inset-0 bg-black/70 flex items-center justify-center p-4 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                                        <p className="text-white text-[8px] md:text-[14px] lg:text-[16px] md:leading-relaxed text-justify">
+                                        <p className="text-white text-[8px] md:text-[12px] lg:text-[14px] xl:text-[16px] md:leading-relaxed text-justify">
                                             {member.bio || `${member.name} is a dedicated ${member.role} at BFC Capital, committed to providing excellence and helping clients reach their goals.`}
                                         </p>
                                     </div>
@@ -327,7 +327,7 @@ export default function AboutUs() {
                 </div>
             </section>
 
-            <section className="bg-white py-5 md:py-15">
+            <section className=" py-5 md:py-15">
                 <div className="container m-auto px-5 md:px-10 lg:px-20">
                     <h2 className="text-[#44475B] text-center text-[25px] md:text-3xl lg:text-4xl font-bold mb-10">
                         Customer Support
@@ -344,7 +344,7 @@ export default function AboutUs() {
                                         className="w-full h-auto transition-transform duration-300 group-hover:scale-105"
                                     />
                                     <div className="absolute inset-0 bg-black/70 flex items-center justify-center p-4 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                                        <p className="text-white text-[8px] md:text-[14px] lg:text-[16px] md:leading-relaxed text-justify">
+                                        <p className="text-white text-[8px] md:text-[12px] lg:text-[14px] xl:text-[16px] md:leading-relaxed text-justify">
                                             {member.bio || `${member.name} is a dedicated ${member.role} at BFC Capital, committed to providing excellence and helping clients reach their goals.`}
                                         </p>
                                     </div>
@@ -357,7 +357,7 @@ export default function AboutUs() {
                 </div>
             </section>
 
-            <section className="bg-white py-5 md:py-15">
+            <section className="py-5 md:py-15">
                 <div className="container m-auto px-5 md:px-10 lg:px-20">
                     <h2 className="text-[#44475B] text-center text-[25px] md:text-3xl lg:text-4xl font-bold mb-10">
                         Research Team
@@ -374,7 +374,7 @@ export default function AboutUs() {
                                         className="w-full h-auto transition-transform duration-300 group-hover:scale-105"
                                     />
                                     <div className="absolute inset-0 bg-black/70 flex items-center justify-center p-4 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                                        <p className="text-white text-[8px] md:text-[14px] lg:text-[16px] md:leading-relaxed text-justify">
+                                        <p className="text-white text-[8px] md:text-[12px] lg:text-[14px] xl:text-[16px] md:leading-relaxed text-justify">
                                             {member.bio || `${member.name} is a dedicated ${member.role} at BFC Capital, committed to providing excellence and helping clients reach their goals.`}
                                         </p>
                                     </div>
@@ -387,7 +387,7 @@ export default function AboutUs() {
                 </div>
             </section>
 
-            <section className="bg-white py-5 md:py-15">
+            <section className="py-5 md:py-15">
                 <div className="container m-auto px-5 md:px-10 lg:px-20">
                     <h2 className="text-[#44475B] text-center text-[25px] md:text-3xl lg:text-4xl font-bold mb-10">
                         Digital Marketing Team
@@ -404,7 +404,7 @@ export default function AboutUs() {
                                         className="w-full h-auto transition-transform duration-300 group-hover:scale-105"
                                     />
                                     <div className="absolute inset-0 bg-black/70 flex items-center justify-center p-4 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                                        <p className="text-white text-[8px] md:text-[14px] lg:text-[16px] md:leading-relaxed text-justify">
+                                        <p className="text-white text-[8px] md:text-[12px] lg:text-[14px] xl:text-[16px] md:leading-relaxed text-justify">
                                             {member.bio || `${member.name} is a dedicated ${member.role} at BFC Capital, committed to providing excellence and helping clients reach their goals.`}
                                         </p>
                                     </div>
@@ -417,7 +417,7 @@ export default function AboutUs() {
                 </div>
             </section>
 
-            <section className="bg-white py-5 md:py-15">
+            <section className="py-5 md:py-15">
                 <div className="container m-auto px-5 md:px-10 lg:px-20">
                     <h2 className="text-[#44475B] text-center text-[25px] md:text-3xl lg:text-4xl font-bold mb-10">
                         Technical Support Team
@@ -434,7 +434,7 @@ export default function AboutUs() {
                                         className="w-full h-auto transition-transform duration-300 group-hover:scale-105"
                                     />
                                     <div className="absolute inset-0 bg-black/70 flex items-center justify-center p-4 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                                        <p className="text-white text-[8px] md:text-[14px] lg:text-[16px] md:leading-relaxed text-justify">
+                                        <p className="text-white text-[8px] md:text-[12px] lg:text-[14px] xl:text-[16px] md:leading-relaxed text-justify">
                                             {member.bio || `${member.name} is a dedicated ${member.role} at BFC Capital, committed to providing excellence and helping clients reach their goals.`}
                                         </p>
                                     </div>
