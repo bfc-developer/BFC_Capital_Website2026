@@ -14,7 +14,7 @@ const Navbar = () => {
     { name: "Home", href: "/" },
     { name: "Mutual Funds", href: "/mutual-funds" },
     { name: "Financial Planning", href: "/financial-planning" },
-    { name: "About Us", href: "/about-us" },
+    { name: "About", href: "/about" },
     { name: "More", href: "/more" },
   ];
 
