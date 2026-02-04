@@ -6,12 +6,12 @@ const ComplaintsTables = () => {
             <h1 className="mb-2 text-[25px] md:text-3xl lg:text-5xl font-bold text-[#44475B] font-inter md:pb-5">
                 Investor Complaints: Investment Advisory
             </h1>
-            
+
             <div className="mb-12 pt-4">
                 <h2 className="font-bold text-[#44475B] mb-6 text-[20px] md:text-3xl lg:text-4xl">
                     Data for the month ending January, 2026
                 </h2>
-                <div className="overflow-x-auto rounded-lg ">
+                <div className="overflow-x-auto rounded-lg bg-[#FFFFFF]">
                     <table className="w-full text-sm text-left text-[#212121]">
                         <thead>
                             <tr
@@ -81,7 +81,7 @@ const ComplaintsTables = () => {
                 <h2 className="font-bold text-[#44475B] mb-6 text-[20px] md:text-3xl lg:text-4xl">
                     Trend of monthly disposal of complaints
                 </h2>
-                <div className="overflow-x-auto rounded-lg">
+                <div className="overflow-x-auto rounded-lg bg-[#FFFFFF]">
                     <table className="w-full text-sm text-left">
                         <thead className="text-gray-800 uppercase font-bold text-xs" style={{ background: 'linear-gradient(270deg, #CFE4F3 0%, #FAFAFA 63.46%)' }}>
                             <tr className='border-b border-gray-100'>
@@ -115,7 +115,7 @@ const ComplaintsTables = () => {
                 <h2 className="font-bold text-[#44475B] mb-6 text-[20px] md:text-3xl lg:text-4xl">
                     Trend of annually disposal of complaints
                 </h2>
-                <div className="overflow-x-auto rounded-lg ">
+                <div className="overflow-x-auto rounded-lg bg-[#FFFFFF]">
                     <table className="w-full text-sm text-left text-gray-700">
                         <thead className="text-gray-800 uppercase font-bold text-xs" style={{ background: 'linear-gradient(270deg, #CFE4F3 0%, #FAFAFA 63.46%)' }}>
                             <tr className='border-b border-gray-100'>
