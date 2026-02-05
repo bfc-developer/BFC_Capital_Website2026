@@ -622,7 +622,7 @@ const Credentials = () => {
                       alt={item.alt}
                       width={200}
                       height={80}
-                      className="object-contain w-[100px] md:w-full md:max-h-full"
+                      className="md:object-contain h-full w-full md:w-full md:max-h-full"
                     />
                   </div>
 
@@ -681,14 +681,14 @@ const SuccessHighlight = () => {
                 ))}
               </div>
 
-              <div className="space-y-6 mb-10">
+              <div className="space-y-6 mb-7 md:mb-10">
                 <p className="text-[12px] md:text-[16px] leading-relaxed max-w-md">
                   Based in Bengaluru, I've been investing with BFC Capital via
                   the Prodigy Pro app for five years. Gained financial
                   confidence and trust, great team, seamless app, and truly
                   positive experience overall.
                 </p>
-                <div className="w-8 h-px /40"></div>
+                <div className="w-8 h-px bg-white/50"></div>
                 <div>
                   <p className="font-extrabold text-[14px] md:text-[20px]">
                     Mitya Moitra
