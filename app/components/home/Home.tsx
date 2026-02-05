@@ -1128,7 +1128,7 @@ const ComplaintsTable = () => {
               </h2>
             </a>
             <div
-              className="w-64 h-1.5 mx-auto rounded-full mt-1"
+              className="md:w-40 lg:w-64 md:h-1.5 mx-auto rounded-full mt-1 w-20 h-1"
               style={{
                 background:
                   "linear-gradient(90deg, #04B488 39.5%, #011EFE 100%)",

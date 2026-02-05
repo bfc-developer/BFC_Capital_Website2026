@@ -8,14 +8,14 @@ const Footer = () => {
             style={{ background: 'linear-gradient(0deg, #CFE4F3 0%, #FAFAFA 68.29%)' }}
         >
             <div className="container mx-auto px-5">
+                <div className="mb-4 flex justify-start">
+                    <Image src="/Logo/CAPLOGO.svg" alt="Logo" width={100} height={100}
+                        className='w-[70%] md:w-[50%] h-[50%] md:h-[45px] object-contain object-left' />
+                </div>
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-16 mb-16">
 
                     {/* Column 1: Compliance & Info */}
                     <div className="space-y-6">
-                        <div className="flex items-center gap-2 mb-4">
-                            <Image src="/Logo/CAPLOGO.svg" alt="Logo" width={100} height={100}
-                                className='w-[70%] md:w-[50%]' />
-                        </div>
 
                         <div className="space-y-4 text-[13px] leading-tight">
                             <div className="space-y-1 ">
