@@ -413,7 +413,7 @@ const ProcessSection = () => {
   return (
     <section className=" py-5 md:py-15 lg:py-24 md:pb-8 overflow-hidden">
       <div className=" mx-auto text-center">
-        <h2 className="mb-6 md:mb-12 text-3xl font-bold text-[20px] md:text-3xl lg:text-5xl text-[#44475B]">
+        <h2 className="mb-6 md:mb-12  font-bold text-[20px] md:text-3xl lg:text-5xl text-[#44475B]">
           A Seamless & User-Friendly Investor Experience
         </h2>
         <div className="flex justify-center py-4 md:mb-5 items-center">
