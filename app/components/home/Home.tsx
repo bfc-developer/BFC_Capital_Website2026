@@ -1498,7 +1498,7 @@ const Home = () => {
               <div className="flex justify-end pt-4 pb-2">
                 <button
                   onClick={() => setShowPopup(false)}
-                  className="bg-[#06A358] text-white px-8 py-2 rounded-full font-inter text-sm transition-colors shadow-sm hover:bg-[#058a48]"
+                  className="cursor-pointer bg-[#06A358] text-white px-8 py-2 rounded-full font-inter text-sm transition-colors shadow-sm hover:bg-[#058a48]"
                 >
                   I Understand
                 </button>
