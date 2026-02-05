@@ -1009,32 +1009,32 @@ const ComplaintsTable = () => {
                     "linear-gradient(270deg, #CFE4F3 0%, #FAFAFA 63.46%)",
                 }}
               >
-                <th className="py-[10px] px-[12px] text-[12px] font-extrabold uppercase tracking-tight text-left whitespace-nowrap">
+                <th className="py-[10px] px-[12px] text-[12px] font-extrabold tracking-tight text-left whitespace-nowrap">
                   Sr.No.
                 </th>
-                <th className="py-[10px] px-[12px] text-[12px] font-extrabold uppercase tracking-tight text-left whitespace-nowrap">
+                <th className="py-[10px] px-[12px] text-[12px] font-extrabold tracking-tight text-left whitespace-nowrap">
                   Received from
                 </th>
-                <th className="py-[10px] px-[12px] text-[12px] font-extrabold uppercase tracking-tight">
+                <th className="py-[10px] px-[12px] text-[12px] font-extrabold tracking-tight">
                   Pending at the end
                   <br />
                   of last month
                 </th>
-                <th className="py-[10px] px-[12px] text-[12px] font-extrabold uppercase tracking-tight">
+                <th className="py-[10px] px-[12px] text-[12px] font-extrabold tracking-tight">
                   Received
                 </th>
-                <th className="py-[10px] px-[12px] text-[12px] font-extrabold uppercase tracking-tight">
+                <th className="py-[10px] px-[12px] text-[12px] font-extrabold tracking-tight">
                   Resolved*
                 </th>
-                <th className="py-[10px] px-[12px] text-[12px] font-extrabold uppercase tracking-tight">
+                <th className="py-[10px] px-[12px] text-[12px] font-extrabold tracking-tight">
                   Total Pending#
                 </th>
-                <th className="py-[10px] px-[12px] text-[12px] font-extrabold uppercase tracking-tight">
+                <th className="py-[10px] px-[12px] text-[12px] font-extrabold tracking-tight">
                   Pending complaints
                   <br />
                   {">"} 3months
                 </th>
-                <th className="py-[10px] px-[12px] text-[12px] font-extrabold uppercase tracking-tight">
+                <th className="py-[10px] px-[12px] text-[12px] font-extrabold tracking-tight">
                   Average Resolution
                   <br />
                   time^ (in days)
@@ -1146,16 +1146,16 @@ const ComplaintsTable = () => {
                       "linear-gradient(270deg, #CFE4F3 0%, #FAFAFA 63.46%)",
                   }}
                 >
-                  <th className="py-[10px] px-[12px] text-[13px] font-extrabold uppercase tracking-tight">
+                  <th className="py-[10px] px-[12px] text-[13px] font-extrabold tracking-tight">
                     Sr.No.
                   </th>
-                  <th className="py-[10px] px-[12px] text-[13px] font-extrabold uppercase tracking-tight text-left">
+                  <th className="py-[10px] px-[12px] text-[13px] font-extrabold tracking-tight text-left">
                     Financial Year
                   </th>
-                  <th className="py-[10px] px-[12px] text-[13px] font-extrabold uppercase tracking-tight">
+                  <th className="py-[10px] px-[12px] text-[13px] font-extrabold tracking-tight">
                     Compliance Audit Status
                   </th>
-                  <th className="py-[10px] px-[12px] text-[13px] font-extrabold uppercase tracking-tight text-left">
+                  <th className="py-[10px] px-[12px] text-[13px] font-extrabold tracking-tight text-left">
                     Remarks, If any
                   </th>
                 </tr>
