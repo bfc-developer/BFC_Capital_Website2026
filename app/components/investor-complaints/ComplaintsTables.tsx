@@ -85,7 +85,7 @@ const ComplaintsTables = () => {
                 </h2>
                 <div className="overflow-x-auto rounded-lg bg-[#FFFFFF]">
                     <table className="w-full text-sm text-left">
-                        <thead className="text-gray-800 uppercase font-bold text-xs" style={{ background: 'linear-gradient(270deg, #CFE4F3 0%, #FAFAFA 63.46%)' }}>
+                        <thead className="text-gray-800 font-bold text-xs" style={{ background: 'linear-gradient(270deg, #CFE4F3 0%, #FAFAFA 63.46%)' }}>
                             <tr className='border-b border-gray-100'>
                                 <th className="px-6 py-4 text-[#4D4D4D]">Sr.No.</th>
                                 <th className="px-6 py-4 text-[#4D4D4D]">Month</th>
@@ -121,7 +121,7 @@ const ComplaintsTables = () => {
                 </h2>
                 <div className="overflow-x-auto rounded-lg bg-[#FFFFFF]">
                     <table className="w-full text-sm text-left text-gray-700">
-                        <thead className="text-gray-800 uppercase font-bold text-xs" style={{ background: 'linear-gradient(270deg, #CFE4F3 0%, #FAFAFA 63.46%)' }}>
+                        <thead className="text-gray-800 font-bold text-xs" style={{ background: 'linear-gradient(270deg, #CFE4F3 0%, #FAFAFA 63.46%)' }}>
                             <tr className='border-b border-gray-100'>
                                 <th className="px-6 py-4 text-[#4D4D4D]">Sr.No.</th>
                                 <th className="px-6 py-4 text-[#4D4D4D]">Year</th>
