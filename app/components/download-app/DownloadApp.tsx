@@ -73,7 +73,7 @@ export default function DownloadApp() {
             </section>
 
             <section className="py-10 md:py-15">
-                <div className="container mx-auto px-5 md:px-10 lg:px-20">
+                <div className="container mx-auto px-5 md:px-10 lg:px-25">
 
                     <div className="text-center py-2 md:py-5">
                         <h2 className="leading-tight font-bold text-[#44475B] text-[20px] md:text-3xl lg:text-5xl">Why Prodigy Pro</h2>
@@ -526,7 +526,7 @@ export default function DownloadApp() {
             </section>
 
             <section className="pb-5 md:pb-12">
-                <div className="container mx-auto px-5 md:px-10 lg:px-20">
+                <div className="container mx-auto px-5 md:px-10 lg:px-25">
 
                     <div className="text-center md:text-left">
 
