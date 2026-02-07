@@ -4,11 +4,9 @@ import { useState } from "react";
 import Link from "next/link";
 import { Menu, X } from "lucide-react";
 import Image from "next/image";
-import { useDeviceType } from "../hooks/useDeviceType";
 
 const Navbar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const deviceType = useDeviceType();
   const toggleMenu = () => setIsMenuOpen(!isMenuOpen);
 
   const navLinks = [
@@ -17,13 +15,7 @@ const Navbar = () => {
     { name: "Financial Planning", href: "/financial-planning" },
     { name: "About", href: "/about" },
     { name: "More", href: "/more" },
-    {
-      name: "Download App",
-      href:
-        deviceType === "ios"
-          ? "https://apps.apple.com/in/app/prodigy-pro-mutual-funds-sip/id1575700744"
-          : "https://play.google.com/store/apps/details?id=com.bfc_mf.prodigy_app",
-    },
+    { name: "Download App", href: "/download-app" },
   ];
 
   const scrollToTop = () => {
