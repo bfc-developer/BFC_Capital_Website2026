@@ -5,28 +5,35 @@ import Image from "next/image";
 export default function DownloadApp() {
     return (
         <>
-            <section className="py-md-5 pb-3 bg_color_prodgy overflow-hidden">
-                <div className="container">
-                    <div className="row justify-content-center align-items-center px-md-3">
-                        <div className="col-md-7 py-2 order-md-1 order-2">
+
+            <section className="py-4 md:py-12 pb-3  shadow-sm overflow-hidden bg-[linear-gradient(to_right,#FAFAFA_45%,#CFE4F3_100%)]">
+                <div className="container mx-auto px-5 md:px-10 lg:px-20">
+                    <div className="flex md:gap-10 flex-col md:flex-row justify-center md:justify-between items-center md:px-3">
+                        <div className="py-2 order-2 md:order-1">
                             <div
-                                className="text-md-start home_smart_heading"
+                                className="text-center md:text-left home_smart_heading"
                                 data-aos="fade-right"
                             >
-                                <h2 className="text-md-start">
+                                <h2 className="md:text-left leading-tight font-bold text-[#44475B] text-[20px] md:text-3xl lg:text-5xl">
                                     Prodigy Pro – Thoughtful investing, Built for clarity.
                                 </h2>
-                                <p className="text-muted text-md-start mb-md-4 py-1 mt-4">
-                                    Investing works best when it is calm, structured, and informed.Prodigy Pro brings that philosophy to your fingertips – a platform designed to help you make better decisions, stay disciplined, and remain focused on long-term outcomes.
+
+                                <p className="mx-auto mt-4 md:mt-8 mb-4 max-w-6xl text-[15px] md:text-[17px] text-[#44475B] leading-relaxed font-inter opacity-90">
+                                    Investing works best when it is calm, structured, and informed.
+                                    Prodigy Pro brings that philosophy to your fingertips.
                                 </p>
-                                <p>
+
+                                <p className="mx-auto mb-4 max-w-6xl text-[15px] md:text-[17px] text-[#44475B] leading-relaxed font-inter opacity-90">
                                     Built for investors who value process over noise.
                                 </p>
                             </div>
 
-                            {/* App Store Buttons */}
-                            <div className="d-flex gap-3 justify-content-md-start justify-content-center">
-                                <Link href="https://play.google.com/store/apps/details?id=com.bfc_mf.prodigy_app" target="_blank" data-aos="fade-up">
+                            <div className="flex gap-3 justify-center md:justify-start">
+                                <Link
+                                    href="https://play.google.com/store/apps/details?id=com.bfc_mf.prodigy_app"
+                                    target="_blank"
+                                    data-aos="fade-up"
+                                >
                                     <Image
                                         src="/DownloadApp/PlayStoreBlack.svg"
                                         alt="Google Play"
@@ -34,7 +41,12 @@ export default function DownloadApp() {
                                         height={45}
                                     />
                                 </Link>
-                                <Link href="https://apps.apple.com/in/app/prodigy-pro-mutual-funds-sip/id1575700744" target="_blank" data-aos="fade-up">
+
+                                <Link
+                                    href="https://apps.apple.com/in/app/prodigy-pro-mutual-funds-sip/id1575700744"
+                                    target="_blank"
+                                    data-aos="fade-up"
+                                >
                                     <Image
                                         src="/DownloadApp/AppStoreBlack.svg"
                                         alt="App Store"
@@ -44,409 +56,143 @@ export default function DownloadApp() {
                                 </Link>
                             </div>
                         </div>
-
-                        <div className="col-md-5 col-7 text-center py-2 order-md-2 order-1">
+                        <div className="text-center py-2 order-1 md:order-2">
                             <Image
                                 src="/DownloadApp/Hero.svg"
                                 alt="Mobile Portfolio"
                                 width={300}
                                 height={600}
-                                className="img-fluid  m-auto"
+                                className="w-[300px] h-[300px] md:w-[400px] md:h-[400px] lg:w-[500px] lg:h-[500px] mx-auto "
                                 data-aos="fade-up"
                                 data-aos-duration="2000"
                             />
                         </div>
+
                     </div>
                 </div>
             </section>
 
-            <section className="py-5">
-                <div className="container">
-                    {/* <div className="text-center smart_heading_prodgy mb-5">
-                        <h2 className="" data-aos="zoom-in"
-                            data-aos-duration="500">Real-Time Portfolio Review</h2>
-                        <p className="w-md-50" data-aos="zoom-in"
-                            data-aos-duration="600">
-Review your portfolio anytime, as many times as you want, completely free of cost. Get accurate, real-time insights so you’re always in control of your investments- and your future too!                        </p>
-                    </div> */}
-                    <h2>Why Prodigy Pro</h2>
+            <section className="py-10 md:py-15">
+                <div className="container mx-auto px-5 md:px-10 lg:px-20">
 
-                    <div className="portfolio_shadow_portionss">
-                        <div className="row">
-                            <div className="col-md-6 pt-md-5 pt-3 order-md-1 order-2">
-                                <div className="px-md-5 px-3">
-                                    <div className="w-md-75 w-100">
-                                        <h4 className="text-dark">A clear view of your portfolio</h4>
-                                        <div className="mb-0 text-dark client_review_prodgy12">
-                                            Track your investments in real time with a clean, consolidated dashboard. No clutter. No confusion. Just a precise picture of where you stand.
-                                        </div>
-                                        <div className="social_yb">
-                                            <Link
-                                                href="https://app.prodigypro.co.in/"
-                                                className="rounded-0 py-2 fw-bold"
-                                                data-aos="fade-right"
-                                            >
-                                                Start Investing Now <i className="bi bi-arrow-right"></i>
-                                            </Link>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div className="col-md-6 bg_color_prodgy pt-5 position-relative order-md-2 order-1">
-                                <Image
-                                    src="/DownloadApp/ClearView.svg"
-                                    alt="Mobile Portfolio"
-                                    width={400}
-                                    height={600}
-                                    className="img-fluid  m-auto imasges-1-portfolio"
-                                    data-aos="fade-up"
-                                    data-aos-duration="2000"
-                                />
-                            </div>
-                        </div>
+                    <div className="text-center py-2 md:py-5">
+                        <h2 className="leading-tight font-bold text-[#44475B] text-[20px] md:text-3xl lg:text-5xl">Why Prodigy Pro</h2>
                     </div>
 
-                    <div className="portfolio_shadow_portionss my-5">
-                        <div className="row">
-                            <div className="col-md-6 pt-md-5 pt-3 order-md-2 order-2">
-                                <div className="px-md-5 px-3">
-                                    <div className="w-md-75 w-100">
-                                        <h4 className="text-dark">Invest with purpose, not guesswork</h4>
-                                        <div className="mb-0 text-dark client_review_prodgy12">
-                                            Define goals – retirement, education, wealth creation – and see how your investments align with them. Planning becomes practical, not theoretical.
-                                        </div>
+                    <div className="bg-white flex flex-wrap my-5 md:my-10 gap-5 md:gap-0 justify-center align-center items-center shadow-sm rounded-[20px] overflow-hidden">
 
-                                        <div className="social_yb">
-                                            <Link
-                                                href="https://app.prodigypro.co.in/"
-                                                className="rounded-0 py-2 fw-bold"
-                                                data-aos="fade-right"
-                                            >
-                                                Get Personalised Plan
-                                                <i className="bi bi-arrow-right"></i>
-                                            </Link>
-                                        </div>
+                        <div className="w-full md:w-6/12 pt-3 md:pt-12 order-2 md:order-1">
+                            <div className="p-3 md:px-12 text-center md:text-left">
+
+                                <div className="w-full md:w-3/4">
+
+                                    <h3 className="text-[15px] md:text-[24px] font-bold text-[#44475B] mb-[10px] md:mb-[20px] leading-tight">
+                                        A clear view of your portfolio
+                                    </h3>
+
+                                    <p className="mx-auto mt-2 md:mt-6 mb-4 max-w-6xl text-[15px] md:text-[17px] text-[#44475B] leading-relaxed font-inter opacity-90">
+                                        Track your investments in real time with a clean dashboard.
+                                    </p>
+
+                                    <div className="bg-[#F7F7F7] w-fit mt-4">
+                                        <Link
+                                            href="https://app.prodigypro.co.in/"
+                                            className="inline-flex items-center text-[15px] md:text-[17px] gap-2 text-blue-600 font-medium px-5 py-2 rounded-sm bg-[#F7F7F7] hover:shadow-md transition duration-300 bg-[linear-gradient(to_right,#04B488_42%,#011EFE_85%)] bg-clip-text text-transparent"
+                                            data-aos="fade-right"
+                                        >
+                                            Start Investing Now
+                                            <span className="text-lg">→</span>
+                                        </Link>
                                     </div>
+
                                 </div>
                             </div>
-                            <div className="col-md-6 bg_color_prodgy pt-5 position-relative order-md-1 order-1">
-                                <Image
-                                    src="/DownloadApp/InvestWithPurpose.svg"
-                                    alt="Mobile Portfolio"
-                                    width={350}
-                                    height={600}
-                                    className="img-fluid  m-auto imasges-1-portfolio"
-                                    data-aos="fade-up"
-                                    data-aos-duration="2000"
-                                />
-                            </div>
                         </div>
+                        <div className="w-full md:w-6/12 bg-[#CFE4F3] pt-5 md:pt-12 relative order-1 md:order-2 text-center">
+
+                            <Image
+                                src="/DownloadApp/ClearView.svg"
+                                alt="Mobile Portfolio"
+                                width={400}
+                                height={600}
+                                className="w-[250px] h-[250px] md:w-[300px] md:h-[300px] lg:w-[400px] lg:h-[400px] mx-auto"
+                                data-aos="fade-up"
+                                data-aos-duration="2000"
+                            />
+
+                        </div>
+
                     </div>
 
-                    <div className="portfolio_shadow_portionss">
-                        <div className="row">
-                            <div className="col-md-6 pt-md-5 pt-3 order-md-1 order-2">
-                                <div className="px-md-5 px-3">
-                                    <div className="w-md-75 w-100">
-                                        <h4 className="text-dark">
-                                            Recommendations that respect your profile
-                                        </h4>
-                                        <div className="mb-0 text-dark client_review_prodgy12">
-                                            Every suggestion is aligned to your risk appetite and time horizon. No generic lists. No one-size-fits-all advice.
-                                        </div>
-                                        <div className="social_yb">
-                                            <Link
-                                                className="rounded-0 py-2 fw-bold"
-                                                href="https://app.prodigypro.co.in/"
-                                                data-aos="fade-right"
-                                            >
-                                                Start Investing<i className="bi bi-arrow-right"></i>
-                                            </Link>
-                                        </div>
+                    <div className="bg-white flex flex-wrap my-5 md:my-10 gap-5 md:gap-0 justify-center align-center items-center shadow-sm rounded-[20px] overflow-hidden">
+
+                        <div className="w-full md:w-6/12 bg-[#CFE4F3] pt-5 md:pt-12 relative text-center">
+                            <Image
+                                src="/DownloadApp/ClearView.svg"
+                                alt="Mobile Portfolio"
+                                width={400}
+                                height={600}
+                                className="w-[250px] h-[250px] md:w-[300px] md:h-[300px] lg:w-[400px] lg:h-[400px] mx-auto"
+                                data-aos="fade-up"
+                                data-aos-duration="2000"
+                            />
+                        </div>
+
+                        <div className="w-full md:w-6/12 pt-3 md:pt-12">
+                            <div className="p-3 md:px-12 text-center md:text-left">
+
+                                <div className="w-full md:w-3/4">
+
+                                    <h3 className="text-[15px] md:text-[24px] font-bold text-[#44475B] mb-[10px] md:mb-[20px] leading-tight">
+                                        A clear view of your portfolio
+                                    </h3>
+
+                                    <p className="mx-auto mt-2 md:mt-6 mb-4 max-w-6xl text-[15px] md:text-[17px] text-[#44475B] leading-relaxed font-inter opacity-90">
+                                        Track your investments in real time with a clean dashboard.
+                                    </p>
+
+                                    <div className="bg-[#F7F7F7] w-fit mt-4">
+                                        <Link
+                                            href="https://app.prodigypro.co.in/"
+                                            className="inline-flex items-center text-[15px] md:text-[17px] gap-2 text-blue-600 font-medium px-5 py-2 rounded-sm bg-[#F7F7F7] hover:shadow-md transition duration-300 bg-[linear-gradient(to_right,#04B488_42%,#011EFE_85%)] bg-clip-text text-transparent"
+                                            data-aos="fade-right"
+                                        >
+                                            Start Investing Now
+                                            <span className="text-lg">→</span>
+                                        </Link>
                                     </div>
+
                                 </div>
                             </div>
-                            <div className="col-md-6 bg_color_prodgy pt-5 position-relative order-md-2 order-1">
-                                <Image
-                                    src="/DownloadApp/RecommendationsThatRespectYourProfile.svg"
-                                    alt="Mobile Portfolio"
-                                    width={350}
-                                    height={600}
-                                    className="img-fluid  m-auto imasges-1-portfolio"
-                                    data-aos="fade-up"
-                                    data-aos-duration="2000"
-                                />
-                            </div>
                         </div>
+
+
                     </div>
 
-                    <div className="portfolio_shadow_portionss my-5">
-                        <div className="row">
-                            <div className="col-md-6 pt-md-5 pt-3 order-md-2 order-2">
-                                <div className="px-md-5 px-3">
-                                    <div className="w-md-75 w-100">
-                                        <h4 className="text-dark">Timely alerts and reviews that matter</h4>
-                                        <div className="mb-0 text-dark client_review_prodgy12">
-                                            Get early signals on underperforming schemes and portfolio deviations through regular portfolio reviews, so decisions are proactive, not reactive.
-                                        </div>
-
-                                        <div className="social_yb">
-                                            <Link
-                                                href="https://app.prodigypro.co.in/"
-                                                className="rounded-0 py-2 fw-bold"
-                                                data-aos="fade-right"
-                                            >
-                                                Review Now
-                                                <i className="bi bi-arrow-right"></i>
-                                            </Link>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div className="col-md-6 bg_color_prodgy pt-5 position-relative order-md-1 order-1">
-                                <Image
-                                    src="/DownloadApp/TimelyAlerts.svg"
-                                    alt="Mobile Portfolio"
-                                    width={350}
-                                    height={600}
-                                    className="img-fluid  m-auto imasges-1-portfolio"
-                                    data-aos="fade-up"
-                                    data-aos-duration="2000"
-                                />
-                            </div>
-                        </div>
-                    </div>
-                    <div className="portfolio_shadow_portionss">
-                        <div className="row">
-                            <div className="col-md-6 pt-md-5 pt-3 order-md-1 order-2">
-                                <div className="px-md-5 px-3">
-                                    <div className="w-md-75 w-100">
-                                        <h4 className="text-dark">One view for the entire family</h4>
-                                        <div className="mb-0 text-dark client_review_prodgy12">
-                                            Manage investments across family members from a single login, with complete transparency and control.
-                                        </div>
-
-                                        <div className="social_yb">
-                                            <Link
-                                                href="https://app.prodigypro.co.in/"
-                                                className="rounded-0 py-2 fw-bold"
-                                                data-aos="fade-right"
-                                            >
-                                                Start Investing Now <i className="bi bi-arrow-right"></i>
-                                            </Link>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div className="col-md-6 bg_color_prodgy pt-5 position-relative order-md-2 order-1">
-                                <Image
-                                    src="/DownloadApp/OneView.svg"
-                                    alt="Mobile Portfolio"
-                                    width={400}
-                                    height={600}
-                                    className="img-fluid  m-auto imasges-1-portfolio"
-                                    data-aos="fade-up"
-                                    data-aos-duration="2000"
-                                />
-                            </div>
-                        </div>
-                    </div>
-
-                    <div className="portfolio_shadow_portionss my-5">
-                        <div className="row">
-                            <div className="col-md-6 pt-md-5 pt-3 order-md-2 order-md-2 order-2">
-                                <div className="px-md-5 px-3">
-                                    <div className="w-md-75 w-100">
-                                        <h4 className="text-dark">
-                                            Stay informed on new opportunities
-                                        </h4>
-                                        <div className="mb-0 text-dark client_review_prodgy12">
-                                            Track live NFOs and explore them with context, not pressure.
-                                        </div>
-
-                                        <div className="social_yb">
-                                            <Link
-                                                href="https://app.prodigypro.co.in/"
-                                                className="rounded-0 py-2 fw-bold"
-                                                data-aos="fade-right"
-                                            >
-                                                Start Investing Now
-                                                <i className="bi bi-arrow-right"></i>
-                                            </Link>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div className="col-md-6 bg_color_prodgy pt-5 position-relative order-md-1 order-1">
-                                <Image
-                                    src="/DownloadApp/StayInformed.svg"
-                                    alt="Mobile Portfolio"
-                                    width={350}
-                                    height={600}
-                                    className="img-fluid  m-auto imasges-1-portfolio"
-                                    data-aos="fade-up"
-                                    data-aos-duration="2000"
-                                />
-                            </div>
-                        </div>
-                    </div>
-                    <div className="portfolio_shadow_portionss">
-                        <div className="row">
-                            <div className="col-md-6 pt-md-5 pt-3 order-md-1 order-2">
-                                <div className="px-md-5 px-3">
-                                    <div className="w-md-75 w-100">
-                                        <h4 className="text-dark">Simple comparisons, better choices</h4>
-                                        <div className="mb-0 text-dark client_review_prodgy12">
-                                            Compare schemes objectively and understand what truly differentiates one option from another.
-                                        </div>
-
-                                        <div className="social_yb">
-                                            <Link
-                                                href="https://app.prodigypro.co.in/"
-                                                className="rounded-0 py-2 fw-bold"
-                                                data-aos="fade-right"
-                                            >Start Investing Now
-                                                <i className="bi bi-arrow-right"></i>
-                                            </Link>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div className="col-md-6 bg_color_prodgy pt-5 position-relative order-md-2 order-1">
-                                <Image
-                                    src="/DownloadApp/SimpleComparisons.svg"
-                                    alt="Mobile Portfolio"
-                                    width={400}
-                                    height={600}
-                                    className="img-fluid  m-auto imasges-1-portfolio"
-                                    data-aos="fade-up"
-                                    data-aos-duration="2000"
-                                />
-                            </div>
-                        </div>
-                    </div>
-
-                    <div className="portfolio_shadow_portionss my-5">
-                        <div className="row">
-                            <div className="col-md-6 pt-md-5 pt-3 order-md-2 order-2">
-                                <div className="px-md-5 px-3">
-                                    <div className="w-md-75 w-100">
-                                        <h4 className="text-dark">Start small. Stay consistent.</h4>
-                                        <div className="mb-0 text-dark client_review_prodgy12">
-                                            Begin SIPs with as little as ₹100 and build discipline without strain.
-                                        </div>
-
-                                        <div className="social_yb">
-                                            <Link
-                                                href="https://app.prodigypro.co.in/"
-                                                className="rounded-0 py-2 fw-bold"
-                                                data-aos="fade-right"
-                                            >
-                                                Start Investing Now
-                                                <i className="bi bi-arrow-right"></i>
-                                            </Link>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div className="col-md-6 bg_color_prodgy pt-5 position-relative order-md-1 order-1">
-                                <Image
-                                    src="/DownloadApp/StartSmall.svg"
-                                    alt="Mobile Portfolio"
-                                    width={350}
-                                    height={600}
-                                    className="img-fluid  m-auto imasges-1-portfolio"
-                                    data-aos="fade-up"
-                                    data-aos-duration="2000"
-                                />
-                            </div>
-                        </div>
-                    </div>
-                    <div className="portfolio_shadow_portionss">
-                        <div className="row">
-                            <div className="col-md-6 pt-md-5 pt-3 order-md-1 order-2">
-                                <div className="px-md-5 px-3">
-                                    <div className="w-md-75 w-100">
-                                        <h4 className="text-dark">Planning tools that work in the real world</h4>
-                                        <div className="mb-0 text-dark client_review_prodgy12">
-                                            Use intuitive calculators to estimate future needs and track progress with realism, not optimism.
-                                        </div>
-
-                                        <div className="social_yb">
-                                            <Link
-                                                href="https://app.prodigypro.co.in/"
-                                                className="rounded-0 py-2 fw-bold"
-                                                data-aos="fade-right"
-                                            >
-                                                Start Investing Now <i className="bi bi-arrow-right"></i>
-                                            </Link>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div className="col-md-6 bg_color_prodgy pt-5 position-relative order-md-2 order-1">
-                                <Image
-                                    src="/DownloadApp/PlanningToolsThatWork.svg"
-                                    alt="Mobile Portfolio"
-                                    width={400}
-                                    height={600}
-                                    className="img-fluid  m-auto imasges-1-portfolio"
-                                    data-aos="fade-up"
-                                    data-aos-duration="2000"
-                                />
-                            </div>
-                        </div>
-                    </div>
-
-                    <div className="portfolio_shadow_portionss my-5">
-                        <div className="row">
-                            <div className="col-md-6 pt-md-5 pt-3 order-md-2 order-2">
-                                <div className="px-md-5 px-3">
-                                    <div className="w-md-75 w-100">
-                                        <h4 className="text-dark">Secure, seamless execution</h4>
-                                        <div className="mb-0 text-dark client_review_prodgy12">
-                                            Digital onboarding, smooth transactions, and bank-grade security – designed to stay out of your way.
-                                        </div>
-
-                                        <div className="social_yb">
-                                            <Link
-                                                href="https://app.prodigypro.co.in/"
-                                                className="rounded-0 py-2 fw-bold"
-                                                data-aos="fade-right"
-                                            >
-                                                Start Investing Now
-                                                <i className="bi bi-arrow-right"></i>
-                                            </Link>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div className="col-md-6 bg_color_prodgy pt-5 position-relative order-md-1 order-1">
-                                <Image
-                                    src="/DownloadApp/SecureSeamless.svg"
-                                    alt="Mobile Portfolio"
-                                    width={350}
-                                    height={600}
-                                    className="img-fluid  m-auto imasges-1-portfolio"
-                                    data-aos="fade-up"
-                                    data-aos-duration="2000"
-                                />
-                            </div>
-                        </div>
-                    </div>
                 </div>
             </section>
 
-            <section className="py-5">
-                <div className="container pt-md-3">
-                    <div className="home_smart_heading" data-aos="zoom-in">
-                        <h2 className="">
+            <section className="pb-5 md:pb-12">
+                <div className="container mx-auto px-5 md:px-10 lg:px-20">
+
+                    <div className="text-center md:text-left">
+
+                        <h2 className="leading-tight font-bold text-[#44475B] text-[20px] md:text-3xl lg:text-5xl">
                             Backed by discipline. Guided by regulation.
                         </h2>
-                        <p>Prodigy Pro is offered through BFC Capital, a SEBI Registered Investment Advisor (RIA). <br />Advice is structured, documented, and aligned with your long-term interest – not product commissions.</p>
+
+                        <p className="mx-auto mt-4 md:mt-8 mb-4 max-w-6xl text-[15px] md:text-[17px] text-[#44475B] leading-relaxed font-inter opacity-90">
+                            Prodigy Pro is offered through BFC Capital, a SEBI Registered
+                            Investment Advisor (RIA). <br />
+                            Advice is structured, documented, and aligned with your long-term interest.
+                        </p>
+
                     </div>
+
                 </div>
             </section>
+
+
         </>
     )
 }
