@@ -40,12 +40,12 @@ const Navbar = () => {
         </div>
 
         {/* Desktop Navigation */}
-        <div className="hidden lg:flex items-center space-x-5 xl:space-x-8">
+        <div className="hidden font-semibold lg:flex items-center space-x-5 xl:space-x-8">
           {navLinks.map((link) => (
             <Link
               key={link.name}
               href={link.href}
-              className="text-gray-700 hover:text-bfc-blue font-base font-inter text-medium transition-colors"
+              className="text-gray-700 hover:text-[#001EFE] font-base font-inter text-medium transition-colors"
             >
               {link.name}
             </Link>
@@ -76,7 +76,7 @@ const Navbar = () => {
 
         {/* Mobile Menu Button */}
         <button
-          className="lg:hidden p-2 text-gray-600 hover:#001EFE transition-colors focus:outline-none"
+          className="lg:hidden p-2 text-gray-600 hover:text-[#001EFE] transition-colors focus:outline-none"
           onClick={toggleMenu}
           aria-label="Toggle menu"
         >
@@ -91,7 +91,7 @@ const Navbar = () => {
             <Link
               key={link.name}
               href={link.href}
-              className="text-gray-800 font-inter text-medium py-2 border-b border-gray-50 hover:#001EFE hover:pl-2 transition-all"
+              className="text-gray-800 font-inter text-medium py-2 border-b border-gray-50 hover:text-[#001EFE] hover:pl-2 transition-all"
               onClick={() => setIsMenuOpen(false)}
             >
               {link.name}
