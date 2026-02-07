@@ -91,7 +91,7 @@ export default function DownloadApp() {
                                     </h3>
 
                                     <p className="mx-auto mt-2 md:mt-6 mb-4 max-w-6xl text-[15px] md:text-[17px] text-[#44475B] leading-relaxed font-inter opacity-90">
-                                        Track your investments in real time with a clean dashboard.
+                                        Track your investments in real time with a clean, consolidated dashboard. No clutter. No confusion. Just a precise picture of where you stand.
                                     </p>
 
                                     <div className="bg-[#F7F7F7] w-fit mt-4">
@@ -119,16 +119,14 @@ export default function DownloadApp() {
                                 data-aos="fade-up"
                                 data-aos-duration="2000"
                             />
-
                         </div>
-
                     </div>
 
                     <div className="bg-white flex flex-wrap my-5 md:my-10 gap-5 md:gap-0 justify-center align-center items-center shadow-sm rounded-[20px] overflow-hidden">
 
                         <div className="w-full md:w-6/12 bg-[#CFE4F3] pt-5 md:pt-12 relative text-center">
                             <Image
-                                src="/DownloadApp/ClearView.svg"
+                                src="/DownloadApp/InvestWithPurpose.svg"
                                 alt="Mobile Portfolio"
                                 width={400}
                                 height={600}
@@ -144,11 +142,366 @@ export default function DownloadApp() {
                                 <div className="w-full md:w-3/4">
 
                                     <h3 className="text-[15px] md:text-[24px] font-bold text-[#44475B] mb-[10px] md:mb-[20px] leading-tight">
-                                        A clear view of your portfolio
+                                        Invest with purpose, not guesswork
                                     </h3>
 
                                     <p className="mx-auto mt-2 md:mt-6 mb-4 max-w-6xl text-[15px] md:text-[17px] text-[#44475B] leading-relaxed font-inter opacity-90">
-                                        Track your investments in real time with a clean dashboard.
+                                        Define goals – retirement, education, wealth creation – and see how your investments align with them. Planning becomes practical, not theoretical.
+                                    </p>
+
+                                    <div className="bg-[#F7F7F7] w-fit mt-4">
+                                        <Link
+                                            href="https://app.prodigypro.co.in/"
+                                            className="inline-flex items-center text-[15px] md:text-[17px] gap-2 text-blue-600 font-medium px-5 py-2 rounded-sm bg-[#F7F7F7] hover:shadow-md transition duration-300 bg-[linear-gradient(to_right,#04B488_42%,#011EFE_85%)] bg-clip-text text-transparent"
+                                            data-aos="fade-right"
+                                        >
+                                            Get Personalised Plan
+                                            <span className="text-lg">→</span>
+                                        </Link>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+
+
+                    </div>
+                    <div className="bg-white flex flex-wrap my-5 md:my-10 gap-5 md:gap-0 justify-center align-center items-center shadow-sm rounded-[20px] overflow-hidden">
+
+                        <div className="w-full md:w-6/12 pt-3 md:pt-12 order-2 md:order-1">
+                            <div className="p-3 md:px-12 text-center md:text-left">
+
+                                <div className="w-full md:w-3/4">
+
+                                    <h3 className="text-[15px] md:text-[24px] font-bold text-[#44475B] mb-[10px] md:mb-[20px] leading-tight">
+                                        Recommendations that respect your profile
+                                    </h3>
+
+                                    <p className="mx-auto mt-2 md:mt-6 mb-4 max-w-6xl text-[15px] md:text-[17px] text-[#44475B] leading-relaxed font-inter opacity-90">
+                                        Every suggestion is aligned to your risk appetite and time horizon. No generic lists. No one-size-fits-all advice.
+                                    </p>
+
+                                    <div className="bg-[#F7F7F7] w-fit mt-4">
+                                        <Link
+                                            href="https://app.prodigypro.co.in/"
+                                            className="inline-flex items-center text-[15px] md:text-[17px] gap-2 text-blue-600 font-medium px-5 py-2 rounded-sm bg-[#F7F7F7] hover:shadow-md transition duration-300 bg-[linear-gradient(to_right,#04B488_42%,#011EFE_85%)] bg-clip-text text-transparent"
+                                            data-aos="fade-right"
+                                        >
+                                            Start Investing
+                                            <span className="text-lg">→</span>
+                                        </Link>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+                        <div className="w-full md:w-6/12 bg-[#CFE4F3] pt-5 md:pt-12 relative order-1 md:order-2 text-center">
+
+                            <Image
+                                src="/DownloadApp/RecommendationsThatRespectYourProfile.svg"
+                                alt="Mobile Portfolio"
+                                width={400}
+                                height={600}
+                                className="w-[250px] h-[250px] md:w-[300px] md:h-[300px] lg:w-[400px] lg:h-[400px] mx-auto"
+                                data-aos="fade-up"
+                                data-aos-duration="2000"
+                            />
+
+                        </div>
+
+                    </div>
+                    <div className="bg-white flex flex-wrap my-5 md:my-10 gap-5 md:gap-0 justify-center align-center items-center shadow-sm rounded-[20px] overflow-hidden">
+
+                        <div className="w-full md:w-6/12 bg-[#CFE4F3] pt-5 md:pt-12 relative text-center">
+                            <Image
+                                src="/DownloadApp/TimelyAlerts.svg"
+                                alt="Mobile Portfolio"
+                                width={400}
+                                height={600}
+                                className="w-[250px] h-[250px] md:w-[300px] md:h-[300px] lg:w-[400px] lg:h-[400px] mx-auto"
+                                data-aos="fade-up"
+                                data-aos-duration="2000"
+                            />
+                        </div>
+
+                        <div className="w-full md:w-6/12 pt-3 md:pt-12">
+                            <div className="p-3 md:px-12 text-center md:text-left">
+
+                                <div className="w-full md:w-3/4">
+
+                                    <h3 className="text-[15px] md:text-[24px] font-bold text-[#44475B] mb-[10px] md:mb-[20px] leading-tight">
+                                        Timely alerts and reviews that matter
+                                    </h3>
+
+                                    <p className="mx-auto mt-2 md:mt-6 mb-4 max-w-6xl text-[15px] md:text-[17px] text-[#44475B] leading-relaxed font-inter opacity-90">
+                                        Get early signals on underperforming schemes and portfolio deviations through regular portfolio reviews, so decisions are proactive, not reactive.
+                                    </p>
+
+                                    <div className="bg-[#F7F7F7] w-fit mt-4">
+                                        <Link
+                                            href="https://app.prodigypro.co.in/"
+                                            className="inline-flex items-center text-[15px] md:text-[17px] gap-2 text-blue-600 font-medium px-5 py-2 rounded-sm bg-[#F7F7F7] hover:shadow-md transition duration-300 bg-[linear-gradient(to_right,#04B488_42%,#011EFE_85%)] bg-clip-text text-transparent"
+                                            data-aos="fade-right"
+                                        >
+                                            Review Now
+                                            <span className="text-lg">→</span>
+                                        </Link>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+
+
+                    </div>
+                    <div className="bg-white flex flex-wrap my-5 md:my-10 gap-5 md:gap-0 justify-center align-center items-center shadow-sm rounded-[20px] overflow-hidden">
+
+                        <div className="w-full md:w-6/12 pt-3 md:pt-12 order-2 md:order-1">
+                            <div className="p-3 md:px-12 text-center md:text-left">
+
+                                <div className="w-full md:w-3/4">
+
+                                    <h3 className="text-[15px] md:text-[24px] font-bold text-[#44475B] mb-[10px] md:mb-[20px] leading-tight">
+                                        One view for the entire family
+                                    </h3>
+
+                                    <p className="mx-auto mt-2 md:mt-6 mb-4 max-w-6xl text-[15px] md:text-[17px] text-[#44475B] leading-relaxed font-inter opacity-90">
+                                        Manage investments across family members from a single login, with complete transparency and control.
+                                    </p>
+
+                                    <div className="bg-[#F7F7F7] w-fit mt-4">
+                                        <Link
+                                            href="https://app.prodigypro.co.in/"
+                                            className="inline-flex items-center text-[15px] md:text-[17px] gap-2 text-blue-600 font-medium px-5 py-2 rounded-sm bg-[#F7F7F7] hover:shadow-md transition duration-300 bg-[linear-gradient(to_right,#04B488_42%,#011EFE_85%)] bg-clip-text text-transparent"
+                                            data-aos="fade-right"
+                                        >
+                                            Start Investing Now
+                                            <span className="text-lg">→</span>
+                                        </Link>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+                        <div className="w-full md:w-6/12 bg-[#CFE4F3] pt-5 md:pt-12 relative order-1 md:order-2 text-center">
+
+                            <Image
+                                src="/DownloadApp/OneView.svg"
+                                alt="Mobile Portfolio"
+                                width={400}
+                                height={600}
+                                className="w-[250px] h-[250px] md:w-[300px] md:h-[300px] lg:w-[400px] lg:h-[400px] mx-auto"
+                                data-aos="fade-up"
+                                data-aos-duration="2000"
+                            />
+
+                        </div>
+
+                    </div>
+
+                    <div className="bg-white flex flex-wrap my-5 md:my-10 gap-5 md:gap-0 justify-center align-center items-center shadow-sm rounded-[20px] overflow-hidden">
+
+                        <div className="w-full md:w-6/12 bg-[#CFE4F3] pt-5 md:pt-12 relative text-center">
+                            <Image
+                                src="/DownloadApp/StayInformed.svg"
+                                alt="Mobile Portfolio"
+                                width={400}
+                                height={600}
+                                className="w-[250px] h-[250px] md:w-[300px] md:h-[300px] lg:w-[400px] lg:h-[400px] mx-auto"
+                                data-aos="fade-up"
+                                data-aos-duration="2000"
+                            />
+                        </div>
+
+                        <div className="w-full md:w-6/12 pt-3 md:pt-12">
+                            <div className="p-3 md:px-12 text-center md:text-left">
+
+                                <div className="w-full md:w-3/4">
+
+                                    <h3 className="text-[15px] md:text-[24px] font-bold text-[#44475B] mb-[10px] md:mb-[20px] leading-tight">
+                                        Stay informed on new opportunities
+                                    </h3>
+
+                                    <p className="mx-auto mt-2 md:mt-6 mb-4 max-w-6xl text-[15px] md:text-[17px] text-[#44475B] leading-relaxed font-inter opacity-90">
+                                        Track live NFOs and explore them with context, not pressure.
+                                    </p>
+
+                                    <div className="bg-[#F7F7F7] w-fit mt-4">
+                                        <Link
+                                            href="https://app.prodigypro.co.in/"
+                                            className="inline-flex items-center text-[15px] md:text-[17px] gap-2 text-blue-600 font-medium px-5 py-2 rounded-sm bg-[#F7F7F7] hover:shadow-md transition duration-300 bg-[linear-gradient(to_right,#04B488_42%,#011EFE_85%)] bg-clip-text text-transparent"
+                                            data-aos="fade-right"
+                                        >
+                                            Start Investing Now
+                                            <span className="text-lg">→</span>
+                                        </Link>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+
+
+                    </div>
+                    <div className="bg-white flex flex-wrap my-5 md:my-10 gap-5 md:gap-0 justify-center align-center items-center shadow-sm rounded-[20px] overflow-hidden">
+
+                        <div className="w-full md:w-6/12 pt-3 md:pt-12 order-2 md:order-1">
+                            <div className="p-3 md:px-12 text-center md:text-left">
+
+                                <div className="w-full md:w-3/4">
+
+                                    <h3 className="text-[15px] md:text-[24px] font-bold text-[#44475B] mb-[10px] md:mb-[20px] leading-tight">
+                                        Simple comparisons, better choices
+                                    </h3>
+
+                                    <p className="mx-auto mt-2 md:mt-6 mb-4 max-w-6xl text-[15px] md:text-[17px] text-[#44475B] leading-relaxed font-inter opacity-90">
+                                        Compare schemes objectively and understand what truly differentiates one option from another.
+                                    </p>
+
+                                    <div className="bg-[#F7F7F7] w-fit mt-4">
+                                        <Link
+                                            href="https://app.prodigypro.co.in/"
+                                            className="inline-flex items-center text-[15px] md:text-[17px] gap-2 text-blue-600 font-medium px-5 py-2 rounded-sm bg-[#F7F7F7] hover:shadow-md transition duration-300 bg-[linear-gradient(to_right,#04B488_42%,#011EFE_85%)] bg-clip-text text-transparent"
+                                            data-aos="fade-right"
+                                        >
+                                            Start Investing Now
+                                            <span className="text-lg">→</span>
+                                        </Link>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+                        <div className="w-full md:w-6/12 bg-[#CFE4F3] pt-5 md:pt-12 relative order-1 md:order-2 text-center">
+
+                            <Image
+                                src="/DownloadApp/SimpleComparisons.svg"
+                                alt="Mobile Portfolio"
+                                width={400}
+                                height={600}
+                                className="w-[250px] h-[250px] md:w-[300px] md:h-[300px] lg:w-[400px] lg:h-[400px] mx-auto"
+                                data-aos="fade-up"
+                                data-aos-duration="2000"
+                            />
+
+                        </div>
+
+                    </div>
+
+                    <div className="bg-white flex flex-wrap my-5 md:my-10 gap-5 md:gap-0 justify-center align-center items-center shadow-sm rounded-[20px] overflow-hidden">
+
+                        <div className="w-full md:w-6/12 bg-[#CFE4F3] pt-5 md:pt-12 relative text-center">
+                            <Image
+                                src="/DownloadApp/StartSmall.svg"
+                                alt="Mobile Portfolio"
+                                width={400}
+                                height={600}
+                                className="w-[250px] h-[250px] md:w-[300px] md:h-[300px] lg:w-[400px] lg:h-[400px] mx-auto"
+                                data-aos="fade-up"
+                                data-aos-duration="2000"
+                            />
+                        </div>
+
+                        <div className="w-full md:w-6/12 pt-3 md:pt-12">
+                            <div className="p-3 md:px-12 text-center md:text-left">
+
+                                <div className="w-full md:w-3/4">
+
+                                    <h3 className="text-[15px] md:text-[24px] font-bold text-[#44475B] mb-[10px] md:mb-[20px] leading-tight">
+                                        Start small. Stay consistent.
+                                    </h3>
+
+                                    <p className="mx-auto mt-2 md:mt-6 mb-4 max-w-6xl text-[15px] md:text-[17px] text-[#44475B] leading-relaxed font-inter opacity-90">
+                                        Begin SIPs with as little as ₹100 and build discipline without strain.
+                                    </p>
+
+                                    <div className="bg-[#F7F7F7] w-fit mt-4">
+                                        <Link
+                                            href="https://app.prodigypro.co.in/"
+                                            className="inline-flex items-center text-[15px] md:text-[17px] gap-2 text-blue-600 font-medium px-5 py-2 rounded-sm bg-[#F7F7F7] hover:shadow-md transition duration-300 bg-[linear-gradient(to_right,#04B488_42%,#011EFE_85%)] bg-clip-text text-transparent"
+                                            data-aos="fade-right"
+                                        >
+                                            Start Investing Now
+                                            <span className="text-lg">→</span>
+                                        </Link>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+
+
+                    </div>
+
+                    <div className="bg-white flex flex-wrap my-5 md:my-10 gap-5 md:gap-0 justify-center align-center items-center shadow-sm rounded-[20px] overflow-hidden">
+
+                        <div className="w-full md:w-6/12 pt-3 md:pt-12 order-2 md:order-1">
+                            <div className="p-3 md:px-12 text-center md:text-left">
+
+                                <div className="w-full md:w-3/4">
+
+                                    <h3 className="text-[15px] md:text-[24px] font-bold text-[#44475B] mb-[10px] md:mb-[20px] leading-tight">
+                                        Planning tools that work in the real world
+                                    </h3>
+
+                                    <p className="mx-auto mt-2 md:mt-6 mb-4 max-w-6xl text-[15px] md:text-[17px] text-[#44475B] leading-relaxed font-inter opacity-90">
+                                        Use intuitive calculators to estimate future needs and track progress with realism, not optimism.
+                                    </p>
+
+                                    <div className="bg-[#F7F7F7] w-fit mt-4">
+                                        <Link
+                                            href="https://app.prodigypro.co.in/"
+                                            className="inline-flex items-center text-[15px] md:text-[17px] gap-2 text-blue-600 font-medium px-5 py-2 rounded-sm bg-[#F7F7F7] hover:shadow-md transition duration-300 bg-[linear-gradient(to_right,#04B488_42%,#011EFE_85%)] bg-clip-text text-transparent"
+                                            data-aos="fade-right"
+                                        >
+                                            Start Investing Now
+                                            <span className="text-lg">→</span>
+                                        </Link>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+                        <div className="w-full md:w-6/12 bg-[#CFE4F3] pt-5 md:pt-12 relative order-1 md:order-2 text-center">
+
+                            <Image
+                                src="/DownloadApp/PlanningToolsThatWork.svg"
+                                alt="Mobile Portfolio"
+                                width={400}
+                                height={600}
+                                className="w-[250px] h-[250px] md:w-[300px] md:h-[300px] lg:w-[400px] lg:h-[400px] mx-auto"
+                                data-aos="fade-up"
+                                data-aos-duration="2000"
+                            />
+
+                        </div>
+
+                    </div>
+                    <div className="bg-white flex flex-wrap my-5 md:my-10 gap-5 md:gap-0 justify-center align-center items-center shadow-sm rounded-[20px] overflow-hidden">
+
+                        <div className="w-full md:w-6/12 bg-[#CFE4F3] pt-5 md:pt-12 relative text-center">
+                            <Image
+                                src="/DownloadApp/SecureSeamless.svg"
+                                alt="Mobile Portfolio"
+                                width={400}
+                                height={600}
+                                className="w-[250px] h-[250px] md:w-[300px] md:h-[300px] lg:w-[400px] lg:h-[400px] mx-auto"
+                                data-aos="fade-up"
+                                data-aos-duration="2000"
+                            />
+                        </div>
+
+                        <div className="w-full md:w-6/12 pt-3 md:pt-12">
+                            <div className="p-3 md:px-12 text-center md:text-left">
+
+                                <div className="w-full md:w-3/4">
+
+                                    <h3 className="text-[15px] md:text-[24px] font-bold text-[#44475B] mb-[10px] md:mb-[20px] leading-tight">
+                                        Secure, seamless execution
+                                    </h3>
+
+                                    <p className="mx-auto mt-2 md:mt-6 mb-4 max-w-6xl text-[15px] md:text-[17px] text-[#44475B] leading-relaxed font-inter opacity-90">
+                                        Digital onboarding, smooth transactions, and bank-grade security – designed to stay out of your way.
                                     </p>
 
                                     <div className="bg-[#F7F7F7] w-fit mt-4">
