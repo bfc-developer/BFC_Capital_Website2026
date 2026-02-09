@@ -38,7 +38,7 @@ const ComplaintsTables = () => {
                                 <td className="px-6 py-4 font-semibold text-center">0</td>
                                 <td className="px-6 py-4 font-semibold text-center">0</td>
                                 <td className="px-6 py-4 font-semibold text-center">0</td>
-                                <td className="px-6 py-4 text-center font-semibold">NA</td>
+                                <td className="px-6 py-4 text-center font-semibold">N/A</td>
                             </tr>
                             <tr>
                                 <td className="px-6 py-4 font-bold text-left">2</td>
@@ -48,7 +48,7 @@ const ComplaintsTables = () => {
                                 <td className="px-6 py-4 font-semibold text-center">0</td>
                                 <td className="px-6 py-4 font-semibold text-center">0</td>
                                 <td className="px-6 py-4 font-semibold text-center">0</td>
-                                <td className="px-6 py-4 text-center font-semibold">NA</td>
+                                <td className="px-6 py-4 text-center font-semibold">N/A</td>
                             </tr>
                             <tr>
                                 <td className="px-6 py-4 font-bold text-left">3</td>
@@ -58,7 +58,7 @@ const ComplaintsTables = () => {
                                 <td className="px-6 py-4 font-semibold text-center">0</td>
                                 <td className="px-6 py-4 font-semibold text-center">0</td>
                                 <td className="px-6 py-4 font-semibold text-center">0</td>
-                                <td className="px-6 py-4 text-center font-semibold">NA</td>
+                                <td className="px-6 py-4 text-center font-semibold">N/A</td>
                             </tr>
                             <tr className="text-[#212121] border-t border-gray-100" style={{ background: 'linear-gradient(270deg, #CFE4F3 0%, #FAFAFA 63.46%)' }}>
                                 <td className="px-6 py-4"></td>
@@ -68,7 +68,7 @@ const ComplaintsTables = () => {
                                 <td className="px-6 py-4 text-[#212121] font-semibold text-center">0</td>
                                 <td className="px-6 py-4 text-[#212121] font-semibold text-center">0</td>
                                 <td className="px-6 py-4 text-[#212121] font-semibold text-center">0</td>
-                                <td className="px-6 py-4 text-[#212121] font-semibold text-center">NA</td>
+                                <td className="px-6 py-4 text-[#212121] font-semibold text-center">N/A</td>
                             </tr>
                         </tbody>
 

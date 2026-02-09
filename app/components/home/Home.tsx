@@ -966,7 +966,7 @@ const ComplaintsTable = () => {
       resolved: 0,
       totalPending: 0,
       pending3Months: 0,
-      avgTime: "NA",
+      avgTime: "N/A",
     },
     {
       sr: 2,
@@ -976,7 +976,7 @@ const ComplaintsTable = () => {
       resolved: 0,
       totalPending: 0,
       pending3Months: 0,
-      avgTime: "NA",
+      avgTime: "N/A",
     },
     {
       sr: 3,
@@ -986,7 +986,7 @@ const ComplaintsTable = () => {
       resolved: 0,
       totalPending: 0,
       pending3Months: 0,
-      avgTime: "NA",
+      avgTime: "N/A",
     },
   ];
 
@@ -1087,7 +1087,7 @@ const ComplaintsTable = () => {
                 <td className="py-[10px] px-[12px] text-[13px] font-bold text-center">0</td>
                 <td className="py-[10px] px-[12px] text-[13px] font-bold text-center">0</td>
                 <td className="py-[10px] px-[12px] text-[13px] text-[#44475B] font-bold uppercase text-center">
-                  NA
+                  N/A
                 </td>
               </tr>
             </tbody>
