@@ -75,7 +75,9 @@ const ComplaintsTables = () => {
                     </table>
                 </div>
                 <div className="mt-2 text-xs space-y-1 text-[#333333]">
-                    <p>^ Average Resolution time is the sum total of time taken to resolve each complaint in days, in the current month divided by total number of complaints resolved in the current month.</p>
+                    <p>* Inclusive of complaints of previous months resolved in the current month. <br />
+                        # Inclusive of complaints pending as on the last day of the month <br />
+                        ^ Average Resolution time is the sum total of time taken to resolve each complaint in days, in the current month divided by total number of complaints resolved in the current month.</p>
                 </div>
             </div>
 

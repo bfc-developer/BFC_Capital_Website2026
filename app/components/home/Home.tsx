@@ -1096,9 +1096,9 @@ const ComplaintsTable = () => {
 
         <div className="max-w-6xl mx-auto mt-8 flex flex-col md:flex-row justify-between items-start md:items-center gap-6 px-4">
           <p className="text-[13px] text-[#44475B] max-w-2xl leading-relaxed italic font-medium">
-            ^ Average Resolution time is the sum total of time taken to resolve
-            each complaint in days, in the current month divided by total number
-            of complaints resolved in the current month.
+            * Inclusive of complaints of previous months resolved in the current month. <br />
+            # Inclusive of complaints pending as on the last day of the month <br />
+            ^ Average Resolution time is the sum total of time taken to resolve each complaint in days, in the current month divided by total number of complaints resolved in the current month.
           </p>
           <Link href="/investor-complaints">
             <button className="bg-bfc-green text-white px-10 py-3 rounded-full font-bold hover:bg-green-700 transition-all shadow-md active:scale-95 whitespace-nowrap">
