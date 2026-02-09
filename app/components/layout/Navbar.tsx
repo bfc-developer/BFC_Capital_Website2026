@@ -4,11 +4,12 @@ import { useState } from "react";
 import Link from "next/link";
 import { Menu, X } from "lucide-react";
 import Image from "next/image";
+import { usePathname } from "next/navigation";
 
 const Navbar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const toggleMenu = () => setIsMenuOpen(!isMenuOpen);
-
+  const pathname = usePathname();
   const navLinks = [
     { name: "Home", href: "/" },
     { name: "Mutual Funds", href: "/mutual-funds" },
@@ -41,15 +42,24 @@ const Navbar = () => {
 
         {/* Desktop Navigation */}
         <div className="hidden font-semibold lg:flex items-center space-x-5 xl:space-x-8">
-          {navLinks.map((link) => (
-            <Link
-              key={link.name}
-              href={link.href}
-              className="text-gray-700 hover:text-[#001EFE] font-base font-inter text-medium transition-colors"
-            >
-              {link.name}
-            </Link>
-          ))}
+          {navLinks.map((link) => {
+            const isActive = pathname === link.href;
+
+            return (
+              <Link
+                key={link.name}
+                href={link.href}
+                className={`font-inter transition-colors
+              ${isActive
+                    ? "text-[#001EFE] font-semibold"
+                    : "text-gray-700 hover:text-[#001EFE]"
+                  }
+            `}
+              >
+                {link.name}
+              </Link>
+            );
+          })}
         </div>
 
         {/* Action Buttons (Desktop) */}
