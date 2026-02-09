@@ -1012,29 +1012,29 @@ const ComplaintsTable = () => {
                 <th className="py-[10px] px-[12px] text-[12px] font-extrabold tracking-tight text-left whitespace-nowrap">
                   Sr.No.
                 </th>
-                <th className="py-[10px] px-[12px] text-[12px] font-extrabold tracking-tight text-left whitespace-nowrap">
+                <th className="py-[10px] px-[12px] text-[12px] font-extrabold tracking-tight text-left whitespace-nowrap text-left">
                   Received from
                 </th>
-                <th className="py-[10px] px-[12px] text-[12px] font-extrabold tracking-tight">
+                <th className="py-[10px] px-[12px] text-[12px] font-extrabold tracking-tight text-center">
                   Pending at the end
                   <br />
                   of last month
                 </th>
-                <th className="py-[10px] px-[12px] text-[12px] font-extrabold tracking-tight">
+                <th className="py-[10px] px-[12px] text-[12px] font-extrabold tracking-tight text-center">
                   Received
                 </th>
-                <th className="py-[10px] px-[12px] text-[12px] font-extrabold tracking-tight">
+                <th className="py-[10px] px-[12px] text-[12px] font-extrabold tracking-tight text-center">
                   Resolved*
                 </th>
-                <th className="py-[10px] px-[12px] text-[12px] font-extrabold tracking-tight">
+                <th className="py-[10px] px-[12px] text-[12px] font-extrabold tracking-tight text-center">
                   Total Pending#
                 </th>
-                <th className="py-[10px] px-[12px] text-[12px] font-extrabold tracking-tight">
+                <th className="py-[10px] px-[12px] text-[12px] font-extrabold tracking-tight text-center">
                   Pending complaints
                   <br />
                   {">"} 3months
                 </th>
-                <th className="py-[10px] px-[12px] text-[12px] font-extrabold tracking-tight">
+                <th className="py-[10px] px-[12px] text-[12px] font-extrabold tracking-tight text-center">
                   Average Resolution
                   <br />
                   time^ (in days)
@@ -1050,22 +1050,22 @@ const ComplaintsTable = () => {
                   <td className="py-[12px] px-[12px] text-sm font-semibold text-left text-gray-700 whitespace-nowrap">
                     {row.from}
                   </td>
-                  <td className="py-[12px] px-[12px] text-sm font-bold">
+                  <td className="py-[12px] px-[12px] text-sm font-bold text-center">
                     {row.lastMonth}
                   </td>
-                  <td className="py-[12px] px-[12px] text-sm font-bold">
+                  <td className="py-[12px] px-[12px] text-sm font-bold text-center">
                     {row.received}
                   </td>
-                  <td className="py-[12px] px-[12px] text-sm font-bold">
+                  <td className="py-[12px] px-[12px] text-sm font-bold text-center">
                     {row.resolved}
                   </td>
-                  <td className="py-[12px] px-[12px] text-sm font-bold">
+                  <td className="py-[12px] px-[12px] text-sm font-bold text-center">
                     {row.totalPending}
                   </td>
-                  <td className="py-[12px] px-[12px] text-sm font-bold">
+                  <td className="py-[12px] px-[12px] text-sm font-bold text-center">
                     {row.pending3Months}
                   </td>
-                  <td className="py-[12px] px-[12px] text-sm font-bold text-[#44475B]">
+                  <td className="py-[12px] px-[12px] text-sm font-bold text-[#44475B] text-center">
                     {row.avgTime}
                   </td>
                 </tr>
@@ -1078,15 +1078,15 @@ const ComplaintsTable = () => {
                 }}
               >
                 <td className="py-[10px] px-[12px] text-[13px]"></td>
-                <td className="py-[10px] px-[12px] text-[13px] text-left uppercase tracking-tight">
+                <td className="py-[10px] px-[12px] text-[13px] text-left uppercase font-bold tracking-tight text-left">
                   Grand Total
                 </td>
-                <td className="py-[10px] px-[12px] text-[13px]">0</td>
-                <td className="py-[10px] px-[12px] text-[13px]">0</td>
-                <td className="py-[10px] px-[12px] text-[13px]">0</td>
-                <td className="py-[10px] px-[12px] text-[13px]">0</td>
-                <td className="py-[10px] px-[12px] text-[13px]">0</td>
-                <td className="py-[10px] px-[12px] text-[13px] text-[#44475B] font-bold uppercase">
+                <td className="py-[10px] px-[12px] text-[13px] font-bold text-center">0</td>
+                <td className="py-[10px] px-[12px] text-[13px] font-bold text-center">0</td>
+                <td className="py-[10px] px-[12px] text-[13px] font-bold text-center">0</td>
+                <td className="py-[10px] px-[12px] text-[13px] font-bold text-center">0</td>
+                <td className="py-[10px] px-[12px] text-[13px] font-bold text-center">0</td>
+                <td className="py-[10px] px-[12px] text-[13px] text-[#44475B] font-bold uppercase text-center">
                   NA
                 </td>
               </tr>
@@ -1146,16 +1146,16 @@ const ComplaintsTable = () => {
                       "linear-gradient(270deg, #CFE4F3 0%, #FAFAFA 63.46%)",
                   }}
                 >
-                  <th className="py-[10px] px-[12px] text-[13px] font-extrabold tracking-tight">
+                  <th className="py-[10px] px-[12px] text-[13px] font-extrabold tracking-tight text-center">
                     Sr.No.
                   </th>
-                  <th className="py-[10px] px-[12px] text-[13px] font-extrabold tracking-tight text-left">
+                  <th className="py-[10px] px-[12px] text-[13px] font-extrabold tracking-tight text-center">
                     Financial Year
                   </th>
-                  <th className="py-[10px] px-[12px] text-[13px] font-extrabold tracking-tight">
+                  <th className="py-[10px] px-[12px] text-[13px] font-extrabold tracking-tight text-center">
                     Compliance Audit Status
                   </th>
-                  <th className="py-[10px] px-[12px] text-[13px] font-extrabold tracking-tight text-left">
+                  <th className="py-[10px] px-[12px] text-[13px] font-extrabold tracking-tight text-center">
                     Remarks, If any
                   </th>
                 </tr>
