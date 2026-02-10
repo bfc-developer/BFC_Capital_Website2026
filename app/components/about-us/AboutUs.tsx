@@ -252,9 +252,9 @@ export default function AboutUs() {
                     </h2>
                     <div className="flex flex-wrap justify-center gap-10">
                         {wealthManagementTeam.map((member, index) => (
-                            <div key={index} 
+                            <div key={index}
                                 onClick={() => handleCardClick(member.name)}
-                                className="flex flex-col items-center text-center w-[calc(50%-1.5rem)] lg:w-[calc(33.333%-2.5rem)] cursor-pointer select-none">
+                                className="flex flex-col items-center text-center w-full min-[480px]:w-[calc(50%-1.5rem)] lg:w-[calc(33.333%-2.5rem)] cursor-pointer select-none">
                                 <div className="w-full relative mb-4 overflow-hidden group">
                                     <Image
                                         src={member.image}
@@ -263,14 +263,14 @@ export default function AboutUs() {
                                         height={500}
                                         className="w-full h-auto transition-transform duration-300 group-hover:scale-105"
                                     />
-                                    <div className={`absolute inset-0 bg-black/70 flex items-center justify-center p-4 transition-opacity duration-300 ${activeMember === member.name ? "opacity-100" : "opacity-0"} lg:group-hover:opacity-100`}>
-                                        <p className="text-white text-[8px] md:text-[12px] lg:text-[14px] xl:text-[16px] md:leading-relaxed text-justify">
+                                    <div className={`absolute inset-0 bg-black/70 flex items-center justify-center p-3 sm:p-4 transition-opacity duration-300 ${activeMember === member.name ? "opacity-100" : "opacity-0"} lg:group-hover:opacity-100 overflow-y-auto`}>
+                                        <p className="text-white text-[11px] min-[400px]:text-[12px] md:text-[14px] lg:text-[14px] xl:text-[16px] leading-relaxed text-justify">
                                             {member.bio || `${member.name} is a dedicated ${member.role} at BFC Capital, committed to providing excellence and helping clients reach their goals.`}
                                         </p>
                                     </div>
                                 </div>
                                 <h4 className="text-[#44475B] font-bold text-[15px] md:text-[20px] lg:text-[24px] mb-1">{member.name}</h4>
-                                <p className="text-[#44475B] text-[12px] text-[14px] lg:text-[17px] leading-relaxed">{member.role}</p>
+                                <p className="text-[#44475B] text-[12px] md:text-[14px] lg:text-[17px] leading-relaxed">{member.role}</p>
                             </div>
                         ))}
                     </div>
@@ -284,9 +284,9 @@ export default function AboutUs() {
                     </h2>
                     <div className="flex flex-wrap justify-center gap-10">
                         {operationsTeam.map((member, index) => (
-                            <div key={index} 
+                            <div key={index}
                                 onClick={() => handleCardClick(member.name)}
-                                className="flex flex-col items-center text-center w-[calc(50%-1.5rem)] lg:w-[calc(33.333%-2.5rem)] cursor-pointer select-none">
+                                className="flex flex-col items-center text-center w-full min-[480px]:w-[calc(50%-1.5rem)] lg:w-[calc(33.333%-2.5rem)] cursor-pointer select-none">
                                 <div className="w-full relative mb-4 overflow-hidden group">
                                     <Image
                                         src={member.image}
@@ -295,14 +295,14 @@ export default function AboutUs() {
                                         height={500}
                                         className="w-full h-auto transition-transform duration-300 group-hover:scale-105"
                                     />
-                                    <div className={`absolute inset-0 bg-black/70 flex items-center justify-center p-4 transition-opacity duration-300 ${activeMember === member.name ? "opacity-100" : "opacity-0"} lg:group-hover:opacity-100`}>
-                                        <p className="text-white text-[8px] md:text-[12px] lg:text-[14px] xl:text-[16px] md:leading-relaxed text-justify">
+                                    <div className={`absolute inset-0 bg-black/70 flex items-center justify-center p-3 sm:p-4 transition-opacity duration-300 ${activeMember === member.name ? "opacity-100" : "opacity-0"} lg:group-hover:opacity-100 overflow-y-auto`}>
+                                        <p className="text-white text-[11px] min-[400px]:text-[12px] md:text-[14px] lg:text-[14px] xl:text-[16px] leading-relaxed text-justify">
                                             {member.bio || `${member.name} is a dedicated ${member.role} at BFC Capital, committed to providing excellence and helping clients reach their goals.`}
                                         </p>
                                     </div>
                                 </div>
                                 <h4 className="text-[#44475B] font-bold text-[15px] md:text-[20px] lg:text-[24px] mb-1">{member.name}</h4>
-                                <p className="text-[#44475B] text-[12px] text-[14px] lg:text-[17px] leading-relaxed">{member.role}</p>
+                                <p className="text-[#44475B] text-[12px] md:text-[14px] lg:text-[17px] leading-relaxed">{member.role}</p>
                             </div>
                         ))}
                     </div>
@@ -316,9 +316,9 @@ export default function AboutUs() {
                     </h2>
                     <div className="flex flex-wrap justify-center gap-10">
                         {hrAccountsTeam.map((member, index) => (
-                            <div key={index} 
+                            <div key={index}
                                 onClick={() => handleCardClick(member.name)}
-                                className="flex flex-col items-center text-center w-[calc(50%-1.5rem)] lg:w-[calc(33.333%-2.5rem)] cursor-pointer select-none">
+                                className="flex flex-col items-center text-center w-full min-[480px]:w-[calc(50%-1.5rem)] lg:w-[calc(33.333%-2.5rem)] cursor-pointer select-none">
                                 <div className="w-full relative mb-4 overflow-hidden group">
                                     <Image
                                         src={member.image}
@@ -327,14 +327,14 @@ export default function AboutUs() {
                                         height={500}
                                         className="w-full h-auto transition-transform duration-300 group-hover:scale-105"
                                     />
-                                    <div className={`absolute inset-0 bg-black/70 flex items-center justify-center p-4 transition-opacity duration-300 ${activeMember === member.name ? "opacity-100" : "opacity-0"} lg:group-hover:opacity-100`}>
-                                        <p className="text-white text-[8px] md:text-[12px] lg:text-[14px] xl:text-[16px] md:leading-relaxed text-justify">
+                                    <div className={`absolute inset-0 bg-black/70 flex items-center justify-center p-3 sm:p-4 transition-opacity duration-300 ${activeMember === member.name ? "opacity-100" : "opacity-0"} lg:group-hover:opacity-100 overflow-y-auto`}>
+                                        <p className="text-white text-[11px] min-[400px]:text-[12px] md:text-[14px] lg:text-[14px] xl:text-[16px] leading-relaxed text-justify">
                                             {member.bio || `${member.name} is a dedicated ${member.role} at BFC Capital, committed to providing excellence and helping clients reach their goals.`}
                                         </p>
                                     </div>
                                 </div>
                                 <h4 className="text-[#44475B] font-bold text-[15px] md:text-[20px] lg:text-[24px] mb-1">{member.name}</h4>
-                                <p className="text-[#44475B] text-[12px] text-[14px] lg:text-[17px] leading-relaxed">{member.role}</p>
+                                <p className="text-[#44475B] text-[12px] md:text-[14px] lg:text-[17px] leading-relaxed">{member.role}</p>
                             </div>
                         ))}
                     </div>
@@ -348,9 +348,9 @@ export default function AboutUs() {
                     </h2>
                     <div className="flex flex-wrap justify-center gap-10">
                         {customerSupportTeam.map((member, index) => (
-                            <div key={index} 
+                            <div key={index}
                                 onClick={() => handleCardClick(member.name)}
-                                className="flex flex-col items-center text-center w-[calc(50%-1.5rem)] lg:w-[calc(33.333%-2.5rem)] cursor-pointer select-none">
+                                className="flex flex-col items-center text-center w-full min-[480px]:w-[calc(50%-1.5rem)] lg:w-[calc(33.333%-2.5rem)] cursor-pointer select-none">
                                 <div className="w-full relative mb-4 overflow-hidden group">
                                     <Image
                                         src={member.image}
@@ -359,14 +359,14 @@ export default function AboutUs() {
                                         height={500}
                                         className="w-full h-auto transition-transform duration-300 group-hover:scale-105"
                                     />
-                                    <div className={`absolute inset-0 bg-black/70 flex items-center justify-center p-4 transition-opacity duration-300 ${activeMember === member.name ? "opacity-100" : "opacity-0"} lg:group-hover:opacity-100`}>
-                                        <p className="text-white text-[8px] md:text-[12px] lg:text-[14px] xl:text-[16px] md:leading-relaxed text-justify">
+                                    <div className={`absolute inset-0 bg-black/70 flex items-center justify-center p-3 sm:p-4 transition-opacity duration-300 ${activeMember === member.name ? "opacity-100" : "opacity-0"} lg:group-hover:opacity-100 overflow-y-auto`}>
+                                        <p className="text-white text-[11px] min-[400px]:text-[12px] md:text-[14px] lg:text-[14px] xl:text-[16px] leading-relaxed text-justify">
                                             {member.bio || `${member.name} is a dedicated ${member.role} at BFC Capital, committed to providing excellence and helping clients reach their goals.`}
                                         </p>
                                     </div>
                                 </div>
                                 <h4 className="text-[#44475B] font-bold text-[15px] md:text-[20px] lg:text-[24px] mb-1">{member.name}</h4>
-                                <p className="text-[#44475B] text-[12px] text-[14px] lg:text-[17px] leading-relaxed">{member.role}</p>
+                                <p className="text-[#44475B] text-[12px] md:text-[14px] lg:text-[17px] leading-relaxed">{member.role}</p>
                             </div>
                         ))}
                     </div>
@@ -380,9 +380,9 @@ export default function AboutUs() {
                     </h2>
                     <div className="flex flex-wrap justify-center gap-10">
                         {researchTeam.map((member, index) => (
-                            <div key={index} 
+                            <div key={index}
                                 onClick={() => handleCardClick(member.name)}
-                                className="flex flex-col items-center text-center w-[calc(50%-1.5rem)] lg:w-[calc(33.333%-2.5rem)] cursor-pointer select-none">
+                                className="flex flex-col items-center text-center w-full min-[480px]:w-[calc(50%-1.5rem)] lg:w-[calc(33.333%-2.5rem)] cursor-pointer select-none">
                                 <div className="w-full relative mb-4 overflow-hidden group">
                                     <Image
                                         src={member.image}
@@ -391,14 +391,14 @@ export default function AboutUs() {
                                         height={500}
                                         className="w-full h-auto transition-transform duration-300 group-hover:scale-105"
                                     />
-                                    <div className={`absolute inset-0 bg-black/70 flex items-center justify-center p-4 transition-opacity duration-300 ${activeMember === member.name ? "opacity-100" : "opacity-0"} lg:group-hover:opacity-100`}>
-                                        <p className="text-white text-[8px] md:text-[12px] lg:text-[14px] xl:text-[16px] md:leading-relaxed text-justify">
+                                    <div className={`absolute inset-0 bg-black/70 flex items-center justify-center p-3 sm:p-4 transition-opacity duration-300 ${activeMember === member.name ? "opacity-100" : "opacity-0"} lg:group-hover:opacity-100 overflow-y-auto`}>
+                                        <p className="text-white text-[11px] min-[400px]:text-[12px] md:text-[14px] lg:text-[14px] xl:text-[16px] leading-relaxed text-justify">
                                             {member.bio || `${member.name} is a dedicated ${member.role} at BFC Capital, committed to providing excellence and helping clients reach their goals.`}
                                         </p>
                                     </div>
                                 </div>
                                 <h4 className="text-[#44475B] font-bold text-[15px] md:text-[20px] lg:text-[24px] mb-1">{member.name}</h4>
-                                <p className="text-[#44475B] text-[12px] text-[14px] lg:text-[17px] leading-relaxed">{member.role}</p>
+                                <p className="text-[#44475B] text-[12px] md:text-[14px] lg:text-[17px] leading-relaxed">{member.role}</p>
                             </div>
                         ))}
                     </div>
@@ -412,9 +412,9 @@ export default function AboutUs() {
                     </h2>
                     <div className="flex flex-wrap justify-center gap-10">
                         {digitalMarketingTeam.map((member, index) => (
-                            <div key={index} 
+                            <div key={index}
                                 onClick={() => handleCardClick(member.name)}
-                                className="flex flex-col items-center text-center w-[calc(50%-1.5rem)] lg:w-[calc(33.333%-2.5rem)] cursor-pointer select-none">
+                                className="flex flex-col items-center text-center w-full min-[480px]:w-[calc(50%-1.5rem)] lg:w-[calc(33.333%-2.5rem)] cursor-pointer select-none">
                                 <div className="w-full relative mb-4 overflow-hidden group">
                                     <Image
                                         src={member.image}
@@ -423,14 +423,14 @@ export default function AboutUs() {
                                         height={500}
                                         className="w-full h-auto transition-transform duration-300 group-hover:scale-105"
                                     />
-                                    <div className={`absolute inset-0 bg-black/70 flex items-center justify-center p-4 transition-opacity duration-300 ${activeMember === member.name ? "opacity-100" : "opacity-0"} lg:group-hover:opacity-100`}>
-                                        <p className="text-white text-[8px] md:text-[12px] lg:text-[14px] xl:text-[16px] md:leading-relaxed text-justify">
+                                    <div className={`absolute inset-0 bg-black/70 flex items-center justify-center p-3 sm:p-4 transition-opacity duration-300 ${activeMember === member.name ? "opacity-100" : "opacity-0"} lg:group-hover:opacity-100 overflow-y-auto`}>
+                                        <p className="text-white text-[11px] min-[400px]:text-[12px] md:text-[14px] lg:text-[14px] xl:text-[16px] leading-relaxed text-justify">
                                             {member.bio || `${member.name} is a dedicated ${member.role} at BFC Capital, committed to providing excellence and helping clients reach their goals.`}
                                         </p>
                                     </div>
                                 </div>
                                 <h4 className="text-[#44475B] font-bold text-[15px] md:text-[20px] lg:text-[24px] mb-1">{member.name}</h4>
-                                <p className="text-[#44475B] text-[12px] text-[14px] lg:text-[17px] leading-relaxed">{member.role}</p>
+                                <p className="text-[#44475B] text-[12px] md:text-[14px] lg:text-[17px] leading-relaxed">{member.role}</p>
                             </div>
                         ))}
                     </div>
@@ -444,9 +444,9 @@ export default function AboutUs() {
                     </h2>
                     <div className="flex flex-wrap justify-center gap-10">
                         {technicalSupportTeam.map((member, index) => (
-                            <div key={index} 
+                            <div key={index}
                                 onClick={() => handleCardClick(member.name)}
-                                className="flex flex-col items-center text-center w-[calc(50%-1.5rem)] lg:w-[calc(33.333%-2.5rem)] cursor-pointer select-none">
+                                className="flex flex-col items-center text-center w-full min-[480px]:w-[calc(50%-1.5rem)] lg:w-[calc(33.333%-2.5rem)] cursor-pointer select-none">
                                 <div className="w-full relative mb-4 overflow-hidden group">
                                     <Image
                                         src={member.image}
@@ -455,14 +455,14 @@ export default function AboutUs() {
                                         height={500}
                                         className="w-full h-auto transition-transform duration-300 group-hover:scale-105"
                                     />
-                                    <div className={`absolute inset-0 bg-black/70 flex items-center justify-center p-4 transition-opacity duration-300 ${activeMember === member.name ? "opacity-100" : "opacity-0"} lg:group-hover:opacity-100`}>
-                                        <p className="text-white text-[8px] md:text-[12px] lg:text-[14px] xl:text-[16px] md:leading-relaxed text-justify">
+                                    <div className={`absolute inset-0 bg-black/70 flex items-center justify-center p-3 sm:p-4 transition-opacity duration-300 ${activeMember === member.name ? "opacity-100" : "opacity-0"} lg:group-hover:opacity-100 overflow-y-auto`}>
+                                        <p className="text-white text-[11px] min-[400px]:text-[12px] md:text-[14px] lg:text-[14px] xl:text-[16px] leading-relaxed text-justify">
                                             {member.bio || `${member.name} is a dedicated ${member.role} at BFC Capital, committed to providing excellence and helping clients reach their goals.`}
                                         </p>
                                     </div>
                                 </div>
                                 <h4 className="text-[#44475B] font-bold text-[15px] md:text-[20px] lg:text-[24px] mb-1">{member.name}</h4>
-                                <p className="text-[#44475B] text-[12px] text-[14px] lg:text-[17px] leading-relaxed">{member.role}</p>
+                                <p className="text-[#44475B] text-[12px] md:text-[14px] lg:text-[17px] leading-relaxed">{member.role}</p>
                             </div>
                         ))}
                     </div>
