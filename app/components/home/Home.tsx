@@ -17,6 +17,10 @@ import Navbar from "../layout/Navbar";
 import Footer from "../layout/Footer";
 import VideoCarousel from "../common/VideoCarousel";
 import { useSwipeable } from "react-swipeable";
+import gsap from "gsap";
+import ScrollTrigger from "gsap/ScrollTrigger";
+
+gsap.registerPlugin(ScrollTrigger);
 
 // --- Sub-Components ---
 
@@ -305,7 +309,50 @@ const VideoSection = () => {
   );
 };
 
+interface AdvantageCardProps {
+  icon: string;
+  title: string;
+  desc: string;
+}
+
+const AdvantageCard = ({ icon, title, desc }: AdvantageCardProps) => (
+  <div className="flex flex-col items-center border border-[#EBEAEA] rounded-[20px] md:rounded-[32px] w-full pt-[20px] md:pt-[32px] lg:pt-[40px] pb-[20px] md:pb-[32px] lg:pb-[40px] px-[15px] md:px-[25px] lg:px-[35px] text-center transition-all duration-300 hover:scale-[1.02] shadow-[0_8px_30px_rgb(0,0,0,0.04)] hover:shadow-[0_0_40px_5px_rgba(37,211,102,0.4)] group bg-[#FFFFFF] min-h-[250px] md:h-[350px] lg:h-[420px] justify-center relative z-10">
+    <div className="relative items-center justify-center mb-[15px] md:mb-[25px] lg:mb-[30px]">
+      <Image
+        src={icon}
+        alt={title}
+        width={100}
+        height={100}
+        className="object-contain w-[40px] sm:w-[50px] md:w-[70px] lg:w-[90px]"
+      />
+    </div>
+    <h3 className="text-[16px] md:text-[22px] lg:text-[26px] font-bold text-[#44475B] mb-[8px] md:mb-[16px] leading-tight">
+      {title}
+    </h3>
+    <p className="text-[12px] md:text-[15px] lg:text-[17px] leading-relaxed text-[#44475B] font-inter opacity-90 overflow-hidden line-clamp-4 md:line-clamp-none">
+      {desc}
+    </p>
+  </div>
+);
+
 const AdvantageSection = () => {
+  const [isMobile, setIsMobile] = useState(false);
+  const [isTablet, setIsTablet] = useState(false);
+  const [isMounted, setIsMounted] = useState(false);
+  const sectionRef = useRef<HTMLDivElement>(null);
+  const pinWrapperRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    setIsMounted(true);
+    const handleResize = () => {
+      setIsMobile(window.innerWidth < 768);
+      setIsTablet(window.innerWidth >= 768 && window.innerWidth < 1024);
+    };
+    handleResize();
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
+
   const features = [
     {
       icon: "/Home/BFCAdvantage/PeriodicPortfolio.svg",
@@ -369,38 +416,103 @@ const AdvantageSection = () => {
     },
   ];
 
+  const itemsPerRow = isMobile ? 1 : (isTablet ? 2 : 3);
+  const rowsData = [];
+  for (let i = 0; i < features.length; i += itemsPerRow) {
+    rowsData.push(features.slice(i, i + itemsPerRow));
+  }
+
+  useEffect(() => {
+    if (!isMounted) return;
+
+    const ctx = gsap.context(() => {
+      const rows = gsap.utils.toArray(".advantage-row-item");
+      if (rows.length === 0) return;
+
+      const tl = gsap.timeline({
+        scrollTrigger: {
+          trigger: sectionRef.current,
+          start: isMobile ? "top 70px" : "top 80px",
+          end: `+=${rows.length * 100}%`, // Balanced scroll distance
+          pin: pinWrapperRef.current,
+          scrub: 1, // Responsive scrub
+          invalidateOnRefresh: true,
+        },
+      });
+
+      rows.forEach((row: any, i) => {
+        // First row is already visible (static start)
+        if (i === 0) {
+          // Increase static time for Row 0 - The effect loads AFTER pinning
+          tl.to(row, {
+            opacity: 1,
+            duration: 2, // Moderate static hold
+          });
+        } else {
+          tl.to(row, {
+            opacity: 1,
+            y: 0,
+            pointerEvents: "auto",
+            duration: 2,
+            ease: "power2.out",
+          });
+
+          tl.to(row, {
+            opacity: 1,
+            duration: 3,
+          });
+        }
+
+        // Current row fades out when next row is mostly in
+        if (i < rows.length - 1) {
+          tl.to(row, {
+            opacity: 0,
+            y: -100,
+            pointerEvents: "none",
+            duration: 2,
+            ease: "power2.in",
+          });
+        }
+      });
+    });
+
+    return () => ctx.revert();
+  }, [isMounted, isMobile, rowsData.length]);
+
+  if (!isMounted) return null;
+
   return (
-    <section className="py-5 md:py-15 lg:py-24">
-      <div className="container mx-auto px-5 md:px-10 lg:px-20">
-        <div className="mb-10 md:mb-16 text-center">
-          <h2 className="font-bold text-[#44475B] text-[20px] md:text-3xl lg:text-5xl">
+    <section
+      ref={sectionRef}
+      className="relative min-h-[600px] md:min-h-screen bg-white w-full"
+    >
+      <div
+        ref={pinWrapperRef}
+        className="relative w-full h-full pt-1 md:pt-4 flex flex-col items-center justify-start"
+      >
+        <div className="container relative z-10 mx-auto px-5 mb-8 md:mb-12 text-center pointer-events-none">
+          <h2 className="font-bold text-[#44475B] text-[26px] md:text-5xl lg:text-6xl">
             BFC Advantage
           </h2>
-          <p className="md:mt-2 text-gray-600 text-[15px] md:text-[17px]">
+          <p className="mt-2 text-gray-600 text-[15px] md:text-xl">
             Invest smart! Give your investments the BFC Advantage
           </p>
         </div>
-        <div className="grid gap-3 md:gap-x-8 md:gap-y-12 grid-cols-2 lg:grid-cols-3 justify-items-center">
-          {features.map((feature, idx) => (
+
+        <div className="relative w-full max-w-7xl min-h-[280px] md:h-[360px] lg:h-[360px] flex items-center justify-center px-4 xl:px-32 xl:pt-16">
+          {rowsData.map((row, rowIdx) => (
             <div
-              key={idx}
-              className="flex flex-col items-center  border border-[#EBEAEA] rounded-[15px] md:rounded-[24px] w-full pt-[10px] md:pt-[28px] pb-[10px] md:pb-[28px] px-[10px] md:px-[32px] text-center transition-all hover:shadow-md group bg-[#FFFFFF]"
+              key={rowIdx}
+              className={`advantage-row-item absolute left-4 right-4 grid gap-6 transition-all duration-300 pointer-events-none ${isMobile ? "grid-cols-1" : (isTablet ? "grid-cols-2" : "grid-cols-3")
+                } ${rowIdx === 0 ? "opacity-100 translate-y-0" : "opacity-0 translate-y-[50px] md:translate-y-[100px]"}`}
             >
-              <div className="relative items-center justify-center mb-[20px]">
-                <Image
-                  src={feature.icon}
-                  alt={feature.title}
-                  width={80}
-                  height={80}
-                  className="object-contain w-[40px] sm:w-[50px] md:w-[80px] lg:w-full"
-                />
-              </div>
-              <h3 className="text-[15px] md:text-[24px] font-bold text-[#44475B] mb-[10px] md:mb-[20px] leading-tight">
-                {feature.title}
-              </h3>
-              <p className="text-[13px] md:text-[17px] leading-4 md:leading-6 text-[#44475B] font-inter">
-                {feature.desc}
-              </p>
+              {row.map((feature, featureIdx) => (
+                <div key={featureIdx} className="flex justify-center h-full">
+                  <div className="w-full h-full">
+                    <AdvantageCard {...feature} />
+                  </div>
+                </div>
+              ))}
             </div>
           ))}
         </div>
