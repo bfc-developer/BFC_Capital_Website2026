@@ -43,7 +43,7 @@ const Footer = () => {
                             <div className="space-y-1">
                                 <h2 className="font-bold text-[#44475B] text-[17px]">Compliance Officer:</h2>
                                 <div className="text-[14px] md:text-[17px] leading-relaxed lg:leading-6">
-                                    <p>Sunil Gupta, <a href="tel:+918960006601" className="hover:text-[#001EFE]">Phone: +91 89600 06601</a></p>
+                                    <p>Sunil Gupta</p>
                                     <p><a href="mailto:sunilgupta@bfccapital.com" className="hover:text-[#001EFE]">sunilgupta@bfccapital.com</a></p>
                                 </div>
 

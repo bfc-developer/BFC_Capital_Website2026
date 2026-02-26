@@ -4,6 +4,7 @@ import { useState } from "react";
 import Link from "next/link";
 import { Menu, X, ChevronDown } from "lucide-react";
 import Image from "next/image";
+import { usePathname } from "next/navigation";
 
 const Navbar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -12,6 +13,9 @@ const Navbar = () => {
   const toggleMenu = () => setIsMenuOpen(!isMenuOpen);
   const toggleMore = () => setIsMoreOpen(!isMoreOpen);
 
+  const pathname = usePathname();
+
+  const isActive = (path: string) => pathname === path;
   const scrollToTop = () => {
     window.scrollTo({ top: 0, behavior: "smooth" });
   };
@@ -35,15 +39,15 @@ const Navbar = () => {
         {/* Desktop Navigation */}
         <div className="hidden xl:flex items-center space-x-5 xl:space-x-[28px] relative">
 
-          <Link href="/" className="text-[#4B4949] font-[500] text-[15px] hover:text-[#001EFE] font-base font-inter transition-colors"> Home</Link>
-          <Link href="/mutual-funds" className="text-[#4B4949] font-[500] text-[15px] hover:text-[#001EFE] font-base font-inter transition-colors"> Mutual Funds</Link>
-          <Link href="/sif" className="text-[#4B4949] font-[500] text-[15px] hover:text-[#001EFE] font-base font-inter transition-colors"> SIF</Link>
-          <Link href="/financial-planning" className="text-[#4B4949] font-[500] text-[15px] hover:text-[#001EFE] font-base font-inter transition-colors"> Financial Planning</Link>
+          <Link href="/" className={`${isActive("/") ? "text-[#001EFE]" : "text-[#4B4949]"} font-[500] text-[15px] hover:text-[#001EFE] font-base font-inter transition-colors`}> Home</Link>
+          <Link href="/mutual-funds" className={`${isActive("/mutual-funds") ? "text-[#001EFE]" : "text-[#4B4949]"} font-[500] text-[15px] hover:text-[#001EFE] font-base font-inter transition-colors`}> Mutual Funds</Link>
+          <Link href="/sif" className={`${isActive("/sif") ? "text-[#001EFE]" : "text-[#4B4949]"} font-[500] text-[15px] hover:text-[#001EFE] font-base font-inter transition-colors`}> SIF</Link>
+          <Link href="/financial-planning" className={`${isActive("/financial-planning") ? "text-[#001EFE]" : "text-[#4B4949]"} font-[500] text-[15px] hover:text-[#001EFE] font-base font-inter transition-colors`}> Financial Planning</Link>
           {/* More Dropdown */}
           <div className="relative">
             <button
               onClick={toggleMore}
-              className="flex items-center gap-1 text-[#4B4949] font-[500] text-[15px] hover:text-[#001EFE] font-base font-inter transition-colors"
+              className="flex items-center gap-1 text-[#4B4949] font-[500] text-[15px] hover:text-[#001EFE] font-base font-inter transition-colors cursor-pointer"
             >
               More
               {/* More <ChevronDown size={16} /> */}
@@ -52,27 +56,27 @@ const Navbar = () => {
             {isMoreOpen && (
               <div className="absolute top-8 left-[-5rem] bg-white shadow-lg border border-gray-100 rounded-md py-2 w-90 z-50 p-4">
                 <div className="px-md-4 mb-2">
-                  <Link href="/about" className="text-[#4B4949] font-[500] text-[15px] hover:text-[#001EFE] font-base font-inter transition-colors"> About </Link>
+                  <Link href="/about" className={`${isActive("/about") ? "text-[#001EFE]" : "text-[#4B4949]"} font-[500] text-[15px] hover:text-[#001EFE] font-base font-inter transition-colors`}> About </Link>
                   <p className="text-[#4B4949] text-[11px] font-base font-inter transition-colors text-[13px] leading-tight">Where research meets responsible advice.</p>
                 </div>
                 <div className="px-md-4 mb-2">
-                  <Link href="/financial-calculators" className="text-[#4B4949] font-[500] text-[15px] hover:text-[#001EFE] font-base font-inter transition-colors"
+                  <Link href="/financial-calculators" className={`${isActive("/financial-calculators") ? "text-[#001EFE]" : "text-[#4B4949]"} font-[500] text-[15px] hover:text-[#001EFE] font-base font-inter transition-colors`}
                   > Financial Calculators </Link>
                   <p className="text-[#4B4949] text-[11px] font-base font-inter transition-colors text-[13px] leading-tight">Because good decisions need good numbers.</p>
                 </div>
                 <div className="px-md-4 mb-2">
-                  <Link href="/blog" className="text-[#4B4949] font-[500] text-[15px] hover:text-[#001EFE] font-base font-inter transition-colors"
+                  <Link href="/blog" className={`${isActive("/blog") ? "text-[#001EFE]" : "text-[#4B4949]"} font-[500] text-[15px] hover:text-[#001EFE] font-base font-inter transition-colors`}
                   > Blog </Link>
                   <p className="text-[#4B4949] text-[11px] font-base font-inter transition-colors text-[13px] leading-tight">Insights that help you invest with confidence.</p>
                 </div>
                 <div className="px-md-4 mb-2">
-                  <Link href="/career" className="text-[#4B4949] font-[500] text-[15px] hover:text-[#001EFE] font-base font-inter transition-colors"
+                  <Link href="/career" className={`${isActive("/career") ? "text-[#001EFE]" : "text-[#4B4949]"} font-[500] text-[15px] hover:text-[#001EFE] font-base font-inter transition-colors`}
                   > Career </Link>
                   <p className="text-[#4B4949] text-[11px] font-base font-inter transition-colors text-[13px] leading-tight">Do meaningful work. Build lasting value.</p>
                 </div>
                 <div className="px-md-4 mb-2">
                   <Link href="/contact-us
-							" className="text-[#4B4949] font-[500] text-[15px] hover:text-[#001EFE] font-base font-inter transition-colors"
+							" className={`${isActive("/contact-us") ? "text-[#001EFE]" : "text-[#4B4949]"} font-[500] text-[15px] hover:text-[#001EFE] font-base font-inter transition-colors`}
                   > Contact Us
                   </Link>
                   <p className="text-[#4B4949] text-[11px] font-base font-inter transition-colors text-[13px] leading-tight">Start a smarter financial conversation.</p>
@@ -80,7 +84,7 @@ const Navbar = () => {
               </div>
             )}
           </div>
-          <Link href="/download-app" className="text-[#4B4949] font-[500] text-[15px] hover:text-[#001EFE] font-base font-inter transition-colors"> Download App</Link>
+          <Link href="/download-app" className={`${isActive("/download-app") ? "text-[#001EFE]" : "text-[#4B4949]"} font-[500] text-[15px] hover:text-[#001EFE] font-base font-inter transition-colors`}> Download App</Link>
         </div>
 
         {/* Desktop Buttons */}
@@ -117,19 +121,19 @@ const Navbar = () => {
         <div className="xl:hidden absolute top-20 left-0 w-full bg-white shadow-lg border-t border-gray-100 py-4 px-4 flex flex-col gap-4 animate-in slide-in-from-top-5 duration-200">
 
 
-          <Link href="/" className="text-[#4B4949] font-[500] text-[15px] hover:text-[#001EFE] font-inter border-b border-gray-50 hover:pl-2 transition-all"
+          <Link href="/" className={`${isActive("/") ? "text-[#001EFE]" : "text-[#4B4949]"} font-[500] text-[15px] hover:text-[#001EFE] font-inter border-b border-gray-50 hover:pl-2 transition-all`}
           >
             Home
           </Link>
-          <Link href="/mutual-funds" className="text-[#4B4949] font-[500] text-[15px] hover:text-[#001EFE] font-inter border-b border-gray-50 hover:pl-2 transition-all"
+          <Link href="/mutual-funds" className={`${isActive("/mutual-funds") ? "text-[#001EFE]" : "text-[#4B4949]"} font-[500] text-[15px] hover:text-[#001EFE] font-inter border-b border-gray-50 hover:pl-2 transition-all`}
           >
             Mutual Funds
           </Link>
-          <Link href="/sif" className="text-[#4B4949] font-[500] text-[15px] hover:text-[#001EFE] font-inter border-b border-gray-50 hover:pl-2 transition-all"
+          <Link href="/sif" className={`${isActive("/sif") ? "text-[#001EFE]" : "text-[#4B4949]"} font-[500] text-[15px] hover:text-[#001EFE] font-inter border-b border-gray-50 hover:pl-2 transition-all`}
           >
             SIF
           </Link>
-          <Link href="/financial-planning" className="text-[#4B4949] font-[500] text-[15px] hover:text-[#001EFE] font-inter border-b border-gray-50 hover:pl-2 transition-all"
+          <Link href="/financial-planning" className={`${isActive("/financial-planning") ? "text-[#001EFE]" : "text-[#4B4949]"} font-[500] text-[15px] hover:text-[#001EFE] font-inter border-b border-gray-50 hover:pl-2 transition-all`}
           >
             Financial Planning
           </Link>
@@ -147,27 +151,27 @@ const Navbar = () => {
             {isMoreOpen && (
               <div className="pl-4 flex flex-col gap-2 mt-2">
                 <div className="px-md-4 mb-1">
-                  <Link href="/about" className="text-[#4B4949] font-[500] text-[15px] hover:text-[#001EFE] font-base font-inter transition-colors"> About </Link>
+                  <Link href="/about" className={`${isActive("/about") ? "text-[#001EFE]" : "text-[#4B4949]"} font-[500] text-[15px] hover:text-[#001EFE] font-base font-inter transition-colors`}> About </Link>
                   <p className="text-[#4B4949] text-[11px] font-base font-inter transition-colors text-[13px]">Where research meets responsible advice.</p>
                 </div>
                 <div className="px-md-4 mb-1">
-                  <Link href="/financial-calculators" className="text-[#4B4949] font-[500] text-[15px] hover:text-[#001EFE] font-base font-inter transition-colors"
+                  <Link href="/financial-calculators" className={`${isActive("/financial-calculators") ? "text-[#001EFE]" : "text-[#4B4949]"} font-[500] text-[15px] hover:text-[#001EFE] font-base font-inter transition-colors`}
                   > Financial Calculators </Link>
                   <p className="text-[#4B4949] text-[11px] font-base font-inter transition-colors text-[13px]">Because good decisions need good numbers.</p>
                 </div>
                 <div className="px-md-4 mb-1">
-                  <Link href="/blog" className="text-[#4B4949] font-[500] text-[15px] hover:text-[#001EFE] font-base font-inter transition-colors"
+                  <Link href="/blog" className={`${isActive("/blog") ? "text-[#001EFE]" : "text-[#4B4949]"} font-[500] text-[15px] hover:text-[#001EFE] font-base font-inter transition-colors`}
                   > Blog </Link>
                   <p className="text-[#4B4949] text-[11px] hover:text-[#001EFE] font-base font-inter transition-colors text-[13px]">Insights that help you invest with confidence.</p>
                 </div>
                 <div className="px-md-4 mb-1">
-                  <Link href="/career" className="text-[#4B4949] font-[500] text-[15px] hover:text-[#001EFE] font-base font-inter transition-colors"
+                  <Link href="/career" className={`${isActive("/career") ? "text-[#001EFE]" : "text-[#4B4949]"} font-[500] text-[15px] hover:text-[#001EFE] font-base font-inter transition-colors`}
                   > Career </Link>
                   <p className="text-[#4B4949] text-[11px] font-base font-inter transition-colors text-[13px]">Do meaningful work. Build lasting value.</p>
                 </div>
                 <div className="px-md-4 mb-1">
                   <Link href="/contact-us
-							" className="text-[#4B4949] font-[500] text-[15px] hover:text-[#001EFE] font-base font-inter transition-colors"
+							" className={`${isActive("/contact-us") ? "text-[#001EFE]" : "text-[#4B4949]"} font-[500] text-[15px] hover:text-[#001EFE] font-base font-inter transition-colors`}
                   > Contact Us
                   </Link>
                   <p className="text-[#4B4949] text-[11px] font-base font-inter transition-colors text-[13px]">Start a smarter financial conversation.</p>
@@ -176,7 +180,7 @@ const Navbar = () => {
             )}
           </div>
 
-          <Link href="/download-app" className="text-[#4B4949] font-[500] text-[15px] hover:text-[#001EFE] font-inter border-b border-gray-50 hover:pl-2 transition-all"
+          <Link href="/download-app" className={`${isActive("/download-app") ? "text-[#001EFE]" : "text-[#4B4949]"} font-[500] text-[15px] hover:text-[#001EFE] font-inter border-b border-gray-50 hover:pl-2 transition-all`}
           >
             Download App
           </Link>

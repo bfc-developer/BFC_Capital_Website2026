@@ -20,12 +20,12 @@ const ComplaintsTables = () => {
                             >
                                 <th className="px-6 py-4 text-[#4D4D4D] font-bold text-left">Sr.No.</th>
                                 <th className="px-6 py-4 text-[#4D4D4D] font-bold text-left">Received from</th>
-                                <th className="px-6 py-4 text-[#4D4D4D] font-bold text-center">Pending at the end<br />of last month</th>
-                                <th className="px-6 py-4 text-[#4D4D4D] font-bold text-center">Received</th>
-                                <th className="px-6 py-4 text-[#4D4D4D] font-bold text-center">Resolved*</th>
-                                <th className="px-6 py-4 text-[#4D4D4D] font-bold text-center">Total Pending#</th>
-                                <th className="px-6 py-4 text-[#4D4D4D] font-bold text-center">Pending complaints<br /> &gt; 3months</th>
-                                <th className="px-6 py-4 text-[#4D4D4D] font-bold text-center">Average Resolution<br />time^ (in days)</th>
+                                <th className="px-6 py-4 text-[#4D4D4D] font-bold text-left">Pending at the end<br />of last month</th>
+                                <th className="px-6 py-4 text-[#4D4D4D] font-bold text-left">Received</th>
+                                <th className="px-6 py-4 text-[#4D4D4D] font-bold text-left">Resolved*</th>
+                                <th className="px-6 py-4 text-[#4D4D4D] font-bold text-left">Total Pending#</th>
+                                <th className="px-6 py-4 text-[#4D4D4D] font-bold text-left">Pending complaints<br /> &gt; 3months</th>
+                                <th className="px-6 py-4 text-[#4D4D4D] font-bold text-left">Average Resolution<br />time^ (in days)</th>
                             </tr>
                         </thead>
 
@@ -33,42 +33,42 @@ const ComplaintsTables = () => {
                             <tr>
                                 <td className="px-6 py-4 font-bold text-left">1</td>
                                 <td className="px-6 py-4 text-[#212121] font-semibold text-left">Directly from Investors</td>
-                                <td className="px-6 py-4 font-semibold text-center">0</td>
-                                <td className="px-6 py-4 font-semibold text-center">0</td>
-                                <td className="px-6 py-4 font-semibold text-center">0</td>
-                                <td className="px-6 py-4 font-semibold text-center">0</td>
-                                <td className="px-6 py-4 font-semibold text-center">0</td>
-                                <td className="px-6 py-4 text-center font-semibold">N/A</td>
+                                <td className="px-6 py-4 font-semibold text-left">0</td>
+                                <td className="px-6 py-4 font-semibold text-left">0</td>
+                                <td className="px-6 py-4 font-semibold text-left">0</td>
+                                <td className="px-6 py-4 font-semibold text-left">0</td>
+                                <td className="px-6 py-4 font-semibold text-left">0</td>
+                                <td className="px-6 py-4 text-left font-semibold">N/A</td>
                             </tr>
                             <tr>
                                 <td className="px-6 py-4 font-bold text-left">2</td>
                                 <td className="px-6 py-4 text-[#212121] font-semibold text-left">SEBI (SCORES)</td>
-                                <td className="px-6 py-4 font-semibold text-center">0</td>
-                                <td className="px-6 py-4 font-semibold text-center">0</td>
-                                <td className="px-6 py-4 font-semibold text-center">0</td>
-                                <td className="px-6 py-4 font-semibold text-center">0</td>
-                                <td className="px-6 py-4 font-semibold text-center">0</td>
-                                <td className="px-6 py-4 text-center font-semibold">N/A</td>
+                                <td className="px-6 py-4 font-semibold text-left">0</td>
+                                <td className="px-6 py-4 font-semibold text-left">0</td>
+                                <td className="px-6 py-4 font-semibold text-left">0</td>
+                                <td className="px-6 py-4 font-semibold text-left">0</td>
+                                <td className="px-6 py-4 font-semibold text-left">0</td>
+                                <td className="px-6 py-4 text-left font-semibold">N/A</td>
                             </tr>
                             <tr>
                                 <td className="px-6 py-4 font-bold text-left">3</td>
                                 <td className="px-6 py-4 text-[#212121] font-semibold text-left">Other Sources (if any)</td>
-                                <td className="px-6 py-4 font-semibold text-center">0</td>
-                                <td className="px-6 py-4 font-semibold text-center">0</td>
-                                <td className="px-6 py-4 font-semibold text-center">0</td>
-                                <td className="px-6 py-4 font-semibold text-center">0</td>
-                                <td className="px-6 py-4 font-semibold text-center">0</td>
-                                <td className="px-6 py-4 text-center font-semibold">N/A</td>
+                                <td className="px-6 py-4 font-semibold text-left">0</td>
+                                <td className="px-6 py-4 font-semibold text-left">0</td>
+                                <td className="px-6 py-4 font-semibold text-left">0</td>
+                                <td className="px-6 py-4 font-semibold text-left">0</td>
+                                <td className="px-6 py-4 font-semibold text-left">0</td>
+                                <td className="px-6 py-4 text-left font-semibold">N/A</td>
                             </tr>
                             <tr className="text-[#212121] border-t border-gray-100" style={{ background: 'linear-gradient(270deg, #CFE4F3 0%, #FAFAFA 63.46%)' }}>
                                 <td className="px-6 py-4"></td>
                                 <td className="px-6 py-4 text-[#212121] font-semibold text-left">Grand Total</td>
-                                <td className="px-6 py-4 text-[#212121] font-semibold text-center">0</td>
-                                <td className="px-6 py-4 text-[#212121] font-semibold text-center">0</td>
-                                <td className="px-6 py-4 text-[#212121] font-semibold text-center">0</td>
-                                <td className="px-6 py-4 text-[#212121] font-semibold text-center">0</td>
-                                <td className="px-6 py-4 text-[#212121] font-semibold text-center">0</td>
-                                <td className="px-6 py-4 text-[#212121] font-semibold text-center">N/A</td>
+                                <td className="px-6 py-4 text-[#212121] font-semibold text-left">0</td>
+                                <td className="px-6 py-4 text-[#212121] font-semibold text-left">0</td>
+                                <td className="px-6 py-4 text-[#212121] font-semibold text-left">0</td>
+                                <td className="px-6 py-4 text-[#212121] font-semibold text-left">0</td>
+                                <td className="px-6 py-4 text-[#212121] font-semibold text-left">0</td>
+                                <td className="px-6 py-4 text-[#212121] font-semibold text-left">N/A</td>
                             </tr>
                         </tbody>
 
@@ -90,22 +90,22 @@ const ComplaintsTables = () => {
                         <thead className="text-gray-800 font-bold text-xs" style={{ background: 'linear-gradient(270deg, #CFE4F3 0%, #FAFAFA 63.46%)' }}>
                             <tr className='border-b border-gray-100'>
                                 <th className="px-6 py-4 text-[#4D4D4D] text-left">Sr.No.</th>
-                                <th className="px-6 py-4 text-[#4D4D4D] text-center">Month</th>
-                                <th className="px-6 py-4 text-[#4D4D4D] text-center">Carried forward from previous month</th>
-                                <th className="px-6 py-4 text-[#4D4D4D] text-center">Received</th>
-                                <th className="px-6 py-4 text-[#4D4D4D] text-center">Resolved*</th>
-                                <th className="px-6 py-4 text-[#4D4D4D] text-center">Pending#</th>
+                                <th className="px-6 py-4 text-[#4D4D4D] text-left">Month</th>
+                                <th className="px-6 py-4 text-[#4D4D4D] text-left">Carried forward from previous month</th>
+                                <th className="px-6 py-4 text-[#4D4D4D] text-left">Received</th>
+                                <th className="px-6 py-4 text-[#4D4D4D] text-left">Resolved*</th>
+                                <th className="px-6 py-4 text-[#4D4D4D] text-left">Pending#</th>
                             </tr>
                         </thead>
 
                         <tbody>
                             <tr>
                                 <td className="px-6 py-4 text-[#212121] font-semibold text-left">1</td>
-                                <td className="px-6 py-4 text-[#212121] font-semibold text-center">Jan, 2026</td>
-                                <td className="px-6 py-4 text-[#212121] font-semibold text-center">0</td>
-                                <td className="px-6 py-4 text-[#212121] font-semibold text-center">0</td>
-                                <td className="px-6 py-4 text-[#212121] font-semibold text-center">0</td>
-                                <td className="px-6 py-4 text-[#212121] font-semibold text-center">0</td>
+                                <td className="px-6 py-4 text-[#212121] font-semibold text-left">Jan, 2026</td>
+                                <td className="px-6 py-4 text-[#212121] font-semibold text-left">0</td>
+                                <td className="px-6 py-4 text-[#212121] font-semibold text-left">0</td>
+                                <td className="px-6 py-4 text-[#212121] font-semibold text-left">0</td>
+                                <td className="px-6 py-4 text-[#212121] font-semibold text-left">0</td>
                             </tr>
                         </tbody>
 
@@ -126,22 +126,22 @@ const ComplaintsTables = () => {
                         <thead className="text-gray-800 font-bold text-xs" style={{ background: 'linear-gradient(270deg, #CFE4F3 0%, #FAFAFA 63.46%)' }}>
                             <tr className='border-b border-gray-100'>
                                 <th className="px-6 py-4 text-[#4D4D4D] text-left">Sr.No.</th>
-                                <th className="px-6 py-4 text-[#4D4D4D] text-center">Year</th>
-                                <th className="px-6 py-4 text-[#4D4D4D] text-center">Carried forward from previous year</th>
-                                <th className="px-6 py-4 text-[#4D4D4D] text-center">Received</th>
-                                <th className="px-6 py-4 text-[#4D4D4D] text-center">Resolved**</th>
-                                <th className="px-6 py-4 text-[#4D4D4D] text-center">Pending##</th>
+                                <th className="px-6 py-4 text-[#4D4D4D] text-left">Year</th>
+                                <th className="px-6 py-4 text-[#4D4D4D] text-left">Carried forward from previous year</th>
+                                <th className="px-6 py-4 text-[#4D4D4D] text-left">Received</th>
+                                <th className="px-6 py-4 text-[#4D4D4D] text-left">Resolved**</th>
+                                <th className="px-6 py-4 text-[#4D4D4D] text-left">Pending##</th>
                             </tr>
                         </thead>
 
                         <tbody>
                             <tr>
                                 <td className="px-6 py-4 text-[#212121] text-left font-semibold">1</td>
-                                <td className="px-6 py-4 font-medium text-[#212121] text-center font-semibold">2025-26</td>
-                                <td className="px-6 py-4 text-[#212121] text-center font-semibold">0</td>
-                                <td className="px-6 py-4 text-[#212121] text-center font-semibold">0</td>
-                                <td className="px-6 py-4 text-[#212121] text-center font-semibold">0</td>
-                                <td className="px-6 py-4 text-[#212121] text-center font-semibold">0</td>
+                                <td className="px-6 py-4 font-medium text-[#212121] text-left font-semibold">2025-26</td>
+                                <td className="px-6 py-4 text-[#212121] text-left font-semibold">0</td>
+                                <td className="px-6 py-4 text-[#212121] text-left font-semibold">0</td>
+                                <td className="px-6 py-4 text-[#212121] text-left font-semibold">0</td>
+                                <td className="px-6 py-4 text-[#212121] text-left font-semibold">0</td>
                             </tr>
                         </tbody>
 

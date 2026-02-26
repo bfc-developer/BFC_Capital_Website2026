@@ -276,7 +276,7 @@ const VideoSection = () => {
   }, [isVideoActive]);
   return (
     <section
-      className="w-full py-5 md:py-15 lg:py-24 relative"
+      className="w-full py-5 md:py-15 relative"
       style={{
         backgroundImage: "url('/Home/filter.svg')",
         backgroundSize: "cover",
@@ -291,12 +291,7 @@ const VideoSection = () => {
         </h2>
 
         <p className="mx-auto mb-12 max-w-6xl text-[15px] md:text-[17px] text-[#44475B] leading-relaxed font-inter opacity-90 font-inter">
-          Join the BFC community to learn about investing, saving, and budgeting
-          in the easiest ways possible! Whether you're a seasoned investor or
-          just figuring out your financial journey, dive in for treasured
-          insights and expert advice. Get tips on mutual funds, saving,
-          budgeting, and retirement planning. Take control of your financial
-          future today!
+          Join the BFC community to learn about investing, saving, and budgeting in the easiest ways possible! Whether you're a seasoned investor or just figuring out your financial journey, dive in for treasured insights and expert advice. Get tips on mutual funds, saving, budgeting, and retirement planning. Take control of your financial future today!
         </p>
 
         <VideoCarousel videos={videos} autoPlayInterval={2000} />
@@ -370,7 +365,7 @@ const AdvantageSection = () => {
   ];
 
   return (
-    <section className="py-5 md:py-15 lg:py-24">
+    <section className="py-5 md:py-15">
       <div className="container mx-auto px-5 md:px-10 lg:px-20">
         <div className="mb-10 md:mb-16 text-center">
           <h2 className="font-bold text-[#44475B] text-[20px] md:text-3xl lg:text-5xl">
@@ -411,7 +406,7 @@ const AdvantageSection = () => {
 
 const ProcessSection = () => {
   return (
-    <section className=" py-5 md:py-15 lg:py-24 md:pb-8 overflow-hidden">
+    <section className=" py-5 md:pt-0 md:pb-10 overflow-hidden">
       <div className=" mx-auto text-center">
         <h2 className="mb-6 md:mb-12  font-bold text-[20px] md:text-3xl lg:text-5xl text-[#44475B]">
           A Seamless & User-Friendly Investor Experience
@@ -518,7 +513,7 @@ const EventsSection = () => {
   ];
 
   return (
-    <section className="py-5 md:py-15 lg:py-24">
+    <section className="py-5 md:py-15">
       <div className="container mx-auto px-5 md:px-10 lg:px-20">
         <div className="mb-5 md:mb-16 text-center">
           <h2 className="font-extrabold text-[#44475B] text-[20px] md:text-3xl lg:text-5xl tracking-tight">
@@ -601,7 +596,7 @@ const Credentials = () => {
   ];
 
   return (
-    <section className="py-5 md:py-12 relative ">
+    <section className="py-5 md:py-0 relative ">
       <div className=" mx-auto md:pt-8">
         <div className="bg-[#CFE4F3] rounded-none p-10 md:p-14 shadow-sm">
           <div className="container w-full m-auto">
@@ -797,7 +792,7 @@ const Team = () => {
     },
   ];
   return (
-    <section className="py-5 md:py-15 lg:py-24">
+    <section className="py-5 md:py-15">
       <div className="container mx-auto px-5 md:px-10 lg:px-20">
         <div className="text-center mb-10 md:mb-24">
           <h2 className="text-[20px] md:text-3xl lg:text-5xl font-extrabold text-[#44475B] mb-4">
@@ -913,7 +908,7 @@ const FAQSection = () => {
   ];
 
   return (
-    <section className=" py-5 md:py-20 pb-10 md:pb-24">
+    <section className=" py-5 md:py-5 pb-10 md:pb-15">
       <div className="container mx-auto px-5 md:px-10 lg:px-20">
         <div className="text-center mb-5 md:mb-16 px-4">
           <h2 className="text-[20px] md:text-3xl lg:text-5xl font-extrabold text-[#44475B] md:mb-4">
@@ -991,7 +986,7 @@ const ComplaintsTable = () => {
   ];
 
   return (
-    <section className="py-5 md:py-20 ">
+    <section className="py-5 md:py-0 ">
       <div className="container mx-auto px-4">
         <div className="text-center mb-5 md:mb-16 px-4">
           <h2 className="text-[20px] md:text-3xl lg:text-5xl font-extrabold text-[#44475B] tracking-tight">
@@ -1009,32 +1004,32 @@ const ComplaintsTable = () => {
                     "linear-gradient(270deg, #CFE4F3 0%, #FAFAFA 63.46%)",
                 }}
               >
-                <th className="py-[10px] px-[12px] text-[12px] font-extrabold tracking-tight text-left whitespace-nowrap">
+                <th className="py-[10px] text-[12px] w-[70px]  font-extrabold tracking-tight text-center whitespace-nowrap">
                   Sr.No.
                 </th>
-                <th className="py-[10px] px-[12px] text-[12px] font-extrabold tracking-tight text-left whitespace-nowrap text-left">
+                <th className="py-[10px] text-[12px] font-extrabold tracking-tight text-left whitespace-nowrap text-left">
                   Received from
                 </th>
-                <th className="py-[10px] px-[12px] text-[12px] font-extrabold tracking-tight text-center">
+                <th className="py-[10px] text-[12px] font-extrabold tracking-tight text-left">
                   Pending at the end
                   <br />
                   of last month
                 </th>
-                <th className="py-[10px] px-[12px] text-[12px] font-extrabold tracking-tight text-center">
+                <th className="py-[10px] text-[12px] font-extrabold tracking-tight text-left">
                   Received
                 </th>
-                <th className="py-[10px] px-[12px] text-[12px] font-extrabold tracking-tight text-center">
+                <th className="py-[10px] text-[12px] font-extrabold tracking-tight text-left">
                   Resolved*
                 </th>
-                <th className="py-[10px] px-[12px] text-[12px] font-extrabold tracking-tight text-center">
+                <th className="py-[10px] text-[12px] font-extrabold tracking-tight text-left">
                   Total Pending#
                 </th>
-                <th className="py-[10px] px-[12px] text-[12px] font-extrabold tracking-tight text-center">
+                <th className="py-[10px] text-[12px] font-extrabold tracking-tight text-left">
                   Pending complaints
                   <br />
                   {">"} 3months
                 </th>
-                <th className="py-[10px] px-[12px] text-[12px] font-extrabold tracking-tight text-center">
+                <th className="py-[10px] text-[12px] font-extrabold tracking-tight text-left">
                   Average Resolution
                   <br />
                   time^ (in days)
@@ -1044,28 +1039,28 @@ const ComplaintsTable = () => {
             <tbody className="text-[#212121] bg-[#FFFFFF]">
               {data.map((row, idx) => (
                 <tr key={idx} className="hover:bg-gray-50/50 transition-colors">
-                  <td className="py-[12px] px-[12px] text-sm font-bold text-left">
+                  <td className="py-[12px] px-[17px] text-sm font-bold text-left">
                     {row.sr}
                   </td>
-                  <td className="py-[12px] px-[12px] text-sm font-semibold text-left text-gray-700 whitespace-nowrap">
+                  <td className="py-[12px] text-sm font-semibold text-left text-gray-700 whitespace-nowrap">
                     {row.from}
                   </td>
-                  <td className="py-[12px] px-[12px] text-sm font-bold text-center">
+                  <td className="py-[12px] text-sm font-bold text-left">
                     {row.lastMonth}
                   </td>
-                  <td className="py-[12px] px-[12px] text-sm font-bold text-center">
+                  <td className="py-[12px] text-sm font-bold text-left">
                     {row.received}
                   </td>
-                  <td className="py-[12px] px-[12px] text-sm font-bold text-center">
+                  <td className="py-[12px] text-sm font-bold text-left">
                     {row.resolved}
                   </td>
-                  <td className="py-[12px] px-[12px] text-sm font-bold text-center">
+                  <td className="py-[12px] text-sm font-bold text-left">
                     {row.totalPending}
                   </td>
-                  <td className="py-[12px] px-[12px] text-sm font-bold text-center">
+                  <td className="py-[12px] text-sm font-bold text-left">
                     {row.pending3Months}
                   </td>
-                  <td className="py-[12px] px-[12px] text-sm font-bold text-[#44475B] text-center">
+                  <td className="py-[12px] text-sm font-bold text-[#44475B] text-left">
                     {row.avgTime}
                   </td>
                 </tr>
@@ -1077,16 +1072,16 @@ const ComplaintsTable = () => {
                     "linear-gradient(270deg, #CFE4F3 0%, #FAFAFA 63.46%)",
                 }}
               >
-                <td className="py-[10px] px-[12px] text-[13px]"></td>
-                <td className="py-[10px] px-[12px] text-[13px] text-left uppercase font-bold tracking-tight text-left">
+                <td className="py-[10px] text-[13px]"></td>
+                <td className="py-[10px] text-[13px] text-left uppercase font-bold tracking-tight text-left">
                   Grand Total
                 </td>
-                <td className="py-[10px] px-[12px] text-[13px] font-bold text-center">0</td>
-                <td className="py-[10px] px-[12px] text-[13px] font-bold text-center">0</td>
-                <td className="py-[10px] px-[12px] text-[13px] font-bold text-center">0</td>
-                <td className="py-[10px] px-[12px] text-[13px] font-bold text-center">0</td>
-                <td className="py-[10px] px-[12px] text-[13px] font-bold text-center">0</td>
-                <td className="py-[10px] px-[12px] text-[13px] text-[#44475B] font-bold uppercase text-center">
+                <td className="py-[10px] text-[13px] font-bold text-left">0</td>
+                <td className="py-[10px] text-[13px] font-bold text-left">0</td>
+                <td className="py-[10px] text-[13px] font-bold text-left">0</td>
+                <td className="py-[10px] text-[13px] font-bold text-left">0</td>
+                <td className="py-[10px] text-[13px] font-bold text-left">0</td>
+                <td className="py-[10px] text-[13px] text-[#44475B] font-bold uppercase text-left">
                   N/A
                 </td>
               </tr>
@@ -1109,7 +1104,7 @@ const ComplaintsTable = () => {
 
         {/* Investor Charter Section */}
         <div
-          className={`transition-all duration-700 overflow-hidden max-h-[1000px] opacity-100 mt-24 mb-12`}
+          className={`transition-all duration-700 overflow-hidden max-h-[1000px] opacity-100 mt-14 mb-12`}
         >
           <div className="text-center mb-16 relative">
             <a
@@ -1146,28 +1141,28 @@ const ComplaintsTable = () => {
                       "linear-gradient(270deg, #CFE4F3 0%, #FAFAFA 63.46%)",
                   }}
                 >
-                  <th className="py-[10px] px-[12px] text-[13px] font-extrabold tracking-tight text-center">
+                  <th className="py-[10px] px-[12px] text-[13px] font-extrabold tracking-tight text-left">
                     Sr.No.
                   </th>
-                  <th className="py-[10px] px-[12px] text-[13px] font-extrabold tracking-tight text-center">
+                  <th className="py-[10px] text-[13px] font-extrabold tracking-tight text-left">
                     Financial Year
                   </th>
-                  <th className="py-[10px] px-[12px] text-[13px] font-extrabold tracking-tight text-center">
+                  <th className="py-[10px] px-[15px] text-[13px] font-extrabold tracking-tight text-left">
                     Compliance Audit Status
                   </th>
-                  <th className="py-[10px] px-[12px] text-[13px] font-extrabold tracking-tight text-center">
+                  <th className="py-[10px] text-[13px] font-extrabold tracking-tight text-left">
                     Remarks, If any
                   </th>
                 </tr>
               </thead>
               <tbody className="text-[#212121] bg-[#FFFFFF]">
                 <tr className="">
-                  <td className="py-[12px] px-[12px] text-sm font-bold">1</td>
-                  <td className="py-[12px] px-[12px] text-sm font-bold">
+                  <td className="py-[12px] px-[12px] text-sm font-bold text-left">1</td>
+                  <td className="py-[12px] text-sm font-bold text-left">
                     FY 2025-26
                   </td>
-                  <td className="py-[12px] px-[12px] text-sm font-bold">N/A</td>
-                  <td className="py-[12px] px-[12px] text-sm"></td>
+                  <td className="py-[12px] px-[15px] text-sm font-bold text-left">N/A</td>
+                  <td className="py-[12px] text-sm font-bold text-left">N/A</td>
                 </tr>
               </tbody>
             </table>

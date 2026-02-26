@@ -239,13 +239,13 @@ export default function AboutUs() {
                     <p className="text-justify mb-5 text-[#44475B] text-justify text-[15px] md:text-[17px] leading-relaxed">
                         At its core, BFC Capital Private Limited is about empowering investors with knowledge, trust, and confidence. Our mission is to make wealth management accessible, goal-oriented, and transparent– helping every client make informed financial decisions and secure a financially independent future
                     </p>
-                    <p className="text-justify mb-5 text-[#44475B] text-justify text-[15px] md:text-[17px] leading-relaxed">
+                    <p className="text-justify text-[#44475B] text-justify text-[15px] md:text-[17px] leading-relaxed">
                         BFC Capital– Your Trusted SEBI RIA for Transparent, Goal-Oriented, and Secure Investment Advisory.
                     </p>
                 </div>
             </section>
 
-            <section className="py-5 md:py-15">
+            <section className="py-5 md:py-0">
                 <div className="container m-auto px-5 md:px-10 lg:px-20">
                     <h2 className="text-[#44475B] text-center text-[25px] md:text-3xl lg:text-4xl font-bold mb-10">
                         Wealth Management Team
@@ -264,7 +264,7 @@ export default function AboutUs() {
                                         className="w-full h-auto transition-transform duration-300 group-hover:scale-105"
                                     />
                                     <div className={`absolute inset-0 bg-black/70 flex items-center justify-center p-3 sm:p-4 transition-opacity duration-300 ${activeMember === member.name ? "opacity-100" : "opacity-0"} lg:group-hover:opacity-100 overflow-y-auto`}>
-                                        <p className="text-white text-[11px] min-[400px]:text-[12px] md:text-[14px] lg:text-[14px] xl:text-[16px] leading-relaxed text-justify">
+                                        <p className="text-white text-[11px] min-[400px]:text-[12px] md:text-[12px] lg:text-[12px] xl:text-[16px] leading-relaxed text-justify">
                                             {member.bio || `${member.name} is a dedicated ${member.role} at BFC Capital, committed to providing excellence and helping clients reach their goals.`}
                                         </p>
                                     </div>
@@ -296,7 +296,7 @@ export default function AboutUs() {
                                         className="w-full h-auto transition-transform duration-300 group-hover:scale-105"
                                     />
                                     <div className={`absolute inset-0 bg-black/70 flex items-center justify-center p-3 sm:p-4 transition-opacity duration-300 ${activeMember === member.name ? "opacity-100" : "opacity-0"} lg:group-hover:opacity-100 overflow-y-auto`}>
-                                        <p className="text-white text-[11px] min-[400px]:text-[12px] md:text-[14px] lg:text-[14px] xl:text-[16px] leading-relaxed text-justify">
+                                        <p className="text-white text-[11px] min-[400px]:text-[12px] md:text-[12px] lg:text-[12px] xl:text-[16px] leading-relaxed text-justify">
                                             {member.bio || `${member.name} is a dedicated ${member.role} at BFC Capital, committed to providing excellence and helping clients reach their goals.`}
                                         </p>
                                     </div>
@@ -328,7 +328,7 @@ export default function AboutUs() {
                                         className="w-full h-auto transition-transform duration-300 group-hover:scale-105"
                                     />
                                     <div className={`absolute inset-0 bg-black/70 flex items-center justify-center p-3 sm:p-4 transition-opacity duration-300 ${activeMember === member.name ? "opacity-100" : "opacity-0"} lg:group-hover:opacity-100 overflow-y-auto`}>
-                                        <p className="text-white text-[11px] min-[400px]:text-[12px] md:text-[14px] lg:text-[14px] xl:text-[16px] leading-relaxed text-justify">
+                                        <p className="text-white text-[11px] min-[400px]:text-[12px] md:text-[12px] lg:text-[12px] xl:text-[16px] leading-relaxed text-justify">
                                             {member.bio || `${member.name} is a dedicated ${member.role} at BFC Capital, committed to providing excellence and helping clients reach their goals.`}
                                         </p>
                                     </div>
@@ -360,7 +360,7 @@ export default function AboutUs() {
                                         className="w-full h-auto transition-transform duration-300 group-hover:scale-105"
                                     />
                                     <div className={`absolute inset-0 bg-black/70 flex items-center justify-center p-3 sm:p-4 transition-opacity duration-300 ${activeMember === member.name ? "opacity-100" : "opacity-0"} lg:group-hover:opacity-100 overflow-y-auto`}>
-                                        <p className="text-white text-[11px] min-[400px]:text-[12px] md:text-[14px] lg:text-[14px] xl:text-[16px] leading-relaxed text-justify">
+                                        <p className="text-white text-[11px] min-[400px]:text-[12px] md:text-[12px] lg:text-[12px] xl:text-[16px] leading-relaxed text-justify">
                                             {member.bio || `${member.name} is a dedicated ${member.role} at BFC Capital, committed to providing excellence and helping clients reach their goals.`}
                                         </p>
                                     </div>
@@ -392,7 +392,7 @@ export default function AboutUs() {
                                         className="w-full h-auto transition-transform duration-300 group-hover:scale-105"
                                     />
                                     <div className={`absolute inset-0 bg-black/70 flex items-center justify-center p-3 sm:p-4 transition-opacity duration-300 ${activeMember === member.name ? "opacity-100" : "opacity-0"} lg:group-hover:opacity-100 overflow-y-auto`}>
-                                        <p className="text-white text-[11px] min-[400px]:text-[12px] md:text-[14px] lg:text-[14px] xl:text-[16px] leading-relaxed text-justify">
+                                        <p className="text-white text-[11px] min-[400px]:text-[12px] md:text-[12px] lg:text-[12px] xl:text-[16px] leading-relaxed text-justify">
                                             {member.bio || `${member.name} is a dedicated ${member.role} at BFC Capital, committed to providing excellence and helping clients reach their goals.`}
                                         </p>
                                     </div>
@@ -424,7 +424,7 @@ export default function AboutUs() {
                                         className="w-full h-auto transition-transform duration-300 group-hover:scale-105"
                                     />
                                     <div className={`absolute inset-0 bg-black/70 flex items-center justify-center p-3 sm:p-4 transition-opacity duration-300 ${activeMember === member.name ? "opacity-100" : "opacity-0"} lg:group-hover:opacity-100 overflow-y-auto`}>
-                                        <p className="text-white text-[11px] min-[400px]:text-[12px] md:text-[14px] lg:text-[14px] xl:text-[16px] leading-relaxed text-justify">
+                                        <p className="text-white text-[11px] min-[400px]:text-[12px] md:text-[12px] lg:text-[12px] xl:text-[16px] leading-relaxed text-justify">
                                             {member.bio || `${member.name} is a dedicated ${member.role} at BFC Capital, committed to providing excellence and helping clients reach their goals.`}
                                         </p>
                                     </div>
@@ -456,7 +456,7 @@ export default function AboutUs() {
                                         className="w-full h-auto transition-transform duration-300 group-hover:scale-105"
                                     />
                                     <div className={`absolute inset-0 bg-black/70 flex items-center justify-center p-3 sm:p-4 transition-opacity duration-300 ${activeMember === member.name ? "opacity-100" : "opacity-0"} lg:group-hover:opacity-100 overflow-y-auto`}>
-                                        <p className="text-white text-[11px] min-[400px]:text-[12px] md:text-[14px] lg:text-[14px] xl:text-[16px] leading-relaxed text-justify">
+                                        <p className="text-white text-[11px] min-[400px]:text-[12px] md:text-[12px] lg:text-[12px] xl:text-[16px] leading-relaxed text-justify">
                                             {member.bio || `${member.name} is a dedicated ${member.role} at BFC Capital, committed to providing excellence and helping clients reach their goals.`}
                                         </p>
                                     </div>
