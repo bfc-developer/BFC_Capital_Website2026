@@ -9,7 +9,7 @@ export default function SIF() {
                 <div className="container mx-auto px-5 md:px-10 lg:px-20">
                     <div className="flex md:gap-10 flex-col md:flex-row justify-center md:justify-between items-center md:px-3">
                         <div
-                            className="text-center md:text-left home_smart_heading"
+                            className="text-center md:text-left home_smart_heading order-2 md:order-1"
                             data-aos="fade-right"
                         >
                             <h2 className="md:text-left leading-tight font-bold text-[#44475B] text-[20px] md:text-3xl lg:text-5xl">
@@ -33,7 +33,7 @@ export default function SIF() {
                                 alt="Mobile Portfolio"
                                 width={300}
                                 height={600}
-                                className="w-[300px] h-[300px] md:w-[400px] md:h-[400px] lg:w-[500px] lg:h-[500px] mx-auto "
+                                className="w-[200px] h-[200px] md:w-[400px] md:h-[400px] lg:w-[500px] lg:h-[500px] mx-auto "
                                 data-aos="fade-up"
                                 data-aos-duration="2000"
                             />
