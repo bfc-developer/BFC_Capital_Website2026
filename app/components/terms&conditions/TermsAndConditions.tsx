@@ -26,7 +26,7 @@ export default function TermsAndConditions() {
 
             {/* Title */}
             <h1 className="text-[20px] md:text-3xl lg:text-4xl font-bold text-[#44475B] mb-5 md:mb-8">
-                Terms & Conditions – Prodigy Pro
+                Terms & Conditions – BFC CAPITAL
             </h1>
 
             {/* Content */}
@@ -47,11 +47,9 @@ export default function TermsAndConditions() {
                     The user irrevocably and unconditionally consents to BFC Capital and the respective mutual funds and/or Registrars and Transfer Agents (RTAs) collecting and sharing transaction-related data pertaining to investments made through BFC Capital’s online platform, for the purpose of processing and managing user transactions.
                 </p>
                 <p>
-
                     Certain mutual fund schemes may be subject to exit loads, as specified in the respective Scheme Information Documents (SID), Key Information Memorandum (KIM), and addendums thereto, collectively referred to as “Scheme Related Documents.” Users are advised to read all Scheme Related Documents carefully before undertaking any transaction through the mobile application.
                 </p>
                 <p>
-
                     While BFC Capital will make reasonable efforts to ensure continuous availability of its systems, it does not guarantee uninterrupted access at all times. BFC Capital shall make best efforts to resolve issues arising from network failures, technical disruptions, virus attacks, or similar causes. However, BFC Capital shall not be liable for any loss, damage, cost, charges, or expenses arising directly or indirectly due to system unavailability.
                 </p>
                 <p>

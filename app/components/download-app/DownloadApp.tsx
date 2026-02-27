@@ -19,8 +19,7 @@ export default function DownloadApp() {
                                 </h2>
 
                                 <p className="mx-auto mt-4 md:mt-8 mb-4 max-w-6xl text-[15px] md:text-[17px] text-[#44475B] leading-relaxed font-inter opacity-90">
-                                    Investing works best when it is calm, structured, and informed.
-                                    Prodigy Pro brings that philosophy to your fingertips.
+                                    Investing works best when it is calm, structured, and informed. <br />Prodigy Pro brings that philosophy to your fingertips – a platform designed to help you make better decisions, stay disciplined, and remain focused on long-term outcomes.
                                 </p>
 
                                 <p className="mx-auto mb-4 max-w-6xl text-[15px] md:text-[17px] text-[#44475B] leading-relaxed font-inter opacity-90">
@@ -58,11 +57,11 @@ export default function DownloadApp() {
                         </div>
                         <div className="text-center py-2 order-1 md:order-2">
                             <Image
-                                src="/DownloadApp/Hero.svg"
+                                src="/DownloadApp/Hero.png"
                                 alt="Mobile Portfolio"
                                 width={300}
                                 height={600}
-                                className="w-[300px] h-[300px] md:w-[400px] md:h-[400px] lg:w-[500px] lg:h-[500px] mx-auto "
+                                className="w-[170px] h-[300px] md:w-[450px] md:h-[400px] lg:w-[500px] lg:h-[500px] xl:w-[400px] 2xl:w-[350px] mx-auto "
                                 data-aos="fade-up"
                                 data-aos-duration="2000"
                             />

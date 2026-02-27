@@ -4,10 +4,10 @@ import Image from 'next/image';
 const Footer = () => {
     return (
         <footer
-            className="text-[#334155] py-40 px-4"
-            style={{ background: 'linear-gradient(0deg, #CFE4F3 0%, #FAFAFA 68.29%)' }}
+            className="text-[#334155] pt-40 pb-20 px-4"
+            style={{ background: 'linear-gradient( #FAFAFA , #CFE4F3)' }}
         >
-            <div className="container mx-auto px-5">
+            <div className="container mx-auto md:px-5">
                 <div className="mb-4 flex justify-start pb-4">
                     <Image src="/Logo/CAPLOGO.svg" alt="Logo" width={100} height={100}
                         className='w-[70%] md:w-[50%] h-[50%] md:h-[45px] object-contain object-left' />

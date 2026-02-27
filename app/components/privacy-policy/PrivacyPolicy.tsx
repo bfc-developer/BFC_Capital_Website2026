@@ -47,7 +47,7 @@ export default function PrivacyPolicy() {
             <hr className="mutual-funds-hrd mt-5 lg:mt-8 w-[25%] md:w-[15%] lg:w-[10%]" />
 
             <h2 className="text-[18px] md:text-[24px] font-bold mt-8 text-[#44475B] pb-4 mb-4">2. Investment Journey</h2>
-            <p className="text-[#44475B] mb-4 text-justify text-[15px] md:text-[17px] leading-relaxed">The following information needs to be provided by “You“ mandatorily and voluntarily, when starting “Your” investment journey on our platforms:</p>
+            <p className="text-[#44475B] mb-4 text-justify text-[15px] md:text-[17px] leading-relaxed">The following information needs to be provided by “You” mandatorily and voluntarily, when starting “Your” investment journey on our platforms:</p>
             <ul className="text-[#44475B] list-disc ml-7 text-justify text-[15px] md:text-[17px]">
                 <li>Mobile Number, First Name, Last Name, PAN, e-Mail Address, Date of Birth, AADHAR, Address.</li>
                 <li>Income Slab, Profession, Address Details, Father's Name, Mother's Name, Tax Residency, Birth Country, Nationality, Nominee Details, Gender, Marital Status.</li>
@@ -69,17 +69,17 @@ export default function PrivacyPolicy() {
 
             <h2 className="text-[18px] md:text-[24px] font-bold mt-8 text-[#44475B] pb-4 mb-4">5. User Data Policy</h2>
             <ul className="text-[#44475B] list-disc ml-7 text-justify text-[15px] md:text-[17px] leading-relaxed">
-                <li>Users have the right to request for the deletion of their personal data held by “Us”. To initiate the account deletion process, users can contact us via email at <a href="mailto:dataprotectionbfc@gmail.com" className="underline">dataprotectionbfc@gmail.com</a> or submit a data deletion request through our website using the following link: <a href="https://bfccapital.com/contact-us" target="_blank" rel="noopener noreferrer" className="underline">https://bfccapital.com/contact-us</a>.</li>
+                <li>Users have the right to request for the deletion of their personal data held by “Us”. To initiate the account deletion process, users can contact us via email at <a href="mailto:dataprotectionbfc@gmail.com" className="underline hover:text-[#001EFE]">dataprotectionbfc@gmail.com</a> or submit a data deletion request through our website using the following link: <a href="https://bfccapital.com/contact-us" target="_blank" rel="noopener noreferrer" className="underline hover:text-[#001EFE]">https://bfccapital.com/contact-us</a>.</li>
                 <li>We are committed to addressing your concerns and inquiries promptly and transparently.</li>
                 <li>Upon receiving a data deletion request, We will verify the identity of the requester to ensure the security of user information. Following successful verification, we will proceed with the deletion of the user's account data from our systems within a reasonable timeframe.</li>
-                <li>It’s important to note that certain data may need to be retained for legal or legitimate business purposes even after account deletion. However, any data retained will be used solely for these specific purposes and will not be accessible or used for any other reason.</li>
+                <li>It's important to note that certain data may need to be retained for legal or legitimate business purposes even after account deletion. However, any data retained will be used solely for these specific purposes and will not be accessible or used for any other reason.</li>
                 <li>Users have the right to request for the Correction of their personal data held by "Us". To initiate the date correction process, users can contact us via email at <a href="mailto:dataprotectionbfc@gmail.com" className="underline hover:text-[#001EFE]">dataprotectionbfc@gmail.com</a> or submit a data correction request through our website using the following link: <a href="https://bfccapital.com/contact-us" target="_blank" rel="noopener noreferrer" className="underline hover:text-[#001EFE]">https://bfccapital.com/contact-us</a>.</li>
                 <li>Upon receiving a personal data correction request, We will verify the identity of the requester to ensure the security of user information. Following successful verification, we will proceed with the correction of the user's account data from our systems within a reasonable timeframe.</li>
             </ul>
             <hr className="mutual-funds-hrd mt-5 lg:mt-8 w-[25%] md:w-[15%] lg:w-[10%]" />
 
             <h2 className="text-[18px] md:text-[24px] font-bold mt-8 text-[#44475B] pb-4 mb-4">6. Data Protection Officer</h2>
-            <p className="text-[#44475B]  text-justify text-[15px] md:text-[17px] leading-relaxed">Ms. Vertika Singh has been appointed as Data Protection Officer for the compliance of the DPDP Act 2023. She can be contacted at <a href="mailto:dataprotectionbfc@gmail.com" className="underline">dataprotectionbfc@gmail.com</a> for any query, concern, grievance related to protection, processing, erase, correction of your personal data.</p>
+            <p className="text-[#44475B]  text-justify text-[15px] md:text-[17px] leading-relaxed">Ms. Vertika Singh has been appointed as Data Protection Officer for the compliance of the DPDP Act 2023. She can be contacted at <a href="mailto:dataprotectionbfc@gmail.com" className="underline hover:text-[#001EFE]">dataprotectionbfc@gmail.com</a> for any query, concern, grievance related to protection, processing, erase, correction of your personal data.</p>
             <hr className="mutual-funds-hrd mt-5 lg:mt-8 w-[25%] md:w-[15%] lg:w-[10%]" />
 
             <h2 className="text-[18px] md:text-[24px] font-bold mt-8 text-[#44475B] pb-4 mb-4">7. Changes in Privacy Policy</h2>
