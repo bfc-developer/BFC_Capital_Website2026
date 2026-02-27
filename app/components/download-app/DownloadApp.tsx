@@ -61,7 +61,7 @@ export default function DownloadApp() {
                                 alt="Mobile Portfolio"
                                 width={300}
                                 height={600}
-                                className="w-[150px] h-[250px] md:w-[450px] md:h-[400px] lg:w-[500px] lg:h-[500px] xl:w-[400px] 2xl:w-[350px] mx-auto "
+                                className="w-[150px] h-[250px] md:w-[450px] md:h-[400px] lg:w-[500px] lg:h-[500px] xl:w-[400px] xl:h-[500px] 2xl:w-[350px] 2xl:h-[500px] mx-auto "
                                 data-aos="fade-up"
                                 data-aos-duration="2000"
                             />
