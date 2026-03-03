@@ -27,7 +27,7 @@ const RangeBar: React.FC<BarNameValueProp> = ({
         step="1"
         value={value}
         onChange={handleChange}
-        className="w-full appearance-none h-2 rounded-lg cursor-pointer"
+        className="w-full appearance-none h-2 rounded-lg cursor-pointer [&::-webkit-slider-thumb]:appearance-none [&::-webkit-slider-thumb]:w-5 [&::-webkit-slider-thumb]:h-5 [&::-webkit-slider-thumb]:rounded-full [&::-webkit-slider-thumb]:bg-[#D9D9D9] [&::-moz-range-thumb]:appearance-none [&::-moz-range-thumb]:w-5 [&::-moz-range-thumb]:h-5 [&::-moz-range-thumb]:rounded-full [&::-moz-range-thumb]:bg-[#D9D9D9] [&::-moz-range-thumb]:border-none"
         style={{
           background: `linear-gradient(to right,
             #06A358 0%,
