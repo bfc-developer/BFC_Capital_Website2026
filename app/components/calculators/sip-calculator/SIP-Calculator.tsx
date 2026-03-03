@@ -198,7 +198,7 @@ export default function Sipcalculators() {
                     }}>SIP Calculator</span>
                 </nav>
                 {/* Title */}
-                <h2 className="text-[20px] md:text-3xl lg:text-4xl font-bold text-[#44475B] mb-5 md:mb-8">
+                <h2 className="text-[20px] md:text-3xl lg:text-5xl font-bold text-[#44475B]">
                     SIP Calculator
                 </h2>
             </div>
