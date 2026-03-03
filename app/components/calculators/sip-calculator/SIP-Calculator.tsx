@@ -12,13 +12,14 @@ const ReactApexChart = dynamic(() => import("react-apexcharts"), {
 import { ApexOptions } from "apexcharts";
 import RangeBar from "@/app/components/common/RangeBar";
 import { toast } from "react-toastify";
+import { ChevronRight } from "lucide-react";
 
 export default function Sipcalculators() {
     const questions = [
         {
             question: "How accurate are SIP Calculator results?",
             answer:
-                "No, it’s an estimate. Returns in mutual funds depend on market performance, so the calculator gives you a projected figure, not a guarantee.",
+                "It’s mostly accurate. The calculator gives you a projected figure, not a guaranteed figure.",
         },
         {
             question: "Can the SIP Calculator help in retirement planning?",
@@ -29,6 +30,16 @@ export default function Sipcalculators() {
             question: "What inputs are required in a SIP Calculator?",
             answer:
                 "Usually, the monthly savings, expected rate of return and investment horizon or time duration of the SIP are all you need to enter to get results.",
+        },
+        {
+            question: "Is SIP 100% safe?",
+            answer:
+                "No, a SIP is not completely risk-free, as all investments in the equity market carry some risk. However, SIPs do help reduce risk compared to lump-sum investments by spreading investments over time, known as rupee cost averaging, and reducing the impact of market volatility, especially over the long term",
+        },
+        {
+            question: "Can I invest 100 rupees in SIP?",
+            answer:
+                "Some schemes allow you to start your SIPs with an amount as low as 100 rupees as well, making SIPs affordable and within reach of every kind of investor.",
         },
     ];
 
@@ -78,6 +89,9 @@ export default function Sipcalculators() {
             { name: "Invested Amount", data: valueForGraph(totalMonthlySaving) },
         ],
         options: {
+            legend: {
+                show: false,
+            },
             chart: {
                 height: 350,
                 type: "area",
@@ -137,39 +151,75 @@ export default function Sipcalculators() {
 
     return (
         <>
-
-            <section className="pt-4 overflow-hidden">
-                <div className="container">
-                    <nav aria-label="breadcrumb">
-                        <ol className="breadcrumb small">
-                            <li className="breadcrumb-item">
-                                <Link href="/">Home</Link>
-                            </li>
-                            <li className="breadcrumb-item">
-                                <Link href={"/calculators"}>Calculators</Link>
-                            </li>
-                            <li className="breadcrumb-item active" aria-current="page">
-                                SIP Calculator
-                            </li>
-                        </ol>
-                    </nav>
-
-                    <div
-                        className="smart_heading_prodgy text-start mt-4"
-                        data-aos="fade-right"
+            <div className="container mx-auto px-4 py-8 md:py-12 md:px-15 lg:px-20">
+                {/* Breadcrumb */}
+                <nav className="flex items-center text-sm mb-8">
+                    <Link
+                        href="/"
+                        className="font-semibold"
+                        style={{
+                            background: "linear-gradient(90deg, #04B488 39.5%, #011EFE 100%)",
+                            WebkitBackgroundClip: "text",
+                            WebkitTextFillColor: "transparent",
+                            backgroundClip: "text",
+                            color: "transparent"
+                        }}
                     >
-                        <h2 className="py-1 text-start">SIP Calculator</h2>
-                    </div>
+                        Home
+                    </Link>
+                    <svg width="0" height="0">
+                        <linearGradient id="chevron-gradient" x1="0" y1="0" x2="1" y2="0">
+                            <stop offset="39.5%" stopColor="#04B488" />
+                            <stop offset="100%" stopColor="#011EFE" />
+                        </linearGradient>
+                    </svg>
 
-                    <div className="row py-md-4 justify-content-between py-2">
-                        <div className="col-md-6 col-12 py-2">
-                            <div className="sip_calculators_prodgy me-lg-3">
-                                <Form>
+                    <ChevronRight
+                        className="h-4 w-4 mx-2"
+                        style={{ stroke: "url(#chevron-gradient)" }}
+                    />
+                    <span className="text-[#7A7A7A] font-semibold" style={{
+                        background: "linear-gradient(90deg, #04B488 39.5%, #011EFE 100%)",
+                        WebkitBackgroundClip: "text",
+                        WebkitTextFillColor: "transparent",
+                        backgroundClip: "text",
+                        color: "transparent"
+                    }}>Calculators</span>
+                    <ChevronRight
+                        className="h-4 w-4 mx-2"
+                        style={{ stroke: "url(#chevron-gradient)" }}
+                    />
+                    <span className="text-[#7A7A7A] font-semibold" style={{
+                        background: "linear-gradient(90deg, #04B488 39.5%, #011EFE 100%)",
+                        WebkitBackgroundClip: "text",
+                        WebkitTextFillColor: "transparent",
+                        backgroundClip: "text",
+                        color: "transparent"
+                    }}>SIP Calculator</span>
+                </nav>
+                {/* Title */}
+                <h2 className="text-[20px] md:text-3xl lg:text-4xl font-bold text-[#44475B] mb-5 md:mb-8">
+                    SIP Calculator
+                </h2>
+            </div>
+            <section>
+                <div className="max-w-7xl mx-auto px-4 py-6 md:py-8">
+                    <div className="flex flex-col md:flex-row justify-between gap-6">
+
+                        {/* LEFT SIDE */}
+                        <div className="w-full md:w-1/2">
+                            <div className="shadow-md rounded-2xl px-8 py-5 bg-[#FFFFFF]">
+
+                                <form className="space-y-6">
+
                                     {/* Monthly Saving */}
-                                    <Form.Group className="mb-3">
-                                        <Form.Label className="">MONTHLY SAVING</Form.Label>
-                                        <Form.Control
+                                    <div>
+                                        <label className="block text-[#44475B] font-medium text-sm uppercase mb-2">
+                                            MONTHLY SAVING
+                                        </label>
+                                        <input
                                             type="number"
+                                            className="w-full border rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500 text-[#44475B]"
                                             value={monthlySaving}
                                             min={0}
                                             onChange={(e) =>
@@ -177,19 +227,18 @@ export default function Sipcalculators() {
                                             }
                                             placeholder="₹ 10,000"
                                         />
-                                    </Form.Group>
+                                    </div>
 
                                     {/* Expected Rate of Return */}
-                                    <Form.Group className="mb-3">
-                                        <Form.Label className="">
+                                    <div>
+                                        <label className="block text-[#44475B] font-medium text-sm uppercase mb-2">
                                             EXPECTED RATE OF RETURN (% P.A)
-                                        </Form.Label>
-                                        <Form.Control
-                                            type="text" // 👈 IMPORTANT: not number
-                                            inputMode="decimal" // 👈 still shows numeric keyboard on mobile
-                                            value={
-                                                expectedRateOfReturn
-                                            }
+                                        </label>
+                                        <input
+                                            type="text"
+                                            inputMode="decimal"
+                                            className="w-full border rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500 text-[#44475B]"
+                                            value={expectedRateOfReturn}
                                             placeholder="16.5"
                                             onChange={(e) => {
                                                 let val = e.target.value;
@@ -225,57 +274,55 @@ export default function Sipcalculators() {
                                                 }
                                             }}
                                         />
-                                    </Form.Group>
+                                    </div>
 
                                     {/* Investment Period */}
-                                    <Form.Group className="mb-4">
-                                        <Form.Label className=" d-flex justify-content-between">
-                                            <span>INVESTMENT PERIOD</span>
-                                            <span
-                                                className="fw-bolder normal-case"
-                                            >
+                                    <div>
+                                        <div className="flex justify-between mb-2">
+                                            <label className="text-[#44475B] font-medium text-sm uppercase">
+                                                INVESTMENT PERIOD
+                                            </label>
+                                            <span className="font-bold text-[#44475B]">
                                                 {investmentPeriod} Yrs
                                             </span>
-                                        </Form.Label>
-                                        {/* <Form.Range
-                      min="1"
-                      max="30"
-                      value={investmentPeriod}
-                      onChange={(e) =>
-                        setInvestmentPeriod(parseFloat(e.target.value))
-                      }
-                    /> */}
+                                        </div>
 
                                         <RangeBar
                                             maxLimit={30}
                                             setValue={setInvestmentPeriod}
                                             value={investmentPeriod}
                                         />
-                                        <div className="d-flex justify-content-between small text-muted">
+
+                                        <div className="flex justify-between text-sm text-[#44475B] mt-2">
                                             <span>1 Yr</span>
                                             <span>30 Yrs</span>
                                         </div>
-                                    </Form.Group>
+                                    </div>
 
                                     {/* Button */}
-                                    <Button
-                                        variant="primary"
-                                        className="prodgybtn"
+                                    <button
+                                        type="button"
                                         onClick={calculateSip}
+                                        className="bg-[#04B488] text-white py-3 rounded-lg font-semibold hover:bg-blue-700 transition p-[14px]"
                                     >
                                         Calculate
-                                    </Button>
-                                </Form>
+                                    </button>
+
+                                </form>
                             </div>
                         </div>
-                        <div className="col-md-6 col-12 py-2">
-                            <div className="ps-lg-3">
-                                <div
-                                    className="sip-calculate-results mb-4"
-                                    data-aos="fade-left"
-                                >
-                                    <h2>Result</h2>
-                                    <p>
+
+                        {/* RIGHT SIDE */}
+                        <div className="w-full md:w-1/2 text-[#44475B]">
+                            <div className="space-y-4">
+
+                                {/* Result Card */}
+                                <div className="shadow-md rounded-2xl px-5 py-4 bg-[#FFFFFF]">
+                                    <h2 className="font-primary font-semibold text-2xl leading-tight text-textdark mb-3">
+                                        Result
+                                    </h2>
+
+                                    <p className="font-primary text-base md:text-lg leading-relaxed text-textdark">
                                         If you invest{" "}
                                         <strong>₹{monthlySaving1.toLocaleString("en-IN")}</strong>{" "}
                                         per month for a period of{" "}
@@ -289,262 +336,187 @@ export default function Sipcalculators() {
                                     </p>
                                 </div>
 
-                                <div
-                                    className="sip-calculator-chartprodgy mb-2"
-                                    data-aos="fade-left"
-                                >
-                                    {/* <Image
-                    src="/images/calculator/sip-chart.png"
-                    alt="Prodigy Splash Screen"
-                    width={1000}
-                    height={300}
-                    className="img-fluid"
-                    data-aos="fade-up"
-                    data-aos-duration="500"
-                  /> */}
-
-                                    <div className="card-body">
-                                        <ReactApexChart
-                                            options={chartState.options}
-                                            series={chartState.series}
-                                            type="area"
-                                            height={350}
-                                        />
-                                    </div>
+                                {/* Chart Card */}
+                                <div className="shadow-md rounded-2xl px-5 py-4 bg-[#FFFFFF]">
+                                    <ReactApexChart
+                                        options={chartState.options}
+                                        series={chartState.series}
+                                        type="area"
+                                        height={350}
+                                    />
                                 </div>
-                                <div className="social_yb rounded" data-aos="fade-left">
+
+                                {/* Invest Now Button */}
+                                <div>
                                     <Link
                                         href="https://app.prodigypro.co.in/"
-                                        className="rounded calc_invest_btn"
+                                        className="inline-block py-3 rounded-lg font-semibold transition bg-color-[#FFFFFF]"
                                     >
-                                        <b>Invest Now</b>{" "}
+                                        <span className="bg-gradient-to-r from-[#04B488] to-[#011EFE] bg-clip-text text-transparent">
+                                            Invest Now
+                                        </span>
                                     </Link>
                                 </div>
+
                             </div>
                         </div>
+
                     </div>
                 </div>
             </section>
+            <section>
+                <h2 className="text-center text-[20px] md:text-3xl lg:text-5xl font-bold text-[#44475B] mt-16">All You Need To Know About <br />
+                    SIP Calculator</h2>
+                <div className='container mx-auto px-5 md:px-10 lg:px-20'>
+                    <p className="mx-auto mt-4 md:mt-8 mb-4 text-[15px] md:text-[24px] font-bold text-[#44475B] mb-[10px] md:mb-[20px]">
+                        What is an SIP Calculator?
+                    </p>
+                    <p className='text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto mb-4'>Let’s keep this simple. <br />
+                        Imagine you put aside ₹3,000 every month in a piggy bank. After one year, you’d have ₹36,000. No surprises there.</p>
+                    <p className='text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto mb-4'>Now imagine if that same money didn’t just sit quietly in a corner, but actually worked for you. It earned returns. And then those returns started earning returns too.</p>
+                    <p className='text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto mb-4'>
+                        That’s what investing does.</p>
+                    <p className='text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto mb-4'>
+                        One of the easiest and most comfortable ways to start investing is through an SIP (Systematic Investment Plan). And to understand where your SIP could realistically take you, you need a tool that shows the picture clearly. That’s where the Prodigy Pro SIP Calculator, developed by BFC Capital – a SEBI-registered investment advisor (RIA), comes in.</p>
+                    <p className='text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto mb-4'>A SIP Calculator is a simple online tool that helps you estimate how much your regular monthly investments may grow over time. Think of it like checking Google Maps before starting a journey– you may not know every turn, but at least you know where you’re headed.</p>
+                </div>
 
-            <div className="container my-md-5 d-flex justify-content-center"></div>
+                <div className='container mx-auto px-5 md:px-10 lg:px-20'>
+                    <p className="mx-auto mt-4 md:mt-8 mb-4 text-[15px] md:text-[24px] font-bold text-[#44475B] mb-[10px] md:mb-[20px]">
+                        How Can a SIP Calculator Help You?
+                    </p>
+                    <p className='text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto mb-4'>Investing without a plan is like saying, “Let’s just drive and see where we land.” Sounds fun, but not when your money is involved. <br />A SIP calculator brings clarity where confusion usually exists.</p>
+                    <p className='text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto mb-4'>
+                        It helps you set clear goals</p>
+                    <p className='text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto mb-4'>
+                        Maybe you want ₹50 lakhs for your child’s higher education in 20 years. <br />Or ₹15 lakhs for a wedding after 3 years. <br />Instead of guessing, the calculator tells you how much you need to invest every month to realistically reach those goals.</p>
+                    <p className='text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto'>It shows you the real power of compounding <br />
+                        This is where things get interesting. For example, if you invest ₹5,000 every month for 10 years and earn an average return of 12%:</p>
+                    <ul className='list-disc pl-7 text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto'>
+                        <li>Total amount invested: ₹6 lakhs</li>
+                        <li>Approximate value after 10 years: ₹11.5 lakhs</li>
+                    </ul>
 
-            <section className="pb-5 pt-md-2 pt-0">
-                <div className="container">
-                    <div className="row">
-                        <div
-                            className="col-md-8 col-12 order-md-1 order-2 py-2"
-                            data-aos="fade-up"
-                        >
-                            <div className="me-lg-5 px-md-0 px-2">
-                                <div className="sip-calculator-aboutProdgy text-start">
-                                    <h2 className="w-75 pb-3">
-                                        All You Need To Know About SIP Calculator
-                                    </h2>
+                    <p className='text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto mb-4'>
+                        You didn’t double your effort. Time and compounding did the heavy lifting for you.</p>
+                    <p className='text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto mb-4 font-bold italic'>
+                        It helps build discipline</p>
+                    <p className='text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto mb-4'>
 
-                                    <h3>What is an SIP Calculator?</h3>
-                                    <p className="">
-                                        Let’s start simple. Imagine you put aside ₹5,000 every month
-                                        in a piggy bank. After 12 months, you’d have ₹60,000, sounds
-                                        fair, right?  But in the world of investing, that piggy bank
-                                        isn’t just storing your money; it’s actually growing it!And
-                                        one of the most affordable, comfortable, and systematic ways
-                                        of growing your money is through an SIP, and this is where
-                                        Prodigy Pro’s SIP calculator comes in.
-                                    </p>
-                                    <p>
-                                        A Systematic Investment Plan (SIP) Calculator is an online
-                                        tool that tells you approximately how much your monthly
-                                        investments can grow over time. Just like a map shows you
-                                        the destination before you start driving, this calculator
-                                        shows you your estimated future wealth before you start
-                                        investing.
-                                    </p>
-                                    <h3>How Can a SIP Calculator Help You?</h3>
-                                    <p>
-                                        Investing without a plan is like setting off on a road trip
-                                        without Google Maps; Imagine where you’d end up without any
-                                        direction at all! Now, the same goes for your investments as
-                                        well, and this is exactly where this tool comes in handy!The
-                                        SIP calculator keeps you on track by:
-                                    </p>
-                                    <p>
-                                        Setting Clear Goals Want ₹25 lakhs for your child’s
-                                        education in 15 years? Or 20 lakhs for your wedding after 5
-                                        years? The calculator will tell you how much to invest
-                                        monthly to get there.
-                                    </p>
-                                    <p>
-                                        Showing the Power of Compounding For example, ₹5,000/month
-                                        for 10 years at 12% return grows to around ₹11.6 lakhs. You
-                                        invested ₹6 lakhs, but compounding created an extra ₹5.6
-                                        lakhs for you in terms of profit.
-                                    </p>
-                                    <p>
-                                        Building Discipline Once you know your target and the
-                                        monthly investment needed, it’s easier to stick with the
-                                        plan and avoid impulsive decisions like withdrawing your
-                                        money to meet personal expenses. SIPs are the best way to
-                                        build investing discipline due to their recurring and
-                                        automated nature.
-                                    </p>
-                                    <h3>How Do SIP Calculators Work?</h3>
-                                    <p>
-                                        At its core, an SIP calculator uses one simple theory:
-                                        compounding.
-                                    </p>
-                                    <ul className="listshow_prodigy12">
-                                        <li>Every month, you invest a fixed amount.</li>
-                                        <li>That money earns returns.</li>
-                                        <li>
-                                            Those returns are reinvested and start earning returns of
-                                            their own.
-                                        </li>
-                                    </ul>
-                                    <p>
-                                        Over time, this snowball effect turns small contributions
-                                        into big wealth. The calculator just automates the math, so
-                                        you don’t need a spreadsheet.
-                                    </p>
+                        Once you know your target and the monthly amount required, investing stops feeling random. <br />You’re less likely to break your SIP for short-term expenses because now your money has a purpose. SIPs work best when they run quietly in the background – automatically, consistently, and without emotional decisions.</p>
+                </div>
 
-                                    <h3>
-                                        How to Use the Prodigy Pro’s Systematic Investment Plan
-                                        Calculator?
-                                    </h3>
-                                    <p>
-                                        The Prodigy Pro’s SIP Calculator is designed to be
-                                        beginner-friendly and quick. All it takes are three inputs:
-                                    </p>
-                                    <p>Monthly Savings - e.g., ₹5,000/month.</p>
-                                    <p>Investment Period - say 10 years.</p>
-                                    <p>Expected Return Rate - let’s assume approx-12%.</p>
-                                    <p>Hit Calculate and you’ll instantly see:</p>
-                                    <p>Amount Invested – total money you contributed.</p>
-                                    <p>
-                                        Market Value – total future value you might get after 10
-                                        years.
-                                    </p>
-                                    <p>Returns – the profit earned over your investment value.</p>
-                                    <p>
-                                        <strong>Example: </strong> <br />
-                                        ₹5,000/month × 10 years @ 12% return <br />
-                                        Invested: ₹6,00,000 <br />
-                                        Future Value: ~₹11.6 lakhs!
-                                    </p>
-                                    <p>That’s compounding doing its job silently.</p>
-                                    <h3>Systematic Investment Plans (SIPs) in India</h3>
-                                    <p>
-                                        SIPs are one of the simplest and most popular ways to invest
-                                        in mutual funds. Instead of putting all your money as a lump
-                                        sum, you invest a fixed amount regularly on a fixed date
-                                        from a bank account. Even ₹500/month is enough to start;
-                                        some SIPs begin with as little as ₹ 250.
-                                    </p>
-                                    <p>Why they work so well in India? Here’s why: </p>
-                                    <ul className="listshow_prodigy12">
-                                        <li>
-                                            They encourage discipline among salaried individuals.
-                                        </li>
-                                        <li>
-                                            They reduce the stress of market timing since you invest
-                                            at regular intervals.
-                                        </li>
-                                        <li>
-                                            They are perfect for long-term goals like education,
-                                            buying a house, or retirement.
-                                        </li>
-                                    </ul>
-                                    <h3>Types of SIPs</h3>
-                                    <p>
-                                        SIPs aren’t rigid at all! <br /> You can choose what suits
-                                        your lifestyle.
-                                    </p>
-                                    <p>
-                                        <strong>Step-Up SIP </strong> <br />
-                                        Start small and increase gradually. Example: begin with
-                                        ₹2,000/month, increase by ₹500 every year as your salary
-                                        grows.
-                                    </p>
-                                    <p>
-                                        <strong>Top-Up SIP </strong> <br />
-                                        Add extra whenever you can. Got a Diwali bonus? Add ₹10,000
-                                        to your SIP. No compulsion, just flexibility to boost
-                                        returns.
-                                    </p>
-                                    <h3>
-                                        Why use Prodigy Pro’s online SIP calculator over others?
-                                    </h3>
-                                    <ul className="listshow_prodigy12">
-                                        <li>
-                                            Long-Term Clarity: Shows how your ₹500 today can become
-                                            lakhs tomorrow.
-                                        </li>
-                                        <li>
-                                            Structured Goal Planning: Calculate how much you need to
-                                            reach a specific target.
-                                        </li>
-                                        <li>User-Friendly: Clean, quick, no jargon.</li>
-                                        <li>
-                                            Smarter Decisions: Compare different SIP amounts before
-                                            committing.
-                                        </li>
-                                        <li>
-                                            Transparency:  Clearly shows invested vs. earned, so no
-                                            surprises.
-                                        </li>
-                                    </ul>
-                                    <p>
-                                        At the end of the day, money management is really about two
-                                        things: clarity and consistency. The SIP Calculator is like
-                                        that honest friend who doesn’t sugarcoat the truth but shows
-                                        you exactly where your money can take you if you stay
-                                        disciplined. Whether it’s saving for your child’s future,
-                                        your dream home, or just building a safety cushion for
-                                        tomorrow, this simple tool removes the guesswork and
-                                        replaces it with a clear roadmap.
-                                    </p>
-                                    <p>
-                                        Think of it this way: your piggy bank grows only when you
-                                        put something in. But with SIPs, your piggy bank is not just
-                                        storing, it’s working 24/7 for you. And that’s where the
-                                        magic of compounding-and a simple calculator-changes the
-                                        game.
-                                    </p>
-                                    <p>
-                                        So the next time you feel investing is “too complicated” or
-                                        “meant only for experts,” remember this: all it takes is a
-                                        fixed sum, a fixed date, and a small tool like Prodigy Pro’s
-                                        SIP calculator to start building wealth that works while you
-                                        sleep.
-                                    </p>
-                                </div>
+                <div className='container mx-auto px-5 md:px-10 lg:px-20'>
+                    <p className="mx-auto mt-4 md:mt-8 mb-4 text-[15px] md:text-[24px] font-bold text-[#44475B] mb-[10px] md:mb-[20px]">
+                        How Do SIP Calculators Work?
+                    </p>
+                    <p className='text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto mb-4'>At its heart, an SIP calculator is built on one powerful idea: <b>compounding</b>.</p>
+                    <p className='text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto mb-4'>You invest a fixed amount every month – no guesswork, no market timing. <br />That money starts earning returns. <br />Those returns don’t just sit there; they get reinvested and begin earning returns of their own.</p>
+                    <p className='text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto mb-4'>
+                        Over time, this creates a snowball effect. What starts as small, disciplined monthly investments can quietly grow into meaningful wealth.
+                        The SIP calculator simply does the number-crunching for you. It shows you what consistency and time can do, without you having to open a spreadsheet or stress over calculations.</p>
 
-                                <div className="py-4 smart_heading_prodgy">
-                                    <h2 className="text-start">FAQs</h2>
-                                    <p className="text-start w-100">
-                                        Questions on your mind? Dont worry we have the answers!
-                                    </p>
-                                </div>
+                    <p className='text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto mb-4'>
+                        At BFC Capital, we believe the real magic isn’t in predicting markets, but in staying invested long enough for compounding to do its job.</p>
+                </div>
 
-                                <div className="accordion_prodgy_home">
-                                    <Accordion flush>
-                                        {questions.map((item, index) => (
-                                            <Accordion.Item eventKey={index.toString()} key={index}>
-                                                <Accordion.Header>{item.question}</Accordion.Header>
-                                                <Accordion.Body>{item.answer}</Accordion.Body>
-                                            </Accordion.Item>
-                                        ))}
-                                    </Accordion>
-                                </div>
-                            </div>
+                <div className='container mx-auto px-5 md:px-10 lg:px-20'>
+                    <p className="mx-auto mt-4 md:mt-8 mb-4 text-[15px] md:text-[24px] font-bold text-[#44475B] mb-[10px] md:mb-[20px]">
+                        How to Use the Prodigy Pro’s Systematic Investment Plan Calculator?
+                    </p>
+                    <p className='text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto mb-4'>The Prodigy Pro’s SIP Calculator is designed to be beginner-friendly and quick. All it takes are three inputs:</p>
+                    <p className='text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto mb-4'>
+                        Monthly Savings - e.g., ₹8,000/month.</p>
+
+                    <p className='text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto mb-4'>
+                        Investment Period - say 10 years.</p>
+                    <p className='text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto mb-4'>
+                        Expected Return Rate - let’s assume approx-16%.</p>
+                    <p className='text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto mb-4'>
+                        Hit Calculate, and you’ll instantly see:</p>
+                    <p className='text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto mb-4'>
+                        Amount Invested – total money you contributed.</p>
+                    <p className='text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto mb-4'>
+                        Market Value – total future value you might get after 10 years.</p>
+                    <p className='text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto mb-4'>
+                        Returns – the profit earned over your investment value.</p>
+                    <p className='text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto mb-4'>
+                        <b>Example:</b>
+                        ₹8,000/month × 10 years @ 16% return <br />Invested: ₹9,60,000  <br />Future Value: ~₹23.71 lakhs!</p>
+                    <p className='text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto mb-4'>
+                        That’s compounding doing its job silently.</p>
+
+                </div>
+
+                <div className='container mx-auto px-5 md:px-10 lg:px-20'>
+                    <p className="mx-auto mt-4 md:mt-8 mb-4 text-[15px] md:text-[24px] font-bold text-[#44475B] mb-[10px] md:mb-[20px]">
+                        Systematic Investment Plans (SIPs) in India
+                    </p>
+                    <p className='text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto'>
+                        SIPs are one of the easiest and most trusted ways to invest in mutual funds. <br />Instead of investing a large amount in one go, you invest a fixed sum every month on a chosen date – directly from your bank account. No chasing markets, no complicated decisions. Even ₹100 a month is enough to get started, and some SIPs allow you to begin with just ₹100.</p>
+                    <p className='text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto'>So why do SIPs work especially well in India?</p>
+                    <ul className='list-disc pl-7 text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto'>
+                        <li>They fit perfectly into how most of us earn and spend.</li>
+                        <li>For salaried individuals, SIPs build a habit of investing – quietly and consistently – much like a monthly bill you pay to your future self.</li>
+                        <li>They also take away the pressure of trying to “buy at the right time.” Markets go up, markets go down – but SIPs keep you invested through it all, smoothing out volatility over time.</li>
+                        <li>And most importantly, SIPs are designed for long-term goals that truly matter: your child’s education, buying a home, or building a comfortable retirement.</li>
+                    </ul>
+
+
+                    <p className='text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto mb-4'>
+                        At BFC Capital, we see SIPs not as a product, but as a behaviour shift, from worrying about markets to trusting the power of time and consistency.</p>
+                </div>
+
+                <div className='container mx-auto px-5 md:px-10 lg:px-20'>
+                    <p className="mx-auto mt-4 md:mt-8 mb-4 text-[15px] md:text-[24px] font-bold text-[#44475B] mb-[10px] md:mb-[20px]">
+                        Types of SIPs
+                    </p>
+                    <p className='text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto mb-4'>
+                        SIPs aren’t rigid at all! <br />You can choose what suits your lifestyle.</p>
+
+
+                    <p className='text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto mb-4'>
+                        <b>Step-Up SIP</b> <br />
+                        Start small and increase gradually. Example: begin with ₹5,000/month, increase by ₹1000 every year as your salary grows.</p>
+                    <p className='text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto mb-4'>
+                        <b>Top-Up SIP</b> <br />
+                        Add extra whenever you can. Got a yearly bonus? Add ₹15,000 to your SIP. No compulsion, just flexibility to boost returns.</p>
+                </div>
+
+                <div className='container mx-auto px-5 md:px-10 lg:px-20'>
+                    <p className="mx-auto mt-4 md:mt-8 mb-4 text-[15px] md:text-[24px] font-bold text-[#44475B] mb-[10px] md:mb-[20px]">
+                        Why use Prodigy Pro’s online SIP calculator over others?
+                    </p>
+                    <p className='text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto mb-4'>
+                        Because investing isn’t just about numbers. It’s about clarity and confidence.</p>
+                    <ul className='list-disc pl-7 text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto'>
+                        <li> <b>See the long-term picture</b> <br />It helps you understand how something as small as ₹500 a month today can quietly grow into lakhs over time. No hype, just realistic long-term clarity.</li>
+                        <li> <b>Plan with a purpose</b> <br />Have a specific goal in mind? The calculator shows how much you need to invest to reach it, so your SIP isn’t random. It’s intentional.</li>
+                        <li> <b>Simple to use</b> <br />Clean, quick, and easy to understand. No jargon, no clutter. Just the numbers that actually matter.</li>
+                        <li> <b>Make smarter choices before you commit</b> <br />Compare different SIP amounts and timelines before starting, so you invest with confidence, not guesswork.</li>
+                        <li> <b>Complete transparency</b> <br />You clearly see how much you’ve invested and how much you’ve earned. No surprises. No hidden assumptions.</li>
+                    </ul>
+
+                    <p className='text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto mb-4'>
+
+                        At the end of the day, money management comes down to two simple things: clarity and consistency. <br />Whether you are planning for your child’s future, your dream home, or simply building a safety cushion for tomorrow, this tool removes guesswork and replaces it with a clear, practical roadmap.</p>
+                    <p className='text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto mb-4'>
+                        At BFC Capital, a SEBI Registered Investment Adviser, we believe investing does not have to feel complicated or exclusive. It is about taking small, consistent steps and staying the course.</p>
+                    <p className='text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto mb-4'>
+
+                        So the next time investing feels “too complex” or “only meant for experts,” remember this. All it takes is a fixed amount, a fixed date, and a simple tool like Prodigy Pro’s SIP calculator to start building wealth that keeps working even while you sleep</p>
+                </div>
+            </section >
+            <section>
+                <h2 className="text-center text-[20px] md:text-3xl lg:text-5xl font-bold text-[#44475B] mt-16">FAQs</h2>
+                <p className="text-center  text-[#44475B] mb-4">Questions on your mind? Dont worry we have the answers!</p>
+                <div className='container mx-auto px-5 md:px-10 lg:px-20'>
+                    {questions.map((item, index) => (
+                        <div key={index}>
+                            <p className='text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto mb-4 font-bold'>{item.question}</p>
+                            <p className='text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto mb-4'>{item.answer}</p>
                         </div>
-
-                        <div
-                            className="col-md-4 col-12 order-md-2 order-1 py-2 position-relative"
-                            data-aos="zoom-in"
-                        >
-
-                        </div>
-                    </div>
+                    ))}
                 </div>
             </section>
         </>

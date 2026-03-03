@@ -123,9 +123,9 @@ const Footer = () => {
                     <div className="pt-8 border-t border-[#ABC3D7] border-opacity-[0.37] flex flex-col md:flex-row justify-between items-center gap-4 text-[14px] md:text-[17px] leading-relaxed lg:leading-6 text-gray-600">
                         <p>© 2026, BFC Capital. All Rights Reserved.</p>
                         <div className="flex items-center gap-8 text-[14px] md:text-[17px] leading-relaxed lg:leading-6">
-                            <Link href="privacy-policy" className="hover:text-[#001EFE] transition-colors">Privacy Policy</Link>
-                            <Link href="terms&conditions" className="hover:text-[#001EFE] transition-colors">Terms and Conditions</Link>
-                            <Link href="legal-disclaimer" className="hover:text-[#001EFE] transition-colors">Legal Disclaimer</Link>
+                            <Link href="/privacy-policy" className="hover:text-[#001EFE] transition-colors">Privacy Policy</Link>
+                            <Link href="/terms&conditions" className="hover:text-[#001EFE] transition-colors">Terms and Conditions</Link>
+                            <Link href="/legal-disclaimer" className="hover:text-[#001EFE] transition-colors">Legal Disclaimer</Link>
                         </div>
                     </div>
                 </div>

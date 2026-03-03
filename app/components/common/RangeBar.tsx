@@ -9,32 +9,35 @@ const RangeBar: React.FC<BarNameValueProp> = ({
   value,
   setValue,
 }) => {
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setValue(Number(e.target.value)); // ✅ force number
-  };
-  return (
-    <>
-      <div className="investment-slider mt-3">
-        <div className="d-flex justify-content-between">
+  const min = 1;
 
-        </div>
-        <div className="position-relative">
-          <input
-            type="range"
-            min="1"
-            max={maxLimit}
-            step="1"
-            value={value}
-            onChange={handleChange}
-            className="range-slider"
-            style={{
-              width: "100%",
-              background: `linear-gradient(to right, #06A358,#001EFE ${((value - 1) / (maxLimit - 1)) * 100}%, #e0e7ff ${((value - 1) / (maxLimit - 1)) * 100}%)`,
-            }}
-          />
-        </div>
-      </div>
-    </>
-  )
-}
-export default RangeBar
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setValue(Number(e.target.value));
+  };
+
+  // Calculate percentage
+  const percent = ((value - min) / (maxLimit - min)) * 100;
+
+  return (
+    <div className="mt-3">
+      <input
+        type="range"
+        min={min}
+        max={maxLimit}
+        step="1"
+        value={value}
+        onChange={handleChange}
+        className="w-full appearance-none h-2 rounded-lg cursor-pointer"
+        style={{
+          background: `linear-gradient(to right,
+            #06A358 0%,
+            #001EFE ${percent}%,
+            #e0e7ff ${percent}%,
+            #e0e7ff 100%)`,
+        }}
+      />
+    </div>
+  );
+};
+
+export default RangeBar;
