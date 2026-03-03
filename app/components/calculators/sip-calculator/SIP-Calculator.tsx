@@ -60,25 +60,25 @@ export default function Sipcalculators() {
     const [oneMonthSaving, setOneMonthSaving] = useState<number>(10000);
     const [investmentPeriod1, setInvestmentPeriod1] = useState<number>(10);
 
-    const yearInString = (): string[] => {
+    const yearInString = (currentTotalYear: number = totalYear): string[] => {
         let xAxisArray: string[] = [];
-        if (totalYear > 16) {
-            for (let i = 1; i <= totalYear; i += 2) xAxisArray.push(i + "Y");
-            if (totalYear % 2 === 0) xAxisArray.push(totalYear + "Y");
+        if (currentTotalYear > 16) {
+            for (let i = 1; i <= currentTotalYear; i += 2) xAxisArray.push(i + "Y");
+            if (currentTotalYear % 2 === 0) xAxisArray.push(currentTotalYear + "Y");
         } else {
-            for (let i = 1; i <= totalYear; i++) xAxisArray.push(i + "Y");
+            for (let i = 1; i <= currentTotalYear; i++) xAxisArray.push(i + "Y");
         }
         return xAxisArray;
     };
 
-    const valueForGraph = (data: number): number[] => {
+    const valueForGraph = (data: number, currentTotalYear: number = totalYear): number[] => {
         let graphValue: number[] = [];
-        if (totalYear > 16) {
-            for (let i = totalYear; i > 0; i -= 2)
+        if (currentTotalYear > 16) {
+            for (let i = currentTotalYear; i > 0; i -= 2)
                 graphValue.push(Math.round(data / i));
-            if (totalYear % 2 === 0) graphValue.push(Math.round(data));
+            if (currentTotalYear % 2 === 0) graphValue.push(Math.round(data));
         } else {
-            for (let i = totalYear; i > 0; i--) graphValue.push(Math.round(data / i));
+            for (let i = currentTotalYear; i > 0; i--) graphValue.push(Math.round(data / i));
         }
         return graphValue;
     };
@@ -135,16 +135,16 @@ export default function Sipcalculators() {
             setMonthlySaving1(monthlySaving);
 
             // Update chart dynamically
-            setChartState({
+            setChartState((prevState) => ({
                 series: [
-                    { name: "Market Value", data: valueForGraph(totalSaving + gain) },
-                    { name: "Invested Amount", data: valueForGraph(totalSaving) },
+                    { name: "Market Value", data: valueForGraph(totalSaving + gain, investmentPeriod) },
+                    { name: "Invested Amount", data: valueForGraph(totalSaving, investmentPeriod) },
                 ],
                 options: {
-                    ...chartState.options,
-                    xaxis: { categories: yearInString() },
+                    ...prevState.options,
+                    xaxis: { categories: yearInString(investmentPeriod) },
                 },
-            });
+            }));
         }
 
     };
