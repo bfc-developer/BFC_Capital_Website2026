@@ -76,7 +76,7 @@ export default function AboutUs() {
         },
         {
             name: "Vanshika Gupta",
-            role: "Manager-Operations",
+            role: "Manager - Operations",
             image: "/AboutUs/Operations/Vanshika.svg",
             bio: "Vanshika is a voracious reader. And what does she read? Regulatory guidelines, compliance norms, and process updates. What draws her to read them? First, it's her duty to stay current, and second, because she's a nerd who can't stop learning."
         },
@@ -100,7 +100,7 @@ export default function AboutUs() {
     const customerSupportTeam: WealthManagementTeam[] = [
         {
             name: "Sejal Verma",
-            role: "Manager-Customer Support",
+            role: "Manager - Customer Support",
             image: "/AboutUs/CustomerSupport/Sejal.svg",
             bio: "Sejal Verma heads our Customer Support department with a calm, focused approach and a genuine commitment to client satisfaction. As Manager- Customer Support at BFC CAPITAL, she ensures that every query is handled with clarity, efficiency, and a personal touch. Known for her patience, problem-solving mindset, and ability to simplify even the most complex concerns."
         },
@@ -109,13 +109,13 @@ export default function AboutUs() {
     const researchTeam: WealthManagementTeam[] = [
         {
             name: "Akash Gupta",
-            role: "AVP- Research & Analysis",
+            role: "AVP - Research & Analysis",
             image: "/AboutUs/Research/Akash.svg",
             bio: "Akash has been a core part of BFC Capital’s research function for over six years, consistently contributing depth, perspective, and rigor to investment decision-making. Renowned for his reliability, steady judgment, and disciplined approach, he emphasizes clarity, data integrity, and thorough analysis that delivers insights investors can trust over time."
         },
         {
             name: "Kavya Mehrotra",
-            role: "Manager- Research & Analysis",
+            role: "Manager - Research & Analysis",
             image: "/AboutUs/Research/Kavya.svg",
             bio: "Kavya brings clarity and care to the way investment decisions are researched at BFC Capital. She enjoys breaking down complex market data into insights that genuinely help clients make confident, long-term choices. Known for her calm, methodical approach, she values precision, continuous learning, and the impact thoughtful research can have on real financial journeys."
         },
@@ -128,24 +128,14 @@ export default function AboutUs() {
     ];
 
     const digitalMarketingTeam: WealthManagementTeam[] = [
-        {
-            name: "Nitesh Rai",
-            role: "Sr. Manager - Digital Marketing",
-            image: "/AboutUs/DigitalMarketing/Nitesh.svg",
-            bio: "There are people who are passionate about what they do, and then there’s Nitesh. He’ll practically spend nights deep searching the internet, acquainting himself with latest SEO protocols, studying demographics, identifying his target audience and devising infallible digital marketing ideas."
-        },
+
         {
             name: "Amulya Ratan",
             role: "Manager - Digital Marketing",
             image: "/AboutUs/DigitalMarketing/Amulya.svg",
             bio: "Amulya’s inquisitive mind and research capabilities make him the perfect fold for Nitesh. BFC Capital’s outreach campaigns are so much more effective due to his will to excel and unfazed resolve. On a personal front, he is a foodie who doesn’t mind travelling miles to quench his hunger for rare delicacies."
         },
-        {
-            name: "Surabhi Gupta",
-            role: "Lead Graphic Designer",
-            image: "/AboutUs/DigitalMarketing/Surbhi.svg",
-            bio: "Flyers, brochures, creatives or print collateral, ask and you shall receive. Long story short, Surabhi is our in-house graphics wizard, and thankfully she’s damn good at it. Those who know her personally also know that she’s a brilliant artist. Obviously!"
-        },
+
     ];
 
     const technicalSupportTeam: WealthManagementTeam[] = [
@@ -194,7 +184,7 @@ export default function AboutUs() {
                         priority
                     />
                     <div className="absolute inset-0 bg-gradient-to-r from-blue-700/50  to-green-500/50"></div>
-                    <div className="absolute inset-0 bottom-5 md:bottom-20 flex items-end justify-center">
+                    <div className="absolute inset-0 bottom-5 md:bottom-20 lg:bottom-30 flex items-end justify-center">
                         <h1 className="text-white text-[20px] md:text-4xl lg:text-5xl xxl:text-7xl font-extrabold">
                             About Us
                         </h1>
@@ -205,16 +195,19 @@ export default function AboutUs() {
             <section className="py-5 md:py-15">
                 <div className="container m-auto px-5 md:px-10 lg:px-20">
                     <div className="text-[#44475B] text-justify text-[15px] md:text-[17px] leading-relaxed">
-                        <p className="mb-5">Welcome to BFC Capital, where we turn your financial dreams into achievable goals. As a SEBI-registered Investment Adviser (RIA)- registration number INA000021669- we are committed to delivering transparent, compliant, and goal-oriented wealth management solutions for individuals, families, and institutions. </p>
+                        <p className="mb-5">Welcome to BFC Capital, where we turn your financial dreams into achievable goals. As a SEBI-registered Investment Adviser (RIA)- registration number INA000021669- we are committed to delivering transparent, compliant, and goal-oriented wealth management solutions for individuals, families, and institutions.</p>
 
                         <p className="mb-5">BFC Capital began its journey over 21 years ago with a singular focus: to make wealth management accessible, reliable, and insightful for every investor. From the very beginning, we recognized that financial decisions are only as strong as the clarity and knowledge behind them. This understanding has guided us in building services that not only manage assets but also educate and empower investors at every stage of their financial journey.</p>
 
-                        <p className="mb-5">Over the years, BFC Capital has grown to manage over ₹1,000 Crore in assets under advisory, serving more than 16,000 investors. But beyond numbers, our journey is defined by trust– the trust our clients place in us, the expertise our advisors bring, and our commitment to delivering financial clarity.</p>
+                        <p className="mb-5">
+                            Over the years, BFC Capital has grown to manage over ₹1,000 Crore in assets under advisory, serving more than 16,000 investors. But beyond numbers, our journey is defined by trust– the trust our clients place in us, the expertise our advisors bring, and our commitment to delivering financial clarity.</p>
 
-                        <p className="mb-5">We have consistently focused on financial awareness, retirement planning, and investor education, believing that informed investors make stronger, more confident decisions. Built on the pillars of transparency, diligence, and client-centricity, BFC Capital continues to guide investors with insights, integrity, and purpose. Our ethos is simple: empowering investors is our greatest measure of success.To further this commitment, BFC Capital has been conducting structured financial awareness programs under the Quality Circle (QC) initiative since 2010. To date, over 300 Quality Circle sessions have been successfully conducted, reinforcing our long-standing dedication to investor education.</p>
+                        <p className="mb-5">We have consistently focused on financial awareness, retirement planning, and investor education, believing that informed investors make stronger, more confident decisions. Built on the pillars of transparency, diligence, and client-centricity, BFC Capital continues to guide investors with insights, integrity, and purpose. Our ethos is simple: empowering investors is our greatest measure of success.</p>
+
+                        <p className="mb-5">To further this commitment, BFC Capital has been conducting structured financial awareness programs under the Quality Circle (QC) initiative since 2010. To date, over 300 Quality Circle sessions have been successfully conducted, reinforcing our long-standing dedication to investor education.</p>
 
                     </div>
-                    <h3 className="text-[#44475B] font-semibold text-[22px]">Our expertise:</h3>
+                    <h3 className="text-[#44475B] font-semibold text-[22px] mb-5">Our expertise:</h3>
 
                     <ul className="list-disc text-[#44475B] px-6 mb-5 text-justify text-[15px] md:text-[17px] leading-relaxed">
                         <li><strong>SEBI-Registered & Compliant:</strong> Our recommendations adhere strictly to SEBI guidelines, ensuring ethical, unbiased, and credible advice</li>
@@ -226,7 +219,9 @@ export default function AboutUs() {
                         <li><strong>Retirement Planning:</strong> Build a sustainable post-retirement income strategy covering pensions, NPS, annuities, and long-term security.</li>
                     </ul>
 
-                    <h3 className="text-[#44475B] font-semibold text-[22px] mb-3">Who Is It For?</h3>
+                    <hr className="mutual-funds-hrd my-5 lg:my-8 w-[25%] md:w-[15%] lg:w-[10%]" />
+
+                    <h3 className="text-[#44475B] font-semibold text-[22px] mb-5">Who Is It For?</h3>
 
                     <ul className="list-disc text-[#44475B] px-6 pb-5 text-justify text-[15px] md:text-[17px] leading-relaxed">
                         <li>First-time investors seeking clarity, structured guidance, and confidence in mutual fund investing</li>
@@ -237,7 +232,7 @@ export default function AboutUs() {
                     </ul>
 
                     <p className="text-justify mb-5 text-[#44475B] text-justify text-[15px] md:text-[17px] leading-relaxed">
-                        At its core, BFC Capital Private Limited is about empowering investors with knowledge, trust, and confidence. Our mission is to make wealth management accessible, goal-oriented, and transparent– helping every client make informed financial decisions and secure a financially independent future
+                        At its core, BFC Capital Private Limited is about empowering investors with knowledge, trust, and confidence. Our mission is to make wealth management accessible, goal-oriented, and transparent– helping every client make informed financial decisions and secure a financially independent future.
                     </p>
                     <p className="text-justify text-[#44475B] text-justify text-[15px] md:text-[17px] leading-relaxed">
                         BFC Capital– Your Trusted SEBI RIA for Transparent, Goal-Oriented, and Secure Investment Advisory.

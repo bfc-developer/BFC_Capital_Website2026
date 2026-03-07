@@ -104,118 +104,139 @@ export default function Marriagecalculators() {
 
     return (
         <>
-            <section className="pt-4 overflow-hidden">
-                <div className="container">
-                    <nav aria-label="breadcrumb">
-                        <ol className="breadcrumb small">
-                            <li className="breadcrumb-item">
-                                <Link href="/">Home</Link>
-                            </li>
-                            <li className="breadcrumb-item">
-                                <Link href={"/calculators"}>Calculators</Link>
-                            </li>
-                            <li className="breadcrumb-item active" aria-current="page">
-                                Marriage Planning
-                            </li>
-                        </ol>
-                    </nav>
-
-                    <div
-                        className="smart_heading_prodgy text-start"
-                        data-aos="fade-right"
+            <div className="container mx-auto px-4 py-8 md:py-12 md:px-15 lg:px-20">
+                {/* Breadcrumb */}
+                <nav className="flex items-center text-sm mb-8">
+                    <Link
+                        href="/"
+                        className="font-semibold"
+                        style={{
+                            background: "linear-gradient(90deg, #04B488 39.5%, #011EFE 100%)",
+                            WebkitBackgroundClip: "text",
+                            WebkitTextFillColor: "transparent",
+                            backgroundClip: "text",
+                            color: "transparent"
+                        }}
                     >
-                        <h2 className="py-1 text-start">Marriage Planning</h2>
-                    </div>
+                        Home
+                    </Link>
+                    <svg width="0" height="0">
+                        <linearGradient id="chevron-gradient" x1="0" y1="0" x2="1" y2="0">
+                            <stop offset="39.5%" stopColor="#04B488" />
+                            <stop offset="100%" stopColor="#011EFE" />
+                        </linearGradient>
+                    </svg>
 
-                    <div className="row py-md-4 justify-content-between py-2">
-                        <div className="col-md-6 col-12 py-2">
-                            <div className="sip_calculators_prodgy me-lg-3">
-                                <Form onSubmit={calculateResults}>
-                                    {/* Child Age */}
-                                    <Form.Group className="mb-4">
-                                        <Form.Label className="d-flex justify-content-between">
-                                            <span>Child Age Today (Years)</span>
-                                            <span
-                                                className="fw-bolder normal-case"
-                                            >
+                    <ChevronRight
+                        className="h-4 w-4 mx-2"
+                        style={{ stroke: "url(#chevron-gradient)" }}
+                    />
+                    <span className="text-[#7A7A7A] font-semibold" style={{
+                        background: "linear-gradient(90deg, #04B488 39.5%, #011EFE 100%)",
+                        WebkitBackgroundClip: "text",
+                        WebkitTextFillColor: "transparent",
+                        backgroundClip: "text",
+                        color: "transparent"
+                    }}>Calculators</span>
+                    <ChevronRight
+                        className="h-4 w-4 mx-2"
+                        style={{ stroke: "url(#chevron-gradient)" }}
+                    />
+                    <span className="text-[#7A7A7A] font-semibold" style={{
+                        background: "linear-gradient(90deg, #04B488 39.5%, #011EFE 100%)",
+                        WebkitBackgroundClip: "text",
+                        WebkitTextFillColor: "transparent",
+                        backgroundClip: "text",
+                        color: "transparent"
+                    }}>Marriage Planning</span>
+                </nav>
+                {/* Title */}
+                <h2 className="text-[20px] md:text-3xl lg:text-5xl font-bold text-[#44475B]">
+                    Marriage Planning
+                </h2>
+            </div>
+            <section>
+                <div className="max-w-7xl mx-auto px-4 py-6 md:py-8">
+                    <div className="flex flex-col md:flex-row justify-between gap-6">
+
+                        {/* LEFT SIDE */}
+                        <div className="w-full md:w-1/2">
+                            <div className="shadow-md rounded-2xl px-8 py-5 bg-[#FFFFFF]">
+
+                                <form className="space-y-6">
+                                    {/* Investment Period */}
+                                    <div>
+                                        <div className="flex justify-between mb-2">
+                                            <label className="text-[#44475B] font-medium text-sm uppercase">
+                                                Child Age Today (Years)
+                                            </label>
+                                            <span className="font-bold text-[#44475B]">
                                                 {childAge} Yrs
                                             </span>
-                                        </Form.Label>
-                                        {/* <Form.Range
-                      min="1"
-                      max="30"
-                      value={childAge}
-                      onChange={(e) => setChildAge(parseInt(e.target.value))}
-                    /> */}
+                                        </div>
+
                                         <RangeBar
                                             maxLimit={30}
                                             setValue={setChildAge}
                                             value={childAge}
                                         />
-                                        <div className="d-flex justify-content-between small text-muted">
+
+                                        <div className="flex justify-between text-sm text-[#44475B] mt-2">
                                             <span>1 Yr</span>
                                             <span>30 Yrs</span>
                                         </div>
-                                    </Form.Group>
+                                    </div>
+                                    {/* Investment Period */}
+                                    <div>
+                                        <div className="flex justify-between mb-2">
+                                            <label className="text-[#44475B] font-medium text-sm uppercase">
+                                                Child will get married at the age
+                                            </label>
+                                            <span className="font-bold text-[#44475B]">
+                                                {marriageAge} Yrs
+                                            </span>
+                                        </div>
 
-                                    {/* Marriage Age */}
-                                    <Form.Group className="mb-4">
-                                        <Form.Label className="d-flex justify-content-between">
-                                            <span>Child will get married at the age</span>
-                                            <span className="fw-bolder normal-case">{marriageAge} Yrs</span>
-                                        </Form.Label>
-                                        {/* <Form.Range
-                      min="1"
-                      max="30"
-                      value={marriageAge}
-                      onChange={(e) => setMarriageAge(parseInt(e.target.value))}
-                    /> */}
                                         <RangeBar
-                                            maxLimit={40}
+                                            maxLimit={30}
                                             setValue={setMarriageAge}
                                             value={marriageAge}
                                         />
-                                        <div className="d-flex justify-content-between small text-muted">
+
+                                        <div className="flex justify-between text-sm text-[#44475B] mt-2">
                                             <span>1 Yr</span>
-                                            <span>40 Yrs</span>
+                                            <span>30 Yrs</span>
                                         </div>
-                                    </Form.Group>
+                                    </div>
 
-                                    {/* Amount Required */}
-                                    <Form.Group className="mb-3">
-                                        <Form.Label>
-                                            Amount required for wedding as on today
-                                        </Form.Label>
-                                        <Form.Control
+                                    {/* Monthly Saving */}
+                                    <div>
+                                        <label className="block text-[#44475B] font-medium text-sm uppercase mb-2">
+                                            MONTHLY SAVING
+                                        </label>
+                                        <input
                                             type="number"
-                                            value={amountRequired}
+                                            className="w-full border rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500 text-[#44475B]"
+                                            value={childAge}
                                             min={0}
                                             onChange={(e) =>
-                                                setAmountRequired(parseFloat(e.target.value))
+                                                setChildAge(parseFloat(e.target.value))
                                             }
+                                            placeholder="₹ 10,000"
                                         />
-                                    </Form.Group>
+                                    </div>
 
-                                    {/* Annual Saving */}
-                                    <Form.Group className="mb-3">
-                                        <Form.Label>Annual Savings</Form.Label>
-                                        <Form.Control
-                                            type="number"
-                                            value={annualSaving}
-                                            min={0}
-                                            onChange={(e) =>
-                                                setAnnualSaving(parseFloat(e.target.value))
-                                            }
-                                        />
-                                    </Form.Group>
-
-                                    {/* Rate of Return */}
-                                    <Form.Group className="mb-3">
-                                        <Form.Label>Expected Rate of returns (%)</Form.Label>
-                                        <Form.Control
+                                    {/* Expected Rate of Return */}
+                                    <div>
+                                        <label className="block text-[#44475B] font-medium text-sm uppercase mb-2">
+                                            EXPECTED RATE OF RETURN (% P.A)
+                                        </label>
+                                        <input
                                             type="text"
                                             inputMode="decimal"
+                                            className="w-full border rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500 text-[#44475B]"
                                             value={rateOfReturn}
+                                            placeholder="16.5"
                                             onChange={(e) => {
                                                 let val = e.target.value;
 
@@ -250,318 +271,208 @@ export default function Marriagecalculators() {
                                                 }
                                             }}
                                         />
-                                    </Form.Group>
+                                    </div>
 
-                                    {/* Inflation */}
-                                    <Form.Group className="mb-3">
-                                        <Form.Label>Expected Inflation (%)</Form.Label>
-                                        <Form.Control
-                                            type="text"
-                                            inputMode="decimal"
-                                            value={inflation}
-                                            onChange={(e) => {
-                                                let val = e.target.value;
 
-                                                // Remove invalid characters (keep digits and one dot)
-                                                val = val.replace(/[^0-9.]/g, "");
-
-                                                // Prevent multiple dots
-                                                const parts = val.split(".");
-                                                if (parts.length > 2) {
-                                                    val = parts[0] + "." + parts.slice(1).join("");
-                                                }
-
-                                                // Remove leading zeros like 012 -> 12 (but allow 0.x)
-                                                if (
-                                                    val.startsWith("0") &&
-                                                    !val.startsWith("0.") &&
-                                                    val.length > 1
-                                                ) {
-                                                    val = val.replace(/^0+/, "");
-                                                }
-
-                                                // Allow empty while typing
-                                                if (val === "") {
-                                                    setInflation("");
-                                                    return;
-                                                }
-
-                                                const num = parseFloat(val);
-
-                                                if (val === "." || (!isNaN(num) && num >= 0 && num <= 100)) {
-                                                    setInflation(val);
-                                                }
-                                            }}
-                                        />
-                                    </Form.Group>
 
                                     {/* Button */}
-                                    <Button variant="primary" className="prodgybtn" type="submit">
-                                        Calculate
-                                    </Button>
-                                </Form>
-                            </div>
-                        </div>
-
-                        {/* Results */}
-                        <div className="col-md-6 col-12 py-2">
-                            <div className="ps-lg-3">
-                                <div
-                                    className="sip-calculate-results mb-0"
-                                    data-aos="fade-left"
-                                >
-                                    <div className="result-container marriageplanning">
-                                        <h2>Result</h2>
-                                        <div className="result-item">
-                                            <p>INFLATION ADJUSTED COST</p>
-                                            <h3>
-                                                ₹{results.inflationAdjustedCost.toLocaleString("en-IN")}
-                                            </h3>
-                                        </div>
-                                        <div className="result-item">
-                                            <p>FUTURE VALUE OF SAVINGS</p>
-                                            <h3>₹{results.futureValue.toLocaleString("en-IN")}</h3>
-                                        </div>
-                                        <div className="result-item">
-                                            <p>ADDITIONAL FUNDS REQUIRED TO MEET EXPENSES</p>
-                                            <h3>₹{results.additionalFund.toLocaleString("en-IN")}</h3>
-                                        </div>
-                                        <div className="result-item">
-                                            <p>ONE TIME INVESTMENT REQUIRED</p>
-                                            <h3>₹{results.lumpsum.toLocaleString("en-IN")}</h3>
-                                        </div>
-                                        <div className="result-item">
-                                            <p>MONTHLY INVESTMENT REQUIRED</p>
-                                            <h3>₹{results.monthlyInvest.toLocaleString("en-IN")}</h3>
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <div className="social_yb rounded" data-aos="fade-left">
-                                    <Link
-                                        href="https://app.prodigypro.co.in/"
-                                        className="rounded fw-normal calc_invest_btn"
+                                    <button
+                                        type="button"
+                                        onClick={calculateResults}
+                                        className="bg-[#04B488] text-white py-3 rounded-lg font-semibold hover:bg-blue-700 transition p-[14px]"
                                     >
-                                        <b>Invest Now</b>
-                                    </Link>
-                                </div>
+                                        Calculate
+                                    </button>
+
+                                </form>
                             </div>
                         </div>
-                    </div>
-                </div>
-            </section>
 
-            <div className="container my-md-5 d-flex justify-content-center"></div>
+                        {/* RIGHT SIDE */}
+                        <div className="w-full md:w-1/2 text-[#44475B]">
+                            <div className="space-y-4">
 
-            <section className="pb-5 pt-md-2 pt-0">
-                <div className="container">
-                    <div className="row">
-                        <div
-                            className="col-md-8 col-12 order-md-1 order-2 py-2"
-                            data-aos="fade-up"
-                        >
-                            <div className="me-lg-5 px-md-0 px-2">
-                                <div className="sip-calculator-aboutProdgy text-start">
-                                    <h2 className="w-75 pb-3">
-                                        All You Need To Know About Marriage Calculator
+                                {/* Result Card */}
+                                <div className="shadow-md rounded-2xl px-5 py-4 bg-[#FFFFFF]">
+                                    <h2 className="font-primary font-semibold text-2xl leading-tight text-textdark mb-3">
+                                        Result
                                     </h2>
 
-                                    <h3>What is a Marriage Calculator?</h3>
-                                    <p className="">
-                                        Picture this: today, a well-organised wedding in India can
-                                        easily cost ₹15–20 lakhs, and keeping in mind the trends on
-                                        social media, maybe even more. Fast forward 10–12 years the
-                                        same wedding may cross ₹40–50 lakhs because wedding costs
-                                        rise much faster than general inflation.
-                                    </p>
-
-                                    <p className="">
-                                        That’s where Prodigy Pro’s Marriage Planning Calculator
-                                        steps in. It’s a smart online tool that doesn’t just show
-                                        you the future value of wedding expenses but also tells you
-                                        how much you should start saving or investing monthly to
-                                        meet that goal without stress.
-                                    </p>
-                                    <p className="">
-                                        Think of it as your personal wedding budget maker, as it
-                                        gives you the exact route from today’s savings to tomorrow’s
-                                        big day.
-                                    </p>
-                                    <h3>How Can a Marriage Calculator Help You Plan Better?</h3>
-                                    <p>
-                                        Most families don’t realise how steep wedding costs can
-                                        climb until it’s too late and they get burdened with too
-                                        many expenses and too little money to spend. Imagine
-                                        dreaming of getting married in Udaipur, only to realise you
-                                        cannot afford it. Why? Because you never planned accordingly
-                                        for it! This often leads to loans, withdrawing money from
-                                        retirement savings, or even cutting down on the dream
-                                        celebration. Your wedding is a big deal, and nothing should
-                                        prevent you from getting married the way you have always
-                                        envisioned! <br />
-                                        The marriage planning calculator can help you make that
-                                        dream a reality by doing three powerful things:
-                                    </p>
-                                    <p>1. Accurate Future Cost Estimation</p>
-                                    <p>
-                                        Say your daughter’s wedding would cost ₹15 lakhs today.
-                                        Assuming an inflation rate of 9%, expenses will rise to
-                                        approximately ₹55 lakhs in 15 years. Without a clear plan,
-                                        this amount can seem overwhelming. But when you see the
-                                        number in advance, you know exactly what you’re working
-                                        towards.
-                                    </p>
-                                    <p>2. Tells You How Much to Save Monthly</p>
-                                    <p>
-                                        Instead of getting overwhelmed by seeing a huge future cost,
-                                        the Prodigy Pro calculator breaks it down into simple,
-                                        actionable steps. It tells you exactly how much you need to
-                                        save and invest regularly so that the big number feels less
-                                        intimidating. In other words, it converts a seemingly
-                                        impossible goal into a manageable monthly commitment you can
-                                        actually stick to.
-                                    </p>
-                                    <p>3. Prevents Overspending</p>
-                                    <p>
-                                        Many families overshoot budgets in the last few months-extra
-                                        guests, a fancier venue, better photography packages. By
-                                        fixing a realistic number early with the calculator, you
-                                        already know your boundaries and can plan luxuries
-                                        accordingly.
-                                    </p>
-                                    <p>
-                                        One amazing fact about this tool is that it's completely
-                                        flexible for both parents and young couples. Parents can
-                                        start saving when children are young (10–15 years away from
-                                        the event), while couples planning their own wedding in 2–5
-                                        years can use it to know how much to set aside each month.
-                                    </p>
-
-                                    <h3>How to Use Prodigy Pro’s Marriage Planning Calculator</h3>
-                                    <p>
-                                        The beauty of this tool lies in its simplicity. You just
-                                        enter:
-                                    </p>
-                                    <ul className="listshow_prodigy12">
-                                        <li>
-                                            Current Age - your child’s or your own, to know the time
-                                            left.
-                                        </li>
-                                        <li>
-                                            Marriage Age - expected age of marriage (e.g., 25 years).
-                                        </li>
-                                        <li>Current Cost of Wedding - say ₹15 lakhs.</li>
-                                        <li>
-                                            Annual Savings (if any) - Money already set aside
-                                            specifically for this goal.
-                                        </li>
-                                        <li>
-                                            Expected Return Rate - depending on your investment, you
-                                            need to enter the expected rate of return. Let’s say you
-                                            are investing in an equity mutual fund, so this figure
-                                            should lie between 12-14%.
-                                        </li>
-                                        <li>
-                                            Expected Inflation Rate - usually 8-10% for Indian
-                                            weddings.
-                                        </li>
-                                    </ul>
-                                    <p>Hit calculate, and in seconds, you’ll see:</p>
-                                    <ul className="listshow_prodigy12">
-                                        <li>The inflation-adjusted cost of the wedding.</li>
-                                        <li>Future value of your savings.</li>
-                                        <li>
-                                            The monthly SIP or one-time investment needed to cover the
-                                            gap.
-                                        </li>
-                                    </ul>
-                                    <p>For Example:</p>
-                                    <ul className="listshow_prodigy12">
-                                        <li>Daughter’s age: 10 years</li>
-                                        <li>Marriage age: 25 years</li>
-                                        <li>Current wedding cost: ₹15 lakhs</li>
-                                        <li>Annual savings:₹ 20,000</li>
-                                        <li>Expected inflation: 9%</li>
-                                        <li>Expected returns: 14%</li>
-                                    </ul>
-                                    <p>
-                                        Future wedding cost after adjusting for inflation: ₹54.6
-                                        lakhs
-                                        <br />
-                                        Future value of existing savings: ₹8.76 lakhs <br />
-                                        Additional funds required: ₹45.8 Lakhs <br />
-                                        Required monthly SIP: ₹7,572 for 15 years <br />
-                                        Lump sum investment needed today: ₹6,42,605
-                                    </p>
-                                    <p>This way, you don’t leave anything to chance.</p>
-                                    <h3>How to Choose the Right Marriage Calculator</h3>
-                                    <p>
-                                        Not all calculators are created equal. Here’s what makes
-                                        Prodigy Pro’s Marriage Calculator stand out:
-                                    </p>
-                                    <p>
-                                        Inflation Accuracy - It lets you set realistic inflation
-                                        rates for wedding costs (8–12%).
-                                    </p>
-                                    <p>
-                                        Goal-Based Savings - It tells you not just “how much” but
-                                        “how” to save monthly SIP or lump sum investing.
-                                    </p>
-                                    <p>
-                                        Simple, Clear Design - No jargon, no complications. Just
-                                        numbers you can understand.
-                                    </p>
-                                    <p>
-                                        Integrates with Other Goals - You can plan a wedding without
-                                        derailing education or retirement goals.
-                                    </p>
-                                    <p>
-                                        Weddings are emotional, once-in-a-lifetime events. But
-                                        emotions shouldn’t translate into financial stress. Prodigy
-                                        Pro’s Marriage Calculator gives you the clarity to enjoy the
-                                        big day without last-minute compromises or debt.
-                                    </p>
-                                    <p>
-                                        Think of it this way: would you plan a wedding menu without
-                                        knowing the number of guests? Of course not. Then why plan
-                                        finances without knowing the future cost?
-                                    </p>
-                                    <p>
-                                        Start today, run the numbers, and let your money quietly
-                                        work in the background. When the day finally comes, you’ll
-                                        be able to celebrate with joy, not worry.
+                                    <p className="font-primary text-base md:text-lg leading-relaxed text-textdark">
+                                        If you invest{" "}
+                                        <strong>₹{childAge.toLocaleString("en-IN")}</strong>{" "}
+                                        per month for a period of{" "}
+                                        <strong>{marriageAge} years</strong>, your investment
+                                        amount will be{" "}
+                                        <strong>
+                                            ₹{childAge.toLocaleString("en-IN")}
+                                        </strong>{" "}
+                                        and the maturity amount will grow to{" "}
+                                        <strong>₹{childAge.toLocaleString("en-IN")}</strong>.
                                     </p>
                                 </div>
 
-                                <div className="py-4 smart_heading_prodgy">
-                                    <h2 className="text-start">FAQs</h2>
-                                    <p className="text-start w-100">
-                                        Questions on your mind? Dont worry we have the answers!
-                                    </p>
+                                {/* Invest Now Button */}
+                                <div>
+                                    <Link
+                                        href="https://app.prodigypro.co.in/"
+                                        className="inline-block py-3 rounded-lg font-semibold transition bg-color-[#FFFFFF]"
+                                    >
+                                        <span className="bg-gradient-to-r from-[#04B488] to-[#011EFE] bg-clip-text text-transparent">
+                                            Invest Now
+                                        </span>
+                                    </Link>
                                 </div>
 
-                                <div className="accordion_prodgy_home">
-                                    <Accordion flush>
-                                        {questions.map((item, index) => (
-                                            <Accordion.Item eventKey={index.toString()} key={index}>
-                                                <Accordion.Header>{item.question}</Accordion.Header>
-                                                <Accordion.Body>{item.answer}</Accordion.Body>
-                                            </Accordion.Item>
-                                        ))}
-                                    </Accordion>
-                                </div>
                             </div>
                         </div>
 
-                        <div
-                            className="col-md-4 col-12 order-md-2 order-1 py-2 position-relative"
-                            data-aos="zoom-in"
-                        >
-
-                        </div>
                     </div>
                 </div>
             </section>
+            <section>
+                <h2 className="text-center text-[20px] md:text-3xl lg:text-5xl font-bold text-[#44475B] mt-16">All You Need To Know About <br></br>
+                    Marriage Planning Calculator</h2>
+                <div className='container mx-auto px-5 md:px-10 lg:px-20'>
+                    <p className="mx-auto mt-4 md:mt-8 mb-4 text-[15px] md:text-[24px] font-bold text-[#44475B] mb-[10px] md:mb-[20px]">
+                        What is an SIP Calculator?
+                    </p>
+                    <p className='text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto mb-4'>Let’s keep this simple. <br />
+                        Imagine you put aside ₹3,000 every month in a piggy bank. After one year, you’d have ₹36,000. No surprises there.</p>
+                    <p className='text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto mb-4'>Now imagine if that same money didn’t just sit quietly in a corner, but actually worked for you. It earned returns. And then those returns started earning returns too.</p>
+                    <p className='text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto mb-4'>
+                        That’s what investing does.</p>
+                    <p className='text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto mb-4'>
+                        One of the easiest and most comfortable ways to start investing is through an SIP (Systematic Investment Plan). And to understand where your SIP could realistically take you, you need a tool that shows the picture clearly. That’s where the Prodigy Pro SIP Calculator, developed by BFC Capital – a SEBI-registered investment advisor (RIA), comes in.</p>
+                    <p className='text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto mb-4'>A SIP Calculator is a simple online tool that helps you estimate how much your regular monthly investments may grow over time. Think of it like checking Google Maps before starting a journey– you may not know every turn, but at least you know where you’re headed.</p>
+                </div>
+
+                <div className='container mx-auto px-5 md:px-10 lg:px-20'>
+                    <p className="mx-auto mt-4 md:mt-8 mb-4 text-[15px] md:text-[24px] font-bold text-[#44475B] mb-[10px] md:mb-[20px]">
+                        How Can a SIP Calculator Help You?
+                    </p>
+                    <p className='text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto mb-4'>Investing without a plan is like saying, “Let’s just drive and see where we land.” Sounds fun, but not when your money is involved. <br />A SIP calculator brings clarity where confusion usually exists.</p>
+                    <p className='text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto mb-4'>
+                        It helps you set clear goals</p>
+                    <p className='text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto mb-4'>
+                        Maybe you want ₹50 lakhs for your child’s higher education in 20 years. <br />Or ₹15 lakhs for a wedding after 3 years. <br />Instead of guessing, the calculator tells you how much you need to invest every month to realistically reach those goals.</p>
+                    <p className='text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto'>It shows you the real power of compounding <br />
+                        This is where things get interesting. For example, if you invest ₹5,000 every month for 10 years and earn an average return of 12%:</p>
+                    <ul className='list-disc pl-7 text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto'>
+                        <li>Total amount invested: ₹6 lakhs</li>
+                        <li>Approximate value after 10 years: ₹11.5 lakhs</li>
+                    </ul>
+
+                    <p className='text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto mb-4'>
+                        You didn’t double your effort. Time and compounding did the heavy lifting for you.</p>
+                    <p className='text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto mb-4 font-bold italic'>
+                        It helps build discipline</p>
+                    <p className='text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto mb-4'>
+
+                        Once you know your target and the monthly amount required, investing stops feeling random. <br />You’re less likely to break your SIP for short-term expenses because now your money has a purpose. SIPs work best when they run quietly in the background – automatically, consistently, and without emotional decisions.</p>
+                </div>
+
+                <div className='container mx-auto px-5 md:px-10 lg:px-20'>
+                    <p className="mx-auto mt-4 md:mt-8 mb-4 text-[15px] md:text-[24px] font-bold text-[#44475B] mb-[10px] md:mb-[20px]">
+                        How Do SIP Calculators Work?
+                    </p>
+                    <p className='text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto mb-4'>At its heart, an SIP calculator is built on one powerful idea: <b>compounding</b>.</p>
+                    <p className='text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto mb-4'>You invest a fixed amount every month – no guesswork, no market timing. <br />That money starts earning returns. <br />Those returns don’t just sit there; they get reinvested and begin earning returns of their own.</p>
+                    <p className='text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto mb-4'>
+                        Over time, this creates a snowball effect. What starts as small, disciplined monthly investments can quietly grow into meaningful wealth.
+                        The SIP calculator simply does the number-crunching for you. It shows you what consistency and time can do, without you having to open a spreadsheet or stress over calculations.</p>
+
+                    <p className='text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto mb-4'>
+                        At BFC Capital, we believe the real magic isn’t in predicting markets, but in staying invested long enough for compounding to do its job.</p>
+                </div>
+
+                <div className='container mx-auto px-5 md:px-10 lg:px-20'>
+                    <p className="mx-auto mt-4 md:mt-8 mb-4 text-[15px] md:text-[24px] font-bold text-[#44475B] mb-[10px] md:mb-[20px]">
+                        How to Use the Prodigy Pro’s Systematic Investment Plan Calculator?
+                    </p>
+                    <p className='text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto mb-4'>The Prodigy Pro’s SIP Calculator is designed to be beginner-friendly and quick. All it takes are three inputs:</p>
+                    <p className='text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto mb-4'>
+                        Monthly Savings - e.g., ₹8,000/month.</p>
+
+                    <p className='text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto mb-4'>
+                        Investment Period - say 10 years.</p>
+                    <p className='text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto mb-4'>
+                        Expected Return Rate - let’s assume approx-16%.</p>
+                    <p className='text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto mb-4'>
+                        Hit Calculate, and you’ll instantly see:</p>
+                    <p className='text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto mb-4'>
+                        Amount Invested – total money you contributed.</p>
+                    <p className='text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto mb-4'>
+                        Market Value – total future value you might get after 10 years.</p>
+                    <p className='text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto mb-4'>
+                        Returns – the profit earned over your investment value.</p>
+                    <p className='text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto mb-4'>
+                        <b>Example:</b>
+                        ₹8,000/month × 10 years @ 16% return <br />Invested: ₹9,60,000  <br />Future Value: ~₹23.71 lakhs!</p>
+                    <p className='text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto mb-4'>
+                        That’s compounding doing its job silently.</p>
+
+                </div>
+
+                <div className='container mx-auto px-5 md:px-10 lg:px-20'>
+                    <p className="mx-auto mt-4 md:mt-8 mb-4 text-[15px] md:text-[24px] font-bold text-[#44475B] mb-[10px] md:mb-[20px]">
+                        Systematic Investment Plans (SIPs) in India
+                    </p>
+                    <p className='text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto'>
+                        SIPs are one of the easiest and most trusted ways to invest in mutual funds. <br />Instead of investing a large amount in one go, you invest a fixed sum every month on a chosen date – directly from your bank account. No chasing markets, no complicated decisions. Even ₹100 a month is enough to get started, and some SIPs allow you to begin with just ₹100.</p>
+                    <p className='text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto'>So why do SIPs work especially well in India?</p>
+                    <ul className='list-disc pl-7 text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto'>
+                        <li>They fit perfectly into how most of us earn and spend.</li>
+                        <li>For salaried individuals, SIPs build a habit of investing – quietly and consistently – much like a monthly bill you pay to your future self.</li>
+                        <li>They also take away the pressure of trying to “buy at the right time.” Markets go up, markets go down – but SIPs keep you invested through it all, smoothing out volatility over time.</li>
+                        <li>And most importantly, SIPs are designed for long-term goals that truly matter: your child’s education, buying a home, or building a comfortable retirement.</li>
+                    </ul>
+
+
+                    <p className='text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto mb-4'>
+                        At BFC Capital, we see SIPs not as a product, but as a behaviour shift, from worrying about markets to trusting the power of time and consistency.</p>
+                </div>
+
+                <div className='container mx-auto px-5 md:px-10 lg:px-20'>
+                    <p className="mx-auto mt-4 md:mt-8 mb-4 text-[15px] md:text-[24px] font-bold text-[#44475B] mb-[10px] md:mb-[20px]">
+                        Types of SIPs
+                    </p>
+                    <p className='text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto mb-4'>
+                        SIPs aren’t rigid at all! <br />You can choose what suits your lifestyle.</p>
+
+
+                    <p className='text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto mb-4'>
+                        <b>Step-Up SIP</b> <br />
+                        Start small and increase gradually. Example: begin with ₹5,000/month, increase by ₹1000 every year as your salary grows.</p>
+                    <p className='text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto mb-4'>
+                        <b>Top-Up SIP</b> <br />
+                        Add extra whenever you can. Got a yearly bonus? Add ₹15,000 to your SIP. No compulsion, just flexibility to boost returns.</p>
+                </div>
+
+                <div className='container mx-auto px-5 md:px-10 lg:px-20'>
+                    <p className="mx-auto mt-4 md:mt-8 mb-4 text-[15px] md:text-[24px] font-bold text-[#44475B] mb-[10px] md:mb-[20px]">
+                        Why use Prodigy Pro’s online SIP calculator over others?
+                    </p>
+                    <p className='text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto mb-4'>
+                        Because investing isn’t just about numbers. It’s about clarity and confidence.</p>
+                    <ul className='list-disc pl-7 text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto'>
+                        <li> <b>See the long-term picture</b> <br />It helps you understand how something as small as ₹500 a month today can quietly grow into lakhs over time. No hype, just realistic long-term clarity.</li>
+                        <li> <b>Plan with a purpose</b> <br />Have a specific goal in mind? The calculator shows how much you need to invest to reach it, so your SIP isn’t random. It’s intentional.</li>
+                        <li> <b>Simple to use</b> <br />Clean, quick, and easy to understand. No jargon, no clutter. Just the numbers that actually matter.</li>
+                        <li> <b>Make smarter choices before you commit</b> <br />Compare different SIP amounts and timelines before starting, so you invest with confidence, not guesswork.</li>
+                        <li> <b>Complete transparency</b> <br />You clearly see how much you’ve invested and how much you’ve earned. No surprises. No hidden assumptions.</li>
+                    </ul>
+
+                    <p className='text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto mb-4'>
+
+                        At the end of the day, money management comes down to two simple things: clarity and consistency. <br />Whether you are planning for your child’s future, your dream home, or simply building a safety cushion for tomorrow, this tool removes guesswork and replaces it with a clear, practical roadmap.</p>
+                    <p className='text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto mb-4'>
+                        At BFC Capital, a SEBI Registered Investment Adviser, we believe investing does not have to feel complicated or exclusive. It is about taking small, consistent steps and staying the course.</p>
+                    <p className='text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto mb-4'>
+
+                        So the next time investing feels “too complex” or “only meant for experts,” remember this. All it takes is a fixed amount, a fixed date, and a simple tool like Prodigy Pro’s SIP calculator to start building wealth that keeps working even while you sleep</p>
+                </div>
+            </section >
         </>
     );
 }
