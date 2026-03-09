@@ -102,10 +102,10 @@ const Footer = () => {
                     <div className="space-y-6">
                         <h4 className="text-[20px] font-bold text-[#475569]">Quick Links</h4>
                         <ul className="space-y-1 text-[14px] md:text-[17px] leading-relaxed lg:leading-6">
-                            <li><Link href="#" className="hover:text-bfc-blue transition-colors">Mutual Funds</Link></li>
-                            <li><Link href="#" className="hover:text-bfc-blue transition-colors">SIF</Link></li>
-                            <li><Link href="#" className="hover:text-bfc-blue transition-colors">Financial Planning</Link></li>
-                            <li><Link href="#" className="hover:text-bfc-blue transition-colors">Financial Calculators</Link></li>
+                            <li><Link href="/all-mutual-funds" className="hover:text-bfc-blue transition-colors">Mutual Funds</Link></li>
+                            <li><Link href="/sif" className="hover:text-bfc-blue transition-colors">SIF</Link></li>
+                            <li><Link href="/financial-planning" className="hover:text-bfc-blue transition-colors">Financial Planning</Link></li>
+                            <li><Link href="/financial-calculators" className="hover:text-bfc-blue transition-colors">Financial Calculators</Link></li>
                         </ul>
                     </div>
 

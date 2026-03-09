@@ -349,7 +349,7 @@ export default function AllMutualFunds() {
                                             <div className="flex justify-between items-center sm:pr-8 md:pr-12">
                                                 {/* Return */}
                                                 <div>
-                                                    <div className="text-gray-400 text-[10px] md:text-[11px] uppercase tracking-wider mb-1 font-medium">Last 3Y</div>
+                                                    <div className="text-gray-400 text-[10px] md:text-[11px] tracking-wider mb-1 font-medium">Last 3Y</div>
                                                     <div className="text-[#04B488] font-bold text-[14px] md:text-[15px]">
                                                         {item.threeYearsReturn
                                                             ? item.threeYearsReturn.toFixed(2)
@@ -359,7 +359,7 @@ export default function AllMutualFunds() {
 
                                                 {/* SIP */}
                                                 <div>
-                                                    <div className="text-gray-400 text-[10px] md:text-[11px] uppercase tracking-wider mb-1 font-medium">Min. SIP</div>
+                                                    <div className="text-gray-400 text-[10px] md:text-[11px] tracking-wider mb-1 font-medium">Min. SIP</div>
                                                     <div className="text-[#44475B] font-bold text-[14px] md:text-[15px]">
                                                         ₹{item.sipMinInstallmentAmount}
                                                     </div>
@@ -367,7 +367,7 @@ export default function AllMutualFunds() {
 
                                                 {/* Fund Size */}
                                                 <div>
-                                                    <div className="text-gray-400 text-[10px] md:text-[11px] uppercase tracking-wider mb-1 font-medium">Fund Size</div>
+                                                    <div className="text-gray-400 text-[10px] md:text-[11px] tracking-wider mb-1 font-medium">Fund Size</div>
                                                     <div className="text-[#44475B] font-bold text-[14px] md:text-[15px]">
                                                         ₹{(item.fundSize / 1_00_00_000).toFixed(2)} Cr
                                                     </div>
@@ -384,7 +384,7 @@ export default function AllMutualFunds() {
             <section>
 
                 <div className='container mx-auto px-5 md:px-10 lg:px-20'>
-                    <h2 className="text-[20px] md:text-3xl lg:text-4xl font-bold text-[#44475B] mb-5 md:mb-8">
+                    <h2 className="text-[20px] md:text-3xl lg:text-4xl font-bold text-[#44475B] mb-5 md:mb-8 mt-20">
                         Invest in Mutual Funds in India 2026
                     </h2>
                     <p className='text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto mb-4'>Thirty years ago, mutual funds in India were still evolving and finding their footing. That trajectory changed decisively in the late 1990s when SEBI stepped in, particularly from 1996 onwards, and began shaping the industry through robust regulations, clearer disclosures, and a strong focus on investor protection. Over time, this framework brought much-needed discipline and transparency, making mutual funds simpler to understand and safer to participate in. Today, investors know exactly where their money is going – right from expense ratios to portfolio disclosures and performance reporting.</p>
