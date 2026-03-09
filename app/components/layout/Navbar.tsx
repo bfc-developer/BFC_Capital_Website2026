@@ -21,7 +21,7 @@ const Navbar = () => {
   };
 
   return (
-    <nav className="sticky top-0 z-[10] w-full bg-white shadow-sm font-sans">
+    <nav className="sticky top-0 z-[999] w-full bg-white shadow-sm font-sans">
       <div className="container mx-auto px-4 md:px-6 h-20 flex items-center justify-between">
 
         {/* Logo */}
@@ -40,7 +40,7 @@ const Navbar = () => {
         <div className="hidden xl:flex items-center space-x-5 xl:space-x-[28px] relative">
 
           <Link href="/" className={`${isActive("/") ? "text-[#001EFE]" : "text-[#4B4949]"} font-[500] text-[15px] hover:text-[#001EFE] font-base font-inter transition-colors`}> Home</Link>
-          <Link href="/mutual-funds" className={`${isActive("/mutual-funds") ? "text-[#001EFE]" : "text-[#4B4949]"} font-[500] text-[15px] hover:text-[#001EFE] font-base font-inter transition-colors`}> Mutual Funds</Link>
+          <Link href="/all-mutual-funds" className={`${isActive("/mutual-funds") ? "text-[#001EFE]" : "text-[#4B4949]"} font-[500] text-[15px] hover:text-[#001EFE] font-base font-inter transition-colors`}> Mutual Funds</Link>
           <Link href="/sif" className={`${isActive("/sif") ? "text-[#001EFE]" : "text-[#4B4949]"} font-[500] text-[15px] hover:text-[#001EFE] font-base font-inter transition-colors`}> SIF</Link>
           <Link href="/financial-planning" className={`${isActive("/financial-planning") ? "text-[#001EFE]" : "text-[#4B4949]"} font-[500] text-[15px] hover:text-[#001EFE] font-base font-inter transition-colors`}> Financial Planning</Link>
           {/* More Dropdown */}
@@ -65,7 +65,7 @@ const Navbar = () => {
                   <p className="text-[#4B4949] text-[11px] font-base font-inter transition-colors text-[13px] leading-tight">Because good decisions need good numbers.</p>
                 </div>
                 <div className="px-md-4 mb-2">
-                  <Link href="/blog" className={`${isActive("/blog") ? "text-[#001EFE]" : "text-[#4B4949]"} font-[500] text-[15px] hover:text-[#001EFE] font-base font-inter transition-colors`}
+                  <Link href="https://capblog.bfcgroup.in/" target="_blank" rel="noopener noreferrer" className={`${isActive("/blog") ? "text-[#001EFE]" : "text-[#4B4949]"} font-[500] text-[15px] hover:text-[#001EFE] font-base font-inter transition-colors`}
                   > Blog </Link>
                   <p className="text-[#4B4949] text-[11px] font-base font-inter transition-colors text-[13px] leading-tight">Insights that help you invest with confidence.</p>
                 </div>
@@ -91,7 +91,7 @@ const Navbar = () => {
         <div className="hidden xl:flex items-center gap-10 md:gap-10 xl:gap-20">
           <a
             href="https://app.prodigypro.co.in/"
-            className="inline-block px-5 py-1.5 bg-bfc-green text-white text-sm font-inter rounded-full hover:bg-opacity-90 transition-opacity whitespace-nowrap shadow-md hover:shadow-lg"
+            className="inline-block px-5 py-1.5 bg-[#04B488] text-white text-sm font-inter rounded-full hover:bg-[#008f45] transition-opacity whitespace-nowrap shadow-md hover:shadow-lg"
           >
             Login / Sign-up
           </a>

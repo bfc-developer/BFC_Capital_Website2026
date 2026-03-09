@@ -556,7 +556,9 @@ const EventsSection = () => {
         </div>
         <div className="mt-10 md:mt-12 text-center relative">
           <a
-            href="https://bfccapital.com/event/"
+            href="https://capevent.bfcgroup.in/"
+            target="_blank"
+            rel="noopener noreferrer"
             className="px-8 py-2 bg-bfc-green text-white font-base rounded-full hover:bg-green-700 transition-colors relative "
           >
             See All →
