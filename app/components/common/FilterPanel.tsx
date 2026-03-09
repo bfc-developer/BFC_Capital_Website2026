@@ -239,21 +239,33 @@ const FilterPanel: React.FC<FilterPanelProps> = ({ onFilterChange }) => {
                             return (
                                 <button
                                     key={item.asset_code}
-                                    className={`px-4 py-1.5 text-[14px] font-medium rounded-full transition-all duration-300 ${active
-                                            ? "text-white border-transparent"
-                                            : "bg-transparent text-[#04B488] hover:bg-[#F3F9FD]"
+                                    className={`px-5 py-1.5 text-[15px] font-medium rounded-full transition-all duration-300 ${active
+                                        ? "border border-transparent text-white"
+                                        : "bg-transparent hover:bg-[#F3F9FD] border border-transparent hover:border-[#F3F9FD]"
                                         }`}
                                     style={
                                         active
-                                            ? { background: "linear-gradient(269.9deg, #06A358 24.53%, #001EFE 156.82%)" }
+                                            ? { background: "linear-gradient(269.9deg,  #06A358 24.53%, #001EFE 156.82%)" }
                                             : {
-                                                border: "1px solid transparent",
                                                 background: "linear-gradient(white, white) padding-box, linear-gradient(90deg, rgba(4, 180, 136, 0.2) 39.5%, rgba(1, 30, 254, 0.2) 100%) border-box",
                                             }
                                     }
                                     onClick={() => setType(val)}
                                 >
-                                    {item.asset_type}
+                                    <span
+                                        style={
+                                            !active
+                                                ? {
+                                                    background: "linear-gradient(90deg, #04B488 39.5%, #011EFE 100%)",
+                                                    WebkitBackgroundClip: "text",
+                                                    WebkitTextFillColor: "transparent",
+                                                    display: "inline-block",
+                                                }
+                                                : {}
+                                        }
+                                    >
+                                        {item.asset_type}
+                                    </span>
                                 </button>
                             );
                         })}
