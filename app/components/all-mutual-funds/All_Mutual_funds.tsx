@@ -193,7 +193,7 @@ export default function AllMutualFunds() {
                                 alt="Mobile Portfolio"
                                 width={300}
                                 height={600}
-                                className="w-[200px] h-[300px] md:w-[500px] md:h-[400px] lg:w-[500px] lg:h-[500px] mx-auto "
+                                className="w-[200px] h-[300px] md:w-[630px] md:h-[400px] xl:w-[500px] xl:h-[500px] mx-auto "
                                 data-aos="fade-up"
                                 data-aos-duration="2000"
                             />
