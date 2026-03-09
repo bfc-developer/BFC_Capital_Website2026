@@ -217,7 +217,7 @@ const FilterPanel: React.FC<FilterPanelProps> = ({ onFilterChange }) => {
                             >
                                 <CustomTick active={active} />
 
-                                <label className="text-[14px] text-gray-600 cursor-pointer mb-0 leading-none">{item.sort_mode}</label>
+                                <label className="text-[14px] text-gray-600 cursor-pointer mb-0 leading-tight">{item.sort_mode}</label>
                             </div>
                         );
                     })}
@@ -287,7 +287,7 @@ const FilterPanel: React.FC<FilterPanelProps> = ({ onFilterChange }) => {
                             >
                                 <CustomTick active={active} />
 
-                                <label className="text-[14px] text-gray-600 cursor-pointer mb-0 leading-none">
+                                <label className="text-[14px] text-gray-600 cursor-pointer mb-0 leading-tight">
                                     {item.category}
                                     {item.sub_category ? ` - ${item.sub_category}` : ""}
                                 </label>
@@ -314,7 +314,7 @@ const FilterPanel: React.FC<FilterPanelProps> = ({ onFilterChange }) => {
                             >
                                 <CustomTick active={active} />
 
-                                <label className="text-[14px] text-gray-600 flex-1 cursor-pointer mb-0 leading-none truncate">{item.risk}</label>
+                                <label className="text-[14px] text-gray-600 flex-1 cursor-pointer mb-0 leading-tight">{item.risk}</label>
                             </div>
                         );
                     })}
@@ -338,7 +338,7 @@ const FilterPanel: React.FC<FilterPanelProps> = ({ onFilterChange }) => {
                             >
                                 <CustomTick active={active} />
 
-                                <label className="text-[14px] text-gray-600 flex-1 cursor-pointer mb-0 leading-none">{item.amc_name}</label>
+                                <label className="text-[14px] text-gray-600 flex-1 cursor-pointer mb-0 leading-tight">{item.amc_name}</label>
                             </div>
                         );
                     })}
