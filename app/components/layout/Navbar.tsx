@@ -125,7 +125,7 @@ const Navbar = () => {
           >
             Home
           </Link>
-          <Link href="/mutual-funds" className={`${isActive("/mutual-funds") ? "text-[#001EFE]" : "text-[#4B4949]"} font-[500] text-[15px] hover:text-[#001EFE] font-inter border-b border-gray-50 hover:pl-2 transition-all`}
+          <Link href="/all-mutual-funds" className={`${isActive("/mutual-funds") ? "text-[#001EFE]" : "text-[#4B4949]"} font-[500] text-[15px] hover:text-[#001EFE] font-inter border-b border-gray-50 hover:pl-2 transition-all`}
           >
             Mutual Funds
           </Link>
