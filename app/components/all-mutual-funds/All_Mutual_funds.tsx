@@ -174,10 +174,10 @@ export default function AllMutualFunds() {
                             <p className="mx-auto mt-4 md:mt-8 mb-4 max-w-6xl text-[15px] md:text-[17px] text-[#44475B] leading-relaxed font-inter opacity-90">
                                 Over the years, the industry has evolved steadily under SEBI’s regulatory framework, expanding its scope and strengthening investor confidence.
                             </p>
-                            <p className="mx-auto mt-4 md:mt-8 mb-4 max-w-6xl text-[15px] md:text-[17px] text-[#44475B] leading-relaxed font-inter opacity-90">
+                            <p className="mx-auto mt-4 md:mt-8 max-w-6xl text-[15px] md:text-[17px] text-[#44475B] leading-relaxed font-inter opacity-90">
                                 Today, the Indian mutual fund industry includes:
                             </p>
-                            <ul className='list-disc pl-7 text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto'>
+                            <ul className='list-disc pl-7 text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto font-bold'>
                                 <li>50+ Asset Management Companies</li>
                                 <li>2,000+ mutual fund schemes</li>
                             </ul>
