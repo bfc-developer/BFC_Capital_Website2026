@@ -35,6 +35,26 @@ body {
   font-family: var(--font-inter);
 }
 
+* {
+  cursor: none !important;
+}
+
+a,
+a *,
+button,
+button *,
+[role="button"],
+[role="button"] *,
+.cursor-pointer,
+.cursor-pointer * {
+  cursor: pointer !important;
+}
+
+input,
+textarea {
+  cursor: text !important;
+}
+
 .mutual-funds-hrd {
   border: 1px groove #011EFE !important;
   opacity: 1;

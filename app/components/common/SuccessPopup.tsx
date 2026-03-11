@@ -9,7 +9,7 @@ const SuccessPopup: React.FC<SuccessPopupProps> = ({ isOpen, onClose }) => {
     if (!isOpen) return null;
 
     return (
-        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/50 backdrop-blur-sm transition-opacity">
+        <div className="fixed inset-0 z-[99999] flex items-center justify-center p-4 bg-black/50 backdrop-blur-sm transition-opacity">
             <div
                 className="relative w-full max-w-2xl rounded-3xl p-12 md:p-16 text-center text-white shadow-2xl overflow-hidden"
                 style={{
