@@ -107,7 +107,7 @@ export default function FinancialPlanning() {
                             >
                                 <div className="card-body p-0" style={{ display: 'flex', flexDirection: 'column', height: '100%' }}>
                                     <Image
-                                        src="/Financial-Planning/Education 1.png"
+                                        src="/Financial-Planning/education 1.png"
                                         alt="Prodigy Splash Screen"
                                         width={64}
                                         height={64}
@@ -196,7 +196,7 @@ export default function FinancialPlanning() {
                             >
                                 <div className="card-body p-0" style={{ display: 'flex', flexDirection: 'column', height: '100%' }}>
                                     <Image
-                                        src="/Financial-Planning/Home 1.png"
+                                        src="/Financial-Planning/home 1.png"
                                         alt="Prodigy Splash Screen"
                                         width={64}
                                         height={64}
