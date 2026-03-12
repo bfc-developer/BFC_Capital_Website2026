@@ -4,7 +4,7 @@ import { Inter } from "next/font/google";
 import { defaultSeo } from "./seo-config";
 import "./globals.css";
 import { GlobalLoaderProvider } from "./components/common/GlobalLoader";
-import CustomCursor from "./components/common/CustomCursor";
+// import CustomCursor from "./components/common/CustomCursor";
 
 const inter = Inter({
   variable: "--font-inter",
@@ -36,7 +36,7 @@ export default function RootLayout({
     <html lang="en">
       <body className={`${inter.variable} antialiased`}>
         <GlobalLoaderProvider>
-          <CustomCursor />
+          {/* <CustomCursor /> */}
           {children}
         </GlobalLoaderProvider>
       </body>

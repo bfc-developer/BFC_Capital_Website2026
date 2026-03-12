@@ -114,8 +114,8 @@ export default function ApplyJobForm({ defaultPost = "" }: ApplyJobFormProps) {
                         />
                         <div
                             className={`h-5 w-5 rounded border flex items-center justify-center transition-all ${isChecked
-                                    ? "border-transparent"
-                                    : "border-gray-300"
+                                ? "border-transparent"
+                                : "border-gray-300"
                                 }`}
                             style={{
                                 background: isChecked
@@ -140,7 +140,7 @@ export default function ApplyJobForm({ defaultPost = "" }: ApplyJobFormProps) {
                         </div>
                     </label>
                     <p className="text-sm text-[#7A7A7A] leading-relaxed">
-                        I, hereby accord my consent to process my above mentioned personal data by BFC Capital Pvt. Ltd. for the purpose of customer support/product promotion, in accordance with the provisions of DPDP Act 2023. To know more <Link href="#" className="bg-gradient-to-r from-[#04B488] to-[#011EFE] bg-clip-text text-transparent underline font-medium">click here.</Link>
+                        I, hereby accord my consent to process my above mentioned personal data by BFC Capital Pvt. Ltd. for the purpose of customer support/product promotion, in accordance with the provisions of DPDP Act 2023. To know more <Link href="https://bfccapital.com/dpdpact" className="underline text-[#011EFE]">click here.</Link>
                     </p>
                 </div>
 
@@ -150,7 +150,7 @@ export default function ApplyJobForm({ defaultPost = "" }: ApplyJobFormProps) {
                         type="submit"
                         className="text-white px-8 py-2.5 rounded hover:opacity-90 transition-opacity font-medium"
                         style={{
-                            background: "linear-gradient(269.9deg, #06A358 24.53%, #001EFE 156.82%)"
+                            background: "#04B488"
                         }}
                     >
                         Submit
