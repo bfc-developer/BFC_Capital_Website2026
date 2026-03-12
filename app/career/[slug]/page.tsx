@@ -295,11 +295,11 @@ export default async function JobDetailsPage({ params }: { params: Promise<{ slu
                             style={{ stroke: "url(#chevron-gradient)" }}
                         />
                         <span className="text-[#7A7A7A] font-semibold" style={{
-                            background: "linear-gradient(90deg, #04B488 39.5%, #011EFE 100%)",
-                            WebkitBackgroundClip: "text",
-                            WebkitTextFillColor: "transparent",
-                            backgroundClip: "text",
-                            color: "transparent"
+                            // background: "linear-gradient(90deg, #04B488 39.5%, #011EFE 100%)",
+                            // WebkitBackgroundClip: "text",
+                            // WebkitTextFillColor: "transparent",
+                            // backgroundClip: "text",
+                            // color: "transparent"
                         }}>{getJobTitle()}</span>
                     </nav>
 
