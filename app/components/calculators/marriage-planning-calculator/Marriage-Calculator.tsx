@@ -450,7 +450,7 @@ export default function Marriagecalculators() {
                         You dream of a palace wedding in Andaman Island… <br />And then reality hits.</p>
                     <p className='text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto mb-4'>
                         Suddenly, there’s pressure. Loans. Breaking long-term investments. Even dipping into retirement savings. And sometimes, cutting down on things you always imagined for that day.</p>
-                    <p className='text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto'>
+                    <p className='text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto mb-4'>
                         A wedding is an emotional, once-in-a-lifetime event. It shouldn’t turn into a financial burden. <br />
                         This is exactly where the marriage planning calculator steps in. It helps in three very practical ways.</p>
 

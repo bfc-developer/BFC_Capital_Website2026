@@ -15,138 +15,123 @@ import { toast } from "react-toastify";
 import { ChevronRight } from "lucide-react";
 
 export default function EducationPlanningCalculator() {
-    const questions = [
-        {
-            question: "How accurate are SIP Calculator results?",
-            answer:
-                "It’s mostly accurate. The calculator gives you a projected figure, not a guaranteed figure.",
-        },
-        {
-            question: "Can the SIP Calculator help in retirement planning?",
-            answer:
-                "Yes, it does by estimating how much money your regular investments can grow over time, showing the corpus you can accumulate by retirement. This allows you to set monthly investment goals and track your progress. SIP Calculators also highlight the importance of starting early and staying invested consistently.",
-        },
-        {
-            question: "What inputs are required in a SIP Calculator?",
-            answer:
-                "Usually, the monthly savings, expected rate of return and investment horizon or time duration of the SIP are all you need to enter to get results.",
-        },
-        {
-            question: "Is SIP 100% safe?",
-            answer:
-                "No, a SIP is not completely risk-free, as all investments in the equity market carry some risk. However, SIPs do help reduce risk compared to lump-sum investments by spreading investments over time, known as rupee cost averaging, and reducing the impact of market volatility, especially over the long term",
-        },
-        {
-            question: "Can I invest 100 rupees in SIP?",
-            answer:
-                "Some schemes allow you to start your SIPs with an amount as low as 100 rupees as well, making SIPs affordable and within reach of every kind of investor.",
-        },
-    ];
-
-    interface ChartState {
-        options: ApexOptions;
-        series: { name: string; data: number[] }[];
+    const questions = [{
+        question: "How can I calculate the future cost of my child’s education?",
+        answer: "By using Prodigy Pro’s calculator. Enter the child’s age, education start age, duration, current costs, expected returns, and inflation rate: it gives you the future cost instantly."
+    }, {
+        question: "Does the Education Planning Calculator consider inflation in education costs?",
+        answer: "Yes. That’s the key. A course costing ₹5 lakhs today may cost over ₹15 lakhs in 15 years. The calculator adjusts for this rise."
+    }, {
+        question: "What inputs are required in the Education Planning Calculator?",
+        answer: "Just enter the child’s current age, target age, education duration, today’s costs, inflation, and return assumptions."
+    }, {
+        question: "Does the calculator show how much corpus I will need at the time of admission?",
+        answer: "Yes. It not only shows the total cost but also how to reach there, monthly SIP or lump sum."
+    }, {
+        question: "Can the calculator estimate costs for foreign currency fluctuations in overseas education?",
+        answer: "It does not automatically account for foreign currency fluctuations. Exchange rates can vary significantly over the years, and since the calculator focuses on rupee-based returns and inflation, it assumes a static currency conversion rate."
     }
-    const [investmentPeriod, setInvestmentPeriod] = useState<number>(10);
-    const [monthlySaving, setMonthlySaving] = useState<number>(10000);
-    const [monthlySaving1, setMonthlySaving1] = useState<number>(10000);
-    const [expectedRateOfReturn, setExpectedRateOfReturn] =
-        useState<string | number>(16.5);
 
-    const [gains, setGains] = useState<number>(3017292);
-    const [totalYear, setTotalYear] = useState<number>(10);
-    const [totalGains, setTotalGains] = useState<number>(3058780);
-    const [totalMonthlySaving, setTotalMonthlySaving] = useState<number>(1200000);
-    const [oneMonthSaving, setOneMonthSaving] = useState<number>(10000);
-    const [investmentPeriod1, setInvestmentPeriod1] = useState<number>(10);
+    ];
+    // useEffect(() => {
+    //   const fetchFaqs = async () => {
+    //     try {
+    //       const res = await fetch(`${Base_url}/${endpoints.calculators}`);
+    //       const data = await res.json();
 
-    const yearInString = (currentTotalYear: number = totalYear): string[] => {
-        let xAxisArray: string[] = [];
-        if (currentTotalYear > 16) {
-            for (let i = 1; i <= currentTotalYear; i += 2) xAxisArray.push(i + "Y");
-            if (currentTotalYear % 2 === 0) xAxisArray.push(currentTotalYear + "Y");
-        } else {
-            for (let i = 1; i <= currentTotalYear; i++) xAxisArray.push(i + "Y");
-        }
-        return xAxisArray;
+    //       // Extract FAQ array safely
+    //       const faqItems = data?.data[0]?.attributes?.sipCalculator?.FAQ || [];
+    //       setQuestions(faqItems);
+    //     } catch (error) {
+    //       console.error("Error fetching FAQs:", error);
+    //     }
+    //   };
+
+    //   fetchFaqs();
+    // }, []);
+
+    // const [monthlySaving, setMonthlySaving] = useState("₹ 10,00,000");
+    // const [rateOfReturn, setRateOfReturn] = useState("₹ 5,00,000");
+    // const [period, setPeriod] = useState("24");
+
+    // Calculator state
+    //   const [childAge, setChildAge] = useState<number>(8);
+    //   const [startCollegeAge, setStartCollegeAge] = useState<number>(24);
+    //   const [durationOfEducation, setDurationOfEducation] = useState<number>(3);
+    //   const [annualSavings, setAnnualSavings] = useState<number>(500000);
+    //   const [expectedRateOfReturn, setExpectedRateOfReturn] = useState<number>(12);
+    //   const [expectedInflation, setExpectedInflation] = useState<number>(6);
+
+    //   // Results
+    //   const [inflationAdjustedCost, setInflationAdjustedCost] = useState<number>(0);
+    //   const [additionalFunds, setAdditionalFunds] = useState<number>(0);
+    //   const [monthlyInvestment, setMonthlyInvestment] = useState<number>(0);
+
+    // PMT calculation (like Excel)
+
+    // Calculator state
+    const [childAge, setChildAge] = useState<number>(8);
+    const [startCollegeAge, setStartCollegeAge] = useState<number>(24);
+    const [durationOfEducation, setDurationOfEducation] = useState<number>(3);
+    const [annualSavings, setAnnualSavings] = useState<number>(500000);
+    const [expectedRateOfReturn, setExpectedRateOfReturn] = useState<string | number>(12);
+    const [expectedInflation, setExpectedInflation] = useState<string | number>(6);
+
+    // Results
+    const [inflationAdjustedCost, setInflationAdjustedCost] = useState<number>(3416643);
+    const [additionalFunds, setAdditionalFunds] = useState<number>(608521);
+    const [monthlyInvestment, setMonthlyInvestment] = useState<number>(6319);
+
+    // PMT calculation
+    const calculatePMT = (
+        rate: number,
+        nper: number,
+        pv: number,
+        fv: number = 0
+    ) => {
+        if (rate === 0) return -(pv + fv) / nper;
+        const pvif = Math.pow(1 + rate, nper);
+        return -(rate * (fv + pvif * pv)) / (pvif - 1);
     };
 
-    const valueForGraph = (data: number, currentTotalYear: number = totalYear): number[] => {
-        let graphValue: number[] = [];
-        if (currentTotalYear > 16) {
-            for (let i = currentTotalYear; i > 0; i -= 2)
-                graphValue.push(Math.round(data / i));
-            if (currentTotalYear % 2 === 0) graphValue.push(Math.round(data));
-        } else {
-            for (let i = currentTotalYear; i > 0; i--) graphValue.push(Math.round(data / i));
-        }
-        return graphValue;
-    };
+    const handleCalculate = (e: React.FormEvent) => {
+        e.preventDefault();
 
-    const [chartState, setChartState] = useState<ChartState>({
-        series: [
-            { name: "Market Value", data: valueForGraph(gains + totalMonthlySaving) },
-            { name: "Invested Amount", data: valueForGraph(totalMonthlySaving) },
-        ],
-        options: {
-            legend: {
-                show: false,
-            },
-            chart: {
-                height: 350,
-                type: "area",
-                background: "transparent",
-                toolbar: { show: false },
-                zoom: { enabled: false },
-            },
-            dataLabels: { enabled: false },
-            stroke: {
-                curve: "monotoneCubic",
-                width: [2, 2],
-                colors: ["#357AF6", "#57BE65"],
-            },
-            xaxis: { categories: yearInString() },
-            grid: { show: false },
-        },
-    });
-
-    const calculateSip = () => {
-        if (!monthlySaving || !expectedRateOfReturn) {
-            toast.error("Please make sure all required fields are filled in.")
+        if (!annualSavings || !expectedInflation || !expectedRateOfReturn) {
+            toast.error("Please make sure all required fields are filled in.");
             return;
+        } else {
+            if (childAge >= startCollegeAge) {
+                toast.error("Child age must be less than college start age");
+                return;
+            }
+
+            const yearsLeft = startCollegeAge - childAge;
+            const FV = annualSavings * Math.pow(1 + Number(expectedInflation) / 100, yearsLeft);
+
+            const er = Number(expectedRateOfReturn) / 100;
+            const ei = Number(expectedInflation) / 100;
+            const Tot = (1 + er) / (1 + ei) - 1;
+
+            const totalAmtRequired =
+                FV * ((1 - Math.pow(1 + Tot, -durationOfEducation)) / Tot);
+
+            const nominalRateMonthly = 12 * (Math.pow(1 + er, 1 / 12) - 1);
+            const lumpsum =
+                totalAmtRequired / Math.pow(1 + nominalRateMonthly, yearsLeft);
+
+            const monthLeft = yearsLeft * 12;
+            const monthlyAmt = calculatePMT(
+                nominalRateMonthly / 12,
+                monthLeft,
+                0,
+                -totalAmtRequired
+            );
+
+            setInflationAdjustedCost(Math.round(totalAmtRequired));
+            setAdditionalFunds(Math.round(lumpsum));
+            setMonthlyInvestment(Math.round(monthlyAmt));
         }
-        else {
-            let monthlyRate = Number(expectedRateOfReturn) / 12 / 100;
-            let months = investmentPeriod * 12;
-            let futureValue =
-                ((monthlySaving * (Math.pow(1 + monthlyRate, months) - 1)) /
-                    monthlyRate) *
-                (1 + monthlyRate);
-
-            let mainResults = Math.round(futureValue);
-            let totalSaving = monthlySaving * months;
-            let gain = mainResults - totalSaving;
-
-            setGains(Math.round(gain));
-            setTotalYear(investmentPeriod);
-            setTotalMonthlySaving(totalSaving);
-            setTotalGains(totalSaving + gain);
-            setInvestmentPeriod1(investmentPeriod);
-            setMonthlySaving1(monthlySaving);
-
-            // Update chart dynamically
-            setChartState((prevState) => ({
-                series: [
-                    { name: "Market Value", data: valueForGraph(totalSaving + gain, investmentPeriod) },
-                    { name: "Invested Amount", data: valueForGraph(totalSaving, investmentPeriod) },
-                ],
-                options: {
-                    ...prevState.options,
-                    xaxis: { categories: yearInString(investmentPeriod) },
-                },
-            }));
-        }
-
     };
 
     return (
@@ -178,13 +163,15 @@ export default function EducationPlanningCalculator() {
                         className="h-4 w-4 mx-2"
                         style={{ stroke: "url(#chevron-gradient)" }}
                     />
-                    <span className="text-[#7A7A7A] font-semibold" style={{
-                        background: "linear-gradient(90deg, #04B488 39.5%, #011EFE 100%)",
-                        WebkitBackgroundClip: "text",
-                        WebkitTextFillColor: "transparent",
-                        backgroundClip: "text",
-                        color: "transparent"
-                    }}>Calculators</span>
+                    <Link href="/calculators">
+                        <span className="text-[#7A7A7A] font-semibold" style={{
+                            background: "linear-gradient(90deg, #04B488 39.5%, #011EFE 100%)",
+                            WebkitBackgroundClip: "text",
+                            WebkitTextFillColor: "transparent",
+                            backgroundClip: "text",
+                            color: "transparent"
+                        }}>Calculators</span>
+                    </Link>
                     <ChevronRight
                         className="h-4 w-4 mx-2"
                         style={{ stroke: "url(#chevron-gradient)" }}
@@ -212,18 +199,81 @@ export default function EducationPlanningCalculator() {
 
                                 <form className="space-y-6">
 
+                                    <div>
+                                        <div className="flex justify-between mb-2">
+                                            <label className="text-[#44475B] font-medium text-sm uppercase">
+                                                Child Age Today (Years)
+                                            </label>
+                                            <span className="font-bold text-[#44475B]">
+                                                {childAge} Yrs
+                                            </span>
+                                        </div>
+
+                                        <RangeBar
+                                            maxLimit={30}
+                                            setValue={setChildAge}
+                                            value={childAge}
+                                        />
+
+                                        <div className="flex justify-between text-sm text-[#44475B] mt-2">
+                                            <span>1 Yr</span>
+                                            <span>30 Yrs</span>
+                                        </div>
+                                    </div>
+                                    <div>
+                                        <div className="flex justify-between mb-2">
+                                            <label className="text-[#44475B] font-medium text-sm uppercase">
+                                                College Start at age
+                                            </label>
+                                            <span className="font-bold text-[#44475B]">
+                                                {startCollegeAge} Yrs
+                                            </span>
+                                        </div>
+
+                                        <RangeBar
+                                            maxLimit={30}
+                                            setValue={setStartCollegeAge}
+                                            value={startCollegeAge}
+                                        />
+
+                                        <div className="flex justify-between text-sm text-[#44475B] mt-2">
+                                            <span>1 Yr</span>
+                                            <span>30 Yrs</span>
+                                        </div>
+                                    </div>
+                                    <div>
+                                        <div className="flex justify-between mb-2">
+                                            <label className="text-[#44475B] font-medium text-sm uppercase">
+                                                Duration of education
+                                            </label>
+                                            <span className="font-bold text-[#44475B]">
+                                                {durationOfEducation} Yrs
+                                            </span>
+                                        </div>
+
+                                        <RangeBar
+                                            maxLimit={30}
+                                            setValue={setDurationOfEducation}
+                                            value={durationOfEducation}
+                                        />
+
+                                        <div className="flex justify-between text-sm text-[#44475B] mt-2">
+                                            <span>1 Yr</span>
+                                            <span>30 Yrs</span>
+                                        </div>
+                                    </div>
                                     {/* Monthly Saving */}
                                     <div>
                                         <label className="block text-[#44475B] font-medium text-sm uppercase mb-2">
-                                            MONTHLY SAVING
+                                            Approx current cost per year
                                         </label>
                                         <input
                                             type="number"
                                             className="w-full border rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500 text-[#44475B]"
-                                            value={monthlySaving}
+                                            value={annualSavings}
                                             min={0}
                                             onChange={(e) =>
-                                                setMonthlySaving(parseFloat(e.target.value))
+                                                setAnnualSavings(parseFloat(e.target.value))
                                             }
                                             placeholder="₹ 10,000"
                                         />
@@ -232,7 +282,7 @@ export default function EducationPlanningCalculator() {
                                     {/* Expected Rate of Return */}
                                     <div>
                                         <label className="block text-[#44475B] font-medium text-sm uppercase mb-2">
-                                            EXPECTED RATE OF RETURN (% P.A)
+                                            Expected Rate of returns (%)
                                         </label>
                                         <input
                                             type="text"
@@ -275,35 +325,58 @@ export default function EducationPlanningCalculator() {
                                             }}
                                         />
                                     </div>
-
-                                    {/* Investment Period */}
+                                    {/* Expected Rate of Return */}
                                     <div>
-                                        <div className="flex justify-between mb-2">
-                                            <label className="text-[#44475B] font-medium text-sm uppercase">
-                                                INVESTMENT PERIOD
-                                            </label>
-                                            <span className="font-bold text-[#44475B]">
-                                                {investmentPeriod} Yrs
-                                            </span>
-                                        </div>
+                                        <label className="block text-[#44475B] font-medium text-sm uppercase mb-2">
+                                            Expected Inflation (%)
+                                        </label>
+                                        <input
+                                            type="text"
+                                            inputMode="decimal"
+                                            className="w-full border rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500 text-[#44475B]"
+                                            value={expectedInflation}
+                                            placeholder="16.5"
+                                            onChange={(e) => {
+                                                let val = e.target.value;
 
-                                        <RangeBar
-                                            maxLimit={30}
-                                            setValue={setInvestmentPeriod}
-                                            value={investmentPeriod}
+                                                // Remove invalid characters (keep digits and one dot)
+                                                val = val.replace(/[^0-9.]/g, "");
+
+                                                // Prevent multiple dots
+                                                const parts = val.split(".");
+                                                if (parts.length > 2) {
+                                                    val = parts[0] + "." + parts.slice(1).join("");
+                                                }
+
+                                                // Remove leading zeros like 012 -> 12 (but allow 0.x)
+                                                if (
+                                                    val.startsWith("0") &&
+                                                    !val.startsWith("0.") &&
+                                                    val.length > 1
+                                                ) {
+                                                    val = val.replace(/^0+/, "");
+                                                }
+
+                                                // Allow empty while typing
+                                                if (val === "") {
+                                                    setExpectedInflation("");
+                                                    return;
+                                                }
+
+                                                const num = parseFloat(val);
+
+                                                if (val === "." || (!isNaN(num) && num >= 0 && num <= 100)) {
+                                                    setExpectedInflation(val);
+                                                }
+                                            }}
                                         />
-
-                                        <div className="flex justify-between text-sm text-[#44475B] mt-2">
-                                            <span>1 Yr</span>
-                                            <span>30 Yrs</span>
-                                        </div>
                                     </div>
 
                                     {/* Button */}
                                     <button
                                         type="button"
-                                        onClick={calculateSip}
-                                        className="bg-[#04B488] text-white py-3 rounded-lg font-semibold hover:bg-blue-700 transition p-[14px]"
+                                        onClick={handleCalculate}
+                                        className="bg-[#04B488] text-white py-3 rounded-lg font-semibold hover:bg-[#008f45] transition duration-300 p-[14px]"
                                     >
                                         Calculate
                                     </button>
