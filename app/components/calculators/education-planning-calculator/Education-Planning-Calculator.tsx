@@ -17,7 +17,7 @@ import { ChevronRight } from "lucide-react";
 export default function EducationPlanningCalculator() {
     const questions = [{
         question: "How can I calculate the future cost of my child’s education?",
-        answer: "By using Prodigy Pro’s calculator. Enter the child’s age, education start age, duration, current costs, expected returns, and inflation rate: it gives you the future cost instantly."
+        answer: "By using BFC Capital's Education Planning calculator. Enter the child’s age, education start age, duration, current costs, expected returns, and inflation rate: it gives you the future cost instantly."
     }, {
         question: "Does the Education Planning Calculator consider inflation in education costs?",
         answer: "Yes. That’s the key. A course costing ₹5 lakhs today may cost over ₹15 lakhs in 15 years. The calculator adjusts for this rise."
@@ -177,11 +177,11 @@ export default function EducationPlanningCalculator() {
                         style={{ stroke: "url(#chevron-gradient)" }}
                     />
                     <span className="text-[#7A7A7A] font-semibold" style={{
-                        background: "linear-gradient(90deg, #04B488 39.5%, #011EFE 100%)",
-                        WebkitBackgroundClip: "text",
-                        WebkitTextFillColor: "transparent",
-                        backgroundClip: "text",
-                        color: "transparent"
+                        // background: "linear-gradient(90deg, #04B488 39.5%, #011EFE 100%)",
+                        // WebkitBackgroundClip: "text",
+                        // WebkitTextFillColor: "transparent",
+                        // backgroundClip: "text",
+                        // color: "transparent"
                     }}>Education Planning Calculator</span>
                 </nav>
                 {/* Title */}
@@ -391,41 +391,44 @@ export default function EducationPlanningCalculator() {
 
                                 {/* Result Card */}
                                 <div className="shadow-md rounded-2xl px-5 py-4 bg-[#FFFFFF]">
-                                    <h2 className="font-primary font-semibold text-2xl leading-tight text-textdark mb-3">
+                                    <h2 className="font-primary font-semibold text-2xl leading-tight text-[rgba(33, 33, 33, 1)] mb-6">
                                         Result
                                     </h2>
-
-                                    <p className="font-primary text-base md:text-lg leading-relaxed text-textdark">
-                                        If you invest{" "}
-                                        <strong>₹{monthlySaving1.toLocaleString("en-IN")}</strong>{" "}
-                                        per month for a period of{" "}
-                                        <strong>{investmentPeriod1} years</strong>, your investment
-                                        amount will be{" "}
-                                        <strong>
-                                            ₹{totalMonthlySaving.toLocaleString("en-IN")}
-                                        </strong>{" "}
-                                        and the maturity amount will grow to{" "}
-                                        <strong>₹{totalGains.toLocaleString("en-IN")}</strong>.
+                                    <label className="block text-[rgba(77, 77, 77, 1)] font-medium text-sm uppercase mb-2">
+                                        Corpus required at start of college
+                                    </label>
+                                    <p className="font-primary text-base md:text-lg leading-relaxed text-[rgba(33, 33, 33, 1)] font-bold mb-4">
+                                        ₹{inflationAdjustedCost.toLocaleString("en-IN")}
                                     </p>
-                                </div>
+                                    <hr className="my-8 border-[#D0DBEA] border-[1px]" />
+                                    <h4 className="text-[rgba(33, 33, 33, 1)]  font-semibold text-xl leading-tight mb-6">
+                                        To meet this goal your must invest:
+                                    </h4>
+                                    <label className="block text-[rgba(77, 77, 77, 1)] font-medium text-sm uppercase mb-2">
+                                        One time investment required
+                                    </label>
+                                    <p className="font-primary text-base md:text-lg leading-relaxed text-[rgba(33, 33, 33, 1)] font-bold mb-4">
+                                        ₹{additionalFunds.toLocaleString("en-IN")}
+                                    </p>
+                                    <label className="block text-[rgba(77, 77, 77, 1)] text-center font-medium text-sm uppercase mb-2">
+                                        Or
+                                    </label>
+                                    <label className="block text-[rgba(77, 77, 77, 1)] font-medium text-sm uppercase mb-2">
+                                        Monthly Investment required
+                                    </label>
+                                    <p className="font-primary text-base md:text-lg leading-relaxed text-[rgba(33, 33, 33, 1)] font-bold mb-4">
+                                        ₹{monthlyInvestment.toLocaleString("en-IN")}
+                                    </p>
 
-                                {/* Chart Card */}
-                                <div className="shadow-md rounded-2xl px-5 py-4 bg-[#FFFFFF]">
-                                    <ReactApexChart
-                                        options={chartState.options}
-                                        series={chartState.series}
-                                        type="area"
-                                        height={350}
-                                    />
                                 </div>
 
                                 {/* Invest Now Button */}
                                 <div>
                                     <Link
                                         href="https://app.prodigypro.co.in/"
-                                        className="inline-block py-3 rounded-lg font-semibold transition bg-color-[#FFFFFF]"
+                                        className="inline-block py-3 px-6 rounded-lg font-semibold transition bg-[#FFFFFF]"
                                     >
-                                        <span className="bg-gradient-to-r from-[#04B488] to-[#011EFE] bg-clip-text text-transparent">
+                                        <span className="bg-gradient-to-r from-[#04B488] to-[#011EFE] bg-clip-text text-transparent font-bold">
                                             Invest Now
                                         </span>
                                     </Link>
@@ -439,146 +442,97 @@ export default function EducationPlanningCalculator() {
             </section>
             <section>
                 <h2 className="text-center text-[20px] md:text-3xl lg:text-5xl font-bold text-[#44475B] mt-16">All You Need To Know About <br />
-                    SIP Calculator</h2>
+                    Child Education Planning Calculator</h2>
                 <div className='container mx-auto px-5 md:px-10 lg:px-20'>
                     <p className="mx-auto mt-4 md:mt-8 mb-4 text-[15px] md:text-[24px] font-bold text-[#44475B] mb-[10px] md:mb-[20px]">
-                        What is an SIP Calculator?
+                        What is the Child Education Planning Calculator?
                     </p>
-                    <p className='text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto mb-4'>Let’s keep this simple. <br />
-                        Imagine you put aside ₹3,000 every month in a piggy bank. After one year, you’d have ₹36,000. No surprises there.</p>
-                    <p className='text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto mb-4'>Now imagine if that same money didn’t just sit quietly in a corner, but actually worked for you. It earned returns. And then those returns started earning returns too.</p>
-                    <p className='text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto mb-4'>
-                        That’s what investing does.</p>
-                    <p className='text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto mb-4'>
-                        One of the easiest and most comfortable ways to start investing is through an SIP (Systematic Investment Plan). And to understand where your SIP could realistically take you, you need a tool that shows the picture clearly. That’s where the Prodigy Pro SIP Calculator, developed by BFC Capital – a SEBI-registered investment advisor (RIA), comes in.</p>
-                    <p className='text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto mb-4'>A SIP Calculator is a simple online tool that helps you estimate how much your regular monthly investments may grow over time. Think of it like checking Google Maps before starting a journey– you may not know every turn, but at least you know where you’re headed.</p>
-                </div>
-
-                <div className='container mx-auto px-5 md:px-10 lg:px-20'>
-                    <p className="mx-auto mt-4 md:mt-8 mb-4 text-[15px] md:text-[24px] font-bold text-[#44475B] mb-[10px] md:mb-[20px]">
-                        How Can a SIP Calculator Help You?
-                    </p>
-                    <p className='text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto mb-4'>Investing without a plan is like saying, “Let’s just drive and see where we land.” Sounds fun, but not when your money is involved. <br />A SIP calculator brings clarity where confusion usually exists.</p>
-                    <p className='text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto mb-4'>
-                        It helps you set clear goals</p>
-                    <p className='text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto mb-4'>
-                        Maybe you want ₹50 lakhs for your child’s higher education in 20 years. <br />Or ₹15 lakhs for a wedding after 3 years. <br />Instead of guessing, the calculator tells you how much you need to invest every month to realistically reach those goals.</p>
-                    <p className='text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto'>It shows you the real power of compounding <br />
-                        This is where things get interesting. For example, if you invest ₹5,000 every month for 10 years and earn an average return of 12%:</p>
-                    <ul className='list-disc pl-7 text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto'>
-                        <li>Total amount invested: ₹6 lakhs</li>
-                        <li>Approximate value after 10 years: ₹11.5 lakhs</li>
+                    <p className='text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto mb-4'>Every parent, no matter where they come from or what they earn, shares one common dream: <br /> to give their child the best possible education.</p>
+                    <p className='text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto mb-4'>It could be a good school in your city, a top college in India, or even higher studies abroad. The dream may differ, but one thing stays the same – education costs keep rising, year after year.</p>
+                    <p className='text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto mb-4'>Child education planning simply means preparing for that reality today. It's about understanding what your child's education might cost in the future, setting a clear financial target, and investing in a structured way so you're never caught off guard when the time comes.</p>
+                    <p className='text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto mb-4'>This is where Prodigy Pro’s Child Education Planning Calculator, developed by BFC Capital, becomes incredibly helpful.</p>
+                    <p className='text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto mb-4'>Instead of guessing or worrying, the calculator shows you two very important things:</p>
+                    <ul className='list-disc pl-7 text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto mb-4'>
+                        <li>How much your child's education may cost in the future, and</li>
+                        <li>How much you need to save or invest now to comfortably reach that goal.</li>
                     </ul>
-
-                    <p className='text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto mb-4'>
-                        You didn’t double your effort. Time and compounding did the heavy lifting for you.</p>
-                    <p className='text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto mb-4 font-bold italic'>
-                        It helps build discipline</p>
-                    <p className='text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto mb-4'>
-
-                        Once you know your target and the monthly amount required, investing stops feeling random. <br />You’re less likely to break your SIP for short-term expenses because now your money has a purpose. SIPs work best when they run quietly in the background – automatically, consistently, and without emotional decisions.</p>
                 </div>
 
                 <div className='container mx-auto px-5 md:px-10 lg:px-20'>
                     <p className="mx-auto mt-4 md:mt-8 mb-4 text-[15px] md:text-[24px] font-bold text-[#44475B] mb-[10px] md:mb-[20px]">
-                        How Do SIP Calculators Work?
+                        Why Use a Child Education Plan Calculator?
                     </p>
-                    <p className='text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto mb-4'>At its heart, an SIP calculator is built on one powerful idea: <b>compounding</b>.</p>
-                    <p className='text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto mb-4'>You invest a fixed amount every month – no guesswork, no market timing. <br />That money starts earning returns. <br />Those returns don’t just sit there; they get reinvested and begin earning returns of their own.</p>
                     <p className='text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto mb-4'>
-                        Over time, this creates a snowball effect. What starts as small, disciplined monthly investments can quietly grow into meaningful wealth.
-                        The SIP calculator simply does the number-crunching for you. It shows you what consistency and time can do, without you having to open a spreadsheet or stress over calculations.</p>
-
+                        <b>1. Brings Clarity to Your Goal</b> <br /></p><p className='text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto mb-4'>
+                        Imagine this: you want your child to do an MBA. Today it costs around ₹30 lakhs in India. In 10–12 years, thanks to inflation, the same program could cross ₹45–50 lakhs. Without proper planning, that number can feel crushing, and the weight of that increases every day. The child education planning calculator tells you in advance what you’re up against.
+                    </p>
                     <p className='text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto mb-4'>
-                        At BFC Capital, we believe the real magic isn’t in predicting markets, but in staying invested long enough for compounding to do its job.</p>
+                        <b>2. Breaks It Into Manageable Investments</b> <br /></p><p className='text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto mb-4'>
+                        Instead of panicking about that huge future cost, the calculator tells you how much to put aside each month or as a lump sum today. It converts an overwhelming figure into a clear, doable monthly saving target.
+                    </p>
+                    <p className='text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto mb-4'>
+                        <b>3. Keeps Inflation in Check</b> <br /></p><p className='text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto mb-4'>
+                        Parents often save based on today’s fee structure. But in reality, education costs rise by 6–10% every year; faster than household inflation. The calculator automatically factors this in so you don’t fall short.
+                    </p>
+                    <p className='text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto mb-4'>
+                        <b>4. Helps You Stay Ahead of Time</b> <br /></p><p className='text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto mb-4'>
+                        Say your child is 5 years old today, and you’re planning for higher studies at 18. That’s a 13-year runway. The calculator shows you how to spread your savings across those years so you’re not scrambling at the last minute.
+                    </p>
                 </div>
 
                 <div className='container mx-auto px-5 md:px-10 lg:px-20'>
                     <p className="mx-auto mt-4 md:mt-8 mb-4 text-[15px] md:text-[24px] font-bold text-[#44475B] mb-[10px] md:mb-[20px]">
-                        How to Use the Prodigy Pro’s Systematic Investment Plan Calculator?
+                        How to Use Child Education Planning Calculator
                     </p>
-                    <p className='text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto mb-4'>The Prodigy Pro’s SIP Calculator is designed to be beginner-friendly and quick. All it takes are three inputs:</p>
-                    <p className='text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto mb-4'>
-                        Monthly Savings - e.g., ₹8,000/month.</p>
+                    <p className='text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto mb-4'>Using the calculator is as simple as filling in seven blanks:</p>
 
-                    <p className='text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto mb-4'>
-                        Investment Period - say 10 years.</p>
-                    <p className='text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto mb-4'>
-                        Expected Return Rate - let’s assume approx-16%.</p>
-                    <p className='text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto mb-4'>
-                        Hit Calculate, and you’ll instantly see:</p>
-                    <p className='text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto mb-4'>
-                        Amount Invested – total money you contributed.</p>
-                    <p className='text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto mb-4'>
-                        Market Value – total future value you might get after 10 years.</p>
-                    <p className='text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto mb-4'>
-                        Returns – the profit earned over your investment value.</p>
-                    <p className='text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto mb-4'>
-                        <b>Example:</b>
-                        ₹8,000/month × 10 years @ 16% return <br />Invested: ₹9,60,000  <br />Future Value: ~₹23.71 lakhs!</p>
-                    <p className='text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto mb-4'>
-                        That’s compounding doing its job silently.</p>
+                    <p className="text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto mb-4">Child's Age Today - say 12 years.</p>
+                    <p className="text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto mb-4">Start College Age - usually 18.</p>
+                    <p className="text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto mb-4">Duration of Education - 3 years for undergraduate, 2 years for postgraduate, so let's consider 5 years.</p>
+                    <p className="text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto mb-4">Current Cost per Year - enter today's fees, let's say ₹8 lakhs/year.</p>
+                    <p className="text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto mb-4">Expected Rate of Return - let's assume 14%.</p>
+                    <p className="text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto mb-4">Inflation Rate - usually 6-8% for education, so let's say 8%</p>
 
-                </div>
-
-                <div className='container mx-auto px-5 md:px-10 lg:px-20'>
-                    <p className="mx-auto mt-4 md:mt-8 mb-4 text-[15px] md:text-[24px] font-bold text-[#44475B] mb-[10px] md:mb-[20px]">
-                        Systematic Investment Plans (SIPs) in India
-                    </p>
-                    <p className='text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto'>
-                        SIPs are one of the easiest and most trusted ways to invest in mutual funds. <br />Instead of investing a large amount in one go, you invest a fixed sum every month on a chosen date – directly from your bank account. No chasing markets, no complicated decisions. Even ₹100 a month is enough to get started, and some SIPs allow you to begin with just ₹100.</p>
-                    <p className='text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto'>So why do SIPs work especially well in India?</p>
-                    <ul className='list-disc pl-7 text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto'>
-                        <li>They fit perfectly into how most of us earn and spend.</li>
-                        <li>For salaried individuals, SIPs build a habit of investing – quietly and consistently – much like a monthly bill you pay to your future self.</li>
-                        <li>They also take away the pressure of trying to “buy at the right time.” Markets go up, markets go down – but SIPs keep you invested through it all, smoothing out volatility over time.</li>
-                        <li>And most importantly, SIPs are designed for long-term goals that truly matter: your child’s education, buying a home, or building a comfortable retirement.</li>
+                    <p className='text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto mb-4'>Calculate - and you're done.<br />
+                        The calculator shows you:</p>
+                    <ul className='space-y-2 text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto mb-4'>
+                        <li>Corpus required at start of college: ₹54.12 lakhs</li>
+                        <li>Funds required to meet this goal: ₹25.75 lakhs as a lump sum</li>
+                        <li>Or an SIP of ₹49,731 monthly!</li>
                     </ul>
-
-
-                    <p className='text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto mb-4'>
-                        At BFC Capital, we see SIPs not as a product, but as a behaviour shift, from worrying about markets to trusting the power of time and consistency.</p>
                 </div>
-
                 <div className='container mx-auto px-5 md:px-10 lg:px-20'>
                     <p className="mx-auto mt-4 md:mt-8 mb-4 text-[15px] md:text-[24px] font-bold text-[#44475B] mb-[10px] md:mb-[20px]">
-                        Types of SIPs
+                        Everyday Parent Struggles This Solves
                     </p>
-                    <p className='text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto mb-4'>
-                        SIPs aren’t rigid at all! <br />You can choose what suits your lifestyle.</p>
-
-
-                    <p className='text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto mb-4'>
-                        <b>Step-Up SIP</b> <br />
-                        Start small and increase gradually. Example: begin with ₹5,000/month, increase by ₹1000 every year as your salary grows.</p>
-                    <p className='text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto mb-4'>
-                        <b>Top-Up SIP</b> <br />
-                        Add extra whenever you can. Got a yearly bonus? Add ₹15,000 to your SIP. No compulsion, just flexibility to boost returns.</p>
-                </div>
-
-                <div className='container mx-auto px-5 md:px-10 lg:px-20'>
-                    <p className="mx-auto mt-4 md:mt-8 mb-4 text-[15px] md:text-[24px] font-bold text-[#44475B] mb-[10px] md:mb-[20px]">
-                        Why use Prodigy Pro’s online SIP calculator over others?
-                    </p>
-                    <p className='text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto mb-4'>
-                        Because investing isn’t just about numbers. It’s about clarity and confidence.</p>
-                    <ul className='list-disc pl-7 text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto'>
-                        <li> <b>See the long-term picture</b> <br />It helps you understand how something as small as ₹500 a month today can quietly grow into lakhs over time. No hype, just realistic long-term clarity.</li>
-                        <li> <b>Plan with a purpose</b> <br />Have a specific goal in mind? The calculator shows how much you need to invest to reach it, so your SIP isn’t random. It’s intentional.</li>
-                        <li> <b>Simple to use</b> <br />Clean, quick, and easy to understand. No jargon, no clutter. Just the numbers that actually matter.</li>
-                        <li> <b>Make smarter choices before you commit</b> <br />Compare different SIP amounts and timelines before starting, so you invest with confidence, not guesswork.</li>
-                        <li> <b>Complete transparency</b> <br />You clearly see how much you’ve invested and how much you’ve earned. No surprises. No hidden assumptions.</li>
+                    <ul className='list-disc pl-7 text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto mb-4'>
+                        <li className="mb-4">The "It's too late" panic: Many parents wake up to the education cost reality when the child is already in Class 10th. This calculator shows what starting early can achieve with smaller contributions.</li>
+                        <li className="mb-4">Rising school fees: If school fees themselves are rising by 8–10% every year, how do you expect college fees to behave? The calculator connects those dots for you.</li>
+                        <li className="mb-4">The overseas dream: Suppose your child wants to study in the US, where tuition and living costs could cost ₹4 crore+ in 15 years. Without an education planning calculator, most parents either underestimate or overestimate. The calculator helps you anchor your plan in reality.</li>
+                        <li className="mb-4">The trade-off trap: Parents often end up cutting into retirement savings to fund education. With a calculator-based plan, you avoid sacrificing one goal for another.</li>
                     </ul>
-
-                    <p className='text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto mb-4'>
-
-                        At the end of the day, money management comes down to two simple things: clarity and consistency. <br />Whether you are planning for your child’s future, your dream home, or simply building a safety cushion for tomorrow, this tool removes guesswork and replaces it with a clear, practical roadmap.</p>
-                    <p className='text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto mb-4'>
-                        At BFC Capital, a SEBI Registered Investment Adviser, we believe investing does not have to feel complicated or exclusive. It is about taking small, consistent steps and staying the course.</p>
-                    <p className='text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto mb-4'>
-
-                        So the next time investing feels “too complex” or “only meant for experts,” remember this. All it takes is a fixed amount, a fixed date, and a simple tool like Prodigy Pro’s SIP calculator to start building wealth that keeps working even while you sleep</p>
                 </div>
+
+                <div className='container mx-auto px-5 md:px-10 lg:px-20'>
+                    <p className='text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto mb-4'>
+                        Education is the one gift that stays with a child for life. <br />
+                        But it's also one of the biggest financial responsibilities parents carry.
+                    </p>
+                    <p className='text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto mb-4'>
+                        The biggest mistake isn't earning less. <br />
+                        It's waiting and hoping, instead of planning.
+                    </p>
+                    <p className='text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto mb-4'>
+                        The Child Education Planning Calculator isn't just about numbers. It's about peace of mind. It shows you how much to save, for how long, and with what discipline – long before the pressure begins.
+                    </p>
+                    <p className='text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto mb-4'>
+                        Start early. Stay consistent. Let time and compounding do the heavy lifting.
+                    </p>
+                    <p className='text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto mb-4'>
+                        When your child finally walks into their dream college, you’ll be grateful you planned – not just wished.
+                    </p>
+                </div>
+
             </section >
             <section>
                 <h2 className="text-center text-[20px] md:text-3xl lg:text-5xl font-bold text-[#44475B] mt-16">FAQs</h2>

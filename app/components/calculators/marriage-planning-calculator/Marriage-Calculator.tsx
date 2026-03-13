@@ -468,7 +468,8 @@ export default function Marriagecalculators() {
                         <b>2. It Breaks a Big Goal into Simple Monthly Savings</b> <br />
                         ₹50 lakhs sounds scary. <br />₹7,000–₹8,000 a month? Much more manageable.</p>
                     <p className='text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto mb-4'>
-                        The Prodigy Pro calculator converts a large future expense into clear, doable monthly action. It tells you exactly how much to save or invest regularly so that the goal doesn’t feel impossible.</p>
+
+                        This calculator converts a large future expense into clear, doable monthly action. It tells you exactly how much to save or invest regularly so that the goal doesn’t feel impossible.</p>
                     <p className='text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto mb-4'>
                         This is where planning replaces anxiety.</p>
                     <p className='text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto mb-4'>

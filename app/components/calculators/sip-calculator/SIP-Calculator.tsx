@@ -333,7 +333,7 @@ export default function Sipcalculators() {
                                         <strong>
                                             ₹{totalMonthlySaving.toLocaleString("en-IN")}
                                         </strong>{" "}
-                                        and maturity amount will be grow to{" "}
+                                        and maturity amount will grow to{" "}
                                         <strong>₹{totalGains.toLocaleString("en-IN")}</strong>.
                                     </p>
                                 </div>
