@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
-
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 import { defaultSeo } from "./seo-config";
 import "./globals.css";
 import { GlobalLoaderProvider } from "./components/common/GlobalLoader";
@@ -35,6 +36,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={`${inter.variable} antialiased`}>
+        <ToastContainer />
         <GlobalLoaderProvider>
           {/* <CustomCursor /> */}
           {children}
