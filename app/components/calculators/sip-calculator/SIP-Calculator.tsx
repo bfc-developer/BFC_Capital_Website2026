@@ -178,13 +178,15 @@ export default function Sipcalculators() {
                         className="h-4 w-4 mx-2"
                         style={{ stroke: "url(#chevron-gradient)" }}
                     />
-                    <span className="text-[#7A7A7A] font-semibold" style={{
-                        background: "linear-gradient(90deg, #04B488 39.5%, #011EFE 100%)",
-                        WebkitBackgroundClip: "text",
-                        WebkitTextFillColor: "transparent",
-                        backgroundClip: "text",
-                        color: "transparent"
-                    }}>Calculators</span>
+                    <Link href="/calculators">
+                        <span className="text-[#7A7A7A] font-semibold" style={{
+                            background: "linear-gradient(90deg, #04B488 39.5%, #011EFE 100%)",
+                            WebkitBackgroundClip: "text",
+                            WebkitTextFillColor: "transparent",
+                            backgroundClip: "text",
+                            color: "transparent"
+                        }}>Calculators</span>
+                    </Link>
                     <ChevronRight
                         className="h-4 w-4 mx-2"
                         style={{ stroke: "url(#chevron-gradient)" }}
