@@ -25,7 +25,7 @@ const calculators = [
         title: "Future Value Calculator",
         desc: "See how your investments can grow over time",
         img: "/calculator/lumpsum-calculator.png",
-        link: "/calculators/future-value-calculator",
+        link: "/calculators/lump-sum-calculator",
     },
     {
         title: "Retirement Calculator",

@@ -6,6 +6,8 @@ import Link from "next/link";
 import Accordion from "react-bootstrap/Accordion";
 import dynamic from "next/dynamic";
 
+
+// Dynamically import ApexChart to avoid SSR "window is not defined" error
 const ReactApexChart = dynamic(() => import("react-apexcharts"), {
     ssr: false,
 });
@@ -17,138 +19,180 @@ import { ChevronRight } from "lucide-react";
 export default function LumpsumCalculator() {
     const questions = [
         {
-            question: "How accurate are SIP Calculator results?",
+            question: "What is the difference between a lump sum and an SIP?",
             answer:
-                "It’s mostly accurate. The calculator gives you a projected figure, not a guaranteed figure.",
+                "Lump sum = big money at once. SIP = small amounts monthly or at other predetermined frequencies. Lump sum works well if you have spare cash, whereas SIP builds discipline and is primarily to encourage investment amongst salaried individuals with a steady source of monthly income.",
         },
         {
-            question: "Can the SIP Calculator help in retirement planning?",
+            question:
+                "How accurate is the calculator for estimating mutual fund returns?",
             answer:
-                "Yes, it does by estimating how much money your regular investments can grow over time, showing the corpus you can accumulate by retirement. This allows you to set monthly investment goals and track your progress. SIP Calculators also highlight the importance of starting early and staying invested consistently.",
+                "They’re estimates, not guarantees. Returns depend on the market, but the math is accurate.",
         },
         {
-            question: "What inputs are required in a SIP Calculator?",
+            question: "What is the maximum investment duration supported?",
             answer:
-                "Usually, the monthly savings, expected rate of return and investment horizon or time duration of the SIP are all you need to enter to get results.",
+                "JUp to you, you decide your investment duration, it could be 20-30-40-50 years, even– that is customisable and totally up to you!",
         },
         {
-            question: "Is SIP 100% safe?",
-            answer:
-                "No, a SIP is not completely risk-free, as all investments in the equity market carry some risk. However, SIPs do help reduce risk compared to lump-sum investments by spreading investments over time, known as rupee cost averaging, and reducing the impact of market volatility, especially over the long term",
-        },
-        {
-            question: "Can I invest 100 rupees in SIP?",
-            answer:
-                "Some schemes allow you to start your SIPs with an amount as low as 100 rupees as well, making SIPs affordable and within reach of every kind of investor.",
+            question: "Is there any minimum amount needed for a lump-sum investment?",
+            answer: "Yes. Most mutual funds require at least ₹5,000 as a lump sum.",
         },
     ];
 
-    interface ChartState {
+    // form states
+    const [investAmount, setInvestAmount] = useState("50000");
+    const [investAmount1, setInvestAmount1] = useState("50000");
+    const [rateOfReturn, setRateOfReturn] = useState<string | number>(12);
+    const [rateOfReturn1, setRateOfReturn1] = useState<number>(12);
+    const [period, setPeriod] = useState<any>(10);
+    const [period1, setPeriod1] = useState<any>(10);
+
+    // result states
+    const [result, setResult] = useState<{
+        invested: number;
+        maturity: number;
+        gain: number;
+    }>({ invested: 0, maturity: 0, gain: 0 });
+
+    const [chartData, setChartData] = useState<{
         options: ApexOptions;
-        series: { name: string; data: number[] }[];
-    }
-    const [investmentPeriod, setInvestmentPeriod] = useState<number>(10);
-    const [monthlySaving, setMonthlySaving] = useState<number>(10000);
-    const [monthlySaving1, setMonthlySaving1] = useState<number>(10000);
-    const [expectedRateOfReturn, setExpectedRateOfReturn] =
-        useState<string | number>(16.5);
-
-    const [gains, setGains] = useState<number>(3017292);
-    const [totalYear, setTotalYear] = useState<number>(10);
-    const [totalGains, setTotalGains] = useState<number>(3058780);
-    const [totalMonthlySaving, setTotalMonthlySaving] = useState<number>(1200000);
-    const [oneMonthSaving, setOneMonthSaving] = useState<number>(10000);
-    const [investmentPeriod1, setInvestmentPeriod1] = useState<number>(10);
-
-    const yearInString = (currentTotalYear: number = totalYear): string[] => {
-        let xAxisArray: string[] = [];
-        if (currentTotalYear > 16) {
-            for (let i = 1; i <= currentTotalYear; i += 2) xAxisArray.push(i + "Y");
-            if (currentTotalYear % 2 === 0) xAxisArray.push(currentTotalYear + "Y");
-        } else {
-            for (let i = 1; i <= currentTotalYear; i++) xAxisArray.push(i + "Y");
-        }
-        return xAxisArray;
-    };
-
-    const valueForGraph = (data: number, currentTotalYear: number = totalYear): number[] => {
-        let graphValue: number[] = [];
-        if (currentTotalYear > 16) {
-            for (let i = currentTotalYear; i > 0; i -= 2)
-                graphValue.push(Math.round(data / i));
-            if (currentTotalYear % 2 === 0) graphValue.push(Math.round(data));
-        } else {
-            for (let i = currentTotalYear; i > 0; i--) graphValue.push(Math.round(data / i));
-        }
-        return graphValue;
-    };
-
-    const [chartState, setChartState] = useState<ChartState>({
-        series: [
-            { name: "Market Value", data: valueForGraph(gains + totalMonthlySaving) },
-            { name: "Invested Amount", data: valueForGraph(totalMonthlySaving) },
-        ],
-        options: {
-            legend: {
-                show: false,
-            },
-            chart: {
-                height: 350,
-                type: "area",
-                background: "transparent",
-                toolbar: { show: false },
-                zoom: { enabled: false },
-            },
-            dataLabels: { enabled: false },
-            stroke: {
-                curve: "monotoneCubic",
-                width: [2, 2],
-                colors: ["#357AF6", "#57BE65"],
-            },
-            xaxis: { categories: yearInString() },
-            grid: { show: false },
-        },
+        series: any[];
+    }>({
+        options: {},
+        series: [],
     });
-
-    const calculateSip = () => {
-        if (!monthlySaving || !expectedRateOfReturn) {
-            toast.error("Please make sure all required fields are filled in.")
+    useEffect(() => {
+        handleCalculate();
+    }, []);
+    // calculate function
+    const handleCalculate = () => {
+        if (!investAmount || !rateOfReturn) {
+            toast.error("Please make sure all required fields are filled in.");
             return;
-        }
-        else {
-            let monthlyRate = Number(expectedRateOfReturn) / 12 / 100;
-            let months = investmentPeriod * 12;
-            let futureValue =
-                ((monthlySaving * (Math.pow(1 + monthlyRate, months) - 1)) /
-                    monthlyRate) *
-                (1 + monthlyRate);
+        } else {
+            setRateOfReturn1(Number(rateOfReturn));
+            setInvestAmount1(investAmount);
+            const principal = parseFloat(investAmount);
+            const rate = rateOfReturn;
+            const years = parseFloat(period);
 
-            let mainResults = Math.round(futureValue);
-            let totalSaving = monthlySaving * months;
-            let gain = mainResults - totalSaving;
+            if (isNaN(principal) || isNaN(Number(rate)) || isNaN(years)) return;
 
-            setGains(Math.round(gain));
-            setTotalYear(investmentPeriod);
-            setTotalMonthlySaving(totalSaving);
-            setTotalGains(totalSaving + gain);
-            setInvestmentPeriod1(investmentPeriod);
-            setMonthlySaving1(monthlySaving);
+            // compound interest for lumpsum
+            const maturityAmount = principal * Math.pow(1 + Number(rate) / 100, years);
+            const investedAmount = principal;
+            const gain = maturityAmount - investedAmount;
 
-            // Update chart dynamically
-            setChartState((prevState) => ({
-                series: [
-                    { name: "Market Value", data: valueForGraph(totalSaving + gain, investmentPeriod) },
-                    { name: "Invested Amount", data: valueForGraph(totalSaving, investmentPeriod) },
-                ],
-                options: {
-                    ...prevState.options,
-                    xaxis: { categories: yearInString(investmentPeriod) },
+            setResult({
+                invested: Math.round(investedAmount),
+                maturity: Math.round(maturityAmount),
+                gain: Math.round(gain),
+            });
+
+            // --- Build yearly data for chart ---
+            const investedArr: number[] = [];
+            const gainArr: number[] = [];
+            for (let i = 1; i <= years; i++) {
+                const startOfYear = Math.round(
+                    principal * Math.pow(1 + Number(rate) / 100, i - 1),
+                );
+                const endOfYear = Math.round(principal * Math.pow(1 + Number(rate) / 100, i));
+                investedArr.push(startOfYear);
+                gainArr.push(endOfYear - startOfYear);
+            }
+
+            const yearsArray = Array.from({ length: years }, (_, i) => i + 1);
+
+            const chartOptions: ApexOptions = {
+                chart: { type: "bar", stacked: true, toolbar: { show: false } },
+                colors: ["#06A358", "#001EFE"],
+                plotOptions: {
+                    bar: {
+                        borderRadius: 4,
+                        borderRadiusApplication: "end",
+                        horizontal: false,
+                    },
                 },
-            }));
-        }
+                dataLabels: { enabled: false },
+                xaxis: {
+                    categories: yearsArray,
+                    axisTicks: { show: false },
+                },
+                yaxis: {
+                    labels: {
+                        formatter: (val) => {
+                            if (val >= 10000000) return `${(val / 10000000).toFixed(1)}Cr`;
+                            if (val >= 100000) return `${(val / 100000).toFixed(1)}L`;
+                            if (val >= 1000) return `${(val / 1000).toFixed(0)}K`;
+                            return `${val}`;
+                        },
+                    },
+                },
+                tooltip: {
+                    shared: true,
+                    intersect: false,
+                    custom: function ({ series, dataPointIndex }: any) {
+                        const investedVal = series[0][dataPointIndex] ?? 0;
+                        const gainVal = series[1][dataPointIndex] ?? 0;
+                        const total = investedVal + gainVal;
+                        const year = yearsArray[dataPointIndex];
 
+                        const fmt = (v: number) => {
+                            if (v >= 10000000) return `₹${(v / 10000000).toFixed(2)}Cr`;
+                            if (v >= 100000) return `₹${(v / 100000).toFixed(2)}L`;
+                            if (v >= 1000) return `₹${(v / 1000).toFixed(2)}K`;
+                            return `₹${v.toLocaleString("en-IN")}`;
+                        };
+
+                        return `
+                        <div style="padding:8px;border-radius:8px;border:1px solid #e6e9ff;background:#fff;">
+                            <div><b>Year ${year}</b></div>
+                            <div>Total Value: ${fmt(total)}</div>
+                            <div>Invested: ${fmt(investedVal)}</div>
+                            <div>Gain: <span style="color:green;">${fmt(
+                            gainVal,
+                        )}</span></div>
+                        </div>
+                    `;
+                    },
+                },
+                legend: { show: false },
+                grid: { show: false },
+            };
+
+            setChartData({
+                series: [
+                    { name: "Invested Value", data: investedArr },
+                    { name: "Gain", data: gainArr },
+                ],
+                options: chartOptions,
+            });
+            setPeriod1(period);
+        }
     };
 
+
+    // useEffect(() => {
+    //   const fetchFaqs = async () => {
+    //     try {
+    //       const res = await fetch(`${Base_url}/${endpoints.calculators}`);
+    //       const data = await res.json();
+
+    //       // Extract FAQ array safely
+    //       const faqItems = data?.data[0]?.attributes?.sipCalculator?.FAQ || [];
+    //       setQuestions(faqItems);
+    //     } catch (error) {
+    //       console.error("Error fetching FAQs:", error);
+    //     }
+    //   };
+
+    //   fetchFaqs();
+    // }, []);
+
+    const [monthlySaving, setMonthlySaving] = useState("1000");
+    // const [rateOfReturn, setRateOfReturn] = useState("12");
+    // const [period, setPeriod] = useState("10");
     return (
         <>
             <div className="container mx-auto px-4 py-8 md:py-12 md:px-15 lg:px-20">
@@ -178,32 +222,35 @@ export default function LumpsumCalculator() {
                         className="h-4 w-4 mx-2"
                         style={{ stroke: "url(#chevron-gradient)" }}
                     />
-                    <span className="text-[#7A7A7A] font-semibold" style={{
-                        background: "linear-gradient(90deg, #04B488 39.5%, #011EFE 100%)",
-                        WebkitBackgroundClip: "text",
-                        WebkitTextFillColor: "transparent",
-                        backgroundClip: "text",
-                        color: "transparent"
-                    }}>Calculators</span>
+                    <Link href="/calculators">
+                        <span className="text-[#7A7A7A] font-semibold" style={{
+                            background: "linear-gradient(90deg, #04B488 39.5%, #011EFE 100%)",
+                            WebkitBackgroundClip: "text",
+                            WebkitTextFillColor: "transparent",
+                            backgroundClip: "text",
+                            color: "transparent"
+                        }}>Calculators</span>
+                    </Link>
                     <ChevronRight
                         className="h-4 w-4 mx-2"
                         style={{ stroke: "url(#chevron-gradient)" }}
                     />
                     <span className="text-[#7A7A7A] font-semibold" style={{
-                        background: "linear-gradient(90deg, #04B488 39.5%, #011EFE 100%)",
-                        WebkitBackgroundClip: "text",
-                        WebkitTextFillColor: "transparent",
-                        backgroundClip: "text",
-                        color: "transparent"
-                    }}>SIP Calculator</span>
+                        // background: "linear-gradient(90deg, #04B488 39.5%, #011EFE 100%)",
+                        // WebkitBackgroundClip: "text",
+                        // WebkitTextFillColor: "transparent",
+                        // backgroundClip: "text",
+                        // color: "transparent"
+                    }}>Lump Sum Calculator</span>
                 </nav>
                 {/* Title */}
                 <h2 className="text-[20px] md:text-3xl lg:text-5xl font-bold text-[#44475B]">
-                    SIP Calculator
+                    Lump Sum Calculator
                 </h2>
             </div>
             <section>
-                <div className="max-w-7xl mx-auto px-4 py-6 md:py-8">
+                <div className="container mx-auto px-4 md:px-15 lg:px-20">
+
                     <div className="flex flex-col md:flex-row justify-between gap-6">
 
                         {/* LEFT SIDE */}
@@ -215,30 +262,52 @@ export default function LumpsumCalculator() {
                                     {/* Monthly Saving */}
                                     <div>
                                         <label className="block text-[#44475B] font-medium text-sm uppercase mb-2">
-                                            MONTHLY SAVING
+                                            Invest
                                         </label>
                                         <input
                                             type="number"
                                             className="w-full border rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500 text-[#44475B]"
-                                            value={monthlySaving}
+                                            value={investAmount}
                                             min={0}
-                                            onChange={(e) =>
-                                                setMonthlySaving(parseFloat(e.target.value))
-                                            }
+                                            onChange={(e) => setInvestAmount(e.target.value)}
                                             placeholder="₹ 10,000"
                                         />
                                     </div>
 
+
+
+                                    {/* Investment Period */}
+                                    <div>
+                                        <div className="flex justify-between mb-2">
+                                            <label className="text-[#44475B] font-medium text-sm uppercase">
+                                                Period
+                                            </label>
+                                            <span className="font-bold text-[#44475B]">
+                                                {period} Yrs
+                                            </span>
+                                        </div>
+
+                                        <RangeBar
+                                            maxLimit={30}
+                                            setValue={setPeriod}
+                                            value={period}
+                                        />
+
+                                        <div className="flex justify-between text-sm text-[#44475B] mt-2">
+                                            <span>1 Yr</span>
+                                            <span>30 Yrs</span>
+                                        </div>
+                                    </div>
                                     {/* Expected Rate of Return */}
                                     <div>
                                         <label className="block text-[#44475B] font-medium text-sm uppercase mb-2">
-                                            EXPECTED RATE OF RETURN (% P.A)
+                                            Expected Rate of returns (%)
                                         </label>
                                         <input
                                             type="text"
                                             inputMode="decimal"
                                             className="w-full border rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500 text-[#44475B]"
-                                            value={expectedRateOfReturn}
+                                            value={rateOfReturn}
                                             placeholder="16.5"
                                             onChange={(e) => {
                                                 let val = e.target.value;
@@ -263,46 +332,23 @@ export default function LumpsumCalculator() {
 
                                                 // Allow empty while typing
                                                 if (val === "") {
-                                                    setExpectedRateOfReturn("");
+                                                    setRateOfReturn("");
                                                     return;
                                                 }
 
                                                 const num = parseFloat(val);
 
                                                 if (val === "." || (!isNaN(num) && num >= 0 && num <= 100)) {
-                                                    setExpectedRateOfReturn(val);
+                                                    setRateOfReturn(val);
                                                 }
                                             }}
                                         />
                                     </div>
 
-                                    {/* Investment Period */}
-                                    <div>
-                                        <div className="flex justify-between mb-2">
-                                            <label className="text-[#44475B] font-medium text-sm uppercase">
-                                                INVESTMENT PERIOD
-                                            </label>
-                                            <span className="font-bold text-[#44475B]">
-                                                {investmentPeriod} Yrs
-                                            </span>
-                                        </div>
-
-                                        <RangeBar
-                                            maxLimit={30}
-                                            setValue={setInvestmentPeriod}
-                                            value={investmentPeriod}
-                                        />
-
-                                        <div className="flex justify-between text-sm text-[#44475B] mt-2">
-                                            <span>1 Yr</span>
-                                            <span>30 Yrs</span>
-                                        </div>
-                                    </div>
-
                                     {/* Button */}
                                     <button
                                         type="button"
-                                        onClick={calculateSip}
+                                        onClick={handleCalculate}
                                         className="bg-[#04B488] text-white py-3 rounded-lg font-semibold hover:bg-blue-700 transition p-[14px]"
                                     >
                                         Calculate
@@ -324,26 +370,35 @@ export default function LumpsumCalculator() {
 
                                     <p className="font-primary text-base md:text-lg leading-relaxed text-textdark">
                                         If you invest{" "}
-                                        <strong>₹{monthlySaving1.toLocaleString("en-IN")}</strong>{" "}
-                                        per month for a period of{" "}
-                                        <strong>{investmentPeriod1} years</strong>, your investment
-                                        amount will be{" "}
                                         <strong>
-                                            ₹{totalMonthlySaving.toLocaleString("en-IN")}
+                                            ₹{Number(investAmount1).toLocaleString("en-IN")}
                                         </strong>{" "}
-                                        and the maturity amount will grow to{" "}
-                                        <strong>₹{totalGains.toLocaleString("en-IN")}</strong>.
+                                        for a period of {period1} years at a{" "}
+                                        <strong>{rateOfReturn1}%</strong> annual return, the
+                                        maturity amount will grow to{" "}
+                                        <strong>₹{result.maturity.toLocaleString("en-IN")}</strong>.
                                     </p>
                                 </div>
 
                                 {/* Chart Card */}
                                 <div className="shadow-md rounded-2xl px-5 py-4 bg-[#FFFFFF]">
-                                    <ReactApexChart
-                                        options={chartState.options}
-                                        series={chartState.series}
-                                        type="area"
-                                        height={350}
-                                    />
+                                    {chartData.series.length > 0 ? (
+                                        <>
+                                            <ReactApexChart
+                                                options={chartData.options}
+                                                series={chartData.series}
+                                                type="bar"
+                                                height={350}
+                                            />
+                                            <p style={{ textAlign: "center" }}>
+                                                Assuming returns of {rateOfReturn}%
+                                            </p>
+                                        </>
+                                    ) : (
+                                        <div className="text-center text-muted py-5">
+                                            Calculate to view chart
+                                        </div>
+                                    )}
                                 </div>
 
                                 {/* Invest Now Button */}
@@ -362,6 +417,7 @@ export default function LumpsumCalculator() {
                         </div>
 
                     </div>
+
                 </div>
             </section>
             <section>
