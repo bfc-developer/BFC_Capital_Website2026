@@ -13,141 +13,81 @@ import { ApexOptions } from "apexcharts";
 import RangeBar from "@/app/components/common/RangeBar";
 import { toast } from "react-toastify";
 import { ChevronRight } from "lucide-react";
+import { SipWithAnnualIncrease_URL } from "../../urls/URLS";
+
+// const Chart = dynamic(() => import("react-apexcharts"), {
+//   ssr: false,
+// });
+
+import axios from "axios";
 
 export default function StepUpCalculator() {
     const questions = [
         {
-            question: "How accurate are SIP Calculator results?",
+            question: "Does the calculator account for inflation?",
             answer:
-                "It’s mostly accurate. The calculator gives you a projected figure, not a guaranteed figure.",
+                "No, it shows nominal returns only, so it does not account for inflation.",
         },
         {
-            question: "Can the SIP Calculator help in retirement planning?",
+            question: "Can I see results for different annual increases?",
             answer:
-                "Yes, it does by estimating how much money your regular investments can grow over time, showing the corpus you can accumulate by retirement. This allows you to set monthly investment goals and track your progress. SIP Calculators also highlight the importance of starting early and staying invested consistently.",
+                "Yes, try different percentages to see how it affects your future corpus.",
         },
         {
-            question: "What inputs are required in a SIP Calculator?",
+            question: "What rate of return should I assume?",
             answer:
-                "Usually, the monthly savings, expected rate of return and investment horizon or time duration of the SIP are all you need to enter to get results.",
+                "Reasonable assumptions can be made after consulting with your financial expert.",
         },
         {
-            question: "Is SIP 100% safe?",
-            answer:
-                "No, a SIP is not completely risk-free, as all investments in the equity market carry some risk. However, SIPs do help reduce risk compared to lump-sum investments by spreading investments over time, known as rupee cost averaging, and reducing the impact of market volatility, especially over the long term",
+            question: "How often should I review my portfolio?",
+            answer: "at least once a year, or when your income or goals change.",
         },
         {
-            question: "Can I invest 100 rupees in SIP?",
+            question: "Does it show the benefit of increasing SIP annually?",
             answer:
-                "Some schemes allow you to start your SIPs with an amount as low as 100 rupees as well, making SIPs affordable and within reach of every kind of investor.",
+                "Yes, it clearly shows total SIP invested, growth, and future value with and without annual increases.",
         },
     ];
 
-    interface ChartState {
-        options: ApexOptions;
-        series: { name: string; data: number[] }[];
-    }
     const [investmentPeriod, setInvestmentPeriod] = useState<number>(10);
-    const [monthlySaving, setMonthlySaving] = useState<number>(10000);
-    const [monthlySaving1, setMonthlySaving1] = useState<number>(10000);
-    const [expectedRateOfReturn, setExpectedRateOfReturn] =
-        useState<string | number>(16.5);
+    const [loanAmount, setLoanAmount] = useState<number>(1000000);
+    const [interest, setInterest] = useState<string | number>(9.8);
+    const [expectedRateOfReturn, setExpectedRateOfReturn] = useState<string | number>(12);
+    const [monthyEmi, setMonthyEmi] = useState<number>(15000000);
+    const [principal, setPrincipal] = useState<number>(973699);
+    const [totalinterest, setTotalInterest] = useState<number>(15973699);
+    const [totalAmount, setTotalAmount] = useState<number>(12000000);
+    const [resultLoanAmount, setResultLoanAmount] = useState<number>(12627902);
+    const [totalGrowth, setTotalGrowth] = useState<number>(627902);
 
-    const [gains, setGains] = useState<number>(3017292);
-    const [totalYear, setTotalYear] = useState<number>(10);
-    const [totalGains, setTotalGains] = useState<number>(3058780);
-    const [totalMonthlySaving, setTotalMonthlySaving] = useState<number>(1200000);
-    const [oneMonthSaving, setOneMonthSaving] = useState<number>(10000);
-    const [investmentPeriod1, setInvestmentPeriod1] = useState<number>(10);
-
-    const yearInString = (currentTotalYear: number = totalYear): string[] => {
-        let xAxisArray: string[] = [];
-        if (currentTotalYear > 16) {
-            for (let i = 1; i <= currentTotalYear; i += 2) xAxisArray.push(i + "Y");
-            if (currentTotalYear % 2 === 0) xAxisArray.push(currentTotalYear + "Y");
-        } else {
-            for (let i = 1; i <= currentTotalYear; i++) xAxisArray.push(i + "Y");
-        }
-        return xAxisArray;
-    };
-
-    const valueForGraph = (data: number, currentTotalYear: number = totalYear): number[] => {
-        let graphValue: number[] = [];
-        if (currentTotalYear > 16) {
-            for (let i = currentTotalYear; i > 0; i -= 2)
-                graphValue.push(Math.round(data / i));
-            if (currentTotalYear % 2 === 0) graphValue.push(Math.round(data));
-        } else {
-            for (let i = currentTotalYear; i > 0; i--) graphValue.push(Math.round(data / i));
-        }
-        return graphValue;
-    };
-
-    const [chartState, setChartState] = useState<ChartState>({
-        series: [
-            { name: "Market Value", data: valueForGraph(gains + totalMonthlySaving) },
-            { name: "Invested Amount", data: valueForGraph(totalMonthlySaving) },
-        ],
-        options: {
-            legend: {
-                show: false,
-            },
-            chart: {
-                height: 350,
-                type: "area",
-                background: "transparent",
-                toolbar: { show: false },
-                zoom: { enabled: false },
-            },
-            dataLabels: { enabled: false },
-            stroke: {
-                curve: "monotoneCubic",
-                width: [2, 2],
-                colors: ["#357AF6", "#57BE65"],
-            },
-            xaxis: { categories: yearInString() },
-            grid: { show: false },
-        },
-    });
-
-    const calculateSip = () => {
-        if (!monthlySaving || !expectedRateOfReturn) {
-            toast.error("Please make sure all required fields are filled in.")
+    const calculateSip = async () => {
+        if (!loanAmount || !expectedRateOfReturn || !interest) {
+            toast.error("Please make sure all required fields are filled in.");
             return;
+        } else {
+            try {
+                const res = await axios.post(SipWithAnnualIncrease_URL, {
+                    monthlySip: loanAmount,
+                    totalMonth: investmentPeriod * 12, // months
+                    expectedReturn: Number(interest),
+                    annualSipIncrease: Number(expectedRateOfReturn),
+                });
+
+                console.log("SIP Result:", res.data);
+                const d: any = res.data;
+
+                setMonthyEmi(d.data.invested_amount);
+                setPrincipal(d.data.growth_value);
+                setTotalInterest(d.data.maturity_amount);
+                setTotalGrowth(d.data.stepup_growth_value);
+                setTotalAmount(d.data.stepup_invested_amount);
+                setResultLoanAmount(d.data.stepup_maturity_amount);
+            } catch (error) {
+                console.error("SIP calculation failed:", error);
+            }
         }
-        else {
-            let monthlyRate = Number(expectedRateOfReturn) / 12 / 100;
-            let months = investmentPeriod * 12;
-            let futureValue =
-                ((monthlySaving * (Math.pow(1 + monthlyRate, months) - 1)) /
-                    monthlyRate) *
-                (1 + monthlyRate);
-
-            let mainResults = Math.round(futureValue);
-            let totalSaving = monthlySaving * months;
-            let gain = mainResults - totalSaving;
-
-            setGains(Math.round(gain));
-            setTotalYear(investmentPeriod);
-            setTotalMonthlySaving(totalSaving);
-            setTotalGains(totalSaving + gain);
-            setInvestmentPeriod1(investmentPeriod);
-            setMonthlySaving1(monthlySaving);
-
-            // Update chart dynamically
-            setChartState((prevState) => ({
-                series: [
-                    { name: "Market Value", data: valueForGraph(totalSaving + gain, investmentPeriod) },
-                    { name: "Invested Amount", data: valueForGraph(totalSaving, investmentPeriod) },
-                ],
-                options: {
-                    ...prevState.options,
-                    xaxis: { categories: yearInString(investmentPeriod) },
-                },
-            }));
-        }
-
     };
+
 
     return (
         <>
@@ -178,6 +118,19 @@ export default function StepUpCalculator() {
                         className="h-4 w-4 mx-2"
                         style={{ stroke: "url(#chevron-gradient)" }}
                     />
+                    <Link
+                        href="/calculators"
+                        className="font-semibold"
+                        style={{
+                            background: "linear-gradient(90deg, #04B488 39.5%, #011EFE 100%)",
+                            WebkitBackgroundClip: "text",
+                            WebkitTextFillColor: "transparent",
+                            backgroundClip: "text",
+                            color: "transparent"
+                        }}
+                    >
+                        Calculators
+                    </Link>
                     <span className="text-[#7A7A7A] font-semibold" style={{
                         background: "linear-gradient(90deg, #04B488 39.5%, #011EFE 100%)",
                         WebkitBackgroundClip: "text",
@@ -190,16 +143,16 @@ export default function StepUpCalculator() {
                         style={{ stroke: "url(#chevron-gradient)" }}
                     />
                     <span className="text-[#7A7A7A] font-semibold" style={{
-                        background: "linear-gradient(90deg, #04B488 39.5%, #011EFE 100%)",
-                        WebkitBackgroundClip: "text",
-                        WebkitTextFillColor: "transparent",
-                        backgroundClip: "text",
-                        color: "transparent"
-                    }}>SIP Calculator</span>
+                        // background: "linear-gradient(90deg, #04B488 39.5%, #011EFE 100%)",
+                        // WebkitBackgroundClip: "text",
+                        // WebkitTextFillColor: "transparent",
+                        // backgroundClip: "text",
+                        // color: "transparent"
+                    }}>Step-Up SIP Calculator</span>
                 </nav>
                 {/* Title */}
                 <h2 className="text-[20px] md:text-3xl lg:text-5xl font-bold text-[#44475B]">
-                    SIP Calculator
+                    Step-Up SIP Calculator
                 </h2>
             </div>
             <section>

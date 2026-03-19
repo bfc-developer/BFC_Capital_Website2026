@@ -317,28 +317,93 @@ export default function CostOfDelay() {
                                         Result
                                     </h2>
 
-                                    <p className="font-primary text-base md:text-lg leading-relaxed text-textdark">
-                                        If you invest{" "}
-                                        <strong>₹{monthlySaving1.toLocaleString("en-IN")}</strong>{" "}
-                                        per month for a period of{" "}
-                                        <strong>{investmentPeriod1} years</strong>, your investment
-                                        amount will be{" "}
-                                        <strong>
-                                            ₹{totalMonthlySaving.toLocaleString("en-IN")}
-                                        </strong>{" "}
-                                        and the maturity amount will grow to{" "}
-                                        <strong>₹{totalGains.toLocaleString("en-IN")}</strong>.
-                                    </p>
-                                </div>
-
-                                {/* Chart Card */}
-                                <div className="shadow-md rounded-2xl px-5 py-4 bg-[#FFFFFF]">
-                                    <ReactApexChart
-                                        options={chartState.options}
-                                        series={chartState.series}
-                                        type="area"
-                                        height={350}
-                                    />
+                                    <div className="row pt-3">
+                                        <div className="col-lg-6 mb-2">
+                                            <div className="border border-2 rounded-4 p-3 cost-investment-cards">
+                                                <span className="rounded-pill cacl-bg-green">
+                                                    {" "}
+                                                    👍 Start Age : {Number(myCurrentAge1)}
+                                                </span>
+                                                <p>FINAL VALUE OF INVESTMENT</p>
+                                                <h3 className="cost-invet-green">
+                                                    ₹{Math.round(realProfit).toLocaleString("en-IN")}
+                                                </h3>
+                                                <p>
+                                                    Total Investment:₹{" "}
+                                                    {Math.round(realTotalInvestment).toLocaleString(
+                                                        "en-IN"
+                                                    )}
+                                                </p>
+                                            </div>
+                                        </div>
+                                        <div className="col-lg-6">
+                                            <div className="border border-2 rounded-4 p-3 cost-investment-cards">
+                                                <span className="rounded-pill cacl-bg-red">
+                                                    {" "}
+                                                    👎 Start Age :{" "}
+                                                    {Number(delayAge1) + Number(myCurrentAge1)}
+                                                </span>
+                                                <p>FINAL VALUE OF INVESTMENT</p>
+                                                <h3 className="cost-invet-red">
+                                                    ₹{Math.round(fakeProfit).toLocaleString("en-IN")}
+                                                </h3>
+                                                <p>
+                                                    Total Investment:₹{" "}
+                                                    {Math.round(fakeTotalInvestment).toLocaleString(
+                                                        "en-IN"
+                                                    )}
+                                                </p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div className="pt-4">
+                                        <div className="text-center">
+                                            <span className="">
+                                                {"Loss Due to Delay in Investment".toUpperCase()}
+                                            </span>
+                                            <h2 className="cost-invet-red py-2">
+                                                ₹{Math.round(difference).toLocaleString("en-IN")}
+                                            </h2>
+                                        </div>
+                                        <p className="">
+                                            If you invest{" "}
+                                            <strong>
+                                                ₹{Number(monthlySIP).toLocaleString("en-IN")}
+                                            </strong>{" "}
+                                            every month for{" "}
+                                            <strong>
+                                                {Number(investTillImAge1) - Number(myCurrentAge1)} years{" "}
+                                            </strong>
+                                            at an expected return of <strong>{ROR}%</strong> annually,
+                                            your total contribution amounts to{" "}
+                                            <strong>
+                                                ₹
+                                                {Math.round(realTotalInvestment).toLocaleString(
+                                                    "en-IN"
+                                                )}
+                                            </strong>{" "}
+                                            and can grow to a corpus of{" "}
+                                            <strong>
+                                                ₹{Math.round(realProfit).toLocaleString("en-IN")}
+                                            </strong>
+                                            . But if you <strong>delay</strong> your SIP by{" "}
+                                            <strong>
+                                                {delayAge1} {delayAge1 === 1 ? "year" : "years"}
+                                            </strong>{" "}
+                                            and invest for only{" "}
+                                            <strong>
+                                                {Number(investTillImAge1) -
+                                                    Number(myCurrentAge1) -
+                                                    Number(delayAge1)}
+                                            </strong>{" "}
+                                            out of those{" "}
+                                            {Number(investTillImAge1) - Number(myCurrentAge1)} years,
+                                            your corpus reduces to{" "}
+                                            <strong>
+                                                ₹{Math.round(fakeProfit).toLocaleString("en-IN")}.
+                                            </strong>
+                                        </p>
+                                    </div>
                                 </div>
 
                                 {/* Invest Now Button */}
