@@ -110,7 +110,25 @@ export default function LumpsumCalculator() {
 
             const chartOptions: ApexOptions = {
                 chart: { type: "bar", stacked: true, toolbar: { show: false } },
-                colors: ["#06A358", "#001EFE"],
+                colors: ["#001EFE", "#001EFE"],
+                fill: {
+                    type: ["gradient", "gradient"],
+                    gradient: {
+                        type: "horizontal",
+                        colorStops: [
+                            // Series 0 — same gradient, low opacity
+                            [
+                                { offset: 0, color: "#001EFE", opacity: 0.2 },
+                                { offset: 100, color: "#06A358", opacity: 0.2 },
+                            ],
+                            // Series 1 — same gradient, full opacity
+                            [
+                                { offset: 0, color: "#001EFE", opacity: 1 },
+                                { offset: 100, color: "#06A358", opacity: 1 },
+                            ],
+                        ],
+                    },
+                },
                 plotOptions: {
                     bar: {
                         borderRadius: 4,
@@ -150,15 +168,13 @@ export default function LumpsumCalculator() {
                         };
 
                         return `
-                        <div style="padding:8px;border-radius:8px;border:1px solid #e6e9ff;background:#fff;">
-                            <div><b>Year ${year}</b></div>
-                            <div>Total Value: ${fmt(total)}</div>
-                            <div>Invested: ${fmt(investedVal)}</div>
-                            <div>Gain: <span style="color:green;">${fmt(
-                            gainVal,
-                        )}</span></div>
-                        </div>
-                    `;
+            <div style="padding:8px;border-radius:8px;border:1px solid #e6e9ff;background:#fff;">
+                <div><b>Year ${year}</b></div>
+                <div>Total Value: ${fmt(total)}</div>
+                <div>Invested: ${fmt(investedVal)}</div>
+                <div>Gain: <span style="color:green;">${fmt(gainVal)}</span></div>
+            </div>
+        `;
                     },
                 },
                 legend: { show: false },

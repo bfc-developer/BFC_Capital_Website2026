@@ -22,7 +22,7 @@ const calculators = [
         link: "/calculators/education-planning-calculator",
     },
     {
-        title: "Future Value Calculator",
+        title: "Lump Sum Calculator",
         desc: "See how your investments can grow over time",
         img: "/calculator/lumpsum-calculator.png",
         link: "/calculators/lump-sum-calculator",

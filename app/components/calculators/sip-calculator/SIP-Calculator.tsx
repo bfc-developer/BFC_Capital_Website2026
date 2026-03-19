@@ -205,7 +205,7 @@ export default function Sipcalculators() {
                 </h2>
             </div>
             <section>
-                <div className="max-w-7xl mx-auto px-4 py-6 md:py-8">
+                <div className="container mx-auto px-5 md:px-10 lg:px-20">
                     <div className="flex flex-col md:flex-row justify-between gap-6">
 
                         {/* LEFT SIDE */}
@@ -370,7 +370,7 @@ export default function Sipcalculators() {
                 <h2 className="text-center text-[20px] md:text-3xl lg:text-5xl font-bold text-[#44475B] mt-16">All You Need To Know About <br />
                     SIP Calculator</h2>
                 <div className='container mx-auto px-5 md:px-10 lg:px-20'>
-                    <p className="mx-auto mt-4 md:mt-8 mb-4 text-[15px] md:text-[24px] font-bold text-[#44475B] mb-[10px] md:mb-[20px]">
+                    <p className="mx-auto mt-4 md:mt-8 mb-4 text-[18px] md:text-[24px] font-bold text-[#44475B] mb-[10px] md:mb-[20px]">
                         What is an SIP Calculator?
                     </p>
                     <p className='text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto mb-4'>Let’s keep this simple. <br />
@@ -384,7 +384,7 @@ export default function Sipcalculators() {
                 </div>
 
                 <div className='container mx-auto px-5 md:px-10 lg:px-20'>
-                    <p className="mx-auto mt-4 md:mt-8 mb-4 text-[15px] md:text-[24px] font-bold text-[#44475B] mb-[10px] md:mb-[20px]">
+                    <p className="mx-auto mt-4 md:mt-8 mb-4 text-[18px] md:text-[24px] font-bold text-[#44475B] mb-[10px] md:mb-[20px]">
                         How Can a SIP Calculator Help You?
                     </p>
                     <p className='text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto mb-4'>Investing without a plan is like saying, “Let’s just drive and see where we land.” Sounds fun, but not when your money is involved. <br />A SIP calculator brings clarity where confusion usually exists.</p>
@@ -409,7 +409,7 @@ export default function Sipcalculators() {
                 </div>
 
                 <div className='container mx-auto px-5 md:px-10 lg:px-20'>
-                    <p className="mx-auto mt-4 md:mt-8 mb-4 text-[15px] md:text-[24px] font-bold text-[#44475B] mb-[10px] md:mb-[20px]">
+                    <p className="mx-auto mt-4 md:mt-8 mb-4 text-[18px] md:text-[24px] font-bold text-[#44475B] mb-[10px] md:mb-[20px]">
                         How Do SIP Calculators Work?
                     </p>
                     <p className='text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto mb-4'>At its heart, an SIP calculator is built on one powerful idea: <b>compounding</b>.</p>
@@ -423,7 +423,7 @@ export default function Sipcalculators() {
                 </div>
 
                 <div className='container mx-auto px-5 md:px-10 lg:px-20'>
-                    <p className="mx-auto mt-4 md:mt-8 mb-4 text-[15px] md:text-[24px] font-bold text-[#44475B] mb-[10px] md:mb-[20px]">
+                    <p className="mx-auto mt-4 md:mt-8 mb-4 text-[18px] md:text-[24px] font-bold text-[#44475B] mb-[10px] md:mb-[20px]">
                         How to Use Systematic Investment Plan Calculator?
                     </p>
                     <p className='text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto mb-4'>The SIP Calculator is designed to be beginner-friendly and quick. All it takes are three inputs:</p>
@@ -451,7 +451,7 @@ export default function Sipcalculators() {
                 </div>
 
                 <div className='container mx-auto px-5 md:px-10 lg:px-20'>
-                    <p className="mx-auto mt-4 md:mt-8 mb-4 text-[15px] md:text-[24px] font-bold text-[#44475B] mb-[10px] md:mb-[20px]">
+                    <p className="mx-auto mt-4 md:mt-8 mb-4 text-[18px] md:text-[24px] font-bold text-[#44475B] mb-[10px] md:mb-[20px]">
                         Systematic Investment Plans (SIPs) in India
                     </p>
                     <p className='text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto mb-4'>
@@ -470,7 +470,7 @@ export default function Sipcalculators() {
                 </div>
 
                 <div className='container mx-auto px-5 md:px-10 lg:px-20'>
-                    <p className="mx-auto mt-4 md:mt-8 mb-4 text-[15px] md:text-[24px] font-bold text-[#44475B] mb-[10px] md:mb-[20px]">
+                    <p className="mx-auto mt-4 md:mt-8 mb-4 text-[18px] md:text-[24px] font-bold text-[#44475B] mb-[10px] md:mb-[20px]">
                         Types of SIPs
                     </p>
                     <p className='text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto mb-4'>
@@ -486,7 +486,7 @@ export default function Sipcalculators() {
                 </div>
 
                 <div className='container mx-auto px-5 md:px-10 lg:px-20'>
-                    <p className="mx-auto mt-4 md:mt-8 mb-4 text-[15px] md:text-[24px] font-bold text-[#44475B] mb-[10px] md:mb-[20px]">
+                    <p className="mx-auto mt-4 md:mt-8 mb-4 text-[18px] md:text-[24px] font-bold text-[#44475B] mb-[10px] md:mb-[20px]">
                         Why use BFC Capital's online SIP calculator over others?
                     </p>
                     <p className='text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto mb-4'>
