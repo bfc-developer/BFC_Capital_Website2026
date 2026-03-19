@@ -1,153 +1,67 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { Form, Button } from "react-bootstrap";
-import Link from "next/link";
-import Accordion from "react-bootstrap/Accordion";
-import dynamic from "next/dynamic";
 
-const ReactApexChart = dynamic(() => import("react-apexcharts"), {
-    ssr: false,
-});
-import { ApexOptions } from "apexcharts";
-import RangeBar from "@/app/components/common/RangeBar";
+import { Form, Button } from "react-bootstrap";
+import Image from "next/image";
+import Link from "next/link";
 import { toast } from "react-toastify";
 import { ChevronRight } from "lucide-react";
 
 export default function ELSSCalculatorComponent() {
     const questions = [
         {
-            question: "How accurate are SIP Calculator results?",
+            question: "How does an ELSS calculator work?",
             answer:
-                "It’s mostly accurate. The calculator gives you a projected figure, not a guaranteed figure.",
+                "It uses your investment amount and tax bracket to instantly show how much tax you’ll save under Section 80C.",
         },
         {
-            question: "Can the SIP Calculator help in retirement planning?",
+            question: "What is the lock-in period for ELSS, and does the calculator consider it?",
             answer:
-                "Yes, it does by estimating how much money your regular investments can grow over time, showing the corpus you can accumulate by retirement. This allows you to set monthly investment goals and track your progress. SIP Calculators also highlight the importance of starting early and staying invested consistently.",
+                "Yes. ELSS has a 3-year lock-in, the shortest among all 80C options, and the calculator factors this in.",
         },
         {
-            question: "What inputs are required in a SIP Calculator?",
+            question: "What is the maximum tax deduction allowed under Section 80C?",
             answer:
-                "Usually, the monthly savings, expected rate of return and investment horizon or time duration of the SIP are all you need to enter to get results.",
+                "₹1.5 lakh per financial year. Any investment beyond this limit does not qualify for additional deduction.",
         },
         {
-            question: "Is SIP 100% safe?",
+            question: "How accurate are the projected returns shown in the ELSS calculator?",
             answer:
-                "No, a SIP is not completely risk-free, as all investments in the equity market carry some risk. However, SIPs do help reduce risk compared to lump-sum investments by spreading investments over time, known as rupee cost averaging, and reducing the impact of market volatility, especially over the long term",
+                "The calculator estimates tax savings, not market returns. Since ELSS invests in equities, actual returns can vary.",
         },
         {
-            question: "Can I invest 100 rupees in SIP?",
+            question: "Is ELSS better than PPF or other tax-saving instruments?",
             answer:
-                "Some schemes allow you to start your SIPs with an amount as low as 100 rupees as well, making SIPs affordable and within reach of every kind of investor.",
+                "It depends on your goal. PPF offers fixed, low-risk returns. ELSS carries higher risk but significantly higher long-term wealth potential.",
         },
     ];
 
-    interface ChartState {
-        options: ApexOptions;
-        series: { name: string; data: number[] }[];
-    }
-    const [investmentPeriod, setInvestmentPeriod] = useState<number>(10);
-    const [monthlySaving, setMonthlySaving] = useState<number>(10000);
-    const [monthlySaving1, setMonthlySaving1] = useState<number>(10000);
-    const [expectedRateOfReturn, setExpectedRateOfReturn] =
-        useState<string | number>(16.5);
+    const [investmentAmount, setInvestmentAmount] = useState<number>(125000); // default value
+    const [taxSlab, setTaxSlab] = useState<number>(20); // default tax slab
+    const [totalTaxSaved, setTotalTaxSaved] = useState<number>(26000);
 
-    const [gains, setGains] = useState<number>(3017292);
-    const [totalYear, setTotalYear] = useState<number>(10);
-    const [totalGains, setTotalGains] = useState<number>(3058780);
-    const [totalMonthlySaving, setTotalMonthlySaving] = useState<number>(1200000);
-    const [oneMonthSaving, setOneMonthSaving] = useState<number>(10000);
-    const [investmentPeriod1, setInvestmentPeriod1] = useState<number>(10);
-
-    const yearInString = (currentTotalYear: number = totalYear): string[] => {
-        let xAxisArray: string[] = [];
-        if (currentTotalYear > 16) {
-            for (let i = 1; i <= currentTotalYear; i += 2) xAxisArray.push(i + "Y");
-            if (currentTotalYear % 2 === 0) xAxisArray.push(currentTotalYear + "Y");
-        } else {
-            for (let i = 1; i <= currentTotalYear; i++) xAxisArray.push(i + "Y");
-        }
-        return xAxisArray;
-    };
-
-    const valueForGraph = (data: number, currentTotalYear: number = totalYear): number[] => {
-        let graphValue: number[] = [];
-        if (currentTotalYear > 16) {
-            for (let i = currentTotalYear; i > 0; i -= 2)
-                graphValue.push(Math.round(data / i));
-            if (currentTotalYear % 2 === 0) graphValue.push(Math.round(data));
-        } else {
-            for (let i = currentTotalYear; i > 0; i--) graphValue.push(Math.round(data / i));
-        }
-        return graphValue;
-    };
-
-    const [chartState, setChartState] = useState<ChartState>({
-        series: [
-            { name: "Market Value", data: valueForGraph(gains + totalMonthlySaving) },
-            { name: "Invested Amount", data: valueForGraph(totalMonthlySaving) },
-        ],
-        options: {
-            legend: {
-                show: false,
-            },
-            chart: {
-                height: 350,
-                type: "area",
-                background: "transparent",
-                toolbar: { show: false },
-                zoom: { enabled: false },
-            },
-            dataLabels: { enabled: false },
-            stroke: {
-                curve: "monotoneCubic",
-                width: [2, 2],
-                colors: ["#357AF6", "#57BE65"],
-            },
-            xaxis: { categories: yearInString() },
-            grid: { show: false },
-        },
-    });
-
-    const calculateSip = () => {
-        if (!monthlySaving || !expectedRateOfReturn) {
-            toast.error("Please make sure all required fields are filled in.")
+    const calculateTaxSaved = () => {
+        if (!investmentAmount || !taxSlab) {
+            toast.error("Please make sure all required fields are filled in.");
             return;
+        } else {
+            // Max eligible investment is 1.5 L
+            const taxInvestment =
+                investmentAmount > 150000 ? 150000 : investmentAmount;
+
+            // Tax saved according to slab
+            const taxValue = (taxInvestment * taxSlab) / 100;
+
+            // Additional 4% cess
+            const taxValuePercent = (taxValue * 4) / 100;
+
+            const finalValue = Math.round(taxValue + taxValuePercent);
+
+            setTotalTaxSaved(finalValue);
         }
-        else {
-            let monthlyRate = Number(expectedRateOfReturn) / 12 / 100;
-            let months = investmentPeriod * 12;
-            let futureValue =
-                ((monthlySaving * (Math.pow(1 + monthlyRate, months) - 1)) /
-                    monthlyRate) *
-                (1 + monthlyRate);
-
-            let mainResults = Math.round(futureValue);
-            let totalSaving = monthlySaving * months;
-            let gain = mainResults - totalSaving;
-
-            setGains(Math.round(gain));
-            setTotalYear(investmentPeriod);
-            setTotalMonthlySaving(totalSaving);
-            setTotalGains(totalSaving + gain);
-            setInvestmentPeriod1(investmentPeriod);
-            setMonthlySaving1(monthlySaving);
-
-            // Update chart dynamically
-            setChartState((prevState) => ({
-                series: [
-                    { name: "Market Value", data: valueForGraph(totalSaving + gain, investmentPeriod) },
-                    { name: "Invested Amount", data: valueForGraph(totalSaving, investmentPeriod) },
-                ],
-                options: {
-                    ...prevState.options,
-                    xaxis: { categories: yearInString(investmentPeriod) },
-                },
-            }));
-        }
-
     };
+
 
     return (
         <>
@@ -276,28 +190,6 @@ export default function ELSSCalculatorComponent() {
                                         />
                                     </div>
 
-                                    {/* Investment Period */}
-                                    <div>
-                                        <div className="flex justify-between mb-2">
-                                            <label className="text-[#44475B] font-medium text-sm uppercase">
-                                                INVESTMENT PERIOD
-                                            </label>
-                                            <span className="font-bold text-[#44475B]">
-                                                {investmentPeriod} Yrs
-                                            </span>
-                                        </div>
-
-                                        <RangeBar
-                                            maxLimit={30}
-                                            setValue={setInvestmentPeriod}
-                                            value={investmentPeriod}
-                                        />
-
-                                        <div className="flex justify-between text-sm text-[#44475B] mt-2">
-                                            <span>1 Yr</span>
-                                            <span>30 Yrs</span>
-                                        </div>
-                                    </div>
 
                                     {/* Button */}
                                     <button
@@ -366,146 +258,106 @@ export default function ELSSCalculatorComponent() {
             </section>
             <section>
                 <h2 className="text-center text-[20px] md:text-3xl lg:text-5xl font-bold text-[#44475B] mt-16">All You Need To Know About <br />
-                    SIP Calculator</h2>
+                    ELSS Calculator</h2>
                 <div className='container mx-auto px-5 md:px-10 lg:px-20'>
                     <p className="mx-auto mt-4 md:mt-8 mb-4 text-[15px] md:text-[24px] font-bold text-[#44475B] mb-[10px] md:mb-[20px]">
-                        What is an SIP Calculator?
+                        What Is an ELSS Calculator?
                     </p>
-                    <p className='text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto mb-4'>Let’s keep this simple. <br />
-                        Imagine you put aside ₹3,000 every month in a piggy bank. After one year, you’d have ₹36,000. No surprises there.</p>
-                    <p className='text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto mb-4'>Now imagine if that same money didn’t just sit quietly in a corner, but actually worked for you. It earned returns. And then those returns started earning returns too.</p>
-                    <p className='text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto mb-4'>
-                        That’s what investing does.</p>
-                    <p className='text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto mb-4'>
-                        One of the easiest and most comfortable ways to start investing is through an SIP (Systematic Investment Plan). And to understand where your SIP could realistically take you, you need a tool that shows the picture clearly. That’s where the Prodigy Pro SIP Calculator, developed by BFC Capital – a SEBI-registered investment advisor (RIA), comes in.</p>
-                    <p className='text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto mb-4'>A SIP Calculator is a simple online tool that helps you estimate how much your regular monthly investments may grow over time. Think of it like checking Google Maps before starting a journey– you may not know every turn, but at least you know where you’re headed.</p>
-                </div>
-
-                <div className='container mx-auto px-5 md:px-10 lg:px-20'>
-                    <p className="mx-auto mt-4 md:mt-8 mb-4 text-[15px] md:text-[24px] font-bold text-[#44475B] mb-[10px] md:mb-[20px]">
-                        How Can a SIP Calculator Help You?
-                    </p>
-                    <p className='text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto mb-4'>Investing without a plan is like saying, “Let’s just drive and see where we land.” Sounds fun, but not when your money is involved. <br />A SIP calculator brings clarity where confusion usually exists.</p>
-                    <p className='text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto mb-4'>
-                        It helps you set clear goals</p>
-                    <p className='text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto mb-4'>
-                        Maybe you want ₹50 lakhs for your child’s higher education in 20 years. <br />Or ₹15 lakhs for a wedding after 3 years. <br />Instead of guessing, the calculator tells you how much you need to invest every month to realistically reach those goals.</p>
-                    <p className='text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto'>It shows you the real power of compounding <br />
-                        This is where things get interesting. For example, if you invest ₹5,000 every month for 10 years and earn an average return of 12%:</p>
-                    <ul className='list-disc pl-7 text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto'>
-                        <li>Total amount invested: ₹6 lakhs</li>
-                        <li>Approximate value after 10 years: ₹11.5 lakhs</li>
+                    <p className='text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto mb-4'>Let’s admit it.<br />
+                        For most people in India, tax planning begins and ends in March – when panic kicks in and money is parked somewhere just to save tax.</p>
+                    <p className='text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto mb-4'>That’s precisely where an ELSS Calculator becomes useful.</p>
+                    <p className='text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto mb-4'>An ELSS (Equity Linked Savings Scheme) Calculator is a simple tool that tells you one thing very clearly:<br />
+                        How much tax you actually save by investing in ELSS mutual funds.</p>
+                    <p className='text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto mb-4'>Since ELSS investments qualify for deductions under Section 80C of the Income Tax Act (up to ₹1.5 lakh), the calculator removes all guesswork. No formulas. No assumptions. Just instant clarity.</p>
+                    <p className='text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto mb-4'>With the ELSS Calculator, you only need two inputs:</p>
+                    <ul className='list-disc pl-7 text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto mb-4'>
+                        <li><b>The amount you plan to invest</b></li>
+                        <li><b>Your tax slab</b></li>
                     </ul>
-
-                    <p className='text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto mb-4'>
-                        You didn’t double your effort. Time and compounding did the heavy lifting for you.</p>
-                    <p className='text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto mb-4 font-bold italic'>
-                        It helps build discipline</p>
-                    <p className='text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto mb-4'>
-
-                        Once you know your target and the monthly amount required, investing stops feeling random. <br />You’re less likely to break your SIP for short-term expenses because now your money has a purpose. SIPs work best when they run quietly in the background – automatically, consistently, and without emotional decisions.</p>
+                    <p className='text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto mb-4'>And in seconds, it shows you your exact tax saving – including cess.</p>
+                    <p className='text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto mb-4 font-inter'>At <b>BFC Capital</b>, this is how we like investors to approach tax planning:<br />
+                        Understand first. Invest later.</p>
                 </div>
 
                 <div className='container mx-auto px-5 md:px-10 lg:px-20'>
                     <p className="mx-auto mt-4 md:mt-8 mb-4 text-[15px] md:text-[24px] font-bold text-[#44475B] mb-[10px] md:mb-[20px]">
-                        How Do SIP Calculators Work?
+                        How Does an ELSS Calculator Work?
                     </p>
-                    <p className='text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto mb-4'>At its heart, an SIP calculator is built on one powerful idea: <b>compounding</b>.</p>
-                    <p className='text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto mb-4'>You invest a fixed amount every month – no guesswork, no market timing. <br />That money starts earning returns. <br />Those returns don’t just sit there; they get reinvested and begin earning returns of their own.</p>
-                    <p className='text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto mb-4'>
-                        Over time, this creates a snowball effect. What starts as small, disciplined monthly investments can quietly grow into meaningful wealth.
-                        The SIP calculator simply does the number-crunching for you. It shows you what consistency and time can do, without you having to open a spreadsheet or stress over calculations.</p>
-
-                    <p className='text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto mb-4'>
-                        At BFC Capital, we believe the real magic isn’t in predicting markets, but in staying invested long enough for compounding to do its job.</p>
-                </div>
-
-                <div className='container mx-auto px-5 md:px-10 lg:px-20'>
-                    <p className="mx-auto mt-4 md:mt-8 mb-4 text-[15px] md:text-[24px] font-bold text-[#44475B] mb-[10px] md:mb-[20px]">
-                        How to Use the Prodigy Pro’s Systematic Investment Plan Calculator?
-                    </p>
-                    <p className='text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto mb-4'>The Prodigy Pro’s SIP Calculator is designed to be beginner-friendly and quick. All it takes are three inputs:</p>
-                    <p className='text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto mb-4'>
-                        Monthly Savings - e.g., ₹8,000/month.</p>
-
-                    <p className='text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto mb-4'>
-                        Investment Period - say 10 years.</p>
-                    <p className='text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto mb-4'>
-                        Expected Return Rate - let’s assume approx-16%.</p>
-                    <p className='text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto mb-4'>
-                        Hit Calculate, and you’ll instantly see:</p>
-                    <p className='text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto mb-4'>
-                        Amount Invested – total money you contributed.</p>
-                    <p className='text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto mb-4'>
-                        Market Value – total future value you might get after 10 years.</p>
-                    <p className='text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto mb-4'>
-                        Returns – the profit earned over your investment value.</p>
-                    <p className='text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto mb-4'>
-                        <b>Example:</b>
-                        ₹8,000/month × 10 years @ 16% return <br />Invested: ₹9,60,000  <br />Future Value: ~₹23.71 lakhs!</p>
-                    <p className='text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto mb-4'>
-                        That’s compounding doing its job silently.</p>
-
-                </div>
-
-                <div className='container mx-auto px-5 md:px-10 lg:px-20'>
-                    <p className="mx-auto mt-4 md:mt-8 mb-4 text-[15px] md:text-[24px] font-bold text-[#44475B] mb-[10px] md:mb-[20px]">
-                        Systematic Investment Plans (SIPs) in India
-                    </p>
-                    <p className='text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto'>
-                        SIPs are one of the easiest and most trusted ways to invest in mutual funds. <br />Instead of investing a large amount in one go, you invest a fixed sum every month on a chosen date – directly from your bank account. No chasing markets, no complicated decisions. Even ₹100 a month is enough to get started, and some SIPs allow you to begin with just ₹100.</p>
-                    <p className='text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto'>So why do SIPs work especially well in India?</p>
-                    <ul className='list-disc pl-7 text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto'>
-                        <li>They fit perfectly into how most of us earn and spend.</li>
-                        <li>For salaried individuals, SIPs build a habit of investing – quietly and consistently – much like a monthly bill you pay to your future self.</li>
-                        <li>They also take away the pressure of trying to “buy at the right time.” Markets go up, markets go down – but SIPs keep you invested through it all, smoothing out volatility over time.</li>
-                        <li>And most importantly, SIPs are designed for long-term goals that truly matter: your child’s education, buying a home, or building a comfortable retirement.</li>
+                    <p className='text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto mb-4'>The logic is refreshingly simple.</p>
+                    <p className='text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto mb-4'>Your tax saving depends on:</p>
+                    <ol className='list-decimal pl-7 text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto mb-4'>
+                        <li>How much you invest</li>
+                        <li>Which tax slab you fall into</li>
+                    </ol>
+                    <p className='text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto mb-4'>For example:</p>
+                    <ul className='list-disc pl-7 text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto mb-4'>
+                        <li>If you invest ₹1,00,000 and you’re in the 20% tax slab, you save about ₹20,800</li>
+                        <li>If you’re in the 30% tax slab, the same investment saves you ₹31,200</li>
                     </ul>
-
-
-                    <p className='text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto mb-4'>
-                        At BFC Capital, we see SIPs not as a product, but as a behaviour shift, from worrying about markets to trusting the power of time and consistency.</p>
+                    <p className='text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto mb-4'>The calculation itself isn’t complicated – but doing it manually every time is tedious and error-prone. The calculator does it instantly and accurately, every single time.</p>
                 </div>
 
                 <div className='container mx-auto px-5 md:px-10 lg:px-20'>
                     <p className="mx-auto mt-4 md:mt-8 mb-4 text-[15px] md:text-[24px] font-bold text-[#44475B] mb-[10px] md:mb-[20px]">
-                        Types of SIPs
+                        How Does ELSS Calculator Actually Help You?
                     </p>
-                    <p className='text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto mb-4'>
-                        SIPs aren’t rigid at all! <br />You can choose what suits your lifestyle.</p>
-
-
-                    <p className='text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto mb-4'>
-                        <b>Step-Up SIP</b> <br />
-                        Start small and increase gradually. Example: begin with ₹5,000/month, increase by ₹1000 every year as your salary grows.</p>
-                    <p className='text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto mb-4'>
-                        <b>Top-Up SIP</b> <br />
-                        Add extra whenever you can. Got a yearly bonus? Add ₹15,000 to your SIP. No compulsion, just flexibility to boost returns.</p>
+                    <p className='text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto mb-4'>This isn’t just about numbers. It’s about better decision-making.</p>
+                    <p className='text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto mb-4 font-bold'>1. Clear, Honest Tax Benefits</p>
+                    <p className='text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto mb-4'>No more rough estimates or “around this much” answers. You see the exact tax saving, which makes your decision fact-based, not emotional.</p>
+                    <p className='text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto mb-4 font-bold'>2. Pushes You Towards Early Planning</p>
+                    <p className='text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto mb-4'>Why wait till March and invest in a hurry?<br />
+                        Using the calculator early lets you plan ELSS investments across the year – even via SIPs – bringing discipline and reducing risk.</p>
+                    <p className='text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto mb-4 font-bold'>3. Tailored to Your Tax Slab</p>
+                    <p className='text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto mb-4'>Someone in the 30% slab benefits far more than someone in the 5% slab. The calculator personalises results so you’re not comparing apples with oranges.</p>
+                    <p className='text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto mb-4 font-bold'>4. Beginner-Friendly by Design</p>
+                    <p className='text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto mb-4'>Even if tax jargon makes your head spin, this tool doesn’t. You can use it comfortably in under a minute.</p>
                 </div>
 
                 <div className='container mx-auto px-5 md:px-10 lg:px-20'>
                     <p className="mx-auto mt-4 md:mt-8 mb-4 text-[15px] md:text-[24px] font-bold text-[#44475B] mb-[10px] md:mb-[20px]">
-                        Why use Prodigy Pro’s online SIP calculator over others?
+                        How to Use ELSS Calculator
                     </p>
-                    <p className='text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto mb-4'>
-                        Because investing isn’t just about numbers. It’s about clarity and confidence.</p>
-                    <ul className='list-disc pl-7 text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto'>
-                        <li> <b>See the long-term picture</b> <br />It helps you understand how something as small as ₹500 a month today can quietly grow into lakhs over time. No hype, just realistic long-term clarity.</li>
-                        <li> <b>Plan with a purpose</b> <br />Have a specific goal in mind? The calculator shows how much you need to invest to reach it, so your SIP isn’t random. It’s intentional.</li>
-                        <li> <b>Simple to use</b> <br />Clean, quick, and easy to understand. No jargon, no clutter. Just the numbers that actually matter.</li>
-                        <li> <b>Make smarter choices before you commit</b> <br />Compare different SIP amounts and timelines before starting, so you invest with confidence, not guesswork.</li>
-                        <li> <b>Complete transparency</b> <br />You clearly see how much you’ve invested and how much you’ve earned. No surprises. No hidden assumptions.</li>
+                    <p className='text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto mb-4'>No learning curve. No confusion.</p>
+                    <p className='text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto mb-4 font-bold'>Step 1: Enter the Investment Amount</p>
+                    <p className='text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto mb-4'>Put in the amount you’re planning to invest in ELSS.</p>
+                    <p className='text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto mb-4 font-bold'>Step 2: Select Your Tax Slab</p>
+                    <p className='text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto mb-4'>Choose between 5%, 20%, or 30%.</p>
+                    <p className='text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto mb-4 font-bold'>Step 3: Click “Calculate”</p>
+                    <p className='text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto mb-4'>Instantly see how much tax you’ll save.</p>
+                    <p className='text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto mb-4 font-bold'>Example 1</p>
+                    <ul className='list-disc pl-7 text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto mb-4'>
+                        <li>Investment: ₹90,000</li>
+                        <li>Tax Slab: 20%</li>
+                        <li>Tax Saved: ₹18,720</li>
                     </ul>
-
-                    <p className='text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto mb-4'>
-
-                        At the end of the day, money management comes down to two simple things: clarity and consistency. <br />Whether you are planning for your child’s future, your dream home, or simply building a safety cushion for tomorrow, this tool removes guesswork and replaces it with a clear, practical roadmap.</p>
-                    <p className='text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto mb-4'>
-                        At BFC Capital, a SEBI Registered Investment Adviser, we believe investing does not have to feel complicated or exclusive. It is about taking small, consistent steps and staying the course.</p>
-                    <p className='text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto mb-4'>
-
-                        So the next time investing feels “too complex” or “only meant for experts,” remember this. All it takes is a fixed amount, a fixed date, and a simple tool like Prodigy Pro’s SIP calculator to start building wealth that keeps working even while you sleep</p>
+                    <p className='text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto mb-4 font-bold'>Example 2</p>
+                    <ul className='list-disc pl-7 text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto mb-4'>
+                        <li>Investment: ₹1,50,000</li>
+                        <li>Tax Slab: 30%</li>
+                        <li>Tax Saved: ₹46,800</li>
+                    </ul>
+                    <p className='text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto mb-4'>Within seconds, the impact is clear.</p>
                 </div>
+
+                <div className='container mx-auto px-5 md:px-10 lg:px-20'>
+                    <p className="mx-auto mt-4 md:mt-8 mb-4 text-[15px] md:text-[24px] font-bold text-[#44475B] mb-[10px] md:mb-[20px]">
+                        Final Thoughts (Read This Before You Invest)
+                    </p>
+                    <p className='text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto mb-4'>Tax planning doesn’t have to be rushed, confusing, or stressful.</p>
+                    <p className='text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto mb-4'>The ELSS Calculator helps you:</p>
+                    <ul className='list-disc pl-7 text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto mb-4'>
+                        <li>See your tax savings clearly</li>
+                        <li>Plan investments smartly</li>
+                        <li>Explore SIPs in ELSS instead of last-minute lump sums</li>
+                    </ul>
+                    <p className='text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto mb-4'>But here’s an important advisory note.</p>
+                    <p className='text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto mb-4'>Before jumping into ELSS or any tax-saving instrument, take a moment to understand which tax regime you’re in. With the new tax regime, investing in ELSS may not even be necessary for everyone.</p>
+                    <p className='text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto mb-4'>That’s why we strongly recommend watching the linked video before you invest. Good tax planning isn’t about saving blindly, it’s about choosing what actually makes sense for you.</p>
+                    <p className='text-[#44475B] text-[15px] md:text-[#17px] leading-relaxed font-inter mx-auto mb-4'>Because real tax planning isn’t just about saving today.<br />
+                        It’s about building intelligently for tomorrow.</p>
+                </div>
+
+
             </section >
             <section>
                 <h2 className="text-center text-[20px] md:text-3xl lg:text-5xl font-bold text-[#44475B] mt-16">FAQs</h2>

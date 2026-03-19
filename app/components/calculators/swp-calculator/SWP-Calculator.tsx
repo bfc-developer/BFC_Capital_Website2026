@@ -17,29 +17,29 @@ import { ChevronRight } from "lucide-react";
 export default function SWPCalculatorComponent() {
     const questions = [
         {
-            question: "How accurate are SIP Calculator results?",
+            question: "How does an SWP calculator work?",
             answer:
-                "It’s mostly accurate. The calculator gives you a projected figure, not a guaranteed figure.",
+                "An SWP calculator estimates the remaining value of your investment after regular withdrawals, factoring in expected market returns over a set period.",
         },
         {
-            question: "Can the SIP Calculator help in retirement planning?",
+            question: "What is the difference between SIP and SWP?",
             answer:
-                "Yes, it does by estimating how much money your regular investments can grow over time, showing the corpus you can accumulate by retirement. This allows you to set monthly investment goals and track your progress. SIP Calculators also highlight the importance of starting early and staying invested consistently.",
+                "While SIP (Systematic Investment Plan) is for building a corpus over time, SWP (Systematic Withdrawal Plan) is for generating a regular income from an existing corpus.",
         },
         {
-            question: "What inputs are required in a SIP Calculator?",
+            question: "Can an SWP calculator help in retirement planning?",
             answer:
-                "Usually, the monthly savings, expected rate of return and investment horizon or time duration of the SIP are all you need to enter to get results.",
+                "Absolutely. It helps you determine how much you can safely withdraw each month without exhausting your retirement savings too soon.",
         },
         {
-            question: "Is SIP 100% safe?",
+            question: "What is the 4% rule in SWP?",
             answer:
-                "No, a SIP is not completely risk-free, as all investments in the equity market carry some risk. However, SIPs do help reduce risk compared to lump-sum investments by spreading investments over time, known as rupee cost averaging, and reducing the impact of market volatility, especially over the long term",
+                "A common rule of thumb where withdrawing 4% of your initial corpus annually (adjusted for inflation) is considered safe for a 30-year retirement.",
         },
         {
-            question: "Can I invest 100 rupees in SIP?",
+            question: "Are SWP withdrawals taxable?",
             answer:
-                "Some schemes allow you to start your SIPs with an amount as low as 100 rupees as well, making SIPs affordable and within reach of every kind of investor.",
+                "In an SWP, only the capital gains component of the withdrawal is taxable, making it more tax-efficient than traditional fixed-income options.",
         },
     ];
 
@@ -47,106 +47,86 @@ export default function SWPCalculatorComponent() {
         options: ApexOptions;
         series: { name: string; data: number[] }[];
     }
-    const [investmentPeriod, setInvestmentPeriod] = useState<number>(10);
-    const [monthlySaving, setMonthlySaving] = useState<number>(10000);
-    const [monthlySaving1, setMonthlySaving1] = useState<number>(10000);
+    const [totalInvestment, setTotalInvestment] = useState<number>(10000000);
+    const [withdrawalAmount, setWithdrawalAmount] = useState<number>(75000);
+    const [withdrawalPeriod, setWithdrawalPeriod] = useState<number>(15);
     const [expectedRateOfReturn, setExpectedRateOfReturn] =
-        useState<string | number>(16.5);
+        useState<string | number>(10);
 
-    const [gains, setGains] = useState<number>(3017292);
-    const [totalYear, setTotalYear] = useState<number>(10);
-    const [totalGains, setTotalGains] = useState<number>(3058780);
-    const [totalMonthlySaving, setTotalMonthlySaving] = useState<number>(1200000);
-    const [oneMonthSaving, setOneMonthSaving] = useState<number>(10000);
-    const [investmentPeriod1, setInvestmentPeriod1] = useState<number>(10);
-
-    const yearInString = (currentTotalYear: number = totalYear): string[] => {
-        let xAxisArray: string[] = [];
-        if (currentTotalYear > 16) {
-            for (let i = 1; i <= currentTotalYear; i += 2) xAxisArray.push(i + "Y");
-            if (currentTotalYear % 2 === 0) xAxisArray.push(currentTotalYear + "Y");
-        } else {
-            for (let i = 1; i <= currentTotalYear; i++) xAxisArray.push(i + "Y");
-        }
-        return xAxisArray;
-    };
-
-    const valueForGraph = (data: number, currentTotalYear: number = totalYear): number[] => {
-        let graphValue: number[] = [];
-        if (currentTotalYear > 16) {
-            for (let i = currentTotalYear; i > 0; i -= 2)
-                graphValue.push(Math.round(data / i));
-            if (currentTotalYear % 2 === 0) graphValue.push(Math.round(data));
-        } else {
-            for (let i = currentTotalYear; i > 0; i--) graphValue.push(Math.round(data / i));
-        }
-        return graphValue;
-    };
+    const [totalWithdrawal, setTotalWithdrawal] = useState<number>(13500000);
+    const [finalCorpus, setFinalCorpus] = useState<number>(11800000);
+    const [totalInvestment1, setTotalInvestment1] = useState<number>(10000000);
+    const [withdrawalAmount1, setWithdrawalAmount1] = useState<number>(75000);
+    const [withdrawalPeriod1, setWithdrawalPeriod1] = useState<number>(15);
 
     const [chartState, setChartState] = useState<ChartState>({
         series: [
-            { name: "Market Value", data: valueForGraph(gains + totalMonthlySaving) },
-            { name: "Invested Amount", data: valueForGraph(totalMonthlySaving) },
+            { name: "Total Withdrawn", data: [13500000] },
+            { name: "Remaining Corpus", data: [11800000] },
         ],
         options: {
             legend: {
-                show: false,
+                show: true,
+                position: "top",
             },
             chart: {
                 height: 350,
-                type: "area",
+                type: "bar",
+                stacked: true,
                 background: "transparent",
                 toolbar: { show: false },
                 zoom: { enabled: false },
             },
             dataLabels: { enabled: false },
             stroke: {
-                curve: "monotoneCubic",
-                width: [2, 2],
-                colors: ["#357AF6", "#57BE65"],
+                width: 1,
+                colors: ["#fff"],
             },
-            xaxis: { categories: yearInString() },
+            xaxis: {
+                categories: ["Growth Breakdown"],
+            },
             grid: { show: false },
+            colors: ["#04B488", "#011EFE"],
         },
     });
 
-    const calculateSip = () => {
-        if (!monthlySaving || !expectedRateOfReturn) {
+    const calculateSWP = () => {
+        if (!totalInvestment || !withdrawalAmount || !expectedRateOfReturn || !withdrawalPeriod) {
             toast.error("Please make sure all required fields are filled in.")
             return;
         }
         else {
-            let monthlyRate = Number(expectedRateOfReturn) / 12 / 100;
-            let months = investmentPeriod * 12;
-            let futureValue =
-                ((monthlySaving * (Math.pow(1 + monthlyRate, months) - 1)) /
-                    monthlyRate) *
-                (1 + monthlyRate);
+            const P = totalInvestment;
+            const W = withdrawalAmount;
+            const r = Number(expectedRateOfReturn) / 100 / 12;
+            const n = withdrawalPeriod * 12;
 
-            let mainResults = Math.round(futureValue);
-            let totalSaving = monthlySaving * months;
-            let gain = mainResults - totalSaving;
+            // SWP Formula: Final Value = P(1+r)^n - W[((1+r)^n - 1)/r]
+            const finalValue = P * Math.pow(1 + r, n) - W * ((Math.pow(1 + r, n) - 1) / r);
+            const totalWithdrawn = W * n;
 
-            setGains(Math.round(gain));
-            setTotalYear(investmentPeriod);
-            setTotalMonthlySaving(totalSaving);
-            setTotalGains(totalSaving + gain);
-            setInvestmentPeriod1(investmentPeriod);
-            setMonthlySaving1(monthlySaving);
+            setTotalWithdrawal(Math.round(totalWithdrawn));
+            setFinalCorpus(Math.round(finalValue));
+            setTotalInvestment1(P);
+            setWithdrawalAmount1(W);
+            setWithdrawalPeriod1(withdrawalPeriod);
 
             // Update chart dynamically
             setChartState((prevState) => ({
                 series: [
-                    { name: "Market Value", data: valueForGraph(totalSaving + gain, investmentPeriod) },
-                    { name: "Invested Amount", data: valueForGraph(totalSaving, investmentPeriod) },
+                    { name: "Total Withdrawn", data: [Math.round(totalWithdrawn)] },
+                    { name: "Remaining Corpus", data: [Math.round(finalValue)] },
                 ],
                 options: {
                     ...prevState.options,
-                    xaxis: { categories: yearInString(investmentPeriod) },
+                    xaxis: { categories: ["Growth Breakdown"] },
+                    chart: {
+                        type: "bar",
+                        stacked: true,
+                    }
                 },
             }));
         }
-
     };
 
     return (
@@ -190,11 +170,11 @@ export default function SWPCalculatorComponent() {
                         style={{ stroke: "url(#chevron-gradient)" }}
                     />
                     <span className="text-[#7A7A7A] font-semibold" style={{
-                        background: "linear-gradient(90deg, #04B488 39.5%, #011EFE 100%)",
-                        WebkitBackgroundClip: "text",
-                        WebkitTextFillColor: "transparent",
-                        backgroundClip: "text",
-                        color: "transparent"
+                        // background: "linear-gradient(90deg, #04B488 39.5%, #011EFE 100%)",
+                        // WebkitBackgroundClip: "text",
+                        // WebkitTextFillColor: "transparent",
+                        // backgroundClip: "text",
+                        // color: "transparent"
                     }}>SWP Calculator</span>
                 </nav>
                 {/* Title */}
@@ -212,20 +192,37 @@ export default function SWPCalculatorComponent() {
 
                                 <form className="space-y-6">
 
-                                    {/* Monthly Saving */}
+                                    {/* Total Investment */}
                                     <div>
                                         <label className="block text-[#44475B] font-medium text-sm uppercase mb-2">
-                                            MONTHLY SAVING
+                                            TOTAL INVESTMENT
                                         </label>
                                         <input
                                             type="number"
                                             className="w-full border rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500 text-[#44475B]"
-                                            value={monthlySaving}
+                                            value={totalInvestment}
                                             min={0}
                                             onChange={(e) =>
-                                                setMonthlySaving(parseFloat(e.target.value))
+                                                setTotalInvestment(parseFloat(e.target.value))
                                             }
-                                            placeholder="₹ 10,000"
+                                            placeholder="₹ 1,00,00,000"
+                                        />
+                                    </div>
+
+                                    {/* Withdrawal Amount */}
+                                    <div>
+                                        <label className="block text-[#44475B] font-medium text-sm uppercase mb-2">
+                                            WITHDRAWAL AMOUNT (MONTHLY)
+                                        </label>
+                                        <input
+                                            type="number"
+                                            className="w-full border rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500 text-[#44475B]"
+                                            value={withdrawalAmount}
+                                            min={0}
+                                            onChange={(e) =>
+                                                setWithdrawalAmount(parseFloat(e.target.value))
+                                            }
+                                            placeholder="₹ 75,000"
                                         />
                                     </div>
 
@@ -239,36 +236,22 @@ export default function SWPCalculatorComponent() {
                                             inputMode="decimal"
                                             className="w-full border rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500 text-[#44475B]"
                                             value={expectedRateOfReturn}
-                                            placeholder="16.5"
+                                            placeholder="10"
                                             onChange={(e) => {
                                                 let val = e.target.value;
-
-                                                // Remove invalid characters (keep digits and one dot)
                                                 val = val.replace(/[^0-9.]/g, "");
-
-                                                // Prevent multiple dots
                                                 const parts = val.split(".");
                                                 if (parts.length > 2) {
                                                     val = parts[0] + "." + parts.slice(1).join("");
                                                 }
-
-                                                // Remove leading zeros like 012 -> 12 (but allow 0.x)
-                                                if (
-                                                    val.startsWith("0") &&
-                                                    !val.startsWith("0.") &&
-                                                    val.length > 1
-                                                ) {
+                                                if (val.startsWith("0") && !val.startsWith("0.") && val.length > 1) {
                                                     val = val.replace(/^0+/, "");
                                                 }
-
-                                                // Allow empty while typing
                                                 if (val === "") {
                                                     setExpectedRateOfReturn("");
                                                     return;
                                                 }
-
                                                 const num = parseFloat(val);
-
                                                 if (val === "." || (!isNaN(num) && num >= 0 && num <= 100)) {
                                                     setExpectedRateOfReturn(val);
                                                 }
@@ -280,29 +263,29 @@ export default function SWPCalculatorComponent() {
                                     <div>
                                         <div className="flex justify-between mb-2">
                                             <label className="text-[#44475B] font-medium text-sm uppercase">
-                                                INVESTMENT PERIOD
+                                                WITHDRAWAL PERIOD
                                             </label>
                                             <span className="font-bold text-[#44475B]">
-                                                {investmentPeriod} Yrs
+                                                {withdrawalPeriod} Yrs
                                             </span>
                                         </div>
 
                                         <RangeBar
-                                            maxLimit={30}
-                                            setValue={setInvestmentPeriod}
-                                            value={investmentPeriod}
+                                            maxLimit={50}
+                                            setValue={setWithdrawalPeriod}
+                                            value={withdrawalPeriod}
                                         />
 
                                         <div className="flex justify-between text-sm text-[#44475B] mt-2">
                                             <span>1 Yr</span>
-                                            <span>30 Yrs</span>
+                                            <span>50 Yrs</span>
                                         </div>
                                     </div>
 
                                     {/* Button */}
                                     <button
                                         type="button"
-                                        onClick={calculateSip}
+                                        onClick={calculateSWP}
                                         className="bg-[#04B488] text-white py-3 rounded-lg font-semibold hover:bg-blue-700 transition p-[14px]"
                                     >
                                         Calculate
@@ -323,16 +306,18 @@ export default function SWPCalculatorComponent() {
                                     </h2>
 
                                     <p className="font-primary text-base md:text-lg leading-relaxed text-textdark">
-                                        If you invest{" "}
-                                        <strong>₹{monthlySaving1.toLocaleString("en-IN")}</strong>{" "}
-                                        per month for a period of{" "}
-                                        <strong>{investmentPeriod1} years</strong>, your investment
-                                        amount will be{" "}
+                                        If you have a corpus of{" "}
+                                        <strong>₹{totalInvestment1.toLocaleString("en-IN")}</strong>{" "}
+                                        and withdraw{" "}
+                                        <strong>₹{withdrawalAmount1.toLocaleString("en-IN")}</strong>{" "}
+                                        per month for{" "}
+                                        <strong>{withdrawalPeriod1} years</strong>, your total withdrawal
+                                        will be{" "}
                                         <strong>
-                                            ₹{totalMonthlySaving.toLocaleString("en-IN")}
+                                            ₹{totalWithdrawal.toLocaleString("en-IN")}
                                         </strong>{" "}
-                                        and the maturity amount will grow to{" "}
-                                        <strong>₹{totalGains.toLocaleString("en-IN")}</strong>.
+                                        and your remaining corpus will be{" "}
+                                        <strong>₹{finalCorpus.toLocaleString("en-IN")}</strong>.
                                     </p>
                                 </div>
 
@@ -341,7 +326,7 @@ export default function SWPCalculatorComponent() {
                                     <ReactApexChart
                                         options={chartState.options}
                                         series={chartState.series}
-                                        type="area"
+                                        type="bar"
                                         height={350}
                                     />
                                 </div>
@@ -366,146 +351,118 @@ export default function SWPCalculatorComponent() {
             </section>
             <section>
                 <h2 className="text-center text-[20px] md:text-3xl lg:text-5xl font-bold text-[#44475B] mt-16">All You Need To Know About <br />
-                    SIP Calculator</h2>
+                    SWP Calculator</h2>
                 <div className='container mx-auto px-5 md:px-10 lg:px-20'>
                     <p className="mx-auto mt-4 md:mt-8 mb-4 text-[15px] md:text-[24px] font-bold text-[#44475B] mb-[10px] md:mb-[20px]">
-                        What is an SIP Calculator?
+                        What Is an SWP Calculator?
                     </p>
-                    <p className='text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto mb-4'>Let’s keep this simple. <br />
-                        Imagine you put aside ₹3,000 every month in a piggy bank. After one year, you’d have ₹36,000. No surprises there.</p>
-                    <p className='text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto mb-4'>Now imagine if that same money didn’t just sit quietly in a corner, but actually worked for you. It earned returns. And then those returns started earning returns too.</p>
-                    <p className='text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto mb-4'>
-                        That’s what investing does.</p>
-                    <p className='text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto mb-4'>
-                        One of the easiest and most comfortable ways to start investing is through an SIP (Systematic Investment Plan). And to understand where your SIP could realistically take you, you need a tool that shows the picture clearly. That’s where the Prodigy Pro SIP Calculator, developed by BFC Capital – a SEBI-registered investment advisor (RIA), comes in.</p>
-                    <p className='text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto mb-4'>A SIP Calculator is a simple online tool that helps you estimate how much your regular monthly investments may grow over time. Think of it like checking Google Maps before starting a journey– you may not know every turn, but at least you know where you’re headed.</p>
+                    <p className='text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto mb-4'>Imagine this for a moment.</p>
+                    <p className='text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto mb-4'>You’ve done the hard part.<br />
+                        You’ve saved, invested, built a solid corpus.</p>
+                    <p className='text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto mb-4'>Now comes the real question:<br />
+                        How do you actually use this money without finishing it too soon?</p>
+                    <p className='text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto mb-4'>Maybe you’re retired and need a steady monthly income.<br />
+                        Maybe you want to fund your child’s education without breaking your investments.<br />
+                        Or maybe you just want some breathing room every month, without touching your capital blindly.</p>
+                    <p className='text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto mb-4'>This is where a Systematic Withdrawal Plan (SWP) Calculator comes in.</p>
+                    <p className='text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto mb-4'>An SWP calculator shows you how much money you can withdraw from your mutual fund investments at regular intervals—monthly, quarterly, or annually—while the remaining money stays invested and continues to compound.</p>
+                    <p className='text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto mb-4'>In simple words, it helps you create your own salary from your investments, without the fear of outliving your savings.</p>
+                    <p className='text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto mb-4'>At <b>BFC Capital</b>, we often say this:<br />
+                        <i>Accumulating wealth is only half the journey. Knowing how to withdraw it smartly is the real art.</i></p>
                 </div>
 
                 <div className='container mx-auto px-5 md:px-10 lg:px-20'>
                     <p className="mx-auto mt-4 md:mt-8 mb-4 text-[15px] md:text-[24px] font-bold text-[#44475B] mb-[10px] md:mb-[20px]">
-                        How Can a SIP Calculator Help You?
+                        How Does an SWP Calculator Work?
                     </p>
-                    <p className='text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto mb-4'>Investing without a plan is like saying, “Let’s just drive and see where we land.” Sounds fun, but not when your money is involved. <br />A SIP calculator brings clarity where confusion usually exists.</p>
-                    <p className='text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto mb-4'>
-                        It helps you set clear goals</p>
-                    <p className='text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto mb-4'>
-                        Maybe you want ₹50 lakhs for your child’s higher education in 20 years. <br />Or ₹15 lakhs for a wedding after 3 years. <br />Instead of guessing, the calculator tells you how much you need to invest every month to realistically reach those goals.</p>
-                    <p className='text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto'>It shows you the real power of compounding <br />
-                        This is where things get interesting. For example, if you invest ₹5,000 every month for 10 years and earn an average return of 12%:</p>
-                    <ul className='list-disc pl-7 text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto'>
-                        <li>Total amount invested: ₹6 lakhs</li>
-                        <li>Approximate value after 10 years: ₹11.5 lakhs</li>
+                    <p className='text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto mb-4'>At its core, an SWP calculator balances just two things:</p>
+                    <ul className='list-disc pl-7 text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto mb-4'>
+                        <li>Your starting corpus (the money you’ve already invested)</li>
+                        <li>Your regular withdrawal amount (your monthly “paycheck”)</li>
                     </ul>
-
-                    <p className='text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto mb-4'>
-                        You didn’t double your effort. Time and compounding did the heavy lifting for you.</p>
-                    <p className='text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto mb-4 font-bold italic'>
-                        It helps build discipline</p>
-                    <p className='text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto mb-4'>
-
-                        Once you know your target and the monthly amount required, investing stops feeling random. <br />You’re less likely to break your SIP for short-term expenses because now your money has a purpose. SIPs work best when they run quietly in the background – automatically, consistently, and without emotional decisions.</p>
-                </div>
-
-                <div className='container mx-auto px-5 md:px-10 lg:px-20'>
-                    <p className="mx-auto mt-4 md:mt-8 mb-4 text-[15px] md:text-[24px] font-bold text-[#44475B] mb-[10px] md:mb-[20px]">
-                        How Do SIP Calculators Work?
-                    </p>
-                    <p className='text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto mb-4'>At its heart, an SIP calculator is built on one powerful idea: <b>compounding</b>.</p>
-                    <p className='text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto mb-4'>You invest a fixed amount every month – no guesswork, no market timing. <br />That money starts earning returns. <br />Those returns don’t just sit there; they get reinvested and begin earning returns of their own.</p>
-                    <p className='text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto mb-4'>
-                        Over time, this creates a snowball effect. What starts as small, disciplined monthly investments can quietly grow into meaningful wealth.
-                        The SIP calculator simply does the number-crunching for you. It shows you what consistency and time can do, without you having to open a spreadsheet or stress over calculations.</p>
-
-                    <p className='text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto mb-4'>
-                        At BFC Capital, we believe the real magic isn’t in predicting markets, but in staying invested long enough for compounding to do its job.</p>
-                </div>
-
-                <div className='container mx-auto px-5 md:px-10 lg:px-20'>
-                    <p className="mx-auto mt-4 md:mt-8 mb-4 text-[15px] md:text-[24px] font-bold text-[#44475B] mb-[10px] md:mb-[20px]">
-                        How to Use the Prodigy Pro’s Systematic Investment Plan Calculator?
-                    </p>
-                    <p className='text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto mb-4'>The Prodigy Pro’s SIP Calculator is designed to be beginner-friendly and quick. All it takes are three inputs:</p>
-                    <p className='text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto mb-4'>
-                        Monthly Savings - e.g., ₹8,000/month.</p>
-
-                    <p className='text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto mb-4'>
-                        Investment Period - say 10 years.</p>
-                    <p className='text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto mb-4'>
-                        Expected Return Rate - let’s assume approx-16%.</p>
-                    <p className='text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto mb-4'>
-                        Hit Calculate, and you’ll instantly see:</p>
-                    <p className='text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto mb-4'>
-                        Amount Invested – total money you contributed.</p>
-                    <p className='text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto mb-4'>
-                        Market Value – total future value you might get after 10 years.</p>
-                    <p className='text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto mb-4'>
-                        Returns – the profit earned over your investment value.</p>
-                    <p className='text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto mb-4'>
-                        <b>Example:</b>
-                        ₹8,000/month × 10 years @ 16% return <br />Invested: ₹9,60,000  <br />Future Value: ~₹23.71 lakhs!</p>
-                    <p className='text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto mb-4'>
-                        That’s compounding doing its job silently.</p>
-
-                </div>
-
-                <div className='container mx-auto px-5 md:px-10 lg:px-20'>
-                    <p className="mx-auto mt-4 md:mt-8 mb-4 text-[15px] md:text-[24px] font-bold text-[#44475B] mb-[10px] md:mb-[20px]">
-                        Systematic Investment Plans (SIPs) in India
-                    </p>
-                    <p className='text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto'>
-                        SIPs are one of the easiest and most trusted ways to invest in mutual funds. <br />Instead of investing a large amount in one go, you invest a fixed sum every month on a chosen date – directly from your bank account. No chasing markets, no complicated decisions. Even ₹100 a month is enough to get started, and some SIPs allow you to begin with just ₹100.</p>
-                    <p className='text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto'>So why do SIPs work especially well in India?</p>
-                    <ul className='list-disc pl-7 text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto'>
-                        <li>They fit perfectly into how most of us earn and spend.</li>
-                        <li>For salaried individuals, SIPs build a habit of investing – quietly and consistently – much like a monthly bill you pay to your future self.</li>
-                        <li>They also take away the pressure of trying to “buy at the right time.” Markets go up, markets go down – but SIPs keep you invested through it all, smoothing out volatility over time.</li>
-                        <li>And most importantly, SIPs are designed for long-term goals that truly matter: your child’s education, buying a home, or building a comfortable retirement.</li>
+                    <p className='text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto mb-4'>Along with this, it factors in:</p>
+                    <ul className='list-disc pl-7 text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto mb-4'>
+                        <li>How often you want to withdraw</li>
+                        <li>The expected rate of return from your mutual fund</li>
                     </ul>
-
-
-                    <p className='text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto mb-4'>
-                        At BFC Capital, we see SIPs not as a product, but as a behaviour shift, from worrying about markets to trusting the power of time and consistency.</p>
-                </div>
-
-                <div className='container mx-auto px-5 md:px-10 lg:px-20'>
-                    <p className="mx-auto mt-4 md:mt-8 mb-4 text-[15px] md:text-[24px] font-bold text-[#44475B] mb-[10px] md:mb-[20px]">
-                        Types of SIPs
-                    </p>
-                    <p className='text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto mb-4'>
-                        SIPs aren’t rigid at all! <br />You can choose what suits your lifestyle.</p>
-
-
-                    <p className='text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto mb-4'>
-                        <b>Step-Up SIP</b> <br />
-                        Start small and increase gradually. Example: begin with ₹5,000/month, increase by ₹1000 every year as your salary grows.</p>
-                    <p className='text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto mb-4'>
-                        <b>Top-Up SIP</b> <br />
-                        Add extra whenever you can. Got a yearly bonus? Add ₹15,000 to your SIP. No compulsion, just flexibility to boost returns.</p>
-                </div>
-
-                <div className='container mx-auto px-5 md:px-10 lg:px-20'>
-                    <p className="mx-auto mt-4 md:mt-8 mb-4 text-[15px] md:text-[24px] font-bold text-[#44475B] mb-[10px] md:mb-[20px]">
-                        Why use Prodigy Pro’s online SIP calculator over others?
-                    </p>
-                    <p className='text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto mb-4'>
-                        Because investing isn’t just about numbers. It’s about clarity and confidence.</p>
-                    <ul className='list-disc pl-7 text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto'>
-                        <li> <b>See the long-term picture</b> <br />It helps you understand how something as small as ₹500 a month today can quietly grow into lakhs over time. No hype, just realistic long-term clarity.</li>
-                        <li> <b>Plan with a purpose</b> <br />Have a specific goal in mind? The calculator shows how much you need to invest to reach it, so your SIP isn’t random. It’s intentional.</li>
-                        <li> <b>Simple to use</b> <br />Clean, quick, and easy to understand. No jargon, no clutter. Just the numbers that actually matter.</li>
-                        <li> <b>Make smarter choices before you commit</b> <br />Compare different SIP amounts and timelines before starting, so you invest with confidence, not guesswork.</li>
-                        <li> <b>Complete transparency</b> <br />You clearly see how much you’ve invested and how much you’ve earned. No surprises. No hidden assumptions.</li>
+                    <p className='text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto mb-4'>The result?<br />
+                        A clear picture of:</p>
+                    <ul className='list-disc pl-7 text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto mb-4'>
+                        <li>How long your money can sustain your withdrawals</li>
+                        <li>How much of your corpus continues to grow in the background</li>
                     </ul>
-
-                    <p className='text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto mb-4'>
-
-                        At the end of the day, money management comes down to two simple things: clarity and consistency. <br />Whether you are planning for your child’s future, your dream home, or simply building a safety cushion for tomorrow, this tool removes guesswork and replaces it with a clear, practical roadmap.</p>
-                    <p className='text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto mb-4'>
-                        At BFC Capital, a SEBI Registered Investment Adviser, we believe investing does not have to feel complicated or exclusive. It is about taking small, consistent steps and staying the course.</p>
-                    <p className='text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto mb-4'>
-
-                        So the next time investing feels “too complex” or “only meant for experts,” remember this. All it takes is a fixed amount, a fixed date, and a simple tool like Prodigy Pro’s SIP calculator to start building wealth that keeps working even while you sleep</p>
+                    <p className='text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto mb-4'>No assumptions. No guesswork. Just visibility.</p>
                 </div>
+
+                <div className='container mx-auto px-5 md:px-10 lg:px-20'>
+                    <p className="mx-auto mt-4 md:mt-8 mb-4 text-[15px] md:text-[24px] font-bold text-[#44475B] mb-[10px] md:mb-[20px]">
+                        Why Use the BFC Capital's SWP Calculator?
+                    </p>
+                    <p className='text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto mb-4'>Because it’s not just about calculations – it’s about peace of mind.</p>
+                    <p className='text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto mb-4'>Retirement isn’t about seeing a big number in your bank account.<br />
+                        It’s about knowing your monthly expenses are taken care of – calmly, consistently.</p>
+                    <p className='text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto mb-4'>Education planning isn’t about hoarding cash.<br />
+                        It’s about ensuring fees are paid every year without panic.</p>
+                    <p className='text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto mb-4'>The SWP Calculator lets you test your plan before life tests you. You can adjust withdrawal amounts, timelines, and expectations, all in a few clicks.</p>
+                </div>
+
+                <div className='container mx-auto px-5 md:px-10 lg:px-20'>
+                    <p className="mx-auto mt-4 md:mt-8 mb-4 text-[15px] md:text-[24px] font-bold text-[#44475B] mb-[10px] md:mb-[20px]">
+                        Let’s Understand This With a Real Example
+                    </p>
+                    <p className='text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto mb-4'>Consider Mr. Mishra.</p>
+                    <p className='text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto mb-4'>He retired on 1st January 2010 with a retirement corpus of ₹1 crore. Instead of using outdated methods, he opted for a Systematic Withdrawal Plan with a .75% monthly trigger, meaning he withdrew ₹75,000 every month for expenses, with an expected annual return of 10%.</p>
+                    <p className='text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto mb-4'>Here’s what happened:</p>
+                    <ul className='list-disc pl-7 text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto mb-4'>
+                        <li>He enjoyed a steady monthly income of ₹75,000</li>
+                        <li>Over 15 years, his total withdrawals amounted to ₹1.35 crore</li>
+                        <li>And by the end of 15 years, his remaining corpus stood around ₹1.18 crore</li>
+                    </ul>
+                    <p className='text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto mb-4'>This is the power of compounding, even while withdrawing regularly.</p>
+                    <p className='text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto mb-4 font-bold'>The takeaway:</p>
+                    <p className='text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto mb-4'>With a well-structured retirement plan using an SWP calculator, you can:</p>
+                    <ul className='list-disc pl-7 text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto mb-4'>
+                        <li>Generate steady income</li>
+                        <li>Keep your capital invested</li>
+                        <li>And allow market growth to work quietly in your favour</li>
+                    </ul>
+                </div>
+
+                <div className='container mx-auto px-5 md:px-10 lg:px-20'>
+                    <p className="mx-auto mt-4 md:mt-8 mb-4 text-[15px] md:text-[24px] font-bold text-[#44475B] mb-[10px] md:mb-[20px]">
+                        Why SWP Can Change the Way You Think About Money
+                    </p>
+                    <p className='text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto mb-4 font-bold'>1. Regular Income That Feels Like a Salary</p>
+                    <p className='text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto mb-4'>For retirees or anyone without a fixed paycheck, SWP brings predictability. Life doesn’t suddenly feel uncertain when your active income stops.</p>
+                    <p className='text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto mb-4 font-bold'>2. You Stay in Control</p>
+                    <p className='text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto mb-4'>Unlike pensions or fixed deposits, you decide:</p>
+                    <ul className='list-disc pl-7 text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto mb-4'>
+                        <li>How much to withdraw</li>
+                        <li>How often to withdraw</li>
+                    </ul>
+                    <p className='text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto mb-4'>The generally recommended withdrawal rate is 0.75% per month. While SWP offers flexibility, if you want your corpus to grow even while withdrawing, the withdrawal rate should not exceed 1% per month.</p>
+                    <p className='text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto mb-4 font-bold'>3. Smarter Tax Treatment</p>
+                    <p className='text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto mb-4'>In SWPs, only the gains are taxed, not the entire withdrawal amount. Compared to fixed deposits—where interest is fully taxed—this can make a meaningful difference.</p>
+                    <p className='text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto mb-4 font-bold'>4. Your Money Keeps Compounding</p>
+                    <p className='text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto mb-4'>Even as you withdraw regularly, the remaining corpus stays invested and continues to earn returns. You spend today, while still building for tomorrow.</p>
+                    <p className='text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto mb-4 font-bold'>5. Protection From Emotional Decisions</p>
+                    <p className='text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto mb-4'>Markets will rise and fall. With an SWP, you’re not forced to exit everything during downturns. Withdrawals are gradual, helping you ride volatility without panic.</p>
+                </div>
+
+                <div className='container mx-auto px-5 md:px-10 lg:px-20'>
+                    <p className="mx-auto mt-4 md:mt-8 mb-4 text-[15px] md:text-[24px] font-bold text-[#44475B] mb-[10px] md:mb-[20px]">
+                        A Final Thought
+                    </p>
+                    <p className='text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto mb-4'>Money isn’t just about saving, it’s about using it wisely, at the right time.</p>
+                    <p className='text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto mb-4'>Some people hoard their savings out of fear.<br />
+                        Others spend too fast out of excitement.</p>
+                    <p className='text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto mb-4'>Both often lead to regret.</p>
+                    <p className='text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto mb-4'>An SWP Calculator helps strike the balance. It ensures your money supports your lifestyle without quietly slipping away. Think of it as a personal paycheck system, created not by an employer, but by your own investments</p>
+                    <p className='text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto mb-4'>Before deciding how to use your hard-earned savings, spend two minutes with the SWP Calculator.</p>
+                    <p className='text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto mb-4'>Because the difference between financial stress and financial freedom is rarely about how much money you have<br />
+                        it’s about how well you’ve planned.</p>
+                </div>
+
             </section >
             <section>
                 <h2 className="text-center text-[20px] md:text-3xl lg:text-5xl font-bold text-[#44475B] mt-16">FAQs</h2>

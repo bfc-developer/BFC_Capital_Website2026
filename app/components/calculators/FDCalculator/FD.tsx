@@ -5,10 +5,8 @@ import { Form, Button } from "react-bootstrap";
 import Link from "next/link";
 import Accordion from "react-bootstrap/Accordion";
 import dynamic from "next/dynamic";
+const Chart = dynamic(() => import("react-apexcharts"), { ssr: false });
 
-const ReactApexChart = dynamic(() => import("react-apexcharts"), {
-    ssr: false,
-});
 import { ApexOptions } from "apexcharts";
 import RangeBar from "@/app/components/common/RangeBar";
 import { toast } from "react-toastify";
@@ -17,137 +15,127 @@ import { ChevronRight } from "lucide-react";
 export default function FDCalculator() {
     const questions = [
         {
-            question: "How accurate are SIP Calculator results?",
+            question:
+                "Does the FD calculator show the maturity amount before or after tax?",
             answer:
-                "It’s mostly accurate. The calculator gives you a projected figure, not a guaranteed figure.",
+                "It shows pre-tax returns. You’ll need to adjust for your tax slab to know the net figure.",
         },
         {
-            question: "Can the SIP Calculator help in retirement planning?",
+            question: "What information do I need to use the calculator?",
             answer:
-                "Yes, it does by estimating how much money your regular investments can grow over time, showing the corpus you can accumulate by retirement. This allows you to set monthly investment goals and track your progress. SIP Calculators also highlight the importance of starting early and staying invested consistently.",
+                "You only need the investment amount, interest rate, compounding frequency, and investment duration.",
         },
         {
-            question: "What inputs are required in a SIP Calculator?",
+            question:
+                "Can I calculate FD returns for senior citizens with higher interest rates?",
             answer:
-                "Usually, the monthly savings, expected rate of return and investment horizon or time duration of the SIP are all you need to enter to get results.",
+                "Yes. Just enter the higher interest rate (usually 0.25%-0.75% more) into the calculator.",
         },
         {
-            question: "Is SIP 100% safe?",
-            answer:
-                "No, a SIP is not completely risk-free, as all investments in the equity market carry some risk. However, SIPs do help reduce risk compared to lump-sum investments by spreading investments over time, known as rupee cost averaging, and reducing the impact of market volatility, especially over the long term",
+            question: "Does the calculator account for TDS (Tax Deducted at Source)?",
+            answer: "No. TDS needs to be accounted for separately.",
         },
         {
-            question: "Can I invest 100 rupees in SIP?",
-            answer:
-                "Some schemes allow you to start your SIPs with an amount as low as 100 rupees as well, making SIPs affordable and within reach of every kind of investor.",
+            question:
+                "Can I choose the compounding frequency (monthly, quarterly, yearly)?",
+            answer: "Yes. Monthly, quarterly, half-yearly, or annually – you choose based on the bank’s rules.",
         },
     ];
 
-    interface ChartState {
-        options: ApexOptions;
-        series: { name: string; data: number[] }[];
-    }
-    const [investmentPeriod, setInvestmentPeriod] = useState<number>(10);
-    const [monthlySaving, setMonthlySaving] = useState<number>(10000);
-    const [monthlySaving1, setMonthlySaving1] = useState<number>(10000);
-    const [expectedRateOfReturn, setExpectedRateOfReturn] =
-        useState<string | number>(16.5);
+    // useEffect(() => {
+    //   const fetchFaqs = async () => {
+    //     try {
+    //       const res = await fetch(`${Base_url}/${endpoints.calculators}`);
+    //       const data = await res.json();
 
-    const [gains, setGains] = useState<number>(3017292);
-    const [totalYear, setTotalYear] = useState<number>(10);
-    const [totalGains, setTotalGains] = useState<number>(3058780);
-    const [totalMonthlySaving, setTotalMonthlySaving] = useState<number>(1200000);
-    const [oneMonthSaving, setOneMonthSaving] = useState<number>(10000);
-    const [investmentPeriod1, setInvestmentPeriod1] = useState<number>(10);
+    //       // Extract FAQ array safely
+    //       const faqItems = data?.data[0]?.attributes?.sipCalculator?.FAQ || [];
+    //       setQuestions(faqItems);
+    //     } catch (error) {
+    //       console.error("Error fetching FAQs:", error);
+    //     }
+    //   };
 
-    const yearInString = (currentTotalYear: number = totalYear): string[] => {
-        let xAxisArray: string[] = [];
-        if (currentTotalYear > 16) {
-            for (let i = 1; i <= currentTotalYear; i += 2) xAxisArray.push(i + "Y");
-            if (currentTotalYear % 2 === 0) xAxisArray.push(currentTotalYear + "Y");
-        } else {
-            for (let i = 1; i <= currentTotalYear; i++) xAxisArray.push(i + "Y");
-        }
-        return xAxisArray;
-    };
+    //   fetchFaqs();
+    // }, []);
 
-    const valueForGraph = (data: number, currentTotalYear: number = totalYear): number[] => {
-        let graphValue: number[] = [];
-        if (currentTotalYear > 16) {
-            for (let i = currentTotalYear; i > 0; i -= 2)
-                graphValue.push(Math.round(data / i));
-            if (currentTotalYear % 2 === 0) graphValue.push(Math.round(data));
-        } else {
-            for (let i = currentTotalYear; i > 0; i--) graphValue.push(Math.round(data / i));
-        }
-        return graphValue;
-    };
+    // const [monthlySaving, setMonthlySaving] = useState("₹ 100,000");
+    // const [rateOfReturn, setRateOfReturn] = useState("12");
+    // const [period, setPeriod] = useState("Monthly");
 
-    const [chartState, setChartState] = useState<ChartState>({
-        series: [
-            { name: "Market Value", data: valueForGraph(gains + totalMonthlySaving) },
-            { name: "Invested Amount", data: valueForGraph(totalMonthlySaving) },
-        ],
-        options: {
-            legend: {
-                show: false,
-            },
-            chart: {
-                height: 350,
-                type: "area",
-                background: "transparent",
-                toolbar: { show: false },
-                zoom: { enabled: false },
-            },
-            dataLabels: { enabled: false },
-            stroke: {
-                curve: "monotoneCubic",
-                width: [2, 2],
-                colors: ["#357AF6", "#57BE65"],
-            },
-            xaxis: { categories: yearInString() },
-            grid: { show: false },
-        },
-    });
+    const compoundOptions = [
+        { label: "Monthly", value: 12 },
+        { label: "Quarterly", value: 4 },
+        { label: "Half-Yearly", value: 2 },
+        { label: "Yearly", value: 1 },
+    ];
 
-    const calculateSip = () => {
-        if (!monthlySaving || !expectedRateOfReturn) {
-            toast.error("Please make sure all required fields are filled in.")
+    // FD Calculator States
+    const [investmentAmount, setInvestmentAmount] = useState<number>(100000);
+    const [period, setPeriod] = useState<number>(10);
+    const [interestRate, setInterestRate] = useState<string | number>(6);
+    const [compound, setCompound] = useState<number>(12);
+
+    const [totalAmountInvested, setTotalAmountInvested] =
+        useState<number>(100000);
+    const [totalInterest, setTotalInterest] = useState<number>(81940);
+    const [maturityAmount, setMaturityAmount] = useState<number>(181940);
+
+    //   const investmentAmountRef = useRef<{ validate: (value: number) => boolean }>(null);
+    //   const interestRateRef = useRef<{ validate: (value: number) => boolean }>(null);
+
+    // FD Calculation
+    const calculateFD = () => {
+        if (!investmentAmount || !interestRate) {
+            toast.error("Please make sure all required fields are filled in.");
             return;
+        } else {
+            let amt = investmentAmount;
+            for (let i = 1; i <= period; i++) {
+                amt = amt * Math.pow(1 + Number(interestRate) / (100 * compound), compound);
+                amt = parseFloat(amt.toFixed(0));
+            }
+            setTotalAmountInvested(investmentAmount);
+            setTotalInterest(Math.round(amt - investmentAmount));
+            setMaturityAmount(Math.round(amt));
         }
-        else {
-            let monthlyRate = Number(expectedRateOfReturn) / 12 / 100;
-            let months = investmentPeriod * 12;
-            let futureValue =
-                ((monthlySaving * (Math.pow(1 + monthlyRate, months) - 1)) /
-                    monthlyRate) *
-                (1 + monthlyRate);
-
-            let mainResults = Math.round(futureValue);
-            let totalSaving = monthlySaving * months;
-            let gain = mainResults - totalSaving;
-
-            setGains(Math.round(gain));
-            setTotalYear(investmentPeriod);
-            setTotalMonthlySaving(totalSaving);
-            setTotalGains(totalSaving + gain);
-            setInvestmentPeriod1(investmentPeriod);
-            setMonthlySaving1(monthlySaving);
-
-            // Update chart dynamically
-            setChartState((prevState) => ({
-                series: [
-                    { name: "Market Value", data: valueForGraph(totalSaving + gain, investmentPeriod) },
-                    { name: "Invested Amount", data: valueForGraph(totalSaving, investmentPeriod) },
-                ],
-                options: {
-                    ...prevState.options,
-                    xaxis: { categories: yearInString(investmentPeriod) },
-                },
-            }));
-        }
-
     };
+
+    const submitFD = (e: React.FormEvent) => {
+        e.preventDefault();
+        calculateFD();
+    };
+
+    const chartState: {
+        options: ApexOptions;
+        series: number[];
+        colors: string[];
+    } = {
+        options: {
+            dataLabels: { enabled: false },
+            colors: ["#CCD2FF", "#1A35FE"],
+            tooltip: { enabled: false },
+            labels: [
+                `Total Interest (${totalInterest.toLocaleString("en-IN")})`,
+                `Total Invested (${totalAmountInvested.toLocaleString("en-IN")})`,
+            ],
+            legend: {
+                show: true,
+                position: "bottom", // ✅ TS accepts "bottom" as literal
+                horizontalAlign: "center",
+                fontSize: "14px",
+                markers: { size: 12 },
+                onItemHover: { highlightDataSeries: false },
+            },
+            states: {
+                hover: { filter: { type: "none" as const } },
+                active: { filter: { type: "none" as const } },
+            },
+        },
+        series: [totalInterest, totalAmountInvested],
+        colors: ["#fff", "#FF4560"],
+    };
+
 
     return (
         <>
@@ -195,11 +183,11 @@ export default function FDCalculator() {
                         WebkitTextFillColor: "transparent",
                         backgroundClip: "text",
                         color: "transparent"
-                    }}>SIP Calculator</span>
+                    }}>FD Calculator</span>
                 </nav>
                 {/* Title */}
                 <h2 className="text-[20px] md:text-3xl lg:text-5xl font-bold text-[#44475B]">
-                    SIP Calculator
+                    FD Calculator
                 </h2>
             </div>
             <section>
@@ -215,30 +203,53 @@ export default function FDCalculator() {
                                     {/* Monthly Saving */}
                                     <div>
                                         <label className="block text-[#44475B] font-medium text-sm uppercase mb-2">
-                                            MONTHLY SAVING
+                                            Investment Amount
                                         </label>
                                         <input
                                             type="number"
                                             className="w-full border rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500 text-[#44475B]"
-                                            value={monthlySaving}
+                                            value={investmentAmount}
                                             min={0}
                                             onChange={(e) =>
-                                                setMonthlySaving(parseFloat(e.target.value))
+                                                setInvestmentAmount(parseFloat(e.target.value))
                                             }
                                             placeholder="₹ 10,000"
                                         />
                                     </div>
 
+                                    {/* Investment Period */}
+                                    <div>
+                                        <div className="flex justify-between mb-2">
+                                            <label className="text-[#44475B] font-medium text-sm uppercase">
+                                                Period
+                                            </label>
+                                            <span className="font-bold text-[#44475B]">
+                                                {period} Yrs
+                                            </span>
+                                        </div>
+
+                                        <RangeBar
+                                            maxLimit={30}
+                                            setValue={setPeriod}
+                                            value={period}
+                                        />
+
+                                        <div className="flex justify-between text-sm text-[#44475B] mt-2">
+                                            <span>1 Yr</span>
+                                            <span>30 Yrs</span>
+                                        </div>
+                                    </div>
+
                                     {/* Expected Rate of Return */}
                                     <div>
                                         <label className="block text-[#44475B] font-medium text-sm uppercase mb-2">
-                                            EXPECTED RATE OF RETURN (% P.A)
+                                            Interest Rate (%)
                                         </label>
                                         <input
                                             type="text"
                                             inputMode="decimal"
                                             className="w-full border rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500 text-[#44475B]"
-                                            value={expectedRateOfReturn}
+                                            value={interestRate}
                                             placeholder="16.5"
                                             onChange={(e) => {
                                                 let val = e.target.value;
@@ -263,46 +274,38 @@ export default function FDCalculator() {
 
                                                 // Allow empty while typing
                                                 if (val === "") {
-                                                    setExpectedRateOfReturn("");
+                                                    setInterestRate("");
                                                     return;
                                                 }
 
                                                 const num = parseFloat(val);
 
                                                 if (val === "." || (!isNaN(num) && num >= 0 && num <= 100)) {
-                                                    setExpectedRateOfReturn(val);
+                                                    setInterestRate(val);
                                                 }
                                             }}
                                         />
                                     </div>
-
-                                    {/* Investment Period */}
                                     <div>
-                                        <div className="flex justify-between mb-2">
-                                            <label className="text-[#44475B] font-medium text-sm uppercase">
-                                                INVESTMENT PERIOD
-                                            </label>
-                                            <span className="font-bold text-[#44475B]">
-                                                {investmentPeriod} Yrs
-                                            </span>
-                                        </div>
-
-                                        <RangeBar
-                                            maxLimit={30}
-                                            setValue={setInvestmentPeriod}
-                                            value={investmentPeriod}
-                                        />
-
-                                        <div className="flex justify-between text-sm text-[#44475B] mt-2">
-                                            <span>1 Yr</span>
-                                            <span>30 Yrs</span>
-                                        </div>
+                                        <label className="block text-[#44475B] font-medium text-sm uppercase mb-2">
+                                            Compounding Period
+                                        </label>
+                                        <Form.Select
+                                            value={compound}
+                                            onChange={(e) => setCompound(Number(e.target.value))}
+                                        >
+                                            {compoundOptions.map((option) => (
+                                                <option key={option.value} value={option.value}>
+                                                    {option.label}
+                                                </option>
+                                            ))}
+                                        </Form.Select>
                                     </div>
 
                                     {/* Button */}
                                     <button
                                         type="button"
-                                        onClick={calculateSip}
+                                        onClick={calculateFD}
                                         className="bg-[#04B488] text-white py-3 rounded-lg font-semibold hover:bg-blue-700 transition p-[14px]"
                                     >
                                         Calculate
@@ -321,28 +324,34 @@ export default function FDCalculator() {
                                     <h2 className="font-primary font-semibold text-2xl leading-tight text-textdark mb-3">
                                         Result
                                     </h2>
-
-                                    <p className="font-primary text-base md:text-lg leading-relaxed text-textdark">
-                                        If you invest{" "}
-                                        <strong>₹{monthlySaving1.toLocaleString("en-IN")}</strong>{" "}
-                                        per month for a period of{" "}
-                                        <strong>{investmentPeriod1} years</strong>, your investment
-                                        amount will be{" "}
-                                        <strong>
-                                            ₹{totalMonthlySaving.toLocaleString("en-IN")}
-                                        </strong>{" "}
-                                        and the maturity amount will grow to{" "}
-                                        <strong>₹{totalGains.toLocaleString("en-IN")}</strong>.
+                                    <label className="block text-[rgba(77, 77, 77, 1)] font-medium text-sm uppercase mb-2">
+                                        Total amount invested
+                                    </label>
+                                    <p className="font-primary text-base md:text-lg leading-relaxed text-[rgba(33, 33, 33, 1)] font-bold mb-4">
+                                        ₹{totalAmountInvested.toLocaleString("en-IN")}
                                     </p>
+                                    <label className="block text-[rgba(77, 77, 77, 1)] font-medium text-sm uppercase mb-2">
+                                        Total Interest
+                                    </label>
+                                    <p className="font-primary text-base md:text-lg leading-relaxed text-[rgba(33, 33, 33, 1)] font-bold mb-4">
+                                        ₹{totalInterest.toLocaleString("en-IN")}
+                                    </p>
+                                    <label className="block text-[rgba(77, 77, 77, 1)] font-medium text-sm uppercase mb-2">
+                                        Maturity amount
+                                    </label>
+                                    <p className="font-primary text-base md:text-lg leading-relaxed text-[rgba(33, 33, 33, 1)] font-bold mb-4">
+                                        ₹{maturityAmount.toLocaleString("en-IN")}
+                                    </p>
+
                                 </div>
 
                                 {/* Chart Card */}
                                 <div className="shadow-md rounded-2xl px-5 py-4 bg-[#FFFFFF]">
-                                    <ReactApexChart
+                                    <Chart
                                         options={chartState.options}
                                         series={chartState.series}
-                                        type="area"
-                                        height={350}
+                                        type="donut"
+                                        width="280"
                                     />
                                 </div>
 
@@ -366,146 +375,137 @@ export default function FDCalculator() {
             </section>
             <section>
                 <h2 className="text-center text-[20px] md:text-3xl lg:text-5xl font-bold text-[#44475B] mt-16">All You Need To Know About <br />
-                    SIP Calculator</h2>
+                    FD Calculator</h2>
                 <div className='container mx-auto px-5 md:px-10 lg:px-20'>
                     <p className="mx-auto mt-4 md:mt-8 mb-4 text-[15px] md:text-[24px] font-bold text-[#44475B] mb-[10px] md:mb-[20px]">
-                        What is an SIP Calculator?
+                        What Is a Fixed Deposit Calculator? (And Why It Deserves More Respect)
                     </p>
-                    <p className='text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto mb-4'>Let’s keep this simple. <br />
-                        Imagine you put aside ₹3,000 every month in a piggy bank. After one year, you’d have ₹36,000. No surprises there.</p>
-                    <p className='text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto mb-4'>Now imagine if that same money didn’t just sit quietly in a corner, but actually worked for you. It earned returns. And then those returns started earning returns too.</p>
                     <p className='text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto mb-4'>
-                        That’s what investing does.</p>
+                        Think of a fixed deposit like a quiet handshake with the bank.<br />
+                        You’re saying, "I’ll park my money with you for a few years. You promise to give me a little extra when I come back."</p>
+                    <p className='text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto mb-4 font-bold'>
+                        Simple. Predictable. Comfortable.</p>
                     <p className='text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto mb-4'>
-                        One of the easiest and most comfortable ways to start investing is through an SIP (Systematic Investment Plan). And to understand where your SIP could realistically take you, you need a tool that shows the picture clearly. That’s where the Prodigy Pro SIP Calculator, developed by BFC Capital – a SEBI-registered investment advisor (RIA), comes in.</p>
-                    <p className='text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto mb-4'>A SIP Calculator is a simple online tool that helps you estimate how much your regular monthly investments may grow over time. Think of it like checking Google Maps before starting a journey– you may not know every turn, but at least you know where you’re headed.</p>
-                </div>
-
-                <div className='container mx-auto px-5 md:px-10 lg:px-20'>
-                    <p className="mx-auto mt-4 md:mt-8 mb-4 text-[15px] md:text-[24px] font-bold text-[#44475B] mb-[10px] md:mb-[20px]">
-                        How Can a SIP Calculator Help You?
-                    </p>
-                    <p className='text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto mb-4'>Investing without a plan is like saying, “Let’s just drive and see where we land.” Sounds fun, but not when your money is involved. <br />A SIP calculator brings clarity where confusion usually exists.</p>
+                        But here's where most people slip up – figuring out how much that “little extra” actually is.</p>
                     <p className='text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto mb-4'>
-                        It helps you set clear goals</p>
+                        That's where a Fixed Deposit Calculator steps in.</p>
                     <p className='text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto mb-4'>
-                        Maybe you want ₹50 lakhs for your child’s higher education in 20 years. <br />Or ₹15 lakhs for a wedding after 3 years. <br />Instead of guessing, the calculator tells you how much you need to invest every month to realistically reach those goals.</p>
-                    <p className='text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto'>It shows you the real power of compounding <br />
-                        This is where things get interesting. For example, if you invest ₹5,000 every month for 10 years and earn an average return of 12%:</p>
-                    <ul className='list-disc pl-7 text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto'>
-                        <li>Total amount invested: ₹6 lakhs</li>
-                        <li>Approximate value after 10 years: ₹11.5 lakhs</li>
+                        Instead of relying on rough estimates, verbal assurances, or confusing formulas, the Prodigy Pro FD Calculator gives you instant clarity. You enter:</p>
+                    <ul className='list-disc pl-7 text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto mb-4'>
+                        <li>Investment amount</li>
+                        <li>Interest rate</li>
+                        <li>Tenure</li>
                     </ul>
-
                     <p className='text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto mb-4'>
-                        You didn’t double your effort. Time and compounding did the heavy lifting for you.</p>
-                    <p className='text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto mb-4 font-bold italic'>
-                        It helps build discipline</p>
-                    <p className='text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto mb-4'>
-
-                        Once you know your target and the monthly amount required, investing stops feeling random. <br />You’re less likely to break your SIP for short-term expenses because now your money has a purpose. SIPs work best when they run quietly in the background – automatically, consistently, and without emotional decisions.</p>
-                </div>
-
-                <div className='container mx-auto px-5 md:px-10 lg:px-20'>
-                    <p className="mx-auto mt-4 md:mt-8 mb-4 text-[15px] md:text-[24px] font-bold text-[#44475B] mb-[10px] md:mb-[20px]">
-                        How Do SIP Calculators Work?
-                    </p>
-                    <p className='text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto mb-4'>At its heart, an SIP calculator is built on one powerful idea: <b>compounding</b>.</p>
-                    <p className='text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto mb-4'>You invest a fixed amount every month – no guesswork, no market timing. <br />That money starts earning returns. <br />Those returns don’t just sit there; they get reinvested and begin earning returns of their own.</p>
-                    <p className='text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto mb-4'>
-                        Over time, this creates a snowball effect. What starts as small, disciplined monthly investments can quietly grow into meaningful wealth.
-                        The SIP calculator simply does the number-crunching for you. It shows you what consistency and time can do, without you having to open a spreadsheet or stress over calculations.</p>
-
-                    <p className='text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto mb-4'>
-                        At BFC Capital, we believe the real magic isn’t in predicting markets, but in staying invested long enough for compounding to do its job.</p>
-                </div>
-
-                <div className='container mx-auto px-5 md:px-10 lg:px-20'>
-                    <p className="mx-auto mt-4 md:mt-8 mb-4 text-[15px] md:text-[24px] font-bold text-[#44475B] mb-[10px] md:mb-[20px]">
-                        How to Use the Prodigy Pro’s Systematic Investment Plan Calculator?
-                    </p>
-                    <p className='text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto mb-4'>The Prodigy Pro’s SIP Calculator is designed to be beginner-friendly and quick. All it takes are three inputs:</p>
-                    <p className='text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto mb-4'>
-                        Monthly Savings - e.g., ₹8,000/month.</p>
-
-                    <p className='text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto mb-4'>
-                        Investment Period - say 10 years.</p>
-                    <p className='text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto mb-4'>
-                        Expected Return Rate - let’s assume approx-16%.</p>
-                    <p className='text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto mb-4'>
-                        Hit Calculate, and you’ll instantly see:</p>
-                    <p className='text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto mb-4'>
-                        Amount Invested – total money you contributed.</p>
-                    <p className='text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto mb-4'>
-                        Market Value – total future value you might get after 10 years.</p>
-                    <p className='text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto mb-4'>
-                        Returns – the profit earned over your investment value.</p>
-                    <p className='text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto mb-4'>
-                        <b>Example:</b>
-                        ₹8,000/month × 10 years @ 16% return <br />Invested: ₹9,60,000  <br />Future Value: ~₹23.71 lakhs!</p>
-                    <p className='text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto mb-4'>
-                        That’s compounding doing its job silently.</p>
-
-                </div>
-
-                <div className='container mx-auto px-5 md:px-10 lg:px-20'>
-                    <p className="mx-auto mt-4 md:mt-8 mb-4 text-[15px] md:text-[24px] font-bold text-[#44475B] mb-[10px] md:mb-[20px]">
-                        Systematic Investment Plans (SIPs) in India
-                    </p>
-                    <p className='text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto'>
-                        SIPs are one of the easiest and most trusted ways to invest in mutual funds. <br />Instead of investing a large amount in one go, you invest a fixed sum every month on a chosen date – directly from your bank account. No chasing markets, no complicated decisions. Even ₹100 a month is enough to get started, and some SIPs allow you to begin with just ₹100.</p>
-                    <p className='text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto'>So why do SIPs work especially well in India?</p>
-                    <ul className='list-disc pl-7 text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto'>
-                        <li>They fit perfectly into how most of us earn and spend.</li>
-                        <li>For salaried individuals, SIPs build a habit of investing – quietly and consistently – much like a monthly bill you pay to your future self.</li>
-                        <li>They also take away the pressure of trying to “buy at the right time.” Markets go up, markets go down – but SIPs keep you invested through it all, smoothing out volatility over time.</li>
-                        <li>And most importantly, SIPs are designed for long-term goals that truly matter: your child’s education, buying a home, or building a comfortable retirement.</li>
+                        And with one click, you know:</p>
+                    <ul className='list-disc pl-7 text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto mb-4'>
+                        <li>Your maturity value</li>
+                        <li>Your interest earned</li>
                     </ul>
-
-
                     <p className='text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto mb-4'>
-                        At BFC Capital, we see SIPs not as a product, but as a behaviour shift, from worrying about markets to trusting the power of time and consistency.</p>
+                        No guesswork. No assumptions. Just numbers you can trust – before you lock in your money.</p>
+                    <p className='text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto mb-4 font-inter'>
+                        At <b>BFC Capital</b>, this is exactly how we believe decisions should be made: clear first, commit later.</p>
                 </div>
 
                 <div className='container mx-auto px-5 md:px-10 lg:px-20'>
                     <p className="mx-auto mt-4 md:mt-8 mb-4 text-[15px] md:text-[24px] font-bold text-[#44475B] mb-[10px] md:mb-[20px]">
-                        Types of SIPs
+                        Why Does This Actually Matter?
                     </p>
                     <p className='text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto mb-4'>
-                        SIPs aren’t rigid at all! <br />You can choose what suits your lifestyle.</p>
-
-
+                        Let’s be honest.</p>
                     <p className='text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto mb-4'>
-                        <b>Step-Up SIP</b> <br />
-                        Start small and increase gradually. Example: begin with ₹5,000/month, increase by ₹1000 every year as your salary grows.</p>
+                        Nobody enjoys financial surprises – especially the unpleasant kind.</p>
                     <p className='text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto mb-4'>
-                        <b>Top-Up SIP</b> <br />
-                        Add extra whenever you can. Got a yearly bonus? Add ₹15,000 to your SIP. No compulsion, just flexibility to boost returns.</p>
-                </div>
-
-                <div className='container mx-auto px-5 md:px-10 lg:px-20'>
-                    <p className="mx-auto mt-4 md:mt-8 mb-4 text-[15px] md:text-[24px] font-bold text-[#44475B] mb-[10px] md:mb-[20px]">
-                        Why use Prodigy Pro’s online SIP calculator over others?
-                    </p>
+                        Imagine planning your child's higher education thinking your FD will grow to ₹10 lakhs, only to realise at maturity it's ₹8.5 lakhs because the returns were misunderstood.</p>
                     <p className='text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto mb-4'>
-                        Because investing isn’t just about numbers. It’s about clarity and confidence.</p>
-                    <ul className='list-disc pl-7 text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto'>
-                        <li> <b>See the long-term picture</b> <br />It helps you understand how something as small as ₹500 a month today can quietly grow into lakhs over time. No hype, just realistic long-term clarity.</li>
-                        <li> <b>Plan with a purpose</b> <br />Have a specific goal in mind? The calculator shows how much you need to invest to reach it, so your SIP isn’t random. It’s intentional.</li>
-                        <li> <b>Simple to use</b> <br />Clean, quick, and easy to understand. No jargon, no clutter. Just the numbers that actually matter.</li>
-                        <li> <b>Make smarter choices before you commit</b> <br />Compare different SIP amounts and timelines before starting, so you invest with confidence, not guesswork.</li>
-                        <li> <b>Complete transparency</b> <br />You clearly see how much you’ve invested and how much you’ve earned. No surprises. No hidden assumptions.</li>
+                        That gap hurts, and not because FDs are bad, but because expectations were wrong.</p>
+                    <p className='text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto mb-4'>
+                        The BFC Capital's FD Calculator removes that risk. It helps you plan realistically:</p>
+                    <ul className='list-disc pl-7 text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto mb-4'>
+                        <li>A dream vacation in 3 years</li>
+                        <li>A car purchase in 5 years</li>
+                        <li>Or simply a safety net that won’t disappoint</li>
                     </ul>
-
                     <p className='text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto mb-4'>
-
-                        At the end of the day, money management comes down to two simple things: clarity and consistency. <br />Whether you are planning for your child’s future, your dream home, or simply building a safety cushion for tomorrow, this tool removes guesswork and replaces it with a clear, practical roadmap.</p>
-                    <p className='text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto mb-4'>
-                        At BFC Capital, a SEBI Registered Investment Adviser, we believe investing does not have to feel complicated or exclusive. It is about taking small, consistent steps and staying the course.</p>
-                    <p className='text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto mb-4'>
-
-                        So the next time investing feels “too complex” or “only meant for experts,” remember this. All it takes is a fixed amount, a fixed date, and a simple tool like Prodigy Pro’s SIP calculator to start building wealth that keeps working even while you sleep</p>
+                        When you know your numbers upfront, planning becomes calmer and far more confident.</p>
                 </div>
+
+                <div className='container mx-auto px-5 md:px-10 lg:px-20'>
+                    <p className="mx-auto mt-4 md:mt-8 mb-4 text-[15px] md:text-[24px] font-bold text-[#44475B] mb-[10px] md:mb-[20px]">
+                        How to Use the BFC Capital's FD Calculator
+                    </p>
+                    <p className='text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto mb-4'>
+                        It’s designed to be simple – no finance background required.</p>
+                    <p className='text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto mb-4'>
+                        <b>Step 1: Enter Your Investment Amount</b><br />
+                        Example: ₹2,00,000</p>
+                    <p className='text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto mb-4'>
+                        <b>Step 2: Select the Duration</b><br />
+                        Example: 10 years</p>
+                    <p className='text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto mb-4'>
+                        <b>Step 3: Input the Interest Rate</b><br />
+                        Example: 8% offered by your bank or NBFC</p>
+                    <p className='text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto mb-4'>
+                        <b>Step 4: Choose the Compounding Frequency</b><br />
+                        Monthly, quarterly, half-yearly, or yearly, depending on the bank<br />
+                        In this case: Quarterly</p>
+                    <p className='text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto mb-4'>
+                        <b>Step 5: Click "Calculate"</b></p>
+                    <p className='text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto mb-4'>
+                        And instantly, you’ll see:</p>
+                    <ul className='list-disc pl-7 text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto mb-4'>
+                        <li>Maturity Value: ₹4,41,608</li>
+                        <li>Total Amount Invested: ₹2,00,000</li>
+                        <li>Total Interest Earned: ₹2,41,608</li>
+                    </ul>
+                    <p className='text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto mb-4'>
+                        No math. No errors. Just clean clarity.</p>
+                </div>
+
+                <div className='container mx-auto px-5 md:px-10 lg:px-20'>
+                    <p className="mx-auto mt-4 md:mt-8 mb-4 text-[15px] md:text-[24px] font-bold text-[#44475B] mb-[10px] md:mb-[20px]">
+                        Why Use FD Calculator Instead of Doing It Yourself?
+                    </p>
+                    <p className='text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto mb-4'>
+                        <b>1. Saves Time</b><br />
+                        No formulas. No spreadsheets. Results in seconds.</p>
+                    <p className='text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto mb-4'>
+                        <b>2. Ensures Accuracy</b><br />
+                        Manual calculations often go wrong, especially with compounding. The calculator ensures precision every single time.</p>
+                    <p className='text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto mb-4'>
+                        <b>3. Helps You Plan Better</b><br />
+                        Want to experiment?</p>
+                    <ul className='list-disc pl-7 text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto mb-4'>
+                        <li>What if you invest for 10 years instead of 5?</li>
+                        <li>What if you increase the amount?</li>
+                    </ul>
+                    <p className='text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto mb-4'>
+                        The impact is visible instantly – which makes decision-making far easier.</p>
+                    <p className='text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto mb-4'>
+                        <b>4. Complete Transparency</b><br />
+                        You clearly see how much interest you’re earning. No hidden assumptions, no surprises at maturity.</p>
+
+                </div>
+
+                <div className='container mx-auto px-5 md:px-10 lg:px-20'>
+                    <p className="mx-auto mt-4 md:mt-8 mb-4 text-[15px] md:text-[24px] font-bold text-[#44475B] mb-[10px] md:mb-[20px]">
+                        Final Word
+                    </p>
+                    <p className='text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto mb-4'>
+                        Fixed deposits are popular in India for a reason. They’re safe, predictable, and ideal for conservative investors.</p>
+                    <p className='text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto mb-4'>
+                        But safe doesn’t mean blind.</p>
+                    <p className='text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto mb-4'>
+                        The FD Calculator ensures you invest with your eyes open. Whether it’s ₹50,000 or ₹50 lakhs, it shows you the real outcome before you commit your money.</p>
+                    <p className='text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto mb-4'>
+                        So next time you're considering an FD, don't rely only on a banker’s promise.<br />
+                        Run the numbers yourself.</p>
+                    <p className='text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto mb-4'>
+                        Because in finance, clarity isn't just power. It's peace of mind.</p>
+                </div>
+
+
             </section >
             <section>
                 <h2 className="text-center text-[20px] md:text-3xl lg:text-5xl font-bold text-[#44475B] mt-16">FAQs</h2>

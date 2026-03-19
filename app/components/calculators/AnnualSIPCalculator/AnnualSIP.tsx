@@ -1,153 +1,203 @@
 "use client";
-
 import { useEffect, useState } from "react";
+
 import { Form, Button } from "react-bootstrap";
+import Image from "next/image";
 import Link from "next/link";
 import Accordion from "react-bootstrap/Accordion";
+// import ReactApexChart from "react-apexcharts";
+import { ApexOptions } from "apexcharts";
 import dynamic from "next/dynamic";
-
+import { ChevronRight } from "lucide-react";
+import RangeBar from "@/app/components/common/RangeBar";
+import { toast } from "react-toastify";
 const ReactApexChart = dynamic(() => import("react-apexcharts"), {
     ssr: false,
 });
-import { ApexOptions } from "apexcharts";
-import RangeBar from "@/app/components/common/RangeBar";
-import { toast } from "react-toastify";
-import { ChevronRight } from "lucide-react";
+
+interface ChartState {
+    options: ApexOptions;
+    series: { name: string; data: number[] }[];
+}
 
 export default function AnnualSIP() {
     const questions = [
         {
-            question: "How accurate are SIP Calculator results?",
+            question: "Does it include inflation?",
             answer:
-                "It’s mostly accurate. The calculator gives you a projected figure, not a guaranteed figure.",
+                "No, it shows nominal returns, so adjust your target to account for future inflation.",
         },
         {
-            question: "Can the SIP Calculator help in retirement planning?",
+            question: "Can I calculate multiple goals at once?",
             answer:
-                "Yes, it does by estimating how much money your regular investments can grow over time, showing the corpus you can accumulate by retirement. This allows you to set monthly investment goals and track your progress. SIP Calculators also highlight the importance of starting early and staying invested consistently.",
+                "Yes, use it separately for each goal to see the required annual investments.",
         },
         {
-            question: "What inputs are required in a SIP Calculator?",
+            question: "What rate of return should I use?",
             answer:
-                "Usually, the monthly savings, expected rate of return and investment horizon or time duration of the SIP are all you need to enter to get results.",
+                "Reasonable assumptions can be made after consulting with your financial expert.",
         },
         {
-            question: "Is SIP 100% safe?",
+            question: "How often should I check my portfolio?",
             answer:
-                "No, a SIP is not completely risk-free, as all investments in the equity market carry some risk. However, SIPs do help reduce risk compared to lump-sum investments by spreading investments over time, known as rupee cost averaging, and reducing the impact of market volatility, especially over the long term",
+                "Every 6–12 months, or if your income, expenses, or goals change.",
         },
         {
-            question: "Can I invest 100 rupees in SIP?",
+            question: "Can I adjust the annual investment?",
             answer:
-                "Some schemes allow you to start your SIPs with an amount as low as 100 rupees as well, making SIPs affordable and within reach of every kind of investor.",
+                "Yes, the calculator allows experimenting with higher or lower contributions to see how your corpus changes.",
         },
     ];
 
-    interface ChartState {
-        options: ApexOptions;
-        series: { name: string; data: number[] }[];
-    }
-    const [investmentPeriod, setInvestmentPeriod] = useState<number>(10);
-    const [monthlySaving, setMonthlySaving] = useState<number>(10000);
-    const [monthlySaving1, setMonthlySaving1] = useState<number>(10000);
-    const [expectedRateOfReturn, setExpectedRateOfReturn] =
-        useState<string | number>(16.5);
+    const [amount, setAmount] = useState<number>(100000);
+    const [time, setTime] = useState<number>(10);
+    const [rate, setRate] = useState<string | number>(12);
+    const [result, setResult] = useState<number>(1965458.328);
+    const [chartState, setChartState] = useState<ChartState | null>(null);
+    const [finalAmount, setFinalAmount] = useState<number>(1000000);
 
-    const [gains, setGains] = useState<number>(3017292);
-    const [totalYear, setTotalYear] = useState<number>(10);
-    const [totalGains, setTotalGains] = useState<number>(3058780);
-    const [totalMonthlySaving, setTotalMonthlySaving] = useState<number>(1200000);
-    const [oneMonthSaving, setOneMonthSaving] = useState<number>(10000);
-    const [investmentPeriod1, setInvestmentPeriod1] = useState<number>(10);
+    useEffect(() => {
+        const months = time * 12;
+    }, [rate, time, amount]);
+    useEffect(() => {
+        calculateButton();
+    }, []);
 
-    const yearInString = (currentTotalYear: number = totalYear): string[] => {
-        let xAxisArray: string[] = [];
-        if (currentTotalYear > 16) {
-            for (let i = 1; i <= currentTotalYear; i += 2) xAxisArray.push(i + "Y");
-            if (currentTotalYear % 2 === 0) xAxisArray.push(currentTotalYear + "Y");
-        } else {
-            for (let i = 1; i <= currentTotalYear; i++) xAxisArray.push(i + "Y");
+    const buildYearSeries = (
+        yearlyAmount: number,
+        rate: number,
+        years: number,
+    ) => {
+        const invested: number[] = [];
+        const gain: number[] = [];
+
+        let corpus = 0;
+
+        for (let year = 1; year <= years; year++) {
+            // 1️⃣ Invest at START of year
+            corpus += yearlyAmount;
+
+            // 2️⃣ Grow entire corpus for the year
+            corpus = corpus * (1 + rate / 100);
+
+            const totalInvested = yearlyAmount * year;
+
+            invested.push(Math.round(totalInvested));
+            gain.push(Math.round(corpus - totalInvested));
         }
-        return xAxisArray;
+
+        return { invested, gain };
     };
 
-    const valueForGraph = (data: number, currentTotalYear: number = totalYear): number[] => {
-        let graphValue: number[] = [];
-        if (currentTotalYear > 16) {
-            for (let i = currentTotalYear; i > 0; i -= 2)
-                graphValue.push(Math.round(data / i));
-            if (currentTotalYear % 2 === 0) graphValue.push(Math.round(data));
-        } else {
-            for (let i = currentTotalYear; i > 0; i--) graphValue.push(Math.round(data / i));
-        }
-        return graphValue;
-    };
+    // const yearsArray: number[] = Array.from({ length: 15 }, (_, i) => i + 1);
 
-    const [chartState, setChartState] = useState<ChartState>({
-        series: [
-            { name: "Market Value", data: valueForGraph(gains + totalMonthlySaving) },
-            { name: "Invested Amount", data: valueForGraph(totalMonthlySaving) },
-        ],
-        options: {
-            legend: {
-                show: false,
-            },
-            chart: {
-                height: 350,
-                type: "area",
-                background: "transparent",
-                toolbar: { show: false },
-                zoom: { enabled: false },
-            },
-            dataLabels: { enabled: false },
-            stroke: {
-                curve: "monotoneCubic",
-                width: [2, 2],
-                colors: ["#357AF6", "#57BE65"],
-            },
-            xaxis: { categories: yearInString() },
-            grid: { show: false },
-        },
-    });
-
-    const calculateSip = () => {
-        if (!monthlySaving || !expectedRateOfReturn) {
-            toast.error("Please make sure all required fields are filled in.")
+    const calculateButton = () => {
+        if (!amount || !rate) {
+            toast.error("Please make sure all required fields are filled in.");
             return;
-        }
-        else {
-            let monthlyRate = Number(expectedRateOfReturn) / 12 / 100;
-            let months = investmentPeriod * 12;
-            let futureValue =
-                ((monthlySaving * (Math.pow(1 + monthlyRate, months) - 1)) /
-                    monthlyRate) *
-                (1 + monthlyRate);
+        } else {
+            const P = amount;
+            const n = time;
+            const r = Number(rate) / 100;
 
-            let mainResults = Math.round(futureValue);
-            let totalSaving = monthlySaving * months;
-            let gain = mainResults - totalSaving;
+            // FV = P * ((1+r)^n - 1) / r * (1+r)
+            const fv = P * ((Math.pow(1 + r, n) - 1) / r) * (1 + r);
 
-            setGains(Math.round(gain));
-            setTotalYear(investmentPeriod);
-            setTotalMonthlySaving(totalSaving);
-            setTotalGains(totalSaving + gain);
-            setInvestmentPeriod1(investmentPeriod);
-            setMonthlySaving1(monthlySaving);
+            setResult(fv);
+            setFinalAmount(amount * time);
 
-            // Update chart dynamically
-            setChartState((prevState) => ({
+            const { invested: investedArr, gain: gainArr } = buildYearSeries(
+                amount,
+                Number(rate),
+                time,
+            );
+
+            const yearsArray: number[] = Array.from(
+                { length: time },
+                (_, i) => i + 1,
+            );
+
+            const state: ChartState = {
                 series: [
-                    { name: "Market Value", data: valueForGraph(totalSaving + gain, investmentPeriod) },
-                    { name: "Invested Amount", data: valueForGraph(totalSaving, investmentPeriod) },
+                    {
+                        name: "Invested Value",
+                        data: investedArr,
+                    },
+                    {
+                        name: "Gain",
+                        data: gainArr,
+                    },
                 ],
                 options: {
-                    ...prevState.options,
-                    xaxis: { categories: yearInString(investmentPeriod) },
-                },
-            }));
-        }
+                    legend: {
+                        show: false,
+                    },
 
+                    chart: {
+                        type: "bar",
+                        stacked: true,
+                        height: 1000,
+                        toolbar: {
+                            show: false,
+                        },
+                    },
+                    colors: ["#CCD2FF", "#1A35FE"],
+                    plotOptions: {
+                        bar: {
+                            borderRadius: 3,
+                            borderRadiusApplication: "end",
+                            horizontal: false,
+                        },
+                    },
+                    tooltip: {
+                        shared: true,
+                        intersect: false,
+                        custom: function ({ series, dataPointIndex }: any) {
+                            const investedVal = series[0][dataPointIndex] ?? 0;
+                            const gain = series[1][dataPointIndex] ?? 0;
+                            const current = investedVal + gain;
+                            const year = yearsArray[dataPointIndex];
+
+                            const formatValue = (v: number) => {
+                                if (v >= 10000000) return `₹${(v / 10000000).toFixed(2)}Cr`;
+                                if (v >= 100000) return `₹${(v / 100000).toFixed(2)}L`;
+                                if (v >= 1000) return `₹${(v / 1000).toFixed(2)}K`;
+                                return `₹${v.toLocaleString("en-IN")}`;
+                            };
+
+                            return `
+          <div style="padding:8px; border-radius:8px; border:1px solid #e6e9ff; background:#fff;">
+            <div><b>Year: ${year}</b></div>
+            <div>Current Value: ${formatValue(current)}</div>
+            <div>Invested Value: ${formatValue(investedVal)}</div>
+            <div>Gain: <span style="color:green;">${formatValue(
+                                gain,
+                            )}</span></div>
+          </div>
+        `;
+                        },
+                    },
+                    xaxis: { categories: yearsArray, axisTicks: { show: false } },
+                    yaxis: {
+                        labels: {
+                            show: true,
+                            formatter: function (value: number) {
+                                if (value >= 100000) {
+                                    return (value / 100000).toFixed(0) + "L";
+                                }
+                                return value.toString();
+                            },
+                        },
+                    },
+                    grid: { show: false },
+                    dataLabels: { enabled: false },
+                    fill: { opacity: 1 },
+                },
+            };
+            setChartState(state);
+        }
     };
+
 
     return (
         <>
@@ -178,28 +228,29 @@ export default function AnnualSIP() {
                         className="h-4 w-4 mx-2"
                         style={{ stroke: "url(#chevron-gradient)" }}
                     />
-                    <span className="text-[#7A7A7A] font-semibold" style={{
-                        background: "linear-gradient(90deg, #04B488 39.5%, #011EFE 100%)",
-                        WebkitBackgroundClip: "text",
-                        WebkitTextFillColor: "transparent",
-                        backgroundClip: "text",
-                        color: "transparent"
-                    }}>Calculators</span>
-                    <ChevronRight
-                        className="h-4 w-4 mx-2"
-                        style={{ stroke: "url(#chevron-gradient)" }}
-                    />
-                    <span className="text-[#7A7A7A] font-semibold" style={{
-                        background: "linear-gradient(90deg, #04B488 39.5%, #011EFE 100%)",
-                        WebkitBackgroundClip: "text",
-                        WebkitTextFillColor: "transparent",
-                        backgroundClip: "text",
-                        color: "transparent"
-                    }}>SIP Calculator</span>
+                    <Link href="/calculators">
+                        <span className="text-[#7A7A7A] font-semibold" style={{
+                            background: "linear-gradient(90deg, #04B488 39.5%, #011EFE 100%)",
+                            WebkitBackgroundClip: "text",
+                            WebkitTextFillColor: "transparent",
+                            backgroundClip: "text",
+                            color: "transparent"
+                        }}>Calculators</span>
+                        <ChevronRight
+                            className="h-4 w-4 mx-2"
+                            style={{ stroke: "url(#chevron-gradient)" }}
+                        />
+                        <span className="text-[#7A7A7A] font-semibold" style={{
+                            // background: "linear-gradient(90deg, #04B488 39.5%, #011EFE 100%)",
+                            // WebkitBackgroundClip: "text",
+                            // WebkitTextFillColor: "transparent",
+                            // backgroundClip: "text",
+                            // color: "transparent"
+                        }}>Annual SIP Calculator</span>
                 </nav>
                 {/* Title */}
                 <h2 className="text-[20px] md:text-3xl lg:text-5xl font-bold text-[#44475B]">
-                    SIP Calculator
+                    Annual SIP Calculator
                 </h2>
             </div>
             <section>
@@ -366,145 +417,102 @@ export default function AnnualSIP() {
             </section>
             <section>
                 <h2 className="text-center text-[20px] md:text-3xl lg:text-5xl font-bold text-[#44475B] mt-16">All You Need To Know About <br />
-                    SIP Calculator</h2>
+                    Annual SIP Calculator</h2>
                 <div className='container mx-auto px-5 md:px-10 lg:px-20'>
                     <p className="mx-auto mt-4 md:mt-8 mb-4 text-[15px] md:text-[24px] font-bold text-[#44475B] mb-[10px] md:mb-[20px]">
-                        What is an SIP Calculator?
+                        What is an Annual SIP Calculator?
                     </p>
-                    <p className='text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto mb-4'>Let’s keep this simple. <br />
-                        Imagine you put aside ₹3,000 every month in a piggy bank. After one year, you’d have ₹36,000. No surprises there.</p>
-                    <p className='text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto mb-4'>Now imagine if that same money didn’t just sit quietly in a corner, but actually worked for you. It earned returns. And then those returns started earning returns too.</p>
-                    <p className='text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto mb-4'>
-                        That’s what investing does.</p>
-                    <p className='text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto mb-4'>
-                        One of the easiest and most comfortable ways to start investing is through an SIP (Systematic Investment Plan). And to understand where your SIP could realistically take you, you need a tool that shows the picture clearly. That’s where the Prodigy Pro SIP Calculator, developed by BFC Capital – a SEBI-registered investment advisor (RIA), comes in.</p>
-                    <p className='text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto mb-4'>A SIP Calculator is a simple online tool that helps you estimate how much your regular monthly investments may grow over time. Think of it like checking Google Maps before starting a journey– you may not know every turn, but at least you know where you’re headed.</p>
+                    <p className='text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto mb-4'>We all talk about the power of compounding. Invest regularly, stay patient, and over time, money starts working harder than you ever could. But when investments are made once a year instead of monthly, things can get a little unclear.</p>
+                    <p className='text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto mb-4'>How much will your annual investments actually grow into?<br />
+                        Is your yearly contribution enough for the goal you have in mind?<br />
+                        And are your expectations realistic?</p>
+                    <p className='text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto mb-4'>This is where the Annual SIP Calculator becomes useful.</p>
+                    <p className='text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto mb-4'>Think of it as a reality check for your yearly investments. You enter how much you plan to invest every year, how long you will stay invested, and a reasonable expected rate of return. The calculator then shows you what kind of corpus your discipline can create over time.</p>
+                    <p className='text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto mb-4'>No complex maths. No confusing assumptions. Just clarity.</p>
                 </div>
 
                 <div className='container mx-auto px-5 md:px-10 lg:px-20'>
                     <p className="mx-auto mt-4 md:mt-8 mb-4 text-[15px] md:text-[24px] font-bold text-[#44475B] mb-[10px] md:mb-[20px]">
-                        How Can a SIP Calculator Help You?
+                        Why the Annual SIP Calculator Matters
                     </p>
-                    <p className='text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto mb-4'>Investing without a plan is like saying, “Let’s just drive and see where we land.” Sounds fun, but not when your money is involved. <br />A SIP calculator brings clarity where confusion usually exists.</p>
-                    <p className='text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto mb-4'>
-                        It helps you set clear goals</p>
-                    <p className='text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto mb-4'>
-                        Maybe you want ₹50 lakhs for your child’s higher education in 20 years. <br />Or ₹15 lakhs for a wedding after 3 years. <br />Instead of guessing, the calculator tells you how much you need to invest every month to realistically reach those goals.</p>
-                    <p className='text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto'>It shows you the real power of compounding <br />
-                        This is where things get interesting. For example, if you invest ₹5,000 every month for 10 years and earn an average return of 12%:</p>
-                    <ul className='list-disc pl-7 text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto'>
-                        <li>Total amount invested: ₹6 lakhs</li>
-                        <li>Approximate value after 10 years: ₹11.5 lakhs</li>
-                    </ul>
-
-                    <p className='text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto mb-4'>
-                        You didn’t double your effort. Time and compounding did the heavy lifting for you.</p>
-                    <p className='text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto mb-4 font-bold italic'>
-                        It helps build discipline</p>
-                    <p className='text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto mb-4'>
-
-                        Once you know your target and the monthly amount required, investing stops feeling random. <br />You’re less likely to break your SIP for short-term expenses because now your money has a purpose. SIPs work best when they run quietly in the background – automatically, consistently, and without emotional decisions.</p>
+                    <p className='text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto mb-4'>Long-term planning often feels comfortable in the beginning. You tell yourself, "I am investing every year, so things should work out."</p>
+                    <p className='text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto mb-4'>But years later, many investors realise that the final amount is lower than expected. Not because they did something wrong, but because small assumptions were never checked early on.</p>
+                    <p className='text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto mb-4'>Imagine investing ₹2 lakh every year for 15 years for your child's education, only to realise later that the corpus is not enough. At that stage, time is no longer on your side.</p>
+                    <p className='text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto mb-4'>The Annual SIP Calculator helps prevent this. It shows you upfront what your annual discipline can realistically achieve and whether adjustments are needed.</p>
+                    <p className='text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto mb-4'>At BFC Capital, this kind of clarity is central to how we plan. As a SEBI Registered Investment Advisor, the focus is always on suitability, realistic expectations, and goal alignment rather than optimistic projections.</p>
                 </div>
 
                 <div className='container mx-auto px-5 md:px-10 lg:px-20'>
                     <p className="mx-auto mt-4 md:mt-8 mb-4 text-[15px] md:text-[24px] font-bold text-[#44475B] mb-[10px] md:mb-[20px]">
-                        How Do SIP Calculators Work?
+                        How to Use Annual SIP Calculator
                     </p>
-                    <p className='text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto mb-4'>At its heart, an SIP calculator is built on one powerful idea: <b>compounding</b>.</p>
-                    <p className='text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto mb-4'>You invest a fixed amount every month – no guesswork, no market timing. <br />That money starts earning returns. <br />Those returns don’t just sit there; they get reinvested and begin earning returns of their own.</p>
-                    <p className='text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto mb-4'>
-                        Over time, this creates a snowball effect. What starts as small, disciplined monthly investments can quietly grow into meaningful wealth.
-                        The SIP calculator simply does the number-crunching for you. It shows you what consistency and time can do, without you having to open a spreadsheet or stress over calculations.</p>
-
-                    <p className='text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto mb-4'>
-                        At BFC Capital, we believe the real magic isn’t in predicting markets, but in staying invested long enough for compounding to do its job.</p>
+                    <p className='text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto mb-4'>The process is intentionally simple.</p>
+                    <p className='text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto mb-4'>Enter your annual investment amount.<br />For example, ₹5,00,000 per year.</p>
+                    <p className='text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto mb-4'>Set your investment horizon.<br />For instance, 15 years until you need the money.</p>
+                    <p className='text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto mb-4'>Choose an expected rate of return.<br />Say 14 percent annually, depending on the asset mix chosen.</p>
+                    <p className='text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto mb-4'>Click "Calculate".<br />The calculator immediately shows you your estimated future value, and also reflects total invested amount.</p>
+                    <p className='text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto mb-4'>Total Invested Amount: ₹ 75,00,000</p>
+                    <p className='text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto mb-4'>Future Corpus: ₹ 2,49,90,176</p>
+                    <p className='text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto mb-4'>That's it. No confusion. Just a clear picture of what your annual investing habit can build over time.</p>
                 </div>
 
                 <div className='container mx-auto px-5 md:px-10 lg:px-20'>
                     <p className="mx-auto mt-4 md:mt-8 mb-4 text-[15px] md:text-[24px] font-bold text-[#44475B] mb-[10px] md:mb-[20px]">
-                        How to Use the Prodigy Pro’s Systematic Investment Plan Calculator?
+                        Why Use This Calculator Instead of Estimating Yourself?
                     </p>
-                    <p className='text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto mb-4'>The Prodigy Pro’s SIP Calculator is designed to be beginner-friendly and quick. All it takes are three inputs:</p>
-                    <p className='text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto mb-4'>
-                        Monthly Savings - e.g., ₹8,000/month.</p>
-
-                    <p className='text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto mb-4'>
-                        Investment Period - say 10 years.</p>
-                    <p className='text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto mb-4'>
-                        Expected Return Rate - let’s assume approx-16%.</p>
-                    <p className='text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto mb-4'>
-                        Hit Calculate, and you’ll instantly see:</p>
-                    <p className='text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto mb-4'>
-                        Amount Invested – total money you contributed.</p>
-                    <p className='text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto mb-4'>
-                        Market Value – total future value you might get after 10 years.</p>
-                    <p className='text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto mb-4'>
-                        Returns – the profit earned over your investment value.</p>
-                    <p className='text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto mb-4'>
-                        <b>Example:</b>
-                        ₹8,000/month × 10 years @ 16% return <br />Invested: ₹9,60,000  <br />Future Value: ~₹23.71 lakhs!</p>
-                    <p className='text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto mb-4'>
-                        That’s compounding doing its job silently.</p>
+                    <p className='text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto mb-4'>Many investors roughly estimate returns or rely on past experiences. This often leads to either overconfidence or unnecessary worry.</p>
+                    <p className='text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto mb-2'>1. This calculator helps because it saves time with instant results.</p>
+                    <p className='text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto mb-2'>2. It calculates compounding accurately, which is where most estimates go wrong.</p>
+                    <p className='text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto mb-2'>3. It allows you to test scenarios by changing investment amounts or timelines.</p>
+                    <p className='text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto mb-4'>4. It keeps everything transparent so you know exactly what your plan looks like.</p>
+                    <p className='text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto mb-4'>This approach encourages informed decisions instead of hopeful assumptions.</p>
 
                 </div>
 
                 <div className='container mx-auto px-5 md:px-10 lg:px-20'>
                     <p className="mx-auto mt-4 md:mt-8 mb-4 text-[15px] md:text-[24px] font-bold text-[#44475B] mb-[10px] md:mb-[20px]">
-                        Systematic Investment Plans (SIPs) in India
+                        How Does It Help You Plan Smarter?
                     </p>
-                    <p className='text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto'>
-                        SIPs are one of the easiest and most trusted ways to invest in mutual funds. <br />Instead of investing a large amount in one go, you invest a fixed sum every month on a chosen date – directly from your bank account. No chasing markets, no complicated decisions. Even ₹100 a month is enough to get started, and some SIPs allow you to begin with just ₹100.</p>
-                    <p className='text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto'>So why do SIPs work especially well in India?</p>
-                    <ul className='list-disc pl-7 text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto'>
-                        <li>They fit perfectly into how most of us earn and spend.</li>
-                        <li>For salaried individuals, SIPs build a habit of investing – quietly and consistently – much like a monthly bill you pay to your future self.</li>
-                        <li>They also take away the pressure of trying to “buy at the right time.” Markets go up, markets go down – but SIPs keep you invested through it all, smoothing out volatility over time.</li>
-                        <li>And most importantly, SIPs are designed for long-term goals that truly matter: your child’s education, buying a home, or building a comfortable retirement.</li>
-                    </ul>
-
-
-                    <p className='text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto mb-4'>
-                        At BFC Capital, we see SIPs not as a product, but as a behaviour shift, from worrying about markets to trusting the power of time and consistency.</p>
+                    <p className='text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto mb-4'>Using the Annual SIP Calculator brings structure to your planning.</p>
+                    <p className='text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto mb-2'>1. It keeps your focus on goals rather than products.</p>
+                    <p className='text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto mb-2'>2. It adapts easily to different annual contribution amounts.</p>
+                    <p className='text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto mb-2'>3. It uses simple and reasonable return assumptions.</p>
+                    <p className='text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto mb-2'>4. It motivates consistency by showing the outcome of discipline.</p>
+                    <p className='text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto mb-4'>5. It allows early course correction while changes are still manageable.</p>
+                    <p className='text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto'>This is especially important for long-term goals where small improvements today can make a big difference later.</p>
                 </div>
 
                 <div className='container mx-auto px-5 md:px-10 lg:px-20'>
                     <p className="mx-auto mt-4 md:mt-8 mb-4 text-[15px] md:text-[24px] font-bold text-[#44475B] mb-[10px] md:mb-[20px]">
-                        Types of SIPs
+                        Tips for Using the Calculator Effectively
                     </p>
-                    <p className='text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto mb-4'>
-                        SIPs aren’t rigid at all! <br />You can choose what suits your lifestyle.</p>
-
-
-                    <p className='text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto mb-4'>
-                        <b>Step-Up SIP</b> <br />
-                        Start small and increase gradually. Example: begin with ₹5,000/month, increase by ₹1000 every year as your salary grows.</p>
-                    <p className='text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto mb-4'>
-                        <b>Top-Up SIP</b> <br />
-                        Add extra whenever you can. Got a yearly bonus? Add ₹15,000 to your SIP. No compulsion, just flexibility to boost returns.</p>
+                    <p className='text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto mb-2'>1. Use realistic return expectations based on asset allocation and risk tolerance.</p>
+                    <p className='text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto mb-2'>2. Start early. Even modest annual investments benefit enormously from time.</p>
+                    <p className='text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto mb-2'>3. Review your plan every 6 to 12 months or when life circumstances change.</p>
+                    <p className='text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto mb-4'>4. Diversify across suitable asset classes to balance growth and risk.</p>
+                    <p className='text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto mb-4'>A calculator shows possibilities. Good advice helps align those possibilities with real-life situations.</p>
                 </div>
 
                 <div className='container mx-auto px-5 md:px-10 lg:px-20'>
                     <p className="mx-auto mt-4 md:mt-8 mb-4 text-[15px] md:text-[24px] font-bold text-[#44475B] mb-[10px] md:mb-[20px]">
-                        Why use Prodigy Pro’s online SIP calculator over others?
+                        Who Should Use the Annual SIP Calculator?
                     </p>
-                    <p className='text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto mb-4'>
-                        Because investing isn’t just about numbers. It’s about clarity and confidence.</p>
-                    <ul className='list-disc pl-7 text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto'>
-                        <li> <b>See the long-term picture</b> <br />It helps you understand how something as small as ₹500 a month today can quietly grow into lakhs over time. No hype, just realistic long-term clarity.</li>
-                        <li> <b>Plan with a purpose</b> <br />Have a specific goal in mind? The calculator shows how much you need to invest to reach it, so your SIP isn’t random. It’s intentional.</li>
-                        <li> <b>Simple to use</b> <br />Clean, quick, and easy to understand. No jargon, no clutter. Just the numbers that actually matter.</li>
-                        <li> <b>Make smarter choices before you commit</b> <br />Compare different SIP amounts and timelines before starting, so you invest with confidence, not guesswork.</li>
-                        <li> <b>Complete transparency</b> <br />You clearly see how much you’ve invested and how much you’ve earned. No surprises. No hidden assumptions.</li>
-                    </ul>
+                    <p className='text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto mb-2'>1. Young professionals planning yearly investments for future goals.</p>
+                    <p className='text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto mb-2'>2. Parents investing annually for education or marriage expenses.</p>
+                    <p className='text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto mb-2'>3. Retirement planners estimating wealth creation through yearly discipline.</p>
+                    <p className='text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto mb-2'>4. First-time investors who want clarity before committing.</p>
+                    <p className='text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto mb-4'>5. Experienced investors who want to model different annual investment scenarios.</p>
+                    <p className='text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto mb-4'>If you invest once a year with a goal in mind, this tool is relevant for you.</p>
+                </div>
 
-                    <p className='text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto mb-4'>
-
-                        At the end of the day, money management comes down to two simple things: clarity and consistency. <br />Whether you are planning for your child’s future, your dream home, or simply building a safety cushion for tomorrow, this tool removes guesswork and replaces it with a clear, practical roadmap.</p>
-                    <p className='text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto mb-4'>
-                        At BFC Capital, a SEBI Registered Investment Adviser, we believe investing does not have to feel complicated or exclusive. It is about taking small, consistent steps and staying the course.</p>
-                    <p className='text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto mb-4'>
-
-                        So the next time investing feels “too complex” or “only meant for experts,” remember this. All it takes is a fixed amount, a fixed date, and a simple tool like Prodigy Pro’s SIP calculator to start building wealth that keeps working even while you sleep</p>
+                <div className='container mx-auto px-5 md:px-10 lg:px-20'>
+                    <p className="mx-auto mt-4 md:mt-8 mb-4 text-[15px] md:text-[24px] font-bold text-[#44475B] mb-[10px] md:mb-[20px]">
+                        See Your Annual Discipline Turn Into Progress
+                    </p>
+                    <p className='text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto mb-4'>A goal without a plan often remains just an intention.</p>
+                    <p className='text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto mb-4'>The Annual SIP Calculator helps convert intention into structure. It shows how your yearly contributions grow, how compounding supports your effort, and where adjustments may be required.</p>
+                    <p className='text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto mb-4'>Whether it is ₹50,000 per year or ₹2 lakh per year, the principle stays the same. Clarity builds confidence. Confidence builds consistency.</p>
+                    <p className='text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto mb-4'>And consistency is what ultimately delivers results.</p>
                 </div>
             </section >
             <section>

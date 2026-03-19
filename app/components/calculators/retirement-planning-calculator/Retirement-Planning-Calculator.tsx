@@ -2,151 +2,197 @@
 
 import { useEffect, useState } from "react";
 import { Form, Button } from "react-bootstrap";
+import Image from "next/image";
 import Link from "next/link";
 import Accordion from "react-bootstrap/Accordion";
-import dynamic from "next/dynamic";
-
-const ReactApexChart = dynamic(() => import("react-apexcharts"), {
-    ssr: false,
-});
-import { ApexOptions } from "apexcharts";
-import RangeBar from "@/app/components/common/RangeBar";
+import RangeBar from "../../common/RangeBar";
 import { toast } from "react-toastify";
 import { ChevronRight } from "lucide-react";
+
+// Utility functions (from your original code)
+const pmtvalue = (
+    rate: number,
+    nper: number,
+    pv: number,
+    fv: number,
+    type: number,
+) => {
+    if (rate === 0) return -(pv + fv) / nper;
+    const pvif = Math.pow(1 + rate, nper);
+    let pmt = (-rate * (fv + pvif * pv)) / ((-1 + pvif) * (1 + rate * type));
+    return pmt;
+};
+
+const RetirementPresentValue = (
+    rate: number,
+    nper: number,
+    pmt: number,
+    fv: number,
+    type: number,
+) => {
+    let pv;
+    if (rate === 0) pv = -fv - pmt * nper;
+    else {
+        const pvif = Math.pow(1 + rate, nper);
+        pv = (-fv - (pmt * (1 + rate * type) * (pvif - 1)) / rate) / pvif;
+    }
+    return pv;
+};
 
 export default function RetirementPlanningCalculator() {
     const questions = [
         {
-            question: "How accurate are SIP Calculator results?",
+            question: "What is the ideal retirement age to plan for?",
             answer:
-                "It’s mostly accurate. The calculator gives you a projected figure, not a guaranteed figure.",
+                "The ideal age depends on you, retirement age is subjective from person to person and you should be the one to decide when you want to retire and to help you plan for that this calculator has everything you will need.",
         },
         {
-            question: "Can the SIP Calculator help in retirement planning?",
+            question: "How much money will I need to retire comfortably?",
             answer:
-                "Yes, it does by estimating how much money your regular investments can grow over time, showing the corpus you can accumulate by retirement. This allows you to set monthly investment goals and track your progress. SIP Calculators also highlight the importance of starting early and staying invested consistently.",
+                "It depends on your lifestyle, but the calculator personalizes the answer using your expenses and inflation.",
         },
         {
-            question: "What inputs are required in a SIP Calculator?",
+            question: "How does inflation impact my retirement planning?",
             answer:
-                "Usually, the monthly savings, expected rate of return and investment horizon or time duration of the SIP are all you need to enter to get results.",
+                "Because your ₹50,000 lifestyle today could cost over ₹2.5 lakh a month in 30 years. Ignoring inflation is the biggest mistake.",
         },
         {
-            question: "Is SIP 100% safe?",
+            question: "Does the calculator consider life expectancy?",
             answer:
-                "No, a SIP is not completely risk-free, as all investments in the equity market carry some risk. However, SIPs do help reduce risk compared to lump-sum investments by spreading investments over time, known as rupee cost averaging, and reducing the impact of market volatility, especially over the long term",
+                "Yes. It ensures your corpus lasts for the years you expect to live post-retirement.",
         },
         {
-            question: "Can I invest 100 rupees in SIP?",
+            question: "Can I plan for early retirement using this calculator?",
             answer:
-                "Some schemes allow you to start your SIPs with an amount as low as 100 rupees as well, making SIPs affordable and within reach of every kind of investor.",
+                "Yes. Just enter your preferred retirement age and it will show the bigger savings you’ll need to fund more years without income.",
         },
     ];
+    // useEffect(() => {
+    //   const fetchFaqs = async () => {
+    //     try {
+    //       const res = await fetch(`${Base_url}/${endpoints.calculators}`);
+    //       const data = await res.json();
 
-    interface ChartState {
-        options: ApexOptions;
-        series: { name: string; data: number[] }[];
-    }
-    const [investmentPeriod, setInvestmentPeriod] = useState<number>(10);
-    const [monthlySaving, setMonthlySaving] = useState<number>(10000);
-    const [monthlySaving1, setMonthlySaving1] = useState<number>(10000);
-    const [expectedRateOfReturn, setExpectedRateOfReturn] =
-        useState<string | number>(16.5);
+    //       // Extract FAQ array safely
+    //       const faqItems = data?.data[0]?.attributes?.sipCalculator?.FAQ || [];
+    //       setQuestions(faqItems);
+    //     } catch (error) {
+    //       console.error("Error fetching FAQs:", error);
+    //     }
+    //   };
 
-    const [gains, setGains] = useState<number>(3017292);
-    const [totalYear, setTotalYear] = useState<number>(10);
-    const [totalGains, setTotalGains] = useState<number>(3058780);
-    const [totalMonthlySaving, setTotalMonthlySaving] = useState<number>(1200000);
-    const [oneMonthSaving, setOneMonthSaving] = useState<number>(10000);
-    const [investmentPeriod1, setInvestmentPeriod1] = useState<number>(10);
+    //   fetchFaqs();
+    // }, []);
 
-    const yearInString = (currentTotalYear: number = totalYear): string[] => {
-        let xAxisArray: string[] = [];
-        if (currentTotalYear > 16) {
-            for (let i = 1; i <= currentTotalYear; i += 2) xAxisArray.push(i + "Y");
-            if (currentTotalYear % 2 === 0) xAxisArray.push(currentTotalYear + "Y");
-        } else {
-            for (let i = 1; i <= currentTotalYear; i++) xAxisArray.push(i + "Y");
-        }
-        return xAxisArray;
-    };
+    // const [monthlySaving, setMonthlySaving] = useState("₹ 10,00,000");
+    // const [rateOfReturn, setRateOfReturn] = useState("₹ 5,00,000");
+    // const [period, setPeriod] = useState("24");
 
-    const valueForGraph = (data: number, currentTotalYear: number = totalYear): number[] => {
-        let graphValue: number[] = [];
-        if (currentTotalYear > 16) {
-            for (let i = currentTotalYear; i > 0; i -= 2)
-                graphValue.push(Math.round(data / i));
-            if (currentTotalYear % 2 === 0) graphValue.push(Math.round(data));
-        } else {
-            for (let i = currentTotalYear; i > 0; i--) graphValue.push(Math.round(data / i));
-        }
-        return graphValue;
-    };
+    // 🧮 Input states
+    const [currentAge, setCurrentAge] = useState(30);
+    const [retirementAge, setRetirementAge] = useState(60);
+    const [monthlyExpenses, setMonthlyExpenses] = useState(30000);
+    const [expectedInflationRate, setExpectedInflationRate] = useState<string | number>(6);
+    const [currentSaving, setCurrentSaving] = useState(5000);
+    const [existingCorpus, setExistingCorpus] = useState(200000);
+    const [preRetirementReturns, setPreRetirementReturns] = useState<string | number>(12);
+    const [postRetirementReturns, setPostRetirementReturns] = useState<string | number>(7);
+    const [lifeExpectancy, setLifeExpectancy] = useState(20);
 
-    const [chartState, setChartState] = useState<ChartState>({
-        series: [
-            { name: "Market Value", data: valueForGraph(gains + totalMonthlySaving) },
-            { name: "Invested Amount", data: valueForGraph(totalMonthlySaving) },
-        ],
-        options: {
-            legend: {
-                show: false,
-            },
-            chart: {
-                height: 350,
-                type: "area",
-                background: "transparent",
-                toolbar: { show: false },
-                zoom: { enabled: false },
-            },
-            dataLabels: { enabled: false },
-            stroke: {
-                curve: "monotoneCubic",
-                width: [2, 2],
-                colors: ["#357AF6", "#57BE65"],
-            },
-            xaxis: { categories: yearInString() },
-            grid: { show: false },
-        },
-    });
+    // 📊 Output states
+    const [yearToRetirement, setYearToRetirement] = useState(30);
+    const [amountPostRetirementPM, setAmountPostRetirementPM] = useState(172305);
+    const [corppusToBeAchive, setCorppusToBeAchive] = useState(37702271);
+    const [
+        corpusYouWillAccumalateWithCurrentSaving,
+        setCorpusYouWillAccumalateWithCurrentSaving,
+    ] = useState(17474821);
+    const [
+        corpusYouWillAccumalateWithExistingSaving,
+        setCorpusYouWillAccumalateWithExistingSaving,
+    ] = useState(5081744);
+    const [sortfallAmount, setSortfallAmount] = useState(15145707);
+    const [extraSavingPM, setExtraSavingPM] = useState(4963);
+    const [isCalculated, setIsCalculated] = useState(false);
 
-    const calculateSip = () => {
-        if (!monthlySaving || !expectedRateOfReturn) {
-            toast.error("Please make sure all required fields are filled in.")
+    // 🔹 Handle Calculate Button
+    const handleCalculate = async (e: React.FormEvent) => {
+        e.preventDefault();
+        if (
+            !monthlyExpenses ||
+            !expectedInflationRate ||
+            !currentSaving ||
+            !existingCorpus ||
+            !preRetirementReturns ||
+            !postRetirementReturns ||
+            !lifeExpectancy
+        ) {
+            toast.error("Please make sure all required fields are filled in.");
             return;
+        } else {
+            if (currentAge >= retirementAge) {
+                toast.error("Retirement Age must be greater than Current Age");
+            } else {
+                let retirement_yr = retirementAge - currentAge;
+                let inflationR = 0.01 * Number(expectedInflationRate);
+                let postRetirementReturn = 0.01 * Number(postRetirementReturns);
+                let onePlusinflationR = 1 + inflationR;
+                let onePluspostRetirementReturn = 1 + postRetirementReturn;
+                let inflationAdjust =
+                    onePluspostRetirementReturn / onePlusinflationR - 1;
+                let inflationAdjustReturn = inflationAdjust / 12;
+                let lifeExpectancy_yr = lifeExpectancy * 12;
+
+                let fvvalue =
+                    monthlyExpenses * Math.pow(onePlusinflationR, retirement_yr);
+                let corpusAchieved = await RetirementPresentValue(
+                    inflationAdjustReturn,
+                    lifeExpectancy_yr,
+                    -fvvalue,
+                    0,
+                    1,
+                );
+
+                let investment = currentSaving;
+                let monthlyRate = Number(preRetirementReturns) / 12 / 100;
+                let months = retirement_yr * 12;
+
+                let corpus_month =
+                    (investment * (Math.pow(1 + monthlyRate, months) - 1)) / monthlyRate;
+                corpus_month = Math.round(corpus_month);
+
+                let pre_ret = 0.01 * Number(preRetirementReturns);
+                let log = 1 + pre_ret;
+                let n = 1 / 12.0;
+                let pow = Math.pow(log, n);
+                let nom = 12.0 * (pow - 1);
+                let logg = 1 + nom;
+                pow = Math.pow(logg, retirement_yr);
+
+                let corpus_exist = existingCorpus * pow;
+                let shortfall_amt = corpusAchieved - (corpus_month + corpus_exist);
+
+                let nomialRate =
+                    12.0 * (Math.pow(1 + Number(preRetirementReturns) * 0.01, 1 / 12.0) - 1);
+                let nominalRateMonthly = parseFloat((nomialRate / 12).toFixed(9));
+                let newsipamt = await pmtvalue(
+                    nominalRateMonthly,
+                    months,
+                    0,
+                    -shortfall_amt,
+                    0,
+                );
+
+                setYearToRetirement(retirement_yr);
+                setAmountPostRetirementPM(Math.round(fvvalue));
+                setCorppusToBeAchive(Math.round(corpusAchieved));
+                setCorpusYouWillAccumalateWithCurrentSaving(Math.round(corpus_month));
+                setCorpusYouWillAccumalateWithExistingSaving(Math.round(corpus_exist));
+                setSortfallAmount(Math.round(shortfall_amt));
+                setExtraSavingPM(Math.round(newsipamt));
+                setIsCalculated(true);
+            }
         }
-        else {
-            let monthlyRate = Number(expectedRateOfReturn) / 12 / 100;
-            let months = investmentPeriod * 12;
-            let futureValue =
-                ((monthlySaving * (Math.pow(1 + monthlyRate, months) - 1)) /
-                    monthlyRate) *
-                (1 + monthlyRate);
-
-            let mainResults = Math.round(futureValue);
-            let totalSaving = monthlySaving * months;
-            let gain = mainResults - totalSaving;
-
-            setGains(Math.round(gain));
-            setTotalYear(investmentPeriod);
-            setTotalMonthlySaving(totalSaving);
-            setTotalGains(totalSaving + gain);
-            setInvestmentPeriod1(investmentPeriod);
-            setMonthlySaving1(monthlySaving);
-
-            // Update chart dynamically
-            setChartState((prevState) => ({
-                series: [
-                    { name: "Market Value", data: valueForGraph(totalSaving + gain, investmentPeriod) },
-                    { name: "Invested Amount", data: valueForGraph(totalSaving, investmentPeriod) },
-                ],
-                options: {
-                    ...prevState.options,
-                    xaxis: { categories: yearInString(investmentPeriod) },
-                },
-            }));
-        }
-
     };
 
     return (
@@ -190,16 +236,16 @@ export default function RetirementPlanningCalculator() {
                         style={{ stroke: "url(#chevron-gradient)" }}
                     />
                     <span className="text-[#7A7A7A] font-semibold" style={{
-                        background: "linear-gradient(90deg, #04B488 39.5%, #011EFE 100%)",
-                        WebkitBackgroundClip: "text",
-                        WebkitTextFillColor: "transparent",
-                        backgroundClip: "text",
-                        color: "transparent"
-                    }}>Retirement Planning Calculator</span>
+                        // background: "linear-gradient(90deg, #04B488 39.5%, #011EFE 100%)",
+                        // WebkitBackgroundClip: "text",
+                        // WebkitTextFillColor: "transparent",
+                        // backgroundClip: "text",
+                        // color: "transparent"
+                    }}>Retirement Calculator</span>
                 </nav>
                 {/* Title */}
                 <h2 className="text-[20px] md:text-3xl lg:text-5xl font-bold text-[#44475B]">
-                    Retirement Planning Calculator
+                    Retirement Calculator
                 </h2>
             </div>
             <section>
@@ -212,33 +258,80 @@ export default function RetirementPlanningCalculator() {
 
                                 <form className="space-y-6">
 
+                                    {/* Investment Period */}
+                                    <div>
+                                        <div className="flex justify-between mb-2">
+                                            <label className="text-[#44475B] font-medium text-sm uppercase">
+                                                Current Age
+                                            </label>
+                                            <span className="font-bold text-[#44475B]">
+                                                {currentAge} Yrs
+                                            </span>
+                                        </div>
+
+                                        <RangeBar
+                                            maxLimit={90}
+                                            setValue={setCurrentAge}
+                                            value={currentAge}
+                                        />
+
+                                        <div className="flex justify-between text-sm text-[#44475B] mt-2">
+                                            <span>1 Yr</span>
+                                            <span>90 Yrs</span>
+                                        </div>
+                                    </div>
+                                    {/* Investment Period */}
+                                    <div>
+                                        <div className="flex justify-between mb-2">
+                                            <label className="text-[#44475B] font-medium text-sm uppercase">
+                                                Expected retirement age
+                                            </label>
+                                            <span className="font-bold text-[#44475B]">
+                                                {retirementAge} Yrs
+                                            </span>
+                                        </div>
+
+                                        <RangeBar
+                                            maxLimit={80}
+                                            setValue={setRetirementAge}
+                                            value={retirementAge}
+                                        />
+
+                                        <div className="flex justify-between text-sm text-[#44475B] mt-2">
+                                            <span>1 Yr</span>
+                                            <span>80 Yrs</span>
+                                        </div>
+                                    </div>
+
                                     {/* Monthly Saving */}
                                     <div>
                                         <label className="block text-[#44475B] font-medium text-sm uppercase mb-2">
-                                            MONTHLY SAVING
+                                            Monthly expenses for current lifestyle
                                         </label>
                                         <input
                                             type="number"
                                             className="w-full border rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500 text-[#44475B]"
-                                            value={monthlySaving}
+                                            value={monthlyExpenses}
                                             min={0}
                                             onChange={(e) =>
-                                                setMonthlySaving(parseFloat(e.target.value))
+                                                setMonthlyExpenses(parseFloat(e.target.value))
                                             }
-                                            placeholder="₹ 10,000"
+                                            placeholder="₹ 30,000"
                                         />
                                     </div>
 
                                     {/* Expected Rate of Return */}
                                     <div>
                                         <label className="block text-[#44475B] font-medium text-sm uppercase mb-2">
-                                            EXPECTED RATE OF RETURN (% P.A)
+                                            Expected Inflation Rate (%)
                                         </label>
                                         <input
                                             type="text"
                                             inputMode="decimal"
                                             className="w-full border rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500 text-[#44475B]"
-                                            value={expectedRateOfReturn}
+                                            value={
+                                                expectedInflationRate
+                                            }
                                             placeholder="16.5"
                                             onChange={(e) => {
                                                 let val = e.target.value;
@@ -263,46 +356,162 @@ export default function RetirementPlanningCalculator() {
 
                                                 // Allow empty while typing
                                                 if (val === "") {
-                                                    setExpectedRateOfReturn("");
+                                                    setExpectedInflationRate("");
                                                     return;
                                                 }
 
                                                 const num = parseFloat(val);
 
                                                 if (val === "." || (!isNaN(num) && num >= 0 && num <= 100)) {
-                                                    setExpectedRateOfReturn(val);
+                                                    setExpectedInflationRate(val);
                                                 }
                                             }}
                                         />
                                     </div>
-
-                                    {/* Investment Period */}
                                     <div>
-                                        <div className="flex justify-between mb-2">
-                                            <label className="text-[#44475B] font-medium text-sm uppercase">
-                                                INVESTMENT PERIOD
-                                            </label>
-                                            <span className="font-bold text-[#44475B]">
-                                                {investmentPeriod} Yrs
-                                            </span>
-                                        </div>
-
-                                        <RangeBar
-                                            maxLimit={30}
-                                            setValue={setInvestmentPeriod}
-                                            value={investmentPeriod}
+                                        <label className="block text-[#44475B] font-medium text-sm uppercase mb-2">
+                                            Current Savings per month
+                                        </label>
+                                        <input
+                                            type="number"
+                                            className="w-full border rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500 text-[#44475B]"
+                                            value={currentSaving}
+                                            min={0}
+                                            onChange={(e) =>
+                                                setCurrentSaving(parseFloat(e.target.value))
+                                            }
+                                            placeholder="₹ 5,000"
                                         />
-
-                                        <div className="flex justify-between text-sm text-[#44475B] mt-2">
-                                            <span>1 Yr</span>
-                                            <span>30 Yrs</span>
-                                        </div>
                                     </div>
+                                    <div>
+                                        <label className="block text-[#44475B] font-medium text-sm uppercase mb-2">
+                                            Existing Corpus
+                                        </label>
+                                        <input
+                                            type="number"
+                                            className="w-full border rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500 text-[#44475B]"
+                                            value={existingCorpus}
+                                            min={0}
+                                            onChange={(e) =>
+                                                setExistingCorpus(parseFloat(e.target.value))
+                                            }
+                                            placeholder="₹ 10,000"
+                                        />
+                                    </div>
+
+                                    {/* Expected Rate of Return */}
+                                    <div>
+                                        <label className="block text-[#44475B] font-medium text-sm uppercase mb-2">
+                                            Expected pre-retirement returns (%)
+                                        </label>
+                                        <input
+                                            type="text"
+                                            inputMode="decimal"
+                                            className="w-full border rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500 text-[#44475B]"
+                                            value={preRetirementReturns}
+                                            placeholder="16.5"
+                                            onChange={(e) => {
+                                                let val = e.target.value;
+
+                                                // Remove invalid characters (keep digits and one dot)
+                                                val = val.replace(/[^0-9.]/g, "");
+
+                                                // Prevent multiple dots
+                                                const parts = val.split(".");
+                                                if (parts.length > 2) {
+                                                    val = parts[0] + "." + parts.slice(1).join("");
+                                                }
+
+                                                // Remove leading zeros like 012 -> 12 (but allow 0.x)
+                                                if (
+                                                    val.startsWith("0") &&
+                                                    !val.startsWith("0.") &&
+                                                    val.length > 1
+                                                ) {
+                                                    val = val.replace(/^0+/, "");
+                                                }
+
+                                                // Allow empty while typing
+                                                if (val === "") {
+                                                    setPreRetirementReturns("");
+                                                    return;
+                                                }
+
+                                                const num = parseFloat(val);
+
+                                                if (val === "." || (!isNaN(num) && num >= 0 && num <= 100)) {
+                                                    setPreRetirementReturns(val);
+                                                }
+                                            }}
+                                        />
+                                    </div>
+                                    {/* Expected Rate of Return */}
+                                    <div>
+                                        <label className="block text-[#44475B] font-medium text-sm uppercase mb-2">
+                                            Expected post-retirement returns (%)
+                                        </label>
+                                        <input
+                                            type="text"
+                                            inputMode="decimal"
+                                            className="w-full border rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500 text-[#44475B]"
+                                            value={postRetirementReturns}
+                                            placeholder="16.5"
+                                            onChange={(e) => {
+                                                let val = e.target.value;
+
+                                                // Remove invalid characters (keep digits and one dot)
+                                                val = val.replace(/[^0-9.]/g, "");
+
+                                                // Prevent multiple dots
+                                                const parts = val.split(".");
+                                                if (parts.length > 2) {
+                                                    val = parts[0] + "." + parts.slice(1).join("");
+                                                }
+
+                                                // Remove leading zeros like 012 -> 12 (but allow 0.x)
+                                                if (
+                                                    val.startsWith("0") &&
+                                                    !val.startsWith("0.") &&
+                                                    val.length > 1
+                                                ) {
+                                                    val = val.replace(/^0+/, "");
+                                                }
+
+                                                // Allow empty while typing
+                                                if (val === "") {
+                                                    setPostRetirementReturns("");
+                                                    return;
+                                                }
+
+                                                const num = parseFloat(val);
+
+                                                if (val === "." || (!isNaN(num) && num >= 0 && num <= 100)) {
+                                                    setPostRetirementReturns(val);
+                                                }
+                                            }}
+                                        />
+                                    </div>
+                                    <div>
+                                        <label className="block text-[#44475B] font-medium text-sm uppercase mb-2">
+                                            Life Expectancy post-retirement (Yrs)
+                                        </label>
+                                        <input
+                                            type="number"
+                                            className="w-full border rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500 text-[#44475B]"
+                                            value={lifeExpectancy}
+                                            min={0}
+                                            onChange={(e) =>
+                                                setLifeExpectancy(parseFloat(e.target.value))
+                                            }
+                                            placeholder="₹ 10,000"
+                                        />
+                                    </div>
+
 
                                     {/* Button */}
                                     <button
                                         type="button"
-                                        onClick={calculateSip}
+                                        onClick={handleCalculate}
                                         className="bg-[#04B488] text-white py-3 rounded-lg font-semibold hover:bg-blue-700 transition p-[14px]"
                                     >
                                         Calculate
@@ -318,32 +527,59 @@ export default function RetirementPlanningCalculator() {
 
                                 {/* Result Card */}
                                 <div className="shadow-md rounded-2xl px-5 py-4 bg-[#FFFFFF]">
-                                    <h2 className="font-primary font-semibold text-2xl leading-tight text-textdark mb-3">
+                                    <h2 className="font-primary font-semibold text-2xl leading-tight text-[rgba(33, 33, 33, 1)] mb-6">
                                         Result
                                     </h2>
-
-                                    <p className="font-primary text-base md:text-lg leading-relaxed text-textdark">
-                                        If you invest{" "}
-                                        <strong>₹{monthlySaving1.toLocaleString("en-IN")}</strong>{" "}
-                                        per month for a period of{" "}
-                                        <strong>{investmentPeriod1} years</strong>, your investment
-                                        amount will be{" "}
-                                        <strong>
-                                            ₹{totalMonthlySaving.toLocaleString("en-IN")}
-                                        </strong>{" "}
-                                        and the maturity amount will grow to{" "}
-                                        <strong>₹{totalGains.toLocaleString("en-IN")}</strong>.
+                                    <label className="block text-[rgba(77, 77, 77, 1)] font-medium text-sm uppercase mb-2">
+                                        Year to retirement
+                                    </label>
+                                    <p className="font-primary text-base md:text-lg leading-relaxed text-[rgba(33, 33, 33, 1)] font-bold mb-4">
+                                        ₹{yearToRetirement.toLocaleString("en-IN")}
                                     </p>
-                                </div>
+                                    {/* <hr className="my-8 border-[#D0DBEA] border-[1px]" /> */}
+                                    {/* <h4 className="text-[rgba(33, 33, 33, 1)]  font-semibold text-xl leading-tight mb-6">
+                                        Amount required P.M.- Post Retirement
+                                    </h4> */}
+                                    <label className="block text-[rgba(77, 77, 77, 1)] font-medium text-sm uppercase mb-2">
+                                        Amount required P.M.- Post Retirement
+                                    </label>
+                                    <p className="font-primary text-base md:text-lg leading-relaxed text-[rgba(33, 33, 33, 1)] font-bold mb-4">
+                                        ₹{amountPostRetirementPM.toLocaleString("en-IN")}
+                                    </p>
+                                    <label className="block text-[rgba(77, 77, 77, 1)] font-medium text-sm uppercase mb-2">
+                                        Corpus to be achieved @ Retirement
+                                    </label>
+                                    <p className="font-primary text-base md:text-lg leading-relaxed text-[rgba(33, 33, 33, 1)] font-bold mb-4">
+                                        ₹{corppusToBeAchive.toLocaleString("en-IN")}
+                                    </p>
+                                    {/* <label className="block text-[rgba(77, 77, 77, 1)] text-center font-medium text-sm uppercase mb-2">
+                                        Or
+                                    </label> */}
+                                    <label className="block text-[rgba(77, 77, 77, 1)] font-medium text-sm uppercase mb-2">
+                                        Corpus you will accumulate with current savings per month
+                                    </label>
+                                    <p className="font-primary text-base md:text-lg leading-relaxed text-[rgba(33, 33, 33, 1)] font-bold mb-4">
+                                        ₹{corpusYouWillAccumalateWithCurrentSaving.toLocaleString("en-IN")}
+                                    </p>
+                                    <label className="block text-[rgba(77, 77, 77, 1)] font-medium text-sm uppercase mb-2">
+                                        Corpus YOY will accumulate with existing savings
+                                    </label>
+                                    <p className="font-primary text-base md:text-lg leading-relaxed text-[rgba(33, 33, 33, 1)] font-bold mb-4">
+                                        ₹{corpusYouWillAccumalateWithExistingSaving.toLocaleString("en-IN")}
+                                    </p>
+                                    <label className="block text-[rgba(77, 77, 77, 1)] font-medium text-sm uppercase mb-2">
+                                        Shortfall in amount
+                                    </label>
+                                    <p className="font-primary text-base md:text-lg leading-relaxed text-[rgba(33, 33, 33, 1)] font-bold mb-4">
+                                        ₹{sortfallAmount.toLocaleString("en-IN")}
+                                    </p>
+                                    <label className="block text-[rgba(77, 77, 77, 1)] font-medium text-sm uppercase mb-2">
+                                        Extra savings per month required
+                                    </label>
+                                    <p className="font-primary text-base md:text-lg leading-relaxed text-[rgba(33, 33, 33, 1)] font-bold mb-4">
+                                        ₹{extraSavingPM.toLocaleString("en-IN")}
+                                    </p>
 
-                                {/* Chart Card */}
-                                <div className="shadow-md rounded-2xl px-5 py-4 bg-[#FFFFFF]">
-                                    <ReactApexChart
-                                        options={chartState.options}
-                                        series={chartState.series}
-                                        type="area"
-                                        height={350}
-                                    />
                                 </div>
 
                                 {/* Invest Now Button */}
@@ -366,145 +602,102 @@ export default function RetirementPlanningCalculator() {
             </section>
             <section>
                 <h2 className="text-center text-[20px] md:text-3xl lg:text-5xl font-bold text-[#44475B] mt-16">All You Need To Know About <br />
-                    SIP Calculator</h2>
+                    Retirement Calculator</h2>
                 <div className='container mx-auto px-5 md:px-10 lg:px-20'>
                     <p className="mx-auto mt-4 md:mt-8 mb-4 text-[15px] md:text-[24px] font-bold text-[#44475B] mb-[10px] md:mb-[20px]">
-                        What is an SIP Calculator?
+                        What is a Retirement Calculator?
                     </p>
-                    <p className='text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto mb-4'>Let’s keep this simple. <br />
-                        Imagine you put aside ₹3,000 every month in a piggy bank. After one year, you’d have ₹36,000. No surprises there.</p>
-                    <p className='text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto mb-4'>Now imagine if that same money didn’t just sit quietly in a corner, but actually worked for you. It earned returns. And then those returns started earning returns too.</p>
                     <p className='text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto mb-4'>
-                        That’s what investing does.</p>
+                        Here’s an uncomfortable truth (that most of us want to ignore).</p>
                     <p className='text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto mb-4'>
-                        One of the easiest and most comfortable ways to start investing is through an SIP (Systematic Investment Plan). And to understand where your SIP could realistically take you, you need a tool that shows the picture clearly. That’s where the Prodigy Pro SIP Calculator, developed by BFC Capital – a SEBI-registered investment advisor (RIA), comes in.</p>
-                    <p className='text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto mb-4'>A SIP Calculator is a simple online tool that helps you estimate how much your regular monthly investments may grow over time. Think of it like checking Google Maps before starting a journey– you may not know every turn, but at least you know where you’re headed.</p>
+                        Most people spend more time planning a week-long vacation or for an anniversary than planning for retirement. Yet retirement isn’t a possibility. It’s definite. One day, the salary stops. Expenses don’t.</p>
+                    <p className='text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto mb-4'>
+                        Medical bills won’t wait.<br />
+                        Inflation won’t slow down.<br />
+                        Your lifestyle won’t magically shrink just because you stopped working.</p>
+                    <p className='text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto mb-4'>
+                        So the real question is simple:<br />
+                        Will your money last as long as you do?</p>
+                    <p className='text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto mb-4'>
+                        This is exactly where a retirement calculator comes in. It removes guesswork and replaces it with clarity. It shows you how much you’ll actually need, where you currently stand, and what needs to change now so you don’t spend your later years dependent on others.</p>
+                    <p className='text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto mb-4'>
+                        The Prodigy Pro’s Retirement Calculator, developed by BFC Capital – a SEBI RIA, is built to answer these questions honestly – without sugarcoating.</p>
                 </div>
 
                 <div className='container mx-auto px-5 md:px-10 lg:px-20'>
                     <p className="mx-auto mt-4 md:mt-8 mb-4 text-[15px] md:text-[24px] font-bold text-[#44475B] mb-[10px] md:mb-[20px]">
-                        How Can a SIP Calculator Help You?
+                        How Does the Retirement Calculator Help You?
                     </p>
-                    <p className='text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto mb-4'>Investing without a plan is like saying, “Let’s just drive and see where we land.” Sounds fun, but not when your money is involved. <br />A SIP calculator brings clarity where confusion usually exists.</p>
                     <p className='text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto mb-4'>
-                        It helps you set clear goals</p>
+                        There are plenty of retirement calculators online. Most of them throw big numbers at you and leave you confused, but the Prodigy Pro Retirement Calculator is designed for real Indian investors. It doesn’t just throw random numbers at you; it adjusts for inflation, compares your savings against your goals, and highlights the gap you need to fill.</p>
                     <p className='text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto mb-4'>
-                        Maybe you want ₹50 lakhs for your child’s higher education in 20 years. <br />Or ₹15 lakhs for a wedding after 3 years. <br />Instead of guessing, the calculator tells you how much you need to invest every month to realistically reach those goals.</p>
-                    <p className='text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto'>It shows you the real power of compounding <br />
-                        This is where things get interesting. For example, if you invest ₹5,000 every month for 10 years and earn an average return of 12%:</p>
-                    <ul className='list-disc pl-7 text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto'>
-                        <li>Total amount invested: ₹6 lakhs</li>
-                        <li>Approximate value after 10 years: ₹11.5 lakhs</li>
+                        Here’s why it stands out:</p>
+                    <p className='text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto mb-4'>
+                        <b>Customized Projections:</b> It tailors results to your lifestyle, savings habits, and long-term goals.</p>
+                    <p className='text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto mb-4'>
+                        <b>Inflation-Adjusted Figures:</b> It accounts for rising costs, so your numbers are realistic, not optimistic.</p>
+                    <p className='text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto mb-4'>
+                        <b>Shortfall Insights:</b> It shows the gap between what you’ve saved and what you still need to save.</p>
+                    <p className='text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto mb-4'>
+                        <b>Grounded in Indian Reality:</b> It reflects Indian inflation, investment returns, and retirement lifestyles.</p>
+                    <p className='text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto mb-4'>
+                        In essence, it bridges the gap between the life you imagine and the money you’ll actually need.</p>
+                </div>
+
+                <div className='container mx-auto px-5 md:px-10 lg:px-20'>
+                    <p className="mx-auto mt-4 md:mt-8 mb-4 text-[15px] md:text-[24px] font-bold text-[#44475B] mb-[10px] md:mb-[20px]">
+                        How to Use Retirement Calculator
+                    </p>
+                    <p className='text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto mb-4 text-justify'>
+                        Using the calculator is pretty straightforward and the simple for you, but the outcome can be equally eye-opening:</p>
+                    <ul className='list-disc pl-7 text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto mb-4'>
+                        <li>Enter your current age and the age at which you want to retire ideally.</li>
+                        <li>Fill in your current monthly expenses, groceries, rent, utilities, healthcare, lifestyle expenses etc..</li>
+                        <li>Add the inflation rate on priority, because ₹60,000 today won’t mean the same 20 years later, so it;s important you add the correct inflation rate.</li>
+                        <li>Enter your monthly savings and any existing corpus (EPF, PPF, mutual funds, etc.) in any.</li>
+                        <li>Input your expected returns, usually higher before retirement, lower after.</li>
+                        <li>Add your life expectancy to see how long the money needs to last.</li>
+                        <li>Click calculate, and get your roadmap: years left to retire, corpus required, shortfall, and how much extra you must save.</li>
                     </ul>
-
                     <p className='text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto mb-4'>
-                        You didn’t double your effort. Time and compounding did the heavy lifting for you.</p>
-                    <p className='text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto mb-4 font-bold italic'>
-                        It helps build discipline</p>
+                        It’s not just numbers, it’s a reality check.</p>
+                    <p className='text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto mb-4 font-bold'>
+                        A Simple Example</p>
                     <p className='text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto mb-4'>
-
-                        Once you know your target and the monthly amount required, investing stops feeling random. <br />You’re less likely to break your SIP for short-term expenses because now your money has a purpose. SIPs work best when they run quietly in the background – automatically, consistently, and without emotional decisions.</p>
+                        Say a 20-year-old wants to retire at 40. Their lifestyle costs ₹50,000 a month, inflation is 6%, and they save ₹10,000 monthly with an existing ₹2,00,000 corpus. With returns of 12% pre-retirement and 7% post-retirement, and a 20-year life expectancy after retirement, here’s what the calculator reveals:</p>
+                    <p className='text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto mb-4'>
+                        They’ll need ₹3.5 crore at retirement.<br />
+                        Their current savings will grow to ₹98.92 lakh.<br />
+                        The shortfall: ₹2.34 crore.<br />
+                        To fix it, they must increase savings from ₹10,000 to about ₹25,753 a month.</p>
+                    <p className='text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto mb-4'>
+                        It’s uncomfortable to see, but it’s better to confront it today than to struggle later.</p>
                 </div>
 
                 <div className='container mx-auto px-5 md:px-10 lg:px-20'>
                     <p className="mx-auto mt-4 md:mt-8 mb-4 text-[15px] md:text-[24px] font-bold text-[#44475B] mb-[10px] md:mb-[20px]">
-                        How Do SIP Calculators Work?
+                        Why People Trust the Retirement Calculator
                     </p>
-                    <p className='text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto mb-4'>At its heart, an SIP calculator is built on one powerful idea: <b>compounding</b>.</p>
-                    <p className='text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto mb-4'>You invest a fixed amount every month – no guesswork, no market timing. <br />That money starts earning returns. <br />Those returns don’t just sit there; they get reinvested and begin earning returns of their own.</p>
-                    <p className='text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto mb-4'>
-                        Over time, this creates a snowball effect. What starts as small, disciplined monthly investments can quietly grow into meaningful wealth.
-                        The SIP calculator simply does the number-crunching for you. It shows you what consistency and time can do, without you having to open a spreadsheet or stress over calculations.</p>
-
-                    <p className='text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto mb-4'>
-                        At BFC Capital, we believe the real magic isn’t in predicting markets, but in staying invested long enough for compounding to do its job.</p>
-                </div>
-
-                <div className='container mx-auto px-5 md:px-10 lg:px-20'>
-                    <p className="mx-auto mt-4 md:mt-8 mb-4 text-[15px] md:text-[24px] font-bold text-[#44475B] mb-[10px] md:mb-[20px]">
-                        How to Use the Prodigy Pro’s Systematic Investment Plan Calculator?
-                    </p>
-                    <p className='text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto mb-4'>The Prodigy Pro’s SIP Calculator is designed to be beginner-friendly and quick. All it takes are three inputs:</p>
-                    <p className='text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto mb-4'>
-                        Monthly Savings - e.g., ₹8,000/month.</p>
-
-                    <p className='text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto mb-4'>
-                        Investment Period - say 10 years.</p>
-                    <p className='text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto mb-4'>
-                        Expected Return Rate - let’s assume approx-16%.</p>
-                    <p className='text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto mb-4'>
-                        Hit Calculate, and you’ll instantly see:</p>
-                    <p className='text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto mb-4'>
-                        Amount Invested – total money you contributed.</p>
-                    <p className='text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto mb-4'>
-                        Market Value – total future value you might get after 10 years.</p>
-                    <p className='text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto mb-4'>
-                        Returns – the profit earned over your investment value.</p>
-                    <p className='text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto mb-4'>
-                        <b>Example:</b>
-                        ₹8,000/month × 10 years @ 16% return <br />Invested: ₹9,60,000  <br />Future Value: ~₹23.71 lakhs!</p>
-                    <p className='text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto mb-4'>
-                        That’s compounding doing its job silently.</p>
-
-                </div>
-
-                <div className='container mx-auto px-5 md:px-10 lg:px-20'>
-                    <p className="mx-auto mt-4 md:mt-8 mb-4 text-[15px] md:text-[24px] font-bold text-[#44475B] mb-[10px] md:mb-[20px]">
-                        Systematic Investment Plans (SIPs) in India
-                    </p>
-                    <p className='text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto'>
-                        SIPs are one of the easiest and most trusted ways to invest in mutual funds. <br />Instead of investing a large amount in one go, you invest a fixed sum every month on a chosen date – directly from your bank account. No chasing markets, no complicated decisions. Even ₹100 a month is enough to get started, and some SIPs allow you to begin with just ₹100.</p>
-                    <p className='text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto'>So why do SIPs work especially well in India?</p>
-                    <ul className='list-disc pl-7 text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto'>
-                        <li>They fit perfectly into how most of us earn and spend.</li>
-                        <li>For salaried individuals, SIPs build a habit of investing – quietly and consistently – much like a monthly bill you pay to your future self.</li>
-                        <li>They also take away the pressure of trying to “buy at the right time.” Markets go up, markets go down – but SIPs keep you invested through it all, smoothing out volatility over time.</li>
-                        <li>And most importantly, SIPs are designed for long-term goals that truly matter: your child’s education, buying a home, or building a comfortable retirement.</li>
+                    <ul className='list-disc pl-7 text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto mb-4'>
+                        <li>Simple to use – even if you’re new to investing</li>
+                        <li>Built for Indian realities, not global templates</li>
+                        <li>Instant adjustments – change one number and see the impact</li>
+                        <li>Action-oriented – tells you what to do next, not just what’s wrong</li>
+                        <li>Credible framework – designed with long-term financial discipline in mind</li>
                     </ul>
-
-
                     <p className='text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto mb-4'>
-                        At BFC Capital, we see SIPs not as a product, but as a behaviour shift, from worrying about markets to trusting the power of time and consistency.</p>
-                </div>
-
-                <div className='container mx-auto px-5 md:px-10 lg:px-20'>
-                    <p className="mx-auto mt-4 md:mt-8 mb-4 text-[15px] md:text-[24px] font-bold text-[#44475B] mb-[10px] md:mb-[20px]">
-                        Types of SIPs
-                    </p>
+                        Retirement isn’t a birthday.<br />
+                        It’s a financial milestone.</p>
                     <p className='text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto mb-4'>
-                        SIPs aren’t rigid at all! <br />You can choose what suits your lifestyle.</p>
-
-
+                        You don’t retire when you turn 60.<br />
+                        You retire when your savings say you can.</p>
                     <p className='text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto mb-4'>
-                        <b>Step-Up SIP</b> <br />
-                        Start small and increase gradually. Example: begin with ₹5,000/month, increase by ₹1000 every year as your salary grows.</p>
+                        The BFC Capital’s Retirement Calculator isn’t here to scare you. It’s here to wake you up – early enough to do something about it.</p>
                     <p className='text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto mb-4'>
-                        <b>Top-Up SIP</b> <br />
-                        Add extra whenever you can. Got a yearly bonus? Add ₹15,000 to your SIP. No compulsion, just flexibility to boost returns.</p>
-                </div>
-
-                <div className='container mx-auto px-5 md:px-10 lg:px-20'>
-                    <p className="mx-auto mt-4 md:mt-8 mb-4 text-[15px] md:text-[24px] font-bold text-[#44475B] mb-[10px] md:mb-[20px]">
-                        Why use Prodigy Pro’s online SIP calculator over others?
-                    </p>
+                        A comfortable retirement is not about luck or inheritance. It’s about planning, consistency, and facing the numbers honestly.</p>
                     <p className='text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto mb-4'>
-                        Because investing isn’t just about numbers. It’s about clarity and confidence.</p>
-                    <ul className='list-disc pl-7 text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto'>
-                        <li> <b>See the long-term picture</b> <br />It helps you understand how something as small as ₹500 a month today can quietly grow into lakhs over time. No hype, just realistic long-term clarity.</li>
-                        <li> <b>Plan with a purpose</b> <br />Have a specific goal in mind? The calculator shows how much you need to invest to reach it, so your SIP isn’t random. It’s intentional.</li>
-                        <li> <b>Simple to use</b> <br />Clean, quick, and easy to understand. No jargon, no clutter. Just the numbers that actually matter.</li>
-                        <li> <b>Make smarter choices before you commit</b> <br />Compare different SIP amounts and timelines before starting, so you invest with confidence, not guesswork.</li>
-                        <li> <b>Complete transparency</b> <br />You clearly see how much you’ve invested and how much you’ve earned. No surprises. No hidden assumptions.</li>
-                    </ul>
-
-                    <p className='text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto mb-4'>
-
-                        At the end of the day, money management comes down to two simple things: clarity and consistency. <br />Whether you are planning for your child’s future, your dream home, or simply building a safety cushion for tomorrow, this tool removes guesswork and replaces it with a clear, practical roadmap.</p>
-                    <p className='text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto mb-4'>
-                        At BFC Capital, a SEBI Registered Investment Adviser, we believe investing does not have to feel complicated or exclusive. It is about taking small, consistent steps and staying the course.</p>
-                    <p className='text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto mb-4'>
-
-                        So the next time investing feels “too complex” or “only meant for experts,” remember this. All it takes is a fixed amount, a fixed date, and a simple tool like Prodigy Pro’s SIP calculator to start building wealth that keeps working even while you sleep</p>
+                        Spend two minutes today with the calculator.<br />
+                        Because the earlier you confront reality, the more peaceful your golden years can actually be.</p>
                 </div>
             </section >
             <section>

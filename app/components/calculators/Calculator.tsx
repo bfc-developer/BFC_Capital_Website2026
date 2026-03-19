@@ -31,7 +31,7 @@ const calculators = [
         title: "Retirement Calculator",
         desc: "Plan your retirement corpus and secure your future",
         img: "/calculator/retirement-calculator.png",
-        link: "/calculators/retirement-calculator",
+        link: "/calculators/retirement-planning-calculator",
     },
     {
         title: "EMI Calculator",
@@ -61,7 +61,7 @@ const calculators = [
         title: "Target Value Calculator",
         desc: "Reach pre-planned targets with precision.",
         img: "/calculator/target-amount-sip.png",
-        link: "/calculators/target-amount-sip",
+        link: "/calculators/target-amount-calculator",
     },
     {
         title: "Annual SIP Calculator",
