@@ -297,7 +297,7 @@ export default function FinancialPlanning() {
                 </div>
 
                 <div className='container mx-auto px-5 md:px-10 lg:px-20'>
-                    <h2 className="text-[20px] md:text-3xl lg:text-5xl font-bold text-[#44475B]">A Holistic Approach to Your Financial Health</h2>
+                    <h2 className="text-[20px] md:text-3xl lg:text-5xl font-bold text-[#44475B] mb-8">A Holistic Approach to Your Financial Health</h2>
                     <p className='text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto mb-4'>Remember Virus from 3 Idiots saying, “Life is a race”? <br />We laughed then – but today, most of us are running.<br />Running to earn more. To live better. To feel secure.<br />But running without direction can leave you exhausted, not fulfilled.<br />What’s often missing isn’t effort – it’s a <b>holistic approach to financial health</b>.</p>
                 </div>
                 <div className='container mx-auto px-5 md:px-10 lg:px-20 mb-8'>

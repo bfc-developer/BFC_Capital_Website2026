@@ -8,6 +8,8 @@ import Link from "next/link";
 import dynamic from "next/dynamic";
 import { ApexOptions } from "apexcharts";
 // ✅ Dynamically import ApexChart (client-side only)
+
+// ✅ Dynamically import ApexChart (client-side only)
 const Chart = dynamic(() => import("react-apexcharts"), { ssr: false });
 
 import { toast } from "react-toastify";

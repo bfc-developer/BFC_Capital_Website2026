@@ -163,7 +163,7 @@ export default function Marriagecalculators() {
                 </h2>
             </div>
             <section>
-                <div className="max-w-7xl mx-auto px-4 py-6 md:py-8">
+                <div className="container mx-auto px-5 md:px-10 lg:px-20">
                     <div className="flex flex-col md:flex-row justify-between gap-6">
 
                         {/* LEFT SIDE */}
@@ -421,7 +421,7 @@ export default function Marriagecalculators() {
                 <h2 className="text-center text-[20px] md:text-3xl lg:text-5xl font-bold text-[#44475B] mt-16">All You Need To Know About <br />
                     Marriage Planning Calculator</h2>
                 <div className='container mx-auto px-5 md:px-10 lg:px-20'>
-                    <p className="mx-auto mt-4 md:mt-8 mb-4 text-[15px] md:text-[24px] font-bold text-[#44475B] mb-[10px] md:mb-[20px]">
+                    <p className="mx-auto mt-4 md:mt-8 mb-4 text-[18px] md:text-[24px] font-bold text-[#44475B] mb-[10px] md:mb-[20px]">
                         What is a Marriage Calculator?
                     </p>
                     <p className='text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto mb-4'>Let’s be honest for a moment.</p>
@@ -442,7 +442,7 @@ export default function Marriagecalculators() {
                 </div>
 
                 <div className='container mx-auto px-5 md:px-10 lg:px-20'>
-                    <p className="mx-auto mt-4 md:mt-8 mb-4 text-[15px] md:text-[24px] font-bold text-[#44475B] mb-[10px] md:mb-[20px]">
+                    <p className="mx-auto mt-4 md:mt-8 mb-4 text-[18px] md:text-[24px] font-bold text-[#44475B] mb-[10px] md:mb-[20px]">
                         How Does a Marriage Calculator Actually Help?
                     </p>
                     <p className='text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto mb-4'>Most families don’t realise how sharply wedding expenses increase until the wedding year is almost here.</p>
@@ -488,7 +488,7 @@ export default function Marriagecalculators() {
                 </div>
 
                 <div className='container mx-auto px-5 md:px-10 lg:px-20'>
-                    <p className="mx-auto mt-4 md:mt-8 mb-4 text-[15px] md:text-[24px] font-bold text-[#44475B] mb-[10px] md:mb-[20px]">
+                    <p className="mx-auto mt-4 md:mt-8 mb-4 text-[18px] md:text-[24px] font-bold text-[#44475B] mb-[10px] md:mb-[20px]">
                         How to Use Marriage Planning Calculator
                     </p>
                     <p className='text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto mb-4'>The beauty of this tool lies in its simplicity. You just enter:</p>
@@ -528,7 +528,7 @@ export default function Marriagecalculators() {
                 </div>
 
                 <div className='container mx-auto px-5 md:px-10 lg:px-20'>
-                    <p className="mx-auto mt-4 md:mt-8 mb-4 text-[15px] md:text-[24px] font-bold text-[#44475B] mb-[10px] md:mb-[20px]">
+                    <p className="mx-auto mt-4 md:mt-8 mb-4 text-[18px] md:text-[24px] font-bold text-[#44475B] mb-[10px] md:mb-[20px]">
                         What Makes a Good Marriage Calculator?
                     </p>
                     <p className='text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto mb-4'>Not all calculators are built with Indian realities in mind.</p>

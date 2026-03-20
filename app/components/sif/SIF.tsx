@@ -60,12 +60,12 @@ export default function SIF() {
                     <p className="mx-auto mt-4 md:mt-8 mb-4 text-[15px] md:text-[24px] font-bold text-[#44475B] mb-[10px] md:mb-[20px]">
                         Get Started With BFC Capital
                     </p>
-                    <p className='text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto mb-4'>At BFC Capital, investing in SIFs is not about following what’s trending. It’s about choosing the right strategy for where you are and where you want to go financially.</p>
+                    <p className='text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto mb-4'>At BFC Capital, investing in SIFs is not about following what’s trending. It’s about choosing the <i>right strategy</i> for where you are and where you want to go financially.</p>
                     <p className='text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto mb-4'>
                         As a SEBI-Registered Investment Adviser (RIA), BFC Capital approaches SIFs through a structured advisory lens. Every recommendation is made after understanding your goals, risk comfort, and investment horizon – not before.</p>
                     <p className='text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto mb-4'>When you begin your SIF journey with us, our role is simple: help you gain clarity.</p>
                     <p className='text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto'>We help you understand:</p>
-                    <ul className='list-disc pl-7 text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto'>
+                    <ul className='list-disc pl-7 text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto mb-4'>
                         <li>Which SIF strategy actually fits your portfolio</li>
                         <li>How it works alongside your existing investments</li>
                         <li>What role it plays in long-term wealth creation</li>
@@ -85,7 +85,7 @@ export default function SIF() {
                     <p className='text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto mb-4'>Investors who meet the minimum investment requirement of ₹10 lakh pool their money into a fund. This capital is then managed by an experienced fund manager who uses advanced investment strategies with the aim of generating better risk-adjusted returns.</p>
                     <p className='text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto mb-4'>Where SIFs truly stand apart is in how much flexibility they are allowed.</p>
                     <p className='text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto'>Unlike traditional mutual funds, SIFs can:</p>
-                    <ul className='list-disc pl-7 text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto'>
+                    <ul className='list-disc pl-7 text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto mb-4'>
                         <li>Take both long and short positions</li>
                         <li>Use derivatives as part of their strategy</li>
                         <li>Invest in unlisted securities</li>
@@ -110,7 +110,7 @@ export default function SIF() {
                         Prodigy Pro is built to make strategy-driven products like SIFs accessible – without losing out on compliance, transparency, or expert support.</p>
 
                     <p className='text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto'>Here’s how you can get started:</p>
-                    <ul className='list-disc pl-7 text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto'>
+                    <ul className='list-disc pl-7 text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto mb-4'>
                         <li>Log in to the Prodigy Pro app</li>
                         <li>Go to the Explore Funds section</li>
                         <li>Tap on the SIF icon or search for “SIF”</li>
@@ -131,7 +131,7 @@ export default function SIF() {
                     </p>
                     <p className='text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto'>
                         SIFs bring a higher level of sophistication to fund investing. SEBI has clearly defined seven strategy categories under which SIFs can operate:</p>
-                    <ul className='list-disc pl-7 text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto'>
+                    <ul className='list-disc pl-7 text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto mb-4'>
                         <li>Equity Long-Short Fund</li>
                         <li>Equity Ex-Top 100 Long-Short Fund</li>
                         <li>Sector Rotation Long-Short Fund</li>
@@ -152,7 +152,7 @@ export default function SIF() {
                     </p>
                     <p className='text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto'>
                         Every SIF operates under strict regulatory oversight.</p>
-                    <ul className='list-disc pl-7 text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto'>
+                    <ul className='list-disc pl-7 text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto mb-4'>
                         <li>Minimum investment starts at ₹10 lakh per investor</li>
                         <li>SIPs, STPs, and SWPs are permitted as long as the investment value remains above ₹10 lakh</li>
                         <li>If market movements bring the value below ₹10 lakh, it is treated as a passive breach, not a violation</li>
@@ -171,7 +171,7 @@ export default function SIF() {
                     </p>
                     <p className='text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto'>
                         SIFs aren’t meant for everyone – and that’s exactly what makes them powerful.</p>
-                    <ul className='list-disc pl-7 text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto'>
+                    <ul className='list-disc pl-7 text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto mb-4'>
                         <li>Strategy-led investing instead of generic asset allocation</li>
                         <li>Ability to use long-short, hybrid, and tactical approaches</li>
                         <li>Fully regulated within SEBI’s compliance framework</li>
@@ -191,7 +191,7 @@ export default function SIF() {
                     </p>
                     <p className='text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto'>
                         SIFs don’t eliminate risk – but they are designed to manage it intelligently.</p>
-                    <ul className='list-disc pl-7 text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto'>
+                    <ul className='list-disc pl-7 text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto mb-4'>
                         <li>Long-short strategies help reduce downside impact</li>
                         <li>Debt exposure can provide stability during volatile phases</li>
                         <li>SEBI-defined limits keep strategies within controlled boundaries</li>
@@ -209,7 +209,7 @@ export default function SIF() {
                     <p className='text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto mb-4'>SIFs are built for investors who are comfortable with market-linked products and have a long-term view.</p>
                     <p className='text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto'>
                         They may be suitable if you:</p>
-                    <ul className='list-disc pl-7 text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto'>
+                    <ul className='list-disc pl-7 text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto mb-4'>
                         <li>Can invest ₹10 lakh or more</li>
                         <li>Understand derivatives and tactical strategies</li>
                         <li>Are comfortable with strategy-driven investing</li>

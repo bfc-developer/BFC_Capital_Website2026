@@ -15,7 +15,6 @@ const RangeBar: React.FC<BarNameValueProp> = ({
     setValue(Number(e.target.value));
   };
 
-  // Calculate percentage
   const percent = ((value - min) / (maxLimit - min)) * 100;
 
   return (
@@ -32,8 +31,8 @@ const RangeBar: React.FC<BarNameValueProp> = ({
           background: `linear-gradient(to right,
             #06A358 0%,
             #001EFE ${percent}%,
-            #e0e7ff ${percent}%,
-            #e0e7ff 100%)`,
+            rgba(6, 163, 88, 0.15) ${percent}%,
+            rgba(0, 30, 254, 0.15) 100%)`,
         }}
       />
     </div>

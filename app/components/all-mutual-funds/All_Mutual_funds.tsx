@@ -369,7 +369,10 @@ export default function AllMutualFunds() {
                                                 <div>
                                                     <div className="text-gray-400 text-[10px] md:text-[11px] tracking-wider mb-1 font-medium">Fund Size</div>
                                                     <div className="text-[#44475B] font-bold text-[14px] md:text-[15px]">
-                                                        ₹{(item.fundSize / 1_00_00_000).toFixed(2)} Cr
+                                                        ₹{(item.fundSize / 1_00_00_000).toLocaleString('en-IN', {
+                                                            minimumFractionDigits: 2,
+                                                            maximumFractionDigits: 2
+                                                        })} Cr
                                                     </div>
                                                 </div>
                                             </div>
@@ -563,25 +566,25 @@ export default function AllMutualFunds() {
                         <strong>1. Large Cap Fund </strong> <br />
                         These funds invest at least 80% of their assets in large, well-established companies with strong market presence. They are generally considered more stable within the equity space.
                         <br />
-                        Watch video: <a href="https://youtu.be/GXKf8KtWBd8?si=dbmW50fF9JTYqklC">https://youtu.be/GXKf8KtWBd8?si=dbmW50fF9JTYqklC</a>
+                        Watch video: <a href="https://youtu.be/GXKf8KtWBd8?si=dbmW50fF9JTYqklC" className="underline">https://youtu.be/GXKf8KtWBd8?si=dbmW50fF9JTYqklC</a>
                         <br />
                         <br />
                         <strong>2. Mid-Cap Funds </strong> <br />
                         Mid-cap funds invest a minimum of 65% in mid-sized companies that have the potential to grow into tomorrow’s leaders. They can offer higher growth, along with higher volatility.
                         <br />
-                        Watch video: <a href="https://youtu.be/2OGzXyJ2vsw?si=tt4vH3PVKPdUsZgP">https://youtu.be/2OGzXyJ2vsw?si=tt4vH3PVKPdUsZgP</a>
+                        Watch video: <a href="https://youtu.be/2OGzXyJ2vsw?si=tt4vH3PVKPdUsZgP" className="underline">https://youtu.be/2OGzXyJ2vsw?si=tt4vH3PVKPdUsZgP</a>
                         <br />
                         <br />
                         <strong>3. Small Cap Fund </strong> <br />
                         These funds invest at least 65% in smaller companies that are still in their growth phase. Returns can be rewarding over the long term, but patience is essential.
                         <br />
-                        Watch video: <a href="https://youtu.be/unLdVy5EKD0?si=72-2yNJAsGGWFF1N">https://youtu.be/unLdVy5EKD0?si=72-2yNJAsGGWFF1N</a>
+                        Watch video: <a href="https://youtu.be/unLdVy5EKD0?si=72-2yNJAsGGWFF1N" className="underline">https://youtu.be/unLdVy5EKD0?si=72-2yNJAsGGWFF1N</a>
                         <br />
                         <br />
                         <strong>4. Multi-Cap Fund </strong> <br />
                         Multi-cap funds spread investments across large-, mid-, and small-cap stocks, with at least 25% allocated to each category. This allows diversification across market segments.
                         <br />
-                        Watch video: <a href="https://youtu.be/z25r7Z3qJys?si=z6tzi8Z2eydwTqnT">https://youtu.be/z25r7Z3qJys?si=z6tzi8Z2eydwTqnT</a>
+                        Watch video: <a href="https://youtu.be/z25r7Z3qJys?si=z6tzi8Z2eydwTqnT" className="underline">https://youtu.be/z25r7Z3qJys?si=z6tzi8Z2eydwTqnT</a>
                         <br />
                         <br />
                         <strong>5. Thematic / Sector Funds </strong> <br />
@@ -595,7 +598,7 @@ export default function AllMutualFunds() {
                         <strong>7. Index funds </strong> <br />
                         These funds aim to replicate the performance of a particular market index rather than outperform it. Returns move in line with the index being tracked.
                         <br />
-                        Watch video: <a href="https://youtu.be/C8eEJkrTamA?si=A1-Xv2eoFDNETCOg">https://youtu.be/C8eEJkrTamA?si=A1-Xv2eoFDNETCOg</a>
+                        Watch video: <a href="https://youtu.be/C8eEJkrTamA?si=A1-Xv2eoFDNETCOg" className="underline">https://youtu.be/C8eEJkrTamA?si=A1-Xv2eoFDNETCOg</a>
                         <br />
                         <br />
                         <strong>8. Focused Funds </strong> <br />
@@ -605,7 +608,7 @@ export default function AllMutualFunds() {
                         <strong>9. Value Funds </strong> <br />
                         Value funds follow a strategy of investing in companies that appear undervalued relative to their fundamentals. At least 65% of the portfolio is invested in equities.
                         <br />
-                        Watch video: <a href="https://youtu.be/NzmJvuxWo74?si=c0dhmvf6u8PCMIwW">https://youtu.be/NzmJvuxWo74?si=c0dhmvf6u8PCMIwW</a>
+                        Watch video: <a href="https://youtu.be/NzmJvuxWo74?si=c0dhmvf6u8PCMIwW" className="underline">https://youtu.be/NzmJvuxWo74?si=c0dhmvf6u8PCMIwW</a>
                         <br />
                         <br />
                         <strong>10. Contra Funds </strong> <br />
@@ -619,12 +622,12 @@ export default function AllMutualFunds() {
                         <strong>12. Flexi Cap funds </strong> <br />
                         Flexi-cap funds invest a minimum of 65% in equities but have complete freedom to move across large-, mid-, and small-cap stocks based on market conditions. This flexibility allows fund managers to adapt strategies as markets change.
                         <br />
-                        Watch video: <a href="https://youtu.be/xaxxguXXwI0?si=vjKpn2DqRyOusiP1">https://youtu.be/xaxxguXXwI0?si=vjKpn2DqRyOusiP1</a>
+                        Watch video: <a href="https://youtu.be/xaxxguXXwI0?si=vjKpn2DqRyOusiP1" className="underline">https://youtu.be/xaxxguXXwI0?si=vjKpn2DqRyOusiP1</a>
                         <br />
                         <br />
                         <strong>13. Large & Mid Cap Funds </strong> <br />
                         These funds invest at least 35% in large-cap companies and 35% in mid-cap companies, offering a blend of stability and growth potential.
-                        <br />Watch video: <a href="https://youtu.be/takrWEBnBU8?si=oIoc-tPB3dXb3lEt">https://youtu.be/takrWEBnBU8?si=oIoc-tPB3dXb3lEt</a>
+                        <br />Watch video: <a href="https://youtu.be/takrWEBnBU8?si=oIoc-tPB3dXb3lEt" className="underline">https://youtu.be/takrWEBnBU8?si=oIoc-tPB3dXb3lEt</a>
                         <br /><br />
                         <strong>14. ETFs </strong> <br />
                         These are investment funds that track an index, commodity, or asset basket and trade on stock exchanges like shares.
@@ -639,71 +642,71 @@ export default function AllMutualFunds() {
                     </p>
                     <p className="text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto mb-4 text-justify relative z-10">
 
-                        <strong>1. Overnight Funds:</strong>
+                        <strong>1. Overnight Funds: {" "}</strong>
                         These funds invest in Overnight securities/ Securities having a maturity of 1 day.
                         <br />
 
-                        <strong>2. Liquid Funds:</strong>
+                        <strong>2. Liquid Funds: {" "}</strong>
                         These funds invest in Debt and money market securities with a maturity of up to 91 days only.
                         <br />
 
-                        <strong>3. Ultra Short Duration Funds:</strong>
+                        <strong>3. Ultra Short Duration Funds: {" "}</strong>
                         These funds invest in Securities with a Macaulay duration of the portfolio between 3 months- 6 months.
                         <br />
 
-                        <strong>4. Low Duration Funds:</strong>
+                        <strong>4. Low Duration Funds: {" "}</strong>
                         These funds invest in Securities with a Macaulay duration of the portfolio between 6 months- 12 months.
                         <br />
 
-                        <strong>5. Money Market Funds:</strong>
+                        <strong>5. Money Market Funds: {" "}</strong>
                         These funds invest in Money Market instruments having a maturity of up to 1 Year.
                         <br />
 
-                        <strong>6. Short Duration Funds:</strong>
+                        <strong>6. Short Duration Funds: {" "}</strong>
 
                         These funds invest in Securities with a Macaulay duration of 1 to 3 years.
                         <br />
 
-                        <strong>7. Medium Duration Funds: </strong>
+                        <strong>7. Medium Duration Funds: {" "}</strong>
 
                         These funds invest in Securities with a Macaulay duration of the portfolio between 3 years- 4 years.
                         <br />
 
-                        <strong>8. Medium to Long Duration Funds:</strong>
+                        <strong>8. Medium to Long Duration Funds: {" "}</strong>
                         These funds invest in Securities with a Macaulay duration of the portfolio between 4 years- 7 years.
                         <br />
 
-                        <strong>9. Long Duration Funds:</strong>
+                        <strong>9. Long Duration Funds: {" "}</strong>
                         These funds invest in Securities with a Macaulay duration of the portfolio greater than 7 years.
                         <br />
 
-                        <strong>10. Dynamic Bond Funds: </strong>
+                        <strong>10. Dynamic Bond Funds: {" "}</strong>
 
                         These funds do not have any restrictions on maturity profiles and have the flexibility to dynamically manage the portfolio across short-, medium-, and long-term debt instruments based on the interest rate outlook.
                         <br />
 
-                        <strong>11. Corporate Bond Funds:</strong>
+                        <strong>11. Corporate Bond Funds: {" "}</strong>
                         These funds keep a Minimum of 80% of their investment in corporate bonds only in AA+ and above-rated corporate bonds.
                         <br />
 
-                        <strong>12. Credit Risk Funds:</strong>
+                        <strong>12. Credit Risk Funds: {" "}</strong>
 
                         These funds keep a Minimum of 65% of their investment in corporate bonds, only in AA and below-rated corporate bonds.
                         <br />
 
-                        <strong>13. Banking and PSU Funds:</strong>
+                        <strong>13. Banking and PSU Funds: {" "}</strong>
                         These funds keep a Minimum of 80% in Debt instruments of banks, Public Sector Undertakings, Public Financial Institutions, and Municipal Bonds.
                         <br />
 
-                        <strong>14. Gilt Funds:</strong><br />
+                        <strong>14. Gilt Funds: {" "}</strong>
                         These funds keep a Minimum of 80% of their investment in G-secs or government securities.
                         <br />
 
-                        <strong>15. Gilt Funds with 10-year constant duration:</strong>
+                        <strong>15. Gilt Funds with 10-year constant duration: {" "}</strong>
                         These funds keep a Minimum of 80% of their investment in G-secs, such that the Macaulay duration of the portfolio is equal to 10 years.
                         <br />
 
-                        <strong>16. Floater Funds:</strong>
+                        <strong>16. Floater Funds: {" "}</strong>
                         These funds keep a Minimum of 65% of their investment in floating rate instruments (including fixed rate instruments converted to floating rate exposures using swaps/ derivatives).
                     </p>
 

@@ -330,7 +330,15 @@ const AdvantageSection = () => {
     {
       icon: "/Home/BFCAdvantage/appWith3S.svg",
       title: "App with 3 S Benefits",
-      desc: "Buy, Track & Sell Mutual Funds on the go with PRODIGY Pro - BFC's Mobile App with 3 S benefits: Speed | Safety | Simplicity.",
+      desc: (
+        <>
+          Buy, Track & Sell Mutual Funds on the go with{" "}
+          <Link href="https://app.prodigypro.co.in" className="text-[#001EFE]">
+            PRODIGY Pro
+          </Link>{" "}
+          - BFC's Mobile App with 3 S benefits: Speed | Safety | Simplicity.
+        </>
+      ),
     },
     {
       icon: "/Home/BFCAdvantage/CapGain.svg",
@@ -447,7 +455,7 @@ const AppTrustSection = () => {
               Technology you deserve.
             </h2>
             <p className="text-base font-inter opacity-90 mb-5 md:mb-10 leading-5">
-              Built on two decades on trusted advice, now reimagined for modern
+              Built on two decades of trusted advice, now reimagined for modern
               investors.
             </p>
           </div>
@@ -574,14 +582,14 @@ const Credentials = () => {
     {
       logo: "/Home/SEBI.svg",
       alt: "SEBI",
-      title: "SEBI-RIA:",
+      title: "SEBI Registered Investment Advisor",
       desc: "INA000021669",
     },
     {
       logo: "/Home/AMFI.svg",
       alt: "AMFI",
-      title: "AMFI Registered Mutual Fund Distributor:",
-      desc: "ARN : 21399, Date of initial Registration : 31-July-2004, Current validity of ARN : 29-July-2026",
+      title: "AMFI Registered Mutual Fund Distributor & SIF Distributor",
+      desc: "ARN : 21399",
     },
     {
       logo: "/Home/BSE.svg",
@@ -1075,7 +1083,7 @@ const ComplaintsTable = () => {
                 }}
               >
                 <td className="py-[10px] text-[13px]"></td>
-                <td className="py-[10px] text-[13px] text-left uppercase font-bold tracking-tight text-left">
+                <td className="py-[10px] text-[13px] text-left font-bold tracking-tight text-left">
                   Grand Total
                 </td>
                 <td className="py-[10px] text-[13px] font-bold text-left">0</td>
@@ -1092,7 +1100,7 @@ const ComplaintsTable = () => {
         </div>
 
         <div className="max-w-6xl mx-auto mt-8 flex flex-col md:flex-row justify-between items-start md:items-center gap-6 px-4">
-          <p className="text-[13px] text-[#44475B] max-w-2xl leading-relaxed italic font-medium">
+          <p className="text-[13px] text-[#44475B] max-w-2xl leading-relaxed font-medium">
             * Inclusive of complaints of previous months resolved in the current month. <br />
             # Inclusive of complaints pending as on the last day of the month <br />
             ^ Average Resolution time is the sum total of time taken to resolve each complaint in days, in the current month divided by total number of complaints resolved in the current month.

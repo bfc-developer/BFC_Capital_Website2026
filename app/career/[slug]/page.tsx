@@ -168,20 +168,20 @@ export default async function JobDetailsPage({ params }: { params: Promise<{ slu
                         <div className="mb-8">
                             <h3 className="text-xl font-bold text-[#44475B] mb-4">Who Are We?</h3>
                             <p className="text-[#7A7A7A] leading-relaxed mb-4">
-                                Group BFC made its foray as a corporate entity primarily into two domains, BFC Capital and BFC Publications, almost a decade ago. Over the given period, the group’s publishing venture, BFC Publications has grown exponentially, morphing into a brand. It currently boasts a leading position in the country’s literary scene. This success in turn, has allowed BFC Group, its parent company to rapidly expand its operations. The group’s ever expanding and dynamic team has consistently played a key role in all this success. This point forth, BFC Group is primarily looking into pan-India expansion and broadcasting.
+                                Group BFC has in its fold companies operating across domains. BFC Capital, the group's wealth management arm, has served clients for over 20-odd years. Besides this, the group's publishing endeavor, BFC Publications has been successfully turning writers into authors, consequently leaving a lasting imprint on the country's literary space. The group is also home to BFC Softtech, an IT company handling in-house and external projects.
+                                The group is ever-expanding and stays on the lookout to invest in potentially fruitful avenues; case-in-point, BFC Content, the group's latest foray into content creation and broadcasting.
                             </p>
                             <h3 className="text-xl font-bold text-[#44475B] mb-4">BFC Capital</h3>
                             <p className="text-[#7A7A7A] leading-relaxed">
-                                BFC Capital is a premier Wealth Management company that has been creating its own niche in the space for a good sixteen years, serving and handholding corporate and retail clients in their wealth-building efforts.
-                                <br /><br />
-                                We are the pioneers of Mutual Funds distribution in the country, with a core team of promising Retail/Corporate Investment Planners for Wealth planning and Financial Planning. We, as of now, are overseeing and managing an AUM worth more than Rs. 5.5 Billion. With over 15,000 retail and 150+ institutional clients under our wing.
-                                <br /><br />
-                                In a recent tally released, BFC Capital was listed as "One of the Top 25 Most Promising Wealth Management Consultants" of the country.
+                                BFC Capital is a premier wealth management company that has been treading India's wealth space for a good 20-odd years, serving and handholding corporate and retail clients in their wealth-building efforts.<br />
+                                We are the second-largest Mutual Funds distributor in Uttar Pradesh, with a wide range of offerings, from Corporate Investment Planning to Treasury Planning and Financial Planning. We, as of now, are overseeing and managing an AUM worth more than Rs. 9.5 billion, with over 16,000 retail and 150+ institutional clients under our wing.
+                                <br />
+                                In a recent Silicon India article, we were identified as "One of the Top 20 Most Promising Wealth Management Consultants" of the country.
                             </p>
                         </div>
 
                         <div className="mb-8">
-                            <h3 className="text-xl font-bold text-[#44475B] mb-4">What Are We Looking For?</h3>
+                            <h3 className="text-xl font-bold text-[#44475B] mb-4">What Are We Looking For? </h3>
                             <div className="text-[#7A7A7A] space-y-1">
                                 <p><span className="font-bold text-[#44475B]">Role :</span> Business Development Manager</p>
                                 <p><span className="font-bold text-[#44475B]">Job Location :</span> Lucknow, Uttar Pradesh</p>
