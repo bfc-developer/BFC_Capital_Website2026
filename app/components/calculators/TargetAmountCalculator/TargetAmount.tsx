@@ -125,7 +125,7 @@ export default function TargetAmountCalculator() {
                 </h2>
             </div>
             <section>
-                <div className="max-w-7xl mx-auto px-4 py-6 md:py-8">
+                <div className="container mx-auto px-5 md:px-10 lg:px-20">
                     <div className="flex flex-col md:flex-row justify-between gap-6">
 
                         {/* LEFT SIDE */}
@@ -232,49 +232,44 @@ export default function TargetAmountCalculator() {
 
                                 </form>
                             </div>
-                        </div>                        {/* RIGHT SIDE */}
+                        </div>
+                        {/* RIGHT SIDE */}
                         <div className="w-full md:w-1/2 text-[#44475B]">
-                            <div className="space-y-4 h-full flex flex-col justify-between">
+                            <div className="space-y-4">
 
                                 {/* Result Card */}
-                                {showResults && (
-                                    <div className="shadow-md rounded-2xl px-5 py-6 bg-[#FFFFFF] border-t-4 border-[#04B488]">
-                                        <h2 className="font-primary font-semibold text-2xl leading-tight text-[#44475B] mb-6">
-                                            Your Goal Demands
-                                        </h2>
+                                <div className="shadow-md rounded-2xl px-5 py-4 bg-[#FFFFFF]">
+                                    <h2 className="font-primary font-semibold text-2xl leading-tight text-textdark mb-3">
+                                        Result
+                                    </h2>
 
-                                        <div className="space-y-6">
-                                            <div>
-                                                <p className="text-sm uppercase text-[#7A7A7A] mb-1">Lump Sum Needed Today</p>
-                                                <p className="text-3xl font-bold text-[#44475B]">₹ {Math.round(pvalue).toLocaleString("en-IN")}</p>
-                                            </div>
-                                            <div>
-                                                <p className="text-sm uppercase text-[#7A7A7A] mb-1">Monthly SIP Needed</p>
-                                                <p className="text-3xl font-bold text-[#44475B]">₹ {Math.round(targetValue).toLocaleString("en-IN")}</p>
-                                            </div>
-                                        </div>
-
-                                        <p className="mt-8 text-xs text-[#7A7A7A] italic">
-                                            *Calculations are based on the expected rate of return and time frame provided.
-                                        </p>
+                                    <div className="col-lg-6 result-item">
+                                        <p>{"Your Target Amount".toUpperCase()}</p>
+                                        <h3 className="text-[#212121]">₹ {finalAmount.toLocaleString("en-IN")}</h3>
                                     </div>
-                                )}
-
-                                {!showResults && (
-                                    <div className="shadow-md rounded-2xl px-5 py-6 bg-[#FFFFFF] flex items-center justify-center min-h-[200px]">
-                                        <p className="text-[#7A7A7A] text-center italic">Enter your target details and click calculate to see the results.</p>
+                                    <div className="col-lg-6 result-item">
+                                        <p>{"Monthly SIP investment required".toUpperCase()}</p>
+                                        <h3 className="text-[#212121]">₹{Math.round(targetValue).toLocaleString("en-IN")}</h3>
                                     </div>
-                                )}
+                                    <div className="col-lg-6 result-item">
+                                        <p>{"One time investment required".toUpperCase()}</p>
+                                        <h3 className="text-[#212121]">₹{Math.round(pvalue).toLocaleString("en-IN")}</h3>
+                                    </div>
+                                </div>
+
 
                                 {/* Invest Now Button */}
-                                <div className="mt-auto pt-6">
+                                <div>
                                     <Link
                                         href="https://app.prodigypro.co.in/"
-                                        className="w-full text-center py-4 rounded-xl font-bold text-white transition bg-gradient-to-r from-[#04B488] to-[#011EFE] hover:shadow-lg inline-block"
+                                        className="inline-block py-3 px-6 rounded-lg font-semibold transition bg-[#FFFFFF]"
                                     >
-                                        Invest Now
+                                        <span className="bg-gradient-to-r from-[#04B488] to-[#011EFE] bg-clip-text text-transparent font-bold">
+                                            Start Investing
+                                        </span>
                                     </Link>
                                 </div>
+
                             </div>
                         </div>
                     </div>

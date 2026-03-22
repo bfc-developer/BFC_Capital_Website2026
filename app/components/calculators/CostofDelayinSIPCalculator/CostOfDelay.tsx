@@ -128,13 +128,26 @@ export default function CostOfDelay() {
                         className="h-4 w-4 mx-2"
                         style={{ stroke: "url(#chevron-gradient)" }}
                     />
-                    <span className="text-[#7A7A7A] font-semibold" style={{
+                    <Link
+                        href="/calculators"
+                        className="font-semibold"
+                        style={{
+                            background: "linear-gradient(90deg, #04B488 39.5%, #011EFE 100%)",
+                            WebkitBackgroundClip: "text",
+                            WebkitTextFillColor: "transparent",
+                            backgroundClip: "text",
+                            color: "transparent"
+                        }}
+                    >
+                        Calculators
+                    </Link>
+                    {/* <span className="text-[#7A7A7A] font-semibold" style={{
                         background: "linear-gradient(90deg, #04B488 39.5%, #011EFE 100%)",
                         WebkitBackgroundClip: "text",
                         WebkitTextFillColor: "transparent",
                         backgroundClip: "text",
                         color: "transparent"
-                    }}>Calculators</span>
+                    }}>Calculators</span> */}
                     <ChevronRight
                         className="h-4 w-4 mx-2"
                         style={{ stroke: "url(#chevron-gradient)" }}
@@ -153,7 +166,7 @@ export default function CostOfDelay() {
                 </h2>
             </div>
             <section>
-                <div className="max-w-7xl mx-auto px-4 py-6 md:py-8">
+                <div className="container mx-auto px-5 md:px-10 lg:px-20">
                     <div className="flex flex-col md:flex-row justify-between gap-6">
 
                         {/* LEFT SIDE */}
@@ -319,8 +332,8 @@ export default function CostOfDelay() {
 
                                     <div className="row pt-3">
                                         <div className="col-lg-6 mb-2">
-                                            <div className="border border-2 rounded-4 p-3 cost-investment-cards">
-                                                <span className="rounded-pill cacl-bg-green">
+                                            <div className="border border-2 rounded-lg p-3 cost-investment-cards">
+                                                <span className="border rounded-lg px-4 text-[#06A358] bg-[#E6F6EE]">
                                                     {" "}
                                                     👍 Start Age : {Number(myCurrentAge1)}
                                                 </span>
@@ -337,8 +350,8 @@ export default function CostOfDelay() {
                                             </div>
                                         </div>
                                         <div className="col-lg-6">
-                                            <div className="border border-2 rounded-4 p-3 cost-investment-cards">
-                                                <span className="rounded-pill cacl-bg-red">
+                                            <div className="border border-2 rounded-lg p-3 cost-investment-cards">
+                                                <span className="border rounded-lg px-4 text-[#CB414E] bg-[#FAECED]">
                                                     {" "}
                                                     👎 Start Age :{" "}
                                                     {Number(delayAge1) + Number(myCurrentAge1)}
@@ -361,7 +374,7 @@ export default function CostOfDelay() {
                                             <span className="">
                                                 {"Loss Due to Delay in Investment".toUpperCase()}
                                             </span>
-                                            <h2 className="cost-invet-red py-2">
+                                            <h2 className="text-[#CB414E] text-2xl font-semibold py-2">
                                                 ₹{Math.round(difference).toLocaleString("en-IN")}
                                             </h2>
                                         </div>
@@ -410,10 +423,10 @@ export default function CostOfDelay() {
                                 <div>
                                     <Link
                                         href="https://app.prodigypro.co.in/"
-                                        className="inline-block py-3 rounded-lg font-semibold transition bg-color-[#FFFFFF]"
+                                        className="inline-block py-3 px-6 rounded-lg font-semibold transition bg-[#FFFFFF]"
                                     >
-                                        <span className="bg-gradient-to-r from-[#04B488] to-[#011EFE] bg-clip-text text-transparent">
-                                            Invest Now
+                                        <span className="bg-gradient-to-r from-[#04B488] to-[#011EFE] bg-clip-text text-transparent font-bold">
+                                            Start Investing
                                         </span>
                                     </Link>
                                 </div>

@@ -111,26 +111,50 @@ export default function EMICalculator() {
     const chartOptions: ApexOptions = {
         dataLabels: { enabled: false },
         tooltip: { enabled: false },
-        colors: ["#1A35FE", "#CCD2FF"],
+        colors: ["#001EFE", "#001EFE"],
+        fill: {
+            type: ["gradient", "gradient"],
+            gradient: {
+                type: "horizontal",
+                colorStops: [
+                    // Series 0 = Principal → FULL opacity gradient (blue → green)
+                    [
+                        { offset: 0, color: "#001EFE", opacity: 1 },
+                        { offset: 100, color: "#06A358", opacity: 1 },
+                    ],
+                    // Series 1 = Total Interest → LOW opacity (faint lavender look)
+                    [
+                        { offset: 0, color: "#001EFE", opacity: 0.15 },
+                        { offset: 100, color: "#001EFE", opacity: 0.15 },
+                    ],
+                ],
+            },
+        },
         labels: [
             `Principal Amount (${formatINRShort(principal)})`,
             `Total Interest (${formatINRShort(totalInterest)})`,
         ],
-
         legend: {
             show: true,
             position: "bottom" as "bottom" | "top" | "left" | "right",
             horizontalAlign: "center",
             fontSize: "14px",
-            markers: { size: 12 }, // ✅ correct
+            markers: { size: 5 },
         },
         states: {
             hover: { filter: { type: "none" } },
             active: { filter: { type: "none" } },
         },
+        plotOptions: {
+            pie: {
+                donut: {
+                    size: "65%", // controls the ring thickness — adjust to taste
+                },
+            },
+        },
     };
-    const chartSeries = [principal, totalInterest];
 
+    const chartSeries = [principal, totalInterest];
     return (
         <>
             <div className="container mx-auto px-4 py-8 md:py-12 md:px-15 lg:px-20">
@@ -187,7 +211,7 @@ export default function EMICalculator() {
                 </h2>
             </div>
             <section>
-                <div className="max-w-7xl mx-auto px-4 py-6 md:py-8">
+                <div className="container mx-auto px-5 md:px-10 lg:px-20">
                     <div className="flex flex-col md:flex-row justify-between gap-6">
 
                         {/* LEFT SIDE */}
@@ -340,21 +364,21 @@ export default function EMICalculator() {
                                         options={chartOptions}
                                         series={chartSeries}
                                         type="donut"
-                                        width="100%"
+                                        width="70%"
                                     />
                                 </div>
 
-                                {/* Invest Now Button */}
+                                {/* Invest Now Button
                                 <div>
                                     <Link
                                         href="https://app.prodigypro.co.in/"
-                                        className="inline-block py-3 rounded-lg font-semibold transition bg-color-[#FFFFFF]"
+                                        className="inline-block py-3 px-6 rounded-lg font-semibold transition bg-[#FFFFFF]"
                                     >
-                                        <span className="bg-gradient-to-r from-[#04B488] to-[#011EFE] bg-clip-text text-transparent">
+                                        <span className="bg-gradient-to-r from-[#04B488] to-[#011EFE] bg-clip-text text-transparent font-bold">
                                             Invest Now
                                         </span>
                                     </Link>
-                                </div>
+                                </div> */}
 
                             </div>
                         </div>

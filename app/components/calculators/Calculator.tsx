@@ -79,7 +79,7 @@ const calculators = [
         title: "Cost of Delay in SIP Calculator",
         desc: "Starting late costs more than you think– calculate now!",
         img: "/calculator/cost-of-delay-in-sip-calculator.png",
-        link: "/calculators/cost-of-delay-calculator",
+        link: "/calculators/cost-of-delay-in-sip-calculator",
     },
 ];
 export default function Calculators() {

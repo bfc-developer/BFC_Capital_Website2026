@@ -88,7 +88,6 @@ export default function StepUpCalculator() {
         }
     };
 
-
     return (
         <>
             <div className="container mx-auto px-4 py-8 md:py-12 md:px-15 lg:px-20">
@@ -131,13 +130,6 @@ export default function StepUpCalculator() {
                     >
                         Calculators
                     </Link>
-                    <span className="text-[#7A7A7A] font-semibold" style={{
-                        background: "linear-gradient(90deg, #04B488 39.5%, #011EFE 100%)",
-                        WebkitBackgroundClip: "text",
-                        WebkitTextFillColor: "transparent",
-                        backgroundClip: "text",
-                        color: "transparent"
-                    }}>Calculators</span>
                     <ChevronRight
                         className="h-4 w-4 mx-2"
                         style={{ stroke: "url(#chevron-gradient)" }}
@@ -156,7 +148,7 @@ export default function StepUpCalculator() {
                 </h2>
             </div>
             <section>
-                <div className="max-w-7xl mx-auto px-4 py-6 md:py-8">
+                <div className="container mx-auto px-5 md:px-10 lg:px-20">
                     <div className="flex flex-col md:flex-row justify-between gap-6">
 
                         {/* LEFT SIDE */}
@@ -168,24 +160,94 @@ export default function StepUpCalculator() {
                                     {/* Monthly Saving */}
                                     <div>
                                         <label className="block text-[#44475B] font-medium text-sm uppercase mb-2">
-                                            MONTHLY SAVING
+                                            How much you can invest through monthly SIP?
                                         </label>
                                         <input
                                             type="number"
                                             className="w-full border rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500 text-[#44475B]"
-                                            value={monthlySaving}
+                                            value={loanAmount}
                                             min={0}
                                             onChange={(e) =>
-                                                setMonthlySaving(parseFloat(e.target.value))
+                                                setLoanAmount(parseFloat(e.target.value))
                                             }
                                             placeholder="₹ 10,000"
+                                        />
+                                    </div>
+
+                                    {/* Investment Period */}
+                                    <div>
+                                        <div className="flex justify-between mb-2">
+                                            <label className="text-[#44475B] font-medium text-sm uppercase">
+                                                How many months will you continue the SIP?
+                                            </label>
+                                            <span className="font-bold text-[#44475B]">
+                                                {investmentPeriod} Yrs
+                                            </span>
+                                        </div>
+
+                                        <RangeBar
+                                            maxLimit={30}
+                                            setValue={setInvestmentPeriod}
+                                            value={investmentPeriod}
+                                        />
+
+                                        <div className="flex justify-between text-sm text-[#44475B] mt-2">
+                                            <span>1 Yr</span>
+                                            <span>30 Yrs</span>
+                                        </div>
+                                    </div>
+
+                                    {/* Expected Rate of Return */}
+                                    <div>
+                                        <label className="block text-[#44475B] font-medium text-sm uppercase mb-2">
+                                            Expected Return (% p.a)
+                                        </label>
+                                        <input
+                                            type="text"
+                                            inputMode="decimal"
+                                            className="w-full border rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500 text-[#44475B]"
+                                            value={interest}
+                                            placeholder="16.5"
+                                            onChange={(e) => {
+                                                let val = e.target.value;
+
+                                                // Remove invalid characters (keep digits and one dot)
+                                                val = val.replace(/[^0-9.]/g, "");
+
+                                                // Prevent multiple dots
+                                                const parts = val.split(".");
+                                                if (parts.length > 2) {
+                                                    val = parts[0] + "." + parts.slice(1).join("");
+                                                }
+
+                                                // Remove leading zeros like 012 -> 12 (but allow 0.x)
+                                                if (
+                                                    val.startsWith("0") &&
+                                                    !val.startsWith("0.") &&
+                                                    val.length > 1
+                                                ) {
+                                                    val = val.replace(/^0+/, "");
+                                                }
+
+                                                // Allow empty while typing
+                                                if (val === "") {
+                                                    setInterest("");
+                                                    return;
+                                                }
+
+                                                const num = parseFloat(val);
+
+                                                if (val === "." || (!isNaN(num) && num >= 0 && num <= 100)) {
+                                                    setInterest(val);
+                                                }
+                                            }}
                                         />
                                     </div>
 
                                     {/* Expected Rate of Return */}
                                     <div>
                                         <label className="block text-[#44475B] font-medium text-sm uppercase mb-2">
-                                            EXPECTED RATE OF RETURN (% P.A)
+                                            Annual Step Up Percentage (% p.a)
                                         </label>
                                         <input
                                             type="text"
@@ -229,29 +291,6 @@ export default function StepUpCalculator() {
                                         />
                                     </div>
 
-                                    {/* Investment Period */}
-                                    <div>
-                                        <div className="flex justify-between mb-2">
-                                            <label className="text-[#44475B] font-medium text-sm uppercase">
-                                                INVESTMENT PERIOD
-                                            </label>
-                                            <span className="font-bold text-[#44475B]">
-                                                {investmentPeriod} Yrs
-                                            </span>
-                                        </div>
-
-                                        <RangeBar
-                                            maxLimit={30}
-                                            setValue={setInvestmentPeriod}
-                                            value={investmentPeriod}
-                                        />
-
-                                        <div className="flex justify-between text-sm text-[#44475B] mt-2">
-                                            <span>1 Yr</span>
-                                            <span>30 Yrs</span>
-                                        </div>
-                                    </div>
-
                                     {/* Button */}
                                     <button
                                         type="button"
@@ -274,39 +313,76 @@ export default function StepUpCalculator() {
                                     <h2 className="font-primary font-semibold text-2xl leading-tight text-textdark mb-3">
                                         Result
                                     </h2>
+                                    <div className="col-lg-6">
+                                        <p className="fs12px mb-0 mt-3">
+                                            TOTAL SIP AMOUNT INVESTED WITHOUT ANNUAL INCREASE
+                                        </p>
+                                        <h4 className="mt-1">
+                                            ₹{Math.round(monthyEmi).toLocaleString("en-IN")}
+                                        </h4>
+                                    </div>
+                                    <div className="col-lg-6">
+                                        <p className="fs12px mb-0 mt-3">
+                                            TOTAL GROWTH WITHOUT ANNUAL INCREASE
+                                        </p>
+                                        <h4 className="mt-1">
+                                            ₹{Math.round(principal).toLocaleString("en-IN")}
+                                        </h4>
+                                    </div>
+                                    <div className="col-lg-6">
+                                        <p className="fs12px mb-0 mt-3">
+                                            TOTAL FUTURE VALUE (SIP INVESTMENT + RETURNS, NO ANNUAL
+                                            INCREASE)
+                                        </p>
+                                        <h4 className="mt-1">
+                                            ₹{Math.round(totalinterest).toLocaleString("en-IN")}
+                                        </h4>
+                                    </div>
+                                    <div className="col-lg-6">
+                                        <p className="fs12px mb-0 mt-3">
+                                            TOTAL SIP AMOUNT INVESTED WITH ANNUAL INCREASE
+                                        </p>
+                                        <h4 className="mt-1">
+                                            ₹{Math.round(totalAmount).toLocaleString("en-IN")}
+                                        </h4>
+                                    </div>
+                                    <div className="col-lg-6">
+                                        <p className="fs12px mb-0 mt-3">
+                                            TOTAL GROWTH WITH ANNUAL INCREASE
+                                        </p>
+                                        <h4 className="mt-1">
+                                            ₹{Math.round(totalGrowth).toLocaleString("en-IN")}
+                                        </h4>
+                                    </div>
+                                    <div className="col-lg-6">
+                                        <p className="fs12px mb-0 mt-3">
+                                            TOTAL FUTURE VALUE (SIP + GROWTH, WITH ANNUAL INCREASE)
+                                        </p>
+                                        <h4 className="mt-1">
+                                            ₹{Math.round(resultLoanAmount).toLocaleString("en-IN")}
+                                        </h4>
+                                    </div>
 
-                                    <p className="font-primary text-base md:text-lg leading-relaxed text-textdark">
-                                        If you invest{" "}
-                                        <strong>₹{monthlySaving1.toLocaleString("en-IN")}</strong>{" "}
-                                        per month for a period of{" "}
-                                        <strong>{investmentPeriod1} years</strong>, your investment
-                                        amount will be{" "}
-                                        <strong>
-                                            ₹{totalMonthlySaving.toLocaleString("en-IN")}
-                                        </strong>{" "}
-                                        and the maturity amount will grow to{" "}
-                                        <strong>₹{totalGains.toLocaleString("en-IN")}</strong>.
-                                    </p>
                                 </div>
 
                                 {/* Chart Card */}
-                                <div className="shadow-md rounded-2xl px-5 py-4 bg-[#FFFFFF]">
+                                {/* <div className="shadow-md rounded-2xl px-5 py-4 bg-[#FFFFFF]">
                                     <ReactApexChart
                                         options={chartState.options}
                                         series={chartState.series}
                                         type="area"
                                         height={350}
                                     />
-                                </div>
+                                </div> */}
 
                                 {/* Invest Now Button */}
                                 <div>
                                     <Link
                                         href="https://app.prodigypro.co.in/"
-                                        className="inline-block py-3 rounded-lg font-semibold transition bg-color-[#FFFFFF]"
+                                        className="inline-block py-3 px-6 rounded-lg font-semibold transition bg-[#FFFFFF]"
                                     >
-                                        <span className="bg-gradient-to-r from-[#04B488] to-[#011EFE] bg-clip-text text-transparent">
-                                            Invest Now
+                                        <span className="bg-gradient-to-r from-[#04B488] to-[#011EFE] bg-clip-text text-transparent font-bold">
+                                            Start Investing
                                         </span>
                                     </Link>
                                 </div>

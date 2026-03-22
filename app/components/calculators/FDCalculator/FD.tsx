@@ -113,7 +113,25 @@ export default function FDCalculator() {
     } = {
         options: {
             dataLabels: { enabled: false },
-            colors: ["#CCD2FF", "#1A35FE"],
+            colors: ["#001EFE", "#001EFE"],
+            fill: {
+                type: ["gradient", "gradient"],
+                gradient: {
+                    type: "horizontal",
+                    colorStops: [
+                        // Series 0 = Principal → FULL opacity gradient (blue → green)
+                        [
+                            { offset: 0, color: "#001EFE", opacity: 1 },
+                            { offset: 100, color: "#06A358", opacity: 1 },
+                        ],
+                        // Series 1 = Total Interest → LOW opacity (faint lavender look)
+                        [
+                            { offset: 0, color: "#001EFE", opacity: 0.15 },
+                            { offset: 100, color: "#001EFE", opacity: 0.15 },
+                        ],
+                    ],
+                },
+            },
             tooltip: { enabled: false },
             labels: [
                 `Total Interest (${totalInterest.toLocaleString("en-IN")})`,
@@ -124,7 +142,7 @@ export default function FDCalculator() {
                 position: "bottom", // ✅ TS accepts "bottom" as literal
                 horizontalAlign: "center",
                 fontSize: "14px",
-                markers: { size: 12 },
+                markers: { size: 5 },
                 onItemHover: { highlightDataSeries: false },
             },
             states: {
@@ -166,23 +184,25 @@ export default function FDCalculator() {
                         className="h-4 w-4 mx-2"
                         style={{ stroke: "url(#chevron-gradient)" }}
                     />
-                    <span className="text-[#7A7A7A] font-semibold" style={{
-                        background: "linear-gradient(90deg, #04B488 39.5%, #011EFE 100%)",
-                        WebkitBackgroundClip: "text",
-                        WebkitTextFillColor: "transparent",
-                        backgroundClip: "text",
-                        color: "transparent"
-                    }}>Calculators</span>
+                    <Link href="/calculators">
+                        <span className="text-[#7A7A7A] font-semibold" style={{
+                            background: "linear-gradient(90deg, #04B488 39.5%, #011EFE 100%)",
+                            WebkitBackgroundClip: "text",
+                            WebkitTextFillColor: "transparent",
+                            backgroundClip: "text",
+                            color: "transparent"
+                        }}>Calculators</span>
+                    </Link>
                     <ChevronRight
                         className="h-4 w-4 mx-2"
                         style={{ stroke: "url(#chevron-gradient)" }}
                     />
                     <span className="text-[#7A7A7A] font-semibold" style={{
-                        background: "linear-gradient(90deg, #04B488 39.5%, #011EFE 100%)",
-                        WebkitBackgroundClip: "text",
-                        WebkitTextFillColor: "transparent",
-                        backgroundClip: "text",
-                        color: "transparent"
+                        // background: "linear-gradient(90deg, #04B488 39.5%, #011EFE 100%)",
+                        // WebkitBackgroundClip: "text",
+                        // WebkitTextFillColor: "transparent",
+                        // backgroundClip: "text",
+                        // color: "transparent"
                     }}>FD Calculator</span>
                 </nav>
                 {/* Title */}
@@ -191,7 +211,7 @@ export default function FDCalculator() {
                 </h2>
             </div>
             <section>
-                <div className="max-w-7xl mx-auto px-4 py-6 md:py-8">
+                <div className="container mx-auto px-5 md:px-10 lg:px-20">
                     <div className="flex flex-col md:flex-row justify-between gap-6">
 
                         {/* LEFT SIDE */}
@@ -291,6 +311,7 @@ export default function FDCalculator() {
                                             Compounding Period
                                         </label>
                                         <Form.Select
+                                            className="text-[#212121] w-full border rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
                                             value={compound}
                                             onChange={(e) => setCompound(Number(e.target.value))}
                                         >
@@ -356,7 +377,7 @@ export default function FDCalculator() {
                                 </div>
 
                                 {/* Invest Now Button */}
-                                <div>
+                                {/* <div>
                                     <Link
                                         href="https://app.prodigypro.co.in/"
                                         className="inline-block py-3 rounded-lg font-semibold transition bg-color-[#FFFFFF]"
@@ -365,7 +386,7 @@ export default function FDCalculator() {
                                             Invest Now
                                         </span>
                                     </Link>
-                                </div>
+                                </div> */}
 
                             </div>
                         </div>

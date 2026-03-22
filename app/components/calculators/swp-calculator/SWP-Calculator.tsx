@@ -5,7 +5,7 @@ import { Form, Button } from "react-bootstrap";
 import Link from "next/link";
 import Accordion from "react-bootstrap/Accordion";
 import dynamic from "next/dynamic";
-
+import axios from "axios";
 const ReactApexChart = dynamic(() => import("react-apexcharts"), {
     ssr: false,
 });
@@ -13,119 +13,138 @@ import { ApexOptions } from "apexcharts";
 import RangeBar from "@/app/components/common/RangeBar";
 import { toast } from "react-toastify";
 import { ChevronRight } from "lucide-react";
+import { endpoints } from "../../urls/URLS";
 
 export default function SWPCalculatorComponent() {
     const questions = [
         {
-            question: "How does an SWP calculator work?",
+            question: "What is the difference between SWP and SIP?",
             answer:
-                "An SWP calculator estimates the remaining value of your investment after regular withdrawals, factoring in expected market returns over a set period.",
+                "SIP builds wealth by investing regularly. SWP distributes wealth by withdrawing regularly. SIP is about growing money, SWP is about enjoying it.",
         },
         {
-            question: "What is the difference between SIP and SWP?",
+            question: "Does the calculator show how long my investment will last?",
             answer:
-                "While SIP (Systematic Investment Plan) is for building a corpus over time, SWP (Systematic Withdrawal Plan) is for generating a regular income from an existing corpus.",
+                "Yes, it estimates the lifespan of your corpus based on your withdrawals and expected returns.",
         },
         {
-            question: "Can an SWP calculator help in retirement planning?",
+            question:
+                "Can I calculate the remaining corpus after regular withdrawals?",
             answer:
-                "Absolutely. It helps you determine how much you can safely withdraw each month without exhausting your retirement savings too soon.",
+                "Absolutely, the calculator shows how much of your investment remains invested even after consistent withdrawals.",
         },
         {
-            question: "What is the 4% rule in SWP?",
+            question:
+                "Does the calculator account for capital appreciation over time?",
             answer:
-                "A common rule of thumb where withdrawing 4% of your initial corpus annually (adjusted for inflation) is considered safe for a 30-year retirement.",
+                "Yes, it assumes your investments continue to earn returns as you withdraw, giving a realistic picture.",
         },
         {
-            question: "Are SWP withdrawals taxable?",
+            question: "Can I use this calculator for retirement income planning?",
             answer:
-                "In an SWP, only the capital gains component of the withdrawal is taxable, making it more tax-efficient than traditional fixed-income options.",
+                "That’s one of its most powerful uses. It tells you exactly how much you can withdraw monthly without running out of savings too early.",
         },
     ];
 
-    interface ChartState {
-        options: ApexOptions;
-        series: { name: string; data: number[] }[];
-    }
-    const [totalInvestment, setTotalInvestment] = useState<number>(10000000);
-    const [withdrawalAmount, setWithdrawalAmount] = useState<number>(75000);
-    const [withdrawalPeriod, setWithdrawalPeriod] = useState<number>(15);
-    const [expectedRateOfReturn, setExpectedRateOfReturn] =
-        useState<string | number>(10);
+    // useEffect(() => {
+    //   const fetchFaqs = async () => {
+    //     try {
+    //       const res = await fetch(`${Base_url}/${endpoints.calculators}`);
+    //       const data = await res.json();
 
-    const [totalWithdrawal, setTotalWithdrawal] = useState<number>(13500000);
-    const [finalCorpus, setFinalCorpus] = useState<number>(11800000);
-    const [totalInvestment1, setTotalInvestment1] = useState<number>(10000000);
-    const [withdrawalAmount1, setWithdrawalAmount1] = useState<number>(75000);
-    const [withdrawalPeriod1, setWithdrawalPeriod1] = useState<number>(15);
+    //       // Extract FAQ array safely
+    //       const faqItems = data?.data[0]?.attributes?.sipCalculator?.FAQ || [];
+    //       setQuestions(faqItems);
+    //     } catch (error) {
+    //       console.error("Error fetching FAQs:", error);
+    //     }
+    //   };
 
-    const [chartState, setChartState] = useState<ChartState>({
-        series: [
-            { name: "Total Withdrawn", data: [13500000] },
-            { name: "Remaining Corpus", data: [11800000] },
-        ],
-        options: {
-            legend: {
-                show: true,
-                position: "top",
-            },
-            chart: {
-                height: 350,
-                type: "bar",
-                stacked: true,
-                background: "transparent",
-                toolbar: { show: false },
-                zoom: { enabled: false },
-            },
-            dataLabels: { enabled: false },
-            stroke: {
-                width: 1,
-                colors: ["#fff"],
-            },
-            xaxis: {
-                categories: ["Growth Breakdown"],
-            },
-            grid: { show: false },
-            colors: ["#04B488", "#011EFE"],
-        },
-    });
+    //   fetchFaqs();
+    // }, []);
 
-    const calculateSWP = () => {
-        if (!totalInvestment || !withdrawalAmount || !expectedRateOfReturn || !withdrawalPeriod) {
+    // const [monthlySaving, setMonthlySaving] = useState("₹ 100,000");
+    // const [rateOfReturn, setRateOfReturn] = useState("12");
+    // const [period, setPeriod] = useState("Monthly");
+
+    // Input states
+    // Input states
+    const [lumpsumAmount, setLumpsumAmount] = useState<number>(65000);
+    const [investmentPeriod, setInvestmentPeriod] = useState<number>(5);
+    const [expectedReturn, setExpectedReturn] = useState<string | number>(8);
+    const [withdrawalAmount, setWithdrawalAmount] = useState<number>(15000);
+    const [withdrawalPercentage, setWithdrawalPercentage] =
+        useState<number>(23.08);
+    const [byAmount, setByAmount] = useState<boolean>(true);
+
+    // Result states
+    const [totalBalanceAmount, setTotalBalanceAmount] = useState<number>(617);
+    const [totalWithdrawalAmount, setTotalWithdrawalAmount] =
+        useState<number>(60000);
+    const [totalProfit, setTotalProfit] = useState<number>(1107);
+
+    // Hydration-safe formatted numbers
+    const [formattedBalance, setFormattedBalance] = useState<string>("");
+    const [formattedWithdrawal, setFormattedWithdrawal] = useState<string>("");
+    const [formattedProfit, setFormattedProfit] = useState<string>("");
+
+
+
+    // Handlers
+    const handleWithdrawalBy = (isAmount: boolean) => {
+        setByAmount(isAmount);
+        setWithdrawalAmount(0);
+        setWithdrawalPercentage(0);
+    };
+
+    const handleLumpsumChange = (value: number) => {
+        if (value > 100_000_000) return;
+        setLumpsumAmount(value);
+        if (byAmount && withdrawalAmount > 0) {
+            setWithdrawalPercentage((withdrawalAmount * 100) / value);
+        } else if (!byAmount && withdrawalPercentage > 0) {
+            setWithdrawalAmount((withdrawalPercentage / 100) * value);
+        }
+    };
+
+    const handleWithdrawalAmountChange = (value: number) => {
+        if (value > lumpsumAmount) value = lumpsumAmount;
+        setWithdrawalAmount(value);
+        setWithdrawalPercentage((value * 100) / lumpsumAmount);
+    };
+
+    const handleWithdrawalPercentageChange = (value: number) => {
+        if (value > 100) value = 100;
+        setWithdrawalPercentage(value);
+        setWithdrawalAmount((value / 100) * lumpsumAmount);
+    };
+
+    const calculateResult = async () => {
+
+        if (!lumpsumAmount || !expectedReturn || !withdrawalAmount) {
             toast.error("Please make sure all required fields are filled in.")
             return;
         }
         else {
-            const P = totalInvestment;
-            const W = withdrawalAmount;
-            const r = Number(expectedRateOfReturn) / 100 / 12;
-            const n = withdrawalPeriod * 12;
+            const token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiJjeWhrZHU4dW1mY2o5NHhrIiwiaWF0IjoxNzY0NzQxODQxfQ.VhRKw4h9gU4vybAt2LhTp-bH1g2Z2A0t1K-_-L2_jKE"
+            const res = await axios.post<any>("https://prodigypro-new.bfcsofttech.in/api/v2/calculators/swp", {
+                monthlyWithdrawl: Math.round(withdrawalAmount),
+                period: Number(investmentPeriod),
+                interestRate: expectedReturn,
+                lumpsum: Math.round(lumpsumAmount)
+            },
+                {
+                    headers: {
+                        Authorization: `Bearer ${token}`,
+                        "Content-Type": "application/json",
+                    },
+                });
 
-            // SWP Formula: Final Value = P(1+r)^n - W[((1+r)^n - 1)/r]
-            const finalValue = P * Math.pow(1 + r, n) - W * ((Math.pow(1 + r, n) - 1) / r);
-            const totalWithdrawn = W * n;
+            console.log("ggggg", res.data.data)
 
-            setTotalWithdrawal(Math.round(totalWithdrawn));
-            setFinalCorpus(Math.round(finalValue));
-            setTotalInvestment1(P);
-            setWithdrawalAmount1(W);
-            setWithdrawalPeriod1(withdrawalPeriod);
-
-            // Update chart dynamically
-            setChartState((prevState) => ({
-                series: [
-                    { name: "Total Withdrawn", data: [Math.round(totalWithdrawn)] },
-                    { name: "Remaining Corpus", data: [Math.round(finalValue)] },
-                ],
-                options: {
-                    ...prevState.options,
-                    xaxis: { categories: ["Growth Breakdown"] },
-                    chart: {
-                        type: "bar",
-                        stacked: true,
-                    }
-                },
-            }));
+            setTotalBalanceAmount(res.data?.data?.total_balance_amount);
+            setTotalWithdrawalAmount(res.data?.data?.total_withdrawal_amount);
+            setTotalProfit(res.data?.data?.total_profit);
         }
     };
 
@@ -158,13 +177,15 @@ export default function SWPCalculatorComponent() {
                         className="h-4 w-4 mx-2"
                         style={{ stroke: "url(#chevron-gradient)" }}
                     />
-                    <span className="text-[#7A7A7A] font-semibold" style={{
-                        background: "linear-gradient(90deg, #04B488 39.5%, #011EFE 100%)",
-                        WebkitBackgroundClip: "text",
-                        WebkitTextFillColor: "transparent",
-                        backgroundClip: "text",
-                        color: "transparent"
-                    }}>Calculators</span>
+                    <Link href="/calculators">
+                        <span className="text-[#7A7A7A] font-semibold" style={{
+                            background: "linear-gradient(90deg, #04B488 39.5%, #011EFE 100%)",
+                            WebkitBackgroundClip: "text",
+                            WebkitTextFillColor: "transparent",
+                            backgroundClip: "text",
+                            color: "transparent"
+                        }}>Calculators</span>
+                    </Link>
                     <ChevronRight
                         className="h-4 w-4 mx-2"
                         style={{ stroke: "url(#chevron-gradient)" }}
@@ -183,7 +204,7 @@ export default function SWPCalculatorComponent() {
                 </h2>
             </div>
             <section>
-                <div className="max-w-7xl mx-auto px-4 py-6 md:py-8">
+                <div className="container mx-auto px-5 md:px-10 lg:px-20">
                     <div className="flex flex-col md:flex-row justify-between gap-6">
 
                         {/* LEFT SIDE */}
@@ -195,22 +216,44 @@ export default function SWPCalculatorComponent() {
                                     {/* Total Investment */}
                                     <div>
                                         <label className="block text-[#44475B] font-medium text-sm uppercase mb-2">
-                                            TOTAL INVESTMENT
+                                            Lumpsum Amount
                                         </label>
                                         <input
                                             type="number"
                                             className="w-full border rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500 text-[#44475B]"
-                                            value={totalInvestment}
+                                            value={lumpsumAmount}
                                             min={0}
                                             onChange={(e) =>
-                                                setTotalInvestment(parseFloat(e.target.value))
+                                                setLumpsumAmount(parseFloat(e.target.value))
                                             }
                                             placeholder="₹ 1,00,00,000"
                                         />
                                     </div>
+                                    {/* Investment Period */}
+                                    <div>
+                                        <div className="flex justify-between mb-2">
+                                            <label className="text-[#44475B] font-medium text-sm uppercase">
+                                                Investment Period
+                                            </label>
+                                            <span className="font-bold text-[#44475B]">
+                                                {investmentPeriod} Yrs
+                                            </span>
+                                        </div>
+
+                                        <RangeBar
+                                            maxLimit={50}
+                                            setValue={setInvestmentPeriod}
+                                            value={investmentPeriod}
+                                        />
+
+                                        <div className="flex justify-between text-sm text-[#44475B] mt-2">
+                                            <span>1 Yr</span>
+                                            <span>50 Yrs</span>
+                                        </div>
+                                    </div>
 
                                     {/* Withdrawal Amount */}
-                                    <div>
+                                    {/* <div>
                                         <label className="block text-[#44475B] font-medium text-sm uppercase mb-2">
                                             WITHDRAWAL AMOUNT (MONTHLY)
                                         </label>
@@ -224,18 +267,18 @@ export default function SWPCalculatorComponent() {
                                             }
                                             placeholder="₹ 75,000"
                                         />
-                                    </div>
+                                    </div> */}
 
                                     {/* Expected Rate of Return */}
                                     <div>
                                         <label className="block text-[#44475B] font-medium text-sm uppercase mb-2">
-                                            EXPECTED RATE OF RETURN (% P.A)
+                                            Expected Return (%)
                                         </label>
                                         <input
                                             type="text"
                                             inputMode="decimal"
                                             className="w-full border rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500 text-[#44475B]"
-                                            value={expectedRateOfReturn}
+                                            value={expectedReturn}
                                             placeholder="10"
                                             onChange={(e) => {
                                                 let val = e.target.value;
@@ -248,22 +291,99 @@ export default function SWPCalculatorComponent() {
                                                     val = val.replace(/^0+/, "");
                                                 }
                                                 if (val === "") {
-                                                    setExpectedRateOfReturn("");
+                                                    setExpectedReturn("");
                                                     return;
                                                 }
                                                 const num = parseFloat(val);
                                                 if (val === "." || (!isNaN(num) && num >= 0 && num <= 100)) {
-                                                    setExpectedRateOfReturn(val);
+                                                    setExpectedReturn(val);
                                                 }
                                             }}
                                         />
                                     </div>
+                                    {/* Withdrawal By */}
+                                    <Form.Group className="block text-[#44475B] font-medium text-sm uppercase mb-4">
+                                        <Form.Label className="uppercase text-[#44475B] mb-2">Set Withdrawal By</Form.Label>
+                                        <div className="flex gap-3 mb-2">
+                                            <Button
+                                                className="border rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500 text-[#44475B]"
+                                                type="button"
+                                                onClick={() => handleWithdrawalBy(true)}
+                                                style={byAmount ? {
+                                                    background: "linear-gradient(90deg, #04B488 39.5%, #011EFE 100%)",
+                                                    color: "white"
+                                                } : {
+                                                    background: "white",
+                                                    border: "1px solid #D0DBEA",
+                                                    color: "transparent",
+                                                    backgroundImage: "linear-gradient(90deg, #04B488 39.5%, #011EFE 100%)",
+                                                    WebkitBackgroundClip: "text",
+                                                    WebkitTextFillColor: "transparent",
+                                                    backgroundClip: "text"
+                                                }}
+                                            >
+                                                Amount
+                                            </Button>
+                                            <Button
+                                                className="border rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500 text-[#44475B]"
+                                                type="button"
+                                                onClick={() => handleWithdrawalBy(false)}
+                                                style={!byAmount ? {
+                                                    background: "linear-gradient(90deg, #04B488 39.5%, #011EFE 100%)",
+                                                    color: "white"
+                                                } : {
+                                                    background: "white",
+                                                    border: "1px solid #D0DBEA",
+                                                    color: "transparent",
+                                                    backgroundImage: "linear-gradient(90deg, #04B488 39.5%, #011EFE 100%)",
+                                                    WebkitBackgroundClip: "text",
+                                                    WebkitTextFillColor: "transparent",
+                                                    backgroundClip: "text"
+                                                }}
+                                            >
+                                                Percentage (%)
+                                            </Button>
+                                        </div>
+                                    </Form.Group>
 
-                                    {/* Investment Period */}
+                                    {/* Withdrawal Input */}
+                                    <Form.Group className="block text-[#44475B] font-medium text-sm uppercase mb-2">
+                                        <Form.Label className="uppercase text-[#44475B] mb-2">
+                                            {byAmount
+                                                ? "Monthly Withdrawal Amount"
+                                                : "Monthly Withdrawal (% p.m)"}
+                                        </Form.Label>
+                                        <div className="relative">
+                                            <Form.Control
+                                                type="text"
+                                                value={byAmount ? `₹ ${withdrawalAmount.toLocaleString("en-IN")}` : `${withdrawalPercentage}%`}
+                                                className="w-full border-[#D0DBEA] rounded-xl px-4 py-3 focus:outline-none focus:ring-0 text-[#44475B] text-xl font-medium shadow-none outline-none focus:border-[#D0DBEA]"
+                                                onChange={(e) => {
+                                                    const rawValue = e.target.value.replace(/[^0-9.]/g, "");
+                                                    const numericValue = parseFloat(rawValue) || 0;
+                                                    if (byAmount) {
+                                                        handleWithdrawalAmountChange(numericValue);
+                                                    } else {
+                                                        handleWithdrawalPercentageChange(numericValue);
+                                                    }
+                                                }}
+                                                placeholder={byAmount ? "₹ 15,000" : "23.08%"}
+                                            />
+                                        </div>
+
+                                        <div className="flex justify-between mt-2 text-[#7A7A7A] text-sm">
+                                            <span>
+                                                {byAmount
+                                                    ? `Percentage: ${withdrawalPercentage.toFixed(2)}%`
+                                                    : `Amount: ₹${withdrawalAmount.toLocaleString("en-IN")}`}
+                                            </span>
+                                        </div>
+                                    </Form.Group>
+                                    {/* Investment Period
                                     <div>
                                         <div className="flex justify-between mb-2">
                                             <label className="text-[#44475B] font-medium text-sm uppercase">
-                                                WITHDRAWAL PERIOD
+                                                Investment Period
                                             </label>
                                             <span className="font-bold text-[#44475B]">
                                                 {withdrawalPeriod} Yrs
@@ -280,12 +400,12 @@ export default function SWPCalculatorComponent() {
                                             <span>1 Yr</span>
                                             <span>50 Yrs</span>
                                         </div>
-                                    </div>
+                                    </div> */}
 
                                     {/* Button */}
                                     <button
                                         type="button"
-                                        onClick={calculateSWP}
+                                        onClick={calculateResult}
                                         className="bg-[#04B488] text-white py-3 rounded-lg font-semibold hover:bg-blue-700 transition p-[14px]"
                                     >
                                         Calculate
@@ -301,43 +421,50 @@ export default function SWPCalculatorComponent() {
 
                                 {/* Result Card */}
                                 <div className="shadow-md rounded-2xl px-5 py-4 bg-[#FFFFFF]">
-                                    <h2 className="font-primary font-semibold text-2xl leading-tight text-textdark mb-3">
+                                    <h2 className="font-primary font-semibold text-2xl leading-tight text-[rgba(33, 33, 33, 1)] mb-6">
                                         Result
                                     </h2>
-
-                                    <p className="font-primary text-base md:text-lg leading-relaxed text-textdark">
-                                        If you have a corpus of{" "}
-                                        <strong>₹{totalInvestment1.toLocaleString("en-IN")}</strong>{" "}
-                                        and withdraw{" "}
-                                        <strong>₹{withdrawalAmount1.toLocaleString("en-IN")}</strong>{" "}
-                                        per month for{" "}
-                                        <strong>{withdrawalPeriod1} years</strong>, your total withdrawal
-                                        will be{" "}
-                                        <strong>
-                                            ₹{totalWithdrawal.toLocaleString("en-IN")}
-                                        </strong>{" "}
-                                        and your remaining corpus will be{" "}
-                                        <strong>₹{finalCorpus.toLocaleString("en-IN")}</strong>.
+                                    <label className="block text-[rgba(77, 77, 77, 1)] font-medium text-sm uppercase mb-2">
+                                        Total Balance Amount
+                                    </label>
+                                    <p className="font-primary text-base md:text-lg leading-relaxed text-[rgba(33, 33, 33, 1)] font-bold mb-4">
+                                        ₹{totalBalanceAmount.toLocaleString("en-IN")}
+                                    </p>
+                                    {/* <hr className="my-8 border-[#D0DBEA] border-[1px]" /> */}
+                                    {/* <h4 className="text-[rgba(33, 33, 33, 1)]  font-semibold text-xl leading-tight mb-6">
+                                        Amount required P.M.- Post Retirement
+                                    </h4> */}
+                                    <label className="block text-[rgba(77, 77, 77, 1)] font-medium text-sm uppercase mb-2">
+                                        Total withdrawal amount
+                                    </label>
+                                    <p className="font-primary text-base md:text-lg leading-relaxed text-[rgba(33, 33, 33, 1)] font-bold mb-4">
+                                        ₹{totalWithdrawalAmount.toLocaleString("en-IN")}
+                                    </p>
+                                    <label className="block text-[rgba(77, 77, 77, 1)] font-medium text-sm uppercase mb-2">
+                                        Total Profit
+                                    </label>
+                                    <p className="font-primary text-base md:text-lg leading-relaxed text-[rgba(33, 33, 33, 1)] font-bold mb-4">
+                                        ₹{totalProfit.toLocaleString("en-IN")}
                                     </p>
                                 </div>
 
                                 {/* Chart Card */}
-                                <div className="shadow-md rounded-2xl px-5 py-4 bg-[#FFFFFF]">
+                                {/* <div className="shadow-md rounded-2xl px-5 py-4 bg-[#FFFFFF]">
                                     <ReactApexChart
                                         options={chartState.options}
                                         series={chartState.series}
                                         type="bar"
                                         height={350}
                                     />
-                                </div>
+                                </div> */}
 
                                 {/* Invest Now Button */}
                                 <div>
                                     <Link
                                         href="https://app.prodigypro.co.in/"
-                                        className="inline-block py-3 rounded-lg font-semibold transition bg-color-[#FFFFFF]"
+                                        className="inline-block py-3 px-6 rounded-lg font-semibold transition bg-[#FFFFFF]"
                                     >
-                                        <span className="bg-gradient-to-r from-[#04B488] to-[#011EFE] bg-clip-text text-transparent">
+                                        <span className="bg-gradient-to-r from-[#04B488] to-[#011EFE] bg-clip-text text-transparent font-bold">
                                             Invest Now
                                         </span>
                                     </Link>

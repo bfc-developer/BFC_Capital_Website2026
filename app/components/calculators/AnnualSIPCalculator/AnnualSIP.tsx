@@ -141,7 +141,25 @@ export default function AnnualSIP() {
                             show: false,
                         },
                     },
-                    colors: ["#CCD2FF", "#1A35FE"],
+                    colors: ["#001EFE", "#001EFE"],
+                    fill: {
+                        type: ["gradient", "gradient"],
+                        gradient: {
+                            type: "horizontal",
+                            colorStops: [
+                                // Series 0 — same gradient, low opacity
+                                [
+                                    { offset: 0, color: "#001EFE", opacity: 0.2 },
+                                    { offset: 100, color: "#06A358", opacity: 0.2 },
+                                ],
+                                // Series 1 — same gradient, full opacity
+                                [
+                                    { offset: 0, color: "#001EFE", opacity: 1 },
+                                    { offset: 100, color: "#06A358", opacity: 1 },
+                                ],
+                            ],
+                        },
+                    },
                     plotOptions: {
                         bar: {
                             borderRadius: 3,
@@ -191,14 +209,12 @@ export default function AnnualSIP() {
                     },
                     grid: { show: false },
                     dataLabels: { enabled: false },
-                    fill: { opacity: 1 },
+
                 },
             };
             setChartState(state);
         }
     };
-
-
     return (
         <>
             <div className="container mx-auto px-4 py-8 md:py-12 md:px-15 lg:px-20">
@@ -236,17 +252,18 @@ export default function AnnualSIP() {
                             backgroundClip: "text",
                             color: "transparent"
                         }}>Calculators</span>
-                        <ChevronRight
-                            className="h-4 w-4 mx-2"
-                            style={{ stroke: "url(#chevron-gradient)" }}
-                        />
-                        <span className="text-[#7A7A7A] font-semibold" style={{
-                            // background: "linear-gradient(90deg, #04B488 39.5%, #011EFE 100%)",
-                            // WebkitBackgroundClip: "text",
-                            // WebkitTextFillColor: "transparent",
-                            // backgroundClip: "text",
-                            // color: "transparent"
-                        }}>Annual SIP Calculator</span>
+                    </Link>
+                    <ChevronRight
+                        className="h-4 w-4 mx-2"
+                        style={{ stroke: "url(#chevron-gradient)" }}
+                    />
+                    <span className="text-[#7A7A7A] font-semibold" style={{
+                        // background: "linear-gradient(90deg, #04B488 39.5%, #011EFE 100%)",
+                        // WebkitBackgroundClip: "text",
+                        // WebkitTextFillColor: "transparent",
+                        // backgroundClip: "text",
+                        // color: "transparent"
+                    }}>Annual SIP Calculator</span>
                 </nav>
                 {/* Title */}
                 <h2 className="text-[20px] md:text-3xl lg:text-5xl font-bold text-[#44475B]">
@@ -254,7 +271,7 @@ export default function AnnualSIP() {
                 </h2>
             </div>
             <section>
-                <div className="max-w-7xl mx-auto px-4 py-6 md:py-8">
+                <div className="container mx-auto px-5 md:px-10 lg:px-20">
                     <div className="flex flex-col md:flex-row justify-between gap-6">
 
                         {/* LEFT SIDE */}
@@ -266,30 +283,53 @@ export default function AnnualSIP() {
                                     {/* Monthly Saving */}
                                     <div>
                                         <label className="block text-[#44475B] font-medium text-sm uppercase mb-2">
-                                            MONTHLY SAVING
+                                            How much you can invest Yearly
                                         </label>
                                         <input
                                             type="number"
                                             className="w-full border rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500 text-[#44475B]"
-                                            value={monthlySaving}
+                                            value={amount}
                                             min={0}
                                             onChange={(e) =>
-                                                setMonthlySaving(parseFloat(e.target.value))
+                                                setAmount(parseFloat(e.target.value))
                                             }
                                             placeholder="₹ 10,000"
                                         />
                                     </div>
 
+                                    {/* Investment Period */}
+                                    <div>
+                                        <div className="flex justify-between mb-2">
+                                            <label className="text-[#44475B] font-medium text-sm uppercase">
+                                                How many Years will you continue the investment
+                                            </label>
+                                            <span className="font-bold text-[#44475B]">
+                                                {time} Yrs
+                                            </span>
+                                        </div>
+
+                                        <RangeBar
+                                            maxLimit={30}
+                                            setValue={setTime}
+                                            value={time}
+                                        />
+
+                                        <div className="flex justify-between text-sm text-[#44475B] mt-2">
+                                            <span>1 Yr</span>
+                                            <span>30 Yrs</span>
+                                        </div>
+                                    </div>
+
                                     {/* Expected Rate of Return */}
                                     <div>
                                         <label className="block text-[#44475B] font-medium text-sm uppercase mb-2">
-                                            EXPECTED RATE OF RETURN (% P.A)
+                                            Expected Rate Of Return (% p.a)
                                         </label>
                                         <input
                                             type="text"
                                             inputMode="decimal"
                                             className="w-full border rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500 text-[#44475B]"
-                                            value={expectedRateOfReturn}
+                                            value={rate}
                                             placeholder="16.5"
                                             onChange={(e) => {
                                                 let val = e.target.value;
@@ -314,46 +354,25 @@ export default function AnnualSIP() {
 
                                                 // Allow empty while typing
                                                 if (val === "") {
-                                                    setExpectedRateOfReturn("");
+                                                    setRate("");
                                                     return;
                                                 }
 
                                                 const num = parseFloat(val);
 
                                                 if (val === "." || (!isNaN(num) && num >= 0 && num <= 100)) {
-                                                    setExpectedRateOfReturn(val);
+                                                    setRate(val);
                                                 }
                                             }}
                                         />
                                     </div>
 
-                                    {/* Investment Period */}
-                                    <div>
-                                        <div className="flex justify-between mb-2">
-                                            <label className="text-[#44475B] font-medium text-sm uppercase">
-                                                INVESTMENT PERIOD
-                                            </label>
-                                            <span className="font-bold text-[#44475B]">
-                                                {investmentPeriod} Yrs
-                                            </span>
-                                        </div>
 
-                                        <RangeBar
-                                            maxLimit={30}
-                                            setValue={setInvestmentPeriod}
-                                            value={investmentPeriod}
-                                        />
-
-                                        <div className="flex justify-between text-sm text-[#44475B] mt-2">
-                                            <span>1 Yr</span>
-                                            <span>30 Yrs</span>
-                                        </div>
-                                    </div>
 
                                     {/* Button */}
                                     <button
                                         type="button"
-                                        onClick={calculateSip}
+                                        onClick={calculateButton}
                                         className="bg-[#04B488] text-white py-3 rounded-lg font-semibold hover:bg-blue-700 transition p-[14px]"
                                     >
                                         Calculate
@@ -372,38 +391,65 @@ export default function AnnualSIP() {
                                     <h2 className="font-primary font-semibold text-2xl leading-tight text-textdark mb-3">
                                         Result
                                     </h2>
-
-                                    <p className="font-primary text-base md:text-lg leading-relaxed text-textdark">
-                                        If you invest{" "}
-                                        <strong>₹{monthlySaving1.toLocaleString("en-IN")}</strong>{" "}
-                                        per month for a period of{" "}
-                                        <strong>{investmentPeriod1} years</strong>, your investment
-                                        amount will be{" "}
-                                        <strong>
-                                            ₹{totalMonthlySaving.toLocaleString("en-IN")}
-                                        </strong>{" "}
-                                        and the maturity amount will grow to{" "}
-                                        <strong>₹{totalGains.toLocaleString("en-IN")}</strong>.
+                                    <label className="block text-[rgba(77, 77, 77, 1)] font-medium text-sm uppercase mb-2">
+                                        Amount Invested
+                                    </label>
+                                    <p className="font-primary text-base md:text-lg leading-relaxed text-[rgba(33, 33, 33, 1)] font-bold mb-4">
+                                        ₹ {finalAmount.toLocaleString("en-IN")}
                                     </p>
+                                    <label className="block text-[rgba(77, 77, 77, 1)] font-medium text-sm uppercase mb-2">
+                                        Future Value of Investment
+                                    </label>
+                                    <p className="font-primary text-base md:text-lg leading-relaxed text-[rgba(33, 33, 33, 1)] font-bold mb-4">
+                                        ₹{Math.round(result).toLocaleString("en-IN")}
+                                    </p>
+
                                 </div>
 
+
+                                <div className="row mt-2">
+                                    <div className="col-lg-12 co-sm-12 col-md-12 ">
+                                        <div className="card border-0 shadow p-0">
+                                            <div className="card-body">
+                                                {chartState ? (
+                                                    <>
+                                                        <ReactApexChart
+                                                            options={chartState.options}
+                                                            series={chartState.series}
+                                                            type="bar"
+                                                            height={250}
+                                                        />
+                                                        <p style={{ textAlign: "center" }}>
+                                                            Assuming returns of {rate}%
+                                                        </p>
+                                                    </>
+                                                ) : (
+                                                    <div className="text-center text-muted py-5">
+                                                        Calculate to view chart
+                                                    </div>
+                                                )}
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                </div>
                                 {/* Chart Card */}
-                                <div className="shadow-md rounded-2xl px-5 py-4 bg-[#FFFFFF]">
+                                {/* <div className="shadow-md rounded-2xl px-5 py-4 bg-[#FFFFFF]">
                                     <ReactApexChart
                                         options={chartState.options}
                                         series={chartState.series}
                                         type="area"
                                         height={350}
                                     />
-                                </div>
+                                </div> */}
 
                                 {/* Invest Now Button */}
                                 <div>
                                     <Link
                                         href="https://app.prodigypro.co.in/"
-                                        className="inline-block py-3 rounded-lg font-semibold transition bg-color-[#FFFFFF]"
+                                        className="inline-block py-3 px-6 rounded-lg font-semibold transition bg-[#FFFFFF]"
                                     >
-                                        <span className="bg-gradient-to-r from-[#04B488] to-[#011EFE] bg-clip-text text-transparent">
+                                        <span className="bg-gradient-to-r from-[#04B488] to-[#011EFE] bg-clip-text text-transparent font-bold">
                                             Invest Now
                                         </span>
                                     </Link>

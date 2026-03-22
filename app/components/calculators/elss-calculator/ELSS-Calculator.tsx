@@ -13,29 +13,53 @@ export default function ELSSCalculatorComponent() {
         {
             question: "How does an ELSS calculator work?",
             answer:
-                "It uses your investment amount and tax bracket to instantly show how much tax you’ll save under Section 80C.",
+                "It uses your investment amount and tax bracket to instantly show you how much tax you’ll save under Section 80C.",
         },
         {
-            question: "What is the lock-in period for ELSS, and does the calculator consider it?",
+            question:
+                "What is the lock-in period for ELSS, and does the calculator consider it?",
             answer:
-                "Yes. ELSS has a 3-year lock-in, the shortest among all 80C options, and the calculator factors this in.",
+                "Yes, ELSS comes with a 3-year lock-in, which is the shortest among all 80C options. The calculator factors this in.",
         },
         {
-            question: "What is the maximum tax deduction allowed under Section 80C?",
+            question:
+                "What is the maximum tax deduction I can claim under Section 80C?",
             answer:
-                "₹1.5 lakh per financial year. Any investment beyond this limit does not qualify for additional deduction.",
+                "₹1.5 lakh per financial year. Even if you invest more, only this limit is deductible.",
         },
         {
-            question: "How accurate are the projected returns shown in the ELSS calculator?",
+            question:
+                "How accurate are the projected returns shown in the ELSS calculator?",
             answer:
-                "The calculator estimates tax savings, not market returns. Since ELSS invests in equities, actual returns can vary.",
+                "The calculator gives you a tax-saving estimate. Since ELSS invests in equities, actual market returns can vary.",
         },
         {
             question: "Is ELSS better than PPF or other tax-saving instruments?",
             answer:
-                "It depends on your goal. PPF offers fixed, low-risk returns. ELSS carries higher risk but significantly higher long-term wealth potential.",
+                "Depends on your goal. PPF gives fixed, safe returns. ELSS, being equity-linked, has a higher risk but much higher long-term wealth-building potential.",
         },
     ];
+
+    // useEffect(() => {
+    //   const fetchFaqs = async () => {
+    //     try {
+    //       const res = await fetch(`${Base_url}/${endpoints.calculators}`);
+    //       const data = await res.json();
+
+    //       // Extract FAQ array safely
+    //       const faqItems = data?.data[0]?.attributes?.sipCalculator?.FAQ || [];
+    //       setQuestions(faqItems);
+    //     } catch (error) {
+    //       console.error("Error fetching FAQs:", error);
+    //     }
+    //   };
+
+    //   fetchFaqs();
+    // }, []);
+
+    // const [monthlySaving, setMonthlySaving] = useState("₹ 100,000");
+    // const [rateOfReturn, setRateOfReturn] = useState("12");
+    // const [period, setPeriod] = useState("Monthly");
 
     const [investmentAmount, setInvestmentAmount] = useState<number>(125000); // default value
     const [taxSlab, setTaxSlab] = useState<number>(20); // default tax slab
@@ -61,8 +85,6 @@ export default function ELSSCalculatorComponent() {
             setTotalTaxSaved(finalValue);
         }
     };
-
-
     return (
         <>
             <div className="container mx-auto px-4 py-8 md:py-12 md:px-15 lg:px-20">
@@ -92,23 +114,25 @@ export default function ELSSCalculatorComponent() {
                         className="h-4 w-4 mx-2"
                         style={{ stroke: "url(#chevron-gradient)" }}
                     />
-                    <span className="text-[#7A7A7A] font-semibold" style={{
-                        background: "linear-gradient(90deg, #04B488 39.5%, #011EFE 100%)",
-                        WebkitBackgroundClip: "text",
-                        WebkitTextFillColor: "transparent",
-                        backgroundClip: "text",
-                        color: "transparent"
-                    }}>Calculators</span>
+                    <Link href="/calculators">
+                        <span className="text-[#7A7A7A] font-semibold" style={{
+                            background: "linear-gradient(90deg, #04B488 39.5%, #011EFE 100%)",
+                            WebkitBackgroundClip: "text",
+                            WebkitTextFillColor: "transparent",
+                            backgroundClip: "text",
+                            color: "transparent"
+                        }}>Calculators</span>
+                    </Link>
                     <ChevronRight
                         className="h-4 w-4 mx-2"
                         style={{ stroke: "url(#chevron-gradient)" }}
                     />
                     <span className="text-[#7A7A7A] font-semibold" style={{
-                        background: "linear-gradient(90deg, #04B488 39.5%, #011EFE 100%)",
-                        WebkitBackgroundClip: "text",
-                        WebkitTextFillColor: "transparent",
-                        backgroundClip: "text",
-                        color: "transparent"
+                        // background: "linear-gradient(90deg, #04B488 39.5%, #011EFE 100%)",
+                        // WebkitBackgroundClip: "text",
+                        // WebkitTextFillColor: "transparent",
+                        // backgroundClip: "text",
+                        // color: "transparent"
                     }}>ELSS Calculator</span>
                 </nav>
                 {/* Title */}
@@ -117,7 +141,7 @@ export default function ELSSCalculatorComponent() {
                 </h2>
             </div>
             <section>
-                <div className="max-w-7xl mx-auto px-4 py-6 md:py-8">
+                <div className="container mx-auto px-5 md:px-10 lg:px-20">
                     <div className="flex flex-col md:flex-row justify-between gap-6">
 
                         {/* LEFT SIDE */}
@@ -129,72 +153,47 @@ export default function ELSSCalculatorComponent() {
                                     {/* Monthly Saving */}
                                     <div>
                                         <label className="block text-[#44475B] font-medium text-sm uppercase mb-2">
-                                            MONTHLY SAVING
+                                            Investment Amount (Years)
                                         </label>
                                         <input
                                             type="number"
-                                            className="w-full border rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500 text-[#44475B]"
-                                            value={monthlySaving}
+                                            className="w-full border rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500 text-[#212121]"
+                                            value={investmentAmount}
                                             min={0}
                                             onChange={(e) =>
-                                                setMonthlySaving(parseFloat(e.target.value))
+                                                setInvestmentAmount(parseFloat(e.target.value))
                                             }
                                             placeholder="₹ 10,000"
                                         />
+                                        <div className="d-flex justify-content-between small text-[#7A7A7A]">
+                                            <span>
+                                                Maximum eligible amount for tax deduction u/s 80C is 1.5
+                                                L
+                                            </span>
+                                        </div>
                                     </div>
-
                                     {/* Expected Rate of Return */}
-                                    <div>
-                                        <label className="block text-[#44475B] font-medium text-sm uppercase mb-2">
-                                            EXPECTED RATE OF RETURN (% P.A)
-                                        </label>
-                                        <input
-                                            type="text"
-                                            inputMode="decimal"
-                                            className="w-full border rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500 text-[#44475B]"
-                                            value={expectedRateOfReturn}
-                                            placeholder="16.5"
-                                            onChange={(e) => {
-                                                let val = e.target.value;
+                                    <Form.Group className="mb-3">
+                                        <Form.Label className="text-[#646464]">Your Tax Slab</Form.Label>
+                                        <Form.Select
+                                            value={taxSlab}
+                                            onChange={(e) => setTaxSlab(Number(e.target.value))}
+                                            className="w-full border rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500 text-[#212121]"
+                                        >
+                                            <option value={5}>5%</option>
+                                            <option value={20}>20%</option>
+                                            <option value={30}>30%</option>
+                                        </Form.Select>
 
-                                                // Remove invalid characters (keep digits and one dot)
-                                                val = val.replace(/[^0-9.]/g, "");
-
-                                                // Prevent multiple dots
-                                                const parts = val.split(".");
-                                                if (parts.length > 2) {
-                                                    val = parts[0] + "." + parts.slice(1).join("");
-                                                }
-
-                                                // Remove leading zeros like 012 -> 12 (but allow 0.x)
-                                                if (
-                                                    val.startsWith("0") &&
-                                                    !val.startsWith("0.") &&
-                                                    val.length > 1
-                                                ) {
-                                                    val = val.replace(/^0+/, "");
-                                                }
-
-                                                // Allow empty while typing
-                                                if (val === "") {
-                                                    setExpectedRateOfReturn("");
-                                                    return;
-                                                }
-
-                                                const num = parseFloat(val);
-
-                                                if (val === "." || (!isNaN(num) && num >= 0 && num <= 100)) {
-                                                    setExpectedRateOfReturn(val);
-                                                }
-                                            }}
-                                        />
-                                    </div>
-
+                                        <div className="d-flex justify-content-between small text-[#7A7A7A]">
+                                            <span>Inclusive of all cess</span>
+                                        </div>
+                                    </Form.Group>
 
                                     {/* Button */}
                                     <button
                                         type="button"
-                                        onClick={calculateSip}
+                                        onClick={calculateTaxSaved}
                                         className="bg-[#04B488] text-white py-3 rounded-lg font-semibold hover:bg-blue-700 transition p-[14px]"
                                     >
                                         Calculate
@@ -215,36 +214,28 @@ export default function ELSSCalculatorComponent() {
                                     </h2>
 
                                     <p className="font-primary text-base md:text-lg leading-relaxed text-textdark">
-                                        If you invest{" "}
-                                        <strong>₹{monthlySaving1.toLocaleString("en-IN")}</strong>{" "}
-                                        per month for a period of{" "}
-                                        <strong>{investmentPeriod1} years</strong>, your investment
-                                        amount will be{" "}
-                                        <strong>
-                                            ₹{totalMonthlySaving.toLocaleString("en-IN")}
-                                        </strong>{" "}
-                                        and the maturity amount will grow to{" "}
-                                        <strong>₹{totalGains.toLocaleString("en-IN")}</strong>.
+                                        <p>Total Tax Saved U/S 80(C)</p>
+                                        <h3>₹{totalTaxSaved.toLocaleString("en-IN")}</h3>
                                     </p>
                                 </div>
 
                                 {/* Chart Card */}
-                                <div className="shadow-md rounded-2xl px-5 py-4 bg-[#FFFFFF]">
+                                {/* <div className="shadow-md rounded-2xl px-5 py-4 bg-[#FFFFFF]">
                                     <ReactApexChart
                                         options={chartState.options}
                                         series={chartState.series}
                                         type="area"
                                         height={350}
                                     />
-                                </div>
+                                </div> */}
 
                                 {/* Invest Now Button */}
                                 <div>
                                     <Link
                                         href="https://app.prodigypro.co.in/"
-                                        className="inline-block py-3 rounded-lg font-semibold transition bg-color-[#FFFFFF]"
+                                        className="inline-block py-3 px-6 rounded-lg font-semibold transition bg-[#FFFFFF]"
                                     >
-                                        <span className="bg-gradient-to-r from-[#04B488] to-[#011EFE] bg-clip-text text-transparent">
+                                        <span className="bg-gradient-to-r from-[#04B488] to-[#011EFE] bg-clip-text text-transparent font-bold">
                                             Invest Now
                                         </span>
                                     </Link>

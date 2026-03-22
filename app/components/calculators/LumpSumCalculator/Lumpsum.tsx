@@ -408,7 +408,7 @@ export default function LumpsumCalculator() {
                                                 options={chartData.options}
                                                 series={chartData.series}
                                                 type="bar"
-                                                height={350}
+                                                height={250}
                                             />
                                             <p style={{ textAlign: "center" }}>
                                                 Assuming returns of {rateOfReturn}%
@@ -425,9 +425,9 @@ export default function LumpsumCalculator() {
                                 <div>
                                     <Link
                                         href="https://app.prodigypro.co.in/"
-                                        className="inline-block py-3 rounded-lg font-semibold transition bg-color-[#FFFFFF]"
+                                        className="inline-block py-3 px-6 rounded-lg font-semibold transition bg-[#FFFFFF]"
                                     >
-                                        <span className="bg-gradient-to-r from-[#04B488] to-[#011EFE] bg-clip-text text-transparent">
+                                        <span className="bg-gradient-to-r from-[#04B488] to-[#011EFE] bg-clip-text text-transparent font-bold">
                                             Invest Now
                                         </span>
                                     </Link>
