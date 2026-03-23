@@ -205,14 +205,14 @@ export default function Marriagecalculators() {
                                         </div>
 
                                         <RangeBar
-                                            maxLimit={30}
+                                            maxLimit={40}
                                             setValue={setMarriageAge}
                                             value={marriageAge}
                                         />
 
                                         <div className="flex justify-between text-sm text-[#44475B] mt-2">
                                             <span>1 Yr</span>
-                                            <span>30 Yrs</span>
+                                            <span>40 Yrs</span>
                                         </div>
                                     </div>
 

@@ -178,7 +178,7 @@ export default function StepUpCalculator() {
                                     <div>
                                         <div className="flex justify-between mb-2">
                                             <label className="text-[#44475B] font-medium text-sm uppercase">
-                                                How many months will you continue the SIP?
+                                                How many years will you continue the SIP?
                                             </label>
                                             <span className="font-bold text-[#44475B]">
                                                 {investmentPeriod} Yrs

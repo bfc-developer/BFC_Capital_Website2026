@@ -538,7 +538,7 @@ export default function SWPCalculatorComponent() {
                         Let’s Understand This With a Real Example
                     </p>
                     <p className='text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto mb-4'>Consider Mr. Mishra.</p>
-                    <p className='text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto mb-4'>He retired on 1st January 2010 with a retirement corpus of ₹1 crore. Instead of using outdated methods, he opted for a Systematic Withdrawal Plan with a .75% monthly trigger, meaning he withdrew ₹75,000 every month for expenses, with an expected annual return of 10%.</p>
+                    <p className='text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto mb-4'>He retired on 1st January 2010 with a retirement corpus of ₹1 crore. Instead of using outdated methods, he opted for a Systematic Withdrawal Plan with a 0.75% monthly trigger, meaning he withdrew ₹75,000 every month for expenses, with an expected annual return of 10%.</p>
                     <p className='text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto'>Here’s what happened:</p>
                     <ul className='list-disc pl-7 text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto mb-4'>
                         <li>He enjoyed a steady monthly income of ₹75,000</li>
