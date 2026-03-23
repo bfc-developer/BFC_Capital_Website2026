@@ -5,6 +5,8 @@ import { ChevronRight } from "lucide-react";
 import ApplyJobForm from "../../components/Career/ApplyJobForm";
 import { notFound } from "next/navigation";
 
+
+
 export function generateStaticParams() {
     return [
         { slug: "wealth-manager" },
