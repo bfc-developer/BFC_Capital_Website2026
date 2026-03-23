@@ -536,7 +536,7 @@ export default function DownloadApp() {
                         <p className="mt-4 md:mt-8 mb-4 max-w-6xl text-[15px] md:text-[17px] text-[#44475B] leading-relaxed font-inter opacity-90">
                             Prodigy Pro is offered through BFC Capital, a SEBI Registered
                             Investment Advisor (RIA). <br />
-                            Advice is structured, documented, and aligned with your long-term interest.
+                            Advice is structured, documented, and aligned with your long-term interest – not product commissions.
                         </p>
 
                     </div>

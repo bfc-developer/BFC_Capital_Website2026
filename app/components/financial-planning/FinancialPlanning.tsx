@@ -229,9 +229,9 @@ export default function FinancialPlanning() {
                 </div>
             </section>
             <section>
-                <h2 className="text-center text-[20px] md:text-3xl lg:text-5xl font-bold text-[#44475B] mt-16">All You Need To Know</h2>
+                <h2 className="text-center text-[28px] md:text-3xl lg:text-5xl font-bold text-[#44475B] mt-16">All You Need To Know</h2>
                 <div className='container mx-auto px-5 md:px-10 lg:px-20'>
-                    <p className="mx-auto mt-4 md:mt-8 mb-4 text-[15px] md:text-[24px] font-bold text-[#44475B] mb-[10px] md:mb-[20px]">
+                    <p className="mx-auto mt-4 md:mt-8 mb-4 text-[18px] md:text-[24px] font-bold text-[#44475B] mb-[10px] md:mb-[20px]">
                         What Is Financial Planning and Why Does It Matter?
                     </p>
                     <p className='text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto mb-4'>Before we begin, let us ask you a question<br />
@@ -244,7 +244,7 @@ export default function FinancialPlanning() {
                 </div>
 
                 <div className='container mx-auto px-5 md:px-10 lg:px-20'>
-                    <p className="mx-auto mt-4 md:mt-8 mb-4 text-[15px] md:text-[24px] font-bold text-[#44475B] mb-[10px] md:mb-[20px]">
+                    <p className="mx-auto mt-4 md:mt-8 mb-4 text-[18px] md:text-[24px] font-bold text-[#44475B] mb-[20px]">
                         Understanding Financial Planning
                     </p>
                     <p className='text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto'>Most of us have dreams that require more than just wishful thinking – they require money. Real money. <br />
@@ -262,10 +262,10 @@ export default function FinancialPlanning() {
                 </div>
 
                 <div className='container mx-auto px-5 md:px-10 lg:px-20'>
-                    <p className="mx-auto mt-4 md:mt-8 mb-4 text-[15px] md:text-[24px] font-bold text-[#44475B] mb-[10px] md:mb-[20px]">
+                    <p className="mx-auto mt-4 md:mt-8 mb-4 text-[18px] md:text-[24px] font-bold text-[#44475B] mb-[20px]">
                         Why You Should Plan Your Finances?
                     </p>
-                    <p className='text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto mb-4'>
+                    <p className='text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto'>
                         Asking why financial planning is important is a bit like asking why you need good health. <br />
                         Life is unpredictable. But when your finances are planned, the stress becomes manageable. <br />
                         Financial planning:
@@ -277,13 +277,13 @@ export default function FinancialPlanning() {
                         <li>Prepares you for emergencies</li>
                         <li>Helps you manage debt without panic</li>
                     </ul>
-                    <p className='text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto mt-4 mb-4'>
+                    <p className='text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto'>
                         And yes – with consistency, it can even help you retire earlier or more comfortably than you imagined.
                     </p>
                 </div>
 
                 <div className='container mx-auto px-5 md:px-10 lg:px-20 mb-8'>
-                    <p className="mx-auto mt-4 md:mt-8 mb-4 text-[15px] md:text-[24px] font-bold text-[#44475B] mb-[10px] md:mb-[20px]">
+                    <p className="mx-auto mt-4 md:mt-8 mb-4 text-[18px] md:text-[24px] font-bold text-[#44475B] mb-[20px]">
                         To Conclude
                     </p>
                     <p className='text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto mb-4'>
@@ -297,14 +297,14 @@ export default function FinancialPlanning() {
                 </div>
 
                 <div className='container mx-auto px-5 md:px-10 lg:px-20'>
-                    <h2 className="text-[20px] md:text-3xl lg:text-5xl font-bold text-[#44475B] mb-8">A Holistic Approach to Your Financial Health</h2>
+                    <h2 className="text-[28px] md:text-3xl lg:text-5xl font-bold text-[#44475B] mb-8">A Holistic Approach to Your Financial Health</h2>
                     <p className='text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto mb-4'>Remember Virus from 3 Idiots saying, “Life is a race”? <br />We laughed then – but today, most of us are running.<br />Running to earn more. To live better. To feel secure.<br />But running without direction can leave you exhausted, not fulfilled.<br />What’s often missing isn’t effort – it’s a <b>holistic approach to financial health</b>.</p>
                 </div>
                 <div className='container mx-auto px-5 md:px-10 lg:px-20 mb-8'>
-                    <p className="mx-auto mt-4 md:mt-8 mb-4 text-[15px] md:text-[24px] font-bold text-[#44475B] mb-[10px] md:mb-[20px]">
+                    <p className="mx-auto mt-4 md:mt-8 mb-4 text-[18px] md:text-[24px] font-bold text-[#44475B] mb-[20px]">
                         What’s a Holistic Approach to Your Financial Health?
                     </p>
-                    <p className='text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto mb-4'>
+                    <p className='text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto mb-2'>
                         When your salary gets credited, what happens next?<br />
                         Bills get paid. Expenses follow. Some money is saved. Some is invested. And life moves on.<br />
                         A holistic approach goes deeper.<br />
@@ -314,10 +314,10 @@ export default function FinancialPlanning() {
 
                 </div>
                 <div className='container mx-auto px-5 md:px-10 lg:px-20 mb-8'>
-                    <p className="mx-auto mt-4 md:mt-8 mb-4 text-[15px] md:text-[24px] font-bold text-[#44475B] mb-[10px] md:mb-[20px]">
+                    <p className="mx-auto mt-4 md:mt-8 mb-4 text-[18px] md:text-[24px] font-bold text-[#44475B] mb-[20px]">
                         What Are the Key Components of a Holistic Financial Plan?
                     </p>
-                    <p className='text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto mb-4'>
+                    <p className='text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto'>
                         Financial decisions made today echo into the future. <br />
                         Many people enjoy their 20s without much planning—and then feel overwhelmed in their 40s when responsibilities multiply. A holistic approach doesn’t stop you from living life. It helps you live it without future regret. <br />
                         That’s exactly what structured financial planning aims to do. <br />
@@ -326,10 +326,10 @@ export default function FinancialPlanning() {
 
                 </div>
                 <div className='container mx-auto px-5 md:px-10 lg:px-20 mb-8'>
-                    <p className="mx-auto mt-4 md:mt-8 mb-4 text-[15px] md:text-[24px] font-bold text-[#44475B] mb-[10px] md:mb-[20px]">
+                    <p className="mx-auto mt-4 md:mt-8 mb-4 text-[18px] md:text-[24px] font-bold text-[#44475B] mb-[20px]">
                         Unavoidable Consumption
                     </p>
-                    <p className='text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto mb-4'>
+                    <p className='text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto'>
                         The moment income hits your account, fixed expenses line up – rent, EMIs, school fees, groceries, utilities.<br />
                         These aren’t optional. Planning for them is essential.<br />
                         Setting aside a defined portion of income – ideally around 25–30% – ensures stability and prevents stress month after month.
@@ -337,10 +337,10 @@ export default function FinancialPlanning() {
 
                 </div>
                 <div className='container mx-auto px-5 md:px-10 lg:px-20 mb-8'>
-                    <p className="mx-auto mt-4 md:mt-8 mb-4 text-[15px] md:text-[24px] font-bold text-[#44475B] mb-[10px] md:mb-[20px]">
+                    <p className="mx-auto mt-4 md:mt-8 mb-4 text-[18px] md:text-[24px] font-bold text-[#44475B] mb-[20px]">
                         Risk Planning
                     </p>
-                    <p className='text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto mb-4'>
+                    <p className='text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto'>
                         Life doesn’t warn you before throwing surprises.<br />
                         Health insurance protects you from rising medical costs.<br />
                         Term life insurance protects your family if something were to happen to you.<br />
@@ -350,12 +350,12 @@ export default function FinancialPlanning() {
                         <li>Health cover: (Age ÷ 5) × ₹1,00,000</li>
                         <li>Life cover: 8-10 times of annual income</li>
                     </ul>
-                    <p className='text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto mt-4 mb-4'>
+                    <p className='text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto'>
                         At <b>BFC Capital</b>, risk planning is never treated casually… it’s a core part of responsible, SEBI RIA led advice.
                     </p>
                 </div>
                 <div className='container mx-auto px-5 md:px-10 lg:px-20 mb-8'>
-                    <p className="mx-auto mt-4 md:mt-8 mb-4 text-[15px] md:text-[24px] font-bold text-[#44475B] mb-[10px] md:mb-[20px]">
+                    <p className="mx-auto mt-4 md:mt-8 mb-4 text-[18px] md:text-[24px] font-bold text-[#44475B] mb-[20px]">
                         Contingency Funds
                     </p>
                     <p className='text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto mb-4'>
@@ -365,7 +365,7 @@ export default function FinancialPlanning() {
                     </p>
                 </div>
                 <div className='container mx-auto px-5 md:px-10 lg:px-20 mb-8'>
-                    <p className="mx-auto mt-4 md:mt-8 mb-4 text-[15px] md:text-[24px] font-bold text-[#44475B] mb-[10px] md:mb-[20px]">
+                    <p className="mx-auto mt-4 md:mt-8 mb-4 text-[18px] md:text-[24px] font-bold text-[#44475B] mb-[20px]">
                         Goal-Based Planning
                     </p>
                     <p className='text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto mb-4'>
@@ -375,7 +375,7 @@ export default function FinancialPlanning() {
                     </p>
                 </div>
                 <div className='container mx-auto px-5 md:px-10 lg:px-20 mb-8'>
-                    <p className="mx-auto mt-4 md:mt-8 mb-4 text-[15px] md:text-[24px] font-bold text-[#44475B] mb-[10px] md:mb-[20px]">
+                    <p className="mx-auto mt-4 md:mt-8 mb-4 text-[18px] md:text-[24px] font-bold text-[#44475B] mb-[20px]">
                         Wealth Management
                     </p>
                     <p className='text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto mb-4'>
@@ -386,7 +386,7 @@ export default function FinancialPlanning() {
                     </p>
                 </div>
                 <div className='container mx-auto px-5 md:px-10 lg:px-20 mb-8'>
-                    <p className="mx-auto mt-4 md:mt-8 mb-4 text-[15px] md:text-[24px] font-bold text-[#44475B] mb-[10px] md:mb-[20px]">
+                    <p className="mx-auto mt-4 md:mt-8 mb-4 text-[18px] md:text-[24px] font-bold text-[#44475B] mb-[20px]">
                         On a Parting Note
                     </p>
                     <p className='text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto mb-4'>
@@ -399,7 +399,7 @@ export default function FinancialPlanning() {
             </section >
             <section>
                 <div className='container mx-auto px-5 md:px-10 lg:px-20'>
-                    <h2 className="text-[20px] md:text-3xl lg:text-5xl font-bold text-[#44475B] mb-[10px] md:mb-[20px]">
+                    <h2 className="text-[28px] md:text-3xl lg:text-5xl font-bold text-[#44475B] mb-8">
                         Financial Planning for Different Life Stages
                     </h2>
                     <p className='text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto mb-4'>
@@ -408,7 +408,7 @@ export default function FinancialPlanning() {
                 </div>
 
                 <div className='container mx-auto px-5 md:px-10 lg:px-20 mb-8'>
-                    <p className="mx-auto mt-4 md:mt-8 mb-4 text-[15px] md:text-[24px] font-bold text-[#44475B] mb-[10px] md:mb-[20px]">
+                    <p className="mx-auto mt-4 md:mt-8 mb-4 text-[18px] md:text-[24px] font-bold text-[#44475B] mb-[20px]">
                         Teenage Years (13-17)
                     </p>
                     <p className='text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto mb-4'>
@@ -417,7 +417,7 @@ export default function FinancialPlanning() {
                 </div>
 
                 <div className='container mx-auto px-5 md:px-10 lg:px-20 mb-8'>
-                    <p className="mx-auto mt-4 md:mt-8 mb-4 text-[15px] md:text-[24px] font-bold text-[#44475B] mb-[10px] md:mb-[20px]">
+                    <p className="mx-auto mt-4 md:mt-8 mb-4 text-[18px] md:text-[24px] font-bold text-[#44475B] mb-[20px]">
                         Young Adulthood (18-25)
                     </p>
                     <p className='text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto mb-4'>
@@ -426,7 +426,7 @@ export default function FinancialPlanning() {
                 </div>
 
                 <div className='container mx-auto px-5 md:px-10 lg:px-20 mb-8'>
-                    <p className="mx-auto mt-4 md:mt-8 mb-4 text-[15px] md:text-[24px] font-bold text-[#44475B] mb-[10px] md:mb-[20px]">
+                    <p className="mx-auto mt-4 md:mt-8 mb-4 text-[18px] md:text-[24px] font-bold text-[#44475B] mb-[20px]">
                         Early and Mid-Career (26-45)
                     </p>
                     <p className='text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto mb-4'>
@@ -435,7 +435,7 @@ export default function FinancialPlanning() {
                 </div>
 
                 <div className='container mx-auto px-5 md:px-10 lg:px-20 mb-8'>
-                    <p className="mx-auto mt-4 md:mt-8 mb-4 text-[15px] md:text-[24px] font-bold text-[#44475B] mb-[10px] md:mb-[20px]">
+                    <p className="mx-auto mt-4 md:mt-8 mb-4 text-[18px] md:text-[24px] font-bold text-[#44475B] mb-[20px]">
                         Pre-Retirement (45-60)
                     </p>
                     <p className='text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto mb-4'>
@@ -444,7 +444,7 @@ export default function FinancialPlanning() {
                 </div>
 
                 <div className='container mx-auto px-5 md:px-10 lg:px-20 mb-8'>
-                    <p className="mx-auto mt-4 md:mt-8 mb-4 text-[15px] md:text-[24px] font-bold text-[#44475B] mb-[10px] md:mb-[20px]">
+                    <p className="mx-auto mt-4 md:mt-8 mb-4 text-[18px] md:text-[24px] font-bold text-[#44475B] mb-[20px]">
                         Retirement (60+ Years)
                     </p>
                     <p className='text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto mb-4'>
@@ -453,7 +453,7 @@ export default function FinancialPlanning() {
                 </div>
 
                 <div className='container mx-auto px-5 md:px-10 lg:px-20 mb-8'>
-                    <p className="mx-auto mt-4 md:mt-8 mb-4 text-[15px] md:text-[24px] font-bold text-[#44475B] mb-[10px] md:mb-[20px]">
+                    <p className="mx-auto mt-4 md:mt-8 mb-4 text-[18px] md:text-[24px] font-bold text-[#44475B] mb-[20px]">
                         To Conclude
                     </p>
                     <p className='text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto mb-4'>
@@ -465,7 +465,7 @@ export default function FinancialPlanning() {
                 </div>
 
                 <div className='container mx-auto px-5 md:px-10 lg:px-20 mb-8'>
-                    <h2 className="text-[20px] md:text-3xl lg:text-5xl font-bold text-[#44475B] mb-[10px] md:mb-[20px]">
+                    <h2 className="text-[28px] md:text-3xl lg:text-5xl font-bold text-[#44475B] mb-8">
                         One SIP for Each Financial Goal
                     </h2>
                     <p className='text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto mb-4'>
@@ -475,7 +475,7 @@ export default function FinancialPlanning() {
                 </div>
 
                 <div className='container mx-auto px-5 md:px-10 lg:px-20 mb-8'>
-                    <p className="mx-auto mt-4 md:mt-8 mb-4 text-[15px] md:text-[24px] font-bold text-[#44475B] mb-[10px] md:mb-[20px]">
+                    <p className="mx-auto mt-4 md:mt-8 mb-4 text-[18px] md:text-[24px] font-bold text-[#44475B] mb-[20px]">
                         Education:
                     </p>
                     <p className='text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto mb-4'>
@@ -484,7 +484,7 @@ export default function FinancialPlanning() {
                 </div>
 
                 <div className='container mx-auto px-5 md:px-10 lg:px-20 mb-8'>
-                    <p className="mx-auto mt-4 md:mt-8 mb-4 text-[15px] md:text-[24px] font-bold text-[#44475B] mb-[10px] md:mb-[20px]">
+                    <p className="mx-auto mt-4 md:mt-8 mb-4 text-[18px] md:text-[24px] font-bold text-[#44475B] mb-[20px]">
                         Vacation:
                     </p>
                     <p className='text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto mb-4'>
@@ -493,7 +493,7 @@ export default function FinancialPlanning() {
                 </div>
 
                 <div className='container mx-auto px-5 md:px-10 lg:px-20 mb-8'>
-                    <p className="mx-auto mt-4 md:mt-8 mb-4 text-[15px] md:text-[24px] font-bold text-[#44475B] mb-[10px] md:mb-[20px]">
+                    <p className="mx-auto mt-4 md:mt-8 mb-4 text-[18px] md:text-[24px] font-bold text-[#44475B] mb-[20px]">
                         House:
                     </p>
                     <p className='text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto mb-4'>
@@ -502,7 +502,7 @@ export default function FinancialPlanning() {
                 </div>
 
                 <div className='container mx-auto px-5 md:px-10 lg:px-20 mb-8'>
-                    <p className="mx-auto mt-4 md:mt-8 mb-4 text-[15px] md:text-[24px] font-bold text-[#44475B] mb-[10px] md:mb-[20px]">
+                    <p className="mx-auto mt-4 md:mt-8 mb-4 text-[18px] md:text-[24px] font-bold text-[#44475B] mb-[20px]">
                         Car:
                     </p>
                     <p className='text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto mb-4'>
@@ -511,7 +511,7 @@ export default function FinancialPlanning() {
                 </div>
 
                 <div className='container mx-auto px-5 md:px-10 lg:px-20 mb-8'>
-                    <p className="mx-auto mt-4 md:mt-8 mb-4 text-[15px] md:text-[24px] font-bold text-[#44475B] mb-[10px] md:mb-[20px]">
+                    <p className="mx-auto mt-4 md:mt-8 mb-4 text-[18px] md:text-[24px] font-bold text-[#44475B] mb-[20px]">
                         Marriage:
                     </p>
                     <p className='text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto mb-4'>
@@ -520,7 +520,7 @@ export default function FinancialPlanning() {
                 </div>
 
                 <div className='container mx-auto px-5 md:px-10 lg:px-20 mb-8'>
-                    <p className="mx-auto mt-4 md:mt-8 mb-4 text-[15px] md:text-[24px] font-bold text-[#44475B] mb-[10px] md:mb-[20px]">
+                    <p className="mx-auto mt-4 md:mt-8 mb-4 text-[18px] md:text-[24px] font-bold text-[#44475B] mb-[20px]">
                         Retirement:
                     </p>
                     <p className='text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto mb-4'>
@@ -529,7 +529,7 @@ export default function FinancialPlanning() {
                 </div>
 
                 <div className='container mx-auto px-5 md:px-10 lg:px-20 mb-8'>
-                    <p className="mx-auto mt-4 md:mt-8 mb-4 text-[15px] md:text-[24px] font-bold text-[#44475B] mb-[10px] md:mb-[20px]">
+                    <p className="mx-auto mt-4 md:mt-8 mb-4 text-[18px] md:text-[24px] font-bold text-[#44475B] mb-[20px]">
                         To Conclude
                     </p>
                     <p className='text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto mb-4'>

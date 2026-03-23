@@ -188,26 +188,27 @@ export default async function JobDetailsPage({ params }: { params: Promise<{ slu
                                 <p><span className="font-bold text-[#44475B]">Role :</span> Business Development Manager</p>
                                 <p><span className="font-bold text-[#44475B]">Job Location :</span> Lucknow, Uttar Pradesh</p>
                                 <p><span className="font-bold text-[#44475B]">Minimum Qualification :</span> Graduation</p>
-                                <p><span className="font-bold text-[#44475B]">Minimum Experience :</span> NA</p>
+                                <p><span className="font-bold text-[#44475B]">Minimum Experience :</span> Nil</p>
                             </div>
                         </div>
 
                         <div className="mb-8">
                             <h3 className="text-xl font-bold text-[#44475B] mb-4">Responsibilities :</h3>
-                            <ul className="text-[#7A7A7A] space-y-2 list-disc pl-5 marker:text-gray-400">
+                            <ul className="text-[#44475B] space-y-2 list-disc pl-5">
                                 <li>Marketing Campaigns</li>
                                 <li>Generating Leads for Revenue Team</li>
                                 <li>Planning and Executing Marketing Activities</li>
                                 <li>Tapping Various Segments</li>
                                 <li>Creating Brand Awareness</li>
-                                <li>Corporate walks</li>
+                                <li>Corporate visits</li>
                             </ul>
                         </div>
 
                         <div className="mb-8">
                             <h3 className="text-xl font-bold text-[#44475B] mb-4">Why Join Us?</h3>
                             <p className="text-[#7A7A7A] leading-relaxed">
-                                We're assuming you may have a few apprehensions about associating with a company with a modest footprint. It's understandable. That said, working with us has its perks. For starters, BFC Capital is known for providing its employees a better work-life balance while holding up to its core values. Also, the path towards aggressively marketing our services isn't completely laid out just yet. This means unlike most conventional companies out there, where one's work frame is working against the clock... a pre-decided frame to achieve these goals and they're not running out., but surely do set forth milestones for team down the line to match your own parameters and expectations we set. In This draws all our team leaders and vertical heads are allowed endless prodding when it comes down to pushing the boundaries out. We have a very open & liberal work culture, allowing each team member to function as per their individual style and take a breather every now and then by participating in team outings.
+                                We're assuming you may have apprehensions about associating with a company with a modest footprint; it's understandable. That said, working with us has its advantages. For starters, BFC Capital is known for providing its employees a better work-life balance with facilities like five days working. Also, we try to keep the day-to-day functioning as stress-free as possible; this is one of the prominent reasons for our low attrition rates.
+                                Yes, there are times when our workforce is working against the clock, scampering to meet the goals they've set themselves, but rarely do we let failures define them. Most times, failure is a by-product of poor planning and execution; we get it. This is why all our team leaders and vertical heads are actively involved, providing real-time support and guidance to their subordinates. We have a young and diverse work culture, allowing each team member to function as per their individual style and take a breather every now and then by participating in team outings.
                             </p>
                         </div>
 
@@ -216,27 +217,28 @@ export default async function JobDetailsPage({ params }: { params: Promise<{ slu
                             <ul className="text-[#7A7A7A] space-y-2 list-disc pl-5 marker:text-gray-400">
                                 <li>On Job Training</li>
                                 <li>Team Outings</li>
-                                <li>Soft skills Training</li>
-                                <li>Appealing Variables for Meeting Milestones</li>
+                                <li> Soft Skills Training</li>
+                                <li> Attractive Variables for Meeting Milestones</li>
                             </ul>
                         </div>
 
                         <div className="mb-8">
                             <h3 className="text-xl font-bold text-[#44475B] mb-4">Skill set Required :</h3>
                             <ul className="text-[#7A7A7A] space-y-2 list-disc pl-5 marker:text-gray-400">
-                                <li>Convincing Skills | Analytical Skills | Inter-Personal Skills</li>
+                                <li>Convincing Skills | Analytical Skills | Inter Personal Skills</li>
                                 <li>Must be Presentable</li>
-                                <li>Must own a 2/4 Wheeler</li>
-                                <li>Amiable Communication Skills</li>
+                                <li>Must own a Bike / Car</li>
+                                <li>Infallible Communication Skills</li>
                             </ul>
                         </div>
 
                         <div className="mb-12">
                             <h3 className="text-xl font-bold text-[#44475B] mb-4">What We Give You</h3>
                             <p className="text-[#44475B] space-y-2">
-                                <span className="font-bold">Package :</span> <span className="text-[#7A7A7A]">Rs. 2 L to 5 L per annum (Fixed) + Annual Appraisal</span><br /><br />
-                                <span className="font-bold">Company Website :</span> <Link href="https://bfccapital.com" className="text-[#011EFE] hover:underline">https://bfccapital.com</Link><br />
-                                <span className="font-bold">Contact Details_HR :</span> <a href="mailto:hrd@bfccapital.com" className="text-[#011EFE]">hrd@bfccapital.com</a>
+                                <span className="text-[#44475B]">Package : INR 3 L to 6 L per annum (Fixed)</span><br />
+                                <span className="text-[#44475B]">Annual Appraisal</span><br /> <br />
+                                <span>Company Website :</span> <Link href="https://bfccapital.com" className="text-[#011EFE]">https://bfccapital.com</Link><br />
+                                <span>Contact Details_HR :</span> <a href="mailto:hrd@bfccapital.com" className="text-[#011EFE]">hrd@bfccapital.com</a>
                             </p>
                         </div>
 
