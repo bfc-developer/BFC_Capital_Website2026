@@ -495,7 +495,7 @@ export default function StepUpCalculator() {
                     <p className='text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto'>
                         A regular SIP is a good start. A step-up SIP is a smarter evolution.
                     </p>
-                    <ol className='list-decimal pl-7 text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto mb-4'>
+                    <ol className='list-decimal pl-5 text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto mb-4'>
                         <li>This calculator helps because it shows realistic growth with rising contributions.</li>
                         <li>It motivates consistency by highlighting the impact of small annual increases.</li>
                         <li>It allows flexibility to test different step-up rates and time horizons.</li>
@@ -514,7 +514,7 @@ export default function StepUpCalculator() {
                     <p className='text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto'>
                         The Step-Up SIP Calculator brings structure to long-term planning.
                     </p>
-                    <ol className='list-decimal pl-7 text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto mb-4'>
+                    <ol className='list-decimal pl-5 text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto mb-4'>
                         <li>It keeps your target corpus visible throughout the journey.</li>
                         <li>It encourages gradual increases that are easier to sustain.</li>
                         <li>It shows how compounding works on both returns and contributions.</li>
@@ -530,7 +530,7 @@ export default function StepUpCalculator() {
                     <p className="mx-auto mt-4 md:mt-8 mb-4 text-[18px] md:text-[24px] font-bold text-[#44475B] mb-[20px]">
                         Tips to Get the Most Out of the Calculator
                     </p>
-                    <ol className='list-decimal pl-7 text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto mb-4'>
+                    <ol className='list-decimal pl-5 text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto mb-4'>
                         <li>Use reasonable return assumptions based on asset allocation and risk tolerance.</li>
                         <li>Start early so compounding and step-ups have more time to work.</li>
                         <li>Review your SIP annually as income and goals evolve.</li>
@@ -545,7 +545,7 @@ export default function StepUpCalculator() {
                     <p className="mx-auto mt-4 md:mt-8 mb-4 text-[18px] md:text-[24px] font-bold text-[#44475B] mb-[20px]">
                         Who Can Benefit from a Step-Up SIP?
                     </p>
-                    <ol className='list-decimal pl-7 text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto mb-4'>
+                    <ol className='list-decimal pl-5 text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto mb-4'>
                         <li>Young professionals who expect steady income growth.</li>
                         <li>Parents planning long-term expenses like education or marriage.</li>
                         <li>Retirement planners who want their savings pace to match career growth.</li>

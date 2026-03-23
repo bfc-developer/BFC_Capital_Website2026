@@ -564,7 +564,7 @@ export default function RetirementPlanningCalculator() {
                                         ₹{corpusYouWillAccumalateWithCurrentSaving.toLocaleString("en-IN")}
                                     </p>
                                     <label className="block text-[rgba(77, 77, 77, 1)] font-medium text-sm uppercase mb-2">
-                                        Corpus YOY will accumulate with existing savings
+                                        Corpus you will accumulate with existing savings
                                     </label>
                                     <p className="font-primary text-base md:text-lg leading-relaxed text-[#212121] font-bold mb-4">
                                         ₹{corpusYouWillAccumalateWithExistingSaving.toLocaleString("en-IN")}

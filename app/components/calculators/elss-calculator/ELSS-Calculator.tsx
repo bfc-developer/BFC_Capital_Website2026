@@ -276,7 +276,7 @@ export default function ELSSCalculatorComponent() {
                     </p>
                     <p className='text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto mb-4'>The logic is refreshingly simple.</p>
                     <p className='text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto'>Your tax saving depends on:</p>
-                    <ol className='list-decimal pl-7 text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto mb-4'>
+                    <ol className='list-decimal pl-4 text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto mb-4'>
                         <li>How much you invest</li>
                         <li>Which tax slab you fall into</li>
                     </ol>

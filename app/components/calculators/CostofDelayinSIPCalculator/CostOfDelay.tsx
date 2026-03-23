@@ -497,7 +497,7 @@ export default function CostOfDelay() {
                     </p>
                     <p className='text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto mb-4'>The calculator is intentionally simple.</p>
                     <p className='text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto mb-3'>You only need to enter:</p>
-                    <ol className='text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto mb-4 list-decimal pl-7 space-y-4'>
+                    <ol className='text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto mb-4 list-decimal pl-5 space-y-4'>
                         <li>
                             Monthly SIP Amount<br />
                             Example: ₹10,000
@@ -581,7 +581,7 @@ export default function CostOfDelay() {
                     <p className="mx-auto mt-4 md:mt-8 mb-4 text-[18px] md:text-[24px] font-bold text-[#44475B] mb-[20px]">
                         Practical Tips While Using This Calculator
                     </p>
-                    <ol className='text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto mb-4 list-decimal pl-7'>
+                    <ol className='text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto mb-4 list-decimal pl-5'>
                         <li>
                             <b>Start early, even with a smaller SIP</b><br />
                             Time has a bigger impact than size.
