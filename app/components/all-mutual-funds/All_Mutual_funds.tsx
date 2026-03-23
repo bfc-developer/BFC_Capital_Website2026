@@ -717,35 +717,35 @@ export default function AllMutualFunds() {
                         These funds carry a mix of both equity and debt. They combine both equity and debt to balance risk and return. These funds are suitable for investors who can take moderate risk with a balanced approach.
                     </p>
                     <p className="text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto mb-4 text-justify relative z-10">
-                        <strong>1. Conservative Hybrid Funds:</strong>
+                        <strong>1. Conservative Hybrid Funds: {" "}</strong>
                         These funds keep 10% to 25% of their investment in equity & equity-related instruments, and 75% to 90% in Debt instruments.
                         <br />
 
-                        <strong>2. Balanced Hybrid Funds:</strong>
+                        <strong>2. Balanced Hybrid Funds: {" "}</strong>
                         These funds keep 40% to 60% of their investment in equity & equity-related instruments, and 40% to 60% in Debt instruments.
                         <br />
 
-                        <strong>3. Aggressive Hybrid Funds: </strong>
+                        <strong>3. Aggressive Hybrid Funds: {" "}</strong>
 
                         These funds keep 65% to 80% of their investment in equity & equity-related instruments, and 20% to 35% in Debt instruments.
                         <br />
 
                         <strong>
-                            4. Dynamic Asset Allocation or Balanced Advantage Funds:
+                            4. Dynamic Asset Allocation or Balanced Advantage Funds: {" "}
                         </strong>
                         These funds keep Investment in equity/ debt that is managed dynamically (0% to 100% in equity & equity-related instruments, and 0% to 100% in Debt instruments).
                         <br />
 
-                        <strong>5. Multi-Asset Allocation Funds: </strong>
+                        <strong>5. Multi-Asset Allocation Funds: {" "}</strong>
 
                         These funds keep investment in at least 3 asset classes with a minimum allocation of at least 10% in each asset class.
                         <br />
 
-                        <strong>6. Arbitrage Funds:</strong>
+                        <strong>6. Arbitrage Funds: {" "}</strong>
                         Arbitrage funds are hybrid mutual funds that generate returns by using the strategy of simultaneously buying and selling securities in different markets to take advantage of different prices.
                         <br />
 
-                        <strong>7. Equity Savings Funds:</strong>
+                        <strong>7. Equity Savings Funds: {" "}</strong>
                         These funds keep investment in Equity and equity-related instruments (min.65%), Debt instruments (min.10%), and Derivatives
                     </p>
 
