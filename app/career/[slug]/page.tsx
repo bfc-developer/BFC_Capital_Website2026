@@ -77,7 +77,7 @@ export default async function JobDetailsPage({ params }: { params: Promise<{ slu
                         <div className="mb-8">
                             <h3 className="text-xl font-bold text-[#44475B] mb-4">Preface :</h3>
                             <p className="text-[#7A7A7A] leading-relaxed">
-                                The RM will be required to move into the market and promote services of the company, brief people about the utility of our services and handle operational and technical issues of our existing clientele.
+                                The RM will be required to move into the market and promote services of the company,brief people about the utility of our services and handle operational and technical issues of our existing clientele.
                             </p>
                         </div>
 
@@ -214,7 +214,7 @@ export default async function JobDetailsPage({ params }: { params: Promise<{ slu
 
                         <div className="mb-8">
                             <h3 className="text-xl font-bold text-[#44475B] mb-4">Benefits & Perks :</h3>
-                            <ul className="text-[#7A7A7A] space-y-2 list-disc pl-5 marker:text-gray-400">
+                            <ul className="text-[#44475B] space-y-2 list-disc pl-5">
                                 <li>On Job Training</li>
                                 <li>Team Outings</li>
                                 <li> Soft Skills Training</li>
@@ -224,7 +224,7 @@ export default async function JobDetailsPage({ params }: { params: Promise<{ slu
 
                         <div className="mb-8">
                             <h3 className="text-xl font-bold text-[#44475B] mb-4">Skill set Required :</h3>
-                            <ul className="text-[#7A7A7A] space-y-2 list-disc pl-5 marker:text-gray-400">
+                            <ul className="text-[#44475B] space-y-2 list-disc pl-5">
                                 <li>Convincing Skills | Analytical Skills | Inter Personal Skills</li>
                                 <li>Must be Presentable</li>
                                 <li>Must own a Bike / Car</li>
@@ -287,13 +287,26 @@ export default async function JobDetailsPage({ params }: { params: Promise<{ slu
                             className="h-4 w-4 mx-2"
                             style={{ stroke: "url(#chevron-gradient)" }}
                         />
-                        <span className="text-[#7A7A7A] font-semibold" style={{
+                        <Link
+                            href="/career"
+                            className="font-semibold"
+                            style={{
+                                background: "linear-gradient(90deg, #04B488 39.5%, #011EFE 100%)",
+                                WebkitBackgroundClip: "text",
+                                WebkitTextFillColor: "transparent",
+                                backgroundClip: "text",
+                                color: "transparent"
+                            }}
+                        >
+                            Career
+                        </Link>
+                        {/* <span className="text-[#7A7A7A] font-semibold" style={{
                             background: "linear-gradient(90deg, #04B488 39.5%, #011EFE 100%)",
                             WebkitBackgroundClip: "text",
                             WebkitTextFillColor: "transparent",
                             backgroundClip: "text",
                             color: "transparent"
-                        }}>Career</span>
+                        }}>Career</span> */}
                         <ChevronRight
                             className="h-4 w-4 mx-2"
                             style={{ stroke: "url(#chevron-gradient)" }}

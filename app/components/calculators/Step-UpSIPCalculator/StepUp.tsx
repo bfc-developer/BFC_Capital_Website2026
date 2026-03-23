@@ -26,26 +26,26 @@ export default function StepUpCalculator() {
         {
             question: "Does the calculator account for inflation?",
             answer:
-                "No, it shows nominal returns only, so it does not account for inflation.",
+                "No. It shows nominal returns only. Inflation should be considered separately while planning your goal amount.",
         },
         {
-            question: "Can I see results for different annual increases?",
+            question: "Can I test different annual step-up percentages?",
             answer:
-                "Yes, try different percentages to see how it affects your future corpus.",
+                "Yes. You can change the percentage to see how it impacts your future corpus.",
         },
         {
             question: "What rate of return should I assume?",
             answer:
-                "Reasonable assumptions can be made after consulting with your financial expert.",
+                "Reasonable assumptions should be made based on asset allocation and ideally after consulting a financial advisor.",
         },
         {
             question: "How often should I review my portfolio?",
-            answer: "at least once a year, or when your income or goals change.",
+            answer: "At least once a year, or whenever there is a change in income or goals.",
         },
         {
-            question: "Does it show the benefit of increasing SIP annually?",
+            question: "Does it clearly show the benefit of stepping up SIPs?",
             answer:
-                "Yes, it clearly shows total SIP invested, growth, and future value with and without annual increases.",
+                "Yes. It compares total investment, growth, and future value with and without annual increases.",
         },
     ];
 
@@ -143,7 +143,7 @@ export default function StepUpCalculator() {
                     }}>Step-Up SIP Calculator</span>
                 </nav>
                 {/* Title */}
-                <h2 className="text-[20px] md:text-3xl lg:text-5xl font-bold text-[#44475B]">
+                <h2 className="text-[40px] md:text-3xl lg:text-5xl font-bold text-[#44475B]">
                     Step-Up SIP Calculator
                 </h2>
             </div>
@@ -313,56 +313,57 @@ export default function StepUpCalculator() {
                                     <h2 className="font-primary font-semibold text-2xl leading-tight text-textdark mb-3">
                                         Result
                                     </h2>
-                                    <div className="col-lg-6">
-                                        <p className="fs12px mb-0 mt-3">
-                                            TOTAL SIP AMOUNT INVESTED WITHOUT ANNUAL INCREASE
-                                        </p>
-                                        <h4 className="mt-1">
-                                            ₹{Math.round(monthyEmi).toLocaleString("en-IN")}
-                                        </h4>
+                                    <div className="grid grid-cols-2 gap-6">
+                                        <div>
+                                            <p className="fs12px mb-0 mt-3 text-[#4D4D4D]">
+                                                TOTAL SIP AMOUNT INVESTED WITHOUT ANNUAL INCREASE
+                                            </p>
+                                            <h4 className="mt-1 font-semibold text-[#212121]">
+                                                ₹{Math.round(monthyEmi).toLocaleString("en-IN")}
+                                            </h4>
+                                        </div>
+                                        <div className="col-lg-6">
+                                            <p className="fs12px mb-0 mt-3 text-[#4D4D4D]">
+                                                TOTAL GROWTH WITHOUT ANNUAL INCREASE
+                                            </p>
+                                            <h4 className="mt-1 font-semibold text-[#212121]">
+                                                ₹{Math.round(principal).toLocaleString("en-IN")}
+                                            </h4>
+                                        </div>
+                                        <div className="col-lg-6">
+                                            <p className="fs12px mb-0 mt-3 text-[#4D4D4D]">
+                                                TOTAL FUTURE VALUE (SIP INVESTMENT + RETURNS, NO ANNUAL
+                                                INCREASE)
+                                            </p>
+                                            <h4 className="mt-1 font-semibold text-[#212121]">
+                                                ₹{Math.round(totalinterest).toLocaleString("en-IN")}
+                                            </h4>
+                                        </div>
+                                        <div className="col-lg-6">
+                                            <p className="fs12px mb-0 mt-3 text-[#4D4D4D]">
+                                                TOTAL SIP AMOUNT INVESTED WITH ANNUAL INCREASE
+                                            </p>
+                                            <h4 className="mt-1 font-semibold text-[#212121]">
+                                                ₹{Math.round(totalAmount).toLocaleString("en-IN")}
+                                            </h4>
+                                        </div>
+                                        <div className="col-lg-6">
+                                            <p className="fs12px mb-0 mt-3 text-[#4D4D4D]">
+                                                TOTAL GROWTH WITH ANNUAL INCREASE
+                                            </p>
+                                            <h4 className="mt-1 font-semibold text-[#212121]">
+                                                ₹{Math.round(totalGrowth).toLocaleString("en-IN")}
+                                            </h4>
+                                        </div>
+                                        <div className="col-lg-6">
+                                            <p className="fs12px mb-0 mt-3 text-[#4D4D4D]">
+                                                TOTAL FUTURE VALUE (SIP + GROWTH, WITH ANNUAL INCREASE)
+                                            </p>
+                                            <h4 className="mt-1 font-semibold text-[#212121]">
+                                                ₹{Math.round(resultLoanAmount).toLocaleString("en-IN")}
+                                            </h4>
+                                        </div>
                                     </div>
-                                    <div className="col-lg-6">
-                                        <p className="fs12px mb-0 mt-3">
-                                            TOTAL GROWTH WITHOUT ANNUAL INCREASE
-                                        </p>
-                                        <h4 className="mt-1">
-                                            ₹{Math.round(principal).toLocaleString("en-IN")}
-                                        </h4>
-                                    </div>
-                                    <div className="col-lg-6">
-                                        <p className="fs12px mb-0 mt-3">
-                                            TOTAL FUTURE VALUE (SIP INVESTMENT + RETURNS, NO ANNUAL
-                                            INCREASE)
-                                        </p>
-                                        <h4 className="mt-1">
-                                            ₹{Math.round(totalinterest).toLocaleString("en-IN")}
-                                        </h4>
-                                    </div>
-                                    <div className="col-lg-6">
-                                        <p className="fs12px mb-0 mt-3">
-                                            TOTAL SIP AMOUNT INVESTED WITH ANNUAL INCREASE
-                                        </p>
-                                        <h4 className="mt-1">
-                                            ₹{Math.round(totalAmount).toLocaleString("en-IN")}
-                                        </h4>
-                                    </div>
-                                    <div className="col-lg-6">
-                                        <p className="fs12px mb-0 mt-3">
-                                            TOTAL GROWTH WITH ANNUAL INCREASE
-                                        </p>
-                                        <h4 className="mt-1">
-                                            ₹{Math.round(totalGrowth).toLocaleString("en-IN")}
-                                        </h4>
-                                    </div>
-                                    <div className="col-lg-6">
-                                        <p className="fs12px mb-0 mt-3">
-                                            TOTAL FUTURE VALUE (SIP + GROWTH, WITH ANNUAL INCREASE)
-                                        </p>
-                                        <h4 className="mt-1">
-                                            ₹{Math.round(resultLoanAmount).toLocaleString("en-IN")}
-                                        </h4>
-                                    </div>
-
                                 </div>
 
                                 {/* Chart Card */}
@@ -394,10 +395,10 @@ export default function StepUpCalculator() {
                 </div>
             </section>
             <section>
-                <h2 className="text-center text-[20px] md:text-3xl lg:text-5xl font-bold text-[#44475B] mt-16">All You Need To Know About <br />
+                <h2 className="text-center text-[28px] md:text-3xl lg:text-5xl font-bold text-[#44475B] mt-16">All You Need To Know About <br />
                     Step-Up SIP Calculator</h2>
                 <div className='container mx-auto px-5 md:px-10 lg:px-20'>
-                    <p className="mx-auto mt-4 md:mt-8 mb-4 text-[15px] md:text-[24px] font-bold text-[#44475B] mb-[10px] md:mb-[20px]">
+                    <p className="mx-auto mt-4 md:mt-8 mb-4 text-[18px] md:text-[24px] font-bold text-[#44475B] mb-[20px]">
                         What is a Step-Up SIP Calculator?
                     </p>
                     <p className='text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto mb-4'>
@@ -418,7 +419,7 @@ export default function StepUpCalculator() {
                 </div>
 
                 <div className='container mx-auto px-5 md:px-10 lg:px-20'>
-                    <p className="mx-auto mt-4 md:mt-8 mb-4 text-[15px] md:text-[24px] font-bold text-[#44475B] mb-[10px] md:mb-[20px]">
+                    <p className="mx-auto mt-4 md:mt-8 mb-4 text-[18px] md:text-[24px] font-bold text-[#44475B] mb-[20px]">
                         Why This Calculator Matters
                     </p>
                     <p className='text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto mb-4'>
@@ -427,7 +428,7 @@ export default function StepUpCalculator() {
                         And how powerful small annual increases can be when combined with compounding.
                     </p>
                     <p className='text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto mb-4'>
-                        A fixed SIP might feel comfortable today, but ten or fifteen years later, it may not be enough for goals like a home, a child’s education, or retirement. This is the gap the Step-Up SIP Calculator helps you see early.
+                        A fixed SIP might feel comfortable today, but ten or fifteen years later, it may not be enough for goals like a home, a child’s education, or retirement. <br />This is the gap the Step-Up SIP Calculator helps you see early.
                     </p>
                     <p className='text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto mb-4'>
                         It shows you how your contributions increase year after year and how returns compound on a growing investment base. Suddenly, long-term goals feel more structured and achievable.
@@ -438,10 +439,10 @@ export default function StepUpCalculator() {
                 </div>
 
                 <div className='container mx-auto px-5 md:px-10 lg:px-20'>
-                    <p className="mx-auto mt-4 md:mt-8 mb-4 text-[15px] md:text-[24px] font-bold text-[#44475B] mb-[10px] md:mb-[20px]">
+                    <p className="mx-auto mt-4 md:mt-8 mb-4 text-[18px] md:text-[24px] font-bold text-[#44475B] mb-[20px]">
                         How to Use Step-Up SIP Calculator
                     </p>
-                    <p className='text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto mb-4'>
+                    <p className='text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto'>
                         The calculator is designed to stay simple and intuitive.
                     </p>
                     <p className='text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto mb-4'>
@@ -467,7 +468,7 @@ export default function StepUpCalculator() {
                         You will immediately see a comparison between a regular SIP and a step-up SIP.
                     </p>
                     <div className="mb-4 text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter">
-                        <p className='font-bold mb-1'>Without Step-Up</p>
+                        <p className=''>Without Step-Up</p>
                         <p>
                             Total SIP Invested: ₹84,00,000<br />
                             Total Growth: ₹2,58,03,958<br />
@@ -475,7 +476,7 @@ export default function StepUpCalculator() {
                         </p>
                     </div>
                     <div className="mb-4 text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter">
-                        <p className='font-bold mb-1'>With Step-Up</p>
+                        <p className=''>With Step-Up</p>
                         <p>
                             Total SIP Invested: ₹3,02,62,025<br />
                             Total Growth: ₹5,02,57,200<br />
@@ -488,10 +489,10 @@ export default function StepUpCalculator() {
                 </div>
 
                 <div className='container mx-auto px-5 md:px-10 lg:px-20'>
-                    <p className="mx-auto mt-4 md:mt-8 mb-4 text-[15px] md:text-[24px] font-bold text-[#44475B] mb-[10px] md:mb-[20px]">
+                    <p className="mx-auto mt-4 md:mt-8 mb-4 text-[18px] md:text-[24px] font-bold text-[#44475B] mb-[20px]">
                         Why Use This Calculator?
                     </p>
-                    <p className='text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto mb-4'>
+                    <p className='text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto'>
                         A regular SIP is a good start. A step-up SIP is a smarter evolution.
                     </p>
                     <ol className='list-decimal pl-7 text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto mb-4'>
@@ -507,10 +508,10 @@ export default function StepUpCalculator() {
                 </div>
 
                 <div className='container mx-auto px-5 md:px-10 lg:px-20'>
-                    <p className="mx-auto mt-4 md:mt-8 mb-4 text-[15px] md:text-[24px] font-bold text-[#44475B] mb-[10px] md:mb-[20px]">
+                    <p className="mx-auto mt-4 md:mt-8 mb-4 text-[18px] md:text-[24px] font-bold text-[#44475B] mb-[20px]">
                         How Does It Help You Achieve Your Goals?
                     </p>
-                    <p className='text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto mb-4'>
+                    <p className='text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto'>
                         The Step-Up SIP Calculator brings structure to long-term planning.
                     </p>
                     <ol className='list-decimal pl-7 text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto mb-4'>
@@ -526,7 +527,7 @@ export default function StepUpCalculator() {
                 </div>
 
                 <div className='container mx-auto px-5 md:px-10 lg:px-20'>
-                    <p className="mx-auto mt-4 md:mt-8 mb-4 text-[15px] md:text-[24px] font-bold text-[#44475B] mb-[10px] md:mb-[20px]">
+                    <p className="mx-auto mt-4 md:mt-8 mb-4 text-[18px] md:text-[24px] font-bold text-[#44475B] mb-[20px]">
                         Tips to Get the Most Out of the Calculator
                     </p>
                     <ol className='list-decimal pl-7 text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto mb-4'>
@@ -541,7 +542,7 @@ export default function StepUpCalculator() {
                 </div>
 
                 <div className='container mx-auto px-5 md:px-10 lg:px-20'>
-                    <p className="mx-auto mt-4 md:mt-8 mb-4 text-[15px] md:text-[24px] font-bold text-[#44475B] mb-[10px] md:mb-[20px]">
+                    <p className="mx-auto mt-4 md:mt-8 mb-4 text-[18px] md:text-[24px] font-bold text-[#44475B] mb-[20px]">
                         Who Can Benefit from a Step-Up SIP?
                     </p>
                     <ol className='list-decimal pl-7 text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto mb-4'>
@@ -557,7 +558,7 @@ export default function StepUpCalculator() {
                 </div>
 
                 <div className='container mx-auto px-5 md:px-10 lg:px-20'>
-                    <p className="mx-auto mt-4 md:mt-8 mb-4 text-[15px] md:text-[24px] font-bold text-[#44475B] mb-[10px] md:mb-[20px]">
+                    <p className="mx-auto mt-4 md:mt-8 mb-4 text-[18px] md:text-[24px] font-bold text-[#44475B] mb-[20px]">
                         See How Small Increases Create Big Outcomes
                     </p>
                     <p className='text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto mb-4'>
@@ -578,7 +579,7 @@ export default function StepUpCalculator() {
                 </div>
             </section >
             <section>
-                <h2 className="text-center text-[20px] md:text-3xl lg:text-5xl font-bold text-[#44475B] mt-16">FAQs</h2>
+                <h2 className="text-center text-[28px] md:text-3xl lg:text-5xl font-bold text-[#44475B] mt-16">FAQs</h2>
                 <p className="text-center  text-[#44475B] mb-4">Questions on your mind? Dont worry we have the answers!</p>
                 <div className='container mx-auto px-5 md:px-10 lg:px-20'>
                     {questions.map((item, index) => (

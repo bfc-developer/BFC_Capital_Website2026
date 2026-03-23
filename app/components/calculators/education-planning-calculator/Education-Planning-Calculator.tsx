@@ -185,7 +185,7 @@ export default function EducationPlanningCalculator() {
                     }}>Education Planning Calculator</span>
                 </nav>
                 {/* Title */}
-                <h2 className="text-[20px] md:text-3xl lg:text-5xl font-bold text-[#44475B]">
+                <h2 className="text-[40px] md:text-3xl lg:text-5xl font-bold text-[#44475B]">
                     Education Planning Calculator
                 </h2>
             </div>
@@ -252,14 +252,14 @@ export default function EducationPlanningCalculator() {
                                         </div>
 
                                         <RangeBar
-                                            maxLimit={30}
+                                            maxLimit={8}
                                             setValue={setDurationOfEducation}
                                             value={durationOfEducation}
                                         />
 
                                         <div className="flex justify-between text-sm text-[#44475B] mt-2">
                                             <span>1 Yr</span>
-                                            <span>30 Yrs</span>
+                                            <span>8 Yrs</span>
                                         </div>
                                     </div>
                                     {/* Monthly Saving */}
@@ -441,17 +441,17 @@ export default function EducationPlanningCalculator() {
                 </div>
             </section>
             <section>
-                <h2 className="text-center text-[20px] md:text-3xl lg:text-5xl font-bold text-[#44475B] mt-16">All You Need To Know About <br />
+                <h2 className="text-center text-[28px] md:text-3xl lg:text-5xl font-bold text-[#44475B] mt-16">All You Need To Know About <br />
                     Child Education Planning Calculator</h2>
                 <div className='container mx-auto px-5 md:px-10 lg:px-20'>
-                    <p className="mx-auto mt-4 md:mt-8 mb-4 text-[15px] md:text-[24px] font-bold text-[#44475B] mb-[10px] md:mb-[20px]">
+                    <p className="mx-auto mt-4 md:mt-8 mb-4 text-[18px] md:text-[24px] font-bold text-[#44475B] mb-[20px]">
                         What is the Child Education Planning Calculator?
                     </p>
                     <p className='text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto mb-4'>Every parent, no matter where they come from or what they earn, shares one common dream: <br /> to give their child the best possible education.</p>
                     <p className='text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto mb-4'>It could be a good school in your city, a top college in India, or even higher studies abroad. The dream may differ, but one thing stays the same – education costs keep rising, year after year.</p>
                     <p className='text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto mb-4'>Child education planning simply means preparing for that reality today. It's about understanding what your child's education might cost in the future, setting a clear financial target, and investing in a structured way so you're never caught off guard when the time comes.</p>
                     <p className='text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto mb-4'>This is where Prodigy Pro’s Child Education Planning Calculator, developed by BFC Capital, becomes incredibly helpful.</p>
-                    <p className='text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto mb-4'>Instead of guessing or worrying, the calculator shows you two very important things:</p>
+                    <p className='text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto'>Instead of guessing or worrying, the calculator shows you two very important things:</p>
                     <ul className='list-disc pl-7 text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto mb-4'>
                         <li>How much your child's education may cost in the future, and</li>
                         <li>How much you need to save or invest now to comfortably reach that goal.</li>
@@ -459,7 +459,7 @@ export default function EducationPlanningCalculator() {
                 </div>
 
                 <div className='container mx-auto px-5 md:px-10 lg:px-20'>
-                    <p className="mx-auto mt-4 md:mt-8 mb-4 text-[15px] md:text-[24px] font-bold text-[#44475B] mb-[10px] md:mb-[20px]">
+                    <p className="mx-auto mt-4 md:mt-8 mb-4 text-[18px] md:text-[24px] font-bold text-[#44475B] mb-[20px]">
                         Why Use a Child Education Plan Calculator?
                     </p>
                     <p className='text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto mb-4'>
@@ -481,7 +481,7 @@ export default function EducationPlanningCalculator() {
                 </div>
 
                 <div className='container mx-auto px-5 md:px-10 lg:px-20'>
-                    <p className="mx-auto mt-4 md:mt-8 mb-4 text-[15px] md:text-[24px] font-bold text-[#44475B] mb-[10px] md:mb-[20px]">
+                    <p className="mx-auto mt-4 md:mt-8 mb-4 text-[18px] md:text-[24px] font-bold text-[#44475B] mb-[20px]">
                         How to Use Child Education Planning Calculator
                     </p>
                     <p className='text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto mb-4'>Using the calculator is as simple as filling in seven blanks:</p>
@@ -493,16 +493,14 @@ export default function EducationPlanningCalculator() {
                     <p className="text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto mb-4">Expected Rate of Return - let's assume 14%.</p>
                     <p className="text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto mb-4">Inflation Rate - usually 6-8% for education, so let's say 8%</p>
 
-                    <p className='text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto mb-4'>Calculate - and you're done.<br />
+                    <p className='text-[#44475B] text-[15px] md:text-[17px] leading-tight font-inter mx-auto mb-4'>Calculate - and you're done.<br />
                         The calculator shows you:</p>
-                    <ul className='space-y-2 text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto mb-4'>
-                        <li>Corpus required at start of college: ₹54.12 lakhs</li>
-                        <li>Funds required to meet this goal: ₹25.75 lakhs as a lump sum</li>
-                        <li>Or an SIP of ₹49,731 monthly!</li>
-                    </ul>
+                    <p className='text-[#44475B] text-[15px] md:text-[17px] leading-tight font-inter mx-auto mb-4'>
+                        Corpus required at start of college: ₹54.12 lakhs <br />Funds required to meet this goal: ₹25.75 lakhs as a lump sum <br />Or an SIP of ₹49,731 monthly!
+                    </p>
                 </div>
                 <div className='container mx-auto px-5 md:px-10 lg:px-20'>
-                    <p className="mx-auto mt-4 md:mt-8 mb-4 text-[15px] md:text-[24px] font-bold text-[#44475B] mb-[10px] md:mb-[20px]">
+                    <p className="mx-auto mt-4 md:mt-8 mb-4 text-[18px] md:text-[24px] font-bold text-[#44475B] mb-[20px]">
                         Everyday Parent Struggles This Solves
                     </p>
                     <ul className='list-disc pl-7 text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto mb-4'>
@@ -535,7 +533,7 @@ export default function EducationPlanningCalculator() {
 
             </section >
             <section>
-                <h2 className="text-center text-[20px] md:text-3xl lg:text-5xl font-bold text-[#44475B] mt-16">FAQs</h2>
+                <h2 className="text-center text-[28px] md:text-3xl lg:text-5xl font-bold text-[#44475B] mt-16">FAQs</h2>
                 <p className="text-center  text-[#44475B] mb-4">Questions on your mind? Dont worry we have the answers!</p>
                 <div className='container mx-auto px-5 md:px-10 lg:px-20'>
                     {questions.map((item, index) => (

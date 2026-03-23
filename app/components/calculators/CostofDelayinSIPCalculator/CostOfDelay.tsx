@@ -19,25 +19,25 @@ export default function CostOfDelay() {
         {
             question: "What does “cost of delay” mean?",
             answer:
-                "It means the wealth you lose because you started investing late.",
+                "It refers to the potential wealth you forgo by starting your SIP later instead of earlier.",
         },
         {
-            question: "Does delay really make such a big difference?",
+            question: "Does a short delay really matter?",
             answer:
-                "Yes. Even a one-year delay can reduce your final corpus by lakhs due to compounding.",
+                "Yes. Even a one-year delay can significantly impact long-term compounding.",
         },
         {
-            question: "Can I compare multiple delay scenarios?",
-            answer: "Yes, you can check 1-year, 2-year, 5-year delays or more.",
+            question: "Can I compare different delay periods?",
+            answer: "Yes. You can evaluate 1-year, 2-year, or longer delays.",
         },
         {
-            question: "What SIP amount should I enter?",
-            answer: "Any amount you plan to invest monthly—start small if needed.",
+            question: "What SIP amount should I use?",
+            answer: "Any amount you are comfortable investing regularly. Starting small is perfectly fine.",
         },
         {
             question: "What return should I assume?",
             answer:
-                "Reasonable assumptions can be made after consulting with your financial expert.",
+                "Returns should be based on long-term expectations and discussed with your investment advisor.",
         },
     ];
 
@@ -161,7 +161,7 @@ export default function CostOfDelay() {
                     }}>Cost of Delay in SIP Calculator</span>
                 </nav>
                 {/* Title */}
-                <h2 className="text-[20px] md:text-3xl lg:text-5xl font-bold text-[#44475B]">
+                <h2 className="text-[40px] md:text-3xl lg:text-5xl font-bold text-[#44475B]">
                     Cost of Delay in SIP Calculator
                 </h2>
             </div>
@@ -330,10 +330,10 @@ export default function CostOfDelay() {
                                         Result
                                     </h2>
 
-                                    <div className="row pt-3">
+                                    <div className="row pt-3 grid grid-cols-2 gap-6">
                                         <div className="col-lg-6 mb-2">
-                                            <div className="border border-2 rounded-lg p-3 cost-investment-cards">
-                                                <span className="border rounded-lg px-4 text-[#06A358] bg-[#E6F6EE]">
+                                            <div className="border border-2 rounded-lg p-3 cost-investment-cards border-gray-200">
+                                                <span className="rounded-lg px-4 text-[#06A358] bg-[#E6F6EE]">
                                                     {" "}
                                                     👍 Start Age : {Number(myCurrentAge1)}
                                                 </span>
@@ -350,8 +350,8 @@ export default function CostOfDelay() {
                                             </div>
                                         </div>
                                         <div className="col-lg-6">
-                                            <div className="border border-2 rounded-lg p-3 cost-investment-cards">
-                                                <span className="border rounded-lg px-4 text-[#CB414E] bg-[#FAECED]">
+                                            <div className="border border-2 rounded-lg p-3 cost-investment-cards border-gray-200">
+                                                <span className=" rounded-lg px-4 text-[#CB414E] bg-[#FAECED]">
                                                     {" "}
                                                     👎 Start Age :{" "}
                                                     {Number(delayAge1) + Number(myCurrentAge1)}
@@ -438,10 +438,10 @@ export default function CostOfDelay() {
                 </div>
             </section>
             <section>
-                <h2 className="text-center text-[20px] md:text-3xl lg:text-5xl font-bold text-[#44475B] mt-16">All You Need To Know About <br />
+                <h2 className="text-center text-[28px] md:text-3xl lg:text-5xl font-bold text-[#44475B] mt-16">All You Need To Know About <br />
                     Cost of Delay in SIP Calculator</h2>
                 <div className='container mx-auto px-5 md:px-10 lg:px-20'>
-                    <p className="mx-auto mt-4 md:mt-8 mb-4 text-[15px] md:text-[24px] font-bold text-[#44475B] mb-[10px] md:mb-[20px]">
+                    <p className="mx-auto mt-4 md:mt-8 mb-4 text-[18px] md:text-[24px] font-bold text-[#44475B] mb-[20px]">
                         What Is the Cost of Delay in SIP Calculator?
                     </p>
                     <p className='text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto mb-4'>Procrastination is a sin - at least in investing it is.<br />
@@ -454,12 +454,12 @@ export default function CostOfDelay() {
                     <p className='text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto mb-4'>But investing has one silent rule:<br />
                         time does not wait for certainty.</p>
                     <p className='text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto mb-4'>The Cost of Delay in SIP Calculator helps you understand something most investors realise only much later, that delaying your SIP doesn’t just reduce returns, it quietly erodes the power of compounding you can never get back.</p>
-                    <p className='text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto mb-3'>This calculator isn’t designed to create pressure.</p>
+                    <p className='text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto'>This calculator isn’t designed to create pressure.</p>
                     <p className='text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto mb-4'>It’s designed to create clarity, so you can take informed decisions today instead of corrective decisions years later.</p>
                 </div>
 
                 <div className='container mx-auto px-5 md:px-10 lg:px-20'>
-                    <p className="mx-auto mt-4 md:mt-8 mb-4 text-[15px] md:text-[24px] font-bold text-[#44475B] mb-[10px] md:mb-[20px]">
+                    <p className="mx-auto mt-4 md:mt-8 mb-4 text-[18px] md:text-[24px] font-bold text-[#44475B] mb-[20px]">
                         Why This Calculator Matters
                     </p>
                     <p className='text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto mb-4'>We tend to overestimate the value of time because its impact isn’t visible immediately.</p>
@@ -467,21 +467,21 @@ export default function CostOfDelay() {
                         After all, what difference can 12 months make?</p>
                     <p className='text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto mb-4'>In long-term investing, it makes a disproportionate difference.</p>
                     <p className='text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto mb-4'>Compounding doesn’t accelerate because you invest more money, it accelerates because money gets more time to grow.</p>
-                    <p className='text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto mb-3'>A delayed SIP means:</p>
+                    <p className='text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto'>A delayed SIP means:</p>
                     <ul className='list-disc pl-7 text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto mb-4'>
                         <li>Fewer instalments</li>
                         <li>Shorter compounding window</li>
                         <li>Lower final corpus, even if returns remain the same</li>
                     </ul>
-                    <p className='text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto mb-3'>And once time is lost, it cannot be recovered.</p>
+                    <p className='text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto'>And once time is lost, it cannot be recovered.</p>
                     <p className='text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto'>This calculator shows you—clearly and objectively—how much that delay actually costs.</p>
                 </div>
 
                 <div className='container mx-auto px-5 md:px-10 lg:px-20'>
-                    <p className="mx-auto mt-4 md:mt-8 mb-4 text-[15px] md:text-[24px] font-bold text-[#44475B] mb-[10px] md:mb-[20px]">
+                    <p className="mx-auto mt-4 md:mt-8 mb-4 text-[18px] md:text-[24px] font-bold text-[#44475B] mb-[20px]">
                         What the Cost of Delay Calculator Shows You
                     </p>
-                    <p className='text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto mb-3'>With one simple calculation, you can see:</p>
+                    <p className='text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto'>With one simple calculation, you can see:</p>
                     <ul className='list-disc pl-7 text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto mb-4'>
                         <li>How your corpus changes if you start today vs later</li>
                         <li>The financial impact of delaying by 1, 2, or 5 years</li>
@@ -492,35 +492,35 @@ export default function CostOfDelay() {
                 </div>
 
                 <div className='container mx-auto px-5 md:px-10 lg:px-20'>
-                    <p className="mx-auto mt-4 md:mt-8 mb-4 text-[15px] md:text-[24px] font-bold text-[#44475B] mb-[10px] md:mb-[20px]">
+                    <p className="mx-auto mt-4 md:mt-8 mb-4 text-[18px] md:text-[24px] font-bold text-[#44475B] mb-[20px]">
                         How to Use the BFC Capital's Cost of Delay Calculator
                     </p>
                     <p className='text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto mb-4'>The calculator is intentionally simple.</p>
                     <p className='text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto mb-3'>You only need to enter:</p>
                     <ol className='text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto mb-4 list-decimal pl-7 space-y-4'>
                         <li>
-                            <b>Monthly SIP Amount</b><br />
+                            Monthly SIP Amount<br />
                             Example: ₹10,000
                         </li>
                         <li>
-                            <b>Expected Rate of Return</b><br />
+                            Expected Rate of Return<br />
                             Example: 16% per annum
                         </li>
                         <li>
-                            <b>The age till which you want to stay invested</b><br />
+                            The age till which you want to stay invested<br />
                             Example: 45 years
                         </li>
                         <li>
-                            <b>Delay in Starting the SIP</b><br />
+                            Delay in Starting the SIP<br />
                             Example: 1 year
                         </li>
                         <li>
-                            <b>Your Age</b><br />
+                            Your Age<br />
                             Example: 25 years
                         </li>
                     </ol>
-                    <p className='text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto mb-4 text-center md:text-left'>Click Calculate, and you’ll see two outcomes side by side.</p>
-                    <p className='text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto mb-3 font-bold'>Example Result</p>
+                    <p className='text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto mb-4'>Click Calculate, and you’ll see two outcomes side by side.</p>
+                    <p className='text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto'>Example Result</p>
                     <ul className='list-disc pl-7 text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto mb-4'>
                         <li>Total Investment (no delay): ₹24,00,000</li>
                         <li>Corpus Value (no delay): ₹1,74,94,609</li>
@@ -535,11 +535,11 @@ export default function CostOfDelay() {
                 </div>
 
                 <div className='container mx-auto px-5 md:px-10 lg:px-20'>
-                    <p className="mx-auto mt-4 md:mt-8 mb-4 text-[15px] md:text-[24px] font-bold text-[#44475B] mb-[10px] md:mb-[20px]">
+                    <p className="mx-auto mt-4 md:mt-8 mb-4 text-[18px] md:text-[24px] font-bold text-[#44475B] mb-[20px]">
                         Why Investors Find This Calculator Useful
                     </p>
-                    <p className='text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto mb-4'>This tool helps bridge the gap between intention and action.</p>
-                    <ul className='list-disc pl-7 text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto mb-4 space-y-2'>
+                    <p className='text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto'>This tool helps bridge the gap between intention and action.</p>
+                    <ul className='list-disc pl-7 text-[#44475B] text-[15px] md:text-[17px] leading-tight font-inter mx-auto mb-4 space-y-2'>
                         <li>
                             <b>It converts time into numbers</b><br />
                             Something abstract becomes measurable.
@@ -561,12 +561,12 @@ export default function CostOfDelay() {
                 </div>
 
                 <div className='container mx-auto px-5 md:px-10 lg:px-20'>
-                    <p className="mx-auto mt-4 md:mt-8 mb-4 text-[15px] md:text-[24px] font-bold text-[#44475B] mb-[10px] md:mb-[20px]">
+                    <p className="mx-auto mt-4 md:mt-8 mb-4 text-[18px] md:text-[24px] font-bold text-[#44475B] mb-[20px]">
                         How It Helps You Plan Smarter
                     </p>
                     <p className='text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto mb-4'>At BFC Capital, we often remind investors of one simple truth:</p>
                     <p className='text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto mb-4'>Wealth is built more by patience than by prediction.</p>
-                    <p className='text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto mb-3'>The Cost of Delay Calculator helps you:</p>
+                    <p className='text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto'>The Cost of Delay Calculator helps you:</p>
                     <ul className='list-disc pl-7 text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto mb-4'>
                         <li>Appreciate the role of time in long-term wealth creation</li>
                         <li>Make realistic, informed investment choices</li>
@@ -578,10 +578,10 @@ export default function CostOfDelay() {
                 </div>
 
                 <div className='container mx-auto px-5 md:px-10 lg:px-20'>
-                    <p className="mx-auto mt-4 md:mt-8 mb-4 text-[15px] md:text-[24px] font-bold text-[#44475B] mb-[10px] md:mb-[20px]">
+                    <p className="mx-auto mt-4 md:mt-8 mb-4 text-[18px] md:text-[24px] font-bold text-[#44475B] mb-[20px]">
                         Practical Tips While Using This Calculator
                     </p>
-                    <ol className='text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto mb-4 list-decimal pl-7 space-y-4'>
+                    <ol className='text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto mb-4 list-decimal pl-7'>
                         <li>
                             <b>Start early, even with a smaller SIP</b><br />
                             Time has a bigger impact than size.
@@ -606,10 +606,10 @@ export default function CostOfDelay() {
                 </div>
 
                 <div className='container mx-auto px-5 md:px-10 lg:px-20'>
-                    <p className="mx-auto mt-4 md:mt-8 mb-4 text-[15px] md:text-[24px] font-bold text-[#44475B] mb-[10px] md:mb-[20px]">
+                    <p className="mx-auto mt-4 md:mt-8 mb-4 text-[18px] md:text-[24px] font-bold text-[#44475B] mb-[20px]">
                         Who Is This Calculator For?
                     </p>
-                    <p className='text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto mb-3'>This calculator is especially useful for:</p>
+                    <p className='text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto'>This calculator is especially useful for:</p>
                     <ul className='list-disc pl-7 text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto mb-4'>
                         <li>Young professionals delaying their first SIP</li>
                         <li>Self-employed individuals with irregular income</li>
@@ -621,25 +621,25 @@ export default function CostOfDelay() {
                 </div>
 
                 <div className='container mx-auto px-5 md:px-10 lg:px-20'>
-                    <p className="mx-auto mt-4 md:mt-8 mb-4 text-[15px] md:text-[24px] font-bold text-[#44475B] mb-[10px] md:mb-[20px]">
+                    <p className="mx-auto mt-4 md:mt-8 mb-4 text-[18px] md:text-[24px] font-bold text-[#44475B] mb-[20px]">
                         Start Today. Let Time Work for You.
                     </p>
                     <p className='text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto mb-4'>Delaying investments is rarely intentional, but it can be costly!</p>
-                    <p className='text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto mb-4'>The Cost of Delay in SIP Calculator doesn’t create urgency. It creates awareness.</p>
-                    <p className='text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto mb-3'>Whether your goal is:</p>
+                    <p className='text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto mb-4'>The Cost of Delay in SIP Calculator doesn’t create urgency. <br /> It creates awareness.</p>
+                    <p className='text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto'>Whether your goal is:</p>
                     <ul className='list-disc pl-7 text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto mb-4'>
                         <li>Buying a home</li>
                         <li>Funding education</li>
                         <li>Building retirement security</li>
                         <li>Or achieving long-term financial independence</li>
                     </ul>
-                    <p className='text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto mb-4'>Starting earlier quietly makes everything easier later.</p>
+                    <p className='text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto'>Starting earlier quietly makes everything easier later.</p>
                     <p className='text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto mb-4'>Because while money can be added,<br />
                         time cannot be replaced.</p>
                 </div>
             </section >
             <section>
-                <h2 className="text-center text-[20px] md:text-3xl lg:text-5xl font-bold text-[#44475B] mt-16">FAQs</h2>
+                <h2 className="text-center text-[28px] md:text-3xl lg:text-5xl font-bold text-[#44475B] mt-16">FAQs</h2>
                 <p className="text-center  text-[#44475B] mb-4">Questions on your mind? Dont worry we have the answers!</p>
                 <div className='container mx-auto px-5 md:px-10 lg:px-20'>
                     {questions.map((item, index) => (

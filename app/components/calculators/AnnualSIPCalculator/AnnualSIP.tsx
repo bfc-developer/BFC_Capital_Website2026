@@ -23,29 +23,29 @@ interface ChartState {
 export default function AnnualSIP() {
     const questions = [
         {
-            question: "Does it include inflation?",
+            question: "Does the calculator include inflation?",
             answer:
-                "No, it shows nominal returns, so adjust your target to account for future inflation.",
+                "No. It shows nominal returns. Inflation should be considered separately while setting your goal amount.",
         },
         {
-            question: "Can I calculate multiple goals at once?",
+            question: "Can I calculate multiple goals at the same time?",
             answer:
-                "Yes, use it separately for each goal to see the required annual investments.",
+                "Yes, but each goal should be calculated separately for better clarity.",
         },
         {
             question: "What rate of return should I use?",
             answer:
-                "Reasonable assumptions can be made after consulting with your financial expert.",
+                "Reasonable assumptions should be made based on asset allocation and ideally after consulting a financial advisor.",
         },
         {
-            question: "How often should I check my portfolio?",
+            question: "How often should I review my portfolio?",
             answer:
-                "Every 6–12 months, or if your income, expenses, or goals change.",
+                "Every 6 to 12 months, or sooner if there is a major change in income, expenses, or goals.",
         },
         {
-            question: "Can I adjust the annual investment?",
+            question: "Can I adjust the annual investment amount?",
             answer:
-                "Yes, the calculator allows experimenting with higher or lower contributions to see how your corpus changes.",
+                "Yes. You can experiment with higher or lower contributions to see how the final corpus changes.",
         },
     ];
 
@@ -266,7 +266,7 @@ export default function AnnualSIP() {
                     }}>Annual SIP Calculator</span>
                 </nav>
                 {/* Title */}
-                <h2 className="text-[20px] md:text-3xl lg:text-5xl font-bold text-[#44475B]">
+                <h2 className="text-[40px] md:text-3xl lg:text-5xl font-bold text-[#44475B]">
                     Annual SIP Calculator
                 </h2>
             </div>
@@ -391,19 +391,24 @@ export default function AnnualSIP() {
                                     <h2 className="font-primary font-semibold text-2xl leading-tight text-textdark mb-3">
                                         Result
                                     </h2>
-                                    <label className="block text-[rgba(77, 77, 77, 1)] font-medium text-sm uppercase mb-2">
-                                        Amount Invested
-                                    </label>
-                                    <p className="font-primary text-base md:text-lg leading-relaxed text-[rgba(33, 33, 33, 1)] font-bold mb-4">
-                                        ₹ {finalAmount.toLocaleString("en-IN")}
-                                    </p>
-                                    <label className="block text-[rgba(77, 77, 77, 1)] font-medium text-sm uppercase mb-2">
-                                        Future Value of Investment
-                                    </label>
-                                    <p className="font-primary text-base md:text-lg leading-relaxed text-[rgba(33, 33, 33, 1)] font-bold mb-4">
-                                        ₹{Math.round(result).toLocaleString("en-IN")}
-                                    </p>
-
+                                    <div className="grid grid-cols-2 gap-6">
+                                        <div>
+                                            <label className="block text-[rgba(77, 77, 77, 1)] font-medium text-sm uppercase mb-2">
+                                                Amount Invested
+                                            </label>
+                                            <p className="font-primary text-base md:text-lg leading-relaxed text-[rgba(33, 33, 33, 1)] font-bold mb-4">
+                                                ₹ {finalAmount.toLocaleString("en-IN")}
+                                            </p>
+                                        </div>
+                                        <div>
+                                            <label className="block text-[rgba(77, 77, 77, 1)] font-medium text-sm uppercase mb-2">
+                                                Future Value of Investment
+                                            </label>
+                                            <p className="font-primary text-base md:text-lg leading-relaxed text-[rgba(33, 33, 33, 1)] font-bold mb-4">
+                                                ₹{Math.round(result).toLocaleString("en-IN")}
+                                            </p>
+                                        </div>
+                                    </div>
                                 </div>
 
 
@@ -459,13 +464,13 @@ export default function AnnualSIP() {
                         </div>
 
                     </div>
-                </div>
-            </section>
+                </div >
+            </section >
             <section>
-                <h2 className="text-center text-[20px] md:text-3xl lg:text-5xl font-bold text-[#44475B] mt-16">All You Need To Know About <br />
+                <h2 className="text-center text-[28px] md:text-3xl lg:text-5xl font-bold text-[#44475B] mt-16">All You Need To Know About <br />
                     Annual SIP Calculator</h2>
                 <div className='container mx-auto px-5 md:px-10 lg:px-20'>
-                    <p className="mx-auto mt-4 md:mt-8 mb-4 text-[15px] md:text-[24px] font-bold text-[#44475B] mb-[10px] md:mb-[20px]">
+                    <p className="mx-auto mt-4 md:mt-8 mb-4 text-[18px] md:text-[24px] font-bold text-[#44475B] mb-[20px]">
                         What is an Annual SIP Calculator?
                     </p>
                     <p className='text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto mb-4'>We all talk about the power of compounding. Invest regularly, stay patient, and over time, money starts working harder than you ever could. But when investments are made once a year instead of monthly, things can get a little unclear.</p>
@@ -478,7 +483,7 @@ export default function AnnualSIP() {
                 </div>
 
                 <div className='container mx-auto px-5 md:px-10 lg:px-20'>
-                    <p className="mx-auto mt-4 md:mt-8 mb-4 text-[15px] md:text-[24px] font-bold text-[#44475B] mb-[10px] md:mb-[20px]">
+                    <p className="mx-auto mt-4 md:mt-8 mb-4 text-[18px] md:text-[24px] font-bold text-[#44475B] mb-[20px]">
                         Why the Annual SIP Calculator Matters
                     </p>
                     <p className='text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto mb-4'>Long-term planning often feels comfortable in the beginning. You tell yourself, "I am investing every year, so things should work out."</p>
@@ -489,7 +494,7 @@ export default function AnnualSIP() {
                 </div>
 
                 <div className='container mx-auto px-5 md:px-10 lg:px-20'>
-                    <p className="mx-auto mt-4 md:mt-8 mb-4 text-[15px] md:text-[24px] font-bold text-[#44475B] mb-[10px] md:mb-[20px]">
+                    <p className="mx-auto mt-4 md:mt-8 mb-4 text-[18px] md:text-[24px] font-bold text-[#44475B] mb-[20px]">
                         How to Use Annual SIP Calculator
                     </p>
                     <p className='text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto mb-4'>The process is intentionally simple.</p>
@@ -498,71 +503,71 @@ export default function AnnualSIP() {
                     <p className='text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto mb-4'>Choose an expected rate of return.<br />Say 14 percent annually, depending on the asset mix chosen.</p>
                     <p className='text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto mb-4'>Click "Calculate".<br />The calculator immediately shows you your estimated future value, and also reflects total invested amount.</p>
                     <p className='text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto mb-4'>Total Invested Amount: ₹ 75,00,000</p>
-                    <p className='text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto mb-4'>Future Corpus: ₹ 2,49,90,176</p>
+                    <p className='text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto mb-4'>Future Corpus: <br /> ₹ 2,49,90,176</p>
                     <p className='text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto mb-4'>That's it. No confusion. Just a clear picture of what your annual investing habit can build over time.</p>
                 </div>
 
                 <div className='container mx-auto px-5 md:px-10 lg:px-20'>
-                    <p className="mx-auto mt-4 md:mt-8 mb-4 text-[15px] md:text-[24px] font-bold text-[#44475B] mb-[10px] md:mb-[20px]">
+                    <p className="mx-auto mt-4 md:mt-8 mb-4 text-[18px] md:text-[24px] font-bold text-[#44475B] mb-[20px]">
                         Why Use This Calculator Instead of Estimating Yourself?
                     </p>
                     <p className='text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto mb-4'>Many investors roughly estimate returns or rely on past experiences. This often leads to either overconfidence or unnecessary worry.</p>
-                    <p className='text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto mb-2'>1. This calculator helps because it saves time with instant results.</p>
-                    <p className='text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto mb-2'>2. It calculates compounding accurately, which is where most estimates go wrong.</p>
-                    <p className='text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto mb-2'>3. It allows you to test scenarios by changing investment amounts or timelines.</p>
+                    <p className='text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto'>1. This calculator helps because it saves time with instant results.</p>
+                    <p className='text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto'>2. It calculates compounding accurately, which is where most estimates go wrong.</p>
+                    <p className='text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto'>3. It allows you to test scenarios by changing investment amounts or timelines.</p>
                     <p className='text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto mb-4'>4. It keeps everything transparent so you know exactly what your plan looks like.</p>
                     <p className='text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto mb-4'>This approach encourages informed decisions instead of hopeful assumptions.</p>
 
                 </div>
 
                 <div className='container mx-auto px-5 md:px-10 lg:px-20'>
-                    <p className="mx-auto mt-4 md:mt-8 mb-4 text-[15px] md:text-[24px] font-bold text-[#44475B] mb-[10px] md:mb-[20px]">
+                    <p className="mx-auto mt-4 md:mt-8 mb-4 text-[18px] md:text-[24px] font-bold text-[#44475B] mb-[20px]">
                         How Does It Help You Plan Smarter?
                     </p>
-                    <p className='text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto mb-4'>Using the Annual SIP Calculator brings structure to your planning.</p>
-                    <p className='text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto mb-2'>1. It keeps your focus on goals rather than products.</p>
-                    <p className='text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto mb-2'>2. It adapts easily to different annual contribution amounts.</p>
-                    <p className='text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto mb-2'>3. It uses simple and reasonable return assumptions.</p>
-                    <p className='text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto mb-2'>4. It motivates consistency by showing the outcome of discipline.</p>
+                    <p className='text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto'>Using the Annual SIP Calculator brings structure to your planning.</p>
+                    <p className='text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto'>1. It keeps your focus on goals rather than products.</p>
+                    <p className='text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto'>2. It adapts easily to different annual contribution amounts.</p>
+                    <p className='text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto'>3. It uses simple and reasonable return assumptions.</p>
+                    <p className='text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto'>4. It motivates consistency by showing the outcome of discipline.</p>
                     <p className='text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto mb-4'>5. It allows early course correction while changes are still manageable.</p>
                     <p className='text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto'>This is especially important for long-term goals where small improvements today can make a big difference later.</p>
                 </div>
 
                 <div className='container mx-auto px-5 md:px-10 lg:px-20'>
-                    <p className="mx-auto mt-4 md:mt-8 mb-4 text-[15px] md:text-[24px] font-bold text-[#44475B] mb-[10px] md:mb-[20px]">
+                    <p className="mx-auto mt-4 md:mt-8 mb-4 text-[18px] md:text-[24px] font-bold text-[#44475B] mb-[20px]">
                         Tips for Using the Calculator Effectively
                     </p>
-                    <p className='text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto mb-2'>1. Use realistic return expectations based on asset allocation and risk tolerance.</p>
-                    <p className='text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto mb-2'>2. Start early. Even modest annual investments benefit enormously from time.</p>
-                    <p className='text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto mb-2'>3. Review your plan every 6 to 12 months or when life circumstances change.</p>
+                    <p className='text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto'>1. Use realistic return expectations based on asset allocation and risk tolerance.</p>
+                    <p className='text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto'>2. Start early. Even modest annual investments benefit enormously from time.</p>
+                    <p className='text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto'>3. Review your plan every 6 to 12 months or when life circumstances change.</p>
                     <p className='text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto mb-4'>4. Diversify across suitable asset classes to balance growth and risk.</p>
                     <p className='text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto mb-4'>A calculator shows possibilities. Good advice helps align those possibilities with real-life situations.</p>
                 </div>
 
                 <div className='container mx-auto px-5 md:px-10 lg:px-20'>
-                    <p className="mx-auto mt-4 md:mt-8 mb-4 text-[15px] md:text-[24px] font-bold text-[#44475B] mb-[10px] md:mb-[20px]">
+                    <p className="mx-auto mt-4 md:mt-8 mb-4 text-[18px] md:text-[24px] font-bold text-[#44475B] mb-[20px]">
                         Who Should Use the Annual SIP Calculator?
                     </p>
-                    <p className='text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto mb-2'>1. Young professionals planning yearly investments for future goals.</p>
-                    <p className='text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto mb-2'>2. Parents investing annually for education or marriage expenses.</p>
-                    <p className='text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto mb-2'>3. Retirement planners estimating wealth creation through yearly discipline.</p>
-                    <p className='text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto mb-2'>4. First-time investors who want clarity before committing.</p>
+                    <p className='text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto'>1. Young professionals planning yearly investments for future goals.</p>
+                    <p className='text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto'>2. Parents investing annually for education or marriage expenses.</p>
+                    <p className='text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto'>3. Retirement planners estimating wealth creation through yearly discipline.</p>
+                    <p className='text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto'>4. First-time investors who want clarity before committing.</p>
                     <p className='text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto mb-4'>5. Experienced investors who want to model different annual investment scenarios.</p>
                     <p className='text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto mb-4'>If you invest once a year with a goal in mind, this tool is relevant for you.</p>
                 </div>
 
                 <div className='container mx-auto px-5 md:px-10 lg:px-20'>
-                    <p className="mx-auto mt-4 md:mt-8 mb-4 text-[15px] md:text-[24px] font-bold text-[#44475B] mb-[10px] md:mb-[20px]">
+                    <p className="mx-auto mt-4 md:mt-8 mb-4 text-[18px] md:text-[24px] font-bold text-[#44475B] mb-[20px]">
                         See Your Annual Discipline Turn Into Progress
                     </p>
                     <p className='text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto mb-4'>A goal without a plan often remains just an intention.</p>
                     <p className='text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto mb-4'>The Annual SIP Calculator helps convert intention into structure. It shows how your yearly contributions grow, how compounding supports your effort, and where adjustments may be required.</p>
-                    <p className='text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto mb-4'>Whether it is ₹50,000 per year or ₹2 lakh per year, the principle stays the same. Clarity builds confidence. Confidence builds consistency.</p>
+                    <p className='text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto mb-4'>Whether it is ₹50,000 per year or ₹2 lakh per year, the principle stays the same. <br />Clarity builds confidence. Confidence builds consistency.</p>
                     <p className='text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto mb-4'>And consistency is what ultimately delivers results.</p>
                 </div>
             </section >
             <section>
-                <h2 className="text-center text-[20px] md:text-3xl lg:text-5xl font-bold text-[#44475B] mt-16">FAQs</h2>
+                <h2 className="text-center text-[28px] md:text-3xl lg:text-5xl font-bold text-[#44475B] mt-16">FAQs</h2>
                 <p className="text-center  text-[#44475B] mb-4">Questions on your mind? Dont worry we have the answers!</p>
                 <div className='container mx-auto px-5 md:px-10 lg:px-20'>
                     {questions.map((item, index) => (

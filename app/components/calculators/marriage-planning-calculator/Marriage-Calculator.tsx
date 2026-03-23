@@ -158,7 +158,7 @@ export default function Marriagecalculators() {
                     }}>Marriage Planning</span>
                 </nav>
                 {/* Title */}
-                <h2 className="text-[20px] md:text-3xl lg:text-5xl font-bold text-[#44475B]">
+                <h2 className="text-[40px] md:text-3xl lg:text-5xl font-bold text-[#44475B]">
                     Marriage Planning
                 </h2>
             </div>
@@ -534,7 +534,7 @@ export default function Marriagecalculators() {
                     <p className='text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto mb-4'>Not all calculators are built with Indian realities in mind.</p>
                     <p className='text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto'>
                         Here’s why BFC Capital's Marriage Calculator stands out:</p>
-                    <ul className='list-disc pl-7 text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto'>
+                    <ul className='list-disc pl-7 text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto mb-4'>
                         <li>Realistic inflation assumptions for Indian weddings</li>
                         <li>Goal-based clarity – SIP or lump sum, not just numbers</li>
                         <li>Clean and simple interface – no confusing jargon</li>
@@ -546,7 +546,7 @@ export default function Marriagecalculators() {
 
             </section >
             <section>
-                <h2 className="text-center text-[20px] md:text-3xl lg:text-5xl font-bold text-[#44475B] mt-16">FAQs</h2>
+                <h2 className="text-center text-[28px] md:text-3xl lg:text-5xl font-bold text-[#44475B] mt-16">FAQs</h2>
                 <p className="text-center  text-[#44475B] mb-4">Questions on your mind? Dont worry we have the answers!</p>
                 <div className='container mx-auto px-5 md:px-10 lg:px-20'>
                     {questions.map((item, index) => (

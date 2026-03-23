@@ -139,11 +139,13 @@ export default function FDCalculator() {
             ],
             legend: {
                 show: true,
-                position: "bottom", // ✅ TS accepts "bottom" as literal
+                position: "bottom",
                 horizontalAlign: "center",
                 fontSize: "14px",
-                markers: { size: 5 },
-                onItemHover: { highlightDataSeries: false },
+                markers: {
+                    size: 5,
+                    fillColors: ["#06A358", "#001EFE"], // marker colors
+                },
             },
             states: {
                 hover: { filter: { type: "none" as const } },
@@ -206,7 +208,7 @@ export default function FDCalculator() {
                     }}>FD Calculator</span>
                 </nav>
                 {/* Title */}
-                <h2 className="text-[20px] md:text-3xl lg:text-5xl font-bold text-[#44475B]">
+                <h2 className="text-[40px] md:text-3xl lg:text-5xl font-bold text-[#44475B]">
                     FD Calculator
                 </h2>
             </div>
@@ -395,29 +397,29 @@ export default function FDCalculator() {
                 </div>
             </section>
             <section>
-                <h2 className="text-center text-[20px] md:text-3xl lg:text-5xl font-bold text-[#44475B] mt-16">All You Need To Know About <br />
+                <h2 className="text-center text-[28px] md:text-3xl lg:text-5xl font-bold text-[#44475B] mt-16">All You Need To Know About <br />
                     FD Calculator</h2>
                 <div className='container mx-auto px-5 md:px-10 lg:px-20'>
-                    <p className="mx-auto mt-4 md:mt-8 mb-4 text-[15px] md:text-[24px] font-bold text-[#44475B] mb-[10px] md:mb-[20px]">
+                    <p className="mx-auto mt-4 md:mt-8 mb-4 text-[18px] md:text-[24px] font-bold text-[#44475B] mb-[20px]">
                         What Is a Fixed Deposit Calculator? (And Why It Deserves More Respect)
                     </p>
                     <p className='text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto mb-4'>
                         Think of a fixed deposit like a quiet handshake with the bank.<br />
                         You’re saying, "I’ll park my money with you for a few years. You promise to give me a little extra when I come back."</p>
-                    <p className='text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto mb-4 font-bold'>
+                    <p className='text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto mb-4'>
                         Simple. Predictable. Comfortable.</p>
                     <p className='text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto mb-4'>
                         But here's where most people slip up – figuring out how much that “little extra” actually is.</p>
                     <p className='text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto mb-4'>
                         That's where a Fixed Deposit Calculator steps in.</p>
-                    <p className='text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto mb-4'>
+                    <p className='text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto'>
                         Instead of relying on rough estimates, verbal assurances, or confusing formulas, the Prodigy Pro FD Calculator gives you instant clarity. You enter:</p>
                     <ul className='list-disc pl-7 text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto mb-4'>
                         <li>Investment amount</li>
                         <li>Interest rate</li>
                         <li>Tenure</li>
                     </ul>
-                    <p className='text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto mb-4'>
+                    <p className='text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto'>
                         And with one click, you know:</p>
                     <ul className='list-disc pl-7 text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto mb-4'>
                         <li>Your maturity value</li>
@@ -430,7 +432,7 @@ export default function FDCalculator() {
                 </div>
 
                 <div className='container mx-auto px-5 md:px-10 lg:px-20'>
-                    <p className="mx-auto mt-4 md:mt-8 mb-4 text-[15px] md:text-[24px] font-bold text-[#44475B] mb-[10px] md:mb-[20px]">
+                    <p className="mx-auto mt-4 md:mt-8 mb-4 text-[18px] md:text-[24px] font-bold text-[#44475B] mb-[20px]">
                         Why Does This Actually Matter?
                     </p>
                     <p className='text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto mb-4'>
@@ -441,7 +443,7 @@ export default function FDCalculator() {
                         Imagine planning your child's higher education thinking your FD will grow to ₹10 lakhs, only to realise at maturity it's ₹8.5 lakhs because the returns were misunderstood.</p>
                     <p className='text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto mb-4'>
                         That gap hurts, and not because FDs are bad, but because expectations were wrong.</p>
-                    <p className='text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto mb-4'>
+                    <p className='text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto'>
                         The BFC Capital's FD Calculator removes that risk. It helps you plan realistically:</p>
                     <ul className='list-disc pl-7 text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto mb-4'>
                         <li>A dream vacation in 3 years</li>
@@ -453,26 +455,26 @@ export default function FDCalculator() {
                 </div>
 
                 <div className='container mx-auto px-5 md:px-10 lg:px-20'>
-                    <p className="mx-auto mt-4 md:mt-8 mb-4 text-[15px] md:text-[24px] font-bold text-[#44475B] mb-[10px] md:mb-[20px]">
+                    <p className="mx-auto mt-4 md:mt-8 mb-4 text-[18px] md:text-[24px] font-bold text-[#44475B] mb-[20px]">
                         How to Use the BFC Capital's FD Calculator
                     </p>
                     <p className='text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto mb-4'>
                         It’s designed to be simple – no finance background required.</p>
                     <p className='text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto mb-4'>
-                        <b>Step 1: Enter Your Investment Amount</b><br />
+                        Step 1: Enter Your Investment Amount<br />
                         Example: ₹2,00,000</p>
                     <p className='text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto mb-4'>
-                        <b>Step 2: Select the Duration</b><br />
+                        Step 2: Select the Duration<br />
                         Example: 10 years</p>
                     <p className='text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto mb-4'>
-                        <b>Step 3: Input the Interest Rate</b><br />
+                        Step 3: Input the Interest Rate<br />
                         Example: 8% offered by your bank or NBFC</p>
                     <p className='text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto mb-4'>
-                        <b>Step 4: Choose the Compounding Frequency</b><br />
+                        Step 4: Choose the Compounding Frequency<br />
                         Monthly, quarterly, half-yearly, or yearly, depending on the bank<br />
                         In this case: Quarterly</p>
                     <p className='text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto mb-4'>
-                        <b>Step 5: Click "Calculate"</b></p>
+                        Step 5: Click "Calculate"</p>
                     <p className='text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto mb-4'>
                         And instantly, you’ll see:</p>
                     <ul className='list-disc pl-7 text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto mb-4'>
@@ -494,7 +496,7 @@ export default function FDCalculator() {
                     <p className='text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto mb-4'>
                         <b>2. Ensures Accuracy</b><br />
                         Manual calculations often go wrong, especially with compounding. The calculator ensures precision every single time.</p>
-                    <p className='text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto mb-4'>
+                    <p className='text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto'>
                         <b>3. Helps You Plan Better</b><br />
                         Want to experiment?</p>
                     <ul className='list-disc pl-7 text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto mb-4'>
@@ -510,7 +512,7 @@ export default function FDCalculator() {
                 </div>
 
                 <div className='container mx-auto px-5 md:px-10 lg:px-20'>
-                    <p className="mx-auto mt-4 md:mt-8 mb-4 text-[15px] md:text-[24px] font-bold text-[#44475B] mb-[10px] md:mb-[20px]">
+                    <p className="mx-auto mt-4 md:mt-8 mb-4 text-[18px] md:text-[24px] font-bold text-[#44475B] mb-[20px]">
                         Final Word
                     </p>
                     <p className='text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto mb-4'>
@@ -529,7 +531,7 @@ export default function FDCalculator() {
 
             </section >
             <section>
-                <h2 className="text-center text-[20px] md:text-3xl lg:text-5xl font-bold text-[#44475B] mt-16">FAQs</h2>
+                <h2 className="text-center text-[28px] md:text-3xl lg:text-5xl font-bold text-[#44475B] mt-16">FAQs</h2>
                 <p className="text-center  text-[#44475B] mb-4">Questions on your mind? Dont worry we have the answers!</p>
                 <div className='container mx-auto px-5 md:px-10 lg:px-20'>
                     {questions.map((item, index) => (

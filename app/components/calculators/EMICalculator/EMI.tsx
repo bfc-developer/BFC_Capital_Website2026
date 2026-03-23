@@ -17,30 +17,30 @@ import { toast } from "react-toastify";
 export default function EMICalculator() {
     const questions = [
         {
-            question: "Can I calculate EMI for a car loan using this tool?",
+            question: "Can I calculate EMI for a car loan using EMI calculator?",
             answer:
-                "Yes, just enter your car loan amount, tenure, and interest rate. Within seconds, you’ll know your exact EMI.",
+                "Yes. Enter the car loan amount, tenure, and interest rate to get the EMI instantly.",
         },
         {
-            question: "How does loan tenure affect EMI amount?",
+            question: "How does loan tenure affect EMI?",
             answer:
-                "Longer tenure means smaller EMI but higher total interest. Shorter tenure means higher EMI but less total cost.",
+                "Longer tenure lowers EMI but increases total interest. Shorter tenure increases EMI but reduces overall cost.",
         },
         {
             question:
-                "What inputs are required in the Education Planning Calculator?",
+                "Does the EMI calculator show interest and principal breakup?",
             answer:
-                "Just enter the child’s current age, target age, education duration, today’s costs, inflation, and return assumptions.",
+                "Yes. It clearly shows how much of each EMI goes towards interest and how much reduces the loan.",
         },
         {
-            question: "Does the EMI Calculator show interest and principal breakup?",
+            question: "Can I calculate EMIs for multiple loans together?",
             answer:
-                "Absolutely. You’ll see how much of your EMI goes into paying interest vs the actual loan.",
+                "You’ll need to calculate each loan separately and then add them to understand your total monthly outgo.",
         },
         {
-            question: "Can I calculate EMIs for multiple loans at once?",
+            question: "Is the EMI shown by the calculator final or can it change later?",
             answer:
-                "You can’t do it all at once, but you can run the calculator separately for each loan and add them up to see your total monthly outgo.",
+                "The EMI shown is an accurate estimate based on the loan amount, interest rate, and tenure you enter. However, it can change if the lender revises interest rates (especially in floating-rate loans) or if you choose to prepay or restructure the loan. That’s why we at BFC Capital recommend reviewing your EMIs periodically as part of disciplined financial planning, not just at the time of taking the loan.",
         },
     ];
 
@@ -136,10 +136,13 @@ export default function EMICalculator() {
         ],
         legend: {
             show: true,
-            position: "bottom" as "bottom" | "top" | "left" | "right",
+            position: "bottom",
             horizontalAlign: "center",
             fontSize: "14px",
-            markers: { size: 5 },
+            markers: {
+                size: 5,
+                fillColors: ["#06A358", "#001EFE"], // marker colors
+            },
         },
         states: {
             hover: { filter: { type: "none" } },
@@ -206,7 +209,7 @@ export default function EMICalculator() {
                     }}>EMI Calculator</span>
                 </nav>
                 {/* Title */}
-                <h2 className="text-[20px] md:text-3xl lg:text-5xl font-bold text-[#44475B]">
+                <h2 className="text-[40px] md:text-3xl lg:text-5xl font-bold text-[#44475B]">
                     EMI Calculator
                 </h2>
             </div>
@@ -330,29 +333,29 @@ export default function EMICalculator() {
                                         Result
                                     </h2>
 
-                                    <div className="row">
-                                        <div className="col-6 result-container marriageplanning">
-                                            <div className="result-item">
-                                                <p>Your monthly EMI</p>
-                                                <h3>₹{monthlyEmi.toLocaleString("en-IN")}</h3>
+                                    <div className="grid grid-cols-2 gap-6">
+                                        <div className="">
+                                            <div className="">
+                                                <p className="text-[#4D4D4D] uppercase">Your monthly EMI</p>
+                                                <h3 className="text-[#212121] font-semibold">₹{monthlyEmi.toLocaleString("en-IN")}</h3>
                                             </div>
                                         </div>
-                                        <div className="col-6 result-container marriageplanning">
-                                            <div className="result-item">
-                                                <p>principle</p>
-                                                <h3>₹{principal.toLocaleString("en-IN")}</h3>
+                                        <div className="">
+                                            <div className="">
+                                                <p className="text-[#4D4D4D] uppercase">principle</p>
+                                                <h3 className="text-[#212121] font-semibold">₹{principal.toLocaleString("en-IN")}</h3>
                                             </div>
                                         </div>
-                                        <div className="col-6 result-container marriageplanning">
-                                            <div className="result-item">
-                                                <p>Total Interest</p>
-                                                <h3>₹{totalInterest.toLocaleString("en-IN")}</h3>
+                                        <div className="">
+                                            <div className="">
+                                                <p className="text-[#4D4D4D] uppercase">Total Interest</p>
+                                                <h3 className="text-[#212121] font-semibold">₹{totalInterest.toLocaleString("en-IN")}</h3>
                                             </div>
                                         </div>
-                                        <div className="col-6 result-container marriageplanning">
-                                            <div className="result-item">
-                                                <p>Total Amount</p>
-                                                <h3>₹{totalAmount.toLocaleString("en-IN")}</h3>
+                                        <div className="">
+                                            <div className="">
+                                                <p className="text-[#4D4D4D] uppercase">Total Amount</p>
+                                                <h3 className="text-[#212121] font-semibold">₹{totalAmount.toLocaleString("en-IN")}</h3>
                                             </div>
                                         </div>
                                     </div>
@@ -387,10 +390,10 @@ export default function EMICalculator() {
                 </div>
             </section>
             <section>
-                <h2 className="text-center text-[20px] md:text-3xl lg:text-5xl font-bold text-[#44475B] mt-16">All You Need To Know About <br />
+                <h2 className="text-center text-[28px] md:text-3xl lg:text-5xl font-bold text-[#44475B] mt-16">All You Need To Know About <br />
                     EMI Calculator</h2>
                 <div className='container mx-auto px-5 md:px-10 lg:px-20'>
-                    <p className="mx-auto mt-4 md:mt-8 mb-4 text-[15px] md:text-[24px] font-bold text-[#44475B] mb-[10px] md:mb-[20px]">
+                    <p className="mx-auto mt-4 md:mt-8 mb-4 text-[18px] md:text-[24px] font-bold text-[#44475B] mb-[20px]">
                         What Is an EMI Calculator?
                     </p>
                     <p className='text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto mb-4'>
@@ -409,7 +412,7 @@ export default function EMICalculator() {
                         At <b>BFC Capital</b>, we’ve seen one pattern repeat itself over decades:<br />
                         People don’t struggle because loans are bad.<br />
                         They struggle because loans are taken without clarity.</p>
-                    <p className='text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto mb-4'>
+                    <p className='text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto'>
                         An EMI (Equated Monthly Installment) is the fixed amount you pay every month to your lender. It includes:</p>
                     <ul className='list-disc pl-7 text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto mb-4'>
                         <li className="font-bold">A portion of your principal</li>
@@ -426,7 +429,7 @@ export default function EMICalculator() {
                 </div>
 
                 <div className='container mx-auto px-5 md:px-10 lg:px-20'>
-                    <p className="mx-auto mt-4 md:mt-8 mb-4 text-[15px] md:text-[24px] font-bold text-[#44475B] mb-[10px] md:mb-[20px]">
+                    <p className="mx-auto mt-4 md:mt-8 mb-4 text-[18px] md:text-[24px] font-bold text-[#44475B] mb-[20px]">
                         How an EMI Calculator Actually Helps You
                     </p>
                     <p className='text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto mb-4'>
@@ -462,7 +465,7 @@ export default function EMICalculator() {
                         <b>3. It Helps You Plan Life Around the EMI</b><br />
                         Let's say you earn ₹1,00,000 per month.<br />
                         The calculator shows your EMI will be ₹35,000.</p>
-                    <p className='text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto mb-4'>
+                    <p className='text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto'>
                         That immediately answers:</p>
                     <ul className='list-disc pl-7 text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto mb-4'>
                         <li>How much is left for household expenses?</li>
@@ -476,7 +479,7 @@ export default function EMICalculator() {
                         <b>4. It Lets You Compare Loan Offers Properly</b><br />
                         Banks love advertising “low interest rates.”<br />
                         But a 0.5% difference can quietly cost you thousands every year.</p>
-                    <p className='text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto mb-4'>
+                    <p className='text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto'>
                         Using the calculator, you can compare:</p>
                     <ul className='list-disc pl-7 text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto mb-4'>
                         <li>9% vs 9.5% interest</li>
@@ -489,28 +492,28 @@ export default function EMICalculator() {
                 </div>
 
                 <div className='container mx-auto px-5 md:px-10 lg:px-20'>
-                    <p className="mx-auto mt-4 md:mt-8 mb-4 text-[15px] md:text-[24px] font-bold text-[#44475B] mb-[10px] md:mb-[20px]">
+                    <p className="mx-auto mt-4 md:mt-8 mb-4 text-[18px] md:text-[24px] font-bold text-[#44475B] mb-[20px]">
                         How to Use EMI Calculator – It’s Easier Than You Think!
                     </p>
                     <p className='text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto mb-4'>
                         Honestly, it’s easier than scrolling Instagram.</p>
-                    <p className='text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto mb-4 uppercase font-bold text-sm'>
+                    <p className='text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto'>
                         Step 1: Enter the Loan Amount</p>
                     <p className='text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto mb-4'>
                         ₹20 lakh for a car, or ₹50 lakh for a home.</p>
-                    <p className='text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto mb-4 uppercase font-bold text-sm'>
+                    <p className='text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto'>
                         Step 2: Enter the Interest Rate</p>
                     <p className='text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto mb-4'>
                         Use your bank’s quoted rate. Exploring? Enter 9-10%.</p>
-                    <p className='text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto mb-4 uppercase font-bold text-sm'>
+                    <p className='text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto'>
                         Step 3: Choose the Tenure</p>
                     <ul className='list-disc pl-7 text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto mb-4'>
                         <li>Shorter tenure -&gt; higher EMI, lower interest</li>
                         <li>Longer tenure -&gt; lower EMI, higher total cost</li>
                     </ul>
-                    <p className='text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto mb-4 uppercase font-bold text-sm'>
+                    <p className='text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto'>
                         Step 4: Click Calculate</p>
-                    <p className='text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto mb-4'>
+                    <p className='text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto'>
                         You instantly see:</p>
                     <ul className='list-disc pl-7 text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto mb-4'>
                         <li>Monthly EMI</li>
@@ -521,7 +524,7 @@ export default function EMICalculator() {
                 </div>
 
                 <div className='container mx-auto px-5 md:px-10 lg:px-20'>
-                    <p className="mx-auto mt-4 md:mt-8 mb-4 text-[15px] md:text-[24px] font-bold text-[#44475B] mb-[10px] md:mb-[20px]">
+                    <p className="mx-auto mt-4 md:mt-8 mb-4 text-[18px] md:text-[24px] font-bold text-[#44475B] mb-[20px]">
                         A Simple, Real-Life Scenario
                     </p>
                     <p className='text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto mb-4'>
@@ -537,7 +540,7 @@ export default function EMICalculator() {
                     </ul>
                     <p className='text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto mb-4'>
                         This one calculation does something powerful – it shows Eshaan the full cost of his decision.</p>
-                    <p className='text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto mb-4'>
+                    <p className='text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto'>
                         He also notices that:</p>
                     <ul className='list-disc pl-7 text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto mb-4'>
                         <li>A 12-year tenure lowers EMI</li>
@@ -549,7 +552,7 @@ export default function EMICalculator() {
                 </div>
 
                 <div className='container mx-auto px-5 md:px-10 lg:px-20'>
-                    <p className="mx-auto mt-4 md:mt-8 mb-4 text-[15px] md:text-[24px] font-bold text-[#44475B] mb-[10px] md:mb-[20px]">
+                    <p className="mx-auto mt-4 md:mt-8 mb-4 text-[18px] md:text-[24px] font-bold text-[#44475B] mb-[20px]">
                         Why People Rely on EMI Calculators
                     </p>
                     <p className='text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto mb-4'>
@@ -564,7 +567,7 @@ export default function EMICalculator() {
                 </div>
 
                 <div className='container mx-auto px-5 md:px-10 lg:px-20'>
-                    <p className="mx-auto mt-4 md:mt-8 mb-4 text-[15px] md:text-[24px] font-bold text-[#44475B] mb-[10px] md:mb-[20px]">
+                    <p className="mx-auto mt-4 md:mt-8 mb-4 text-[18px] md:text-[24px] font-bold text-[#44475B] mb-[20px]">
                         A Final Thought from BFC Capital
                     </p>
                     <p className='text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto mb-4'>
@@ -580,7 +583,7 @@ export default function EMICalculator() {
 
             </section >
             <section>
-                <h2 className="text-center text-[20px] md:text-3xl lg:text-5xl font-bold text-[#44475B] mt-16">FAQs</h2>
+                <h2 className="text-center text-[28px] md:text-3xl lg:text-5xl font-bold text-[#44475B] mt-16">FAQs</h2>
                 <p className="text-center  text-[#44475B] mb-4">Questions on your mind? Dont worry we have the answers!</p>
                 <div className='container mx-auto px-5 md:px-10 lg:px-20'>
                     {questions.map((item, index) => (

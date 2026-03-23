@@ -13,30 +13,30 @@ export default function ELSSCalculatorComponent() {
         {
             question: "How does an ELSS calculator work?",
             answer:
-                "It uses your investment amount and tax bracket to instantly show you how much tax you’ll save under Section 80C.",
+                "It uses your investment amount and tax bracket to instantly show how much tax you’ll save under Section 80C.",
         },
         {
             question:
                 "What is the lock-in period for ELSS, and does the calculator consider it?",
             answer:
-                "Yes, ELSS comes with a 3-year lock-in, which is the shortest among all 80C options. The calculator factors this in.",
+                "Yes. ELSS has a 3-year lock-in, the shortest among all 80C options, and the calculator factors this in.",
         },
         {
             question:
                 "What is the maximum tax deduction I can claim under Section 80C?",
             answer:
-                "₹1.5 lakh per financial year. Even if you invest more, only this limit is deductible.",
+                "₹1.5 lakh per financial year. Any investment beyond this limit does not qualify for additional deduction.",
         },
         {
             question:
                 "How accurate are the projected returns shown in the ELSS calculator?",
             answer:
-                "The calculator gives you a tax-saving estimate. Since ELSS invests in equities, actual market returns can vary.",
+                "The calculator estimates tax savings, not market returns. Since ELSS invests in equities, actual returns can vary.",
         },
         {
             question: "Is ELSS better than PPF or other tax-saving instruments?",
             answer:
-                "Depends on your goal. PPF gives fixed, safe returns. ELSS, being equity-linked, has a higher risk but much higher long-term wealth-building potential.",
+                "It depends on your goal. PPF offers fixed, low-risk returns. ELSS carries higher risk but significantly higher long-term wealth potential.",
         },
     ];
 
@@ -136,7 +136,7 @@ export default function ELSSCalculatorComponent() {
                     }}>ELSS Calculator</span>
                 </nav>
                 {/* Title */}
-                <h2 className="text-[20px] md:text-3xl lg:text-5xl font-bold text-[#44475B]">
+                <h2 className="text-[40px] md:text-3xl lg:text-5xl font-bold text-[#44475B]">
                     ELSS Calculator
                 </h2>
             </div>
@@ -152,7 +152,7 @@ export default function ELSSCalculatorComponent() {
 
                                     {/* Monthly Saving */}
                                     <div>
-                                        <label className="block text-[#44475B] font-medium text-sm uppercase mb-2">
+                                        <label className="block text-[#44475B] font-medium uppercase mb-2">
                                             Investment Amount (Years)
                                         </label>
                                         <input
@@ -174,7 +174,7 @@ export default function ELSSCalculatorComponent() {
                                     </div>
                                     {/* Expected Rate of Return */}
                                     <Form.Group className="mb-3">
-                                        <Form.Label className="text-[#646464]">Your Tax Slab</Form.Label>
+                                        <Form.Label className="block text-[#44475B] font-medium uppercase mb-2">Your Tax Slab</Form.Label>
                                         <Form.Select
                                             value={taxSlab}
                                             onChange={(e) => setTaxSlab(Number(e.target.value))}
@@ -215,7 +215,7 @@ export default function ELSSCalculatorComponent() {
 
                                     <p className="font-primary text-base md:text-lg leading-relaxed text-textdark">
                                         <p>Total Tax Saved U/S 80(C)</p>
-                                        <h3>₹{totalTaxSaved.toLocaleString("en-IN")}</h3>
+                                        <h3 className="font-semibold">₹{totalTaxSaved.toLocaleString("en-IN")}</h3>
                                     </p>
                                 </div>
 
@@ -248,10 +248,10 @@ export default function ELSSCalculatorComponent() {
                 </div>
             </section>
             <section>
-                <h2 className="text-center text-[20px] md:text-3xl lg:text-5xl font-bold text-[#44475B] mt-16">All You Need To Know About <br />
+                <h2 className="text-center text-[28px] md:text-3xl lg:text-5xl font-bold text-[#44475B] mt-16">All You Need To Know About <br />
                     ELSS Calculator</h2>
                 <div className='container mx-auto px-5 md:px-10 lg:px-20'>
-                    <p className="mx-auto mt-4 md:mt-8 mb-4 text-[15px] md:text-[24px] font-bold text-[#44475B] mb-[10px] md:mb-[20px]">
+                    <p className="mx-auto mt-4 md:mt-8 mb-4 text-[18px] md:text-[24px] font-bold text-[#44475B] mb-[20px]">
                         What Is an ELSS Calculator?
                     </p>
                     <p className='text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto mb-4'>Let’s admit it.<br />
@@ -260,7 +260,7 @@ export default function ELSSCalculatorComponent() {
                     <p className='text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto mb-4'>An ELSS (Equity Linked Savings Scheme) Calculator is a simple tool that tells you one thing very clearly:<br />
                         How much tax you actually save by investing in ELSS mutual funds.</p>
                     <p className='text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto mb-4'>Since ELSS investments qualify for deductions under Section 80C of the Income Tax Act (up to ₹1.5 lakh), the calculator removes all guesswork. No formulas. No assumptions. Just instant clarity.</p>
-                    <p className='text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto mb-4'>With the ELSS Calculator, you only need two inputs:</p>
+                    <p className='text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto'>With the ELSS Calculator, you only need two inputs:</p>
                     <ul className='list-disc pl-7 text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto mb-4'>
                         <li><b>The amount you plan to invest</b></li>
                         <li><b>Your tax slab</b></li>
@@ -271,16 +271,16 @@ export default function ELSSCalculatorComponent() {
                 </div>
 
                 <div className='container mx-auto px-5 md:px-10 lg:px-20'>
-                    <p className="mx-auto mt-4 md:mt-8 mb-4 text-[15px] md:text-[24px] font-bold text-[#44475B] mb-[10px] md:mb-[20px]">
+                    <p className="mx-auto mt-4 md:mt-8 mb-4 text-[18px] md:text-[24px] font-bold text-[#44475B] mb-[20px]">
                         How Does an ELSS Calculator Work?
                     </p>
                     <p className='text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto mb-4'>The logic is refreshingly simple.</p>
-                    <p className='text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto mb-4'>Your tax saving depends on:</p>
+                    <p className='text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto'>Your tax saving depends on:</p>
                     <ol className='list-decimal pl-7 text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto mb-4'>
                         <li>How much you invest</li>
                         <li>Which tax slab you fall into</li>
                     </ol>
-                    <p className='text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto mb-4'>For example:</p>
+                    <p className='text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto'>For example:</p>
                     <ul className='list-disc pl-7 text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto mb-4'>
                         <li>If you invest ₹1,00,000 and you’re in the 20% tax slab, you save about ₹20,800</li>
                         <li>If you’re in the 30% tax slab, the same investment saves you ₹31,200</li>
@@ -289,39 +289,39 @@ export default function ELSSCalculatorComponent() {
                 </div>
 
                 <div className='container mx-auto px-5 md:px-10 lg:px-20'>
-                    <p className="mx-auto mt-4 md:mt-8 mb-4 text-[15px] md:text-[24px] font-bold text-[#44475B] mb-[10px] md:mb-[20px]">
+                    <p className="mx-auto mt-4 md:mt-8 mb-4 text-[18px] md:text-[24px] font-bold text-[#44475B] mb-[20px]">
                         How Does ELSS Calculator Actually Help You?
                     </p>
                     <p className='text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto mb-4'>This isn’t just about numbers. It’s about better decision-making.</p>
-                    <p className='text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto mb-4 font-bold'>1. Clear, Honest Tax Benefits</p>
+                    <p className='text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto font-bold'>1. Clear, Honest Tax Benefits</p>
                     <p className='text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto mb-4'>No more rough estimates or “around this much” answers. You see the exact tax saving, which makes your decision fact-based, not emotional.</p>
-                    <p className='text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto mb-4 font-bold'>2. Pushes You Towards Early Planning</p>
+                    <p className='text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto font-bold'>2. Pushes You Towards Early Planning</p>
                     <p className='text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto mb-4'>Why wait till March and invest in a hurry?<br />
                         Using the calculator early lets you plan ELSS investments across the year – even via SIPs – bringing discipline and reducing risk.</p>
-                    <p className='text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto mb-4 font-bold'>3. Tailored to Your Tax Slab</p>
+                    <p className='text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto font-bold'>3. Tailored to Your Tax Slab</p>
                     <p className='text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto mb-4'>Someone in the 30% slab benefits far more than someone in the 5% slab. The calculator personalises results so you’re not comparing apples with oranges.</p>
-                    <p className='text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto mb-4 font-bold'>4. Beginner-Friendly by Design</p>
+                    <p className='text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto font-bold'>4. Beginner-Friendly by Design</p>
                     <p className='text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto mb-4'>Even if tax jargon makes your head spin, this tool doesn’t. You can use it comfortably in under a minute.</p>
                 </div>
 
                 <div className='container mx-auto px-5 md:px-10 lg:px-20'>
-                    <p className="mx-auto mt-4 md:mt-8 mb-4 text-[15px] md:text-[24px] font-bold text-[#44475B] mb-[10px] md:mb-[20px]">
+                    <p className="mx-auto mt-4 md:mt-8 mb-4 text-[18px] md:text-[24px] font-bold text-[#44475B] mb-[20px]">
                         How to Use ELSS Calculator
                     </p>
                     <p className='text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto mb-4'>No learning curve. No confusion.</p>
-                    <p className='text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto mb-4 font-bold'>Step 1: Enter the Investment Amount</p>
+                    <p className='text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto font-bold'>Step 1: Enter the Investment Amount</p>
                     <p className='text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto mb-4'>Put in the amount you’re planning to invest in ELSS.</p>
-                    <p className='text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto mb-4 font-bold'>Step 2: Select Your Tax Slab</p>
+                    <p className='text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto font-bold'>Step 2: Select Your Tax Slab</p>
                     <p className='text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto mb-4'>Choose between 5%, 20%, or 30%.</p>
-                    <p className='text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto mb-4 font-bold'>Step 3: Click “Calculate”</p>
+                    <p className='text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto font-bold'>Step 3: Click “Calculate”</p>
                     <p className='text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto mb-4'>Instantly see how much tax you’ll save.</p>
-                    <p className='text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto mb-4 font-bold'>Example 1</p>
+                    <p className='text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto'>Example 1</p>
                     <ul className='list-disc pl-7 text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto mb-4'>
                         <li>Investment: ₹90,000</li>
                         <li>Tax Slab: 20%</li>
                         <li>Tax Saved: ₹18,720</li>
                     </ul>
-                    <p className='text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto mb-4 font-bold'>Example 2</p>
+                    <p className='text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto'>Example 2</p>
                     <ul className='list-disc pl-7 text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto mb-4'>
                         <li>Investment: ₹1,50,000</li>
                         <li>Tax Slab: 30%</li>
@@ -331,11 +331,11 @@ export default function ELSSCalculatorComponent() {
                 </div>
 
                 <div className='container mx-auto px-5 md:px-10 lg:px-20'>
-                    <p className="mx-auto mt-4 md:mt-8 mb-4 text-[15px] md:text-[24px] font-bold text-[#44475B] mb-[10px] md:mb-[20px]">
+                    <p className="mx-auto mt-4 md:mt-8 mb-4 text-[18px] md:text-[24px] font-bold text-[#44475B] mb-[20px]">
                         Final Thoughts (Read This Before You Invest)
                     </p>
                     <p className='text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto mb-4'>Tax planning doesn’t have to be rushed, confusing, or stressful.</p>
-                    <p className='text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto mb-4'>The ELSS Calculator helps you:</p>
+                    <p className='text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto'>The ELSS Calculator helps you:</p>
                     <ul className='list-disc pl-7 text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto mb-4'>
                         <li>See your tax savings clearly</li>
                         <li>Plan investments smartly</li>
@@ -351,7 +351,7 @@ export default function ELSSCalculatorComponent() {
 
             </section >
             <section>
-                <h2 className="text-center text-[20px] md:text-3xl lg:text-5xl font-bold text-[#44475B] mt-16">FAQs</h2>
+                <h2 className="text-center text-[28px] md:text-3xl lg:text-5xl font-bold text-[#44475B] mt-16">FAQs</h2>
                 <p className="text-center  text-[#44475B] mb-4">Questions on your mind? Dont worry we have the answers!</p>
                 <div className='container mx-auto px-5 md:px-10 lg:px-20'>
                     {questions.map((item, index) => (

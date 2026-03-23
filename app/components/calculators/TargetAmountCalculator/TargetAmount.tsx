@@ -11,26 +11,26 @@ import RangeBar from "../../common/RangeBar";
 export default function TargetAmountCalculator() {
     const questions = [
         {
-            question: "Does it include inflation?",
+            question: "Does the calculator include inflation?",
             answer:
-                "No, it shows nominal returns only, so it does not account for inflation.",
+                "No. It shows nominal returns only and does not adjust for inflation.",
         },
         {
-            question: "Can I calculate both lump sum and SIP?",
-            answer: "Yes, it shows both, so you can choose what fits your situation.",
+            question: "Can I calculate both lump sum and SIP investments?",
+            answer: "Yes. It provides both options so you can choose what suits your cash flow.",
         },
         {
-            question: "What rate of return should I use?",
+            question: "What rate of return should I assume?",
             answer:
-                "Reasonable assumptions can be made after consulting with your financial expert.",
+                "Reasonable return assumptions should be made based on asset allocation and ideally after consulting a financial advisor.",
         },
         {
-            question: "Can I plan multiple goals at once?",
-            answer: "Yes, do it separately for each goal to know exact numbers.",
+            question: "Can I plan multiple goals at the same time?",
+            answer: "Yes, but calculate each goal separately to maintain clarity and accuracy.",
         },
         {
             question: "How often should I review my portfolio?",
-            answer: "Every 6–12 months, or if your income, expenses or goals change.",
+            answer: "Every 6 to 12 months, or sooner if there is a major change in income, expenses, or goals.",
         },
     ];
 
@@ -120,7 +120,7 @@ export default function TargetAmountCalculator() {
                     <span className="text-[#7A7A7A] font-semibold">Target Amount Calculator</span>
                 </nav>
                 {/* Title */}
-                <h2 className="text-[20px] md:text-3xl lg:text-5xl font-bold text-[#44475B]">
+                <h2 className="text-[40px] md:text-3xl lg:text-5xl font-bold text-[#44475B]">
                     Target Amount Calculator
                 </h2>
             </div>
@@ -149,6 +149,29 @@ export default function TargetAmountCalculator() {
                                             }
                                             placeholder="₹ 50,00,000"
                                         />
+                                    </div>
+
+                                    {/* Investment Period */}
+                                    <div>
+                                        <div className="flex justify-between mb-2">
+                                            <label className="text-[#44475B] font-medium text-sm uppercase">
+                                                INVESTMENT PERIOD
+                                            </label>
+                                            <span className="font-bold text-[#44475B]">
+                                                {time} Yrs
+                                            </span>
+                                        </div>
+
+                                        <RangeBar
+                                            maxLimit={30}
+                                            setValue={setTime}
+                                            value={time}
+                                        />
+
+                                        <div className="flex justify-between text-sm text-[#44475B] mt-2">
+                                            <span>1 Yr</span>
+                                            <span>30 Yrs</span>
+                                        </div>
                                     </div>
 
                                     {/* Expected Rate of Return */}
@@ -198,29 +221,6 @@ export default function TargetAmountCalculator() {
                                         />
                                     </div>
 
-                                    {/* Investment Period */}
-                                    <div>
-                                        <div className="flex justify-between mb-2">
-                                            <label className="text-[#44475B] font-medium text-sm uppercase">
-                                                INVESTMENT PERIOD
-                                            </label>
-                                            <span className="font-bold text-[#44475B]">
-                                                {time} Yrs
-                                            </span>
-                                        </div>
-
-                                        <RangeBar
-                                            maxLimit={30}
-                                            setValue={setTime}
-                                            value={time}
-                                        />
-
-                                        <div className="flex justify-between text-sm text-[#44475B] mt-2">
-                                            <span>1 Yr</span>
-                                            <span>30 Yrs</span>
-                                        </div>
-                                    </div>
-
                                     {/* Button */}
                                     <button
                                         type="button"
@@ -242,18 +242,19 @@ export default function TargetAmountCalculator() {
                                     <h2 className="font-primary font-semibold text-2xl leading-tight text-textdark mb-3">
                                         Result
                                     </h2>
-
-                                    <div className="col-lg-6 result-item">
-                                        <p>{"Your Target Amount".toUpperCase()}</p>
-                                        <h3 className="text-[#212121]">₹ {finalAmount.toLocaleString("en-IN")}</h3>
-                                    </div>
-                                    <div className="col-lg-6 result-item">
-                                        <p>{"Monthly SIP investment required".toUpperCase()}</p>
-                                        <h3 className="text-[#212121]">₹{Math.round(targetValue).toLocaleString("en-IN")}</h3>
-                                    </div>
-                                    <div className="col-lg-6 result-item">
-                                        <p>{"One time investment required".toUpperCase()}</p>
-                                        <h3 className="text-[#212121]">₹{Math.round(pvalue).toLocaleString("en-IN")}</h3>
+                                    <div className="grid grid-cols-2 gap-6">
+                                        <div className="col-lg-6 result-item">
+                                            <p className="text-[#4D4D4D]">{"Your Target Amount".toUpperCase()}</p>
+                                            <h3 className="text-[#212121] font-semibold">₹ {finalAmount.toLocaleString("en-IN")}</h3>
+                                        </div>
+                                        <div className="col-lg-6 result-item">
+                                            <p className="text-[#4D4D4D]">{"Monthly SIP investment required".toUpperCase()}</p>
+                                            <h3 className="text-[#212121] font-semibold">₹{Math.round(targetValue).toLocaleString("en-IN")}</h3>
+                                        </div>
+                                        <div className="col-lg-6 result-item">
+                                            <p className="text-[#4D4D4D]">{"One time investment required".toUpperCase()}</p>
+                                            <h3 className="text-[#212121] font-semibold">₹{Math.round(pvalue).toLocaleString("en-IN")}</h3>
+                                        </div>
                                     </div>
                                 </div>
 
@@ -276,10 +277,10 @@ export default function TargetAmountCalculator() {
                 </div>
             </section>
             <section>
-                <h2 className="text-center text-[20px] md:text-3xl lg:text-5xl font-bold text-[#44475B] mt-16">All You Need To Know About <br />
+                <h2 className="text-center text-[28px] md:text-3xl lg:text-5xl font-bold text-[#44475B] mt-16">All You Need To Know About <br />
                     Target Amount Calculator</h2>
                 <div className='container mx-auto px-5 md:px-10 lg:px-20'>
-                    <p className="mx-auto mt-4 md:mt-8 mb-4 text-[15px] md:text-[24px] font-bold text-[#44475B] mb-[10px] md:mb-[20px]">
+                    <p className="mx-auto mt-4 md:mt-8 mb-4 text-[18px] md:text-[24px] font-bold text-[#44475B] mb-[20px]">
                         What is a Target Amount Calculator?
                     </p>
                     <p className='text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto mb-4'>
@@ -292,7 +293,7 @@ export default function TargetAmountCalculator() {
                     <p className='text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto mb-4'>
                         That’s where most people get stuck. A small miscalculation, an unrealistic return assumption, or a delayed start can quietly push your goal further away than you realise.</p>
                     <p className='text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto mb-4'>
-                        <b>This is exactly where the Target Amount Calculator helps.</b></p>
+                        This is exactly where the Target Amount Calculator helps.</p>
                     <p className='text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto mb-4'>
                         Think of it as a planning tool that brings structure to your goals. You tell it the amount you want, the time you have, and a reasonable expected return. It then tells you how much you need to invest, either as a lump sum or through a monthly SIP.</p>
                     <p className='text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto mb-4'>
@@ -300,7 +301,7 @@ export default function TargetAmountCalculator() {
                 </div>
 
                 <div className='container mx-auto px-5 md:px-10 lg:px-20'>
-                    <p className="mx-auto mt-4 md:mt-8 mb-4 text-[15px] md:text-[24px] font-bold text-[#44475B] mb-[10px] md:mb-[20px]">
+                    <p className="mx-auto mt-4 md:mt-8 mb-4 text-[18px] md:text-[24px] font-bold text-[#44475B] mb-[20px]">
                         Why This Calculator Really Matters
                     </p>
                     <p className='text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto mb-4'>
@@ -309,61 +310,61 @@ export default function TargetAmountCalculator() {
                         That gap can be stressful, especially when the goal is non-negotiable, like education or retirement.</p>
                     <p className='text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto mb-4'>
                         The Target Amount Calculator helps avoid that situation. It forces clarity early. It shows you realistic numbers today, so you can take corrective action while time is still on your side.</p>
-                    <p className='text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto mb-4 uppercase'>
+                    <p className='text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto mb-4'>
                         At BFC Capital, this is exactly how we approach planning. Not by chasing returns, but by aligning investments with clearly defined goals and time horizons.</p>
                 </div>
 
                 <div className='container mx-auto px-5 md:px-10 lg:px-20'>
-                    <p className="mx-auto mt-4 md:mt-8 mb-4 text-[15px] md:text-[24px] font-bold text-[#44475B] mb-[10px] md:mb-[20px]">
+                    <p className="mx-auto mt-4 md:mt-8 mb-4 text-[18px] md:text-[24px] font-bold text-[#44475B] mb-[20px]">
                         How to Use the Target Amount Calculator
                     </p>
                     <p className='text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto mb-4'>
                         The process is simple and intentionally straightforward.</p>
-                    <p className='text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto mb-4 italic font-semibold'>
+                    <p className='text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto mb-4'>
                         Start by entering your target amount.<br />
                         For example, ₹20,00,000 for a new home.</p>
-                    <p className='text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto mb-4 italic font-semibold'>
+                    <p className='text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto mb-4'>
                         Then set your time frame.<br />
                         Say you need the money in 8 years.</p>
-                    <p className='text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto mb-4 italic font-semibold'>
+                    <p className='text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto mb-4'>
                         Choose an expected rate of return.<br />
                         For instance, 16 percent annually, assuming a suitable equity-oriented portfolio and a long-term view.</p>
-                    <p className='text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto mb-4 italic font-semibold'>
+                    <p className='text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto mb-4'>
                         Click “Calculate”.</p>
-                    <p className='text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto mb-4 font-bold'>
+                    <p className='text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto'>
                         You instantly get two clear answers:</p>
                     <p className='text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto mb-4 font-primary'>
-                        Lump Sum Needed Today: <b>₹6,01,051</b></p>
+                        Lump Sum Needed Today: <br />₹6,01,051</p>
                     <p className='text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto mb-4 font-primary'>
-                        Monthly SIP Needed: <b>₹10,391</b></p>
-                    <p className='text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto mb-4 uppercase'>
+                        Monthly SIP Needed: <br />₹10,391</p>
+                    <p className='text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto mb-4'>
                         No complicated formulas. No assumptions hidden in fine print. Just a clear picture of what your goal demands.</p>
                 </div>
 
                 <div className='container mx-auto px-5 md:px-10 lg:px-20'>
-                    <p className="mx-auto mt-4 md:mt-8 mb-4 text-[15px] md:text-[24px] font-bold text-[#44475B] mb-[10px] md:mb-[20px]">
+                    <p className="mx-auto mt-4 md:mt-8 mb-4 text-[18px] md:text-[24px] font-bold text-[#44475B] mb-[20px]">
                         Why Use This Calculator Instead of Guessing?
                     </p>
-                    <p className='text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto mb-4'>
+                    <p className='text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto'>
                         You could try to estimate things yourself. But this tool makes planning more disciplined.</p>
-                    <p className='text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto mb-2'>
+                    <p className='text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto'>
                         1. It saves time by giving instant, accurate calculations.</p>
-                    <p className='text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto mb-2'>
+                    <p className='text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto'>
                         2. It correctly accounts for compounding, which is where most manual estimates go wrong.</p>
-                    <p className='text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto mb-2'>
+                    <p className='text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto'>
                         3. It allows you to test different scenarios by changing timelines, returns, or contribution amounts.</p>
                     <p className='text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto mb-4'>
                         4. It brings transparency, so you know exactly what is required, not what sounds comfortable.</p>
-                    <p className='text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto mb-4'>
+                    <p className='text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto'>
                         This clarity is especially important when decisions involve long-term commitments.</p>
 
                 </div>
 
                 <div className='container mx-auto px-5 md:px-10 lg:px-20'>
-                    <p className="mx-auto mt-4 md:mt-8 mb-4 text-[15px] md:text-[24px] font-bold text-[#44475B] mb-[10px] md:mb-[20px]">
+                    <p className="mx-auto mt-4 md:mt-8 mb-4 text-[18px] md:text-[24px] font-bold text-[#44475B] mb-[20px]">
                         How It Helps You Plan Smarter
                     </p>
-                    <p className='text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto mb-4'>
+                    <p className='text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto'>
                         Using the Target Amount Calculator changes how you look at goals.</p>
                     <ul className='list-disc pl-7 text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto mb-4'>
                         <li>It keeps planning goal-focused instead of product-focused.</li>
@@ -377,7 +378,7 @@ export default function TargetAmountCalculator() {
                 </div>
 
                 <div className='container mx-auto px-5 md:px-10 lg:px-20'>
-                    <p className="mx-auto mt-4 md:mt-8 mb-4 text-[15px] md:text-[24px] font-bold text-[#44475B] mb-[10px] md:mb-[20px]">
+                    <p className="mx-auto mt-4 md:mt-8 mb-4 text-[18px] md:text-[24px] font-bold text-[#44475B] mb-[20px]">
                         Tips to Get the Most Out of It
                     </p>
                     <p className='text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto mb-2 font-bold'>
@@ -388,16 +389,13 @@ export default function TargetAmountCalculator() {
                         3. Review regularly: <span className="font-normal text-[15px] md:text-[17px]">Markets change, income changes, goals evolve. A review every 6 to 12 months is sensible.</span></p>
                     <p className='text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto mb-4 font-bold'>
                         4. Choose the right asset mix: <span className="font-normal text-[15px] md:text-[17px]">Returns depend not just on time, but also on aligning investments with risk tolerance and goal timelines.</span></p>
-                    <p className='text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto mb-4 italic'>
-                        At BFC Capital, portfolio reviews and goal discussions are always aligned with suitability and long-term outcomes, not short-term performance.</p>
-                </div>
+                    <p className='text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto mb-4 '>
+                        At BFC Capital, portfolio reviews and goal discussions are always aligned with suitability and long-term outcomes, not short-term performance. </p>               </div>
 
                 <div className='container mx-auto px-5 md:px-10 lg:px-20'>
-                    <p className="mx-auto mt-4 md:mt-8 mb-4 text-[15px] md:text-[24px] font-bold text-[#44475B] mb-[10px] md:mb-[20px]">
+                    <p className="mx-auto mt-4 md:mt-8 mb-4 text-[18px] md:text-[24px] font-bold text-[#44475B] mb-[20px]">
                         Who Is This Calculator Useful For?
                     </p>
-                    <p className='text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto mb-4'>
-                        Because investing isn’t just about numbers. It’s about clarity and confidence.</p>
                     <ul className='list-disc pl-7 text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto mb-4'>
                         <li>Young professionals planning a car, travel, or their first home.</li>
                         <li>Parents preparing for education or marriage expenses.</li>
@@ -405,12 +403,12 @@ export default function TargetAmountCalculator() {
                         <li>First-time investors who want clarity on how much to start with.</li>
                         <li>Experienced investors who want to model scenarios more thoughtfully.</li>
                     </ul>
-                    <p className='text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto mb-4 italic'>
+                    <p className='text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto mb-4'>
                         If you have a goal with a deadline, this calculator is relevant.</p>
                 </div>
 
                 <div className='container mx-auto px-5 md:px-10 lg:px-20'>
-                    <p className="mx-auto mt-4 md:mt-8 mb-4 text-[15px] md:text-[24px] font-bold text-[#44475B] mb-[10px] md:mb-[20px]">
+                    <p className="mx-auto mt-4 md:mt-8 mb-4 text-[18px] md:text-[24px] font-bold text-[#44475B] mb-[20px]">
                         Turning Goals Into Achievable Milestones
                     </p>
                     <p className='text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto mb-4'>
@@ -418,13 +416,13 @@ export default function TargetAmountCalculator() {
                     <p className='text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto mb-4'>
                         The Target Amount Calculator converts intention into structure. It tells you how much to invest, how long to stay invested, and what assumptions you are working with.</p>
                     <p className='text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto mb-4'>
-                        Whether the goal is ₹10 lakhs or ₹10 crore, the principle remains the same. Clarity leads to confidence. Confidence leads to consistency.</p>
-                    <p className='text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto mb-4 font-bold'>
+                        Whether the goal is ₹10 lakhs or ₹10 crore, the principle remains the same. <br />Clarity leads to confidence. Confidence leads to consistency.</p>
+                    <p className='text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto mb-4'>
                         And consistency is what ultimately turns goals into outcomes.</p>
                 </div>
             </section >
             <section>
-                <h2 className="text-center text-[20px] md:text-3xl lg:text-5xl font-bold text-[#44475B] mt-16">FAQs</h2>
+                <h2 className="text-center text-[28px] md:text-3xl lg:text-5xl font-bold text-[#44475B] mt-16">FAQs</h2>
                 <p className="text-center  text-[#44475B] mb-4">Questions on your mind? Dont worry we have the answers!</p>
                 <div className='container mx-auto px-5 md:px-10 lg:px-20'>
                     {questions.map((item, index) => (

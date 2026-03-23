@@ -246,7 +246,7 @@ export default function RetirementPlanningCalculator() {
                     }}>Retirement Calculator</span>
                 </nav>
                 {/* Title */}
-                <h2 className="text-[20px] md:text-3xl lg:text-5xl font-bold text-[#44475B]">
+                <h2 className="text-[40px] md:text-3xl lg:text-5xl font-bold text-[#44475B]">
                     Retirement Calculator
                 </h2>
             </div>
@@ -532,10 +532,10 @@ export default function RetirementPlanningCalculator() {
                                     <h2 className="font-primary font-semibold text-2xl leading-tight text-[rgba(33, 33, 33, 1)] mb-6">
                                         Result
                                     </h2>
-                                    <label className="block text-[rgba(77, 77, 77, 1)] font-medium text-sm uppercase mb-2">
+                                    <label className="block text-[#4D4D4D] font-medium text-sm uppercase mb-2">
                                         Year to retirement
                                     </label>
-                                    <p className="font-primary text-base md:text-lg leading-relaxed text-[rgba(33, 33, 33, 1)] font-bold mb-4">
+                                    <p className="font-primary text-base md:text-lg leading-relaxed text-[#212121] font-bold mb-4">
                                         ₹{yearToRetirement.toLocaleString("en-IN")}
                                     </p>
                                     {/* <hr className="my-8 border-[#D0DBEA] border-[1px]" /> */}
@@ -545,13 +545,13 @@ export default function RetirementPlanningCalculator() {
                                     <label className="block text-[rgba(77, 77, 77, 1)] font-medium text-sm uppercase mb-2">
                                         Amount required P.M.- Post Retirement
                                     </label>
-                                    <p className="font-primary text-base md:text-lg leading-relaxed text-[rgba(33, 33, 33, 1)] font-bold mb-4">
+                                    <p className="font-primary text-base md:text-lg leading-relaxed text-[#212121] font-bold mb-4">
                                         ₹{amountPostRetirementPM.toLocaleString("en-IN")}
                                     </p>
                                     <label className="block text-[rgba(77, 77, 77, 1)] font-medium text-sm uppercase mb-2">
                                         Corpus to be achieved @ Retirement
                                     </label>
-                                    <p className="font-primary text-base md:text-lg leading-relaxed text-[rgba(33, 33, 33, 1)] font-bold mb-4">
+                                    <p className="font-primary text-base md:text-lg leading-relaxed text-[#212121] font-bold mb-4">
                                         ₹{corppusToBeAchive.toLocaleString("en-IN")}
                                     </p>
                                     {/* <label className="block text-[rgba(77, 77, 77, 1)] text-center font-medium text-sm uppercase mb-2">
@@ -560,25 +560,25 @@ export default function RetirementPlanningCalculator() {
                                     <label className="block text-[rgba(77, 77, 77, 1)] font-medium text-sm uppercase mb-2">
                                         Corpus you will accumulate with current savings per month
                                     </label>
-                                    <p className="font-primary text-base md:text-lg leading-relaxed text-[rgba(33, 33, 33, 1)] font-bold mb-4">
+                                    <p className="font-primary text-base md:text-lg leading-relaxed text-[#212121] font-bold mb-4">
                                         ₹{corpusYouWillAccumalateWithCurrentSaving.toLocaleString("en-IN")}
                                     </p>
                                     <label className="block text-[rgba(77, 77, 77, 1)] font-medium text-sm uppercase mb-2">
                                         Corpus YOY will accumulate with existing savings
                                     </label>
-                                    <p className="font-primary text-base md:text-lg leading-relaxed text-[rgba(33, 33, 33, 1)] font-bold mb-4">
+                                    <p className="font-primary text-base md:text-lg leading-relaxed text-[#212121] font-bold mb-4">
                                         ₹{corpusYouWillAccumalateWithExistingSaving.toLocaleString("en-IN")}
                                     </p>
                                     <label className="block text-[rgba(77, 77, 77, 1)] font-medium text-sm uppercase mb-2">
                                         Shortfall in amount
                                     </label>
-                                    <p className="font-primary text-base md:text-lg leading-relaxed text-[rgba(33, 33, 33, 1)] font-bold mb-4">
+                                    <p className="font-primary text-base md:text-lg leading-relaxed text-[#212121] font-bold mb-4">
                                         ₹{sortfallAmount.toLocaleString("en-IN")}
                                     </p>
                                     <label className="block text-[rgba(77, 77, 77, 1)] font-medium text-sm uppercase mb-2">
                                         Extra savings per month required
                                     </label>
-                                    <p className="font-primary text-base md:text-lg leading-relaxed text-[rgba(33, 33, 33, 1)] font-bold mb-4">
+                                    <p className="font-primary text-base md:text-lg leading-relaxed text-[#212121] font-bold mb-4">
                                         ₹{extraSavingPM.toLocaleString("en-IN")}
                                     </p>
 
@@ -603,10 +603,10 @@ export default function RetirementPlanningCalculator() {
                 </div>
             </section>
             <section>
-                <h2 className="text-center text-[20px] md:text-3xl lg:text-5xl font-bold text-[#44475B] mt-16">All You Need To Know About <br />
+                <h2 className="text-center text-[28px] md:text-3xl lg:text-5xl font-bold text-[#44475B] mt-16">All You Need To Know About <br />
                     Retirement Calculator</h2>
                 <div className='container mx-auto px-5 md:px-10 lg:px-20'>
-                    <p className="mx-auto mt-4 md:mt-8 mb-4 text-[15px] md:text-[24px] font-bold text-[#44475B] mb-[10px] md:mb-[20px]">
+                    <p className="mx-auto mt-4 md:mt-8 mb-4 text-[18px] md:text-[24px] font-bold text-[#44475B] mb-[20px]">
                         What is a Retirement Calculator?
                     </p>
                     <p className='text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto mb-4'>
@@ -627,7 +627,7 @@ export default function RetirementPlanningCalculator() {
                 </div>
 
                 <div className='container mx-auto px-5 md:px-10 lg:px-20'>
-                    <p className="mx-auto mt-4 md:mt-8 mb-4 text-[15px] md:text-[24px] font-bold text-[#44475B] mb-[10px] md:mb-[20px]">
+                    <p className="mx-auto mt-4 md:mt-8 mb-4 text-[18px] md:text-[24px] font-bold text-[#44475B] mb-[20px]">
                         How Does the Retirement Calculator Help You?
                     </p>
                     <p className='text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto mb-4'>
@@ -647,37 +647,36 @@ export default function RetirementPlanningCalculator() {
                 </div>
 
                 <div className='container mx-auto px-5 md:px-10 lg:px-20'>
-                    <p className="mx-auto mt-4 md:mt-8 mb-4 text-[15px] md:text-[24px] font-bold text-[#44475B] mb-[10px] md:mb-[20px]">
+                    <p className="mx-auto mt-4 md:mt-8 mb-4 text-[18px] md:text-[24px] font-bold text-[#44475B] mb-[20px]">
                         How to Use Retirement Calculator
                     </p>
                     <p className='text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto mb-4 text-justify'>
-                        Using the calculator is pretty straightforward and the simple for you, but the outcome can be equally eye-opening:</p>
-                    <ul className='list-disc pl-7 text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto mb-4'>
-                        <li>Enter your current age and the age at which you want to retire ideally.</li>
-                        <li>Fill in your current monthly expenses, groceries, rent, utilities, healthcare, lifestyle expenses etc..</li>
-                        <li>Add the inflation rate on priority, because ₹60,000 today won’t mean the same 20 years later, so it;s important you add the correct inflation rate.</li>
-                        <li>Enter your monthly savings and any existing corpus (EPF, PPF, mutual funds, etc.) in any.</li>
-                        <li>Input your expected returns, usually higher before retirement, lower after.</li>
-                        <li>Add your life expectancy to see how long the money needs to last.</li>
-                        <li>Click calculate, and get your roadmap: years left to retire, corpus required, shortfall, and how much extra you must save.</li>
-                    </ul>
+                        Using the calculator is pretty straightforward and the simple for you, but the outcome can be  equally eye-opening:</p>
+                    <p className="text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto mb-4 text-justify">Enter your current age and the age at which you want to retire ideally. <br /><br />
+                        Fill in your current monthly expenses, groceries, rent, utilities, healthcare, lifestyle expenses etc..<br /><br />
+                        Add the inflation rate on priority, because ₹60,000 today won’t mean the same 20 years later, so it;s important you add the correct inflation rate.<br /><br />
+                        Enter your monthly savings and any existing corpus (EPF, PPF, mutual funds, etc.) in any.<br /><br />
+                        Input your expected returns, usually higher before retirement, lower after.<br /><br />
+                        Add your life expectancy to see how long the money needs to last.<br /><br />
+
+                        Click calculate, and get your roadmap: years left to retire, corpus required, shortfall, and how much extra you must save.</p>
                     <p className='text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto mb-4'>
                         It’s not just numbers, it’s a reality check.</p>
-                    <p className='text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto mb-4 font-bold'>
+                    <p className='text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto mb-4'>
                         A Simple Example</p>
                     <p className='text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto mb-4'>
                         Say a 20-year-old wants to retire at 40. Their lifestyle costs ₹50,000 a month, inflation is 6%, and they save ₹10,000 monthly with an existing ₹2,00,000 corpus. With returns of 12% pre-retirement and 7% post-retirement, and a 20-year life expectancy after retirement, here’s what the calculator reveals:</p>
                     <p className='text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto mb-4'>
-                        They’ll need ₹3.5 crore at retirement.<br />
-                        Their current savings will grow to ₹98.92 lakh.<br />
-                        The shortfall: ₹2.34 crore.<br />
+                        They’ll need ₹3.5 crore at retirement.<br /> <br />
+                        Their current savings will grow to ₹98.92 lakh.<br /> <br />
+                        The shortfall: ₹2.34 crore.<br /> <br />
                         To fix it, they must increase savings from ₹10,000 to about ₹25,753 a month.</p>
                     <p className='text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto mb-4'>
                         It’s uncomfortable to see, but it’s better to confront it today than to struggle later.</p>
                 </div>
 
                 <div className='container mx-auto px-5 md:px-10 lg:px-20'>
-                    <p className="mx-auto mt-4 md:mt-8 mb-4 text-[15px] md:text-[24px] font-bold text-[#44475B] mb-[10px] md:mb-[20px]">
+                    <p className="mx-auto mt-4 md:mt-8 mb-4 text-[18px] md:text-[24px] font-bold text-[#44475B] mb-[20px]">
                         Why People Trust the Retirement Calculator
                     </p>
                     <ul className='list-disc pl-7 text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto mb-4'>
@@ -703,7 +702,7 @@ export default function RetirementPlanningCalculator() {
                 </div>
             </section >
             <section>
-                <h2 className="text-center text-[20px] md:text-3xl lg:text-5xl font-bold text-[#44475B] mt-16">FAQs</h2>
+                <h2 className="text-center text-[28px] md:text-3xl lg:text-5xl font-bold text-[#44475B] mt-16">FAQs</h2>
                 <p className="text-center  text-[#44475B] mb-4">Questions on your mind? Dont worry we have the answers!</p>
                 <div className='container mx-auto px-5 md:px-10 lg:px-20'>
                     {questions.map((item, index) => (
