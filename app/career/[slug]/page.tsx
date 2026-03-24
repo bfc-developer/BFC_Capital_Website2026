@@ -58,7 +58,7 @@ export default async function JobDetailsPage({ params }: { params: Promise<{ slu
                             <p className="text-[#44475B] text-lg mb-2">
                                 You can send in your resume to <a href="mailto:hrd@bfccapital.com" className="text-[#011EFE]">hrd@bfccapital.com</a>
                             </p>
-                            <Link href="#" className="text-[#011EFE] text-lg hover:underline block">
+                            <Link href="/Career/JD_WM_2026.pdf" target="_blank" className="text-[#011EFE] text-lg hover:underline block">
                                 Click here to view detailed JD
                             </Link>
                         </div>
@@ -104,7 +104,7 @@ export default async function JobDetailsPage({ params }: { params: Promise<{ slu
                             <p className="text-[#44475B] text-lg mb-2">
                                 You can send in your resume to <a href="mailto:hrd@bfccapital.com" className="text-[#011EFE]">hrd@bfccapital.com</a>
                             </p>
-                            <Link href="#" className="text-[#011EFE] text-lg hover:underline block">
+                            <Link href="/Career/RM_JD_BFC.pdf" target="_blank" className="text-[#011EFE] text-lg hover:underline block">
                                 Click here to view detailed JD
                             </Link>
                         </div>
