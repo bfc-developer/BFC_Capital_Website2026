@@ -58,7 +58,7 @@ const calculators = [
         link: "/calculators/swp-calculator",
     },
     {
-        title: "Target Value Calculator",
+        title: "Target Amount Calculator",
         desc: "Reach pre-planned targets with precision.",
         img: "/calculator/target-amount-sip.png",
         link: "/calculators/target-amount-calculator",
