@@ -46,7 +46,7 @@ export default function Marriagecalculators() {
     const [childAge, setChildAge] = useState(8);
     const [marriageAge, setMarriageAge] = useState(24);
     const [amountRequired, setAmountRequired] = useState(1000000);
-    const [annualSaving, setAnnualSaving] = useState(500000);
+    const [annualSaving, setAnnualSaving] = useState<number | string>(500000);
     const [rateOfReturn, setRateOfReturn] = useState<string | number>(12);
     const [inflation, setInflation] = useState<string | number>(6);
 
@@ -79,7 +79,7 @@ export default function Marriagecalculators() {
                 );
 
                 const futureValue = Math.round(
-                    annualSaving *
+                    (Number(annualSaving) || 0) *
                     ((Math.pow(1 + Number(rateOfReturn) / 100, years) - 1) /
                         (Number(rateOfReturn) / 100)),
                 );
@@ -242,9 +242,10 @@ export default function Marriagecalculators() {
                                             className="w-full border rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500 text-[#44475B]"
                                             value={annualSaving}
                                             min={0}
-                                            onChange={(e) =>
-                                                setAnnualSaving(parseFloat(e.target.value))
-                                            }
+                                            onChange={(e) => {
+                                                const val = e.target.value;
+                                                setAnnualSaving(val === "" ? "" : parseFloat(val));
+                                            }}
                                             placeholder="₹ 5,00,000"
                                         />
                                     </div>
