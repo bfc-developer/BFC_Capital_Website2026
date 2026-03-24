@@ -194,7 +194,7 @@ export default function ELSSCalculatorComponent() {
                                     <button
                                         type="button"
                                         onClick={calculateTaxSaved}
-                                        className="bg-[#04B488] text-white py-3 rounded-lg font-semibold hover:bg-blue-700 transition p-[14px]"
+                                        className="bg-[#04B488] text-white py-3 rounded-lg font-semibold hover:bg-[#008f45] transition duration-300 p-[14px]"
                                     >
                                         Calculate
                                     </button>
