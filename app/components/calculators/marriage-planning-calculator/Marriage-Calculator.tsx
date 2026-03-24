@@ -60,7 +60,7 @@ export default function Marriagecalculators() {
 
     const calculateResults = (e: any) => {
         e.preventDefault();
-        if (!amountRequired || !annualSaving || !rateOfReturn || !inflation) {
+        if (!amountRequired || !rateOfReturn || !inflation) {
             toast.error("Please make sure all required fields are filled in.");
             return;
         } else {
