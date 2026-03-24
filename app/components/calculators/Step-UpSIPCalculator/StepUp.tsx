@@ -579,7 +579,7 @@ export default function StepUpCalculator() {
                 </div>
             </section >
             <section>
-                <h2 className="text-center text-[28px] md:text-3xl lg:text-5xl font-bold text-[#44475B] mt-16">FAQs</h2>
+                <h2 className="text-center text-[28px] md:text-3xl lg:text-5xl font-bold text-[#44475B] mt-16 mb-4">FAQs</h2>
                 <p className="text-center  text-[#44475B] mb-4">Questions on your mind? Dont worry we have the answers!</p>
                 <div className='container mx-auto px-5 md:px-10 lg:px-20'>
                     {questions.map((item, index) => (
