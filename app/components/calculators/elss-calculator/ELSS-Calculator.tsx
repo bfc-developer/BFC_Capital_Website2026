@@ -214,8 +214,8 @@ export default function ELSSCalculatorComponent() {
                                     </h2>
 
                                     <p className="font-primary text-base md:text-lg leading-relaxed text-textdark">
-                                        <p>Total Tax Saved U/S 80(C)</p>
-                                        <h3 className="font-semibold">₹{totalTaxSaved.toLocaleString("en-IN")}</h3>
+                                        <p className="font-medium text-[#4D4D4D]">Total Tax Saved U/S 80(C)</p>
+                                        <h3 className="font-bold text-xl text-[#212121]">₹{totalTaxSaved.toLocaleString("en-IN")}</h3>
                                     </p>
                                 </div>
 

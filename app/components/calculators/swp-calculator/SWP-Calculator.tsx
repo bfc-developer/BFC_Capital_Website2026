@@ -424,26 +424,26 @@ export default function SWPCalculatorComponent() {
                                     <h2 className="font-primary font-bold text-2xl leading-tight text-[rgba(33, 33, 33, 1)] mb-6">
                                         Result
                                     </h2>
-                                    <label className="block text-[#4D4D4D] uppercase mb-2">
+                                    <label className="block text-[#4D4D4D] font-medium uppercase mb-2">
                                         Total Balance Amount
                                     </label>
-                                    <p className="font-primary text-base md:text-lg leading-relaxed text-[rgba(33, 33, 33, 1)] font-bold mb-4">
+                                    <p className="font-primary text-base md:text-lg leading-relaxed text-[rgba(33, 33, 33, 1)] font-bold mb-4 text-xl">
                                         ₹{totalBalanceAmount.toLocaleString("en-IN")}
                                     </p>
                                     {/* <hr className="my-8 border-[#D0DBEA] border-[1px]" /> */}
                                     {/* <h4 className="text-[rgba(33, 33, 33, 1)]  font-semibold text-xl leading-tight mb-6">
                                         Amount required P.M.- Post Retirement
                                     </h4> */}
-                                    <label className="block text-[#4D4D4D] uppercase mb-2">
+                                    <label className="block text-[#4D4D4D] font-medium uppercase mb-2">
                                         Total withdrawal amount
                                     </label>
-                                    <p className="font-primary text-base md:text-lg leading-relaxed text-[rgba(33, 33, 33, 1)] font-bold mb-4">
+                                    <p className="font-primary text-base md:text-lg leading-relaxed text-[rgba(33, 33, 33, 1)] font-bold mb-4 text-xl">
                                         ₹{totalWithdrawalAmount.toLocaleString("en-IN")}
                                     </p>
-                                    <label className="block text-[#4D4D4D] uppercase mb-2">
+                                    <label className="block text-[#4D4D4D] font-medium uppercase mb-2">
                                         Total Profit
                                     </label>
-                                    <p className="font-primary text-base md:text-lg leading-relaxed text-[rgba(33, 33, 33, 1)] font-bold mb-4">
+                                    <p className="font-primary text-base md:text-lg leading-relaxed text-[rgba(33, 33, 33, 1)] font-bold mb-4 text-xl">
                                         ₹{totalProfit.toLocaleString("en-IN")}
                                     </p>
                                 </div>

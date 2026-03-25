@@ -336,26 +336,26 @@ export default function EMICalculator() {
                                     <div className="grid grid-cols-2 gap-6">
                                         <div className="">
                                             <div className="">
-                                                <p className="text-[#4D4D4D] uppercase">Your monthly EMI</p>
-                                                <h3 className="text-[#212121] font-semibold">₹{monthlyEmi.toLocaleString("en-IN")}</h3>
+                                                <p className="text-[#4D4D4D] uppercase font-medium">Your monthly EMI</p>
+                                                <h3 className="text-[#212121] font-bold text-xl">₹{monthlyEmi.toLocaleString("en-IN")}</h3>
                                             </div>
                                         </div>
                                         <div className="">
                                             <div className="">
-                                                <p className="text-[#4D4D4D] uppercase">principle</p>
-                                                <h3 className="text-[#212121] font-semibold">₹{principal.toLocaleString("en-IN")}</h3>
+                                                <p className="text-[#4D4D4D] uppercase font-medium">principle</p>
+                                                <h3 className="text-[#212121] font-bold text-xl">₹{principal.toLocaleString("en-IN")}</h3>
                                             </div>
                                         </div>
                                         <div className="">
                                             <div className="">
-                                                <p className="text-[#4D4D4D] uppercase">Total Interest</p>
-                                                <h3 className="text-[#212121] font-semibold">₹{totalInterest.toLocaleString("en-IN")}</h3>
+                                                <p className="text-[#4D4D4D] uppercase font-medium">Total Interest</p>
+                                                <h3 className="text-[#212121] font-bold text-xl">₹{totalInterest.toLocaleString("en-IN")}</h3>
                                             </div>
                                         </div>
                                         <div className="">
                                             <div className="">
-                                                <p className="text-[#4D4D4D] uppercase">Total Amount</p>
-                                                <h3 className="text-[#212121] font-semibold">₹{totalAmount.toLocaleString("en-IN")}</h3>
+                                                <p className="text-[#4D4D4D] uppercase font-medium">Total Amount</p>
+                                                <h3 className="text-[#212121] font-bold text-xl">₹{totalAmount.toLocaleString("en-IN")}</h3>
                                             </div>
                                         </div>
                                     </div>
