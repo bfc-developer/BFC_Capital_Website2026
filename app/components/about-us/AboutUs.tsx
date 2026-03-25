@@ -72,7 +72,7 @@ export default function AboutUs() {
             name: "Vertika Singh",
             role: "AVP - Operations",
             image: "/AboutUs/Operations/Vertika.svg",
-            bio: "Vertika is a perfect fit for the operations team because of her unwavering focus. She has developed into an expert in investing procedures thanks to her curiosity and desire to learn."
+            bio: "Vertika is a perfect fit for the operations team because of her unwavering focus. She has developed into an expert in investing procedures, thanks to her curiosity and desire to learn."
         },
         {
             name: "Vanshika Gupta",
@@ -133,7 +133,7 @@ export default function AboutUs() {
             name: "Amulya Ratan",
             role: "Manager - Digital Marketing",
             image: "/AboutUs/DigitalMarketing/Amulya.svg",
-            bio: "Amulya’s inquisitive mind and research capabilities make him the perfect fold for Nitesh. BFC Capital’s outreach campaigns are so much more effective due to his will to excel and unfazed resolve. On a personal front, he is a foodie who doesn’t mind travelling miles to quench his hunger for rare delicacies."
+            bio: "Amulya’s inquisitive mind and research capabilities make him the perfect fold for us. BFC Capital’s outreach campaigns are so much more effective due to his will to excel and unfazed resolve. On a personal front, he is a foodie who doesn’t mind travelling miles to quench his hunger for rare delicacies."
         },
 
     ];
@@ -210,12 +210,12 @@ export default function AboutUs() {
                     <h3 className="text-[#44475B] font-semibold text-[22px] mb-5">Our expertise:</h3>
 
                     <ul className="list-disc text-[#44475B] px-6 mb-5 text-justify text-[15px] md:text-[17px] leading-relaxed">
-                        <li><strong>SEBI-Registered & Compliant:</strong> Our recommendations adhere strictly to SEBI guidelines, ensuring ethical, unbiased, and credible advice</li>
-                        <li><strong>Personalized Guidance:</strong> Dedicated advisors provide tailored strategies aligned with your goals, risk appetite, and life stage</li>
-                        <li><strong>Goal-Based Planning:</strong> Plan for retirement, education, wealth creation, or financial security with strategies designed for long-term growth</li>
-                        <li><strong>Expert Research & Insights:</strong> Gain timely market trends, investment tips, and tactical calls backed by our in-house research team</li>
-                        <li><strong>Portfolio & Wealth Management:</strong> Track, manage, and optimize your investments with clarity and ease</li>
-                        <li><strong>Safe & Secure:</strong> Advanced security protocols protect all investor data and transactions</li>
+                        <li><strong>SEBI-Registered & Compliant:</strong> Our recommendations adhere strictly to SEBI guidelines, ensuring ethical, unbiased, and credible advice.</li>
+                        <li><strong>Personalized Guidance:</strong> Dedicated advisors provide tailored strategies aligned with your goals, risk appetite, and life stage.</li>
+                        <li><strong>Goal-Based Planning:</strong> Plan for retirement, education, wealth creation, or financial security with strategies designed for long-term growth.</li>
+                        <li><strong>Expert Research & Insights:</strong> Gain timely market trends, investment tips, and tactical calls backed by our in-house research team.</li>
+                        <li><strong>Portfolio & Wealth Management:</strong> Track, manage, and optimize your investments with clarity and ease.</li>
+                        <li><strong>Safe & Secure:</strong> Advanced security protocols protect all investor data and transactions.</li>
                         <li><strong>Retirement Planning:</strong> Build a sustainable post-retirement income strategy covering pensions, NPS, annuities, and long-term security.</li>
                     </ul>
 

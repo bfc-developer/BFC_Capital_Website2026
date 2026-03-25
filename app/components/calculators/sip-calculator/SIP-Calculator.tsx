@@ -34,7 +34,7 @@ export default function Sipcalculators() {
         {
             question: "Is SIP 100% safe?",
             answer:
-                "No, a SIP is not completely risk-free, as all investments in the equity market carry some risk. However, SIPs do help reduce risk compared to lump-sum investments by spreading investments over time, known as rupee cost averaging, and reducing the impact of market volatility, especially over the long term",
+                "No, a SIP is not completely risk-free, as all investments in the equity market carry some risk. However, SIPs do help reduce risk compared to lump-sum investments by spreading investments over time, known as rupee cost averaging, and reducing the impact of market volatility, especially over the long term.",
         },
         {
             question: "Can I invest 100 rupees in SIP?",
@@ -506,7 +506,7 @@ export default function Sipcalculators() {
                         At BFC Capital, a SEBI Registered Investment Adviser, we believe investing does not have to feel complicated or exclusive. It is about taking small, consistent steps and staying the course.</p>
                     <p className='text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto mb-4'>
 
-                        So the next time investing feels “too complex” or “only meant for experts,” remember this. All it takes is a fixed amount, a fixed date, and a simple tool like Prodigy Pro’s SIP calculator to start building wealth that keeps working even while you sleep</p>
+                        So the next time investing feels “too complex” or “only meant for experts,” remember this. All it takes is a fixed amount, a fixed date, and a simple tool like Prodigy Pro’s SIP calculator to start building wealth that keeps working even while you sleep.</p>
                 </div>
             </section >
             <section>

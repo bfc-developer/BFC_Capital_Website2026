@@ -634,8 +634,7 @@ export default function CostOfDelay() {
                         <li>Or achieving long-term financial independence</li>
                     </ul>
                     <p className='text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto'>Starting earlier quietly makes everything easier later.</p>
-                    <p className='text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto mb-4'>Because while money can be added,<br />
-                        time cannot be replaced.</p>
+                    <p className='text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto mb-4'>Because while money can be added, time cannot be replaced.</p>
                 </div>
             </section >
             <section>

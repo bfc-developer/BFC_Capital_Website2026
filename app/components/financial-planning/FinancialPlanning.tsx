@@ -380,7 +380,7 @@ export default function FinancialPlanning() {
                     </p>
                     <p className='text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto mb-4'>
                         If there’s surplus income or a windfall like a bonus, inheritance, or unexpected gains, then strategic investing can help build long-term wealth and financial independence.<br />
-                        now , when you covered yourself against uncertainties, planned for your financial Goals, pause for a while and ask yourself, is there a need to invest further?<br />
+                        Now, when you covered yourself against uncertainties, planned for your financial Goals, pause for a while and ask yourself, is there a need to invest further?<br />
                         The answer is- investing now also serves a purpose- purpose to start your passive income. Your money will be growing without you working for it.<br />
                         And slowly and gradually you will build wealth which will act as your second revenue.
                     </p>

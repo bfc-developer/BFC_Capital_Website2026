@@ -240,15 +240,15 @@ export default function AllMutualFunds() {
 
                         <div className="w-full md:w-2/3 lg:w-3/4">
                             <div className="flex flex-col xl:flex-row justify-between xl:items-center mb-6 gap-4">
-                                <div className="font-bold text-[#44475B] text-[15px] whitespace-nowrap hidden sm:block">
+                                {/* <div className="font-bold text-[#44475B] text-[15px] whitespace-nowrap hidden sm:block">
                                     {schemes.length > 0 ? "Mutual Funds" : "0 Mutual Funds"}
-                                </div>
+                                </div> */}
 
-                                <div className="flex flex-col sm:flex-row items-center gap-3 w-full xl:w-auto">
-                                    <div className="relative w-full sm:w-[320px]">
+                                <div className="flex flex-col sm:flex-row items-center gap-3 w-full xl:w-auto justify-end">
+                                    {/* <div className="relative w-full sm:w-[320px]">
                                         <input type="text" placeholder="Search for mutual funds to invest..." className="w-full pl-10 pr-4 py-2 border border-gray-200 rounded-md text-[13px] outline-none bg-white focus:border-[#04B488] shadow-sm text-gray-700" />
                                         <i className="fa-solid fa-magnifying-glass absolute left-3.5 top-1/2 -translate-y-1/2 text-gray-400 text-sm"></i>
-                                    </div>
+                                    </div> */}
                                     <div className="pagination-controls flex gap-2 w-full sm:w-auto justify-center sm:justify-end">
                                         {/* PREV BUTTON */}
                                         <button
@@ -746,7 +746,7 @@ export default function AllMutualFunds() {
                         <br />
 
                         <strong>7. Equity Savings Funds: {" "}</strong>
-                        These funds keep investment in Equity and equity-related instruments (min.65%), Debt instruments (min.10%), and Derivatives
+                        These funds keep investment in Equity and equity-related instruments (min.65%), Debt instruments (min.10%), and Derivatives.
                     </p>
 
                     <hr className="mutual-funds-hrd my-5 lg:my-8 w-[25%] md:w-[15%] lg:w-[10%] border-t-2 border-[#5462F6]" />

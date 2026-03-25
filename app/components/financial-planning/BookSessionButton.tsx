@@ -139,7 +139,7 @@ export default function BookSessionButton({ buttonText, className }: BookSession
                                     </div>
                                     <div>
                                         <span className="text-[15px] text-[#44475B] leading-[1.6]">
-                                            I hereby consent to the processing of my personal information by BFC Capital Pvt. Ltd. for financial planning communication, consultation, and related follow-ups, in accordance with the provisions of DPDP Act, 2013.
+                                            I hereby consent to the processing of my personal information by BFC Capital Pvt. Ltd. for financial planning communication, consultation, and related follow-ups, in accordance with the provisions of DPDP Act, 2023.
                                         </span>
                                         {errors.consent && <p className="text-red-500 text-xs mt-1 block">{errors.consent}</p>}
                                     </div>

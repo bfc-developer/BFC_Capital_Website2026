@@ -536,7 +536,7 @@ export default function RetirementPlanningCalculator() {
                                         Year to retirement
                                     </label>
                                     <p className="font-primary text-base md:text-lg leading-relaxed text-[#212121] font-bold mb-4">
-                                        ₹{yearToRetirement.toLocaleString("en-IN")}
+                                        {yearToRetirement.toLocaleString("en-IN")}
                                     </p>
                                     {/* <hr className="my-8 border-[#D0DBEA] border-[1px]" /> */}
                                     {/* <h4 className="text-[rgba(33, 33, 33, 1)]  font-semibold text-xl leading-tight mb-6">

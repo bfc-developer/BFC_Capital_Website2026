@@ -49,9 +49,9 @@ export default async function JobDetailsPage({ params }: { params: Promise<{ slu
                             <p><span className="font-bold">Job Location :</span> <span className="text-[#7A7A7A]">Lucknow, Uttar Pradesh</span></p>
                             <p><span className="font-bold">Address :</span> <span className="text-[#7A7A7A]">CP-61 Viraj Khand, Gomti Nagar, Lucknow (UP)-226010</span></p>
                             <p><span className="font-bold">Vacancy Type :</span> <span className="text-[#7A7A7A]">Full Time</span></p>
-                            <p><span className="font-bold">Package :</span> <span className="text-[#7A7A7A]">Rs. 5 L to 9 L per annum</span></p>
-                            <p><span className="font-bold">Experience :</span> <span className="text-[#7A7A7A]">Min Exp – 1 year +</span></p>
-                            <p><span className="font-bold">Qualification :</span> <span className="text-[#7A7A7A]">MBA in Marketing / Finance</span></p>
+                            <p><span className="font-bold">Package :</span> <span className="text-[#7A7A7A]">INR 4 L to 7 L per annum</span></p>
+                            <p><span className="font-bold">Minimum Experience :</span> <span className="text-[#7A7A7A]">2 year +</span></p>
+                            <p><span className="font-bold">Qualification :</span> <span className="text-[#7A7A7A]">Graduation</span></p>
                         </div>
 
                         <div className="mb-12">
@@ -95,8 +95,8 @@ export default async function JobDetailsPage({ params }: { params: Promise<{ slu
                             <p><span className="font-bold">Job Location :</span> <span className="text-[#7A7A7A]">Lucknow, Uttar Pradesh</span></p>
                             <p><span className="font-bold">Address :</span> <span className="text-[#7A7A7A]">CP-61 Viraj Khand, Gomti Nagar, Lucknow (UP)-226010</span></p>
                             <p><span className="font-bold">Vacancy Type :</span> <span className="text-[#7A7A7A]">Full Time</span></p>
-                            <p><span className="font-bold">Package :</span> <span className="text-[#7A7A7A]">Rs. 2 L to 3.5 L per annum</span></p>
-                            <p><span className="font-bold">Experience :</span> <span className="text-[#7A7A7A]">Min Exp – 1 year +</span></p>
+                            <p><span className="font-bold">Package :</span> <span className="text-[#7A7A7A]">INR 3 L to 6 L per annum (Fixed) + Up to INR 1 L (Variable)</span></p>
+                            <p><span className="font-bold">Minimum Experience :</span> <span className="text-[#7A7A7A]">1 year +</span></p>
                             <p><span className="font-bold">Qualification :</span> <span className="text-[#7A7A7A]">Graduate / MBA in Marketing / Finance</span></p>
                         </div>
 
