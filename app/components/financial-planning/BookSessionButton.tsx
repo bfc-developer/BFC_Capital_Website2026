@@ -36,11 +36,27 @@ export default function BookSessionButton({ buttonText, className }: BookSession
         return Object.keys(newErrors).length === 0;
     };
 
-    const handleSubmit = (e: React.FormEvent) => {
+    const APPS_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbxf8XuWvVM-Q51zbNWsVvTSyFKs7KvY6WtKXobCNVosjZlq_iZoKSkzwFFSua9vvplehw/exec"; // 👈 paste your URL
+
+    const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
-        if (validate()) {
+        if (!validate()) return;
+
+        try {
+            await fetch(APPS_SCRIPT_URL, {
+                method: "POST",
+                mode: "no-cors", // required for Apps Script
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ name, mobile, email, consent }),
+            });
+
+            // no-cors means we can't read the response, but if no error is thrown, it worked
             setIsBookingModalOpen(false);
             setIsSuccessPopupOpen(true);
+
+        } catch (err) {
+            console.error("Submission failed:", err);
+            alert("Something went wrong. Please try again.");
         }
     };
 
