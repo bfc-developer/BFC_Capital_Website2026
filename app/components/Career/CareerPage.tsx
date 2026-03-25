@@ -16,18 +16,18 @@ export default function CareerPage() {
             location: "Lucknow",
             slug: "relationship-manager",
         },
-        {
-            title: "Virtual Relationship Manager",
-            experience: "Min. 1 Year",
-            location: "Lucknow",
-            slug: "virtual-relationship-manager",
-        },
-        {
-            title: "Business Development Manager",
-            experience: "Min. 1 Year",
-            location: "Lucknow",
-            slug: "business-development-manager",
-        },
+        // {
+        //     title: "Virtual Relationship Manager",
+        //     experience: "Min. 1 Year",
+        //     location: "Lucknow",
+        //     slug: "virtual-relationship-manager",
+        // },
+        // {
+        //     title: "Business Development Manager",
+        //     experience: "Min. 1 Year",
+        //     location: "Lucknow",
+        //     slug: "business-development-manager",
+        // },
     ];
 
     return (
