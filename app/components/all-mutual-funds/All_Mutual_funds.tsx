@@ -177,15 +177,15 @@ export default function AllMutualFunds() {
                             <p className="mx-auto mt-4 md:mt-8 max-w-6xl text-[15px] md:text-[17px] text-[#44475B] leading-relaxed font-inter opacity-90">
                                 Today, the Indian mutual fund industry includes:
                             </p>
-                            <ul className='list-disc pl-7 text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto font-bold'>
+                            <ul className='list-disc pl-7 text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto font-bold mb-6'>
                                 <li>50+ Asset Management Companies</li>
                                 <li>2,000+ mutual fund schemes</li>
                             </ul>
 
 
-                            <button className="bg-[#04B488] text-white font-medium px-8 py-2.5 rounded-md hover:bg-[#008f45] transition duration-300 mt-2">
+                            <Link href="https://app.prodigypro.co.in/all-mutual-funds" className="bg-[#04B488] text-white font-medium px-8 py-2.5 rounded-md hover:bg-[#008f45] transition duration-300 mt-2">
                                 Explore All Funds
-                            </button>
+                            </Link>
                         </div>
                         <div className="text-center py-2 order-1 md:order-2">
                             <Image
