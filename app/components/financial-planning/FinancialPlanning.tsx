@@ -286,14 +286,14 @@ export default function FinancialPlanning() {
                     <p className="mx-auto mt-4 md:mt-8 mb-4 text-[18px] md:text-[24px] font-bold text-[#44475B] mb-[20px]">
                         To Conclude
                     </p>
-                    <p className='text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto mb-4'>
+                    <p className='text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto mb-9'>
                         Financial planning isn't just about money. <br />
                         It's about peace of mind, confidence, and knowing that you're prepared – whatever life throws at you. <br />
                         If you're ready to build a clear financial roadmap, <b>BFC Capital</b> is here to help.
                     </p>
-                    <button className="bg-[#04B488] text-white px-6 py-2 rounded-md hover:bg-[#008f45] transition duration-300 mt-5">
+                    <Link href="https://app.prodigypro.co.in/dashboard" className="bg-[#04B488] text-white px-6 py-2 rounded-md hover:bg-[#008f45] transition duration-300 mt-10">
                         Take the first step now!
-                    </button>
+                    </Link>
                 </div>
 
                 <div className='container mx-auto px-5 md:px-10 lg:px-20'>
@@ -456,12 +456,12 @@ export default function FinancialPlanning() {
                     <p className="mx-auto mt-4 md:mt-8 mb-4 text-[18px] md:text-[24px] font-bold text-[#44475B] mb-[20px]">
                         To Conclude
                     </p>
-                    <p className='text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto mb-4'>
+                    <p className='text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto mb-9'>
                         Your financial needs change with time and your strategy must evolve too.
                     </p>
-                    <button className="bg-[#04B488] text-white px-6 py-2 rounded-md hover:bg-[#008f45] transition duration-300 mt-5">
+                    <Link href="https://app.prodigypro.co.in/dashboard" className="bg-[#04B488] text-white px-6 py-2 rounded-md hover:bg-[#008f45] transition duration-300 mt-5">
                         Invest now!
-                    </button>
+                    </Link>
                 </div>
 
                 <div className='container mx-auto px-5 md:px-10 lg:px-20 mb-8'>

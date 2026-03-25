@@ -81,19 +81,29 @@ const Footer = () => {
 
                         <div className="flex items-center gap-4">
                             <div className="cursor-pointer hover:scale-110 transition-transform">
-                                <Image src="/SocialMedia/insta.svg" alt="Instagram" width={36} height={36} className='' />
+                                <Link href="https://www.instagram.com/bfccapitalpvtltd/">
+                                    <Image src="/SocialMedia/insta.svg" alt="Instagram" width={36} height={36} className='' />
+                                </Link>
                             </div>
                             <div className="cursor-pointer hover:scale-110 transition-transform">
-                                <Image src="/SocialMedia/twitter.svg" alt="Twitter" width={36} height={36} />
+                                <Link href="https://x.com/BFCCapital/">
+                                    <Image src="/SocialMedia/twitter.svg" alt="Twitter" width={36} height={36} />
+                                </Link>
                             </div>
                             <div className="cursor-pointer hover:scale-110 transition-transform">
-                                <Image src="/SocialMedia/fb.svg" alt="Facebook" width={36} height={36} />
+                                <Link href="https://www.facebook.com/bfccapital">
+                                    <Image src="/SocialMedia/fb.svg" alt="Facebook" width={36} height={36} />
+                                </Link>
                             </div>
                             <div className="cursor-pointer hover:scale-110 transition-transform">
-                                <Image src="/SocialMedia/YT.svg" alt="YouTube" width={36} height={36} />
+                                <Link href="https://www.youtube.com/@bfccapitalpvtltd">
+                                    <Image src="/SocialMedia/YT.svg" alt="YouTube" width={36} height={36} />
+                                </Link>
                             </div>
                             <div className="cursor-pointer hover:scale-110 transition-transform">
-                                <Image src="/SocialMedia/whatsapp.svg" alt="WhatsApp" width={36} height={36} />
+                                <Link href="https://api.whatsapp.com/send/?phone=%2B917347700888&text&type=phone_number&app_absent=0">
+                                    <Image src="/SocialMedia/whatsapp.svg" alt="WhatsApp" width={36} height={36} />
+                                </Link>
                             </div>
                         </div>
                     </div>
