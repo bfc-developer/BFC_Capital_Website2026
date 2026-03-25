@@ -343,7 +343,7 @@ export default function ELSSCalculatorComponent() {
                     </ul>
                     <p className='text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto mb-4'>But here’s an important advisory note.</p>
                     <p className='text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto mb-4'>Before jumping into ELSS or any tax-saving instrument, take a moment to understand which tax regime you’re in. With the new tax regime, investing in ELSS may not even be necessary for everyone.</p>
-                    <p className='text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto mb-4'>That’s why we strongly recommend watching the linked video before you invest. Good tax planning isn’t about saving blindly, it’s about choosing what actually makes sense for you.</p>
+                    <p className='text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto mb-4'>That’s why we strongly recommend watching the <Link href="https://youtu.be/tHw6G09jzJE?si=B0a7A25yBil4kxx8" className='text-[#011EFE]'>linked video</Link> before you invest. Good tax planning isn’t about saving blindly, it’s about choosing what actually makes sense for you.</p>
                     <p className='text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto mb-4'>Because real tax planning isn’t just about saving today.<br />
                         It’s about building intelligently for tomorrow.</p>
                 </div>

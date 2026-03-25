@@ -23,9 +23,9 @@ export default function SIF() {
                             <p className="mx-auto mb-4 max-w-6xl text-[15px] md:text-[17px] text-[#44475B] leading-relaxed font-inter opacity-90">
                                 Built around strategy, not chaos. No look-alikes, no clutter, just one focused fund per idea. Discover this next-gen category on Prodigy Pro, and invest with the clarity, flexibility, and expert guidance your money truly deserves!
                             </p>
-                            <button className="bg-[#04B488] text-white px-6 py-2 rounded-md hover:bg-[#008f45] transition duration-300">
+                            <Link href="https://app.prodigypro.co.in/dashboard" className="bg-[#04B488] text-white px-6 py-2 rounded-md hover:bg-[#008f45] transition duration-300">
                                 Invest Now!
-                            </button>
+                            </Link>
                         </div>
                         <div className="text-center py-2 order-1 md:order-2">
                             <Image
