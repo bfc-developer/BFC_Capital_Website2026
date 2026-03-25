@@ -310,56 +310,56 @@ export default function StepUpCalculator() {
 
                                 {/* Result Card */}
                                 <div className="shadow-md rounded-2xl px-5 py-4 bg-[#FFFFFF]">
-                                    <h2 className="font-primary font-semibold text-2xl leading-tight text-textdark mb-3">
+                                    <h2 className="font-primary font-bold text-2xl leading-tight text-textdark mb-3">
                                         Result
                                     </h2>
                                     <div className="grid grid-cols-2 gap-6">
                                         <div>
-                                            <p className="fs12px mb-0 mt-3 text-[#4D4D4D]">
+                                            <p className="fs12px mb-0 mt-3 text-[#44475B] font-medium">
                                                 TOTAL SIP AMOUNT INVESTED WITHOUT ANNUAL INCREASE
                                             </p>
-                                            <h4 className="mt-1 font-semibold text-[#212121]">
+                                            <h4 className="mt-1 font-bold text-[#212121] text-xl">
                                                 ₹{Math.round(monthyEmi).toLocaleString("en-IN")}
                                             </h4>
                                         </div>
                                         <div className="col-lg-6">
-                                            <p className="fs12px mb-0 mt-3 text-[#4D4D4D]">
+                                            <p className="fs12px mb-0 mt-3 text-[#44475B] font-medium">
                                                 TOTAL GROWTH WITHOUT ANNUAL INCREASE
                                             </p>
-                                            <h4 className="mt-1 font-semibold text-[#212121]">
+                                            <h4 className="mt-1 font-bold text-[#212121] text-xl">
                                                 ₹{Math.round(principal).toLocaleString("en-IN")}
                                             </h4>
                                         </div>
                                         <div className="col-lg-6">
-                                            <p className="fs12px mb-0 mt-3 text-[#4D4D4D]">
+                                            <p className="fs12px mb-0 mt-3 text-[#44475B] font-medium">
                                                 TOTAL FUTURE VALUE (SIP INVESTMENT + RETURNS, NO ANNUAL
                                                 INCREASE)
                                             </p>
-                                            <h4 className="mt-1 font-semibold text-[#212121]">
+                                            <h4 className="mt-1 font-bold text-[#212121] text-xl">
                                                 ₹{Math.round(totalinterest).toLocaleString("en-IN")}
                                             </h4>
                                         </div>
                                         <div className="col-lg-6">
-                                            <p className="fs12px mb-0 mt-3 text-[#4D4D4D]">
+                                            <p className="fs12px mb-0 mt-3 text-[#44475B] font-medium">
                                                 TOTAL SIP AMOUNT INVESTED WITH ANNUAL INCREASE
                                             </p>
-                                            <h4 className="mt-1 font-semibold text-[#212121]">
+                                            <h4 className="mt-1 font-bold text-[#212121] text-xl">
                                                 ₹{Math.round(totalAmount).toLocaleString("en-IN")}
                                             </h4>
                                         </div>
                                         <div className="col-lg-6">
-                                            <p className="fs12px mb-0 mt-3 text-[#4D4D4D]">
+                                            <p className="fs12px mb-0 mt-3 text-[#44475B] font-medium">
                                                 TOTAL GROWTH WITH ANNUAL INCREASE
                                             </p>
-                                            <h4 className="mt-1 font-semibold text-[#212121]">
+                                            <h4 className="mt-1 font-bold text-[#212121] text-xl">
                                                 ₹{Math.round(totalGrowth).toLocaleString("en-IN")}
                                             </h4>
                                         </div>
                                         <div className="col-lg-6">
-                                            <p className="fs12px mb-0 mt-3 text-[#4D4D4D]">
+                                            <p className="fs12px mb-0 mt-3 text-[#44475B] font-medium">
                                                 TOTAL FUTURE VALUE (SIP + GROWTH, WITH ANNUAL INCREASE)
                                             </p>
-                                            <h4 className="mt-1 font-semibold text-[#212121]">
+                                            <h4 className="mt-1 font-bold text-[#212121] text-xl">
                                                 ₹{Math.round(resultLoanAmount).toLocaleString("en-IN")}
                                             </h4>
                                         </div>

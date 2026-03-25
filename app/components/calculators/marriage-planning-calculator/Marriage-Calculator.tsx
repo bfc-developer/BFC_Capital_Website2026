@@ -364,7 +364,7 @@ export default function Marriagecalculators() {
 
                                 {/* Result Card */}
                                 <div className="shadow-md rounded-2xl px-5 py-4 bg-[#FFFFFF]">
-                                    <h2 className="font-primary font-semibold text-2xl leading-tight text-textdark mb-6">
+                                    <h2 className="font-primary font-bold text-2xl leading-tight text-textdark mb-6">
                                         Result
                                     </h2>
                                     <label className="block text-[#44475B] font-medium text-sm uppercase mb-2">

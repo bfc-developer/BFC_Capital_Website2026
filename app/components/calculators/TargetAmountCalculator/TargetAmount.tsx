@@ -239,21 +239,21 @@ export default function TargetAmountCalculator() {
 
                                 {/* Result Card */}
                                 <div className="shadow-md rounded-2xl px-5 py-4 bg-[#FFFFFF]">
-                                    <h2 className="font-primary font-semibold text-2xl leading-tight text-textdark mb-3">
+                                    <h2 className="font-primary font-bold text-2xl leading-tight text-textdark mb-3">
                                         Result
                                     </h2>
                                     <div className="grid grid-cols-2 gap-6">
                                         <div className="col-lg-6 result-item">
-                                            <p className="text-[#4D4D4D]">{"Your Target Amount".toUpperCase()}</p>
-                                            <h3 className="text-[#212121] font-semibold">₹ {finalAmount.toLocaleString("en-IN")}</h3>
+                                            <p className="text-[#4D4D4D] font-medium">{"Your Target Amount".toUpperCase()}</p>
+                                            <h3 className="text-[#212121] font-bold text-xl">₹ {finalAmount.toLocaleString("en-IN")}</h3>
                                         </div>
                                         <div className="col-lg-6 result-item">
-                                            <p className="text-[#4D4D4D]">{"Monthly SIP investment required".toUpperCase()}</p>
-                                            <h3 className="text-[#212121] font-semibold">₹{Math.round(targetValue).toLocaleString("en-IN")}</h3>
+                                            <p className="text-[#4D4D4D] font-medium">{"Monthly SIP investment required".toUpperCase()}</p>
+                                            <h3 className="text-[#212121] font-bold text-xl">₹{Math.round(targetValue).toLocaleString("en-IN")}</h3>
                                         </div>
                                         <div className="col-lg-6 result-item">
-                                            <p className="text-[#4D4D4D]">{"One time investment required".toUpperCase()}</p>
-                                            <h3 className="text-[#212121] font-semibold">₹{Math.round(pvalue).toLocaleString("en-IN")}</h3>
+                                            <p className="text-[#4D4D4D] font-medium">{"One time investment required".toUpperCase()}</p>
+                                            <h3 className="text-[#212121] font-bold text-xl">₹{Math.round(pvalue).toLocaleString("en-IN")}</h3>
                                         </div>
                                     </div>
                                 </div>

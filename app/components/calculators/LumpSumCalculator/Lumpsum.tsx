@@ -384,7 +384,7 @@ export default function LumpsumCalculator() {
 
                                 {/* Result Card */}
                                 <div className="shadow-md rounded-2xl px-5 py-4 bg-[#FFFFFF]">
-                                    <h2 className="font-primary font-semibold text-2xl leading-tight text-textdark mb-3">
+                                    <h2 className="font-primary font-bold text-2xl leading-tight text-textdark mb-3">
                                         Result
                                     </h2>
 

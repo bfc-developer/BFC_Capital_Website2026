@@ -344,7 +344,7 @@ export default function FDCalculator() {
 
                                 {/* Result Card */}
                                 <div className="shadow-md rounded-2xl px-5 py-4 bg-[#FFFFFF]">
-                                    <h2 className="font-primary font-semibold text-2xl leading-tight text-textdark mb-3">
+                                    <h2 className="font-primary font-bold text-2xl leading-tight text-textdark mb-3">
                                         Result
                                     </h2>
                                     <label className="block text-[rgba(77, 77, 77, 1)] font-medium text-sm uppercase mb-2">

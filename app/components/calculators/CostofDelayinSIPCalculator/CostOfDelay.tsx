@@ -326,22 +326,22 @@ export default function CostOfDelay() {
 
                                 {/* Result Card */}
                                 <div className="shadow-md rounded-2xl px-5 py-4 bg-[#FFFFFF]">
-                                    <h2 className="font-primary font-semibold text-2xl leading-tight text-textdark mb-3">
+                                    <h2 className="font-primary font-bold text-2xl leading-tight text-textdark mb-3">
                                         Result
                                     </h2>
 
                                     <div className="row pt-3 grid grid-cols-2 gap-6">
                                         <div className="col-lg-6 mb-2">
                                             <div className="border border-2 rounded-lg p-3 cost-investment-cards border-gray-200">
-                                                <span className="rounded-lg px-4 text-[#06A358] bg-[#E6F6EE]">
+                                                <span className="rounded-lg px-4 text-[#06A358] bg-[#E6F6EE] font-bold">
                                                     {" "}
                                                     👍 Start Age : {Number(myCurrentAge1)}
                                                 </span>
-                                                <p>FINAL VALUE OF INVESTMENT</p>
-                                                <h3 className="cost-invet-green">
+                                                <p className="text-[#44475B] font-medium">FINAL VALUE OF INVESTMENT</p>
+                                                <h3 className="text-[#06A358] font-bold font-primary text-2xl">
                                                     ₹{Math.round(realProfit).toLocaleString("en-IN")}
                                                 </h3>
-                                                <p>
+                                                <p className="text-[#44475B] font-medium">
                                                     Total Investment:₹{" "}
                                                     {Math.round(realTotalInvestment).toLocaleString(
                                                         "en-IN"
@@ -351,16 +351,16 @@ export default function CostOfDelay() {
                                         </div>
                                         <div className="col-lg-6">
                                             <div className="border border-2 rounded-lg p-3 cost-investment-cards border-gray-200">
-                                                <span className=" rounded-lg px-4 text-[#CB414E] bg-[#FAECED]">
+                                                <span className=" rounded-lg px-4 text-[#CB414E] bg-[#FAECED] font-bold">
                                                     {" "}
                                                     👎 Start Age :{" "}
                                                     {Number(delayAge1) + Number(myCurrentAge1)}
                                                 </span>
-                                                <p>FINAL VALUE OF INVESTMENT</p>
-                                                <h3 className="cost-invet-red">
+                                                <p className="text-[#44475B] font-medium">FINAL VALUE OF INVESTMENT</p>
+                                                <h3 className="text-[#CB414E] font-bold font-primary text-2xl">
                                                     ₹{Math.round(fakeProfit).toLocaleString("en-IN")}
                                                 </h3>
-                                                <p>
+                                                <p className="text-[#44475B] font-medium">
                                                     Total Investment:₹{" "}
                                                     {Math.round(fakeTotalInvestment).toLocaleString(
                                                         "en-IN"
@@ -371,10 +371,10 @@ export default function CostOfDelay() {
                                     </div>
                                     <div className="pt-4">
                                         <div className="text-center">
-                                            <span className="">
+                                            <span className="text-[#44475B] font-medium">
                                                 {"Loss Due to Delay in Investment".toUpperCase()}
                                             </span>
-                                            <h2 className="text-[#CB414E] text-2xl font-semibold py-2">
+                                            <h2 className="text-[#CB414E] text-2xl font-bold py-2">
                                                 ₹{Math.round(difference).toLocaleString("en-IN")}
                                             </h2>
                                         </div>

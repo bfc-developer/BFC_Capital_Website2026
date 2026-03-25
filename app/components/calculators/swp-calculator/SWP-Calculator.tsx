@@ -421,7 +421,7 @@ export default function SWPCalculatorComponent() {
 
                                 {/* Result Card */}
                                 <div className="shadow-md rounded-2xl px-5 py-4 bg-[#FFFFFF]">
-                                    <h2 className="font-primary font-semibold text-2xl leading-tight text-[rgba(33, 33, 33, 1)] mb-6">
+                                    <h2 className="font-primary font-bold text-2xl leading-tight text-[rgba(33, 33, 33, 1)] mb-6">
                                         Result
                                     </h2>
                                     <label className="block text-[#4D4D4D] uppercase mb-2">
