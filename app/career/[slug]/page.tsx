@@ -113,54 +113,54 @@ export default async function JobDetailsPage({ params }: { params: Promise<{ slu
                     </>
                 );
 
-            case "virtual-relationship-manager":
-                return (
-                    <>
-                        <h1 className="text-3xl md:text-4xl font-bold text-[#44475B] mb-2">
-                            Position:- Virtual Relationship Manager
-                        </h1>
-                        <p className="text-[#7A7A7A] text-sm mb-8">Note: Female Candidates Only</p>
+                // case "virtual-relationship-manager":
+                //     return (
+                //         <>
+                //             <h1 className="text-3xl md:text-4xl font-bold text-[#44475B] mb-2">
+                //                 Position:- Virtual Relationship Manager
+                //             </h1>
+                //             <p className="text-[#7A7A7A] text-sm mb-8">Note: Female Candidates Only</p>
 
-                        <div className="mb-8">
-                            <h3 className="text-xl font-bold text-[#44475B] mb-4">Preface :</h3>
-                            <p className="text-[#7A7A7A] leading-relaxed">
-                                The VRM will be required to attend Leads assigned to her on Call and promote services of the company, brief Clients about the Benefits of associating with us and handle operational and technical issues of Acquired Clients
-                            </p>
-                        </div>
+                //             <div className="mb-8">
+                //                 <h3 className="text-xl font-bold text-[#44475B] mb-4">Preface :</h3>
+                //                 <p className="text-[#7A7A7A] leading-relaxed">
+                //                     The VRM will be required to attend Leads assigned to her on Call and promote services of the company, brief Clients about the Benefits of associating with us and handle operational and technical issues of Acquired Clients
+                //                 </p>
+                //             </div>
 
-                        <div className="mb-8">
-                            <h3 className="text-xl font-bold text-[#44475B] mb-4">Skills Required :</h3>
-                            <ul className="text-[#7A7A7A] space-y-2 list-disc pl-5 marker:text-gray-400">
-                                <li>Convincing Skills | Analytical Skills | Inter-Personal Skills</li>
-                                <li>Interest towards Sales</li>
-                                <li>Inclination towards Finance</li>
-                                <li>Ability to make 60-80 Telephonic Calls per Day</li>
-                            </ul>
-                        </div>
+                //             <div className="mb-8">
+                //                 <h3 className="text-xl font-bold text-[#44475B] mb-4">Skills Required :</h3>
+                //                 <ul className="text-[#7A7A7A] space-y-2 list-disc pl-5 marker:text-gray-400">
+                //                     <li>Convincing Skills | Analytical Skills | Inter-Personal Skills</li>
+                //                     <li>Interest towards Sales</li>
+                //                     <li>Inclination towards Finance</li>
+                //                     <li>Ability to make 60-80 Telephonic Calls per Day</li>
+                //                 </ul>
+                //             </div>
 
-                        <div className="mb-8 space-y-2 text-[#44475B]">
-                            <p><span className="font-bold">Job Location :</span> <span className="text-[#7A7A7A]">Hybrid Model : Work from Office + Home</span></p>
-                            <p><span className="font-bold">Address :</span> <span className="text-[#7A7A7A]">CP-61 Viraj Khand, Gomti Nagar, Lucknow (UP)-226010</span></p>
-                            <p><span className="font-bold">Vacancy Type :</span> <span className="text-[#7A7A7A]">Full Time</span></p>
-                            <p><span className="font-bold">Package :</span> <span className="text-[#7A7A7A]">Rs. 1.5 L to 2.5 L per annum + Incentive</span></p>
-                            <p><span className="font-bold">Experience :</span> <span className="text-[#7A7A7A]">1 year</span></p>
-                            <p><span className="font-bold">Qualification :</span> <span className="text-[#7A7A7A]">Graduation</span></p>
-                        </div>
+                //             <div className="mb-8 space-y-2 text-[#44475B]">
+                //                 <p><span className="font-bold">Job Location :</span> <span className="text-[#7A7A7A]">Hybrid Model : Work from Office + Home</span></p>
+                //                 <p><span className="font-bold">Address :</span> <span className="text-[#7A7A7A]">CP-61 Viraj Khand, Gomti Nagar, Lucknow (UP)-226010</span></p>
+                //                 <p><span className="font-bold">Vacancy Type :</span> <span className="text-[#7A7A7A]">Full Time</span></p>
+                //                 <p><span className="font-bold">Package :</span> <span className="text-[#7A7A7A]">Rs. 1.5 L to 2.5 L per annum + Incentive</span></p>
+                //                 <p><span className="font-bold">Experience :</span> <span className="text-[#7A7A7A]">1 year</span></p>
+                //                 <p><span className="font-bold">Qualification :</span> <span className="text-[#7A7A7A]">Graduation</span></p>
+                //             </div>
 
-                        <div className="mb-12">
-                            <p className="text-[#44475B] text-lg mb-2">
-                                You can send in your resume to <a href="mailto:hrd@bfccapital.com" className="text-[#011EFE]">hrd@bfccapital.com</a>
-                            </p>
-                            <Link href="#" className="text-[#011EFE] text-lg hover:underline block">
-                                Click here to view detailed JD
-                            </Link>
-                        </div>
+                //             <div className="mb-12">
+                //                 <p className="text-[#44475B] text-lg mb-2">
+                //                     You can send in your resume to <a href="mailto:hrd@bfccapital.com" className="text-[#011EFE]">hrd@bfccapital.com</a>
+                //                 </p>
+                //                 <Link href="#" className="text-[#011EFE] text-lg hover:underline block">
+                //                     Click here to view detailed JD
+                //                 </Link>
+                //             </div>
 
-                        <ApplyJobForm defaultPost="Virtual Relationship Manager" />
-                    </>
-                );
+                //             <ApplyJobForm defaultPost="Virtual Relationship Manager" />
+                //         </>
+                //     );
 
-            case "business-development-manager":
+                // case "business-development-manager":
                 return (
                     <>
                         <h1 className="text-3xl md:text-4xl font-bold text-[#44475B] mb-8">

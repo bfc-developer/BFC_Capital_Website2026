@@ -19,10 +19,63 @@ export default function ApplyJobForm({ defaultPost = "" }: ApplyJobFormProps) {
         postAppliedFor: defaultPost,
     });
 
-    const handleSubmit = (e: React.FormEvent) => {
+    const APPS_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbySoFCP9KLbkAtZOhwF-eRYF9C-4geGszP6jjUT4CICBr1FFwYpsTS-i4_EVA4YWjdXDQ/exec";
+
+    const toBase64 = (file: File): Promise<string> =>
+        new Promise((resolve, reject) => {
+            const reader = new FileReader();
+            reader.onload = () => {
+                const result = reader.result as string;
+                resolve(result.split(",")[1]);
+            };
+            reader.onerror = reject;
+            reader.readAsDataURL(file);
+        });
+
+    const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
-        // Here you would typically send data to an API
-        setIsSuccessOpen(true);
+
+        try {
+            let resumeBase64: string | null = null;
+            let resumeFileName: string | null = null;
+            let resumeMimeType: string | null = null;
+
+            const fileInput = document.querySelector('input[type="file"]') as HTMLInputElement | null;
+            const file = fileInput?.files?.[0];
+
+            if (file) {
+                resumeBase64 = await toBase64(file);
+                resumeFileName = file.name;
+                resumeMimeType = file.type || "application/octet-stream";
+            }
+
+            const payload = {
+                fullName: formData.fullName,
+                mobileNumber: formData.mobileNumber,
+                emailId: formData.emailId,
+                postAppliedFor: formData.postAppliedFor,
+                resumeBase64,
+                resumeFileName,
+                resumeMimeType,
+            };
+
+            await fetch(APPS_SCRIPT_URL, {
+                method: "POST",
+                mode: "no-cors",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify(payload),
+            });
+
+            setIsSuccessOpen(true);
+            setFormData({ ...formData, fullName: "", mobileNumber: "", emailId: "" });
+            setFileName("No file chosen");
+            setIsChecked(false);
+            if (fileInput) fileInput.value = "";
+
+        } catch (error) {
+            console.error("Submission error:", error);
+            alert("Something went wrong. Please try again.");
+        }
     };
 
     return (
