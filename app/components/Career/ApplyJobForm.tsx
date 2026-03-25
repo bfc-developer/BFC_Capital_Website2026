@@ -39,7 +39,7 @@ export default function ApplyJobForm({ defaultPost = "" }: ApplyJobFormProps) {
                             type="text"
                             placeholder="Full Name"
                             required
-                            className="w-full border-b border-[#D9D9D9] py-2 focus:outline-none focus:border-[#04B488] transition-colors placeholder:text-[#44475B]"
+                            className="w-full border-b border-[#D9D9D9] text-[#44475B] py-2 focus:outline-none focus:border-[#04B488] transition-colors placeholder:text-[#44475B]"
                             value={formData.fullName}
                             onChange={(e) => setFormData({ ...formData, fullName: e.target.value })}
                         />
@@ -51,7 +51,7 @@ export default function ApplyJobForm({ defaultPost = "" }: ApplyJobFormProps) {
                             type="tel"
                             placeholder="Mobile Number"
                             required
-                            className="w-full border-b border-[#D9D9D9] py-2 focus:outline-none focus:border-[#04B488] transition-colors placeholder:text-[#44475B]"
+                            className="w-full border-b border-[#D9D9D9] text-[#44475B] py-2 focus:outline-none focus:border-[#04B488] transition-colors placeholder:text-[#44475B]"
                             value={formData.mobileNumber}
                             onChange={(e) => setFormData({ ...formData, mobileNumber: e.target.value })}
                         />
@@ -63,7 +63,7 @@ export default function ApplyJobForm({ defaultPost = "" }: ApplyJobFormProps) {
                             type="email"
                             placeholder="Email ID"
                             required
-                            className="w-full border-b border-[#D9D9D9] py-2 focus:outline-none focus:border-[#04B488] transition-colors placeholder:text-[#44475B]"
+                            className="w-full border-b border-[#D9D9D9] text-[#44475B] py-2 focus:outline-none focus:border-[#04B488] transition-colors placeholder:text-[#44475B]"
                             value={formData.emailId}
                             onChange={(e) => setFormData({ ...formData, emailId: e.target.value })}
                         />
