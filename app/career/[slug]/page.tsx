@@ -49,7 +49,7 @@ export default async function JobDetailsPage({ params }: { params: Promise<{ slu
                             <p><span className="font-bold">Job Location :</span> <span className="text-[#7A7A7A]">Lucknow, Uttar Pradesh</span></p>
                             <p><span className="font-bold">Address :</span> <span className="text-[#7A7A7A]">CP-61 Viraj Khand, Gomti Nagar, Lucknow (UP)-226010</span></p>
                             <p><span className="font-bold">Vacancy Type :</span> <span className="text-[#7A7A7A]">Full Time</span></p>
-                            <p><span className="font-bold">Package :</span> <span className="text-[#7A7A7A]">INR 4 L to 7 L per annum</span></p>
+                            <p><span className="font-bold">Package :</span> <span className="text-[#7A7A7A]">INR 4L to 8.5L per annum  </span></p>
                             <p><span className="font-bold">Minimum Experience :</span> <span className="text-[#7A7A7A]">2 year +</span></p>
                             <p><span className="font-bold">Qualification :</span> <span className="text-[#7A7A7A]">Graduation</span></p>
                         </div>
