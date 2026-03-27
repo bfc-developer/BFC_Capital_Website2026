@@ -130,7 +130,7 @@ export default function SWPCalculatorComponent() {
             const res = await axios.post<any>("https://prodigypro-new.bfcsofttech.in/api/v2/calculators/swp", {
                 monthlyWithdrawl: Math.round(withdrawalAmount),
                 period: Number(investmentPeriod),
-                interestRate: expectedReturn,
+                interestRate: Number(expectedReturn),
                 lumpsum: Math.round(lumpsumAmount)
             },
                 {
