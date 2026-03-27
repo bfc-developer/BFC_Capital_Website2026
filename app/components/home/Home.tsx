@@ -499,7 +499,7 @@ const EventsSection = () => {
       image: "/Home/QC1.svg",
       venue: "Lineage",
       title: "316th Quality Circle – Medical Professionals (Lineage)",
-      date: "January 13, 2026",
+      date: "January 16, 2026",
       desc: "A warm, engaging session for medical professionals on investing wisely, understanding risks, and building long-term financial peace of mind.",
     },
 
@@ -507,7 +507,7 @@ const EventsSection = () => {
       image: "/Home/QC2.svg",
       venue: "HPCL, Ayodhya",
       title: `314th Quality Circle “HUMSAFAR” – HPCL, Ayodhya"`,
-      date: "January 13, 2026",
+      date: "January 09, 2026",
       desc: "A thoughtful conversation on money, goals, and long-term investing, helping participants feel more confident about their financial choices.",
     },
 
@@ -515,7 +515,7 @@ const EventsSection = () => {
       image: "/Home/QC3.svg",
       venue: "BSIP, Lucknow",
       title: "312th Quality Circle – BSIP, Lucknow",
-      date: "January 13, 2026",
+      date: "January 02, 2026",
       desc: "An interactive discussion that broke down investing basics, behavioural mistakes, and smart financial planning in a simple, relatable way.",
     },
   ];
