@@ -7,6 +7,7 @@ import SuccessPopup from "../common/SuccessPopup";
 
 export default function ContactUsPage() {
     const [isPopupOpen, setIsPopupOpen] = useState(false);
+    const [isSubmitting, setIsSubmitting] = useState(false);
     const [formData, setFormData] = useState({
         fullName: "",
         mobileNumber: "",
@@ -88,24 +89,44 @@ export default function ContactUsPage() {
         return isValid;
     };
 
-    const handleSubmit = (e: any) => {
+    const APPS_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbxBkYx_6j_ONc8G8tGkaC4bYfQkPAAwd0xJBIFDwb_nqm3ASp4Iak5AfuS6uEftoD_y/exec"; // 🔁 Paste your deployed URL
+
+    const handleSubmit = async (e: any) => {
         e.preventDefault();
-        if (validateForm()) {
-            console.log("Form Submitted:", formData);
-            // Show success popup and reset form
-            setIsPopupOpen(true);
-            setFormData({
-                fullName: "",
-                mobileNumber: "",
-                email: "",
-                subject: "",
-                message: "",
-                consent: false,
+        if (!validateForm()) return;
+
+        setIsSubmitting(true);
+        try {
+            const response = await fetch(APPS_SCRIPT_URL, {
+                method: "POST",
+                headers: { "Content-Type": "text/plain" }, // Apps Script requires text/plain for CORS
+                body: JSON.stringify(formData),
             });
-            setErrors({});
+
+            const result = await response.json();
+
+            if (result.success) {
+                setIsPopupOpen(true);
+                setFormData({
+                    fullName: "",
+                    mobileNumber: "",
+                    email: "",
+                    subject: "",
+                    message: "",
+                    consent: false,
+                });
+                setErrors({});
+            } else {
+                console.error("Submission failed:", result.message);
+                alert("Something went wrong. Please try again.");
+            }
+        } catch (err) {
+            console.error("Network error:", err);
+            alert("Unable to submit. Please check your connection.");
+        } finally {
+            setIsSubmitting(false);
         }
     };
-
     return (
         <div className="w-full bg-[#f8f9fa] min-h-screen font-sans pb-10">
             {/* Success Popup */}
@@ -260,9 +281,16 @@ peer-checked:bg-cover ${errors.consent ? 'border-red-500' : 'border-gray-300'}`}
                             <div>
                                 <button
                                     type="submit"
-                                    className="mt-4 bg-[#04B488] hover:bg-[#008f45] text-white px-8 py-2.5 rounded text-sm font-medium transition-colors"
+                                    disabled={isSubmitting}
+                                    className={`mt-4 bg-[#04B488] hover:bg-[#008f45] text-white px-8 py-2.5 rounded text-sm font-medium transition-colors flex items-center gap-2 ${isSubmitting ? 'opacity-70 cursor-not-allowed' : ''}`}
                                 >
-                                    Submit
+                                    {isSubmitting && (
+                                        <svg className="animate-spin h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                                            <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
+                                            <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                                        </svg>
+                                    )}
+                                    {isSubmitting ? 'Submitting...' : 'Submit'}
                                 </button>
                             </div>
                         </form>
