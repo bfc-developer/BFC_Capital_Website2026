@@ -11,6 +11,7 @@ interface ApplyJobFormProps {
 export default function ApplyJobForm({ defaultPost = "" }: ApplyJobFormProps) {
     const [isSuccessOpen, setIsSuccessOpen] = useState(false);
     const [isChecked, setIsChecked] = useState(false);
+    const [isSubmitting, setIsSubmitting] = useState(false);
     const [fileName, setFileName] = useState("No file chosen");
     const [formData, setFormData] = useState({
         fullName: "",
@@ -34,6 +35,7 @@ export default function ApplyJobForm({ defaultPost = "" }: ApplyJobFormProps) {
 
     const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
+        setIsSubmitting(true);
 
         try {
             let resumeBase64: string | null = null;
@@ -75,6 +77,8 @@ export default function ApplyJobForm({ defaultPost = "" }: ApplyJobFormProps) {
         } catch (error) {
             console.error("Submission error:", error);
             alert("Something went wrong. Please try again.");
+        } finally {
+            setIsSubmitting(false);
         }
     };
 
@@ -201,12 +205,19 @@ export default function ApplyJobForm({ defaultPost = "" }: ApplyJobFormProps) {
                 <div className="flex justify-end mt-8">
                     <button
                         type="submit"
-                        className="text-white px-8 py-2.5 rounded hover:opacity-90 transition-opacity font-medium"
+                        disabled={isSubmitting}
+                        className={`text-white px-8 py-2.5 rounded hover:opacity-90 transition-opacity font-medium flex items-center gap-2 ${isSubmitting ? 'opacity-70 cursor-not-allowed' : ''}`}
                         style={{
                             background: "#04B488"
                         }}
                     >
-                        Submit
+                        {isSubmitting && (
+                            <svg className="animate-spin h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                                <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
+                                <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                            </svg>
+                        )}
+                        {isSubmitting ? 'Submitting...' : 'Submit'}
                     </button>
                 </div>
             </form>
