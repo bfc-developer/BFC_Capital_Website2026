@@ -297,10 +297,19 @@ peer-checked:bg-cover ${errors.consent ? 'border-red-500' : 'border-gray-300'}`}
                     </div>
 
                     {/* Right Side - Map */}
-                    <div className="w-full lg:w-[45%] bg-gradient-to-r from-[#0052cc] to-[#00a651] p-0 lg:py-8 lg:pr-8 flex flex-col justify-stretch min-h-[400px] relative">
-                        {/* Map container, inset to show gradient background behind it on the top, right, bottom */}
-                        <div className="w-full h-full bg-gray-200 lg:rounded-[1.5rem] overflow-hidden flex-1 lg:-ml-12 lg:w-[calc(100%+3rem)] xl:-ml-16 xl:w-[calc(100%+4rem)] relative z-10 shadow-[-8px_0_24px_rgba(0,0,0,0.05)]">
-                            <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d222.47599814379984!2d81.02277120690643!3d26.85216426319041!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x399be2e63c8d5997%3A0x33e9ebd3d6fdd310!2sBFC%20Capital%20Pvt.%20Ltd.!5e0!3m2!1sen!2sin!4v1772784473984!5m2!1sen!2sin" width="100%" height="100%" style={{ border: 0 }} loading="lazy" ></iframe>
+                    <div className="w-full sm:w-[45%] sm:bg-gradient-to-r sm:from-[#0052cc] sm:to-[#00a651] sm:p-0 sm:py-8 sm:pr-8 sm:flex sm:flex-col sm:justify-stretch sm:min-h-[400px] sm:relative">
+
+                        {/* Map container */}
+                        <div className="w-full h-[420px] sm:h-full sm:bg-gray-200 sm:rounded-[1.5rem] overflow-hidden sm:flex-1 sm:-ml-12 sm:w-[calc(100%+3rem)] xl:-ml-16 xl:w-[calc(100%+4rem)] sm:relative sm:z-10 sm:shadow-[-8px_0_24px_rgba(0,0,0,0.05)]">
+
+                            <iframe
+                                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d222.47599814379984!2d81.02277120690643!3d26.85216426319041!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x399be2e63c8d5997%3A0x33e9ebd3d6fdd310!2sBFC%20Capital%20Pvt.%20Ltd.!5e0!3m2!1sen!2sin!4v1772784473984!5m2!1sen!2sin"
+                                width="100%"
+                                height="100%"
+                                style={{ border: 0 }}
+                                loading="lazy"
+                            ></iframe>
+
                         </div>
                     </div>
                 </div>
@@ -309,23 +318,23 @@ peer-checked:bg-cover ${errors.consent ? 'border-red-500' : 'border-gray-300'}`}
             {/* Customer Support Section */}
             <div className="w-full bg-gradient-to-r from-[#0052cc] to-[#00a651] py-14 mt-16 shadow-inner">
                 <div className="max-w-[1240px] mx-auto px-4 sm:px-6 lg:px-8 text-center text-white">
-                    <h2 className="text-[20px] md:text-3xl lg:text-5xl font-bold mb-10">Customer Support</h2>
+                    <h2 className="text-[28px] md:text-3xl lg:text-5xl font-bold mb-10">Customer Support</h2>
 
                     <div className="flex flex-col md:flex-row items-center justify-between gap-8 md:gap-16">
                         {/* Phone */}
-                        <div className="flex items-center gap-3 font-semibold text-2xl cursor-pointer transition-colors">
+                        <div className="flex items-center gap-3 font-semibold text-xl md:text-2xl cursor-pointer transition-colors">
                             <Image src="/Contact-Us/call.png" alt="Phone" width={20} height={20} />
                             <span><a href="tel:+915223514141" className="text-white">+91-522-3514141</a></span>
                         </div>
 
                         {/* WhatsApp */}
-                        <div className="flex items-center gap-3 font-semibold text-2xl  cursor-pointer transition-colors">
+                        <div className="flex items-center gap-3 font-semibold text-xl md:text-2xl  cursor-pointer transition-colors">
                             <Image src="/Contact-Us/whatsapp.png" alt="WhatsApp" width={20} height={20} />
                             <span><a href="https://wa.me/917347700888" target="_blank" rel="noopener noreferrer" className="text-white">+91-7347700888</a></span>
                         </div>
 
                         {/* Email */}
-                        <div className="flex items-center gap-3 font-semibold text-2xl  cursor-pointer transition-colors">
+                        <div className="flex items-center gap-3 font-semibold text-xl md:text-2xl  cursor-pointer transition-colors">
                             <Image src="/Contact-Us/mail.png" alt="Email" width={20} height={20} />
                             <span><a href="mailto:customersupport@bfccapital.com" className="text-white">customersupport@bfccapital.com</a></span>
                         </div>
