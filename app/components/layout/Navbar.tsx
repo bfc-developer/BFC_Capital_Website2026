@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Link from "next/link";
 import { Menu, X, ChevronDown } from "lucide-react";
 import Image from "next/image";
@@ -14,6 +14,11 @@ const Navbar = () => {
   const toggleMore = () => setIsMoreOpen(!isMoreOpen);
 
   const pathname = usePathname();
+
+  useEffect(() => {
+    setIsMenuOpen(false);
+    setIsMoreOpen(false);
+  }, [pathname]);
 
   const isActive = (path: string) => pathname === path;
   const scrollToTop = () => {
