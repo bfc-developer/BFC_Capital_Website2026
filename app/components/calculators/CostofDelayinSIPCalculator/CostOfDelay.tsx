@@ -330,7 +330,7 @@ export default function CostOfDelay() {
                                         Result
                                     </h2>
 
-                                    <div className="row pt-3 grid grid-cols-2 gap-6">
+                                    <div className="row pt-3 grid grid-cols-1 md:grid-cols-2 gap-6">
                                         <div className="col-lg-6 mb-2">
                                             <div className="border border-2 rounded-lg p-3 cost-investment-cards border-gray-200">
                                                 <span className="rounded-lg px-4 text-[#06A358] bg-[#E6F6EE] font-bold">
