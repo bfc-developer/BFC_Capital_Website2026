@@ -65,7 +65,7 @@ const Navbar = () => {
                   <p className="text-[#4B4949] text-[11px] font-base font-inter transition-colors text-[13px] leading-tight">Because good decisions need good numbers.</p>
                 </div>
                 <div className="px-md-4 mb-2">
-                  <Link href="https://bfccapital.com/blog" target="_blank" rel="noopener noreferrer" className={`${isActive("/blog") ? "text-[#001EFE]" : "text-[#4B4949]"} font-[500] text-[15px] hover:text-[#001EFE] font-base font-inter transition-colors`}
+                  <Link href="https://bfccapital.com/blog" className={`${isActive("/blog") ? "text-[#001EFE]" : "text-[#4B4949]"} font-[500] text-[15px] hover:text-[#001EFE] font-base font-inter transition-colors`}
                   > Blog </Link>
                   <p className="text-[#4B4949] text-[11px] font-base font-inter transition-colors text-[13px] leading-tight">Insights that help you invest with confidence.</p>
                 </div>
@@ -160,7 +160,7 @@ const Navbar = () => {
                   <p className="text-[#4B4949] text-[11px] font-base font-inter transition-colors text-[13px]">Because good decisions need good numbers.</p>
                 </div>
                 <div className="px-md-4 mb-1">
-                  <Link href="/blog" className={`${isActive("/blog") ? "text-[#001EFE]" : "text-[#4B4949]"} font-[500] text-[15px] hover:text-[#001EFE] font-base font-inter transition-colors`}
+                  <Link href="https://bfccapital.com/blog" className={`${isActive("/blog") ? "text-[#001EFE]" : "text-[#4B4949]"} font-[500] text-[15px] hover:text-[#001EFE] font-base font-inter transition-colors`}
                   > Blog </Link>
                   <p className="text-[#4B4949] text-[11px] hover:text-[#001EFE] font-base font-inter transition-colors text-[13px]">Insights that help you invest with confidence.</p>
                 </div>

@@ -30,7 +30,7 @@ const Footer = () => {
 
                             <div className="space-y-0.5 text-[14px] md:text-[17px] leading-relaxed lg:leading-6">
                                 <p className="">Grievance Cell</p>
-                                <a href="https://scores.sebi.gov.in" className="hover:text-[#001EFE]">https://scores.sebi.gov.in</a>
+                                <a href="https://scores.sebi.gov.in" target="_blank" rel="noopener noreferrer" className="hover:text-[#001EFE]">https://scores.sebi.gov.in</a>
                             </div>
 
                             <div className="space-y-1">
@@ -81,27 +81,27 @@ const Footer = () => {
 
                         <div className="flex items-center gap-4">
                             <div className="cursor-pointer hover:scale-110 transition-transform">
-                                <Link href="https://www.instagram.com/bfccapitalpvtltd/">
+                                <Link href="https://www.instagram.com/bfccapitalpvtltd/" target="_blank" rel="noopener noreferrer">
                                     <Image src="/SocialMedia/insta.svg" alt="Instagram" width={36} height={36} className='' />
                                 </Link>
                             </div>
                             <div className="cursor-pointer hover:scale-110 transition-transform">
-                                <Link href="https://x.com/BFCCapital/">
+                                <Link href="https://x.com/BFCCapital/" target="_blank" rel="noopener noreferrer">
                                     <Image src="/SocialMedia/twitter.svg" alt="Twitter" width={36} height={36} />
                                 </Link>
                             </div>
                             <div className="cursor-pointer hover:scale-110 transition-transform">
-                                <Link href="https://www.facebook.com/bfccapital">
+                                <Link href="https://www.facebook.com/bfccapital" target="_blank" rel="noopener noreferrer">
                                     <Image src="/SocialMedia/fb.svg" alt="Facebook" width={36} height={36} />
                                 </Link>
                             </div>
                             <div className="cursor-pointer hover:scale-110 transition-transform">
-                                <Link href="https://www.youtube.com/@bfccapitalpvtltd">
+                                <Link href="https://www.youtube.com/@bfccapitalpvtltd" target="_blank" rel="noopener noreferrer">
                                     <Image src="/SocialMedia/YT.svg" alt="YouTube" width={36} height={36} />
                                 </Link>
                             </div>
                             <div className="cursor-pointer hover:scale-110 transition-transform">
-                                <Link href="https://api.whatsapp.com/send/?phone=%2B917347700888&text&type=phone_number&app_absent=0">
+                                <Link href="https://api.whatsapp.com/send/?phone=%2B917347700888&text&type=phone_number&app_absent=0" target="_blank" rel="noopener noreferrer">
                                     <Image src="/SocialMedia/whatsapp.svg" alt="WhatsApp" width={36} height={36} />
                                 </Link>
                             </div>
@@ -115,7 +115,7 @@ const Footer = () => {
                             <li><Link href="/all-mutual-funds" className="hover:text-bfc-blue transition-colors">Mutual Funds</Link></li>
                             <li><Link href="/sif" className="hover:text-bfc-blue transition-colors">SIF</Link></li>
                             <li><Link href="/financial-planning" className="hover:text-bfc-blue transition-colors">Financial Planning</Link></li>
-                            <li><Link href="/financial-calculators" className="hover:text-bfc-blue transition-colors">Financial Calculators</Link></li>
+                            <li><Link href="/calculators" className="hover:text-bfc-blue transition-colors">Financial Calculators</Link></li>
                         </ul>
                     </div>
 
