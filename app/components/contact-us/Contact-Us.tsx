@@ -297,10 +297,11 @@ peer-checked:bg-cover ${errors.consent ? 'border-red-500' : 'border-gray-300'}`}
                     </div>
 
                     {/* Right Side - Map */}
-                    <div className="w-full sm:w-[45%] sm:bg-gradient-to-r sm:from-[#0052cc] sm:to-[#00a651] sm:p-0 sm:py-8 sm:pr-8 sm:flex sm:flex-col sm:justify-stretch sm:min-h-[400px] sm:relative">
+                    {/* Right Side - Map */}
+                    <div className="w-full lg:w-[45%] lg:bg-gradient-to-r lg:from-[#0052cc] lg:to-[#00a651] lg:p-0 lg:py-8 lg:pr-8 lg:flex lg:flex-col lg:justify-stretch lg:min-h-[400px] lg:relative">
 
                         {/* Map container */}
-                        <div className="w-full h-[420px] sm:h-full sm:bg-gray-200 sm:rounded-[1.5rem] overflow-hidden sm:flex-1 sm:-ml-12 sm:w-[calc(100%+3rem)] xl:-ml-16 xl:w-[calc(100%+4rem)] sm:relative sm:z-10 sm:shadow-[-8px_0_24px_rgba(0,0,0,0.05)]">
+                        <div className="w-full h-[420px] lg:h-full lg:bg-gray-200 lg:rounded-[1.5rem] overflow-hidden lg:flex-1 lg:relative lg:z-10 lg:shadow-[-8px_0_24px_rgba(0,0,0,0.05)] lg:-ml-12 lg:w-[calc(100%+3rem)] xl:-ml-16 xl:w-[calc(100%+4rem)]">
 
                             <iframe
                                 src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d222.47599814379984!2d81.02277120690643!3d26.85216426319041!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x399be2e63c8d5997%3A0x33e9ebd3d6fdd310!2sBFC%20Capital%20Pvt.%20Ltd.!5e0!3m2!1sen!2sin!4v1772784473984!5m2!1sen!2sin"
