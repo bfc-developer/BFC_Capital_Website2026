@@ -318,26 +318,45 @@ peer-checked:bg-cover ${errors.consent ? 'border-red-500' : 'border-gray-300'}`}
             {/* Customer Support Section */}
             <div className="w-full bg-gradient-to-r from-[#0052cc] to-[#00a651] py-14 mt-16 shadow-inner">
                 <div className="max-w-[1240px] mx-auto px-4 sm:px-6 lg:px-8 text-center text-white">
-                    <h2 className="text-[28px] md:text-3xl lg:text-5xl font-bold mb-10">Customer Support</h2>
 
-                    <div className="flex flex-col md:flex-row items-center justify-between gap-8 md:gap-16">
+                    <h2 className="text-2xl sm:text-3xl lg:text-5xl font-bold mb-10">
+                        Customer Support
+                    </h2>
+
+                    <div className="flex flex-col md:flex-row items-center justify-center gap-6 md:gap-12 lg:gap-20">
+
                         {/* Phone */}
-                        <div className="flex items-center gap-3 font-semibold text-xl md:text-2xl cursor-pointer transition-colors">
-                            <Image src="/Contact-Us/call.png" alt="Phone" width={20} height={20} />
-                            <span><a href="tel:+915223514141" className="text-white">+91-522-3514141</a></span>
+                        <div className="flex items-center gap-3 font-semibold text-base md:text-md lg:text-2xl cursor-pointer">
+                            <Image src="/Contact-Us/call.png" alt="Phone" width={22} height={22} />
+                            <a href="tel:+915223514141" className="text-white">
+                                +91-522-3514141
+                            </a>
                         </div>
 
                         {/* WhatsApp */}
-                        <div className="flex items-center gap-3 font-semibold text-xl md:text-2xl  cursor-pointer transition-colors">
-                            <Image src="/Contact-Us/whatsapp.png" alt="WhatsApp" width={20} height={20} />
-                            <span><a href="https://wa.me/917347700888" target="_blank" rel="noopener noreferrer" className="text-white">+91-7347700888</a></span>
+                        <div className="flex items-center gap-3 font-semibold text-base md:text-md lg:text-2xl cursor-pointer">
+                            <Image src="/Contact-Us/whatsapp.png" alt="WhatsApp" width={22} height={22} />
+                            <a
+                                href="https://wa.me/917347700888"
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                className="text-white"
+                            >
+                                +91-7347700888
+                            </a>
                         </div>
 
                         {/* Email */}
-                        <div className="flex items-center gap-3 font-semibold text-xl md:text-2xl  cursor-pointer transition-colors">
-                            <Image src="/Contact-Us/mail.png" alt="Email" width={20} height={20} />
-                            <span><a href="mailto:customersupport@bfccapital.com" className="text-white">customersupport@bfccapital.com</a></span>
+                        <div className="flex items-center gap-3 font-semibold text-base md:text-lg lg:text-2xl cursor-pointer">
+                            <Image src="/Contact-Us/mail.png" alt="Email" width={22} height={22} />
+                            <a
+                                href="mailto:customersupport@bfccapital.com"
+                                className="text-white"
+                            >
+                                customersupport@bfccapital.com
+                            </a>
                         </div>
+
                     </div>
                 </div>
             </div>
