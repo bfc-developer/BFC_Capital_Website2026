@@ -72,9 +72,9 @@ export default function SWPCalculatorComponent() {
     const [lumpsumAmount, setLumpsumAmount] = useState<number>(65000);
     const [investmentPeriod, setInvestmentPeriod] = useState<number>(5);
     const [expectedReturn, setExpectedReturn] = useState<string | number>(8);
-    const [withdrawalAmount, setWithdrawalAmount] = useState<number>(15000);
+    const [withdrawalAmount, setWithdrawalAmount] = useState<string | number>(15000);
     const [withdrawalPercentage, setWithdrawalPercentage] =
-        useState<number>(23.08);
+        useState<string | number>(23.08);
     const [byAmount, setByAmount] = useState<boolean>(true);
 
     // Result states
@@ -93,30 +93,52 @@ export default function SWPCalculatorComponent() {
     // Handlers
     const handleWithdrawalBy = (isAmount: boolean) => {
         setByAmount(isAmount);
-        setWithdrawalAmount(0);
-        setWithdrawalPercentage(0);
+        setWithdrawalAmount("");
+        setWithdrawalPercentage("");
     };
 
     const handleLumpsumChange = (value: number) => {
         if (value > 100_000_000) return;
         setLumpsumAmount(value);
-        if (byAmount && withdrawalAmount > 0) {
-            setWithdrawalPercentage((withdrawalAmount * 100) / value);
-        } else if (!byAmount && withdrawalPercentage > 0) {
-            setWithdrawalAmount((withdrawalPercentage / 100) * value);
+        if (byAmount && withdrawalAmount !== "" && Number(withdrawalAmount) > 0) {
+            const num = typeof withdrawalAmount === "string" ? parseFloat(withdrawalAmount) : withdrawalAmount;
+            setWithdrawalPercentage((num * 100) / value);
+        } else if (!byAmount && withdrawalPercentage !== "" && Number(withdrawalPercentage) > 0) {
+            const num = typeof withdrawalPercentage === "string" ? parseFloat(withdrawalPercentage) : withdrawalPercentage;
+            setWithdrawalAmount((num / 100) * value);
         }
     };
 
-    const handleWithdrawalAmountChange = (value: number) => {
-        if (value > lumpsumAmount) value = lumpsumAmount;
+    const handleWithdrawalAmountChange = (value: string | number) => {
+        if (value === "") {
+            setWithdrawalAmount("");
+            setWithdrawalPercentage("");
+            return;
+        }
+        let numericValue = typeof value === "string" ? parseFloat(value) : value;
+        if (isNaN(numericValue)) return;
+        if (numericValue > lumpsumAmount) {
+            numericValue = lumpsumAmount;
+            value = lumpsumAmount.toString();
+        }
         setWithdrawalAmount(value);
-        setWithdrawalPercentage((value * 100) / lumpsumAmount);
+        setWithdrawalPercentage((numericValue * 100) / lumpsumAmount);
     };
 
-    const handleWithdrawalPercentageChange = (value: number) => {
-        if (value > 100) value = 100;
+    const handleWithdrawalPercentageChange = (value: string | number) => {
+        if (value === "") {
+            setWithdrawalPercentage("");
+            setWithdrawalAmount("");
+            return;
+        }
+        let numericValue = typeof value === "string" ? parseFloat(value) : value;
+        if (isNaN(numericValue)) return;
+        if (numericValue > 100) {
+            numericValue = 100;
+            value = "100";
+        }
         setWithdrawalPercentage(value);
-        setWithdrawalAmount((value / 100) * lumpsumAmount);
+        setWithdrawalAmount((numericValue / 100) * lumpsumAmount);
     };
 
     const calculateResult = async () => {
@@ -128,10 +150,10 @@ export default function SWPCalculatorComponent() {
         else {
             const token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiJjeWhrZHU4dW1mY2o5NHhrIiwiaWF0IjoxNzY0NzQxODQxfQ.VhRKw4h9gU4vybAt2LhTp-bH1g2Z2A0t1K-_-L2_jKE"
             const res = await axios.post<any>("https://prodigypro-new.bfcsofttech.in/api/v2/calculators/swp", {
-                monthlyWithdrawl: Math.round(withdrawalAmount),
+                monthlyWithdrawl: Math.round(Number(withdrawalAmount)),
                 period: Number(investmentPeriod),
                 interestRate: Number(expectedReturn),
-                lumpsum: Math.round(lumpsumAmount)
+                lumpsum: Math.round(Number(lumpsumAmount))
             },
                 {
                     headers: {
@@ -140,7 +162,7 @@ export default function SWPCalculatorComponent() {
                     },
                 });
 
-            console.log("ggggg", res.data.data)
+            // console.log("ggggg", res.data.data)
 
             setTotalBalanceAmount(res.data?.data?.total_balance_amount);
             setTotalWithdrawalAmount(res.data?.data?.total_withdrawal_amount);
@@ -353,29 +375,38 @@ export default function SWPCalculatorComponent() {
                                                 ? "Monthly Withdrawal Amount"
                                                 : "Monthly Withdrawal (% p.m)"}
                                         </Form.Label>
-                                        <div className="relative">
+                                        <div className="relative flex items-center">
+                                            {byAmount && <span className="absolute left-3 text-[#585c75]">₹</span>}
                                             <Form.Control
                                                 type="text"
-                                                value={byAmount ? `₹ ${withdrawalAmount.toLocaleString("en-IN")}` : `${withdrawalPercentage}%`}
-                                                className="w-full border-[#D0DBEA] rounded-xl px-4 py-3 focus:outline-none focus:ring-0 text-[#44475B] text-xl font-medium shadow-none outline-none focus:border-[#D0DBEA]"
+                                                inputMode="decimal"
+                                                value={byAmount ? withdrawalAmount : withdrawalPercentage}
+                                                className={`w-full border rounded-lg py-2 focus:outline-none focus:ring-2 focus:ring-blue-500 text-[#44475B] ${byAmount ? 'pl-8 pr-4' : 'pl-4 pr-8'}`}
                                                 onChange={(e) => {
-                                                    const rawValue = e.target.value.replace(/[^0-9.]/g, "");
-                                                    const numericValue = parseFloat(rawValue) || 0;
+                                                    let val = e.target.value.replace(/[^0-9.]/g, "");
+                                                    const parts = val.split(".");
+                                                    if (parts.length > 2) {
+                                                        val = parts[0] + "." + parts.slice(1).join("");
+                                                    }
+                                                    if (val.startsWith("0") && !val.startsWith("0.") && val.length > 1) {
+                                                        val = val.replace(/^0+/, "");
+                                                    }
                                                     if (byAmount) {
-                                                        handleWithdrawalAmountChange(numericValue);
+                                                        handleWithdrawalAmountChange(val);
                                                     } else {
-                                                        handleWithdrawalPercentageChange(numericValue);
+                                                        handleWithdrawalPercentageChange(val);
                                                     }
                                                 }}
-                                                placeholder={byAmount ? "₹ 15,000" : "23.08%"}
+                                                placeholder={byAmount ? "15000" : "23.08"}
                                             />
+                                            {!byAmount && <span className="absolute right-4 text-[#585c75] font-semibold">%</span>}
                                         </div>
 
                                         <div className="flex justify-between mt-2 text-[#7A7A7A] text-sm">
                                             <span>
                                                 {byAmount
-                                                    ? `Percentage: ${withdrawalPercentage.toFixed(2)}%`
-                                                    : `Amount: ₹${withdrawalAmount.toLocaleString("en-IN")}`}
+                                                    ? `Percentage: ${withdrawalPercentage !== "" ? Number(withdrawalPercentage).toFixed(2) : "0.00"}%`
+                                                    : `Amount: ₹${withdrawalAmount !== "" ? Number(withdrawalAmount).toLocaleString("en-IN") : "0"}`}
                                             </span>
                                         </div>
                                     </Form.Group>
