@@ -5,6 +5,7 @@ import "react-toastify/dist/ReactToastify.css";
 import { defaultSeo } from "./seo-config";
 import "./globals.css";
 import { GlobalLoaderProvider } from "./components/common/GlobalLoader";
+import ScrollToTop from "./components/common/ScrollToTop";
 // import CustomCursor from "./components/common/CustomCursor";
 
 const inter = Inter({
@@ -39,6 +40,7 @@ export default function RootLayout({
         <ToastContainer />
         <GlobalLoaderProvider>
           {/* <CustomCursor /> */}
+          <ScrollToTop />
           {children}
         </GlobalLoaderProvider>
       </body>
