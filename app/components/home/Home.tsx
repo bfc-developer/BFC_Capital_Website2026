@@ -17,6 +17,7 @@ import Navbar from "../layout/Navbar";
 import Footer from "../layout/Footer";
 import VideoCarousel from "../common/VideoCarousel";
 import { useSwipeable } from "react-swipeable";
+import axios from "axios";
 
 // --- Sub-Components ---
 
@@ -494,31 +495,32 @@ const AppTrustSection = () => {
 };
 
 const EventsSection = () => {
-  const events = [
-    {
-      image: "/Home/QC1.svg",
-      venue: "Lineage",
-      title: "316th Quality Circle – Medical Professionals (Lineage)",
-      date: "January 16, 2026",
-      desc: "A warm, engaging session for medical professionals on investing wisely, understanding risks, and building long-term financial peace of mind.",
-    },
+  const [events, setEvents] = useState<any[]>([]);
 
-    {
-      image: "/Home/QC2.svg",
-      venue: "HPCL, Ayodhya",
-      title: `314th Quality Circle “HUMSAFAR” – HPCL, Ayodhya"`,
-      date: "January 09, 2026",
-      desc: "A thoughtful conversation on money, goals, and long-term investing, helping participants feel more confident about their financial choices.",
-    },
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const res = await axios.get(
+          "https://bfccapital.com/event/wp-json/quality/circle1/programmes"
+        );
 
-    {
-      image: "/Home/QC3.svg",
-      venue: "BSIP, Lucknow",
-      title: "312th Quality Circle – BSIP, Lucknow",
-      date: "January 02, 2026",
-      desc: "An interactive discussion that broke down investing basics, behavioural mistakes, and smart financial planning in a simple, relatable way.",
-    },
-  ];
+        const formattedEvents = res.data.map((item: any) => ({
+          image: item.image,
+          venue: item.venue || "Lucknow",
+          title: item.title,
+          date: item.date,
+          desc: item.excerpt.replace(/(<([^>]+)>)/gi, ""),
+          link: item.link,
+        }));
+
+        setEvents(formattedEvents);
+      } catch (error) {
+        console.log(error);
+      }
+    };
+
+    fetchData();
+  }, []);
 
   return (
     <section className="py-5 md:py-15">
@@ -534,31 +536,34 @@ const EventsSection = () => {
         </div>
         <div className="grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
           {events.map((event, idx) => (
+
             <div
               key={idx}
               className=" overflow-hidden rounded p-3 shadow-md hover:shadow-lg transition-shadow border border-gray-100 flex flex-col h-full bg-[#FFFFFF]"
             >
-              <div className="w-full bg-gray-200 relative">
-                <img
-                  src={event.image}
-                  alt={event.title}
-                  className="w-full h-full object-cover"
-                />
-              </div>
-              <div className="pt-3 flex flex-col flex-1">
-                <p className="text-sm font-semibold text-blue-600 mb-2">
-                  Venue: {event.venue}
-                </p>
-                <h3 className="md:text-xl font-bold text-[#44475B] mb-2 md:mb-3 line-clamp-2">
-                  {event.title}
-                </h3>
-                <p className="text-gray-600 text-sm mb-2 md:mb-4 flex-1 line-clamp-4">
-                  {event.desc}
-                </p>
-                <div className="mt-auto pt-4 text-xs text-[#44475B] font-medium">
-                  {event.date}
+              <Link href={event.link}>
+                <div className="w-full bg-gray-200 relative">
+                  <img
+                    src={event.image}
+                    alt={event.title}
+                    className="w-full h-[350px] object-cover"
+                  />
                 </div>
-              </div>
+                <div className="pt-3 flex flex-col flex-1">
+                  <p className="text-sm font-semibold text-blue-600 mb-2">
+                    Venue: {event.venue}
+                  </p>
+                  <h3 className="md:text-xl font-bold text-[#44475B] mb-2 md:mb-3 line-clamp-2">
+                    {event.title}
+                  </h3>
+                  <p className="text-gray-600 text-sm mb-2 md:mb-4 flex-1 line-clamp-4">
+                    {event.desc}
+                  </p>
+                  <div className="mt-auto pt-4 text-xs text-[#44475B] font-medium">
+                    {event.date}
+                  </div>
+                </div>
+              </Link>
             </div>
           ))}
         </div>
