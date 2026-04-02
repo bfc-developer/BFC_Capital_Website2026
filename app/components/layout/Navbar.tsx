@@ -45,7 +45,7 @@ const Navbar = () => {
         <div className="hidden xl:flex items-center space-x-5 xl:space-x-[28px] relative">
 
           <Link href="/" className={`${isActive("/") ? "text-[#001EFE]" : "text-[#4B4949]"} font-[500] text-[15px] hover:text-[#001EFE] font-base font-inter transition-colors`}> Home</Link>
-          <Link href="/all-mutual-funds" className={`${isActive("/mutual-funds") ? "text-[#001EFE]" : "text-[#4B4949]"} font-[500] text-[15px] hover:text-[#001EFE] font-base font-inter transition-colors`}> Mutual Funds</Link>
+          <Link href="/all-mutual-funds" className={`${isActive("/all-mutual-funds") ? "text-[#001EFE]" : "text-[#4B4949]"} font-[500] text-[15px] hover:text-[#001EFE] font-base font-inter transition-colors`}> Mutual Funds</Link>
           <Link href="/sif" className={`${isActive("/sif") ? "text-[#001EFE]" : "text-[#4B4949]"} font-[500] text-[15px] hover:text-[#001EFE] font-base font-inter transition-colors`}> SIF</Link>
           <Link href="/financial-planning" className={`${isActive("/financial-planning") ? "text-[#001EFE]" : "text-[#4B4949]"} font-[500] text-[15px] hover:text-[#001EFE] font-base font-inter transition-colors`}> Financial Planning</Link>
           {/* More Dropdown */}
