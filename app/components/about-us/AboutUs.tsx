@@ -20,49 +20,49 @@ export default function AboutUs() {
         {
             name: "Deepti Bansal",
             role: "Associate Partner",
-            image: "/AboutUs/WealthManagementTeam/Deepti.svg",
+            image: "/AboutUs/WealthManagementTeam/Deepti.webp",
             bio: "For those who don't know her, Deepti is a cheerful individual with a perpetual smile. If you're in severe need of financial advice, there's a strong chance you'll run into her. She is an expert at formulating flawless investing strategies and is an avid reader."
         },
         {
             name: "Sparsh Awasthi",
             role: "Sr. Wealth Manager",
-            image: "/AboutUs/WealthManagementTeam/Sparsh.svg",
+            image: "/AboutUs/WealthManagementTeam/Sparsh.webp",
             bio: "Sparsh is your friendly neighbourhood financial superhero! With his expert knowledge, passion for helping clients reach their goals, and impressive public speaking skills, he’s here to save the day from financial worries. Sparsh’s dedication to providing personalised guidance and his commitment to building strong client relationships make him a valuable member of our team.",
         },
         {
             name: "Nainie Rastogi",
             role: "Wealth Manager",
-            image: "/AboutUs/WealthManagementTeam/Nainie.svg",
+            image: "/AboutUs/WealthManagementTeam/Nainie.webp",
             bio: "Nainie is a seasoned results driven professional with six years of experience in Trade/Forex Sales, CRM, and Strategic Growth. She has worked with leading institutions like HDFC Bank and Axis Bank. Presently working as Wealth Manager in BFC Capital, she is handling more than 50 HNI’s/semi HNI’s clients totalling an AUM of around 56 Crs."
         },
         {
             name: "Ayush Mishra",
             role: "Wealth Manager",
-            image: "/AboutUs/WealthManagementTeam/Ayush.svg",
+            image: "/AboutUs/WealthManagementTeam/Ayush.webp",
             bio: "With a unique understanding of financial expertise and human behavior, Ayush stands out as a wealth manager. With several years of experience in wealth management and Behavioural Finance, he is Presently working as Wealth Manager in BFC Capital and is handling more than 70 HNI’s and semi HNI’s clients totalling an AUM of around 47 Crs."
         },
         {
             name: "Shashank Awasthi",
             role: "Wealth Manager",
-            image: "/AboutUs/WealthManagementTeam/Shashank.svg",
+            image: "/AboutUs/WealthManagementTeam/Shashank.webp",
             bio: "Shashank is a growth-driven professional with strong decision-making skills and sharp product analysis abilities. A natural leader, he excels at simplifying complex topics and building lasting client relationships. An Executive MBA graduate from ISB Hyderabad—ranked among the world’s top B-schools—he brings over 4 years of experience in the finance sector."
         },
         {
             name: "Shubham Dubey",
             role: "Wealth Manager",
-            image: "/AboutUs/WealthManagementTeam/Shubham.svg",
+            image: "/AboutUs/WealthManagementTeam/Shubham.webp",
             bio: "Shubham works closely with clients to turn financial goals into clear, achievable plans. With a Chartered Accountancy background and a natural comfort with numbers, he simplifies complex financial decisions and builds strategies that balance growth, tax efficiency, and long-term stability."
         },
         {
             name: "Shivangi Yadav",
             role: "Wealth Manager",
-            image: "/AboutUs/WealthManagementTeam/Shivangi.svg",
+            image: "/AboutUs/WealthManagementTeam/Shivangi.webp",
             bio: "Shivangi works closely with clients to make financial planning simple, practical, and approachable. She believes in empowering individuals with clear knowledge and thoughtful guidance, helping them make confident money decisions. Known for her strong communication skills and client-first mindset, she focuses on building trust and supporting long-term financial well-being."
         },
         {
             name: "Sandeep Yadav",
             role: "Relationship Manager",
-            image: "/AboutUs/WealthManagementTeam/Sandeep.svg",
+            image: "/AboutUs/WealthManagementTeam/Sandeep.webp",
             bio: "Sandeep brings a steady, client-focused approach to portfolio management and financial planning. He works closely with clients to understand their goals and design tailored solutions that balance performance, risk, and long-term value. Known for his attention to detail and strong relationship-building skills, Sandeep prioritises accuracy, compliance, and trust in every client interaction."
         },
     ];
@@ -71,13 +71,13 @@ export default function AboutUs() {
         {
             name: "Vertika Singh",
             role: "AVP - Operations",
-            image: "/AboutUs/Operations/Vertika.svg",
+            image: "/AboutUs/Operations/Vertika.webp",
             bio: "Vertika is a perfect fit for the operations team because of her unwavering focus. She has developed into an expert in investing procedures, thanks to her curiosity and desire to learn."
         },
         {
             name: "Vanshika Gupta",
             role: "Manager - Operations",
-            image: "/AboutUs/Operations/Vanshika.svg",
+            image: "/AboutUs/Operations/Vanshika.webp",
             bio: "Vanshika is a voracious reader. And what does she read? Regulatory guidelines, compliance norms, and process updates. What draws her to read them? First, it's her duty to stay current, and second, because she's a nerd who can't stop learning."
         },
     ];
@@ -92,7 +92,7 @@ export default function AboutUs() {
         {
             name: "Manoj Mishra",
             role: "AVP - Accounts",
-            image: "/AboutUs/HrAndAccounts/Manoj.svg",
+            image: "/AboutUs/HrAndAccounts/Manoj.webp",
             bio: "Working balance sheets, prepping the payrolls and keeping track of our liabilities and obligations has been Manoj’s business since he set foot in our office for the first time. He rightfully owns this set of responsibilities, and that’s what makes him the asset he is."
         },
     ];
@@ -110,19 +110,19 @@ export default function AboutUs() {
         {
             name: "Akash Gupta",
             role: "AVP - Research & Analysis",
-            image: "/AboutUs/Research/Akash.svg",
+            image: "/AboutUs/Research/Akash.webp",
             bio: "Akash has been a core part of BFC Capital’s research function for over six years, consistently contributing depth, perspective, and rigor to investment decision-making. Renowned for his reliability, steady judgment, and disciplined approach, he emphasizes clarity, data integrity, and thorough analysis that delivers insights investors can trust over time."
         },
         {
             name: "Kavya Mehrotra",
             role: "Manager - Research & Analysis",
-            image: "/AboutUs/Research/Kavya.svg",
+            image: "/AboutUs/Research/Kavya.webp",
             bio: "Kavya brings clarity and care to the way investment decisions are researched at BFC Capital. She enjoys breaking down complex market data into insights that genuinely help clients make confident, long-term choices. Known for her calm, methodical approach, she values precision, continuous learning, and the impact thoughtful research can have on real financial journeys."
         },
         {
             name: "Uttam Kumar Singh",
             role: "Equity Dealer",
-            image: "/AboutUs/Research/Uttam.svg",
+            image: "/AboutUs/Research/Uttam.webp",
             bio: "Uttam, we cannot think of a more apt name for someone so bent on achieving perfection. Be it researching company performances or balancing portfolios, Uttam knows how to get the job done in the neatest way possible."
         },
     ];
@@ -132,7 +132,7 @@ export default function AboutUs() {
         {
             name: "Amulya Ratan",
             role: "Manager - Digital Marketing",
-            image: "/AboutUs/DigitalMarketing/Amulya.svg",
+            image: "/AboutUs/DigitalMarketing/Amulya.webp",
             bio: "Amulya’s inquisitive mind and research capabilities make him the perfect fold for us. BFC Capital’s outreach campaigns are so much more effective due to his will to excel and unfazed resolve. On a personal front, he is a foodie who doesn’t mind travelling miles to quench his hunger for rare delicacies."
         },
 
@@ -142,7 +142,7 @@ export default function AboutUs() {
         {
             name: "Navneet Singh",
             role: "Sr. Web Developer",
-            image: "/AboutUs/TechnicalSupportTeam/Navneet.svg",
+            image: "/AboutUs/TechnicalSupportTeam/Navneet.webp",
             bio: "Despite his young age, Navneet is an asset for Team BFC. Why? Because he is a multi-tasker, who champions meeting deadlines. You name it: coding, troubleshooting or designing, the boy will deliver, no questions asked."
         },
         {
@@ -160,13 +160,13 @@ export default function AboutUs() {
         {
             name: "Chitranshu Srivastava",
             role: "Sr. Software Developer",
-            image: "/AboutUs/TechnicalSupportTeam/Chitranshu.svg",
+            image: "/AboutUs/TechnicalSupportTeam/Chitranshu.webp",
             bio: "Offering technical assistance to Team BFC's clients across platforms is a consuming errand, something Chitranshu does so well that he makes it look effortless. Of course, he is a man of multifaceted competencies. How else would he make it happen?"
         },
         {
             name: "Mohd. Zuhaib Khan",
             role: "Sr. Software Engineer",
-            image: "/AboutUs/TechnicalSupportTeam/Zuhaib.svg",
+            image: "/AboutUs/TechnicalSupportTeam/Zuhaib.webp",
             bio: "Mohd. Zuhaib Khan is an experienced iOS Developer with a strong command over Swift, UIKit, and modern Apple development frameworks. He specializes in building smooth, intuitive, and high-performance mobile applications. With a focus on clean architecture and user-centric design, Zuhaib consistently delivers reliable, scalable, and well-crafted iOS solutions."
         },
     ];
@@ -174,14 +174,15 @@ export default function AboutUs() {
     return (
         <>
             <section>
-                <div className="relative w-full h-full lg:h-[550px] 2xl:h-full">
+                <div className="relative w-full aspect-[16/7]">
                     <Image
-                        src="/AboutUs/Discard/GroupPhoto.svg"
+                        src="/AboutUs/Discard/group_photo.webp"
                         alt="Group Photo"
-                        width={100}
-                        height={100}
-                        className="object-cover object-top w-[100%] h-[100%]"
+                        fill
                         priority
+                        className="object-cover object-top"
+                        sizes="100vw"
+
                     />
                     <div className="absolute inset-0 bg-gradient-to-r from-blue-700/50  to-green-500/50"></div>
                     <div className="absolute inset-0 bottom-5 md:bottom-20 lg:bottom-30 flex items-end justify-center">
