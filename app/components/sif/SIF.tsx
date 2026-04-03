@@ -29,7 +29,7 @@ export default function SIF() {
                         </div>
                         <div className="text-center py-2 order-1 md:order-2">
                             <Image
-                                src="/SIF/SIFHero.png"
+                                src="/SIF/SIFHero.webp"
                                 alt="Mobile Portfolio"
                                 width={300}
                                 height={600}
