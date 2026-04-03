@@ -768,12 +768,12 @@ const Team = () => {
     {
       name: "Kavya Mehrotra",
       role: "Manager- Research & Analysis",
-      img: "/Home/Team/Kavya.webp",
+      img: "/Home/Team/kavya.webp",
     },
     {
       name: "Sparsh Awasthi",
       role: "Sr. Wealth Manager",
-      img: "/Home/Team/sparsh.webp",
+      img: "/Home/Team/Sparsh.webp",
     },
     {
       name: "Nainie Rastogi",
@@ -783,27 +783,27 @@ const Team = () => {
     {
       name: "Ayush Mishra",
       role: "Wealth Manager",
-      img: "/Home/Team/ayush.webp",
+      img: "/Home/Team/Ayush.webp",
     },
     {
       name: "Shashank Awasthi",
       role: "Wealth Manager",
-      img: "/Home/Team/shashank.webp",
+      img: "/Home/Team/Shashank.webp",
     },
     {
       name: "Shubham Dubey",
       role: "Wealth Manager",
-      img: "/Home/Team/shubham.webp",
+      img: "/Home/Team/Shubham.webp",
     },
     {
       name: "Shivangi Yadav",
       role: "Wealth Manager",
-      img: "/Home/Team/shivangi.webp",
+      img: "/Home/Team/Shivangi.webp",
     },
     {
       name: "Sandeep Yadav",
       role: "Relationship Manager",
-      img: "/Home/Team/sandeep.webp",
+      img: "/Home/Team/Sandeep.webp",
     },
   ];
   return (
