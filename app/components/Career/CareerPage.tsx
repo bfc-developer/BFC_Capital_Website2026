@@ -34,10 +34,10 @@ export default function CareerPage() {
         <div className="flex flex-col w-full">
             {/* Hero Section */}
             {/* On mobile, use a min-height so content doesn't get cut off. On md and lg, use calc(100vh - 80px) assuming navbar is 80px */}
-            <div className="relative w-full min-h-[400px] md:h-[calc(100vh-80px)]">
+            <div className="relative w-full aspect-[16/7]">
                 {/* Background Image */}
                 <Image
-                    src="/Career/blurPeople.png"
+                    src="/Career/blurPeople.webp"
                     alt="Career Background"
                     fill
                     sizes="100vw"
