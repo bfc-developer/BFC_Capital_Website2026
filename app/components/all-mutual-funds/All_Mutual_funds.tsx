@@ -252,7 +252,7 @@ export default function AllMutualFunds() {
                                     <div className="pagination-controls flex gap-2 w-full sm:w-auto justify-center sm:justify-end">
                                         {/* PREV BUTTON */}
                                         <button
-                                            className="bg-white border border-gray-200 text-gray-600 hover:bg-gray-50 px-3 py-1.5 rounded text-sm transition-colors disabled:opacity-50"
+                                            className="bg-white border border-gray-200 text-gray-600 hover:bg-gray-50 px-3 py-1.5 rounded text-sm transition-colors disabled:opacity-50 cursor-pointer"
                                             disabled={uiPage === 1}
                                             onClick={() => {
                                                 if (startIndex - 7 >= 0) {
@@ -274,7 +274,7 @@ export default function AllMutualFunds() {
 
                                         {/* NEXT BUTTON */}
                                         <button
-                                            className="bg-white border border-gray-200 text-gray-600 hover:bg-gray-50 px-3 py-1.5 rounded text-sm transition-colors disabled:opacity-50"
+                                            className="bg-white border border-gray-200 text-gray-600 hover:bg-gray-50 px-3 py-1.5 rounded text-sm transition-colors disabled:opacity-50 cursor-pointer"
                                             disabled={
                                                 schemes.length < 25 && startIndex + 7 >= schemes.length
                                             }

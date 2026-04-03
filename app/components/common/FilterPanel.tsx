@@ -239,7 +239,7 @@ const FilterPanel: React.FC<FilterPanelProps> = ({ onFilterChange }) => {
                             return (
                                 <button
                                     key={item.asset_code}
-                                    className={`px-5 py-1.5 text-[15px] font-medium rounded-full transition-all duration-300 ${active
+                                    className={`px-5 py-1.5 text-[15px] font-medium rounded-full transition-all duration-300 cursor-pointer ${active
                                         ? "border border-transparent text-white"
                                         : "bg-transparent hover:bg-[#F3F9FD] border border-transparent hover:border-[#F3F9FD]"
                                         }`}
