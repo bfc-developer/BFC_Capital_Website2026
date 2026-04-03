@@ -34,7 +34,7 @@ export default function DownloadApp() {
                                     data-aos="fade-up"
                                 >
                                     <Image
-                                        src="/DownloadApp/PlayStoreBlack.svg"
+                                        src="/DownloadApp/PlayStoreBlack.webp"
                                         alt="Google Play"
                                         width={150}
                                         height={45}
@@ -47,7 +47,7 @@ export default function DownloadApp() {
                                     data-aos="fade-up"
                                 >
                                     <Image
-                                        src="/DownloadApp/AppStoreBlack.svg"
+                                        src="/DownloadApp/AppStoreBlack.webp"
                                         alt="App Store"
                                         width={150}
                                         height={45}
@@ -57,7 +57,7 @@ export default function DownloadApp() {
                         </div>
                         <div className="text-center py-2 order-1 md:order-2">
                             <Image
-                                src="/DownloadApp/Hero.png"
+                                src="/DownloadApp/Hero.webp"
                                 alt="Mobile Portfolio"
                                 width={300}
                                 height={600}
@@ -110,7 +110,7 @@ export default function DownloadApp() {
                         <div className="w-full md:w-6/12 bg-[#CFE4F3] pt-5 md:pt-12 relative order-1 md:order-2 text-center">
 
                             <Image
-                                src="/DownloadApp/ClearView.svg"
+                                src="/DownloadApp/ClearView.webp"
                                 alt="Mobile Portfolio"
                                 width={400}
                                 height={600}
@@ -125,7 +125,7 @@ export default function DownloadApp() {
 
                         <div className="w-full md:w-6/12 bg-[#CFE4F3] pt-5 md:pt-12 relative text-center">
                             <Image
-                                src="/DownloadApp/InvestWithPurpose.svg"
+                                src="/DownloadApp/InvestWithPurpose.webp"
                                 alt="Mobile Portfolio"
                                 width={400}
                                 height={600}
@@ -197,7 +197,7 @@ export default function DownloadApp() {
                         <div className="w-full md:w-6/12 bg-[#CFE4F3] pt-5 md:pt-12 relative order-1 md:order-2 text-center">
 
                             <Image
-                                src="/DownloadApp/RecommendationsThatRespectYourProfile.svg"
+                                src="/DownloadApp/RecommendationsThatRespectYourProfile.webp"
                                 alt="Mobile Portfolio"
                                 width={400}
                                 height={600}
@@ -213,7 +213,7 @@ export default function DownloadApp() {
 
                         <div className="w-full md:w-6/12 bg-[#CFE4F3] pt-5 md:pt-12 relative text-center">
                             <Image
-                                src="/DownloadApp/TimelyAlerts.svg"
+                                src="/DownloadApp/TimelyAlerts.webp"
                                 alt="Mobile Portfolio"
                                 width={400}
                                 height={600}
@@ -285,7 +285,7 @@ export default function DownloadApp() {
                         <div className="w-full md:w-6/12 bg-[#CFE4F3] pt-5 md:pt-12 relative order-1 md:order-2 text-center">
 
                             <Image
-                                src="/DownloadApp/OneView.svg"
+                                src="/DownloadApp/OneView.webp"
                                 alt="Mobile Portfolio"
                                 width={400}
                                 height={600}
@@ -302,7 +302,7 @@ export default function DownloadApp() {
 
                         <div className="w-full md:w-6/12 bg-[#CFE4F3] pt-5 md:pt-12 relative text-center">
                             <Image
-                                src="/DownloadApp/StayInformed.svg"
+                                src="/DownloadApp/StayInformed.webp"
                                 alt="Mobile Portfolio"
                                 width={400}
                                 height={600}
@@ -374,7 +374,7 @@ export default function DownloadApp() {
                         <div className="w-full md:w-6/12 bg-[#CFE4F3] pt-5 md:pt-12 relative order-1 md:order-2 text-center">
 
                             <Image
-                                src="/DownloadApp/SimpleComparisons.svg"
+                                src="/DownloadApp/SimpleComparisons.webp"
                                 alt="Mobile Portfolio"
                                 width={400}
                                 height={600}
@@ -391,7 +391,7 @@ export default function DownloadApp() {
 
                         <div className="w-full md:w-6/12 bg-[#CFE4F3] pt-5 md:pt-12 relative text-center">
                             <Image
-                                src="/DownloadApp/StartSmall.svg"
+                                src="/DownloadApp/StartSmall.webp"
                                 alt="Mobile Portfolio"
                                 width={400}
                                 height={600}
@@ -464,7 +464,7 @@ export default function DownloadApp() {
                         <div className="w-full md:w-6/12 bg-[#CFE4F3] pt-5 md:pt-12 relative order-1 md:order-2 text-center">
 
                             <Image
-                                src="/DownloadApp/PlanningToolsThatWork.svg"
+                                src="/DownloadApp/PlanningToolsThatWork.webp"
                                 alt="Mobile Portfolio"
                                 width={400}
                                 height={600}
@@ -480,7 +480,7 @@ export default function DownloadApp() {
 
                         <div className="w-full md:w-6/12 bg-[#CFE4F3] pt-5 md:pt-12 relative text-center">
                             <Image
-                                src="/DownloadApp/SecureSeamless.svg"
+                                src="/DownloadApp/SecureSeamless.webp"
                                 alt="Mobile Portfolio"
                                 width={400}
                                 height={600}

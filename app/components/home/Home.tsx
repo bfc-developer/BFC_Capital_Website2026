@@ -51,7 +51,7 @@ const HeroSection = () => {
   const slides = [
     {
       type: "wealth",
-      image: "/Home/BFC-YTThumbnail.svg",
+      image: "/Home/BFC-YTThumbnail.webp",
       title: "Crafting Wealth, Curating Portfolios –",
       highlight: "20+ Years of Excellence.",
     },
@@ -441,7 +441,7 @@ const AppTrustSection = () => {
         <div className="md:w-1/2 relative flex justify-center md:justify-start">
           <div className="">
             <Image
-              src="/Home/iPhone17.svg"
+              src="/Home/iPhone17.webp"
               alt="BFC App Trust"
               width={1200}
               height={1200}
@@ -585,7 +585,7 @@ const EventsSection = () => {
 const Credentials = () => {
   const credentialData = [
     {
-      logo: "/Home/SEBI.svg",
+      logo: "/Home/SEBI.webp",
       alt: "SEBI",
       title: "SEBI Registered Investment Advisor",
       desc: "INA000021669",
@@ -758,52 +758,52 @@ const Team = () => {
     {
       name: "Deepti Bansal",
       role: "Associate Partner",
-      img: "/Home/Team/DeeptiBansal.svg",
+      img: "/Home/Team/Deepti.webp",
     },
     {
       name: "Akash Gupta",
       role: "AVP- Research & Analysis",
-      img: "/Home/Team/AkashGupta.svg",
+      img: "/Home/Team/AkashGupta.webp",
     },
     {
       name: "Kavya Mehrotra",
       role: "Manager- Research & Analysis",
-      img: "/Home/Team/kavya.svg",
+      img: "/Home/Team/Kavya.webp",
     },
     {
       name: "Sparsh Awasthi",
       role: "Sr. Wealth Manager",
-      img: "/Home/Team/sparsh.svg",
+      img: "/Home/Team/sparsh.webp",
     },
     {
       name: "Nainie Rastogi",
       role: "Wealth Manager",
-      img: "/Home/Team/nainee 1.svg",
+      img: "/Home/Team/nainee 1.webp",
     },
     {
       name: "Ayush Mishra",
       role: "Wealth Manager",
-      img: "/Home/Team/ayush.svg",
+      img: "/Home/Team/ayush.webp",
     },
     {
       name: "Shashank Awasthi",
       role: "Wealth Manager",
-      img: "/Home/Team/shashank.svg",
+      img: "/Home/Team/shashank.webp",
     },
     {
       name: "Shubham Dubey",
       role: "Wealth Manager",
-      img: "/Home/Team/shubham.svg",
+      img: "/Home/Team/shubham.webp",
     },
     {
       name: "Shivangi Yadav",
       role: "Wealth Manager",
-      img: "/Home/Team/shivangi.svg",
+      img: "/Home/Team/shivangi.webp",
     },
     {
       name: "Sandeep Yadav",
       role: "Relationship Manager",
-      img: "/Home/Team/sandeep.svg",
+      img: "/Home/Team/sandeep.webp",
     },
   ];
   return (
