@@ -136,6 +136,7 @@ export default function AboutUs() {
             bio: "Amulya’s inquisitive mind and research capabilities make him the perfect fold for us. BFC Capital’s outreach campaigns are so much more effective due to his will to excel and unfazed resolve. On a personal front, he is a foodie who doesn’t mind travelling miles to quench his hunger for rare delicacies."
         },
 
+
     ];
 
     const technicalSupportTeam: WealthManagementTeam[] = [
