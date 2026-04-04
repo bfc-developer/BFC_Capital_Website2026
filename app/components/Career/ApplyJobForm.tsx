@@ -35,15 +35,51 @@ export default function ApplyJobForm({ defaultPost = "" }: ApplyJobFormProps) {
 
     const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
+        
+        // --- Validation Logic ---
+        const { fullName, mobileNumber, emailId, postAppliedFor } = formData;
+        
+        if (!fullName.trim()) {
+            alert("Please enter your full name.");
+            return;
+        }
+
+        const phoneRegex = /^[0-9]{10}$/;
+        if (!phoneRegex.test(mobileNumber)) {
+            alert("Please enter a valid 10-digit mobile number.");
+            return;
+        }
+
+        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        if (!emailRegex.test(emailId)) {
+            alert("Please enter a valid email address.");
+            return;
+        }
+
+        if (!postAppliedFor.trim()) {
+            alert("Please specify the post applied for.");
+            return;
+        }
+
+        const fileInput = document.querySelector('input[type="file"]') as HTMLInputElement | null;
+        const file = fileInput?.files?.[0];
+        if (!file) {
+            alert("Please upload your resume.");
+            return;
+        }
+
+        if (!isChecked) {
+            alert("Please agree to the terms and conditions.");
+            return;
+        }
+        // --- End Validation Logic ---
+
         setIsSubmitting(true);
 
         try {
             let resumeBase64: string | null = null;
             let resumeFileName: string | null = null;
             let resumeMimeType: string | null = null;
-
-            const fileInput = document.querySelector('input[type="file"]') as HTMLInputElement | null;
-            const file = fileInput?.files?.[0];
 
             if (file) {
                 resumeBase64 = await toBase64(file);
