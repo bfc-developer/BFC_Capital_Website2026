@@ -20,7 +20,7 @@ export default function ApplyJobForm({ defaultPost = "" }: ApplyJobFormProps) {
         postAppliedFor: defaultPost,
     });
 
-    const APPS_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbySoFCP9KLbkAtZOhwF-eRYF9C-4geGszP6jjUT4CICBr1FFwYpsTS-i4_EVA4YWjdXDQ/exec";
+    const APPS_SCRIPT_URL = "https://script.google.com/macros/s/AKfycby1gmWn8RirZI6w1-5ANyrwdlIgLPQVaM6gKoDPZpxa1_RBPxbnytdFDAGcas7PG2K1vQ/exec";
 
     const toBase64 = (file: File): Promise<string> =>
         new Promise((resolve, reject) => {
