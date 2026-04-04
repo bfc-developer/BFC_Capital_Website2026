@@ -39,14 +39,15 @@ export default function ApplyJobForm({ defaultPost = "" }: ApplyJobFormProps) {
         // --- Validation Logic ---
         const { fullName, mobileNumber, emailId, postAppliedFor } = formData;
         
-        if (!fullName.trim()) {
-            alert("Please enter your full name.");
+        const nameRegex = /^[A-Za-z\s]+$/;
+        if (!fullName.trim() || !nameRegex.test(fullName)) {
+            alert("Please enter a valid name (only letters are allowed).");
             return;
         }
 
-        const phoneRegex = /^[0-9]{10}$/;
+        const phoneRegex = /^[6789][0-9]{9}$/;
         if (!phoneRegex.test(mobileNumber)) {
-            alert("Please enter a valid 10-digit mobile number.");
+            alert("Please enter a valid 10-digit mobile number starting with 6, 7, 8, or 9.");
             return;
         }
 
@@ -65,6 +66,12 @@ export default function ApplyJobForm({ defaultPost = "" }: ApplyJobFormProps) {
         const file = fileInput?.files?.[0];
         if (!file) {
             alert("Please upload your resume.");
+            return;
+        }
+
+        const MAX_FILE_SIZE = 3 * 1024 * 1024; // 3MB
+        if (file.size > MAX_FILE_SIZE) {
+            alert("The file size should not be greater than 3Mb.");
             return;
         }
 
@@ -134,7 +141,10 @@ export default function ApplyJobForm({ defaultPost = "" }: ApplyJobFormProps) {
                             required
                             className="w-full border-b border-[#D9D9D9] text-[#44475B] py-2 focus:outline-none focus:border-[#04B488] transition-colors placeholder:text-[#44475B]"
                             value={formData.fullName}
-                            onChange={(e) => setFormData({ ...formData, fullName: e.target.value })}
+                            onChange={(e) => {
+                                const val = e.target.value.replace(/[^A-Za-z\s]/g, "");
+                                setFormData({ ...formData, fullName: val });
+                            }}
                         />
                     </div>
 
@@ -146,7 +156,10 @@ export default function ApplyJobForm({ defaultPost = "" }: ApplyJobFormProps) {
                             required
                             className="w-full border-b border-[#D9D9D9] text-[#44475B] py-2 focus:outline-none focus:border-[#04B488] transition-colors placeholder:text-[#44475B]"
                             value={formData.mobileNumber}
-                            onChange={(e) => setFormData({ ...formData, mobileNumber: e.target.value })}
+                            onChange={(e) => {
+                                const val = e.target.value.replace(/[^0-9]/g, "").slice(0, 10);
+                                setFormData({ ...formData, mobileNumber: val });
+                            }}
                         />
                     </div>
 
