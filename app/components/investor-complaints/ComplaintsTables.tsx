@@ -5,6 +5,17 @@ const ComplaintsTables = () => {
     const lastMonth = new Date(now.getFullYear(), now.getMonth() - 1);
 
     const monthYear = `${lastMonth.toLocaleString("default", { month: "long" })}, ${lastMonth.getFullYear()}`;
+
+    // Generate up to 6 months of data ending at lastMonth, but no earlier than Jan 2026.
+    const monthNames = ["Jan", "Feb", "March", "April", "May", "June", "July", "August", "Sept", "Oct", "Nov", "Dec"];
+    const monthlyTrendData = [];
+    for (let i = 5; i >= 0; i--) {
+        const d = new Date(lastMonth.getFullYear(), lastMonth.getMonth() - i);
+        if (d.getFullYear() < 2026) continue;
+        monthlyTrendData.push({
+            monthStr: `${monthNames[d.getMonth()]}, ${d.getFullYear()}`,
+        });
+    }
     return (
         <div className="container mx-auto px-4 py-8 md:py-12 md:px-15 lg:px-20">
             <h1 className="mb-2 text-[25px] md:text-3xl lg:text-5xl font-bold text-[#44475B] font-inter md:pb-5">
@@ -103,14 +114,16 @@ const ComplaintsTables = () => {
                         </thead>
 
                         <tbody>
-                            <tr>
-                                <td className="px-6 py-4 text-[#212121] font-semibold text-left">1</td>
-                                <td className="px-6 py-4 text-[#212121] font-semibold text-left">Jan, 2026</td>
-                                <td className="px-6 py-4 text-[#212121] font-semibold text-left">0</td>
-                                <td className="px-6 py-4 text-[#212121] font-semibold text-left">0</td>
-                                <td className="px-6 py-4 text-[#212121] font-semibold text-left">0</td>
-                                <td className="px-6 py-4 text-[#212121] font-semibold text-left">0</td>
-                            </tr>
+                            {monthlyTrendData.map((data, index) => (
+                                <tr key={index}>
+                                    <td className="px-6 py-4 text-[#212121] font-semibold text-left">{index + 1}</td>
+                                    <td className="px-6 py-4 text-[#212121] font-semibold text-left">{data.monthStr}</td>
+                                    <td className="px-6 py-4 text-[#212121] font-semibold text-left">0</td>
+                                    <td className="px-6 py-4 text-[#212121] font-semibold text-left">0</td>
+                                    <td className="px-6 py-4 text-[#212121] font-semibold text-left">0</td>
+                                    <td className="px-6 py-4 text-[#212121] font-semibold text-left">0</td>
+                                </tr>
+                            ))}
                         </tbody>
 
                     </table>
