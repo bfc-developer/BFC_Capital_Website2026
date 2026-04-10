@@ -80,13 +80,34 @@ export const useGlobalLoader = () => {
 /* =========================================================
    LOADER UI
 ========================================================= */
+/* =========================================================
+   CUSTOM GRADIENT SPINNER
+========================================================= */
+export const GradientSpinner = () => {
+    return (
+        <div className="relative w-[60px] h-[60px]">
+            <div 
+                className="absolute inset-0 rounded-full animate-spin"
+                style={{
+                    background: "linear-gradient(269.9deg, #06A358 24.53%, #001EFE 156.82%)",
+                    WebkitMask: "radial-gradient(farthest-side, transparent calc(100% - 6px), black 0)",
+                    mask: "radial-gradient(farthest-side, transparent calc(100% - 6px), black 0)"
+                }}
+            />
+        </div>
+    );
+};
+
+/* =========================================================
+   LOADER UI
+========================================================= */
 const GlobalLoader = () => {
     const context = useContext(LoaderContext);
     if (!context || !context.loading) return null;
 
     return (
         <div className="global-loader-overlay">
-            <ClipLoader size={60} color="#011EFE" />
+            <GradientSpinner />
         </div>
     );
 };
