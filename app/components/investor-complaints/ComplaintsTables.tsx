@@ -1,6 +1,12 @@
 import React from 'react';
 
 const ComplaintsTables = () => {
+    const now = new Date();
+
+    const month = now.toLocaleString("default", { month: "long" });
+    const year = now.getFullYear();
+
+    const monthYear = `${month}, ${year}`;
     return (
         <div className="container mx-auto px-4 py-8 md:py-12 md:px-15 lg:px-20">
             <h1 className="mb-2 text-[25px] md:text-3xl lg:text-5xl font-bold text-[#44475B] font-inter md:pb-5">
@@ -9,7 +15,7 @@ const ComplaintsTables = () => {
 
             <div className="mb-12 pt-4">
                 <h2 className="font-bold text-[#44475B] mb-6 text-[20px] md:text-3xl lg:text-4xl">
-                    Data for the month ending January, 2026
+                    Data for the month ending {monthYear}
                 </h2>
                 <div className="overflow-x-auto rounded-lg bg-[#FFFFFF] shadow-sm border border-gray-100 rounded-[16px]">
                     <table className="w-full text-sm text-left text-[#212121]">
