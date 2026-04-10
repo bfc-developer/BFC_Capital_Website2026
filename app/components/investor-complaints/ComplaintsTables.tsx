@@ -2,11 +2,9 @@ import React from 'react';
 
 const ComplaintsTables = () => {
     const now = new Date();
+    const lastMonth = new Date(now.getFullYear(), now.getMonth() - 1);
 
-    const month = now.toLocaleString("default", { month: "long" });
-    const year = now.getFullYear();
-
-    const monthYear = `${month}, ${year}`;
+    const monthYear = `${lastMonth.toLocaleString("default", { month: "long" })}, ${lastMonth.getFullYear()}`;
     return (
         <div className="container mx-auto px-4 py-8 md:py-12 md:px-15 lg:px-20">
             <h1 className="mb-2 text-[25px] md:text-3xl lg:text-5xl font-bold text-[#44475B] font-inter md:pb-5">
