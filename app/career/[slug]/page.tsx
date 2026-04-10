@@ -3,6 +3,7 @@ import Footer from "../../components/layout/Footer";
 import Link from "next/link";
 import { ChevronRight } from "lucide-react";
 import ApplyJobForm from "../../components/Career/ApplyJobForm";
+import DownloadJDButton from "../../components/Career/DownloadJDButton";
 import { notFound } from "next/navigation";
 
 export async function generateStaticParams() {
@@ -92,14 +93,10 @@ export default async function JobDetailsPage({ params }: { params: Promise<{ slu
                         You can send in your resume to <a href="mailto:hrd@bfccapital.com" className="text-[#011EFE]">hrd@bfccapital.com</a>
                     </p>
                     {jdFileBase64 && (
-                        <a
-                            href={`data:application/pdf;base64,${jdFileBase64}`}
-                            download={jdFileName || `${jobRole.replace(/\s+/g, '_')}_JD.pdf`}
-                            target="_blank"
-                            className="text-[#011EFE] text-lg hover:underline block"
-                        >
-                            Click here to view detailed JD
-                        </a>
+                        <DownloadJDButton 
+                            base64Data={jdFileBase64}
+                            fileName={jdFileName || `${jobRole.replace(/\s+/g, '_')}_JD.pdf`}
+                        />
                     )}
                 </div>
 

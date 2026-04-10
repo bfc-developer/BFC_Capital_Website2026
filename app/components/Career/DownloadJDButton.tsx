@@ -1,0 +1,50 @@
+"use client";
+
+import React from "react";
+
+interface Props {
+    base64Data: string;
+    fileName: string;
+}
+
+export default function DownloadJDButton({ base64Data, fileName }: Props) {
+    const handleDownload = (e: React.MouseEvent) => {
+        e.preventDefault();
+        try {
+            // Convert base64 to binary
+            const byteCharacters = atob(base64Data);
+            const byteNumbers = new Array(byteCharacters.length);
+            for (let i = 0; i < byteCharacters.length; i++) {
+                byteNumbers[i] = byteCharacters.charCodeAt(i);
+            }
+            const byteArray = new Uint8Array(byteNumbers);
+            const blob = new Blob([byteArray], { type: "application/pdf" });
+
+            // Create blob URL
+            const blobUrl = URL.createObjectURL(blob);
+            
+            // Trigger download
+            const link = document.createElement("a");
+            link.href = blobUrl;
+            link.download = fileName;
+            document.body.appendChild(link);
+            link.click();
+            
+            // Cleanup
+            document.body.removeChild(link);
+            setTimeout(() => URL.revokeObjectURL(blobUrl), 100);
+        } catch (error) {
+            console.error("Failed to download JD", error);
+            alert("Failed to download the Job Description. Please try again.");
+        }
+    };
+
+    return (
+        <button 
+            onClick={handleDownload}
+            className="text-[#011EFE] text-lg hover:underline block cursor-pointer bg-transparent border-none p-0 text-left"
+        >
+            Click here to view detailed JD
+        </button>
+    );
+}
