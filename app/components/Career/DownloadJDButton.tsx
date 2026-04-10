@@ -11,8 +11,11 @@ export default function DownloadJDButton({ base64Data, fileName }: Props) {
     const handleDownload = (e: React.MouseEvent) => {
         e.preventDefault();
         try {
+            // Strip data: URI prefix if present
+            const base64Clean = base64Data.replace(/^data:[a-z]+\/[a-z0-9-+]+;base64,/i, '');
+
             // Convert base64 to binary
-            const byteCharacters = atob(base64Data);
+            const byteCharacters = atob(base64Clean);
             const byteNumbers = new Array(byteCharacters.length);
             for (let i = 0; i < byteCharacters.length; i++) {
                 byteNumbers[i] = byteCharacters.charCodeAt(i);
