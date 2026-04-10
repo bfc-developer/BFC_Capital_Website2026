@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import SuccessPopup from "../common/SuccessPopup";
 import Link from "next/link";
 
@@ -19,6 +19,10 @@ export default function ApplyJobForm({ defaultPost = "" }: ApplyJobFormProps) {
         emailId: "",
         postAppliedFor: defaultPost,
     });
+
+    useEffect(() => {
+        setFormData((prev) => ({ ...prev, postAppliedFor: defaultPost }));
+    }, [defaultPost]);
 
     const APPS_SCRIPT_URL = "https://script.google.com/macros/s/AKfycby1gmWn8RirZI6w1-5ANyrwdlIgLPQVaM6gKoDPZpxa1_RBPxbnytdFDAGcas7PG2K1vQ/exec";
 

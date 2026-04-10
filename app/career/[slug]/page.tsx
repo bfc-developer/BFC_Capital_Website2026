@@ -5,254 +5,111 @@ import { ChevronRight } from "lucide-react";
 import ApplyJobForm from "../../components/Career/ApplyJobForm";
 import { notFound } from "next/navigation";
 
-
-
-export function generateStaticParams() {
-    return [
-        { slug: "wealth-manager" },
-        { slug: "relationship-manager" },
-        { slug: "virtual-relationship-manager" },
-        { slug: "business-development-manager" },
-    ];
+export async function generateStaticParams() {
+    try {
+        const res = await fetch("https://hrms-bfc-capital2026.vercel.app/api/job-postings", { cache: "no-store" });
+        const data = await res.json();
+        return (data.jobPostings || []).map((job: any) => ({
+            slug: job.jobRole.toLowerCase().replace(/[^a-z0-9]+/g, '-'),
+        }));
+    } catch (e) {
+        return [];
+    }
 }
 
 export default async function JobDetailsPage({ params }: { params: Promise<{ slug: string }> }) {
     const { slug } = await params;
 
+    let job = null;
+    try {
+        const res = await fetch("https://hrms-bfc-capital2026.vercel.app/api/job-postings", { cache: "no-store" });
+        const data = await res.json();
+        job = (data.jobPostings || []).find((j: any) =>
+            j.jobRole.toLowerCase().replace(/[^a-z0-9]+/g, '-') === slug
+        );
+    } catch (e) {
+        console.error("Failed to fetch jobs", e);
+    }
+
+    if (!job) {
+        notFound();
+    }
+
+    const {
+        jobRole,
+        heading,
+        preface,
+        skillsRequired,
+        location,
+        package: pkg,
+        exp,
+        vacancyType,
+        qualification,
+        jdFileName,
+        jdFileBase64
+    } = job;
+
     const renderJobDetails = () => {
-        switch (slug) {
-            case "wealth-manager":
-                return (
-                    <>
-                        <h1 className="text-3xl md:text-4xl font-bold text-[#44475B] mb-8">
-                            Position:- Wealth Manager
-                        </h1>
+        return (
+            <>
+                <h1 className="text-3xl md:text-4xl font-bold text-[#44475B] mb-8">
+                    {heading || `${heading}`}
+                </h1>
 
-                        <div className="mb-8">
-                            <h3 className="text-xl font-bold text-[#44475B] mb-4">Preface :</h3>
-                            <p className="text-[#7A7A7A] leading-relaxed">
-                                The WM will be required to move into the market and promote services of the company, brief people about the utility of our services and handle operational and technical issues of our existing clientele.
-                            </p>
-                        </div>
+                {preface && (
+                    <div className="mb-8">
+                        <h3 className="text-xl font-bold text-[#44475B] mb-4">Preface :</h3>
+                        <p className="text-[#7A7A7A] leading-relaxed whitespace-pre-line">
+                            {preface}
+                        </p>
+                    </div>
+                )}
 
-                        <div className="mb-8">
-                            <h3 className="text-xl font-bold text-[#44475B] mb-4">Skills Required :</h3>
-                            <ul className="text-[#7A7A7A] space-y-2 list-disc pl-5 marker:text-gray-400">
-                                <li>Convincing Skills | Analytical Skills | Inter-Personal Skills</li>
-                                <li>Interest towards Sales & Field Activities</li>
-                                <li>Self Motivated | Extrovert | Confident</li>
-                                <li>Inclination towards Finance</li>
-                            </ul>
-                        </div>
+                {skillsRequired && (
+                    <div className="mb-8">
+                        <h3 className="text-xl font-bold text-[#44475B] mb-4">Skills Required :</h3>
+                        <ul className="text-[#7A7A7A] space-y-2 list-disc pl-5 marker:text-gray-400">
+                            {skillsRequired.split(/,|\n/).map((skill: string, index: number) => {
+                                const trimmed = skill.trim();
+                                if (!trimmed) return null;
+                                return <li key={index}>{trimmed}</li>;
+                            })}
+                        </ul>
+                    </div>
+                )}
 
-                        <div className="mb-8 space-y-2 text-[#44475B]">
-                            <p><span className="font-bold">Job Location :</span> <span className="text-[#7A7A7A]">Lucknow, Uttar Pradesh</span></p>
-                            <p><span className="font-bold">Address :</span> <span className="text-[#7A7A7A]">CP-61 Viraj Khand, Gomti Nagar, Lucknow (UP)-226010</span></p>
-                            <p><span className="font-bold">Vacancy Type :</span> <span className="text-[#7A7A7A]">Full Time</span></p>
-                            <p><span className="font-bold">Package :</span> <span className="text-[#7A7A7A]">INR 4L to 8.5L per annum  </span></p>
-                            <p><span className="font-bold">Minimum Experience :</span> <span className="text-[#7A7A7A]">2 year +</span></p>
-                            <p><span className="font-bold">Qualification :</span> <span className="text-[#7A7A7A]">Graduation</span></p>
-                        </div>
+                <div className="mb-8 space-y-2 text-[#44475B]">
+                    {location && <p><span className="font-bold">Job Location :</span> <span className="text-[#7A7A7A]">{location}</span></p>}
+                    <p><span className="font-bold">Address :</span> <span className="text-[#7A7A7A]">CP-61 Viraj Khand, Gomti Nagar, Lucknow (UP)-226010</span></p>
+                    {vacancyType && <p><span className="font-bold">Vacancy Type :</span> <span className="text-[#7A7A7A]">{vacancyType}</span></p>}
+                    {pkg && <p><span className="font-bold">Package :</span> <span className="text-[#7A7A7A]">{pkg}</span></p>}
+                    {exp && <p><span className="font-bold">Minimum Experience :</span> <span className="text-[#7A7A7A]">{exp}</span></p>}
+                    {qualification && <p><span className="font-bold">Qualification :</span> <span className="text-[#7A7A7A]">{qualification}</span></p>}
+                </div>
 
-                        <div className="mb-12">
-                            <p className="text-[#44475B] text-lg mb-2">
-                                You can send in your resume to <a href="mailto:hrd@bfccapital.com" className="text-[#011EFE]">hrd@bfccapital.com</a>
-                            </p>
-                            <Link href="/Career/JD_WM_2026.pdf" target="_blank" className="text-[#011EFE] text-lg hover:underline block">
-                                Click here to view detailed JD
-                            </Link>
-                        </div>
+                <div className="mb-12">
+                    <p className="text-[#44475B] text-lg mb-2">
+                        You can send in your resume to <a href="mailto:hrd@bfccapital.com" className="text-[#011EFE]">hrd@bfccapital.com</a>
+                    </p>
+                    {jdFileBase64 && (
+                        <a
+                            href={`data:application/pdf;base64,${jdFileBase64}`}
+                            download={jdFileName || `${jobRole.replace(/\s+/g, '_')}_JD.pdf`}
+                            target="_blank"
+                            className="text-[#011EFE] text-lg hover:underline block"
+                        >
+                            Click here to view detailed JD
+                        </a>
+                    )}
+                </div>
 
-                        <ApplyJobForm defaultPost="Wealth Manager" />
-                    </>
-                );
-
-            case "relationship-manager":
-                return (
-                    <>
-                        <h1 className="text-3xl md:text-4xl font-bold text-[#44475B] mb-8">
-                            Position:- Relationship Manager
-                        </h1>
-
-                        <div className="mb-8">
-                            <h3 className="text-xl font-bold text-[#44475B] mb-4">Preface :</h3>
-                            <p className="text-[#7A7A7A] leading-relaxed">
-                                The RM will be required to move into the market and promote services of the company,brief people about the utility of our services and handle operational and technical issues of our existing clientele.
-                            </p>
-                        </div>
-
-                        <div className="mb-8">
-                            <h3 className="text-xl font-bold text-[#44475B] mb-4">Skills Required :</h3>
-                            <ul className="text-[#7A7A7A] space-y-2 list-disc pl-5 marker:text-gray-400">
-                                <li>Convincing Skills | Analytical Skills | Inter-Personal Skills</li>
-                                <li>Interest towards Sales & Field Activities</li>
-                                <li>Self Motivated | Extrovert | Confident</li>
-                                <li>Inclination towards Finance</li>
-                            </ul>
-                        </div>
-
-                        <div className="mb-8 space-y-2 text-[#44475B]">
-                            <p><span className="font-bold">Job Location :</span> <span className="text-[#7A7A7A]">Lucknow, Uttar Pradesh</span></p>
-                            <p><span className="font-bold">Address :</span> <span className="text-[#7A7A7A]">CP-61 Viraj Khand, Gomti Nagar, Lucknow (UP)-226010</span></p>
-                            <p><span className="font-bold">Vacancy Type :</span> <span className="text-[#7A7A7A]">Full Time</span></p>
-                            <p><span className="font-bold">Package :</span> <span className="text-[#7A7A7A]">INR 3 L to 6 L per annum (Fixed) + Up to INR 1 L (Variable)</span></p>
-                            <p><span className="font-bold">Minimum Experience :</span> <span className="text-[#7A7A7A]">1 year +</span></p>
-                            <p><span className="font-bold">Qualification :</span> <span className="text-[#7A7A7A]">Graduate / MBA in Marketing / Finance</span></p>
-                        </div>
-
-                        <div className="mb-12">
-                            <p className="text-[#44475B] text-lg mb-2">
-                                You can send in your resume to <a href="mailto:hrd@bfccapital.com" className="text-[#011EFE]">hrd@bfccapital.com</a>
-                            </p>
-                            <Link href="/Career/RM_JD_BFC.pdf" target="_blank" className="text-[#011EFE] text-lg hover:underline block">
-                                Click here to view detailed JD
-                            </Link>
-                        </div>
-
-                        <ApplyJobForm defaultPost="Relationship Manager" />
-                    </>
-                );
-
-                // case "virtual-relationship-manager":
-                //     return (
-                //         <>
-                //             <h1 className="text-3xl md:text-4xl font-bold text-[#44475B] mb-2">
-                //                 Position:- Virtual Relationship Manager
-                //             </h1>
-                //             <p className="text-[#7A7A7A] text-sm mb-8">Note: Female Candidates Only</p>
-
-                //             <div className="mb-8">
-                //                 <h3 className="text-xl font-bold text-[#44475B] mb-4">Preface :</h3>
-                //                 <p className="text-[#7A7A7A] leading-relaxed">
-                //                     The VRM will be required to attend Leads assigned to her on Call and promote services of the company, brief Clients about the Benefits of associating with us and handle operational and technical issues of Acquired Clients
-                //                 </p>
-                //             </div>
-
-                //             <div className="mb-8">
-                //                 <h3 className="text-xl font-bold text-[#44475B] mb-4">Skills Required :</h3>
-                //                 <ul className="text-[#7A7A7A] space-y-2 list-disc pl-5 marker:text-gray-400">
-                //                     <li>Convincing Skills | Analytical Skills | Inter-Personal Skills</li>
-                //                     <li>Interest towards Sales</li>
-                //                     <li>Inclination towards Finance</li>
-                //                     <li>Ability to make 60-80 Telephonic Calls per Day</li>
-                //                 </ul>
-                //             </div>
-
-                //             <div className="mb-8 space-y-2 text-[#44475B]">
-                //                 <p><span className="font-bold">Job Location :</span> <span className="text-[#7A7A7A]">Hybrid Model : Work from Office + Home</span></p>
-                //                 <p><span className="font-bold">Address :</span> <span className="text-[#7A7A7A]">CP-61 Viraj Khand, Gomti Nagar, Lucknow (UP)-226010</span></p>
-                //                 <p><span className="font-bold">Vacancy Type :</span> <span className="text-[#7A7A7A]">Full Time</span></p>
-                //                 <p><span className="font-bold">Package :</span> <span className="text-[#7A7A7A]">Rs. 1.5 L to 2.5 L per annum + Incentive</span></p>
-                //                 <p><span className="font-bold">Experience :</span> <span className="text-[#7A7A7A]">1 year</span></p>
-                //                 <p><span className="font-bold">Qualification :</span> <span className="text-[#7A7A7A]">Graduation</span></p>
-                //             </div>
-
-                //             <div className="mb-12">
-                //                 <p className="text-[#44475B] text-lg mb-2">
-                //                     You can send in your resume to <a href="mailto:hrd@bfccapital.com" className="text-[#011EFE]">hrd@bfccapital.com</a>
-                //                 </p>
-                //                 <Link href="#" className="text-[#011EFE] text-lg hover:underline block">
-                //                     Click here to view detailed JD
-                //                 </Link>
-                //             </div>
-
-                //             <ApplyJobForm defaultPost="Virtual Relationship Manager" />
-                //         </>
-                //     );
-
-                // case "business-development-manager":
-                return (
-                    <>
-                        <h1 className="text-3xl md:text-4xl font-bold text-[#44475B] mb-8">
-                            Position:- Business Development Manager (BDM)
-                        </h1>
-
-                        <div className="mb-8">
-                            <h3 className="text-xl font-bold text-[#44475B] mb-4">Who Are We?</h3>
-                            <p className="text-[#7A7A7A] leading-relaxed mb-4">
-                                Group BFC has in its fold companies operating across domains. BFC Capital, the group's wealth management arm, has served clients for over 20-odd years. Besides this, the group's publishing endeavor, BFC Publications has been successfully turning writers into authors, consequently leaving a lasting imprint on the country's literary space. The group is also home to BFC Softtech, an IT company handling in-house and external projects.
-                                The group is ever-expanding and stays on the lookout to invest in potentially fruitful avenues; case-in-point, BFC Content, the group's latest foray into content creation and broadcasting.
-                            </p>
-                            <h3 className="text-xl font-bold text-[#44475B] mb-4">BFC Capital</h3>
-                            <p className="text-[#7A7A7A] leading-relaxed">
-                                BFC Capital is a premier wealth management company that has been treading India's wealth space for a good 20-odd years, serving and handholding corporate and retail clients in their wealth-building efforts.<br />
-                                We are the second-largest Mutual Funds distributor in Uttar Pradesh, with a wide range of offerings, from Corporate Investment Planning to Treasury Planning and Financial Planning. We, as of now, are overseeing and managing an AUM worth more than Rs. 9.5 billion, with over 16,000 retail and 150+ institutional clients under our wing.
-                                <br />
-                                In a recent Silicon India article, we were identified as "One of the Top 20 Most Promising Wealth Management Consultants" of the country.
-                            </p>
-                        </div>
-
-                        <div className="mb-8">
-                            <h3 className="text-xl font-bold text-[#44475B] mb-4">What Are We Looking For? </h3>
-                            <div className="text-[#7A7A7A] space-y-1">
-                                <p><span className="font-bold text-[#44475B]">Role :</span> Business Development Manager</p>
-                                <p><span className="font-bold text-[#44475B]">Job Location :</span> Lucknow, Uttar Pradesh</p>
-                                <p><span className="font-bold text-[#44475B]">Minimum Qualification :</span> Graduation</p>
-                                <p><span className="font-bold text-[#44475B]">Minimum Experience :</span> Nil</p>
-                            </div>
-                        </div>
-
-                        <div className="mb-8">
-                            <h3 className="text-xl font-bold text-[#44475B] mb-4">Responsibilities :</h3>
-                            <ul className="text-[#44475B] space-y-2 list-disc pl-5">
-                                <li>Marketing Campaigns</li>
-                                <li>Generating Leads for Revenue Team</li>
-                                <li>Planning and Executing Marketing Activities</li>
-                                <li>Tapping Various Segments</li>
-                                <li>Creating Brand Awareness</li>
-                                <li>Corporate visits</li>
-                            </ul>
-                        </div>
-
-                        <div className="mb-8">
-                            <h3 className="text-xl font-bold text-[#44475B] mb-4">Why Join Us?</h3>
-                            <p className="text-[#7A7A7A] leading-relaxed">
-                                We're assuming you may have apprehensions about associating with a company with a modest footprint; it's understandable. That said, working with us has its advantages. For starters, BFC Capital is known for providing its employees a better work-life balance with facilities like five days working. Also, we try to keep the day-to-day functioning as stress-free as possible; this is one of the prominent reasons for our low attrition rates.
-                                Yes, there are times when our workforce is working against the clock, scampering to meet the goals they've set themselves, but rarely do we let failures define them. Most times, failure is a by-product of poor planning and execution; we get it. This is why all our team leaders and vertical heads are actively involved, providing real-time support and guidance to their subordinates. We have a young and diverse work culture, allowing each team member to function as per their individual style and take a breather every now and then by participating in team outings.
-                            </p>
-                        </div>
-
-                        <div className="mb-8">
-                            <h3 className="text-xl font-bold text-[#44475B] mb-4">Benefits & Perks :</h3>
-                            <ul className="text-[#44475B] space-y-2 list-disc pl-5">
-                                <li>On Job Training</li>
-                                <li>Team Outings</li>
-                                <li> Soft Skills Training</li>
-                                <li> Attractive Variables for Meeting Milestones</li>
-                            </ul>
-                        </div>
-
-                        <div className="mb-8">
-                            <h3 className="text-xl font-bold text-[#44475B] mb-4">Skill set Required :</h3>
-                            <ul className="text-[#44475B] space-y-2 list-disc pl-5">
-                                <li>Convincing Skills | Analytical Skills | Inter Personal Skills</li>
-                                <li>Must be Presentable</li>
-                                <li>Must own a Bike / Car</li>
-                                <li>Infallible Communication Skills</li>
-                            </ul>
-                        </div>
-
-                        <div className="mb-12">
-                            <h3 className="text-xl font-bold text-[#44475B] mb-4">What We Give You</h3>
-                            <p className="text-[#44475B] space-y-2">
-                                <span className="text-[#44475B]">Package : INR 3 L to 6 L per annum (Fixed)</span><br />
-                                <span className="text-[#44475B]">Annual Appraisal</span><br /> <br />
-                                <span>Company Website :</span> <Link href="https://bfccapital.com" className="text-[#011EFE]">https://bfccapital.com</Link><br />
-                                <span>Contact Details_HR :</span> <a href="mailto:hrd@bfccapital.com" className="text-[#011EFE]">hrd@bfccapital.com</a>
-                            </p>
-                        </div>
-
-                        <ApplyJobForm defaultPost="Business Development Manager" />
-                    </>
-                );
-
-            default:
-                notFound();
-        }
+                <ApplyJobForm defaultPost={jobRole} />
+            </>
+        );
     };
 
     const getJobTitle = () => {
-        return slug.split('-').map(word => word.charAt(0).toUpperCase() + word.slice(1)).join(' ');
+        return jobRole;
     };
 
     return (
@@ -261,7 +118,6 @@ export default async function JobDetailsPage({ params }: { params: Promise<{ slu
 
             <main className="flex-grow">
                 <div className="container mx-auto px-4 md:px-8 py-8 md:py-12 max-w-6xl">
-                    {/* Breadcrumb */}
                     <nav className="flex items-center text-sm mb-8">
                         <Link
                             href="/"
@@ -300,24 +156,11 @@ export default async function JobDetailsPage({ params }: { params: Promise<{ slu
                         >
                             Career
                         </Link>
-                        {/* <span className="text-[#7A7A7A] font-semibold" style={{
-                            background: "linear-gradient(90deg, #04B488 39.5%, #011EFE 100%)",
-                            WebkitBackgroundClip: "text",
-                            WebkitTextFillColor: "transparent",
-                            backgroundClip: "text",
-                            color: "transparent"
-                        }}>Career</span> */}
                         <ChevronRight
                             className="h-4 w-4 mx-2"
                             style={{ stroke: "url(#chevron-gradient)" }}
                         />
-                        <span className="text-[#7A7A7A] font-semibold" style={{
-                            // background: "linear-gradient(90deg, #04B488 39.5%, #011EFE 100%)",
-                            // WebkitBackgroundClip: "text",
-                            // WebkitTextFillColor: "transparent",
-                            // backgroundClip: "text",
-                            // color: "transparent"
-                        }}>{getJobTitle()}</span>
+                        <span className="text-[#7A7A7A] font-semibold">{getJobTitle()}</span>
                     </nav>
 
                     {renderJobDetails()}
