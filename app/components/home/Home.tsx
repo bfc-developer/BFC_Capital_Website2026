@@ -132,7 +132,7 @@ const HeroSection = () => {
                   1000+ Cr.
                 </h3>
                 <p className="text-[7px] md:text-[12px] text-gray-600 font-semibold text-center mt-1 font-inter tracking-wide">
-                  Assets Under <br /> Advisory
+                  Assets Under <br /> Management
                 </p>
               </div>
               <div className="flex  flex-col items-center justify-center w-25 h-25 md:w-40 md:h-40 rounded-full font-inter border-gradient-blue-green shadow-xl p-1">
