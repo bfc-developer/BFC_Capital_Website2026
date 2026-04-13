@@ -71,43 +71,60 @@ export default function Sipcalculators() {
         return xAxisArray;
     };
 
-    const valueForGraph = (data: number, currentTotalYear: number = totalYear): number[] => {
-        let graphValue: number[] = [];
+    const valuesForGraph = (
+        monthlySavingVal: number,
+        rateVal: number,
+        currentTotalYear: number
+    ): { marketValues: number[]; investedValues: number[] } => {
+        const monthlyRate = Number(rateVal) / 12 / 100;
+
+        const yearPoints: number[] = [];
         if (currentTotalYear > 16) {
-            for (let i = currentTotalYear; i > 0; i -= 2)
-                graphValue.push(Math.round(data / i));
-            if (currentTotalYear % 2 === 0) graphValue.push(Math.round(data));
+            for (let i = 1; i <= currentTotalYear; i += 2) yearPoints.push(i);
+            if (currentTotalYear % 2 === 0) yearPoints.push(currentTotalYear);
         } else {
-            for (let i = currentTotalYear; i > 0; i--) graphValue.push(Math.round(data / i));
+            for (let i = 1; i <= currentTotalYear; i++) yearPoints.push(i);
         }
-        return graphValue;
+
+        const marketValues = yearPoints.map((y) => {
+            const months = y * 12;
+            const fv =
+                (monthlySavingVal * (Math.pow(1 + monthlyRate, months) - 1) / monthlyRate) *
+                (1 + monthlyRate);
+            return Math.round(fv);
+        });
+
+        const investedValues = yearPoints.map((y) => monthlySavingVal * y * 12);
+
+        return { marketValues, investedValues };
     };
 
-    const [chartState, setChartState] = useState<ChartState>({
-        series: [
-            { name: "Market Value", data: valueForGraph(gains + totalMonthlySaving) },
-            { name: "Invested Amount", data: valueForGraph(totalMonthlySaving) },
-        ],
-        options: {
-            legend: {
-                show: false,
+    const [chartState, setChartState] = useState<ChartState>(() => {
+        const { marketValues, investedValues } = valuesForGraph(10000, 16.5, 10);
+        return {
+            series: [
+                { name: "Market Value", data: marketValues },
+                { name: "Invested Amount", data: investedValues },
+            ],
+            options: {
+                legend: { show: false },
+                chart: {
+                    height: 350,
+                    type: "area",
+                    background: "transparent",
+                    toolbar: { show: false },
+                    zoom: { enabled: false },
+                },
+                dataLabels: { enabled: false },
+                stroke: {
+                    curve: "monotoneCubic",
+                    width: [2, 2],
+                    colors: ["#357AF6", "#57BE65"],
+                },
+                xaxis: { categories: yearInString(10) },
+                grid: { show: false },
             },
-            chart: {
-                height: 350,
-                type: "area",
-                background: "transparent",
-                toolbar: { show: false },
-                zoom: { enabled: false },
-            },
-            dataLabels: { enabled: false },
-            stroke: {
-                curve: "monotoneCubic",
-                width: [2, 2],
-                colors: ["#357AF6", "#57BE65"],
-            },
-            xaxis: { categories: yearInString() },
-            grid: { show: false },
-        },
+        };
     });
 
     const calculateSip = () => {
@@ -135,10 +152,16 @@ export default function Sipcalculators() {
             setMonthlySaving1(monthlySaving);
 
             // Update chart dynamically
+            const { marketValues, investedValues } = valuesForGraph(
+                monthlySaving,
+                Number(expectedRateOfReturn),
+                investmentPeriod
+            );
+
             setChartState((prevState) => ({
                 series: [
-                    { name: "Market Value", data: valueForGraph(totalSaving + gain, investmentPeriod) },
-                    { name: "Invested Amount", data: valueForGraph(totalSaving, investmentPeriod) },
+                    { name: "Market Value", data: marketValues },
+                    { name: "Invested Amount", data: investedValues },
                 ],
                 options: {
                     ...prevState.options,
