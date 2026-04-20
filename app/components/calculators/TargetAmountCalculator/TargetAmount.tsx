@@ -147,6 +147,12 @@ export default function TargetAmountCalculator() {
                                             onChange={(e) =>
                                                 setAmount(parseFloat(e.target.value))
                                             }
+                                            onWheel={(e) => (e.target as HTMLInputElement).blur()}
+                                            onKeyDown={(e) => {
+                                                if (e.key === "ArrowUp" || e.key === "ArrowDown") {
+                                                    e.preventDefault();
+                                                }
+                                            }}
                                             placeholder="₹ 50,00,000"
                                         />
                                     </div>
