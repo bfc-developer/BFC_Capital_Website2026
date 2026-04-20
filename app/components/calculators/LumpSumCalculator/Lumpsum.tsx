@@ -290,6 +290,12 @@ export default function LumpsumCalculator() {
                                             value={investAmount}
                                             min={0}
                                             onChange={(e) => setInvestAmount(e.target.value)}
+                                            onWheel={(e) => (e.target as HTMLInputElement).blur()}
+                                            onKeyDown={(e) => {
+                                                if (e.key === "ArrowUp" || e.key === "ArrowDown") {
+                                                    e.preventDefault();
+                                                }
+                                            }}
                                             placeholder="₹ 10,000"
                                         />
                                     </div>

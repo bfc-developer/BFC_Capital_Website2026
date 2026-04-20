@@ -318,6 +318,12 @@ export default function RetirementPlanningCalculator() {
                                             onChange={(e) =>
                                                 setMonthlyExpenses(parseFloat(e.target.value))
                                             }
+                                            onWheel={(e) => (e.target as HTMLInputElement).blur()}
+                                            onKeyDown={(e) => {
+                                                if (e.key === "ArrowUp" || e.key === "ArrowDown") {
+                                                    e.preventDefault();
+                                                }
+                                            }}
                                             placeholder="₹ 30,000"
                                         />
                                     </div>
@@ -382,6 +388,12 @@ export default function RetirementPlanningCalculator() {
                                             onChange={(e) =>
                                                 setCurrentSaving(parseFloat(e.target.value))
                                             }
+                                            onWheel={(e) => (e.target as HTMLInputElement).blur()}
+                                            onKeyDown={(e) => {
+                                                if (e.key === "ArrowUp" || e.key === "ArrowDown") {
+                                                    e.preventDefault();
+                                                }
+                                            }}
                                             placeholder="₹ 5,000"
                                         />
                                     </div>
@@ -397,6 +409,12 @@ export default function RetirementPlanningCalculator() {
                                             onChange={(e) =>
                                                 setExistingCorpus(parseFloat(e.target.value))
                                             }
+                                            onWheel={(e) => (e.target as HTMLInputElement).blur()}
+                                            onKeyDown={(e) => {
+                                                if (e.key === "ArrowUp" || e.key === "ArrowDown") {
+                                                    e.preventDefault();
+                                                }
+                                            }}
                                             placeholder="₹ 10,000"
                                         />
                                     </div>
@@ -505,6 +523,12 @@ export default function RetirementPlanningCalculator() {
                                             onChange={(e) =>
                                                 setLifeExpectancy(parseFloat(e.target.value))
                                             }
+                                            onWheel={(e) => (e.target as HTMLInputElement).blur()}
+                                            onKeyDown={(e) => {
+                                                if (e.key === "ArrowUp" || e.key === "ArrowDown") {
+                                                    e.preventDefault();
+                                                }
+                                            }}
                                             placeholder="₹ 10,000"
                                         />
                                     </div>

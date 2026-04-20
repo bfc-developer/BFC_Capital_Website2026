@@ -248,6 +248,12 @@ export default function SWPCalculatorComponent() {
                                             onChange={(e) =>
                                                 setLumpsumAmount(parseFloat(e.target.value))
                                             }
+                                            onWheel={(e) => (e.target as HTMLInputElement).blur()}
+                                            onKeyDown={(e) => {
+                                                if (e.key === "ArrowUp" || e.key === "ArrowDown") {
+                                                    e.preventDefault();
+                                                }
+                                            }}
                                             placeholder="₹ 1,00,00,000"
                                         />
                                     </div>

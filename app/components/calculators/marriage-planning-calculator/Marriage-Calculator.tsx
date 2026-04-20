@@ -229,6 +229,12 @@ export default function Marriagecalculators() {
                                             onChange={(e) =>
                                                 setAmountRequired(parseFloat(e.target.value))
                                             }
+                                            onWheel={(e) => (e.target as HTMLInputElement).blur()}
+                                            onKeyDown={(e) => {
+                                                if (e.key === "ArrowUp" || e.key === "ArrowDown") {
+                                                    e.preventDefault();
+                                                }
+                                            }}
                                             placeholder="₹ 10,00,000"
                                         />
                                     </div>
@@ -245,6 +251,12 @@ export default function Marriagecalculators() {
                                             onChange={(e) => {
                                                 const val = e.target.value;
                                                 setAnnualSaving(val === "" ? "" : parseFloat(val));
+                                            }}
+                                            onWheel={(e) => (e.target as HTMLInputElement).blur()}
+                                            onKeyDown={(e) => {
+                                                if (e.key === "ArrowUp" || e.key === "ArrowDown") {
+                                                    e.preventDefault();
+                                                }
                                             }}
                                             placeholder="₹ 5,00,000"
                                         />

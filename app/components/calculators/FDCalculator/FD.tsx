@@ -235,6 +235,12 @@ export default function FDCalculator() {
                                             onChange={(e) =>
                                                 setInvestmentAmount(parseFloat(e.target.value))
                                             }
+                                            onWheel={(e) => (e.target as HTMLInputElement).blur()}
+                                            onKeyDown={(e) => {
+                                                if (e.key === "ArrowUp" || e.key === "ArrowDown") {
+                                                    e.preventDefault();
+                                                }
+                                            }}
                                             placeholder="₹ 10,000"
                                         />
                                     </div>
