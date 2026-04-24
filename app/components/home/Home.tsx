@@ -767,7 +767,7 @@ const Team = () => {
     },
     {
       name: "Kavya Mehrotra",
-      role: "Manager- Research & Analysis",
+      role: "Sr. Manager- Research & Analysis",
       img: "/Home/Team/kavya.webp",
     },
     {
@@ -802,7 +802,7 @@ const Team = () => {
     },
     {
       name: "Sandeep Yadav",
-      role: "Relationship Manager",
+      role: "Wealth Manager",
       img: "/Home/Team/Sandeep.webp",
     },
   ];
