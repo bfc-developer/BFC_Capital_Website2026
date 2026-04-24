@@ -61,7 +61,7 @@ export default function AboutUs() {
         },
         {
             name: "Sandeep Yadav",
-            role: "Relationship Manager",
+            role: "Wealth Manager",
             image: "/AboutUs/WealthManagementTeam/Sandeep.webp",
             bio: "Sandeep brings a steady, client-focused approach to portfolio management and financial planning. He works closely with clients to understand their goals and design tailored solutions that balance performance, risk, and long-term value. Known for his attention to detail and strong relationship-building skills, Sandeep prioritises accuracy, compliance, and trust in every client interaction."
         },
@@ -100,7 +100,7 @@ export default function AboutUs() {
     const customerSupportTeam: WealthManagementTeam[] = [
         {
             name: "Sejal Verma",
-            role: "Manager - Customer Support",
+            role: "Sr. Manager- Customer Support",
             image: "/AboutUs/CustomerSupport/Sejal.svg",
             bio: "Sejal Verma heads our Customer Support department with a calm, focused approach and a genuine commitment to client satisfaction. As Manager- Customer Support at BFC CAPITAL, she ensures that every query is handled with clarity, efficiency, and a personal touch. Known for her patience, problem-solving mindset, and ability to simplify even the most complex concerns."
         },
@@ -115,13 +115,13 @@ export default function AboutUs() {
         },
         {
             name: "Kavya Mehrotra",
-            role: "Manager - Research & Analysis",
+            role: "Sr. Manager- Research & Analysis",
             image: "/AboutUs/Research/Kavya.webp",
             bio: "Kavya brings clarity and care to the way investment decisions are researched at BFC Capital. She enjoys breaking down complex market data into insights that genuinely help clients make confident, long-term choices. Known for her calm, methodical approach, she values precision, continuous learning, and the impact thoughtful research can have on real financial journeys."
         },
         {
             name: "Uttam Kumar Singh",
-            role: "Equity Dealer",
+            role: "Sr. Executive Research & Analysis",
             image: "/AboutUs/Research/Uttam.webp",
             bio: "Uttam, we cannot think of a more apt name for someone so bent on achieving perfection. Be it researching company performances or balancing portfolios, Uttam knows how to get the job done in the neatest way possible."
         },

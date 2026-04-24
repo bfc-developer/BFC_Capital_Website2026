@@ -9,15 +9,18 @@ import { usePathname } from "next/navigation";
 const Navbar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isMoreOpen, setIsMoreOpen] = useState(false);
+  // const [isRiaOpen, setIsRiaOpen] = useState(false);
 
   const toggleMenu = () => setIsMenuOpen(!isMenuOpen);
   const toggleMore = () => setIsMoreOpen(!isMoreOpen);
+  // const toggleRia = () => setIsRiaOpen(!isRiaOpen);
 
   const pathname = usePathname();
 
   useEffect(() => {
     setIsMenuOpen(false);
     setIsMoreOpen(false);
+    // setIsRiaOpen(false);
   }, [pathname]);
 
   const isActive = (path: string) => pathname === path;
@@ -90,6 +93,7 @@ const Navbar = () => {
             )}
           </div>
           <Link href="/download-app" className={`${isActive("/download-app") ? "text-[#001EFE]" : "text-[#4B4949]"} font-[500] text-[15px] hover:text-[#001EFE] font-base font-inter transition-colors`}> Download App</Link>
+          
         </div>
 
         {/* Desktop Buttons */}
@@ -189,7 +193,7 @@ const Navbar = () => {
           >
             Download App
           </Link>
-
+          
           <div className="mt-4">
             <a
               href="https://app.prodigypro.co.in/"
