@@ -105,6 +105,16 @@ const Footer = () => {
                                     <Image src="/SocialMedia/whatsapp.svg" alt="WhatsApp" width={36} height={36} />
                                 </Link>
                             </div>
+                            <div className="cursor-pointer hover:scale-110 transition-transform">
+                                <Link href="https://www.linkedin.com/company/bfccapitalpvtltd" target="_blank" rel="noopener noreferrer">
+                                    <Image src="/SocialMedia/LinkedIn.svg" alt="LinkedIn" width={36} height={36} />
+                                </Link>
+                            </div>
+                            <div className="cursor-pointer hover:scale-110 transition-transform">
+                                <Link href="https://www.threads.com/@bfccapitalpvtltd" target="_blank" rel="noopener noreferrer">
+                                    <Image src="/SocialMedia/Threads.svg" alt="Threads" width={36} height={36} />
+                                </Link>
+                            </div>
                         </div>
                     </div>
 
