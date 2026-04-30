@@ -12,7 +12,7 @@ const Footer = () => {
                     <Image src="/Logo/CAPLOGO.svg" alt="Logo" width={100} height={100}
                         className='w-[70%] md:w-[50%] h-[50%] md:h-[45px] object-contain object-left' />
                 </div>
-                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-16 mb-16">
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-16 mb-8">
 
                     {/* Column 1: Compliance & Info */}
                     <div className="space-y-6">
@@ -28,11 +28,6 @@ const Footer = () => {
                                 </div>
                             </div>
 
-                            <div className="space-y-0.5 text-[14px] md:text-[17px] leading-relaxed lg:leading-6">
-                                <p className="">Grievance Cell</p>
-                                <a href="https://scores.sebi.gov.in" target="_blank" rel="noopener noreferrer" className="hover:text-[#001EFE]">https://scores.sebi.gov.in</a>
-                            </div>
-
                             <div className="space-y-1">
                                 <h2 className="font-bold text-[#44475B] text-[17px]">Principal Officer:</h2>
                                 <div className="text-[14px] md:text-[17px] leading-relaxed lg:leading-6">
@@ -46,9 +41,15 @@ const Footer = () => {
                                     <p>Sunil Gupta</p>
                                     <p><a href="mailto:sunilgupta@bfccapital.com" className="hover:text-[#001EFE]">sunilgupta@bfccapital.com</a></p>
                                 </div>
-
-
                             </div>
+                            <div className="space-y-1">
+                                <h2 className="font-bold text-[#44475B] text-[17px]">Grievance Cell</h2>
+                                <div className="text-[14px] md:text-[17px] leading-relaxed lg:leading-6">
+                                    <p className="pb-4">SEBI SCORES:<a href="https://scores.sebi.gov.in" target="_blank" rel="noopener noreferrer" className="hover:text-[#001EFE] underline">https://scores.sebi.gov.in</a></p>
+                                    <p>SMART ODR :<a href="https://smartodr.in/login" target="_blank" rel="noopener noreferrer" className="hover:text-[#001EFE] underline">https://smartodr.in/login</a></p>
+                                </div>
+                            </div>
+
                             <div className="space-y-1">
                                 <h2 className="font-bold text-[#44475B] text-[17px]">Corresponding SEBI Address:</h2>
                                 <div className="text-[14px] md:text-[17px] leading-relaxed lg:leading-6">
@@ -58,6 +59,20 @@ const Footer = () => {
                                     <p>East Kidwai Nagar,</p>
                                     <p>New Delhi - 110023.</p>
                                 </div>
+                            </div>
+                            <div className="space-y-1">
+                                <h2 className="font-bold text-[#44475B] text-[17px]">
+
+                                    SEBI Investor Website:{" "}
+                                    <a
+                                        href="https://investor.sebi.gov.in/"
+                                        target="_blank"
+                                        rel="noopener noreferrer"
+                                        className="inline hover:text-[#001EFE] underline font-normal whitespace-nowrap"
+                                    >
+                                        https://investor.sebi.gov.in
+                                    </a>
+                                </h2>
                             </div>
                         </div>
                     </div>

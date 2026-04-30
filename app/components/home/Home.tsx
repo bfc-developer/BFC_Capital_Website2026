@@ -113,13 +113,9 @@ const HeroSection = () => {
             {/* Stats Circles */}
             <div className="mt-5 md:mt-10 xl:mt-15 flex flex-wrap justify-center gap-4 md:gap-10 xl:gap-15">
               <div className="flex  flex-col items-center justify-center w-25 h-25 md:w-40 md:h-40 rounded-full border-gradient-blue-green shadow-xl p-1">
-                <Image
-                  src="/Home/image1.svg"
-                  alt=""
-                  width={5}
-                  height={5}
-                  className="mb-1 w-10 md:h-10 md:w-20"
-                />
+                <h3 className="text-[14px] md:text-2xl font-extrabold text-[#44475B] font-inter">
+                  SEBI
+                </h3>
                 <p className="text-[9px] md:text-[12px]  pt-1 font-bold text-[#44475B] uppercase tracking-widest leading-tight font-inter">
                   RIA :
                 </p>
@@ -585,7 +581,7 @@ const EventsSection = () => {
 const Credentials = () => {
   const credentialData = [
     {
-      logo: "/Home/SEBI.webp",
+      logo: "/Home/SEBI.svg",
       alt: "SEBI",
       title: "SEBI Registered Investment Advisor",
       desc: "INA000021669",
@@ -600,13 +596,13 @@ const Credentials = () => {
       logo: "/Home/BSE.svg",
       alt: "BSE",
       title: "BSE Registered Mutual Fund Distributor",
-      desc: "No : 39180",
+      desc: "Member Id : 39180",
     },
     {
       logo: "/Home/NSE.svg",
       alt: "NSE",
       title: "NSE Registered Mutual Fund Distributor",
-      desc: "No : MFS21399",
+      desc: "Member Id : MFS21399",
     },
   ];
 
@@ -639,7 +635,7 @@ const Credentials = () => {
                   <div className="flex flex-col flex-1">
                     <div className="min-h-[3rem] flex justify-center mb-1">
                       <div className="">
-                        <p className="text-[11px] font-bold text-slate-700 tracking-wide uppercase leading-tight">
+                        <p className="text-[11px] font-bold text-slate-700 tracking-wide leading-tight">
                           {item.title}
                         </p>
                         <p className="text-[11px] font-semibold text-slate-700 leading-relaxed">
@@ -1127,23 +1123,17 @@ const ComplaintsTable = () => {
               target="_blank"
               rel="noopener noreferrer"
             >
-              <h2
-                className="text-[20px] md:text-3xl lg:text-5xl font-extrabold inline-block pb-1 bg-clip-text text-transparent hover:opacity-80 transition-opacity"
-                style={{
-                  backgroundImage:
-                    "linear-gradient(90deg, #04B488 39.5%, #011EFE 100%)",
-                }}
-              >
-                Investor Charter
+              <h2 className="text-[20px] md:text-3xl lg:text-5xl font-extrabold text-[#44475B] tracking-tight">
+                Compliance Audit Status
               </h2>
             </a>
-            <div
+            {/* <div
               className="md:w-40 lg:w-64 md:h-1.5 mx-auto rounded-full mt-1 w-20 h-1"
               style={{
                 background:
                   "linear-gradient(90deg, #04B488 39.5%, #011EFE 100%)",
               }}
-            ></div>
+            ></div> */}
           </div>
 
           <div className="max-w-6xl mx-auto overflow-x-auto shadow-sm border border-gray-100 rounded-[16px]">
@@ -1181,8 +1171,89 @@ const ComplaintsTable = () => {
                 </tr>
               </tbody>
             </table>
+            
           </div>
+          <div className="max-w-6xl mx-auto mt-8 flex flex-col md:flex-row justify-end items-start md:items-center gap-6 px-4">
+          
+          <Link href="/investor-complaints">
+            <button className="bg-bfc-green text-white px-10 py-3 rounded-full font-bold hover:bg-green-700 transition-all shadow-md active:scale-95 whitespace-nowrap">
+              View More
+            </button>
+          </Link>
         </div>
+        </div>
+
+
+        {/* Client Level segrigation Report */}
+        <div
+          className={`transition-all duration-700 overflow-hidden max-h-[1000px] opacity-100 mt-14 mb-12`}
+        >
+          <div className="text-center mb-16 relative">
+            <a
+              href="https://www.vivekam.co.in/wp-content/uploads/2025/07/Investment-charter.pdf"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              <h2 className="text-[20px] md:text-3xl lg:text-5xl font-extrabold text-[#44475B] tracking-tight">
+                Client Level Segregation Report
+              </h2>
+            </a>
+            {/* <div
+              className="md:w-40 lg:w-64 md:h-1.5 mx-auto rounded-full mt-1 w-20 h-1"
+              style={{
+                background:
+                  "linear-gradient(90deg, #04B488 39.5%, #011EFE 100%)",
+              }}
+            ></div> */}
+          </div>
+
+          <div className="max-w-6xl mx-auto overflow-x-auto shadow-sm border border-gray-100 rounded-[16px]">
+            <table className="w-full text-center border-collapse">
+              <thead>
+                <tr
+                  className="text-[#4D4D4D] border-b border-gray-100"
+                  style={{
+                    background:
+                      "linear-gradient(270deg, #CFE4F3 0%, #FAFAFA 63.46%)",
+                  }}
+                >
+                  <th className="py-[10px] px-[12px] text-[13px] font-extrabold tracking-tight text-left">
+                    Sr.No.
+                  </th>
+                  <th className="py-[10px] text-[13px] font-extrabold tracking-tight text-left">
+                    Financial Year
+                  </th>
+                  <th className="py-[10px] px-[15px] text-[13px] font-extrabold tracking-tight text-left">
+                    Audit Report
+                  </th>
+                  <th className="py-[10px] text-[13px] font-extrabold tracking-tight text-left">
+                    Client Level Segregation Report
+                  </th>
+                </tr>
+              </thead>
+              <tbody className="text-[#212121] bg-[#FFFFFF]">
+                <tr className="">
+                  <td className="py-[12px] px-[12px] text-sm font-bold text-left">1</td>
+                  <td className="py-[12px] text-sm font-bold text-left">
+                    FY 2025-26
+                  </td>
+                  <td className="py-[12px] px-[15px] text-sm font-bold text-left">Compliance Report</td>
+                  <td className="py-[12px] text-sm font-bold text-left">Client Level Segregation Report</td>
+                </tr>
+              </tbody>
+            </table>
+            
+          </div>
+          <div className="max-w-6xl mx-auto mt-8 flex flex-col md:flex-row justify-end items-start md:items-center gap-6 px-4">
+          
+          <Link href="/investor-complaints">
+            <button className="bg-bfc-green text-white px-10 py-3 rounded-full font-bold hover:bg-green-700 transition-all shadow-md active:scale-95 whitespace-nowrap">
+              View More
+            </button>
+          </Link>
+        </div>
+        </div>
+
       </div>
     </section>
   );

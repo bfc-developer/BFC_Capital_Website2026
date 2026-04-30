@@ -51,6 +51,7 @@ const Navbar = () => {
           <Link href="/all-mutual-funds" className={`${isActive("/all-mutual-funds") ? "text-[#001EFE]" : "text-[#4B4949]"} font-[500] text-[15px] hover:text-[#001EFE] font-base font-inter transition-colors`}> Mutual Funds</Link>
           <Link href="/sif" className={`${isActive("/sif") ? "text-[#001EFE]" : "text-[#4B4949]"} font-[500] text-[15px] hover:text-[#001EFE] font-base font-inter transition-colors`}> SIF</Link>
           <Link href="/financial-planning" className={`${isActive("/financial-planning") ? "text-[#001EFE]" : "text-[#4B4949]"} font-[500] text-[15px] hover:text-[#001EFE] font-base font-inter transition-colors`}> Financial Planning</Link>
+          <Link href="/compliances" className={`${isActive("/compliances") ? "text-[#001EFE]" : "text-[#4B4949]"} font-[500] text-[15px] hover:text-[#001EFE] font-base font-inter transition-colors`}> Compliances</Link>
           {/* More Dropdown */}
           <div className="relative">
             <button
@@ -145,6 +146,10 @@ const Navbar = () => {
           <Link href="/financial-planning" className={`${isActive("/financial-planning") ? "text-[#001EFE]" : "text-[#4B4949]"} font-[500] text-[15px] hover:text-[#001EFE] font-inter border-b border-gray-50 hover:pl-2 transition-all`}
           >
             Financial Planning
+          </Link>
+          <Link href="/compliances" className={`${isActive("/compliances") ? "text-[#001EFE]" : "text-[#4B4949]"} font-[500] text-[15px] hover:text-[#001EFE] font-inter border-b border-gray-50 hover:pl-2 transition-all`}
+          >
+            Compliances
           </Link>
 
           {/* Mobile More Dropdown */}
