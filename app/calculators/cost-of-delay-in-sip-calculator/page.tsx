@@ -3,9 +3,15 @@ import Navbar from "@/app/components/layout/Navbar";
 import Footer from "@/app/components/layout/Footer";
 import CostOfDelay from "@/app/components/calculators/CostofDelayinSIPCalculator/CostOfDelay";
 
+import { pageSeo } from "@/app/seo-config";
+
 export const metadata: Metadata = {
-    title: "Cost of Delay in SIP Calculator - BFC Capital",
-    description: "Calculate the cost of delaying your SIP investments with BFC Capital.",
+    title: pageSeo["/calculators/cost-of-delay-in-sip-calculator"]?.title,
+    description: pageSeo["/calculators/cost-of-delay-in-sip-calculator"]?.description,
+    keywords: pageSeo["/calculators/cost-of-delay-in-sip-calculator"]?.keywords,
+    alternates: {
+        canonical: pageSeo["/calculators/cost-of-delay-in-sip-calculator"]?.canonical,
+    },
 };
 
 export default function CostOfDelayPage() {

@@ -3,9 +3,15 @@ import Navbar from "@/app/components/layout/Navbar";
 import Footer from "@/app/components/layout/Footer";
 import ELSSCalculator from "@/app/components/calculators/elss-calculator/ELSS-Calculator";
 
+import { pageSeo } from "@/app/seo-config";
+
 export const metadata: Metadata = {
-    title: "ELSS Calculator - BFC Capital",
-    description: "Calculate your tax savings with ELSS investments using BFC Capital's ELSS calculator.",
+    title: pageSeo["/calculators/elss-calculator"]?.title,
+    description: pageSeo["/calculators/elss-calculator"]?.description,
+    keywords: pageSeo["/calculators/elss-calculator"]?.keywords,
+    alternates: {
+        canonical: pageSeo["/calculators/elss-calculator"]?.canonical,
+    },
 };
 
 export default function ELSSCalculatorPage() {

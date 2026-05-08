@@ -8,11 +8,11 @@ import MarriagePlanning from "../../components/calculators/marriage-planning-cal
 
 
 export const metadata: Metadata = {
-    title: pageSeo["/MarriagePlanning"]?.title,
-    description: pageSeo["/MarriagePlanning"]?.description,
-    keywords: pageSeo["/MarriagePlanning"]?.keywords,
+    title: pageSeo["/calculators/marriage-planning-calculator"]?.title,
+    description: pageSeo["/calculators/marriage-planning-calculator"]?.description,
+    keywords: pageSeo["/calculators/marriage-planning-calculator"]?.keywords,
     alternates: {
-        canonical: pageSeo["/MarriagePlanning"]?.canonical,
+        canonical: pageSeo["/calculators/marriage-planning-calculator"]?.canonical,
     },
 };
 

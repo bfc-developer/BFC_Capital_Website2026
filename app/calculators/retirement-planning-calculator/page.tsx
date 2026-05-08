@@ -3,9 +3,15 @@ import Navbar from "@/app/components/layout/Navbar";
 import Footer from "@/app/components/layout/Footer";
 import Retirement from "@/app/components/calculators/retirement-planning-calculator/Retirement-Planning-Calculator";
 
+import { pageSeo } from "@/app/seo-config";
+
 export const metadata: Metadata = {
-    title: "Retirement Planning Calculator - BFC Capital",
-    description: "Plan your golden years with BFC Capital's retirement planning calculator.",
+    title: pageSeo["/calculators/retirement-planning-calculator"]?.title,
+    description: pageSeo["/calculators/retirement-planning-calculator"]?.description,
+    keywords: pageSeo["/calculators/retirement-planning-calculator"]?.keywords,
+    alternates: {
+        canonical: pageSeo["/calculators/retirement-planning-calculator"]?.canonical,
+    },
 };
 
 export default function RetirementPlanningPage() {

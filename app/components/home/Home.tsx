@@ -4,12 +4,6 @@ import { useState, useEffect, useRef } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import {
-  Play,
-  UserPlus,
-  Banknote,
-  Search,
-  PieChart,
-  BarChart,
   ChevronDown,
 } from "lucide-react";
 

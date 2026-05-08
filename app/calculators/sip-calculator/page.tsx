@@ -8,11 +8,11 @@ import Sipcalculators from "@/app/components/calculators/sip-calculator/SIP-Calc
 
 
 export const metadata: Metadata = {
-    title: pageSeo["/about-us"]?.title,
-    description: pageSeo["/about-us"]?.description,
-    keywords: pageSeo["/about-us"]?.keywords,
+    title: pageSeo["/calculators/sip-calculator"]?.title,
+    description: pageSeo["/calculators/sip-calculator"]?.description,
+    keywords: pageSeo["/calculators/sip-calculator"]?.keywords,
     alternates: {
-        canonical: pageSeo["/about-us"]?.canonical,
+        canonical: pageSeo["/calculators/sip-calculator"]?.canonical,
     },
 };
 

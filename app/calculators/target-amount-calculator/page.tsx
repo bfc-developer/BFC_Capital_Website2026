@@ -3,9 +3,15 @@ import Navbar from "@/app/components/layout/Navbar";
 import Footer from "@/app/components/layout/Footer";
 import TargetAmount from "@/app/components/calculators/TargetAmountCalculator/TargetAmount";
 
+import { pageSeo } from "@/app/seo-config";
+
 export const metadata: Metadata = {
-    title: "Target Amount Calculator - BFC Capital",
-    description: "Find out how much you need to save to reach your financial goals with BFC Capital.",
+    title: pageSeo["/calculators/target-amount-calculator"]?.title,
+    description: pageSeo["/calculators/target-amount-calculator"]?.description,
+    keywords: pageSeo["/calculators/target-amount-calculator"]?.keywords,
+    alternates: {
+        canonical: pageSeo["/calculators/target-amount-calculator"]?.canonical,
+    },
 };
 
 export default function TargetAmountCalculatorPage() {

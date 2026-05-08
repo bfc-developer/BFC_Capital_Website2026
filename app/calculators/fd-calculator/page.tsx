@@ -3,9 +3,15 @@ import Navbar from "@/app/components/layout/Navbar";
 import Footer from "@/app/components/layout/Footer";
 import FD from "@/app/components/calculators/FDCalculator/FD";
 
+import { pageSeo } from "@/app/seo-config";
+
 export const metadata: Metadata = {
-    title: "FD Calculator - BFC Capital",
-    description: "Calculate your Fixed Deposit returns with BFC Capital's free FD calculator.",
+    title: pageSeo["/calculators/fd-calculator"]?.title,
+    description: pageSeo["/calculators/fd-calculator"]?.description,
+    keywords: pageSeo["/calculators/fd-calculator"]?.keywords,
+    alternates: {
+        canonical: pageSeo["/calculators/fd-calculator"]?.canonical,
+    },
 };
 
 export default function FDCalculatorPage() {

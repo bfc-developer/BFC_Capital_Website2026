@@ -3,9 +3,15 @@ import Navbar from "@/app/components/layout/Navbar";
 import Footer from "@/app/components/layout/Footer";
 import Lumpsum from "@/app/components/calculators/LumpSumCalculator/Lumpsum";
 
+import { pageSeo } from "@/app/seo-config";
+
 export const metadata: Metadata = {
-    title: "Lump Sum Calculator - BFC Capital",
-    description: "Calculate the future value of your one-time investments with BFC Capital's lump sum calculator.",
+    title: pageSeo["/calculators/lump-sum-calculator"]?.title,
+    description: pageSeo["/calculators/lump-sum-calculator"]?.description,
+    keywords: pageSeo["/calculators/lump-sum-calculator"]?.keywords,
+    alternates: {
+        canonical: pageSeo["/calculators/lump-sum-calculator"]?.canonical,
+    },
 };
 
 export default function LumpSumCalculatorPage() {

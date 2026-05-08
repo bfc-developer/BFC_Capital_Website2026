@@ -3,9 +3,15 @@ import Navbar from "@/app/components/layout/Navbar";
 import Footer from "@/app/components/layout/Footer";
 import EMI from "@/app/components/calculators/EMICalculator/EMI";
 
+import { pageSeo } from "@/app/seo-config";
+
 export const metadata: Metadata = {
-    title: "EMI Calculator - BFC Capital",
-    description: "Plan your loans effectively with BFC Capital's free EMI calculator.",
+    title: pageSeo["/calculators/emi-calculator"]?.title,
+    description: pageSeo["/calculators/emi-calculator"]?.description,
+    keywords: pageSeo["/calculators/emi-calculator"]?.keywords,
+    alternates: {
+        canonical: pageSeo["/calculators/emi-calculator"]?.canonical,
+    },
 };
 
 export default function EMICalculatorPage() {

@@ -7,11 +7,11 @@ import AboutUs from "../components/about-us/AboutUs";
 
 
 export const metadata: Metadata = {
-    title: pageSeo["/about-us"]?.title,
-    description: pageSeo["/about-us"]?.description,
-    keywords: pageSeo["/about-us"]?.keywords,
+    title: pageSeo["/about"]?.title,
+    description: pageSeo["/about"]?.description,
+    keywords: pageSeo["/about"]?.keywords,
     alternates: {
-        canonical: pageSeo["/about-us"]?.canonical,
+        canonical: pageSeo["/about"]?.canonical,
     },
 };
 
