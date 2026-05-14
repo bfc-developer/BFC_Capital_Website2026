@@ -2,7 +2,6 @@ import type { Metadata } from "next";
 import Navbar from "@/app/components/layout/Navbar";
 import Footer from "@/app/components/layout/Footer";
 import CostOfDelay from "@/app/components/calculators/CostofDelayinSIPCalculator/CostOfDelay";
-
 import { pageSeo } from "@/app/seo-config";
 
 export const metadata: Metadata = {
