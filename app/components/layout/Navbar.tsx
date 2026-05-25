@@ -177,33 +177,32 @@ const Navbar = () => {
             {isComplianceOpen && (
               <div className="absolute top-8 left-[-5rem] bg-white shadow-lg border border-gray-100 rounded-md py-2 w-90 z-50 p-4">
                 <div className="px-md-4 mb-2">
-                  <Link href="/about" className={`${isActive("/about") ? "text-[#001EFE]" : "text-[#4B4949]"} font-[500] text-[15px] hover:text-[#001EFE] font-base font-inter transition-colors`}>Investor Charter</Link>
+                  <Link href="/compliances/investor-charter" className={`${isActive("/compliances/investor-charter") ? "text-[#001EFE]" : "text-[#4B4949]"} font-[500] text-[15px] hover:text-[#001EFE] font-base font-inter transition-colors`}>Investor Charter</Link>
 
                 </div>
                 <div className="px-md-4 mb-2">
-                  <Link href="/calculators" className={`${isActive("/calculators") ? "text-[#001EFE]" : "text-[#4B4949]"} font-[500] text-[15px] hover:text-[#001EFE] font-base font-inter transition-colors`}
+                  <Link href="/compliances/grievance-redressal" className={`${isActive("/compliances/grievance-redressal") ? "text-[#001EFE]" : "text-[#4B4949]"} font-[500] text-[15px] hover:text-[#001EFE] font-base font-inter transition-colors`}
                   >Grievance Redressal</Link>
                 </div>
                 <div className="px-md-4 mb-2">
-                  <Link href="/calculators" className={`${isActive("/calculators") ? "text-[#001EFE]" : "text-[#4B4949]"} font-[500] text-[15px] hover:text-[#001EFE] font-base font-inter transition-colors`}
+                  <Link href="/compliances/grievance-mechanism-for-pwd" className={`${isActive("/compliances/grievance-mechanism-for-pwd") ? "text-[#001EFE]" : "text-[#4B4949]"} font-[500] text-[15px] hover:text-[#001EFE] font-base font-inter transition-colors`}
                   >Grievance Mechanism  For PWD</Link>
                 </div>
                 <div className="px-md-4 mb-2">
-                  <Link href="/calculators" className={`${isActive("/calculators") ? "text-[#001EFE]" : "text-[#4B4949]"} font-[500] text-[15px] hover:text-[#001EFE] font-base font-inter transition-colors`}
+                  <Link href="/compliances/disclosures-and-disclaimer" className={`${isActive("/compliances/disclosures-and-disclaimer") ? "text-[#001EFE]" : "text-[#4B4949]"} font-[500] text-[15px] hover:text-[#001EFE] font-base font-inter transition-colors`}
                   >Disclosures and Disclaimer</Link>
                 </div>
                 <div className="px-md-4 mb-2">
-                  <Link href="/career" className={`${isActive("/career") ? "text-[#001EFE]" : "text-[#4B4949]"} font-[500] text-[15px] hover:text-[#001EFE] font-base font-inter transition-colors`}
+                  <Link href="/compliances/investor-education-platforms" className={`${isActive("/compliances/investor-education-platforms") ? "text-[#001EFE]" : "text-[#4B4949]"} font-[500] text-[15px] hover:text-[#001EFE] font-base font-inter transition-colors`}
                   >Investor Education Platforms </Link>
                 </div>
                 <div className="px-md-4 mb-2">
-                  <Link href="/contact-us
-							" className={`${isActive("/contact-us") ? "text-[#001EFE]" : "text-[#4B4949]"} font-[500] text-[15px] hover:text-[#001EFE] font-base font-inter transition-colors`}
+                  <Link href="/compliances/bank-details" className={`${isActive("/compliances/bank-details") ? "text-[#001EFE]" : "text-[#4B4949]"} font-[500] text-[15px] hover:text-[#001EFE] font-base font-inter transition-colors`}
                   >Bank Details
                   </Link>
                 </div>
                 <div className="px-md-4 mb-2">
-                  <Link href="/calculators" className={`${isActive("/calculators") ? "text-[#001EFE]" : "text-[#4B4949]"} font-[500] text-[15px] hover:text-[#001EFE] font-base font-inter transition-colors`}
+                  <Link href="/compliances/refund-and-liability-policy" className={`${isActive("/compliances/refund-and-liability-policy") ? "text-[#001EFE]" : "text-[#4B4949]"} font-[500] text-[15px] hover:text-[#001EFE] font-base font-inter transition-colors`}
                   >Refund and Liability Policy</Link>
                 </div>
               </div>
@@ -357,13 +356,13 @@ const Navbar = () => {
             </button>
             {isComplianceOpen && (
               <div className="pl-4 flex flex-col gap-3 mt-3 animate-in fade-in duration-200 border-l border-gray-100 ml-1">
-                <Link href="/about" className={`${isActive("/about") ? "text-[#001EFE]" : "text-[#4B4949]"} font-[500] text-[14px] hover:text-[#001EFE] font-inter transition-colors`}>Investor Charter</Link>
-                <Link href="/calculators" className={`${isActive("/calculators") ? "text-[#001EFE]" : "text-[#4B4949]"} font-[500] text-[14px] hover:text-[#001EFE] font-inter transition-colors`}>Grievance Redressal</Link>
-                <Link href="/calculators" className={`${isActive("/calculators") ? "text-[#001EFE]" : "text-[#4B4949]"} font-[500] text-[14px] hover:text-[#001EFE] font-inter transition-colors`}>Grievance Mechanism For PWD</Link>
-                <Link href="/calculators" className={`${isActive("/calculators") ? "text-[#001EFE]" : "text-[#4B4949]"} font-[500] text-[14px] hover:text-[#001EFE] font-inter transition-colors`}>Disclosures and Disclaimer</Link>
-                <Link href="/career" className={`${isActive("/career") ? "text-[#001EFE]" : "text-[#4B4949]"} font-[500] text-[14px] hover:text-[#001EFE] font-inter transition-colors`}>Investor Education Platforms</Link>
-                <Link href="/contact-us" className={`${isActive("/contact-us") ? "text-[#001EFE]" : "text-[#4B4949]"} font-[500] text-[14px] hover:text-[#001EFE] font-inter transition-colors`}>Bank Details</Link>
-                <Link href="/calculators" className={`${isActive("/calculators") ? "text-[#001EFE]" : "text-[#4B4949]"} font-[500] text-[14px] hover:text-[#001EFE] font-inter transition-colors`}>Refund and Liability Policy</Link>
+                <Link href="/compliances/investor-charter" className={`${isActive("/compliances/investor-charter") ? "text-[#001EFE]" : "text-[#4B4949]"} font-[500] text-[14px] hover:text-[#001EFE] font-inter transition-colors`}>Investor Charter</Link>
+                <Link href="/compliances/grievance-redressal" className={`${isActive("/compliances/grievance-redressal") ? "text-[#001EFE]" : "text-[#4B4949]"} font-[500] text-[14px] hover:text-[#001EFE] font-inter transition-colors`}>Grievance Redressal</Link>
+                <Link href="/compliances/grievance-mechanism-for-pwd" className={`${isActive("/compliances/grievance-mechanism-for-pwd") ? "text-[#001EFE]" : "text-[#4B4949]"} font-[500] text-[14px] hover:text-[#001EFE] font-inter transition-colors`}>Grievance Mechanism For PWD</Link>
+                <Link href="/compliances/disclosures-and-disclaimer" className={`${isActive("/compliances/disclosures-and-disclaimer") ? "text-[#001EFE]" : "text-[#4B4949]"} font-[500] text-[14px] hover:text-[#001EFE] font-inter transition-colors`}>Disclosures and Disclaimer</Link>
+                <Link href="/compliances/investor-education-platforms" className={`${isActive("/compliances/investor-education-platforms") ? "text-[#001EFE]" : "text-[#4B4949]"} font-[500] text-[14px] hover:text-[#001EFE] font-inter transition-colors`}>Investor Education Platforms</Link>
+                <Link href="/compliances/bank-details" className={`${isActive("/compliances/bank-details") ? "text-[#001EFE]" : "text-[#4B4949]"} font-[500] text-[14px] hover:text-[#001EFE] font-inter transition-colors`}>Bank Details</Link>
+                <Link href="/compliances/refund-and-liability-policy" className={`${isActive("/compliances/refund-and-liability-policy") ? "text-[#001EFE]" : "text-[#4B4949]"} font-[500] text-[14px] hover:text-[#001EFE] font-inter transition-colors`}>Refund and Liability Policy</Link>
               </div>
             )}
           </div>
