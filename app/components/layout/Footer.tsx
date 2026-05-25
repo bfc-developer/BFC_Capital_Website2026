@@ -22,6 +22,8 @@ const Footer = () => {
                                 <h2 className="font-bold uppercase text-[#44475B] text-[19px]">BFC CAPITAL PRIVATE LIMITED</h2>
                                 <div className="text-[14px] md:text-[17px] leading-relaxed lg:leading-6">
                                     <p>SEBI-Registered Investment Adviser: INA000021669</p>
+                                    <p>BSE Enlistment No.: 2414</p>
+                                    <p>CIN of the IA: U67120UP2004PTC028628</p>
                                     <p>Type of Registration: Non-Individual.</p>
                                     <p>Valid till cancellation by SEBI.</p>
                                     <p>AMFI Registration No. ARN-21399</p>
@@ -53,14 +55,12 @@ const Footer = () => {
                             <div className="space-y-1">
                                 <h2 className="font-bold text-[#44475B] text-[17px]">Corresponding SEBI Address:</h2>
                                 <div className="text-[14px] md:text-[17px] leading-relaxed lg:leading-6">
-                                    <p>SEBI Northern Regional Office (Delhi):</p>
-                                    <p>NBCC Complex, Office Tower-1,</p>
-                                    <p>8th Floor, Plate B,</p>
-                                    <p>East Kidwai Nagar,</p>
-                                    <p>New Delhi - 110023.</p>
+                                    <p>SEBI Northern Regional Office (Delhi): NBCC</p>
+                                    <p>Complex, Office Tower–1, 8th Floor, Plate B,</p>
+                                    <p>East Kidwai Nagar, New Delhi – 110023.</p>
                                 </div>
                             </div>
-                            <div className="space-y-1">
+                            {/* <div className="space-y-1">
                                 <h2 className="font-bold text-[#44475B] text-[17px]">
 
                                     SEBI Investor Website:{" "}
@@ -73,7 +73,7 @@ const Footer = () => {
                                         https://investor.sebi.gov.in
                                     </a>
                                 </h2>
-                            </div>
+                            </div> */}
                         </div>
                     </div>
 
@@ -96,12 +96,12 @@ const Footer = () => {
 
                         <div className="flex items-center gap-4">
                             <div className="cursor-pointer hover:scale-110 transition-transform">
-                                <Link href="https://www.instagram.com/bfccapitalpvtltd/" target="_blank" rel="noopener noreferrer">
+                                <Link href=" https://www.instagram.com/bfccapitalpvtltd/?hl=en" target="_blank" rel="noopener noreferrer">
                                     <Image src="/SocialMedia/insta.svg" alt="Instagram" width={36} height={36} className='' />
                                 </Link>
                             </div>
                             <div className="cursor-pointer hover:scale-110 transition-transform">
-                                <Link href="https://x.com/BFCCapital/" target="_blank" rel="noopener noreferrer">
+                                <Link href="https://x.com/BFCCapital" target="_blank" rel="noopener noreferrer">
                                     <Image src="/SocialMedia/twitter.svg" alt="Twitter" width={36} height={36} />
                                 </Link>
                             </div>
@@ -121,7 +121,7 @@ const Footer = () => {
                                 </Link>
                             </div>
                             <div className="cursor-pointer hover:scale-110 transition-transform">
-                                <Link href="https://www.linkedin.com/company/bfccapitalpvtltd" target="_blank" rel="noopener noreferrer">
+                                <Link href=" https://www.linkedin.com/company/bfccapitalpvtltd/" target="_blank" rel="noopener noreferrer">
                                     <Image src="/SocialMedia/LinkedIn.svg" alt="LinkedIn" width={36} height={36} />
                                 </Link>
                             </div>
@@ -135,7 +135,7 @@ const Footer = () => {
 
                     {/* Column 3: Quick Links */}
                     <div className="space-y-6">
-                        <h4 className="text-[20px] font-bold text-[#475569]">Quick Links</h4>
+                        <h2 className="text-[20px] font-bold text-[#475569]">Quick Links</h2>
                         <ul className="space-y-1 text-[14px] md:text-[17px] leading-relaxed lg:leading-6">
                             <li><Link href="/all-mutual-funds" className="hover:text-bfc-blue transition-colors">Mutual Funds</Link></li>
                             <li><Link href="/sif" className="hover:text-bfc-blue transition-colors">SIF</Link></li>
@@ -146,11 +146,22 @@ const Footer = () => {
 
                 </div>
 
+                <div className="space-y-8 mb-4">
+                    <div className="space-y-2">
+                        <p className="text-[17px] font-extrabold uppercase tracking-wide mb-0">Standard warning</p>
+                        <p className="text-[14px] md:text-[17px] leading-relaxed lg:leading-6 text-[#44475B]">
+                            “Investment in securities market are subject to market risks. Read all the related documents carefully before investing.”
+                        </p>
+                    </div>
+
+                </div>
+
                 <div className="space-y-8">
+
                     <div className="space-y-2">
                         <p className="text-[17px] font-extrabold uppercase tracking-wide mb-0">DISCLAIMER</p>
                         <p className="text-[14px] md:text-[17px] leading-relaxed lg:leading-6 text-[#44475B]">
-                            "Investment in securities market are subject to market risks. Read all the related documents carefully before investing."
+                            “Registration granted by SEBI, membership of BSE and certification from NISM in no way guarantee performance of the intermediary or provide any assurance of returns to investors”
                         </p>
                     </div>
 

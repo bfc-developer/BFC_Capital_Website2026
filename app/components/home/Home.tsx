@@ -73,6 +73,7 @@ const HeroSection = () => {
     <section
       {...swipeHandlers}
       className={`relative w-full overflow-hidden transition-all duration-1200 ease-in-out md:min-h-[600px] flex items-center ${activeSlide.type === "app" ? " bg-[linear-gradient(269.9deg,#06A358_24.53%,#001EFE_156.82%)] via-bfc-blue to-bfc-green" : "bg-gradient-to-b from-blue-50 to-white"}`}
+      aria-label="Welcome banner slideshow"
     >
       {/* Background Images for Wealth Slides */}
       {/* Background Images for Wealth Slides */}
@@ -83,6 +84,8 @@ const HeroSection = () => {
               key={index}
               className={`absolute inset-0 transition-opacity duration-[1200ms] ease-in-out pointer-events-none
         ${index === currentSlide ? "opacity-100" : "opacity-0"}`}
+              role="img"
+              aria-label={slide.title + " " + slide.highlight}
             >
               <div
                 className="h-full w-full bg-cover bg-center"
@@ -105,19 +108,16 @@ const HeroSection = () => {
             </h1>
 
             {/* Stats Circles */}
-            <div className="mt-5 md:mt-10 xl:mt-15 flex flex-wrap justify-center gap-4 md:gap-10 xl:gap-15">
-              <div className="flex  flex-col items-center justify-center w-25 h-25 md:w-40 md:h-40 rounded-full border-gradient-blue-green shadow-xl p-1">
+            <div className="mt-5 md:mt-10 xl:mt-15 flex flex-wrap justify-center gap-4 md:gap-10 xl:gap-15" aria-label="BFC Capital key metrics">
+              <div className="flex  flex-col items-center justify-center w-25 h-25 font-inter md:w-40 md:h-40 rounded-full border-gradient-blue-green shadow-xl p-1" aria-label="SEBI Registered Investment Advisor registration number INA000021669">
                 <h3 className="text-[14px] md:text-2xl font-extrabold text-[#44475B] font-inter">
                   SEBI
                 </h3>
-                <p className="text-[9px] md:text-[12px]  pt-1 font-bold text-[#44475B] uppercase tracking-widest leading-tight font-inter">
-                  RIA :
-                </p>
-                <p className="text-[7px] md:text-[12px] text-[#44475B] font-bold uppercase tracking-widest leading-tight font-inter">
-                  INA000021669
+                <p className="text-[7px] md:text-[12px] text-gray-600 font-semibold text-center mt-1 font-inter tracking-wide">
+                  RIA : <br />INA000021669
                 </p>
               </div>
-              <div className="flex  flex-col items-center justify-center w-25 h-25 font-inter md:w-40 md:h-40 rounded-full border-gradient-blue-green shadow-xl p-1">
+              <div className="flex  flex-col items-center justify-center w-25 h-25 font-inter md:w-40 md:h-40 rounded-full border-gradient-blue-green shadow-xl p-1" aria-label="Assets Under Management: 1000+ Crores">
                 <h3 className="text-[14px] md:text-2xl font-extrabold text-[#44475B] font-inter">
                   1000+ Cr.
                 </h3>
@@ -125,7 +125,7 @@ const HeroSection = () => {
                   Assets Under <br /> Management
                 </p>
               </div>
-              <div className="flex  flex-col items-center justify-center w-25 h-25 md:w-40 md:h-40 rounded-full font-inter border-gradient-blue-green shadow-xl p-1">
+              <div className="flex  flex-col items-center justify-center w-25 h-25 md:w-40 md:h-40 rounded-full font-inter border-gradient-blue-green shadow-xl p-1" aria-label="Retail Client Base: 16000+">
                 <h3 className="text-[14px] md:text-2xl font-extrabold text-[#44475B] font-inter">
                   16000+
                 </h3>
@@ -133,7 +133,7 @@ const HeroSection = () => {
                   Retail Client <br /> Base
                 </p>
               </div>
-              <div className="flex  flex-col items-center justify-center font-inter w-25 h-25 md:w-40 md:h-40 rounded-full border-gradient-blue-green shadow-xl p-1">
+              <div className="flex  flex-col items-center justify-center font-inter w-25 h-25 md:w-40 md:h-40 rounded-full border-gradient-blue-green shadow-xl p-1" aria-label="Presence in 80+ Cities">
                 <h3 className="text-[14px] md:text-2xl font-extrabold text-[#44475B] font-inter">
                   80+
                 </h3>
@@ -141,7 +141,7 @@ const HeroSection = () => {
                   Cities
                 </p>
               </div>
-              <div className=" flex  flex-col items-center justify-center font-inter w-25 h-25 md:w-40 md:h-40 rounded-full border-gradient-blue-green shadow-xl p-1">
+              <div className=" flex  flex-col items-center justify-center font-inter w-25 h-25 md:w-40 md:h-40 rounded-full border-gradient-blue-green shadow-xl p-1" aria-label="More than 22 wealth managers">
                 <h3 className="text-[14px] md:text-3xl font-extrabold text-[#44475B] font-inter">
                   22+
                 </h3>
@@ -168,33 +168,31 @@ const HeroSection = () => {
                   href="https://play.google.com/store/apps/details?id=com.bfc_mf.prodigy_app"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="inline-block"
+                  className="inline-block transition-all hover:scale-105 active:scale-95 group"
+                  aria-label="Get the Prodigy Pro app on Google Play Store"
                 >
-                  <button className="flex items-center justify-center transition-all hover:scale-105 active:scale-95 group">
-                    <Image
-                      src="/Home/Playstore.svg"
-                      alt="Google Play"
-                      width={160}
-                      height={47}
-                      className="object-contain w-[120px] md:w-full"
-                    />
-                  </button>
+                  <Image
+                    src="/Home/Playstore.svg"
+                    alt="Get it on Google Play Store"
+                    width={160}
+                    height={47}
+                    className="object-contain w-[120px] md:w-full"
+                  />
                 </a>
                 <a
                   href="https://apps.apple.com/in/app/prodigy-pro-mutual-funds-sip/id1575700744"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="inline-block"
+                  className="inline-block transition-all hover:scale-105 active:scale-95 group"
+                  aria-label="Download the Prodigy Pro app on Apple App Store"
                 >
-                  <button className="flex items-center justify-center transition-all hover:scale-105 active:scale-95 group">
-                    <Image
-                      src="/Home/applestore.svg"
-                      alt="App Store"
-                      width={160}
-                      height={47}
-                      className="object-contain w-[120px] md:w-full"
-                    />
-                  </button>
+                  <Image
+                    src="/Home/applestore.svg"
+                    alt="Download on the Apple App Store"
+                    width={160}
+                    height={47}
+                    className="object-contain w-[120px] md:w-full"
+                  />
                 </a>
               </div>
             </div>
@@ -202,7 +200,7 @@ const HeroSection = () => {
               <div className="w-full h-full transform hover:scale-105 transition-transform duration-500">
                 <Image
                   src="/Home/iPhone16Pro.svg"
-                  alt="Prodigy Pro App Mockup"
+                  alt="Prodigy Pro App displaying investment interface on iPhone"
                   width={220}
                   height={260}
                   className="drop-shadow-2xl w-[120px] md:w-[220px] lg:w-[350px] xl:w-[370px]"
@@ -274,6 +272,7 @@ const VideoSection = () => {
         backgroundPosition: "center",
         backgroundRepeat: "no-repeat",
       }}
+      aria-label="Investment video tutorials and guides"
     >
       <div className="container mx-auto px-5 md:px-10 lg:px-20 text-center relative ">
         <h2 className="md:mb-2 font-bold text-[#44475B] text-[20px] md:text-3xl lg:text-5xl font-inter">
@@ -324,7 +323,7 @@ const AdvantageSection = () => {
       desc: (
         <>
           Buy, Track & Sell Mutual Funds on the go with{" "}
-          <Link href="https://app.prodigypro.co.in" className="text-[#001EFE]">
+          <Link href="https://app.prodigypro.co.in" className="text-[#001EFE]" aria-label="PRODIGY Pro online portal">
             PRODIGY Pro
           </Link>{" "}
           - BFC's Mobile App with 3 S benefits: Speed | Safety | Simplicity.
@@ -364,7 +363,7 @@ const AdvantageSection = () => {
   ];
 
   return (
-    <section className="py-5 md:py-15">
+    <section className="py-5 md:py-15" aria-label="BFC Advantage features and benefits">
       <div className="container mx-auto px-5 md:px-10 lg:px-20">
         <div className="mb-10 md:mb-16 text-center">
           <h2 className="font-bold text-[#44475B] text-[20px] md:text-3xl lg:text-5xl">
@@ -383,7 +382,8 @@ const AdvantageSection = () => {
               <div className="relative items-center justify-center mb-[20px]">
                 <Image
                   src={feature.icon}
-                  alt={feature.title}
+                  alt=""
+                  role="presentation"
                   width={80}
                   height={80}
                   className="object-contain w-[40px] sm:w-[50px] md:w-[80px] lg:w-full"
@@ -405,7 +405,7 @@ const AdvantageSection = () => {
 
 const ProcessSection = () => {
   return (
-    <section className=" py-5 md:pt-0 md:pb-10 overflow-hidden">
+    <section className=" py-5 md:pt-0 md:pb-10 overflow-hidden" aria-label="Seamless investor experience layout">
       <div className=" mx-auto text-center">
         <h2 className="mb-6 md:mb-12  font-bold text-[20px] md:text-3xl lg:text-5xl text-[#44475B]">
           A Seamless & User-Friendly Investor Experience
@@ -413,7 +413,7 @@ const ProcessSection = () => {
         <div className="flex justify-center py-4 md:mb-5 items-center">
           <Image
             src="/Home/seemless.svg"
-            alt="Seamless Investor Experience"
+            alt="Flow diagram illustrating the seamless and user-friendly investor registration and investment journey"
             width={100}
             height={250}
             className="w-full h-auto object-contain"
@@ -426,13 +426,13 @@ const ProcessSection = () => {
 
 const AppTrustSection = () => {
   return (
-    <section className="relative w-full bg-[linear-gradient(269.9deg,#06A358_24.53%,#001EFE_156.82%)] pb-3 lg:pb-0 sm:py-3 md:py-5 lg:py-0 overflow-hidden items-center">
+    <section className="relative w-full bg-[linear-gradient(269.9deg,#06A358_24.53%,#001EFE_156.82%)] pb-3 lg:pb-0 sm:py-3 md:py-5 lg:py-0 overflow-hidden items-center" aria-label="Technology and investment experience trust details">
       <div className="container mx-auto px-4 flex flex-col md:flex-row items-center justify-between ">
         <div className="md:w-1/2 relative flex justify-center md:justify-start">
           <div className="">
             <Image
               src="/Home/iPhone17.webp"
-              alt="BFC App Trust"
+              alt="iPhone mockups showcasing the user-friendly interface of Prodigy Pro investment app"
               width={1200}
               height={1200}
               className="w-full h-auto object-cover drop-shadow-2xl w-[400px] h-[400px] md:w-[400px] md:h-[400px] lg:w-[575px] lg:h-[575px]"
@@ -455,10 +455,11 @@ const AppTrustSection = () => {
               href="https://play.google.com/store/apps/details?id=com.bfc_mf.prodigy_app"
               target="_blank"
               className="transition-transform hover:scale-105 active:scale-95"
+              aria-label="Get the Prodigy Pro app on Google Play Store"
             >
               <Image
                 src="/Home/Playstore.svg"
-                alt="Get it on Google Play"
+                alt="Get it on Google Play Store"
                 width={160}
                 height={47}
                 className="w-[160px] h-[47px] lg:w-full"
@@ -468,10 +469,11 @@ const AppTrustSection = () => {
               href="https://apps.apple.com/in/app/prodigy-pro-mutual-funds-sip/id1575700744"
               target="_blank"
               className="transition-transform hover:scale-105 active:scale-95"
+              aria-label="Download the Prodigy Pro app on Apple App Store"
             >
               <Image
                 src="/Home/applestore.svg"
-                alt="Download on the App Store"
+                alt="Download on the Apple App Store"
                 width={160}
                 height={47}
                 className="w-[160px] h-[47px] lg:w-full"
@@ -513,7 +515,7 @@ const EventsSection = () => {
   }, []);
 
   return (
-    <section className="py-5 md:py-15">
+    <section className="py-5 md:py-15" aria-label="Quality Circle Programmes and Investor Education">
       <div className="container mx-auto px-5 md:px-10 lg:px-20">
         <div className="mb-5 md:mb-16 text-center">
           <h2 className="font-extrabold text-[#44475B] text-[20px] md:text-3xl lg:text-5xl tracking-tight">
@@ -531,11 +533,11 @@ const EventsSection = () => {
               key={idx}
               className=" overflow-hidden rounded p-3 shadow-md hover:shadow-lg transition-shadow border border-gray-100 flex flex-col h-full bg-[#FFFFFF]"
             >
-              <Link href={event.link}>
+              <Link href={event.link} aria-label={`Read details about event: ${event.title}`}>
                 <div className="w-full bg-gray-200 relative">
                   <img
                     src={event.image}
-                    alt={event.title}
+                    alt={`Cover illustration representing the event ${event.title}`}
                     className="w-full h-[350px] object-cover"
                   />
                 </div>
@@ -562,7 +564,8 @@ const EventsSection = () => {
             href="https://bfccapital.com/event/"
             target="_blank"
             rel="noopener noreferrer"
-            className="px-8 py-2 bg-bfc-green text-white font-base rounded-full hover:bg-green-700 transition-colors relative "
+            className="px-8 py-2 bg-bfc-green text-white font-base rounded-full transition-colors relative "
+            aria-label="See all Quality Circle Programmes"
           >
             See All →
           </a>
@@ -576,32 +579,32 @@ const Credentials = () => {
   const credentialData = [
     {
       logo: "/Home/SEBI.svg",
-      alt: "SEBI",
+      alt: "SEBI Logo",
       title: "SEBI Registered Investment Advisor",
       desc: "INA000021669",
     },
     {
       logo: "/Home/AMFI.svg",
-      alt: "AMFI",
+      alt: "AMFI Logo",
       title: "AMFI Registered Mutual Fund Distributor & SIF Distributor",
       desc: "ARN : 21399",
     },
     {
       logo: "/Home/BSE.svg",
-      alt: "BSE",
+      alt: "BSE Logo",
       title: "BSE Registered Mutual Fund Distributor",
       desc: "Member Id : 39180",
     },
     {
       logo: "/Home/NSE.svg",
-      alt: "NSE",
+      alt: "NSE Logo",
       title: "NSE Registered Mutual Fund Distributor",
       desc: "Member Id : MFS21399",
     },
   ];
 
   return (
-    <section className="py-5 md:py-0 relative ">
+    <section className="py-5 md:py-0 relative " aria-label="Our Credentials and Regulatory Registrations">
       <div className=" mx-auto md:pt-8">
         <div className="bg-[#CFE4F3] rounded-none p-10 md:p-14 shadow-sm">
           <div className="container w-full m-auto">
@@ -657,6 +660,7 @@ const SuccessHighlight = () => {
           background:
             "linear-gradient(269.9deg, #06A358 24.53%, #001EFE 156.82%)",
         }}
+        aria-label="Client success highlight and testimonial video"
       >
         <div className="container mx-auto px-4 max-w-7xl relative">
           <div className="flex flex-col lg:flex-row items-center justify-between gap-12">
@@ -669,12 +673,13 @@ const SuccessHighlight = () => {
                 Wisdom
               </h2>
 
-              <div className="flex items-center gap-1 mb-6 text-yellow-500">
+              <div className="flex items-center gap-1 mb-6 text-yellow-500" aria-label="Rated 5 out of 5 stars">
                 {[1, 2, 3, 4, 5].map((i) => (
                   <svg
                     key={i}
                     className="w-5 h-5 fill-current"
                     viewBox="0 0 20 20"
+                    aria-hidden="true"
                   >
                     <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
                   </svg>
@@ -688,7 +693,7 @@ const SuccessHighlight = () => {
                   confidence and trust, great team, seamless app, and truly
                   positive experience overall.
                 </p>
-                <div className="w-8 h-px bg-white/50"></div>
+                <div className="w-8 h-px bg-white/50" role="presentation" aria-hidden="true"></div>
                 <div>
                   <p className="font-extrabold text-[14px] md:text-[20px]">
                     Mitya Moitra
@@ -697,20 +702,21 @@ const SuccessHighlight = () => {
                 </div>
               </div>
 
-              <button className=" text-bfc-blue px-5 py-2.5 rounded-full font-bold flex items-center gap-2 hover:bg-gray-100 transition-all shadow-md group text-[13px] bg-[#FFFFFF]">
-                <Link href="https://www.youtube.com/playlist?list=PLfOMOlOYTqnXx3yxcrbxx0uMN2_xTt4Rj">
-                  See All
-                  <span className="text-bfc-blue group-hover:translate-x-1 transition-transform">
-                    →
-                  </span>
-                </Link>
+              <button className=" text-bfc-blue px-5 py-2.5 rounded-full font-bold flex items-center gap-2 transition-all shadow-md group text-[13px] bg-[#FFFFFF]" onClick={() => window.open("https://www.youtube.com/playlist?list=PLfOMOlOYTqnXx3yxcrbxx0uMN2_xTt4Rj", "_blank")} aria-label="See all client success stories on YouTube">
+
+                See All
+                <span className="text-bfc-blue group-hover:translate-x-1 transition-transform" aria-hidden="true">
+                  →
+                </span>
+
               </button>
             </div>
             <div className="md:w-1/2 relative order-1 lg:order-2">
               <div className="lg:absolute right-10 top-0 lg:-top-24 opacity-40 z-0 hidden md:block">
                 <Image
                   src="/Home/particle.svg"
-                  alt="dots"
+                  alt=""
+                  role="presentation"
                   width={120}
                   height={120}
                   className="object-contain"
@@ -720,16 +726,16 @@ const SuccessHighlight = () => {
                 <div className="relative cursor-pointer">
                   <Image
                     src="/Home/TestimonialHome.svg"
-                    alt="Testimonial Video"
+                    alt="Mitya Moitra sharing experience about BFC Capital and Prodigy Pro"
                     width={120}
                     height={120}
                     className="w-[180px] md:w-[300px] lg:w-[400px] m-auto h-full"
                   />
                   {/* Play Button Overlay */}
-                  <Link href="https://youtube.com/shorts/TD4Sf-Vo-BU?si=TEcAgF1lWsj5Gs6G">
+                  <Link href="https://youtube.com/shorts/TD4Sf-Vo-BU?si=TEcAgF1lWsj5Gs6G" aria-label="Play Mitya Moitra's testimonial video on YouTube">
                     <div className="absolute inset-0 bg-transparent flex items-center justify-center transition-colors transition-all hover:scale-110">
                       <div className="w-10 h-10 md:w-16 md:h-16  rounded-full flex items-center justify-center shadow-2xl group-hover:scale-110 transition-transform">
-                        <Image src="/Home/Vector.svg" alt="play" width={120} height={120} className="w-10 h-10 md:w-16 md:h-16  rounded-full flex items-center justify-center shadow-2xl group-hover:scale-110 transition-transform" />
+                        <Image src="/Home/Vector.svg" alt="Play Video" width={120} height={120} className="w-10 h-10 md:w-16 md:h-16  rounded-full flex items-center justify-center shadow-2xl group-hover:scale-110 transition-transform" />
                       </div>
                     </div>
                   </Link>
@@ -797,7 +803,7 @@ const Team = () => {
     },
   ];
   return (
-    <section className="py-5 md:py-15">
+    <section className="py-5 md:py-15" aria-label="BFC Capital wealth management experts team">
       <div className="container mx-auto px-5 md:px-10 lg:px-20">
         <div className="text-center mb-10 md:mb-24">
           <h2 className="text-[20px] md:text-3xl lg:text-5xl font-extrabold text-[#44475B] mb-4">
@@ -818,7 +824,7 @@ const Team = () => {
               <div className="relative aspect-[3/4] w-full mb-6 overflow-hidden rounded-none shadow-sm transition-all duration-300 group-hover:shadow-lg">
                 <Image
                   src={member.img}
-                  alt={member.name}
+                  alt={`Portrait of ${member.name}, ${member.role}`}
                   fill
                   className="object-cover transition-transform duration-700 group-hover:scale-105"
                 />
@@ -913,7 +919,7 @@ const FAQSection = () => {
   ];
 
   return (
-    <section className=" py-5 md:py-5 pb-10 md:pb-15">
+    <section className=" py-5 md:py-5 pb-10 md:pb-15" aria-label="Frequently Asked Questions">
       <div className="container mx-auto px-5 md:px-10 lg:px-20">
         <div className="text-center mb-5 md:mb-16 px-4">
           <h2 className="text-[20px] md:text-3xl lg:text-5xl font-extrabold text-[#44475B] md:mb-4">
@@ -930,6 +936,8 @@ const FAQSection = () => {
               <button
                 onClick={() => setOpenIndex(openIndex === index ? null : index)}
                 className="w-full py-2 md:py-6 flex items-center justify-between text-left group transition-all"
+                aria-expanded={openIndex === index}
+                aria-controls={`faq-answer-${index}`}
               >
                 <span
                   className={`text-[15px] md:text-[25px] lg:text-xl font-bold transition-colors tracking-tight ${openIndex === index ? "text-[#334155]" : "text-[#334155]/80 group-hover:text-[#334155]"}`}
@@ -938,9 +946,11 @@ const FAQSection = () => {
                 </span>
                 <ChevronDown
                   className={`w-6 h-6 text-[#44475B] transition-transform duration-300 ${openIndex === index ? "rotate-180" : ""}`}
+                  aria-hidden="true"
                 />
               </button>
               <div
+                id={`faq-answer-${index}`}
                 className={`overflow-hidden transition-all text-[#44475B] duration-300 ease-in-out text-[15px] md:text-[17px] leading-5 ${openIndex === index
                   ? "max-h-[500px] opacity-100 pb-8"
                   : "max-h-0 opacity-0"
@@ -956,7 +966,16 @@ const FAQSection = () => {
   );
 };
 
+
 const ComplaintsTable = () => {
+  const [monthYear, setMonthYear] = useState("");
+
+  useEffect(() => {
+    const now = new Date();
+    const lastMonth = new Date(now.getFullYear(), now.getMonth() - 1);
+    setMonthYear(`${lastMonth.toLocaleString("default", { month: "long" })}, ${lastMonth.getFullYear()}`);
+  }, []);
+
   const data = [
     {
       sr: 1,
@@ -991,16 +1010,17 @@ const ComplaintsTable = () => {
   ];
 
   return (
-    <section className="py-5 md:py-0 ">
+    <section className="py-5 md:py-0 " aria-label="SEBI Investor Complaints and Disclosures">
       <div className="container mx-auto px-4">
-        <div className="text-center mb-5 md:mb-16 px-4">
+        <div className="text-center mb-5 md:mb-12 px-4">
           <h2 className="text-[20px] md:text-3xl lg:text-5xl font-extrabold text-[#44475B] tracking-tight">
             Number of Complaints as per SEBI Guidelines
           </h2>
+          <p className="text-[#44475B] mt-4">Data for the month ending {monthYear || "..."}</p>
         </div>
 
         <div className="max-w-6xl mx-auto overflow-x-auto shadow-sm border border-gray-100 rounded-[16px]">
-          <table className="w-full text-center border-collapse">
+          <table className="w-full text-center border-collapse" aria-label="Table summarizing complaints received, pending status, and resolution time as per SEBI Guidelines">
             <thead>
               <tr
                 className="text-[#4D4D4D] border-b border-gray-100"
@@ -1100,38 +1120,25 @@ const ComplaintsTable = () => {
             # Inclusive of complaints pending as on the last day of the month <br />
             ^ Average Resolution time is the sum total of time taken to resolve each complaint in days, in the current month divided by total number of complaints resolved in the current month.
           </p>
-          <Link href="/investor-complaints">
-            <button className="bg-bfc-green text-white px-10 py-3 rounded-full font-bold hover:bg-green-700 transition-all shadow-md active:scale-95 whitespace-nowrap">
-              View More
-            </button>
+          <Link href="/trend-of-monthly-disposal-of-complaints" className="bg-[#024B39] text-white px-10 py-3 rounded-full font-bold transition-all shadow-md active:scale-95 whitespace-nowrap inline-block text-center" aria-label="View trend of monthly disposal of complaints details">
+            View More
           </Link>
         </div>
 
         {/* Investor Charter Section */}
         <div
           className={`transition-all duration-700 overflow-hidden max-h-[1000px] opacity-100 mt-14 mb-12`}
+          aria-label="Compliance Audit Status section"
         >
           <div className="text-center mb-16 relative">
-            <a
-              href="https://www.vivekam.co.in/wp-content/uploads/2025/07/Investment-charter.pdf"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              <h2 className="text-[20px] md:text-3xl lg:text-5xl font-extrabold text-[#44475B] tracking-tight">
-                Compliance Audit Status
-              </h2>
-            </a>
-            {/* <div
-              className="md:w-40 lg:w-64 md:h-1.5 mx-auto rounded-full mt-1 w-20 h-1"
-              style={{
-                background:
-                  "linear-gradient(90deg, #04B488 39.5%, #011EFE 100%)",
-              }}
-            ></div> */}
+
+            <h2 className="text-[20px] md:text-3xl lg:text-5xl font-extrabold text-[#44475B] tracking-tight">
+              Compliance Audit Status
+            </h2>
           </div>
 
           <div className="max-w-6xl mx-auto overflow-x-auto shadow-sm border border-gray-100 rounded-[16px]">
-            <table className="w-full text-center border-collapse">
+            <table className="w-full text-center border-collapse" aria-label="Compliance Audit Status details by Financial Year">
               <thead>
                 <tr
                   className="text-[#4D4D4D] border-b border-gray-100"
@@ -1165,44 +1172,30 @@ const ComplaintsTable = () => {
                 </tr>
               </tbody>
             </table>
-            
+
           </div>
           <div className="max-w-6xl mx-auto mt-8 flex flex-col md:flex-row justify-end items-start md:items-center gap-6 px-4">
-          
-          <Link href="/investor-complaints">
-            <button className="bg-bfc-green text-white px-10 py-3 rounded-full font-bold hover:bg-green-700 transition-all shadow-md active:scale-95 whitespace-nowrap">
+            <Link href="/client-level-segregation" className="bg-[#024B39] text-white px-10 py-3 rounded-full font-bold transition-all shadow-md active:scale-95 whitespace-nowrap inline-block text-center" aria-label="View more client level segregation details">
               View More
-            </button>
-          </Link>
-        </div>
+            </Link>
+          </div>
         </div>
 
 
         {/* Client Level segrigation Report */}
         <div
           className={`transition-all duration-700 overflow-hidden max-h-[1000px] opacity-100 mt-14 mb-12`}
+          aria-label="Client Level Segregation Report section"
         >
           <div className="text-center mb-16 relative">
-            <a
-              href="https://www.vivekam.co.in/wp-content/uploads/2025/07/Investment-charter.pdf"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              <h2 className="text-[20px] md:text-3xl lg:text-5xl font-extrabold text-[#44475B] tracking-tight">
-                Client Level Segregation Report
-              </h2>
-            </a>
-            {/* <div
-              className="md:w-40 lg:w-64 md:h-1.5 mx-auto rounded-full mt-1 w-20 h-1"
-              style={{
-                background:
-                  "linear-gradient(90deg, #04B488 39.5%, #011EFE 100%)",
-              }}
-            ></div> */}
+
+            <h2 className="text-[20px] md:text-3xl lg:text-5xl font-extrabold text-[#44475B] tracking-tight">
+              Client Level Segregation Report
+            </h2>
           </div>
 
           <div className="max-w-6xl mx-auto overflow-x-auto shadow-sm border border-gray-100 rounded-[16px]">
-            <table className="w-full text-center border-collapse">
+            <table className="w-full text-center border-collapse" aria-label="Client Level Segregation Report details by Financial Year">
               <thead>
                 <tr
                   className="text-[#4D4D4D] border-b border-gray-100"
@@ -1236,16 +1229,13 @@ const ComplaintsTable = () => {
                 </tr>
               </tbody>
             </table>
-            
+
           </div>
           <div className="max-w-6xl mx-auto mt-8 flex flex-col md:flex-row justify-end items-start md:items-center gap-6 px-4">
-          
-          <Link href="/investor-complaints">
-            <button className="bg-bfc-green text-white px-10 py-3 rounded-full font-bold hover:bg-green-700 transition-all shadow-md active:scale-95 whitespace-nowrap">
+            <Link href="/investor-complaints" className="bg-[#024B39] text-white px-10 py-3 rounded-full font-bold transition-all shadow-md active:scale-95 whitespace-nowrap inline-block text-center" aria-label="View more details on investor complaints">
               View More
-            </button>
-          </Link>
-        </div>
+            </Link>
+          </div>
         </div>
 
       </div>
@@ -1320,20 +1310,21 @@ const Home = () => {
 
       {/* Beware of Impersonation Popup */}
       {showPopup && (
-        <div className="fixed inset-0 z-[9999] flex items-center justify-center bg-black/60 backdrop-blur-sm px-4 overflow-x-hidden overflow-y-auto">
+        <div className="fixed inset-0 z-[9999] flex items-center justify-center bg-black/60 backdrop-blur-sm px-4 overflow-x-hidden overflow-y-auto" role="dialog" aria-modal="true" aria-labelledby="impersonation-title">
           <div className="relative w-full max-w-3xl bg-[#FFFFFF] p-6 md:p-8 lg:p-10 shadow-2xl rounded-[30px] max-h-[90vh] flex flex-col overflow-x-hidden">
             {/* Close Button */}
-            <div
+            <button
               onClick={() => setShowPopup(false)}
-              className="absolute right-4 top-4 cursor-pointer opacity-60 hover:opacity-100 transition-opacity  z-10"
+              className="absolute right-4 top-4 cursor-pointer opacity-60 hover:opacity-100 transition-opacity z-10 p-2"
+              aria-label="Close impersonation alert dialog"
             >
-              <Image src="/Home/X.svg" alt="Close" width={30} height={30} />
-            </div>
+              <Image src="/Home/X.svg" alt="Close icon" width={30} height={30} />
+            </button>
 
             {/* Content Container - Scrollable with hidden scrollbar */}
             <div className="overflow-y-auto overflow-x-hidden">
               {/* Title */}
-              <h2 className="text-[#44475B] text-2xl md:text-[32px] font-bold mb-2 leading-tight font-inter">
+              <h2 id="impersonation-title" className="text-[#44475B] text-2xl md:text-[32px] font-bold mb-2 leading-tight font-inter">
                 Beware of Impersonation
               </h2>
 
@@ -1574,6 +1565,7 @@ const Home = () => {
                 <button
                   onClick={() => setShowPopup(false)}
                   className="cursor-pointer bg-[#06A358] text-white px-8 py-2 rounded-full font-inter text-sm transition-colors shadow-sm hover:bg-[#058a48]"
+                  aria-label="Acknowledge impersonation warning and close alert dialog"
                 >
                   I Understand
                 </button>

@@ -26,19 +26,19 @@ export default function DownloadJDButton({ base64Data, fileName }: Props) {
             // Create blob URL
             const blobUrl = URL.createObjectURL(blob);
             
-            // Trigger download
-            const link = document.createElement("a");
-            link.href = blobUrl;
-            link.download = fileName;
-            document.body.appendChild(link);
-            link.click();
+            // Open in a new tab directly
+            const newTab = window.open(blobUrl, "_blank");
+            if (newTab) {
+                newTab.focus();
+            } else {
+                alert("Please allow popups for this website to view the Job Description.");
+            }
             
-            // Cleanup
-            document.body.removeChild(link);
-            setTimeout(() => URL.revokeObjectURL(blobUrl), 100);
+            // Cleanup blob URL after a delay
+            setTimeout(() => URL.revokeObjectURL(blobUrl), 5000);
         } catch (error) {
-            console.error("Failed to download JD", error);
-            alert("Failed to download the Job Description. Please try again.");
+            console.error("Failed to open JD", error);
+            alert("Failed to view the Job Description. Please try again.");
         }
     };
 
