@@ -33,7 +33,7 @@ const ClientLevelSegregation = () => {
                             >
                                 <th className="px-6 py-4 text-[#4D4D4D] font-bold text-left">Sr.No.</th>
                                 <th className="px-6 py-4 text-[#4D4D4D] font-bold text-left">Financial Year</th>
-                                <th className="px-6 py-4 text-[#4D4D4D] font-bold text-left">Compliance Audit Status</th>
+                                <th className="px-6 py-4 text-[#4D4D4D] font-bold text-left">Client Level Segregation Report</th>
                                 <th className="px-6 py-4 text-[#4D4D4D] font-bold text-left">Remarks, If any</th>
 
                             </tr>

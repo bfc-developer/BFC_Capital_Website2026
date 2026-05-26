@@ -49,6 +49,24 @@ const ComplaintsTables = () => {
                                     <td className="px-6 py-4 text-[#212121] font-semibold text-left">0</td>
                                 </tr>
                             ))}
+                            <tr
+                                className="text-[#4D4D4D] border-b border-gray-100"
+                                style={{
+                                    background:
+                                        "linear-gradient(270deg, #CFE4F3 0%, #FAFAFA 63.46%)",
+                                }}
+                            >
+                                <td className="py-[10px] text-[13px]"></td>
+                                <td className="px-6 py-4 text-[#4D4D4D] text-left">
+                                    Grand Total
+                                </td>
+                                <td className="px-6 py-4 text-[#4D4D4D] text-left">0</td>
+                                <td className="px-6 py-4 text-[#4D4D4D] text-left">0</td>
+                                <td className="px-6 py-4 text-[#4D4D4D] text-left">0</td>
+                                <td className="px-6 py-4 text-[#4D4D4D] text-left">
+                                    N/A
+                                </td>
+                            </tr>
                         </tbody>
 
                     </table>
@@ -84,6 +102,24 @@ const ComplaintsTables = () => {
                                 <td className="px-6 py-4 text-[#212121] text-left font-semibold">0</td>
                                 <td className="px-6 py-4 text-[#212121] text-left font-semibold">0</td>
                                 <td className="px-6 py-4 text-[#212121] text-left font-semibold">0</td>
+                            </tr>
+                            <tr
+                                className="text-[#4D4D4D] border-b border-gray-100"
+                                style={{
+                                    background:
+                                        "linear-gradient(270deg, #CFE4F3 0%, #FAFAFA 63.46%)",
+                                }}
+                            >
+                                <td className="py-[10px] text-[13px]"></td>
+                                <td className="px-6 py-4 text-[#4D4D4D] text-left">
+                                    Grand Total
+                                </td>
+                                <td className="px-6 py-4 text-[#4D4D4D] text-left">0</td>
+                                <td className="px-6 py-4 text-[#4D4D4D] text-left">0</td>
+                                <td className="px-6 py-4 text-[#4D4D4D] text-left">0</td>
+                                <td className="px-6 py-4 text-[#4D4D4D] text-left">
+                                    N/A
+                                </td>
                             </tr>
                         </tbody>
 

@@ -51,6 +51,18 @@ const Navbar = () => {
     // setIsRiaOpen(false);
   }, [pathname]);
 
+  useEffect(() => {
+    const handleOpenCompliance = () => {
+      setIsComplianceOpen(true);
+      setIsMenuOpen(true);
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    };
+    window.addEventListener("open-navbar-compliance", handleOpenCompliance);
+    return () => {
+      window.removeEventListener("open-navbar-compliance", handleOpenCompliance);
+    };
+  }, []);
+
   const isActive = (path: string) => pathname === path;
   const scrollToTop = () => {
     window.scrollTo({ top: 0, behavior: "smooth" });
@@ -185,7 +197,7 @@ const Navbar = () => {
                   >Grievance Redressal</Link>
                 </div>
                 <div className="px-md-4 mb-2">
-                  <Link href="/compliances/grievance-mechanism-for-pwd" className={`${isActive("/compliances/grievance-mechanism-for-pwd") ? "text-[#001EFE]" : "text-[#4B4949]"} font-[500] text-[15px] hover:text-[#001EFE] font-base font-inter transition-colors`}
+                  <Link href="/compliances/grievance-mechanism-for-PWD" className={`${isActive("/compliances/grievance-mechanism-for-PWD") ? "text-[#001EFE]" : "text-[#4B4949]"} font-[500] text-[15px] hover:text-[#001EFE] font-base font-inter transition-colors`}
                   >Grievance Mechanism  For PWD</Link>
                 </div>
                 <div className="px-md-4 mb-2">
