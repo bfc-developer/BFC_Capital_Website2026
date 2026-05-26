@@ -141,7 +141,7 @@ export default function ContactUsPage() {
                         href="/"
                         className="font-semibold"
                         style={{
-                            background: "linear-gradient(90deg, #04B488 39.5%, #011EFE 100%)",
+                            background: "linear-gradient(90deg, #024B39 39.5%, #011EFE 100%)",
                             WebkitBackgroundClip: "text",
                             WebkitTextFillColor: "transparent",
                             backgroundClip: "text",
@@ -152,7 +152,7 @@ export default function ContactUsPage() {
                     </Link>
                     <svg width="0" height="0">
                         <linearGradient id="chevron-gradient" x1="0" y1="0" x2="1" y2="0">
-                            <stop offset="39.5%" stopColor="#04B488" />
+                            <stop offset="39.5%" stopColor="#024B39" />
                             <stop offset="100%" stopColor="#011EFE" />
                         </linearGradient>
                     </svg>
@@ -162,7 +162,7 @@ export default function ContactUsPage() {
                         style={{ stroke: "url(#chevron-gradient)" }}
                     />
                     <span className="text-[#7A7A7A] font-semibold" style={{
-                        // background: "linear-gradient(90deg, #04B488 39.5%, #011EFE 100%)",
+                        // background: "linear-gradient(90deg, #024B39 39.5%, #011EFE 100%)",
                         // WebkitBackgroundClip: "text",
                         // WebkitTextFillColor: "transparent",
                         // backgroundClip: "text",
@@ -282,7 +282,7 @@ peer-checked:bg-cover ${errors.consent ? 'border-red-500' : 'border-gray-300'}`}
                                 <button
                                     type="submit"
                                     disabled={isSubmitting}
-                                    className={`mt-4 bg-[#04B488] hover:bg-[#008f45] text-white px-8 py-2.5 rounded text-sm font-medium transition-colors flex items-center gap-2 ${isSubmitting ? 'opacity-70 cursor-not-allowed' : ''}`}
+                                    className={`mt-4 bg-[#024B39] hover:bg-[#024B39] text-white px-8 py-2.5 rounded text-sm font-medium transition-colors flex items-center gap-2 ${isSubmitting ? 'opacity-70 cursor-not-allowed' : ''}`}
                                 >
                                     {isSubmitting && (
                                         <svg className="animate-spin h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">

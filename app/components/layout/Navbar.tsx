@@ -269,7 +269,7 @@ const Navbar = () => {
         <div className="hidden xl:flex items-center gap-10 md:gap-10 xl:gap-20">
           <a
             href="https://app.prodigypro.co.in/"
-            className="inline-block px-5 py-1.5 bg-[#024B39] text-white text-sm font-inter rounded-full hover:bg-[#008f45] transition-opacity whitespace-nowrap shadow-md hover:shadow-lg"
+            className="inline-block px-5 py-1.5 bg-[#024B39] text-white text-sm font-inter rounded-full transition-opacity whitespace-nowrap shadow-md hover:shadow-lg"
           >
             Login / Sign-up
           </a>
@@ -422,7 +422,7 @@ const Navbar = () => {
           <div className="mt-4 flex flex-col gap-4">
             <a
               href="https://app.prodigypro.co.in/"
-              className="w-full text-center py-2.5 bg-[#04B488] text-white text-[15px] font-[500] font-inter rounded-full shadow-md hover:bg-[#008f45] transition-all hover:shadow-lg active:scale-95 duration-200"
+              className="w-full text-center py-2.5 bg-[#024B39] text-white text-[15px] font-[500] font-inter rounded-full shadow-md hover:bg-[#024B39] transition-all hover:shadow-lg active:scale-95 duration-200"
             >
               Login / Sign-up
             </a>

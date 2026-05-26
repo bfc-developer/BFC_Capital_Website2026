@@ -93,7 +93,7 @@ export default async function JobDetailsPage({ params }: { params: Promise<{ slu
                         You can send in your resume to <a href="mailto:hrd@bfccapital.com" className="text-[#011EFE]">hrd@bfccapital.com</a>
                     </p>
                     {jdFileBase64 && (
-                        <DownloadJDButton 
+                        <DownloadJDButton
                             base64Data={jdFileBase64}
                             fileName={jdFileName || `${jobRole.replace(/\s+/g, '_')}_JD.pdf`}
                         />
@@ -120,7 +120,7 @@ export default async function JobDetailsPage({ params }: { params: Promise<{ slu
                             href="/"
                             className="font-semibold"
                             style={{
-                                background: "linear-gradient(90deg, #04B488 39.5%, #011EFE 100%)",
+                                background: "linear-gradient(90deg, #024B39 39.5%, #011EFE 100%)",
                                 WebkitBackgroundClip: "text",
                                 WebkitTextFillColor: "transparent",
                                 backgroundClip: "text",
@@ -131,7 +131,7 @@ export default async function JobDetailsPage({ params }: { params: Promise<{ slu
                         </Link>
                         <svg width="0" height="0">
                             <linearGradient id="chevron-gradient" x1="0" y1="0" x2="1" y2="0">
-                                <stop offset="39.5%" stopColor="#04B488" />
+                                <stop offset="39.5%" stopColor="#024B39" />
                                 <stop offset="100%" stopColor="#011EFE" />
                             </linearGradient>
                         </svg>
@@ -144,7 +144,7 @@ export default async function JobDetailsPage({ params }: { params: Promise<{ slu
                             href="/career"
                             className="font-semibold"
                             style={{
-                                background: "linear-gradient(90deg, #04B488 39.5%, #011EFE 100%)",
+                                background: "linear-gradient(90deg, #024B39 39.5%, #011EFE 100%)",
                                 WebkitBackgroundClip: "text",
                                 WebkitTextFillColor: "transparent",
                                 backgroundClip: "text",

@@ -10,7 +10,7 @@ export default function LegalDisclaimer() {
                     href="/"
                     className="font-semibold"
                     style={{
-                        background: "linear-gradient(90deg, #04B488 39.5%, #011EFE 100%)",
+                        background: "linear-gradient(90deg, #024B39 39.5%, #011EFE 100%)",
                         WebkitBackgroundClip: "text",
                         WebkitTextFillColor: "transparent",
                         backgroundClip: "text",

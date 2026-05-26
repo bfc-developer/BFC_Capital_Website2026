@@ -91,7 +91,7 @@ export default function BookSessionButton({ buttonText, className }: BookSession
                             <h2
                                 className="text-[28px] md:text-[40px] font-bold mb-3 leading-tight inline-block"
                                 style={{
-                                    background: "linear-gradient(90deg, #04B488 39.5%, #011EFE 100%)",
+                                    background: "linear-gradient(90deg, #024B39 39.5%, #011EFE 100%)",
                                     WebkitBackgroundClip: "text",
                                     WebkitTextFillColor: "transparent",
                                     backgroundClip: "text",
@@ -113,7 +113,7 @@ export default function BookSessionButton({ buttonText, className }: BookSession
                                         placeholder="Your name"
                                         value={name}
                                         onChange={(e) => setName(e.target.value)}
-                                        className={`w-full border-b py-2 text-[#44475B] outline-none transition-colors ${errors.name ? 'border-red-500' : 'border-gray-300 focus:border-[#04B488]'}`}
+                                        className={`w-full border-b py-2 text-[#44475B] outline-none transition-colors ${errors.name ? 'border-red-500' : 'border-gray-300 focus:border-[#024B39]'}`}
                                     />
                                     {errors.name && <p className="text-red-500 text-xs mt-1 absolute -bottom-5">{errors.name}</p>}
                                 </div>
@@ -123,7 +123,7 @@ export default function BookSessionButton({ buttonText, className }: BookSession
                                         placeholder="Mobile Number"
                                         value={mobile}
                                         onChange={(e) => setMobile(e.target.value.replace(/\D/g, '').slice(0, 10))}
-                                        className={`w-full border-b py-2 text-[#44475B] outline-none transition-colors ${errors.mobile ? 'border-red-500' : 'border-gray-300 focus:border-[#04B488]'}`}
+                                        className={`w-full border-b py-2 text-[#44475B] outline-none transition-colors ${errors.mobile ? 'border-red-500' : 'border-gray-300 focus:border-[#024B39]'}`}
                                     />
                                     {errors.mobile && <p className="text-red-500 text-xs mt-1 absolute -bottom-5">{errors.mobile}</p>}
                                 </div>
@@ -133,7 +133,7 @@ export default function BookSessionButton({ buttonText, className }: BookSession
                                         placeholder="Email Address"
                                         value={email}
                                         onChange={(e) => setEmail(e.target.value)}
-                                        className={`w-full border-b py-2 text-[#44475B] outline-none transition-colors ${errors.email ? 'border-red-500' : 'border-gray-300 focus:border-[#04B488]'}`}
+                                        className={`w-full border-b py-2 text-[#44475B] outline-none transition-colors ${errors.email ? 'border-red-500' : 'border-gray-300 focus:border-[#024B39]'}`}
                                     />
                                     {errors.email && <p className="text-red-500 text-xs mt-1 absolute -bottom-5">{errors.email}</p>}
                                 </div>
@@ -144,7 +144,7 @@ export default function BookSessionButton({ buttonText, className }: BookSession
                                     <div className="relative flex items-center justify-center mt-1 w-[22px] h-[22px] shrink-0">
                                         <input
                                             type="checkbox"
-                                            className="peer appearance-none w-[22px] h-[22px] rounded-[4px] shrink-0 border-[2px] border-[#04B488] checked:border-transparent transition-all outline-none"
+                                            className="peer appearance-none w-[22px] h-[22px] rounded-[4px] shrink-0 border-[2px] border-[#024B39] checked:border-transparent transition-all outline-none"
                                             checked={consent}
                                             onChange={(e) => setConsent(e.target.checked)}
                                         />
@@ -170,7 +170,7 @@ export default function BookSessionButton({ buttonText, className }: BookSession
                                 <button
                                     type="submit"
                                     disabled={isSubmitting}
-                                    className={`bg-[#04B488] text-white px-10 py-3 rounded-md hover:bg-[#008f45] transition duration-300 font-medium text-[16px] flex items-center gap-2 ${isSubmitting ? 'opacity-70 cursor-not-allowed' : ''}`}
+                                    className={`bg-[#024B39] text-white px-10 py-3 rounded-md hover:bg-[#024B39] transition duration-300 font-medium text-[16px] flex items-center gap-2 ${isSubmitting ? 'opacity-70 cursor-not-allowed' : ''}`}
                                 >
                                     {isSubmitting && (
                                         <svg className="animate-spin h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">

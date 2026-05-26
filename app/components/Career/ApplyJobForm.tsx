@@ -39,10 +39,10 @@ export default function ApplyJobForm({ defaultPost = "" }: ApplyJobFormProps) {
 
     const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
-        
+
         // --- Validation Logic ---
         const { fullName, mobileNumber, emailId, postAppliedFor } = formData;
-        
+
         const nameRegex = /^[A-Za-z\s]+$/;
         if (!fullName.trim() || !nameRegex.test(fullName)) {
             alert("Please enter a valid name (only letters are allowed).");
@@ -143,7 +143,7 @@ export default function ApplyJobForm({ defaultPost = "" }: ApplyJobFormProps) {
                             type="text"
                             placeholder="Full Name"
                             required
-                            className="w-full border-b border-[#D9D9D9] text-[#44475B] py-2 focus:outline-none focus:border-[#04B488] transition-colors placeholder:text-[#44475B]"
+                            className="w-full border-b border-[#D9D9D9] text-[#44475B] py-2 focus:outline-none focus:border-[#024B39] transition-colors placeholder:text-[#44475B]"
                             value={formData.fullName}
                             onChange={(e) => {
                                 const val = e.target.value.replace(/[^A-Za-z\s]/g, "");
@@ -158,7 +158,7 @@ export default function ApplyJobForm({ defaultPost = "" }: ApplyJobFormProps) {
                             type="tel"
                             placeholder="Mobile Number"
                             required
-                            className="w-full border-b border-[#D9D9D9] text-[#44475B] py-2 focus:outline-none focus:border-[#04B488] transition-colors placeholder:text-[#44475B]"
+                            className="w-full border-b border-[#D9D9D9] text-[#44475B] py-2 focus:outline-none focus:border-[#024B39] transition-colors placeholder:text-[#44475B]"
                             value={formData.mobileNumber}
                             onChange={(e) => {
                                 const val = e.target.value.replace(/[^0-9]/g, "").slice(0, 10);
@@ -173,7 +173,7 @@ export default function ApplyJobForm({ defaultPost = "" }: ApplyJobFormProps) {
                             type="email"
                             placeholder="Email ID"
                             required
-                            className="w-full border-b border-[#D9D9D9] text-[#44475B] py-2 focus:outline-none focus:border-[#04B488] transition-colors placeholder:text-[#44475B]"
+                            className="w-full border-b border-[#D9D9D9] text-[#44475B] py-2 focus:outline-none focus:border-[#024B39] transition-colors placeholder:text-[#44475B]"
                             value={formData.emailId}
                             onChange={(e) => setFormData({ ...formData, emailId: e.target.value })}
                         />
@@ -261,7 +261,7 @@ export default function ApplyJobForm({ defaultPost = "" }: ApplyJobFormProps) {
                         disabled={isSubmitting}
                         className={`text-white px-8 py-2.5 rounded hover:opacity-90 transition-opacity font-medium flex items-center gap-2 ${isSubmitting ? 'opacity-70 cursor-not-allowed' : ''}`}
                         style={{
-                            background: "#04B488"
+                            background: "#024B39"
                         }}
                     >
                         {isSubmitting && (

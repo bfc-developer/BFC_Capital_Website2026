@@ -13,7 +13,7 @@ export default function GrievanceRedressal() {
                         href="/"
                         className="font-semibold"
                         style={{
-                            background: "linear-gradient(90deg, #04B488 39.5%, #011EFE 100%)",
+                            background: "linear-gradient(90deg, #024B39 39.5%, #011EFE 100%)",
                             WebkitBackgroundClip: "text",
                             WebkitTextFillColor: "transparent",
                             backgroundClip: "text",
@@ -24,7 +24,7 @@ export default function GrievanceRedressal() {
                     </Link>
                     <svg width="0" height="0">
                         <linearGradient id="chevron-gradient" x1="0" y1="0" x2="1" y2="0">
-                            <stop offset="39.5%" stopColor="#04B488" />
+                            <stop offset="39.5%" stopColor="#024B39" />
                             <stop offset="100%" stopColor="#011EFE" />
                         </linearGradient>
                     </svg>
@@ -33,23 +33,18 @@ export default function GrievanceRedressal() {
                         className="h-4 w-4 mx-2"
                         style={{ stroke: "url(#chevron-gradient)" }}
                     />
-                    <Link
-                        href="/compliances"
+                    <span
                         className="font-semibold"
                         style={{
-                            background: "linear-gradient(90deg, #04B488 39.5%, #011EFE 100%)",
+                            background: "linear-gradient(90deg, #024B39 39.5%, #011EFE 100%)",
                             WebkitBackgroundClip: "text",
                             WebkitTextFillColor: "transparent",
                             backgroundClip: "text",
                             color: "transparent"
                         }}
-                        onClick={(e) => {
-                            e.preventDefault();
-                            window.dispatchEvent(new CustomEvent("open-navbar-compliance"));
-                        }}
                     >
                         Compliances
-                    </Link>
+                    </span>
                     <ChevronRight
                         className="h-4 w-4 mx-2"
                         style={{ stroke: "url(#chevron-gradient)" }}

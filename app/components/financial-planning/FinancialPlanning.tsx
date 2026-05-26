@@ -23,7 +23,7 @@ export default function FinancialPlanning() {
                             </p>
                             <BookSessionButton
                                 buttonText="Book your financial planning session today"
-                                className="bg-[#04B488] text-white px-6 py-2 rounded-md hover:bg-[#008f45] transition duration-300"
+                                className="bg-[#024B39] text-white px-6 py-2 rounded-md hover:bg-[#024B39] transition duration-300"
                             />
                         </div>
                         <div className="text-center py-2 order-1 md:order-2">
@@ -83,7 +83,7 @@ export default function FinancialPlanning() {
                                             className="transition-all duration-300 hover:shadow-md"
                                             style={{ display: 'inline-block', fontSize: '12px', fontWeight: 700, backgroundColor: 'rgba(247, 247, 247, 1)', padding: '6px 14px', borderRadius: '4px', textDecoration: 'none' }}
                                         >
-                                            <span style={{ background: 'linear-gradient(90deg, #04B488 39.5%, #011EFE 100%)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent' }}>
+                                            <span style={{ background: 'linear-gradient(90deg, #024B39 39.5%, #011EFE 100%)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent' }}>
                                                 Start Now
                                             </span>
                                         </Link>
@@ -127,7 +127,7 @@ export default function FinancialPlanning() {
                                             className="transition-all duration-300 hover:shadow-md"
                                             style={{ display: 'inline-block', fontSize: '12px', fontWeight: 700, backgroundColor: 'rgba(247, 247, 247, 1)', padding: '6px 14px', borderRadius: '4px', textDecoration: 'none' }}
                                         >
-                                            <span style={{ background: 'linear-gradient(90deg, #04B488 39.5%, #011EFE 100%)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent' }}>
+                                            <span style={{ background: 'linear-gradient(90deg, #024B39 39.5%, #011EFE 100%)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent' }}>
                                                 Start Now
                                             </span>
                                         </Link>
@@ -172,7 +172,7 @@ export default function FinancialPlanning() {
                                             className="transition-all duration-300 hover:shadow-md"
                                             style={{ display: 'inline-block', fontSize: '12px', fontWeight: 700, backgroundColor: 'rgba(247, 247, 247, 1)', padding: '6px 14px', borderRadius: '4px', textDecoration: 'none' }}
                                         >
-                                            <span style={{ background: 'linear-gradient(90deg, #04B488 39.5%, #011EFE 100%)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent' }}>
+                                            <span style={{ background: 'linear-gradient(90deg, #024B39 39.5%, #011EFE 100%)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent' }}>
                                                 Start Now
                                             </span>
                                         </Link>
@@ -217,7 +217,7 @@ export default function FinancialPlanning() {
                                             className="transition-all duration-300 hover:shadow-md"
                                             style={{ display: 'inline-block', fontSize: '12px', fontWeight: 700, backgroundColor: 'rgba(247, 247, 247, 1)', padding: '6px 14px', borderRadius: '4px', textDecoration: 'none' }}
                                         >
-                                            <span style={{ background: 'linear-gradient(90deg, #04B488 39.5%, #011EFE 100%)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent' }}>
+                                            <span style={{ background: 'linear-gradient(90deg, #024B39 39.5%, #011EFE 100%)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent' }}>
                                                 Start Now
                                             </span>
                                         </Link>
@@ -293,7 +293,7 @@ export default function FinancialPlanning() {
                     </p>
                     <BookSessionButton
                         buttonText="Take the first step now!"
-                        className="bg-[#04B488] text-white px-6 py-2 rounded-md hover:bg-[#008f45] transition duration-300 mt-5"
+                        className="bg-[#024B39] text-white px-6 py-2 rounded-md hover:bg-[#024B39] transition duration-300 mt-5"
                     />
                 </div>
 
@@ -462,7 +462,7 @@ export default function FinancialPlanning() {
                     </p>
                     <BookSessionButton
                         buttonText="Invest now!"
-                        className="bg-[#04B488] text-white px-6 py-2 rounded-md hover:bg-[#008f45] transition duration-300 mt-5"
+                        className="bg-[#024B39] text-white px-6 py-2 rounded-md hover:bg-[#024B39] transition duration-300 mt-5"
                     />
                 </div>
 
@@ -540,7 +540,7 @@ export default function FinancialPlanning() {
                     </p>
                     <BookSessionButton
                         buttonText="Start your investment journey today!"
-                        className="bg-[#04B488] text-white px-6 py-2 rounded-md hover:bg-[#008f45] transition duration-300 mt-5"
+                        className="bg-[#024B39] text-white px-6 py-2 rounded-md hover:bg-[#024B39] transition duration-300 mt-5"
                     />
                 </div>
             </section>

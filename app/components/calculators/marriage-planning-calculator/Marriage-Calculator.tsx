@@ -116,7 +116,7 @@ export default function Marriagecalculators() {
                         href="/"
                         className="font-semibold"
                         style={{
-                            background: "linear-gradient(90deg, #04B488 39.5%, #011EFE 100%)",
+                            background: "linear-gradient(90deg, #024B39 39.5%, #011EFE 100%)",
                             WebkitBackgroundClip: "text",
                             WebkitTextFillColor: "transparent",
                             backgroundClip: "text",
@@ -127,7 +127,7 @@ export default function Marriagecalculators() {
                     </Link>
                     <svg width="0" height="0">
                         <linearGradient id="chevron-gradient" x1="0" y1="0" x2="1" y2="0">
-                            <stop offset="39.5%" stopColor="#04B488" />
+                            <stop offset="39.5%" stopColor="#024B39" />
                             <stop offset="100%" stopColor="#011EFE" />
                         </linearGradient>
                     </svg>
@@ -138,7 +138,7 @@ export default function Marriagecalculators() {
                     />
                     <Link href="/calculators">
                         <span className="text-[#7A7A7A] font-semibold" style={{
-                            background: "linear-gradient(90deg, #04B488 39.5%, #011EFE 100%)",
+                            background: "linear-gradient(90deg, #024B39 39.5%, #011EFE 100%)",
                             WebkitBackgroundClip: "text",
                             WebkitTextFillColor: "transparent",
                             backgroundClip: "text",
@@ -150,7 +150,7 @@ export default function Marriagecalculators() {
                         style={{ stroke: "url(#chevron-gradient)" }}
                     />
                     <span className="text-[#7A7A7A] font-semibold" style={{
-                        // background: "linear-gradient(90deg, #04B488 39.5%, #011EFE 100%)",
+                        // background: "linear-gradient(90deg, #024B39 39.5%, #011EFE 100%)",
                         // WebkitBackgroundClip: "text",
                         // WebkitTextFillColor: "transparent",
                         // backgroundClip: "text",
@@ -361,7 +361,7 @@ export default function Marriagecalculators() {
                                     <button
                                         type="button"
                                         onClick={calculateResults}
-                                        className="bg-[#04B488] text-white py-3 rounded-lg font-semibold hover:bg-[#008f45] transition duration-300 p-[14px]"
+                                        className="bg-[#024B39] text-white py-3 rounded-lg font-semibold hover:bg-[#024B39] transition duration-300 p-[14px] cursor-pointer"
                                     >
                                         Calculate
                                     </button>
@@ -418,7 +418,7 @@ export default function Marriagecalculators() {
                                         href="https://app.prodigypro.co.in/"
                                         className="inline-block py-3 px-6 rounded-lg font-semibold transition bg-[#FFFFFF]"
                                     >
-                                        <span className="bg-gradient-to-r from-[#04B488] to-[#011EFE] bg-clip-text text-transparent font-bold">
+                                        <span className="bg-gradient-to-r from-[#024B39] to-[#011EFE] bg-clip-text text-transparent font-bold">
                                             Invest Now
                                         </span>
                                     </Link>

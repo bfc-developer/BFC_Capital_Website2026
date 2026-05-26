@@ -183,7 +183,7 @@ export default function AllMutualFunds() {
                             </ul>
 
 
-                            <Link href="https://app.prodigypro.co.in/all-mutual-funds" className="bg-[#04B488] text-white font-medium px-8 py-2.5 rounded-md hover:bg-[#008f45] transition duration-300 mt-2">
+                            <Link href="https://app.prodigypro.co.in/all-mutual-funds" className="bg-[#024B39] text-white font-medium px-8 py-2.5 rounded-md transition duration-300 mt-2">
                                 Explore All Funds
                             </Link>
                         </div>
@@ -246,7 +246,7 @@ export default function AllMutualFunds() {
 
                                 <div className="flex flex-col sm:flex-row items-center gap-3 w-full xl:w-auto justify-end">
                                     {/* <div className="relative w-full sm:w-[320px]">
-                                        <input type="text" placeholder="Search for mutual funds to invest..." className="w-full pl-10 pr-4 py-2 border border-gray-200 rounded-md text-[13px] outline-none bg-white focus:border-[#04B488] shadow-sm text-gray-700" />
+                                        <input type="text" placeholder="Search for mutual funds to invest..." className="w-full pl-10 pr-4 py-2 border border-gray-200 rounded-md text-[13px] outline-none bg-white focus:border-[#024B39] shadow-sm text-gray-700" />
                                         <i className="fa-solid fa-magnifying-glass absolute left-3.5 top-1/2 -translate-y-1/2 text-gray-400 text-sm"></i>
                                     </div> */}
                                     <div className="pagination-controls flex gap-2 w-full sm:w-auto justify-center sm:justify-end">
@@ -270,7 +270,7 @@ export default function AllMutualFunds() {
                                         </button>
 
                                         {/* CURRENT PAGE ONLY */}
-                                        <button className="bg-[#04B488] text-white px-3 py-1.5 rounded text-sm">{uiPage}</button>
+                                        <button className="bg-[#024B39] text-white px-3 py-1.5 rounded text-sm">{uiPage}</button>
 
                                         {/* NEXT BUTTON */}
                                         <button
@@ -350,7 +350,7 @@ export default function AllMutualFunds() {
                                                 {/* Return */}
                                                 <div>
                                                     <div className="text-gray-400 text-[10px] md:text-[11px] tracking-wider mb-1 font-medium">Last 3Y</div>
-                                                    <div className="text-[#04B488] font-bold text-[14px] md:text-[15px]">
+                                                    <div className="text-[#024B39] font-bold text-[14px] md:text-[15px]">
                                                         {item.threeYearsReturn
                                                             ? item.threeYearsReturn.toFixed(2)
                                                             : 0}%

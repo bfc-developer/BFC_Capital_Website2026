@@ -23,14 +23,14 @@ export default function ScrollToTop() {
 
     const toggleVisibility = () => {
       const currentScrollY = window.scrollY;
-      
+
       // If scrolling UP and we are not at the very top (e.g. > 300px down)
       if (currentScrollY < lastScrollY && currentScrollY > 300) {
         setIsVisible(true);
       } else {
         setIsVisible(false);
       }
-      
+
       lastScrollY = currentScrollY;
     };
 
@@ -49,13 +49,12 @@ export default function ScrollToTop() {
     <>
       {/* Scroll to top button (mobile only) */}
       <div
-        className={`fixed bottom-6 right-6 z-50 transition-opacity duration-300 md:hidden ${
-          isVisible ? "opacity-100 pointer-events-auto" : "opacity-0 pointer-events-none"
-        }`}
+        className={`fixed bottom-6 right-6 z-50 transition-opacity duration-300 md:hidden ${isVisible ? "opacity-100 pointer-events-auto" : "opacity-0 pointer-events-none"
+          }`}
       >
         <button
           onClick={scrollToTop}
-          className="bg-[#04B488] hover:bg-[#039c75] text-white p-3 rounded-full shadow-lg transition-colors flex items-center justify-center"
+          className="bg-[#024B39] hover:bg-[#039c75] text-white p-3 rounded-full shadow-lg transition-colors flex items-center justify-center"
           aria-label="Scroll to top"
         >
           <ArrowUp size={24} strokeWidth={2.5} />

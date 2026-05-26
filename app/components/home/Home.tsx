@@ -102,7 +102,7 @@ const HeroSection = () => {
       >
         {activeSlide.type === "wealth" ? (
           <div className=" text-center">
-            <h1 className="mx-auto max-w-[350px] md:max-w-5xl font-extrabold leading-tight tracking-tight text-[20px] md:text-3xl lg:text-5xl bg-[linear-gradient(to_right,#04B488_42%,#011EFE_85%)] bg-clip-text text-transparent pb-2 font-inter">
+            <h1 className="mx-auto max-w-[350px] md:max-w-5xl font-extrabold leading-tight tracking-tight text-[20px] md:text-3xl lg:text-5xl bg-[linear-gradient(to_right,#024B39_42%,#011EFE_85%)] bg-clip-text text-transparent pb-2 font-inter">
               {activeSlide.title} <br className="hidden md:block" />
               {activeSlide.highlight}
             </h1>
