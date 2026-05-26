@@ -102,464 +102,464 @@ export default function DisclosureAndDisclaimer() {
                         </thead>
                         <tbody className="divide-y divide-[#E5E7EB] bg-white">
                             <tr>
-                                <td className="px-6 py-4 border-r border-[#E5E7EB] text-[13px] md:text-[14px]">
+                                <td className="px-6 py-4 border-r border-[#E5E7EB] text-[13px] md:text-[14px] font-semibold">
                                     360 ONE Mutual Fund
                                 </td>
-                                <td className="px-6 py-4 border-r border-[#E5E7EB] text-[13px] md:text-[14px] text-center whitespace-nowrap">
+                                <td className="px-6 py-4 border-r border-[#E5E7EB] text-[13px] md:text-[14px] text-center whitespace-nowrap font-semibold">
                                     0.70-1.13
                                 </td>
-                                <td className="px-6 py-4 border-r border-[#E5E7EB] text-[13px] md:text-[14px] text-center whitespace-nowrap">
+                                <td className="px-6 py-4 border-r border-[#E5E7EB] text-[13px] md:text-[14px] text-center whitespace-nowrap font-semibold">
                                     1.15-1.16
                                 </td>
-                                <td className="px-6 py-4 text-[13px] md:text-[14px] text-center whitespace-nowrap">
+                                <td className="px-6 py-4 text-[13px] md:text-[14px] text-center whitespace-nowrap font-semibold">
                                     0.04-0.21
                                 </td>
                             </tr>
                             <tr>
-                                <td className="px-6 py-4 border-r border-[#E5E7EB] text-[13px] md:text-[14px]">
+                                <td className="px-6 py-4 border-r border-[#E5E7EB] text-[13px] md:text-[14px] font-semibold">
                                     Aditya Birla Sun Life Mutual Fund
                                 </td>
-                                <td className="px-6 py-4 border-r border-[#E5E7EB] text-[13px] md:text-[14px] text-center whitespace-nowrap">
+                                <td className="px-6 py-4 border-r border-[#E5E7EB] text-[13px] md:text-[14px] text-center whitespace-nowrap font-semibold">
                                     0.91- 1.37
                                 </td>
-                                <td className="px-6 py-4 border-r border-[#E5E7EB] text-[13px] md:text-[14px] text-center whitespace-nowrap">
+                                <td className="px-6 py-4 border-r border-[#E5E7EB] text-[13px] md:text-[14px] text-center whitespace-nowrap font-semibold">
                                     0.57-1.09
                                 </td>
-                                <td className="px-6 py-4 text-[13px] md:text-[14px] text-center whitespace-nowrap">
+                                <td className="px-6 py-4 text-[13px] md:text-[14px] text-center whitespace-nowrap font-semibold">
                                     0.08-0.90
                                 </td>
                             </tr>
                             <tr>
-                                <td className="px-6 py-4 border-r border-[#E5E7EB] text-[13px] md:text-[14px]">
+                                <td className="px-6 py-4 border-r border-[#E5E7EB] text-[13px] md:text-[14px] font-semibold">
                                     Axis Mutual Fund
                                 </td>
-                                <td className="px-6 py-4 border-r border-[#E5E7EB] text-[13px] md:text-[14px] text-center whitespace-nowrap">
+                                <td className="px-6 py-4 border-r border-[#E5E7EB] text-[13px] md:text-[14px] text-center whitespace-nowrap font-semibold">
                                     0.70-1.20
                                 </td>
-                                <td className="px-6 py-4 border-r border-[#E5E7EB] text-[13px] md:text-[14px] text-center whitespace-nowrap">
+                                <td className="px-6 py-4 border-r border-[#E5E7EB] text-[13px] md:text-[14px] text-center whitespace-nowrap font-semibold">
                                     0.64-1.40
                                 </td>
-                                <td className="px-6 py-4 text-[13px] md:text-[14px] text-center whitespace-nowrap">
+                                <td className="px-6 py-4 text-[13px] md:text-[14px] text-center whitespace-nowrap font-semibold">
                                     0.02-0.89
                                 </td>
                             </tr>
                             <tr>
-                                <td className="px-6 py-4 border-r border-[#E5E7EB] text-[13px] md:text-[14px]">
+                                <td className="px-6 py-4 border-r border-[#E5E7EB] text-[13px] md:text-[14px] font-semibold">
                                     Bajaj Finserv Mutual Fund
                                 </td>
-                                <td className="px-6 py-4 border-r border-[#E5E7EB] text-[13px] md:text-[14px] text-center whitespace-nowrap">
+                                <td className="px-6 py-4 border-r border-[#E5E7EB] text-[13px] md:text-[14px] text-center whitespace-nowrap font-semibold">
                                     1.14-1.81
                                 </td>
-                                <td className="px-6 py-4 border-r border-[#E5E7EB] text-[13px] md:text-[14px] text-center whitespace-nowrap">
+                                <td className="px-6 py-4 border-r border-[#E5E7EB] text-[13px] md:text-[14px] text-center whitespace-nowrap font-semibold">
                                     0.71-1.42
                                 </td>
-                                <td className="px-6 py-4 text-[13px] md:text-[14px] text-center whitespace-nowrap">
+                                <td className="px-6 py-4 text-[13px] md:text-[14px] text-center whitespace-nowrap font-semibold">
                                     0.50-0.75
                                 </td>
                             </tr>
                             <tr>
-                                <td className="px-6 py-4 border-r border-[#E5E7EB] text-[13px] md:text-[14px]">
+                                <td className="px-6 py-4 border-r border-[#E5E7EB] text-[13px] md:text-[14px] font-semibold">
                                     Bandhan Mutual Fund
                                 </td>
-                                <td className="px-6 py-4 border-r border-[#E5E7EB] text-[13px] md:text-[14px] text-center whitespace-nowrap">
+                                <td className="px-6 py-4 border-r border-[#E5E7EB] text-[13px] md:text-[14px] text-center whitespace-nowrap font-semibold">
                                     1.00-1.65
                                 </td>
-                                <td className="px-6 py-4 border-r border-[#E5E7EB] text-[13px] md:text-[14px] text-center whitespace-nowrap">
+                                <td className="px-6 py-4 border-r border-[#E5E7EB] text-[13px] md:text-[14px] text-center whitespace-nowrap font-semibold">
                                     0.75-1.45
                                 </td>
-                                <td className="px-6 py-4 text-[13px] md:text-[14px] text-center whitespace-nowrap">
+                                <td className="px-6 py-4 text-[13px] md:text-[14px] text-center whitespace-nowrap font-semibold">
                                     0.06-1.10
                                 </td>
                             </tr>
                             <tr>
-                                <td className="px-6 py-4 border-r border-[#E5E7EB] text-[13px] md:text-[14px]">
+                                <td className="px-6 py-4 border-r border-[#E5E7EB] text-[13px] md:text-[14px] font-semibold">
                                     Bank Of India Mutual Fund
                                 </td>
-                                <td className="px-6 py-4 border-r border-[#E5E7EB] text-[13px] md:text-[14px] text-center whitespace-nowrap">
+                                <td className="px-6 py-4 border-r border-[#E5E7EB] text-[13px] md:text-[14px] text-center whitespace-nowrap font-semibold">
                                     1.30-1.65
                                 </td>
-                                <td className="px-6 py-4 border-r border-[#E5E7EB] text-[13px] md:text-[14px] text-center whitespace-nowrap">
+                                <td className="px-6 py-4 border-r border-[#E5E7EB] text-[13px] md:text-[14px] text-center whitespace-nowrap font-semibold">
                                     0.65-1.65
                                 </td>
-                                <td className="px-6 py-4 text-[13px] md:text-[14px] text-center whitespace-nowrap">
+                                <td className="px-6 py-4 text-[13px] md:text-[14px] text-center whitespace-nowrap font-semibold">
                                     0.03-0.75
                                 </td>
                             </tr>
                             <tr>
-                                <td className="px-6 py-4 border-r border-[#E5E7EB] text-[13px] md:text-[14px]">
+                                <td className="px-6 py-4 border-r border-[#E5E7EB] text-[13px] md:text-[14px] font-semibold">
                                     Baroda BNP Paribas Mutual Fund
                                 </td>
-                                <td className="px-6 py-4 border-r border-[#E5E7EB] text-[13px] md:text-[14px] text-center whitespace-nowrap">
+                                <td className="px-6 py-4 border-r border-[#E5E7EB] text-[13px] md:text-[14px] text-center whitespace-nowrap font-semibold">
                                     0.90-1.65
                                 </td>
-                                <td className="px-6 py-4 border-r border-[#E5E7EB] text-[13px] md:text-[14px] text-center whitespace-nowrap">
+                                <td className="px-6 py-4 border-r border-[#E5E7EB] text-[13px] md:text-[14px] text-center whitespace-nowrap font-semibold">
                                     0.80-1.85
                                 </td>
-                                <td className="px-6 py-4 text-[13px] md:text-[14px] text-center whitespace-nowrap">
+                                <td className="px-6 py-4 text-[13px] md:text-[14px] text-center whitespace-nowrap font-semibold">
                                     0.10-1.25
                                 </td>
                             </tr>
                             <tr>
-                                <td className="px-6 py-4 border-r border-[#E5E7EB] text-[13px] md:text-[14px]">
+                                <td className="px-6 py-4 border-r border-[#E5E7EB] text-[13px] md:text-[14px] font-semibold">
                                     Canara Robeco Mutual Fund
                                 </td>
-                                <td className="px-6 py-4 border-r border-[#E5E7EB] text-[13px] md:text-[14px] text-center whitespace-nowrap">
+                                <td className="px-6 py-4 border-r border-[#E5E7EB] text-[13px] md:text-[14px] text-center whitespace-nowrap font-semibold">
                                     0.10-1.60
                                 </td>
-                                <td className="px-6 py-4 border-r border-[#E5E7EB] text-[13px] md:text-[14px] text-center whitespace-nowrap">
+                                <td className="px-6 py-4 border-r border-[#E5E7EB] text-[13px] md:text-[14px] text-center whitespace-nowrap font-semibold">
                                     1.25-1.4
                                 </td>
-                                <td className="px-6 py-4 text-[13px] md:text-[14px] text-center whitespace-nowrap">
+                                <td className="px-6 py-4 text-[13px] md:text-[14px] text-center whitespace-nowrap font-semibold">
                                     0.02-1.30
                                 </td>
                             </tr>
                             <tr>
-                                <td className="px-6 py-4 border-r border-[#E5E7EB] text-[13px] md:text-[14px]">
+                                <td className="px-6 py-4 border-r border-[#E5E7EB] text-[13px] md:text-[14px] font-semibold">
                                     DSP Mutual Fund
                                 </td>
-                                <td className="px-6 py-4 border-r border-[#E5E7EB] text-[13px] md:text-[14px] text-center whitespace-nowrap">
+                                <td className="px-6 py-4 border-r border-[#E5E7EB] text-[13px] md:text-[14px] text-center whitespace-nowrap font-semibold">
                                     0.75-1.40
                                 </td>
-                                <td className="px-6 py-4 border-r border-[#E5E7EB] text-[13px] md:text-[14px] text-center whitespace-nowrap">
+                                <td className="px-6 py-4 border-r border-[#E5E7EB] text-[13px] md:text-[14px] text-center whitespace-nowrap font-semibold">
                                     0.70.1.25
                                 </td>
-                                <td className="px-6 py-4 text-[13px] md:text-[14px] text-center whitespace-nowrap">
+                                <td className="px-6 py-4 text-[13px] md:text-[14px] text-center whitespace-nowrap font-semibold">
                                     0.05-0.70
                                 </td>
                             </tr>
                             <tr>
-                                <td className="px-6 py-4 border-r border-[#E5E7EB] text-[13px] md:text-[14px]">
+                                <td className="px-6 py-4 border-r border-[#E5E7EB] text-[13px] md:text-[14px] font-semibold">
                                     Edelweiss Mutual Fund
                                 </td>
-                                <td className="px-6 py-4 border-r border-[#E5E7EB] text-[13px] md:text-[14px] text-center whitespace-nowrap">
+                                <td className="px-6 py-4 border-r border-[#E5E7EB] text-[13px] md:text-[14px] text-center whitespace-nowrap font-semibold">
                                     0.85-1.48
                                 </td>
-                                <td className="px-6 py-4 border-r border-[#E5E7EB] text-[13px] md:text-[14px] text-center whitespace-nowrap">
+                                <td className="px-6 py-4 border-r border-[#E5E7EB] text-[13px] md:text-[14px] text-center whitespace-nowrap font-semibold">
                                     0.93-1.25
                                 </td>
-                                <td className="px-6 py-4 text-[13px] md:text-[14px] text-center whitespace-nowrap">
+                                <td className="px-6 py-4 text-[13px] md:text-[14px] text-center whitespace-nowrap font-semibold">
                                     0.04-0.65
                                 </td>
                             </tr>
                             <tr>
-                                <td className="px-6 py-4 border-r border-[#E5E7EB] text-[13px] md:text-[14px]">
+                                <td className="px-6 py-4 border-r border-[#E5E7EB] text-[13px] md:text-[14px] font-semibold">
                                     Franklin Templeton Mutual Fund
                                 </td>
-                                <td className="px-6 py-4 border-r border-[#E5E7EB] text-[13px] md:text-[14px] text-center whitespace-nowrap">
+                                <td className="px-6 py-4 border-r border-[#E5E7EB] text-[13px] md:text-[14px] text-center whitespace-nowrap font-semibold">
                                     0.37-1.52
                                 </td>
-                                <td className="px-6 py-4 border-r border-[#E5E7EB] text-[13px] md:text-[14px] text-center whitespace-nowrap">
+                                <td className="px-6 py-4 border-r border-[#E5E7EB] text-[13px] md:text-[14px] text-center whitespace-nowrap font-semibold">
                                     0.62-1.29
                                 </td>
-                                <td className="px-6 py-4 text-[13px] md:text-[14px] text-center whitespace-nowrap">
+                                <td className="px-6 py-4 text-[13px] md:text-[14px] text-center whitespace-nowrap font-semibold">
                                     0.04-0.69
                                 </td>
                             </tr>
                             <tr>
-                                <td className="px-6 py-4 border-r border-[#E5E7EB] text-[13px] md:text-[14px]">
+                                <td className="px-6 py-4 border-r border-[#E5E7EB] text-[13px] md:text-[14px] font-semibold">
                                     HDFC Mutual Fund
                                 </td>
-                                <td className="px-6 py-4 border-r border-[#E5E7EB] text-[13px] md:text-[14px] text-center whitespace-nowrap">
+                                <td className="px-6 py-4 border-r border-[#E5E7EB] text-[13px] md:text-[14px] text-center whitespace-nowrap font-semibold">
                                     0.54-1.07
                                 </td>
-                                <td className="px-6 py-4 border-r border-[#E5E7EB] text-[13px] md:text-[14px] text-center whitespace-nowrap">
+                                <td className="px-6 py-4 border-r border-[#E5E7EB] text-[13px] md:text-[14px] text-center whitespace-nowrap font-semibold">
                                     0.42-0.81
                                 </td>
-                                <td className="px-6 py-4 text-[13px] md:text-[14px] text-center whitespace-nowrap">
+                                <td className="px-6 py-4 text-[13px] md:text-[14px] text-center whitespace-nowrap font-semibold">
                                     0.08-0.68
                                 </td>
                             </tr>
                             <tr>
-                                <td className="px-6 py-4 border-r border-[#E5E7EB] text-[13px] md:text-[14px]">
+                                <td className="px-6 py-4 border-r border-[#E5E7EB] text-[13px] md:text-[14px] font-semibold">
                                     Helios Mutual Fund
                                 </td>
-                                <td className="px-6 py-4 border-r border-[#E5E7EB] text-[13px] md:text-[14px] text-center whitespace-nowrap">
+                                <td className="px-6 py-4 border-r border-[#E5E7EB] text-[13px] md:text-[14px] text-center whitespace-nowrap font-semibold">
                                     1.05-1.70
                                 </td>
-                                <td className="px-6 py-4 border-r border-[#E5E7EB] text-[13px] md:text-[14px] text-center whitespace-nowrap">
+                                <td className="px-6 py-4 border-r border-[#E5E7EB] text-[13px] md:text-[14px] text-center whitespace-nowrap font-semibold">
                                     0.53-1.70
                                 </td>
-                                <td className="px-6 py-4 text-[13px] md:text-[14px] text-center whitespace-nowrap">
+                                <td className="px-6 py-4 text-[13px] md:text-[14px] text-center whitespace-nowrap font-semibold">
                                     0.04
                                 </td>
                             </tr>
                             <tr>
-                                <td className="px-6 py-4 border-r border-[#E5E7EB] text-[13px] md:text-[14px]">
+                                <td className="px-6 py-4 border-r border-[#E5E7EB] text-[13px] md:text-[14px] font-semibold">
                                     HSBC Mutual Fund
                                 </td>
-                                <td className="px-6 py-4 border-r border-[#E5E7EB] text-[13px] md:text-[14px] text-center whitespace-nowrap">
+                                <td className="px-6 py-4 border-r border-[#E5E7EB] text-[13px] md:text-[14px] text-center whitespace-nowrap font-semibold">
                                     0.85-1.40
                                 </td>
-                                <td className="px-6 py-4 border-r border-[#E5E7EB] text-[13px] md:text-[14px] text-center whitespace-nowrap">
+                                <td className="px-6 py-4 border-r border-[#E5E7EB] text-[13px] md:text-[14px] text-center whitespace-nowrap font-semibold">
                                     0.54-1.31
                                 </td>
-                                <td className="px-6 py-4 text-[13px] md:text-[14px] text-center whitespace-nowrap">
+                                <td className="px-6 py-4 text-[13px] md:text-[14px] text-center whitespace-nowrap font-semibold">
                                     0.7-0.81
                                 </td>
                             </tr>
                             <tr>
-                                <td className="px-6 py-4 border-r border-[#E5E7EB] text-[13px] md:text-[14px]">
+                                <td className="px-6 py-4 border-r border-[#E5E7EB] text-[13px] md:text-[14px] font-semibold">
                                     ICICI Prudential Mutual Fund
                                 </td>
-                                <td className="px-6 py-4 border-r border-[#E5E7EB] text-[13px] md:text-[14px] text-center whitespace-nowrap">
+                                <td className="px-6 py-4 border-r border-[#E5E7EB] text-[13px] md:text-[14px] text-center whitespace-nowrap font-semibold">
                                     0.36-1.06
                                 </td>
-                                <td className="px-6 py-4 border-r border-[#E5E7EB] text-[13px] md:text-[14px] text-center whitespace-nowrap">
+                                <td className="px-6 py-4 border-r border-[#E5E7EB] text-[13px] md:text-[14px] text-center whitespace-nowrap font-semibold">
                                     0.40-0.76
                                 </td>
-                                <td className="px-6 py-4 text-[13px] md:text-[14px] text-center whitespace-nowrap">
+                                <td className="px-6 py-4 text-[13px] md:text-[14px] text-center whitespace-nowrap font-semibold">
                                     0.04-0.60
                                 </td>
                             </tr>
                             <tr>
-                                <td className="px-6 py-4 border-r border-[#E5E7EB] text-[13px] md:text-[14px]">
+                                <td className="px-6 py-4 border-r border-[#E5E7EB] text-[13px] md:text-[14px] font-semibold">
                                     Invesco Mutual Fund
                                 </td>
-                                <td className="px-6 py-4 border-r border-[#E5E7EB] text-[13px] md:text-[14px] text-center whitespace-nowrap">
+                                <td className="px-6 py-4 border-r border-[#E5E7EB] text-[13px] md:text-[14px] text-center whitespace-nowrap font-semibold">
                                     0.975-1.229
                                 </td>
-                                <td className="px-6 py-4 border-r border-[#E5E7EB] text-[13px] md:text-[14px] text-center whitespace-nowrap">
+                                <td className="px-6 py-4 border-r border-[#E5E7EB] text-[13px] md:text-[14px] text-center whitespace-nowrap font-semibold">
                                     1.017-1.568
                                 </td>
-                                <td className="px-6 py-4 text-[13px] md:text-[14px] text-center whitespace-nowrap">
+                                <td className="px-6 py-4 text-[13px] md:text-[14px] text-center whitespace-nowrap font-semibold">
                                     0.127-0.466
                                 </td>
                             </tr>
                             <tr>
-                                <td className="px-6 py-4 border-r border-[#E5E7EB] text-[13px] md:text-[14px]">
+                                <td className="px-6 py-4 border-r border-[#E5E7EB] text-[13px] md:text-[14px] font-semibold">
                                     ITI Mutual Fund
                                 </td>
-                                <td className="px-6 py-4 border-r border-[#E5E7EB] text-[13px] md:text-[14px] text-center whitespace-nowrap">
+                                <td className="px-6 py-4 border-r border-[#E5E7EB] text-[13px] md:text-[14px] text-center whitespace-nowrap font-semibold">
                                     1.32-1.71
                                 </td>
-                                <td className="px-6 py-4 border-r border-[#E5E7EB] text-[13px] md:text-[14px] text-center whitespace-nowrap">
+                                <td className="px-6 py-4 border-r border-[#E5E7EB] text-[13px] md:text-[14px] text-center whitespace-nowrap font-semibold">
                                     0.71-1.71
                                 </td>
-                                <td className="px-6 py-4 text-[13px] md:text-[14px] text-center whitespace-nowrap">
+                                <td className="px-6 py-4 text-[13px] md:text-[14px] text-center whitespace-nowrap font-semibold">
                                     0.08-0.89
                                 </td>
                             </tr>
                             <tr>
-                                <td className="px-6 py-4 border-r border-[#E5E7EB] text-[13px] md:text-[14px]">
+                                <td className="px-6 py-4 border-r border-[#E5E7EB] text-[13px] md:text-[14px] font-semibold">
                                     JM Financial Mutual Fund
                                 </td>
-                                <td className="px-6 py-4 border-r border-[#E5E7EB] text-[13px] md:text-[14px] text-center whitespace-nowrap">
+                                <td className="px-6 py-4 border-r border-[#E5E7EB] text-[13px] md:text-[14px] text-center whitespace-nowrap font-semibold">
                                     1.19-1.85
                                 </td>
-                                <td className="px-6 py-4 border-r border-[#E5E7EB] text-[13px] md:text-[14px] text-center whitespace-nowrap">
+                                <td className="px-6 py-4 border-r border-[#E5E7EB] text-[13px] md:text-[14px] text-center whitespace-nowrap font-semibold">
                                     0.76-1.45
                                 </td>
-                                <td className="px-6 py-4 text-[13px] md:text-[14px] text-center whitespace-nowrap">
+                                <td className="px-6 py-4 text-[13px] md:text-[14px] text-center whitespace-nowrap font-semibold">
                                     0.45-0.76
                                 </td>
                             </tr>
                             <tr>
-                                <td className="px-6 py-4 border-r border-[#E5E7EB] text-[13px] md:text-[14px]">
+                                <td className="px-6 py-4 border-r border-[#E5E7EB] text-[13px] md:text-[14px] font-semibold">
                                     Kotak Mutual Fund
                                 </td>
-                                <td className="px-6 py-4 border-r border-[#E5E7EB] text-[13px] md:text-[14px] text-center whitespace-nowrap">
+                                <td className="px-6 py-4 border-r border-[#E5E7EB] text-[13px] md:text-[14px] text-center whitespace-nowrap font-semibold">
                                     0.16-1.39
                                 </td>
-                                <td className="px-6 py-4 border-r border-[#E5E7EB] text-[13px] md:text-[14px] text-center whitespace-nowrap">
+                                <td className="px-6 py-4 border-r border-[#E5E7EB] text-[13px] md:text-[14px] text-center whitespace-nowrap font-semibold">
                                     0.86-1
                                 </td>
-                                <td className="px-6 py-4 text-[13px] md:text-[14px] text-center whitespace-nowrap">
+                                <td className="px-6 py-4 text-[13px] md:text-[14px] text-center whitespace-nowrap font-semibold">
                                     0.08-0.9
                                 </td>
                             </tr>
                             <tr>
-                                <td className="px-6 py-4 border-r border-[#E5E7EB] text-[13px] md:text-[14px]">
+                                <td className="px-6 py-4 border-r border-[#E5E7EB] text-[13px] md:text-[14px] font-semibold">
                                     LIC Mutual Fund
                                 </td>
-                                <td className="px-6 py-4 border-r border-[#E5E7EB] text-[13px] md:text-[14px] text-center whitespace-nowrap">
+                                <td className="px-6 py-4 border-r border-[#E5E7EB] text-[13px] md:text-[14px] text-center whitespace-nowrap font-semibold">
                                     1.40-1.80
                                 </td>
-                                <td className="px-6 py-4 border-r border-[#E5E7EB] text-[13px] md:text-[14px] text-center whitespace-nowrap">
+                                <td className="px-6 py-4 border-r border-[#E5E7EB] text-[13px] md:text-[14px] text-center whitespace-nowrap font-semibold">
                                     0.08-0.24
                                 </td>
-                                <td className="px-6 py-4 text-[13px] md:text-[14px] text-center whitespace-nowrap">
+                                <td className="px-6 py-4 text-[13px] md:text-[14px] text-center whitespace-nowrap font-semibold">
                                     0.05-0.75
                                 </td>
                             </tr>
                             <tr>
-                                <td className="px-6 py-4 border-r border-[#E5E7EB] text-[13px] md:text-[14px]">
+                                <td className="px-6 py-4 border-r border-[#E5E7EB] text-[13px] md:text-[14px] font-semibold">
                                     Mahindra Manulife Mutual Fund
                                 </td>
-                                <td className="px-6 py-4 border-r border-[#E5E7EB] text-[13px] md:text-[14px] text-center whitespace-nowrap">
+                                <td className="px-6 py-4 border-r border-[#E5E7EB] text-[13px] md:text-[14px] text-center whitespace-nowrap font-semibold">
                                     1.30-1.85
                                 </td>
-                                <td className="px-6 py-4 border-r border-[#E5E7EB] text-[13px] md:text-[14px] text-center whitespace-nowrap">
+                                <td className="px-6 py-4 border-r border-[#E5E7EB] text-[13px] md:text-[14px] text-center whitespace-nowrap font-semibold">
                                     0.70-1.75
                                 </td>
-                                <td className="px-6 py-4 text-[13px] md:text-[14px] text-center whitespace-nowrap">
+                                <td className="px-6 py-4 text-[13px] md:text-[14px] text-center whitespace-nowrap font-semibold">
                                     0.05-1.20
                                 </td>
                             </tr>
                             <tr>
-                                <td className="px-6 py-4 border-r border-[#E5E7EB] text-[13px] md:text-[14px]">
+                                <td className="px-6 py-4 border-r border-[#E5E7EB] text-[13px] md:text-[14px] font-semibold">
                                     Mirae Asset Mutual Fund
                                 </td>
-                                <td className="px-6 py-4 border-r border-[#E5E7EB] text-[13px] md:text-[14px] text-center whitespace-nowrap">
+                                <td className="px-6 py-4 border-r border-[#E5E7EB] text-[13px] md:text-[14px] text-center whitespace-nowrap font-semibold">
                                     0.51-1.48
                                 </td>
-                                <td className="px-6 py-4 border-r border-[#E5E7EB] text-[13px] md:text-[14px] text-center whitespace-nowrap">
+                                <td className="px-6 py-4 border-r border-[#E5E7EB] text-[13px] md:text-[14px] text-center whitespace-nowrap font-semibold">
                                     0.68-1.27
                                 </td>
-                                <td className="px-6 py-4 text-[13px] md:text-[14px] text-center whitespace-nowrap">
+                                <td className="px-6 py-4 text-[13px] md:text-[14px] text-center whitespace-nowrap font-semibold">
                                     0.08-0.72
                                 </td>
                             </tr>
                             <tr>
-                                <td className="px-6 py-4 border-r border-[#E5E7EB] text-[13px] md:text-[14px]">
+                                <td className="px-6 py-4 border-r border-[#E5E7EB] text-[13px] md:text-[14px] font-semibold">
                                     Motilal Oswal Mutual Fund
                                 </td>
-                                <td className="px-6 py-4 border-r border-[#E5E7EB] text-[13px] md:text-[14px] text-center whitespace-nowrap">
+                                <td className="px-6 py-4 border-r border-[#E5E7EB] text-[13px] md:text-[14px] text-center whitespace-nowrap font-semibold">
                                     0.12-1.65
                                 </td>
-                                <td className="px-6 py-4 border-r border-[#E5E7EB] text-[13px] md:text-[14px] text-center whitespace-nowrap">
+                                <td className="px-6 py-4 border-r border-[#E5E7EB] text-[13px] md:text-[14px] text-center whitespace-nowrap font-semibold">
                                     1.06-1.45
                                 </td>
-                                <td className="px-6 py-4 text-[13px] md:text-[14px] text-center whitespace-nowrap">
+                                <td className="px-6 py-4 text-[13px] md:text-[14px] text-center whitespace-nowrap font-semibold">
                                     0.18-0.94
                                 </td>
                             </tr>
                             <tr>
-                                <td className="px-6 py-4 border-r border-[#E5E7EB] text-[13px] md:text-[14px]">
+                                <td className="px-6 py-4 border-r border-[#E5E7EB] text-[13px] md:text-[14px] font-semibold">
                                     Nippon India Mutual Fund
                                 </td>
-                                <td className="px-6 py-4 border-r border-[#E5E7EB] text-[13px] md:text-[14px] text-center whitespace-nowrap">
+                                <td className="px-6 py-4 border-r border-[#E5E7EB] text-[13px] md:text-[14px] text-center whitespace-nowrap font-semibold">
                                     0.50-1.40
                                 </td>
-                                <td className="px-6 py-4 border-r border-[#E5E7EB] text-[13px] md:text-[14px] text-center whitespace-nowrap">
+                                <td className="px-6 py-4 border-r border-[#E5E7EB] text-[13px] md:text-[14px] text-center whitespace-nowrap font-semibold">
                                     1.00-1.27
                                 </td>
-                                <td className="px-6 py-4 text-[13px] md:text-[14px] text-center whitespace-nowrap">
+                                <td className="px-6 py-4 text-[13px] md:text-[14px] text-center whitespace-nowrap font-semibold">
                                     0.05-1.05
                                 </td>
                             </tr>
                             <tr>
-                                <td className="px-6 py-4 border-r border-[#E5E7EB] text-[13px] md:text-[14px]">
+                                <td className="px-6 py-4 border-r border-[#E5E7EB] text-[13px] md:text-[14px] font-semibold">
                                     PGIM India Mutual Fund
                                 </td>
-                                <td className="px-6 py-4 border-r border-[#E5E7EB] text-[13px] md:text-[14px] text-center whitespace-nowrap">
+                                <td className="px-6 py-4 border-r border-[#E5E7EB] text-[13px] md:text-[14px] text-center whitespace-nowrap font-semibold">
                                     1.18-1.83
                                 </td>
-                                <td className="px-6 py-4 border-r border-[#E5E7EB] text-[13px] md:text-[14px] text-center whitespace-nowrap">
+                                <td className="px-6 py-4 border-r border-[#E5E7EB] text-[13px] md:text-[14px] text-center whitespace-nowrap font-semibold">
                                     0.83-1.83
                                 </td>
-                                <td className="px-6 py-4 text-[13px] md:text-[14px] text-center whitespace-nowrap">
+                                <td className="px-6 py-4 text-[13px] md:text-[14px] text-center whitespace-nowrap font-semibold">
                                     0.01-1.18
                                 </td>
                             </tr>
                             <tr>
-                                <td className="px-6 py-4 border-r border-[#E5E7EB] text-[13px] md:text-[14px]">
+                                <td className="px-6 py-4 border-r border-[#E5E7EB] text-[13px] md:text-[14px] font-semibold">
                                     PPFAS Mutual Fund
                                 </td>
-                                <td className="px-6 py-4 border-r border-[#E5E7EB] text-[13px] md:text-[14px] text-center whitespace-nowrap">
+                                <td className="px-6 py-4 border-r border-[#E5E7EB] text-[13px] md:text-[14px] text-center whitespace-nowrap font-semibold">
                                     0.34-1.00
                                 </td>
-                                <td className="px-6 py-4 border-r border-[#E5E7EB] text-[13px] md:text-[14px] text-center whitespace-nowrap">
+                                <td className="px-6 py-4 border-r border-[#E5E7EB] text-[13px] md:text-[14px] text-center whitespace-nowrap font-semibold">
                                     0.30-0.34
                                 </td>
-                                <td className="px-6 py-4 text-[13px] md:text-[14px] text-center whitespace-nowrap">
+                                <td className="px-6 py-4 text-[13px] md:text-[14px] text-center whitespace-nowrap font-semibold">
                                     0.08
                                 </td>
                             </tr>
                             <tr>
-                                <td className="px-6 py-4 border-r border-[#E5E7EB] text-[13px] md:text-[14px]">
+                                <td className="px-6 py-4 border-r border-[#E5E7EB] text-[13px] md:text-[14px] font-semibold">
                                     Quant Mutual Fund
                                 </td>
-                                <td className="px-6 py-4 border-r border-[#E5E7EB] text-[13px] md:text-[14px] text-center whitespace-nowrap">
+                                <td className="px-6 py-4 border-r border-[#E5E7EB] text-[13px] md:text-[14px] text-center whitespace-nowrap font-semibold">
                                     0.51-0.97
                                 </td>
-                                <td className="px-6 py-4 border-r border-[#E5E7EB] text-[13px] md:text-[14px] text-center whitespace-nowrap">
+                                <td className="px-6 py-4 border-r border-[#E5E7EB] text-[13px] md:text-[14px] text-center whitespace-nowrap font-semibold">
                                     0.81-1.16
                                 </td>
-                                <td className="px-6 py-4 text-[13px] md:text-[14px] text-center whitespace-nowrap">
+                                <td className="px-6 py-4 text-[13px] md:text-[14px] text-center whitespace-nowrap font-semibold">
                                     0.04-0.76
                                 </td>
                             </tr>
                             <tr>
-                                <td className="px-6 py-4 border-r border-[#E5E7EB] text-[13px] md:text-[14px]">
+                                <td className="px-6 py-4 border-r border-[#E5E7EB] text-[13px] md:text-[14px] font-semibold">
                                     SBI Mutual Fund
                                 </td>
-                                <td className="px-6 py-4 border-r border-[#E5E7EB] text-[13px] md:text-[14px] text-center whitespace-nowrap">
+                                <td className="px-6 py-4 border-r border-[#E5E7EB] text-[13px] md:text-[14px] text-center whitespace-nowrap font-semibold">
                                     0.339-1.203
                                 </td>
-                                <td className="px-6 py-4 border-r border-[#E5E7EB] text-[13px] md:text-[14px] text-center whitespace-nowrap">
+                                <td className="px-6 py-4 border-r border-[#E5E7EB] text-[13px] md:text-[14px] text-center whitespace-nowrap font-semibold">
                                     0.466-0.788
                                 </td>
-                                <td className="px-6 py-4 text-[13px] md:text-[14px] text-center whitespace-nowrap">
+                                <td className="px-6 py-4 text-[13px] md:text-[14px] text-center whitespace-nowrap font-semibold">
                                     0.042-0.780
                                 </td>
                             </tr>
                             <tr>
-                                <td className="px-6 py-4 border-r border-[#E5E7EB] text-[13px] md:text-[14px]">
+                                <td className="px-6 py-4 border-r border-[#E5E7EB] text-[13px] md:text-[14px] font-semibold">
                                     Sundaram Mutual Fund
                                 </td>
-                                <td className="px-6 py-4 border-r border-[#E5E7EB] text-[13px] md:text-[14px] text-center whitespace-nowrap">
+                                <td className="px-6 py-4 border-r border-[#E5E7EB] text-[13px] md:text-[14px] text-center whitespace-nowrap font-semibold">
                                     0.51-1.19
                                 </td>
-                                <td className="px-6 py-4 border-r border-[#E5E7EB] text-[13px] md:text-[14px] text-center whitespace-nowrap">
+                                <td className="px-6 py-4 border-r border-[#E5E7EB] text-[13px] md:text-[14px] text-center whitespace-nowrap font-semibold">
                                     1.02-0
                                 </td>
-                                <td className="px-6 py-4 text-[13px] md:text-[14px] text-center whitespace-nowrap">
+                                <td className="px-6 py-4 text-[13px] md:text-[14px] text-center whitespace-nowrap font-semibold">
                                     0.17-1.02
                                 </td>
                             </tr>
                             <tr>
-                                <td className="px-6 py-4 border-r border-[#E5E7EB] text-[13px] md:text-[14px]">
+                                <td className="px-6 py-4 border-r border-[#E5E7EB] text-[13px] md:text-[14px] font-semibold">
                                     Tata Mutual Fund
                                 </td>
-                                <td className="px-6 py-4 border-r border-[#E5E7EB] text-[13px] md:text-[14px] text-center whitespace-nowrap">
+                                <td className="px-6 py-4 border-r border-[#E5E7EB] text-[13px] md:text-[14px] text-center whitespace-nowrap font-semibold">
                                     1.00-1.40
                                 </td>
-                                <td className="px-6 py-4 border-r border-[#E5E7EB] text-[13px] md:text-[14px] text-center whitespace-nowrap">
+                                <td className="px-6 py-4 border-r border-[#E5E7EB] text-[13px] md:text-[14px] text-center whitespace-nowrap font-semibold">
                                     1.05-1.35
                                 </td>
-                                <td className="px-6 py-4 text-[13px] md:text-[14px] text-center whitespace-nowrap">
+                                <td className="px-6 py-4 text-[13px] md:text-[14px] text-center whitespace-nowrap font-semibold">
                                     0.05-0.75
                                 </td>
                             </tr>
                             <tr>
-                                <td className="px-6 py-4 border-r border-[#E5E7EB] text-[13px] md:text-[14px]">
+                                <td className="px-6 py-4 border-r border-[#E5E7EB] text-[13px] md:text-[14px] font-semibold">
                                     Union Mutual Fund
                                 </td>
-                                <td className="px-6 py-4 border-r border-[#E5E7EB] text-[13px] md:text-[14px] text-center whitespace-nowrap">
+                                <td className="px-6 py-4 border-r border-[#E5E7EB] text-[13px] md:text-[14px] text-center whitespace-nowrap font-semibold">
                                     1.11-1.62
                                 </td>
-                                <td className="px-6 py-4 border-r border-[#E5E7EB] text-[13px] md:text-[14px] text-center whitespace-nowrap">
+                                <td className="px-6 py-4 border-r border-[#E5E7EB] text-[13px] md:text-[14px] text-center whitespace-nowrap font-semibold">
                                     0.59-1.44
                                 </td>
-                                <td className="px-6 py-4 text-[13px] md:text-[14px] text-center whitespace-nowrap">
+                                <td className="px-6 py-4 text-[13px] md:text-[14px] text-center whitespace-nowrap font-semibold">
                                     0.08-0.64
                                 </td>
                             </tr>
                             <tr>
-                                <td className="px-6 py-4 border-r border-[#E5E7EB] text-[13px] md:text-[14px]">
+                                <td className="px-6 py-4 border-r border-[#E5E7EB] text-[13px] md:text-[14px] font-semibold">
                                     UTI Mutual Fund
                                 </td>
-                                <td className="px-6 py-4 border-r border-[#E5E7EB] text-[13px] md:text-[14px] text-center whitespace-nowrap">
+                                <td className="px-6 py-4 border-r border-[#E5E7EB] text-[13px] md:text-[14px] text-center whitespace-nowrap font-semibold">
                                     0.95-1.60
                                 </td>
-                                <td className="px-6 py-4 border-r border-[#E5E7EB] text-[13px] md:text-[14px] text-center whitespace-nowrap">
+                                <td className="px-6 py-4 border-r border-[#E5E7EB] text-[13px] md:text-[14px] text-center whitespace-nowrap font-semibold">
                                     0.60-1.30
                                 </td>
-                                <td className="px-6 py-4 text-[13px] md:text-[14px] text-center whitespace-nowrap">
+                                <td className="px-6 py-4 text-[13px] md:text-[14px] text-center whitespace-nowrap font-semibold">
                                     0.30-1.18
                                 </td>
                             </tr>
                             <tr>
-                                <td className="px-6 py-4 border-r border-[#E5E7EB] text-[13px] md:text-[14px]">
+                                <td className="px-6 py-4 border-r border-[#E5E7EB] text-[13px] md:text-[14px] font-semibold">
                                     WhiteOak Capital Mutual Fund
                                 </td>
-                                <td className="px-6 py-4 border-r border-[#E5E7EB] text-[13px] md:text-[14px] text-center whitespace-nowrap">
+                                <td className="px-6 py-4 border-r border-[#E5E7EB] text-[13px] md:text-[14px] text-center whitespace-nowrap font-semibold">
                                     1.05-1.65
                                 </td>
-                                <td className="px-6 py-4 border-r border-[#E5E7EB] text-[13px] md:text-[14px] text-center whitespace-nowrap">
+                                <td className="px-6 py-4 border-r border-[#E5E7EB] text-[13px] md:text-[14px] text-center whitespace-nowrap font-semibold">
                                     0.70-1.50
                                 </td>
-                                <td className="px-6 py-4 text-[13px] md:text-[14px] text-center whitespace-nowrap">
+                                <td className="px-6 py-4 text-[13px] md:text-[14px] text-center whitespace-nowrap font-semibold">
                                     0.10-0.50
                                 </td>
                             </tr>
@@ -597,7 +597,7 @@ export default function DisclosureAndDisclaimer() {
                 {/* Disclaimer Content */}
                 <div className="text-[15px] md:text-[16px] text-[#44475B] leading-relaxed space-y-6 text-justify">
                     <p>
-                        1. All the information on this website - <a href="https://bfccapital.com/" target="_blank" rel="noopener noreferrer" className="text-[#001EFE] hover:underline font-medium">https://bfccapital.com/</a> - is published in good faith and for general information purposes only. BFC Capital does not make any warranties about the completeness, reliability and accuracy of this information. Any action you take upon the information you find on this website (BFC Capital) is strictly at your own risk.
+                        1. All the information on this website - <a href="https://bfccapital.com/" target="_blank" rel="noopener noreferrer" className="">https://bfccapital.com/</a> - is published in good faith and for general information purposes only. BFC Capital does not make any warranties about the completeness, reliability and accuracy of this information. Any action you take upon the information you find on this website (BFC Capital) is strictly at your own risk.
                     </p>
                     <p>
                         2. BFC Capital will not be liable for any losses and/or damages in connection with the use of our website.

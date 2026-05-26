@@ -63,7 +63,7 @@ export default function InvestorCharter() {
                 </h1>
 
                 {/* Content */}
-                <div className="space-y-8 text-[#44475B]">
+                <div className="space-y-4 text-[#44475B]">
                     {/* Section A */}
                     <div className="space-y-4">
                         <h2 className="text-xl md:text-[22px] font-bold text-[#44475B] leading-snug">
@@ -72,13 +72,13 @@ export default function InvestorCharter() {
                         <ul className="list-disc pl-6 space-y-4 text-[15px] md:text-[16px]">
                             <li>
                                 <span className="font-bold">Vision</span>
-                                <div className="mt-1 pl-1 text-[15px] md:text-[16px] text-[#44475B] leading-relaxed">
+                                <div className="pl-1 text-[15px] md:text-[16px] text-[#44475B] leading-relaxed">
                                     Invest with knowledge & safety.
                                 </div>
                             </li>
                             <li>
                                 <span className="font-bold">Mission</span>
-                                <div className="mt-1 pl-1 text-[15px] md:text-[16px] text-[#44475B] leading-relaxed">
+                                <div className="pl-1 text-[15px] md:text-[16px] text-[#44475B] leading-relaxed">
                                     Every investor should be able to invest in right investment products based on their needs,<br />
                                     manage and monitor them to meet their goals, access reports and enjoy financial wellness.
                                 </div>
@@ -91,7 +91,7 @@ export default function InvestorCharter() {
                         <h2 className="text-xl md:text-[22px] font-bold text-[#44475B] leading-snug">
                             B. Details of business transacted by the Investment Adviser with respect to the investors
                         </h2>
-                        <ul className="list-disc pl-6 space-y-3 text-[15px] md:text-[16px] text-[#44475B] leading-relaxed">
+                        <ul className="list-disc pl-6 text-[15px] md:text-[16px] text-[#44475B] leading-relaxed">
                             <li>
                                 To enter into an agreement with the client providing all details including fee details, aspects of Conflict of interest disclosure and maintaining confidentiality of information.
                             </li>
@@ -126,21 +126,21 @@ export default function InvestorCharter() {
                     </div>
 
                     {/* Section C */}
-                    <div className="space-y-4">
-                        <h2 className="text-xl md:text-[22px] font-bold text-[#44475B] leading-snug">
+                    <div className="">
+                        <h2 className="text-xl md:text-[22px] font-bold text-[#44475B] leading-snug mb-4">
                             C. Details of services provided to investors (No Indicative Timelines)
                         </h2>
-                        <ul className="list-disc pl-6 space-y-3 text-[15px] md:text-[16px] text-[#44475B] leading-relaxed">
+                        <ul className="list-disc pl-6 text-[15px] md:text-[16px] text-[#44475B] leading-relaxed">
                             <li>
                                 <span className="font-bold">Onboarding of Clients</span>
-                                <ul className="list-disc pl-6 mt-2 space-y-2">
+                                <ul className="list-disc pl-6">
                                     <li>Sharing of agreement copy</li>
                                     <li>Completing KYC of clients</li>
                                 </ul>
                             </li>
                             <li>
                                 <span className="font-bold">Disclosure to Clients</span>
-                                <ul className="list-disc pl-6 mt-2 space-y-2">
+                                <ul className="list-disc pl-6">
                                     <li>To provide full disclosure about its business, affiliations, compensation in the agreement.</li>
                                     <li>To not access client&apos;s accounts or holdings for offering advice.</li>
                                     <li>To disclose the risk profile to the client.</li>
@@ -176,24 +176,24 @@ export default function InvestorCharter() {
                         </h2>
                         <div className="text-[15px] md:text-[16px] text-[#44475B] leading-relaxed space-y-6">
                             <div>
-                                <p className="mb-4">
+                                <p className="mb-4 px-3">
                                     1. Investor can lodge complaint/grievance against Investment Adviser in the following ways:
                                 </p>
                                 <div className="pl-6 space-y-4">
-                                    <p className="underline font-semibold">
+                                    <p className="underline">
                                         Mode of filing the complaint with investment adviser
                                     </p>
                                     <p>
                                         In case of any grievance / complaint, an investor may approach the concerned Investment Adviser who shall strive to redress the grievance immediately, but not later than 21 days of the receipt of the grievance.
                                     </p>
-                                    <p className="underline font-semibold">
+                                    <p className="underline">
                                         Mode of filing the complaint on SCORES or with Investment Adviser Administration and Supervisory Body (IAASB)
                                     </p>
                                     <div className="space-y-4">
                                         <p>
                                             i. SCORES 2.0 (a web based centralized grievance redressal system of SEBI for facilitating effective grievance redressal in time-bound manner) (<a href="https://scores.sebi.gov.in" target="_blank" rel="noopener noreferrer" className="hover:underline">https://scores.sebi.gov.in</a>)
                                         </p>
-                                        <div className="pl-4 space-y-2">
+                                        <div className="">
                                             <p>
                                                 Two level review for complaint/grievance against investment adviser:
                                             </p>
@@ -231,7 +231,7 @@ export default function InvestorCharter() {
                         <h2 className="text-xl md:text-[22px] font-bold text-[#44475B] leading-snug">
                             E. Rights of investors
                         </h2>
-                        <ul className="list-disc pl-6 space-y-3 text-[15px] md:text-[16px] text-[#44475B] leading-relaxed">
+                        <ul className="list-disc pl-6 text-[15px] md:text-[16px] text-[#44475B] leading-relaxed">
                             <li>Right to Privacy and Confidentiality</li>
                             <li>Right to Transparent Practices</li>
                             <li>Right to fair and Equitable Treatment</li>
@@ -248,7 +248,7 @@ export default function InvestorCharter() {
                             <li>Right to receive clear guidance and caution notice when dealing in Complex and High-Risk Financial Products and Services</li>
                             <li>
                                 Additional Rights to vulnerable consumers
-                                <ul className="pl-6 mt-1 list-none">
+                                <ul className="pl-2 list-none">
                                     <li>- Right to get access to services in a suitable manner even if differently abled</li>
                                 </ul>
                             </li>
@@ -262,20 +262,20 @@ export default function InvestorCharter() {
                         <h2 className="text-xl md:text-[22px] font-bold text-[#44475B] leading-snug">
                             F. Expectations from the investors (Responsibilities of investors)
                         </h2>
-                        <ul className="list-disc pl-6 space-y-6 text-[15px] md:text-[16px] text-[#44475B] leading-relaxed">
-                            <li>
+                        <ul className="list-disc pl-6 text-[15px] md:text-[16px] text-[#44475B] leading-relaxed">
+                            <li className="space-y-2 mb-4">
                                 <span className="font-bold">Do&rsquo;s</span>
-                                <ul className="pl-6 mt-3 space-y-4 list-none">
+                                <ul className="list-none">
                                     <li className="flex items-start">
-                                        <span className="w-8 shrink-0">i.</span>
+                                        <span className="w-6 shrink-0">i.</span>
                                         <span>Always deal with SEBI registered Investment Advisers.</span>
                                     </li>
                                     <li className="flex items-start">
-                                        <span className="w-8 shrink-0">ii.</span>
+                                        <span className="w-6 shrink-0">ii.</span>
                                         <span>Ensure that the Investment Adviser has a valid registration certificate.</span>
                                     </li>
                                     <li className="flex items-start">
-                                        <span className="w-8 shrink-0">iii.</span>
+                                        <span className="w-6 shrink-0">iii.</span>
                                         <div className="space-y-2">
                                             <p>Check for SEBI registration number.</p>
                                             <p className="text-gray-600">
@@ -287,95 +287,95 @@ export default function InvestorCharter() {
                                         </div>
                                     </li>
                                     <li className="flex items-start">
-                                        <span className="w-8 shrink-0">iv.</span>
+                                        <span className="w-6 shrink-0">iv.</span>
                                         <div className="space-y-2">
                                             <p>Pay only advisory fees to your Investment Adviser. Make payments of advisory fees through banking channels only and maintain duly signed receipts mentioning the details of your payments.</p>
                                             <p className="text-gray-600">You may make payment of advisory fees through Centralised Fee Collection Mechanism (CeFCoM) of IAASB if investment adviser has opted for the mechanism.</p>
                                         </div>
                                     </li>
                                     <li className="flex items-start">
-                                        <span className="w-8 shrink-0">v.</span>
+                                        <span className="w-6 shrink-0">v.</span>
                                         <span>Always ask for your risk profiling before accepting investment advice. Insist that Investment Adviser provides advisory strictly on the basis of your risk profiling and take into account available investment alternatives.</span>
                                     </li>
                                     <li className="flex items-start">
-                                        <span className="w-8 shrink-0">vi.</span>
+                                        <span className="w-6 shrink-0">vi.</span>
                                         <span>Ask all relevant questions and clear your doubts with your Investment Adviser before acting on advice.</span>
                                     </li>
                                     <li className="flex items-start">
-                                        <span className="w-8 shrink-0">vii.</span>
+                                        <span className="w-6 shrink-0">vii.</span>
                                         <span>Assess the risk–return profile of the investment as well as the liquidity and safety aspects before making investments.</span>
                                     </li>
                                     <li className="flex items-start">
-                                        <span className="w-8 shrink-0">viii.</span>
+                                        <span className="w-6 shrink-0">viii.</span>
                                         <span>Insist on getting the terms and conditions in writing duly signed and stamped. Read these terms and conditions carefully particularly regarding advisory fees, advisory plans, category of recommendations etc. before dealing with any Investment Adviser.</span>
                                     </li>
                                     <li className="flex items-start">
-                                        <span className="w-8 shrink-0">ix.</span>
+                                        <span className="w-6 shrink-0">ix.</span>
                                         <span>Be vigilant in your transactions.</span>
                                     </li>
                                     <li className="flex items-start">
-                                        <span className="w-8 shrink-0">x.</span>
+                                        <span className="w-6 shrink-0">x.</span>
                                         <span>Approach the appropriate authorities for redressal of your doubts / grievances.</span>
                                     </li>
                                     <li className="flex items-start">
-                                        <span className="w-8 shrink-0">xi.</span>
+                                        <span className="w-6 shrink-0">xi.</span>
                                         <span>Inform SEBI about Investment Advisers offering assured or guaranteed returns.</span>
                                     </li>
                                     <li className="flex items-start">
-                                        <span className="w-8 shrink-0">xii.</span>
+                                        <span className="w-6 shrink-0">xii.</span>
                                         <span>Always be aware that you have the right to exit the service of an Investment Adviser</span>
                                     </li>
                                     <li className="flex items-start">
-                                        <span className="w-8 shrink-0">xiii.</span>
+                                        <span className="w-6 shrink-0">xiii.</span>
                                         <span>Always be aware that you have the right to seek clarifications and clear guidance on advice</span>
                                     </li>
                                     <li className="flex items-start">
-                                        <span className="w-8 shrink-0">xiv.</span>
+                                        <span className="w-6 shrink-0">xiv.</span>
                                         <span>Always be aware that you have the right to provide feedback to the Investment Adviser in respect of services received.</span>
                                     </li>
                                     <li className="flex items-start">
-                                        <span className="w-8 shrink-0">xv.</span>
+                                        <span className="w-6 shrink-0">xv.</span>
                                         <span>Always be aware that you will not be bound by any clause, prescribed by the investment adviser, which is contravening any regulatory provisions.</span>
                                     </li>
                                 </ul>
                             </li>
                             <li>
                                 <span className="font-bold">Don&rsquo;ts</span>
-                                <ul className="pl-6 mt-3 space-y-4 list-none">
+                                <ul className="list-none">
                                     <li className="flex items-start">
-                                        <span className="w-8 shrink-0">i.</span>
+                                        <span className="w-6 shrink-0">i.</span>
                                         <span>Don&rsquo;t fall for stock tips offered under the pretext of investment advice.</span>
                                     </li>
                                     <li className="flex items-start">
-                                        <span className="w-8 shrink-0">ii.</span>
+                                        <span className="w-6 shrink-0">ii.</span>
                                         <span>Do not provide funds for investment to the Investment Adviser.</span>
                                     </li>
                                     <li className="flex items-start">
-                                        <span className="w-8 shrink-0">iii.</span>
+                                        <span className="w-6 shrink-0">iii.</span>
                                         <span>Don&rsquo;t fall for the promise of indicative or exorbitant or assured returns by the Investment Advisers. Don&rsquo;t let greed overcome rational investment decisions.</span>
                                     </li>
                                     <li className="flex items-start">
-                                        <span className="w-8 shrink-0">iv.</span>
+                                        <span className="w-6 shrink-0">iv.</span>
                                         <span>Don&rsquo;t fall prey to luring advertisements or market rumors.</span>
                                     </li>
                                     <li className="flex items-start">
-                                        <span className="w-8 shrink-0">v.</span>
+                                        <span className="w-6 shrink-0">v.</span>
                                         <span>Avoid doing transactions only on the basis of phone calls or messages from any Investment adviser or its representatives.</span>
                                     </li>
                                     <li className="flex items-start">
-                                        <span className="w-8 shrink-0">vi.</span>
+                                        <span className="w-6 shrink-0">vi.</span>
                                         <span>Don&rsquo;t take decisions just because of repeated messages and calls by Investment Advisers.</span>
                                     </li>
                                     <li className="flex items-start">
-                                        <span className="w-8 shrink-0">vii.</span>
+                                        <span className="w-6 shrink-0">vii.</span>
                                         <span>Do not fall prey to limited period discount or other incentive, gifts, etc. offered by Investment advisers.</span>
                                     </li>
                                     <li className="flex items-start">
-                                        <span className="w-8 shrink-0">viii.</span>
+                                        <span className="w-6 shrink-0">viii.</span>
                                         <span>Don&rsquo;t rush into making investments that do not match your risk taking appetite andinvestment goals.</span>
                                     </li>
                                     <li className="flex items-start">
-                                        <span className="w-8 shrink-0">ix.</span>
+                                        <span className="w-6 shrink-0">ix.</span>
                                         <span>Do not share login credential and password of your trading, demat or bank accounts with the Investment Adviser.</span>
                                     </li>
                                 </ul>
@@ -386,4 +386,4 @@ export default function InvestorCharter() {
             </div>
         </>
     );
-}
+}

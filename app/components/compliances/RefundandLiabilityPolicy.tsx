@@ -63,7 +63,7 @@ export default function RefundAndLiabilityPolicy() {
                 </h1>
 
                 {/* Intro Paragraphs */}
-                <div className="text-[15px] md:text-[16px] text-[#44475B] leading-relaxed mb-8 text-justify space-y-4 font-sans">
+                <div className="text-[15px] md:text-[16px] text-[#44475B] leading-relaxed mb-8 text-justify">
                     <p>
                         Either party may terminate the advisory agreement by providing thirty (30) days&apos; prior written notice.
                     </p>
@@ -73,13 +73,13 @@ export default function RefundAndLiabilityPolicy() {
                 </div>
 
                 {/* Sections */}
-                <div className="space-y-8 text-[#44475B] font-sans">
+                <div className="space-y-8 text-[#44475B]">
                     {/* Section 1 */}
-                    <div className="space-y-4">
-                        <h2 className="text-xl md:text-[22px] font-bold text-[#44475B] leading-snug">
+                    <div className="">
+                        <h2 className="text-xl md:text-[22px] font-bold text-[#44475B] leading-snug mb-4">
                             1. Refund Policy
                         </h2>
-                        <ul className="list-disc pl-6 space-y-3 text-[15px] md:text-[16px] leading-relaxed text-justify">
+                        <ul className="list-disc pl-6 text-[15px] md:text-[16px] leading-relaxed text-justify">
                             <li>
                                 Fees shall be charged on a pro-rata basis for the period services have been rendered.
                             </li>
@@ -124,7 +124,7 @@ export default function RefundAndLiabilityPolicy() {
                             <p className="text-[15px] md:text-[16px] leading-relaxed text-justify">
                                 As per applicable regulations, the Investment Adviser shall not be held liable for any losses incurred by the client due to:
                             </p>
-                            <ul className="list-disc pl-6 space-y-3 text-[15px] md:text-[16px] leading-relaxed text-justify">
+                            <ul className="list-disc pl-6 text-[15px] md:text-[16px] leading-relaxed text-justify">
                                 <li>
                                     Market fluctuations
                                 </li>

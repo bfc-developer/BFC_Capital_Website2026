@@ -104,10 +104,10 @@ export default function GrievanceRedressal() {
                                     C.P. 61, Viraj Khand, Gomti Nagar, Lucknow - 226001
                                 </td>
                                 <td className="px-6 py-4 border-r border-[#E5E7EB] text-[13px] md:text-[14px] whitespace-nowrap">
-                                    +917347700888
+                                    <a href="tel:+917347700888">  +917347700888</a>
                                 </td>
                                 <td className="px-6 py-4 border-r border-[#E5E7EB] text-[13px] md:text-[14px]">
-                                    <a href="mailto:customersupport@bfccapital.com" className="hover:underline text-[#001EFE]">
+                                    <a href="mailto:customersupport@bfccapital.com" className="">
                                         customersupport@bfccapital.com
                                     </a>
                                 </td>
@@ -127,10 +127,10 @@ export default function GrievanceRedressal() {
                                     C.P. 61, Viraj Khand, Gomti Nagar, Lucknow - 226001
                                 </td>
                                 <td className="px-6 py-4 border-r border-[#E5E7EB] text-[13px] md:text-[14px] whitespace-nowrap">
-                                    +91 6307937533
+                                    <a href="tel:+916307937533">+91 6307937533</a>
                                 </td>
                                 <td className="px-6 py-4 border-r border-[#E5E7EB] text-[13px] md:text-[14px]">
-                                    <a href="mailto:akashgupta@bfccapital.com" className="hover:underline text-[#001EFE]">
+                                    <a href="mailto:akashgupta@bfccapital.com" className="">
                                         akashgupta@bfccapital.com
                                     </a>
                                 </td>
@@ -150,10 +150,10 @@ export default function GrievanceRedressal() {
                                     C.P. 61, Viraj Khand, Gomti Nagar, Lucknow - 226001
                                 </td>
                                 <td className="px-6 py-4 border-r border-[#E5E7EB] text-[13px] md:text-[14px] whitespace-nowrap">
-                                    +91 8960006601
+                                    <a href="tel:+918960006601">+91 8960006601</a>
                                 </td>
                                 <td className="px-6 py-4 border-r border-[#E5E7EB] text-[13px] md:text-[14px]">
-                                    <a href="mailto:sunilgupta@bfccapital.com" className="hover:underline text-[#001EFE]">
+                                    <a href="mailto:sunilgupta@bfccapital.com" className="">
                                         sunilgupta@bfccapital.com
                                     </a>
                                 </td>
@@ -173,10 +173,10 @@ export default function GrievanceRedressal() {
                                     C.P. 61, Viraj Khand, Gomti Nagar, Lucknow - 226001
                                 </td>
                                 <td className="px-6 py-4 border-r border-[#E5E7EB] text-[13px] md:text-[14px] whitespace-nowrap">
-                                    +91 9792202239
+                                    <a href="tel:+919792202239">+91 9792202239</a>
                                 </td>
                                 <td className="px-6 py-4 border-r border-[#E5E7EB] text-[13px] md:text-[14px]">
-                                    <a href="mailto:sharadbindal@bfccapital.com" className="hover:underline text-[#001EFE]">
+                                    <a href="mailto:sharadbindal@bfccapital.com" className="">
                                         sharadbindal@bfccapital.com
                                     </a>
                                 </td>
@@ -190,25 +190,23 @@ export default function GrievanceRedressal() {
                 </div>
 
                 {/* Footer Paragraphs */}
-                <div className="text-[15px] md:text-[16px] text-[#44475B] leading-relaxed space-y-6">
+                <div className="text-[15px] md:text-[16px] text-[#44475B] leading-relaxed space-y-4">
                     <p className="text-justify">
-                        In case you are not satisfied with our response you can lodge your grievance with SEBI at <a href="https://scores.sebi.gov.in/" target="_blank" rel="noopener noreferrer" className="text-[#001EFE] hover:underline font-medium">https://scores.sebi.gov.in/</a> or you may also write to any of the offices of SEBI. SCORES may be accessed through the SCORES mobile application as well, same can be downloaded from below link:
+                        In case you are not satisfied with our response you can lodge your grievance with SEBI at <a href="https://scores.sebi.gov.in/" target="_blank" rel="noopener noreferrer" className="">https://scores.sebi.gov.in/</a> or you may also write to any of the offices of SEBI. SCORES may be accessed through the SCORES mobile application as well, same can be downloaded from below link:
                     </p>
 
-                    <p className="break-all font-medium">
-                        <a href="https://play.google.com/store/apps/details?id=com.sebi&amp;hl=en_IN" target="_blank" rel="noopener noreferrer" className="text-[#001EFE] hover:underline">
-                            https://play.google.com/store/apps/details?id=com.sebi&amp;hl=en_IN
+                    <p className="break-all">
+                        <a href="https://play.google.com/store/apps/details?id=com.sebi&amp;hl=en_IN" target="_blank" rel="noopener noreferrer" className="">https://play.google.com/store/apps/details?id=com.sebi&amp;hl=en_IN
                         </a>
                     </p>
 
-                    <p className="break-all font-medium">
-                        <a href="https://apps.apple.com/in/app/sebiscores/id647884991" target="_blank" rel="noopener noreferrer" className="text-[#001EFE] hover:underline">
-                            https://apps.apple.com/in/app/sebiscores/id647884991
+                    <p className="break-all">
+                        <a href="https://apps.apple.com/in/app/sebiscores/id647884991" target="_blank" rel="noopener noreferrer" className="">https://apps.apple.com/in/app/sebiscores/id647884991
                         </a>
                     </p>
 
-                    <p className="text-justify pt-4">
-                        ODR Portal could be accessed, if unsatisfied with the response. Your attention is drawn to the SEBI circular no. SEBI/HO/OIAE/OIAE_IAD-1/P/CIR/2023/131 dated July 31, 2023, on &ldquo;Online Resolution of Disputes in the Indian Securities Market&rdquo;. A common Online Dispute Resolution Portal (&ldquo;ODR Portal&rdquo;) which harnesses conciliation and online arbitration for resolution of disputes arising in the Indian Securities Market has been established. ODR Portal can be accessed via the following link - <a href="https://smartodr.in/" target="_blank" rel="noopener noreferrer" className="text-[#001EFE] hover:underline font-medium">https://smartodr.in/</a>
+                    <p className="text-justify">
+                        ODR Portal could be accessed, if unsatisfied with the response. Your attention is drawn to the SEBI circular no. SEBI/HO/OIAE/OIAE_IAD-1/P/CIR/2023/131 dated July 31, 2023, on &ldquo;Online Resolution of Disputes in the Indian Securities Market&rdquo;. A common Online Dispute Resolution Portal (&ldquo;ODR Portal&rdquo;) which harnesses conciliation and online arbitration for resolution of disputes arising in the Indian Securities Market has been established. ODR Portal can be accessed via the following link - <a href="https://smartodr.in/" target="_blank" rel="noopener noreferrer" className="">https://smartodr.in/</a>
                     </p>
                 </div>
             </div>

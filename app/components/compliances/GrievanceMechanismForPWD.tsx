@@ -76,13 +76,13 @@ export default function GrievanceMechanismForPWD() {
                         </h2>
                         <ul className="list-disc pl-6 space-y-2 text-[15px] md:text-[16px] leading-relaxed">
                             <li>
-                                Email: <a href="mailto:akashgupta@bfccapital.com" className="text-[#001EFE] hover:underline font-medium">akashgupta@bfccapital.com</a>
+                                Email: <a href="mailto:akashgupta@bfccapital.com" className="">akashgupta@bfccapital.com</a>
                             </li>
                             <li>
-                                Helpline: +91-6307937533 (operational Mon–Fri, 9:30 AM – 6:00 PM)
+                                Helpline: <a href="tel:+91-6307937533">+91-6307937533</a> (operational Mon–Fri, 9:30 AM – 6:00 PM)
                             </li>
                             <li>
-                                Web Form: Available on <a href="https://www.bfccapital.com/accessibility" target="_blank" rel="noopener noreferrer" className="text-[#001EFE] hover:underline font-medium">www.bfccapital.com/accessibility</a>
+                                Web Form: Available on <a href="https://www.bfccapital.com/accessibility" target="_blank" rel="noopener noreferrer" className="">www.bfccapital.com/accessibility</a>
                             </li>
                         </ul>
                     </div>
@@ -112,10 +112,10 @@ export default function GrievanceMechanismForPWD() {
                         </h2>
                         <ul className="list-disc pl-6 space-y-2 text-[15px] md:text-[16px] leading-relaxed">
                             <li>
-                                Level 1: Compliance Officer Mr. Sunil Kumar Gupta, Email: <a href="mailto:sunilgupta@bfccapital.com" className="text-[#001EFE] hover:underline font-medium">sunilgupta@bfccapital.com</a>, Contact: +91-8960006601
+                                Level 1: Compliance Officer Mr. Sunil Kumar Gupta, Email: <a href="mailto:sunilgupta@bfccapital.com" className="">sunilgupta@bfccapital.com</a>, Contact: <a href="tel:+91-8960006601">+91-8960006601</a>
                             </li>
                             <li>
-                                Level 2: Director Mr. Sharad Bindal, Emaill: <a href="mailto:sharadbindal@bfccapital.com" className="text-[#001EFE] hover:underline font-medium">sharadbindal@bfccapital.com</a>, Contact: +91-9792202239
+                                Level 2: Director Mr. Sharad Bindal, Emaill: <a href="mailto:sharadbindal@bfccapital.com" className="">sharadbindal@bfccapital.com</a>, Contact: <a href="tel:+91-9792202239">+91-9792202239</a>
                             </li>
                         </ul>
                     </div>

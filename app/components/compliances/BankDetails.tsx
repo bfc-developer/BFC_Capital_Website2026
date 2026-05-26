@@ -87,7 +87,7 @@ export default function BankDetails() {
                             </tr>
                         </thead>
                         <tbody className="bg-white">
-                            <tr className="font-bold text-[#000000]">
+                            <tr className="font-semibold text-[#000000]">
                                 <td className="px-6 py-4 border-r border-[#E5E7EB] text-[13px] md:text-[14px]">
                                     BFC CAPITAL PRIVATE LIMITED
                                 </td>
@@ -103,7 +103,7 @@ export default function BankDetails() {
                                 <td className="px-6 py-4 border-r border-[#E5E7EB] text-[13px] md:text-[14px]">
                                     Alambagh, Lucknow
                                 </td>
-                                <td className="px-6 py-4 text-[13px] md:text-[14px] lowercase font-bold text-[#000000]">
+                                <td className="px-6 py-4 border-r border-[#E5E7EB] text-[13px] md:text-[14px]">
                                     bfccapital.ia@valididfc
                                 </td>
                             </tr>
