@@ -177,7 +177,7 @@ export default function AboutUs() {
             <section>
                 <div className="relative w-full aspect-[16/7]">
                     <Image
-                        src="/AboutUs/Discard/group_photo.webp"
+                        src="/AboutUs/group_photo.webp"
                         alt="Group Photo"
                         fill
                         priority
