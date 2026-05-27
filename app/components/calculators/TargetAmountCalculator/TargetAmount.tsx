@@ -136,11 +136,12 @@ export default function TargetAmountCalculator() {
 
                                     {/* Target Amount */}
                                     <div>
-                                        <label className="block text-[#44475B] font-medium text-sm uppercase mb-2">
+                                        <label htmlFor="targetAmount" className="block text-[#44475B] font-medium text-sm uppercase mb-2">
                                             TARGET AMOUNT
                                         </label>
                                         <input
                                             type="number"
+                                            id="targetAmount"
                                             className="w-full border rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500 text-[#44475B]"
                                             value={amount}
                                             min={0}
@@ -172,6 +173,7 @@ export default function TargetAmountCalculator() {
                                             maxLimit={30}
                                             setValue={setTime}
                                             value={time}
+                                            ariaLabel="Investment period in years"
                                         />
 
                                         <div className="flex justify-between text-sm text-[#44475B] mt-2">
@@ -182,11 +184,12 @@ export default function TargetAmountCalculator() {
 
                                     {/* Expected Rate of Return */}
                                     <div>
-                                        <label className="block text-[#44475B] font-medium text-sm uppercase mb-2">
+                                        <label htmlFor="expectedRate" className="block text-[#44475B] font-medium text-sm uppercase mb-2">
                                             EXPECTED RATE OF RETURN (% P.A)
                                         </label>
                                         <input
                                             type="text"
+                                            id="expectedRate"
                                             inputMode="decimal"
                                             className="w-full border rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500 text-[#44475B]"
                                             value={rate}

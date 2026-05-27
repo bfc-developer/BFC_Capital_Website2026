@@ -142,6 +142,7 @@ export default function ApplyJobForm({ defaultPost = "" }: ApplyJobFormProps) {
                         <input
                             type="text"
                             placeholder="Full Name"
+                            aria-label="Full Name"
                             required
                             className="w-full border-b border-[#D9D9D9] text-[#44475B] py-2 focus:outline-none focus:border-[#024B39] transition-colors placeholder:text-[#44475B]"
                             value={formData.fullName}
@@ -157,6 +158,7 @@ export default function ApplyJobForm({ defaultPost = "" }: ApplyJobFormProps) {
                         <input
                             type="tel"
                             placeholder="Mobile Number"
+                            aria-label="Mobile Number"
                             required
                             className="w-full border-b border-[#D9D9D9] text-[#44475B] py-2 focus:outline-none focus:border-[#024B39] transition-colors placeholder:text-[#44475B]"
                             value={formData.mobileNumber}
@@ -172,6 +174,7 @@ export default function ApplyJobForm({ defaultPost = "" }: ApplyJobFormProps) {
                         <input
                             type="email"
                             placeholder="Email ID"
+                            aria-label="Email ID"
                             required
                             className="w-full border-b border-[#D9D9D9] text-[#44475B] py-2 focus:outline-none focus:border-[#024B39] transition-colors placeholder:text-[#44475B]"
                             value={formData.emailId}
@@ -184,6 +187,7 @@ export default function ApplyJobForm({ defaultPost = "" }: ApplyJobFormProps) {
                         <input
                             type="text"
                             placeholder="Post Applied For?"
+                            aria-label="Post Applied For"
                             readOnly
                             required
                             className="w-full border-b border-[#D9D9D9] py-2 focus:outline-none transition-colors placeholder:text-[#44475B] text-[#44475B] font-bold cursor-default"
@@ -196,16 +200,17 @@ export default function ApplyJobForm({ defaultPost = "" }: ApplyJobFormProps) {
                 <div className="mt-8">
                     <p className="text-[#44475B] mb-3 text-sm">Upload Resume/CV</p>
                     <div className="flex items-center">
-                        <label className="cursor-pointer bg-[#F8F9FA] px-6 py-2.5 border border-[#D9D9D9] rounded-l-lg text-[#44475B] text-sm hover:bg-gray-100 transition-colors shrink-0">
+                        <label htmlFor="resume-upload" className="cursor-pointer bg-[#F8F9FA] px-6 py-2.5 border border-[#D9D9D9] rounded-l-lg text-[#44475B] text-sm hover:bg-gray-100 transition-colors shrink-0">
                             Choose File
-                            <input
-                                type="file"
-                                accept=".pdf,.doc,.docx"
-                                className="hidden"
-                                required
-                                onChange={(e) => setFileName(e.target.files?.[0]?.name || "No file chosen")}
-                            />
                         </label>
+                        <input
+                            type="file"
+                            id="resume-upload"
+                            accept=".pdf,.doc,.docx"
+                            className="hidden"
+                            required
+                            onChange={(e) => setFileName(e.target.files?.[0]?.name || "No file chosen")}
+                        />
                         <div className="flex-1 py-2.5 px-4 text-[#7A7A7A] text-sm bg-white border-y border-r border-[#D9D9D9] rounded-r-lg truncate">
                             {fileName}
                         </div>
@@ -214,9 +219,10 @@ export default function ApplyJobForm({ defaultPost = "" }: ApplyJobFormProps) {
 
                 {/* Consent Checkbox */}
                 <div className="flex items-start gap-4 mt-8">
-                    <label className="relative flex cursor-pointer items-center rounded-full pt-1">
+                    <div className="relative flex cursor-pointer items-center rounded-full pt-1">
                         <input
                             type="checkbox"
+                            id="consent-checkbox"
                             required
                             className="peer sr-only"
                             checked={isChecked}
@@ -248,10 +254,10 @@ export default function ApplyJobForm({ defaultPost = "" }: ApplyJobFormProps) {
                                 </svg>
                             )}
                         </div>
-                    </label>
-                    <p className="text-sm text-[#7A7A7A] leading-relaxed">
+                    </div>
+                    <label htmlFor="consent-checkbox" className="text-sm text-[#7A7A7A] leading-relaxed cursor-pointer">
                         I, hereby accord my consent to process my above mentioned personal data by BFC Capital Pvt. Ltd. for the purpose of customer support/product promotion, in accordance with the provisions of DPDP Act 2023. To know more <Link href="https://bfccapital.com/dpdpact" className="underline text-[#011EFE]">click here.</Link>
-                    </p>
+                    </label>
                 </div>
 
                 {/* Submit Button */}

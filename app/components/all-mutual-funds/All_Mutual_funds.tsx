@@ -217,8 +217,17 @@ export default function AllMutualFunds() {
                         className={`md:hidden ${showFilter ? "mb-6" : "mb-0"}`}
                     >
                         <div
-                            className="inline-flex items-center gap-2 bg-white border border-gray-200 px-4 py-2 rounded-md shadow-sm text-sm text-gray-700 font-medium mb-3"
+                            className="inline-flex items-center gap-2 bg-white border border-gray-200 px-4 py-2 rounded-md shadow-sm text-sm text-gray-700 font-medium mb-3 cursor-pointer"
+                            role="button"
+                            tabIndex={0}
+                            aria-expanded={showFilter}
                             onClick={() => setShowFilter(!showFilter)}
+                            onKeyDown={(e) => {
+                                if (e.key === "Enter" || e.key === " ") {
+                                    e.preventDefault();
+                                    setShowFilter(!showFilter);
+                                }
+                            }}
                         >
                             <i className="fa-solid fa-sliders"></i>
                             {showFilter ? "Hide Filters" : "Show Filters"}

@@ -9,7 +9,7 @@ const Footer = () => {
         >
             <div className="container mx-auto md:px-5">
                 <div className="mb-4 flex justify-start pb-4">
-                    <Image src="/Logo/CAPLOGO.svg" alt="Logo" width={100} height={100}
+                    <Image src="/Logo/CAPLOGO.svg" alt="BFC Capital Logo" width={100} height={100}
                         className='w-[70%] md:w-[50%] h-[50%] md:h-[45px] object-contain object-left' />
                 </div>
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-16 mb-8">

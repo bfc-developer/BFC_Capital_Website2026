@@ -91,6 +91,8 @@ const Navbar = () => {
           <div className="relative">
             <button
               onClick={toggleProducts}
+              aria-expanded={isproductsOpen}
+              aria-haspopup="true"
               className="flex items-center gap-1 text-[#4B4949] font-[500] text-[15px] hover:text-[#001EFE] font-base font-inter transition-colors cursor-pointer"
             >
               Products
@@ -112,6 +114,8 @@ const Navbar = () => {
           <div className="relative">
             <button
               onClick={toggleFinancialCalculators}
+              aria-expanded={isFinancialCalculatorsOpen}
+              aria-haspopup="true"
               className="flex items-center gap-1 text-[#4B4949] font-[500] text-[15px] hover:text-[#001EFE] font-base font-inter transition-colors cursor-pointer"
             >
               Financial Calculators
@@ -179,6 +183,8 @@ const Navbar = () => {
           <div className="relative">
             <button
               onClick={toggleCompliance}
+              aria-expanded={isComplianceOpen}
+              aria-haspopup="true"
               className="flex items-center gap-1 text-[#4B4949] font-[500] text-[15px] hover:text-[#001EFE] font-base font-inter transition-colors cursor-pointer"
             >
               Compliances
@@ -224,6 +230,8 @@ const Navbar = () => {
           <div className="relative">
             <button
               onClick={toggleMore}
+              aria-expanded={isMoreOpen}
+              aria-haspopup="true"
               className="flex items-center gap-1 text-[#4B4949] font-[500] text-[15px] hover:text-[#001EFE] font-base font-inter transition-colors cursor-pointer"
             >
               More
@@ -236,11 +244,11 @@ const Navbar = () => {
                   <Link href="/about" className={`${isActive("/about") ? "text-[#001EFE]" : "text-[#4B4949]"} font-[500] text-[15px] hover:text-[#001EFE] font-base font-inter transition-colors`}> About </Link>
                   <p className="text-[#4B4949] text-[11px] font-base font-inter transition-colors text-[13px] leading-tight">Where research meets responsible advice.</p>
                 </div>
-                <div className="px-md-4 mb-2">
+                {/* <div className="px-md-4 mb-2">
                   <Link href="/calculators" className={`${isActive("/calculators") ? "text-[#001EFE]" : "text-[#4B4949]"} font-[500] text-[15px] hover:text-[#001EFE] font-base font-inter transition-colors`}
                   > Financial Calculators </Link>
                   <p className="text-[#4B4949] text-[11px] font-base font-inter transition-colors text-[13px] leading-tight">Because good decisions need good numbers.</p>
-                </div>
+                </div> */}
                 <div className="px-md-4 mb-2">
                   <Link href="https://bfccapital.com/blog" className={`${isActive("/blog") ? "text-[#001EFE]" : "text-[#4B4949]"} font-[500] text-[15px] hover:text-[#001EFE] font-base font-inter transition-colors`}
                   > Blog </Link>
@@ -289,6 +297,8 @@ const Navbar = () => {
           className="xl:hidden p-2 text-gray-600 hover:text-bfc-blue transition-colors focus:outline-none"
           onClick={toggleMenu}
           aria-label="Toggle menu"
+          aria-expanded={isMenuOpen}
+          aria-controls="mobile-menu"
         >
           {isMenuOpen ? <X size={28} /> : <Menu size={28} />}
         </button>
@@ -296,7 +306,7 @@ const Navbar = () => {
 
       {/* Mobile Menu */}
       {isMenuOpen && (
-        <div className="xl:hidden absolute top-20 left-0 w-full bg-white shadow-lg border-t border-gray-100 py-4 px-6 flex flex-col gap-4 animate-in slide-in-from-top-5 duration-200 max-h-[calc(100vh-5rem)] overflow-y-auto">
+        <div id="mobile-menu" className="xl:hidden absolute top-20 left-0 w-full bg-white shadow-lg border-t border-gray-100 py-4 px-6 flex flex-col gap-4 animate-in slide-in-from-top-5 duration-200 max-h-[calc(100vh-5rem)] overflow-y-auto">
 
           <Link href="/" className={`${isActive("/") ? "text-[#001EFE]" : "text-[#4B4949]"} font-[500] text-[15px] hover:text-[#001EFE] font-inter border-b border-gray-50 pb-2 hover:pl-2 transition-all`}
           >
@@ -307,6 +317,8 @@ const Navbar = () => {
           <div className="border-b border-gray-50 pb-2">
             <button
               onClick={toggleProducts}
+              aria-expanded={isproductsOpen}
+              aria-haspopup="true"
               className="w-full flex justify-between items-center text-[#4B4949] font-[500] text-[15px] hover:text-[#001EFE] font-inter cursor-pointer"
             >
               <span>Products</span>
@@ -328,6 +340,8 @@ const Navbar = () => {
           <div className="border-b border-gray-50 pb-2">
             <button
               onClick={toggleFinancialCalculators}
+              aria-expanded={isFinancialCalculatorsOpen}
+              aria-haspopup="true"
               className="w-full flex justify-between items-center text-[#4B4949] font-[500] text-[15px] hover:text-[#001EFE] font-inter cursor-pointer"
             >
               <span>Financial Calculators</span>
@@ -361,6 +375,8 @@ const Navbar = () => {
           <div className="border-b border-gray-50 pb-2">
             <button
               onClick={toggleCompliance}
+              aria-expanded={isComplianceOpen}
+              aria-haspopup="true"
               className="w-full flex justify-between items-center text-[#4B4949] font-[500] text-[15px] hover:text-[#001EFE] font-inter cursor-pointer"
             >
               <span>Compliances</span>
@@ -383,6 +399,8 @@ const Navbar = () => {
           <div className="border-b border-gray-50 pb-2">
             <button
               onClick={toggleMore}
+              aria-expanded={isMoreOpen}
+              aria-haspopup="true"
               className="w-full flex justify-between items-center text-[#4B4949] font-[500] text-[15px] hover:text-[#001EFE] font-inter cursor-pointer"
             >
               <span>More</span>
@@ -394,10 +412,10 @@ const Navbar = () => {
                   <Link href="/about" className={`${isActive("/about") ? "text-[#001EFE]" : "text-[#4B4949]"} font-[500] text-[14px] hover:text-[#001EFE] font-inter transition-colors`}>About</Link>
                   <p className="text-[#4B4949] text-[11px] font-inter transition-colors mt-0.5 leading-tight">Where research meets responsible advice.</p>
                 </div>
-                <div>
+                {/* <div>
                   <Link href="/calculators" className={`${isActive("/calculators") ? "text-[#001EFE]" : "text-[#4B4949]"} font-[500] text-[14px] hover:text-[#001EFE] font-inter transition-colors`}>Financial Calculators</Link>
                   <p className="text-[#4B4949] text-[11px] font-inter transition-colors mt-0.5 leading-tight">Because good decisions need good numbers.</p>
-                </div>
+                </div> */}
                 <div>
                   <Link href="https://bfccapital.com/blog" className={`${isActive("/blog") ? "text-[#001EFE]" : "text-[#4B4949]"} font-[500] text-[14px] hover:text-[#001EFE] font-inter transition-colors`}>Blog</Link>
                   <p className="text-[#4B4949] text-[11px] font-inter transition-colors mt-0.5 leading-tight">Insights that help you invest with confidence.</p>

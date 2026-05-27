@@ -97,6 +97,15 @@ const VideoCarousel = ({ videos, autoPlayInterval = 2500 }: VideoCarouselProps) 
                                 key={video.youtubeUrl}
                                 className="relative min-w-full h-full cursor-pointer group"
                                 onClick={() => openPopup(video.youtubeUrl)}
+                                role="button"
+                                tabIndex={0}
+                                aria-label={`Play video: ${video.title || "Client success story"}`}
+                                onKeyDown={(e) => {
+                                    if (e.key === "Enter" || e.key === " ") {
+                                        e.preventDefault();
+                                        openPopup(video.youtubeUrl);
+                                    }
+                                }}
                             >
                                 {/* Background */}
                                 <div
@@ -138,8 +147,14 @@ const VideoCarousel = ({ videos, autoPlayInterval = 2500 }: VideoCarouselProps) 
             {/* Popup Overlay */}
             {isOpen && (
                 <div className="fixed inset-0 z-[9999] flex items-center justify-center bg-black/85" onClick={closePopup}>
-                    <div className="popup-video relative bg-white shadow-2xl flex flex-col" onClick={(e) => e.stopPropagation()}>
-                        <button className="close-btn" onClick={closePopup}>
+                    <div 
+                        className="popup-video relative bg-white shadow-2xl flex flex-col" 
+                        onClick={(e) => e.stopPropagation()}
+                        role="dialog"
+                        aria-modal="true"
+                        aria-label="Video Player"
+                    >
+                        <button className="close-btn" onClick={closePopup} aria-label="Close video player popup">
                             &times;
                         </button>
                         <iframe
@@ -147,6 +162,7 @@ const VideoCarousel = ({ videos, autoPlayInterval = 2500 }: VideoCarouselProps) 
                             frameBorder="0"
                             allow="autoplay; encrypted-media"
                             allowFullScreen
+                            title="Embedded Video Player"
                         ></iframe>
                     </div>
                 </div>

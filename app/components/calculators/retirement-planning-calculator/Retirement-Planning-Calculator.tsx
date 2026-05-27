@@ -275,6 +275,7 @@ export default function RetirementPlanningCalculator() {
                                             maxLimit={90}
                                             setValue={setCurrentAge}
                                             value={currentAge}
+                                            ariaLabel="Current Age in Years"
                                         />
 
                                         <div className="flex justify-between text-sm text-[#44475B] mt-2">
@@ -297,6 +298,7 @@ export default function RetirementPlanningCalculator() {
                                             maxLimit={80}
                                             setValue={setRetirementAge}
                                             value={retirementAge}
+                                            ariaLabel="Expected Retirement Age in Years"
                                         />
 
                                         <div className="flex justify-between text-sm text-[#44475B] mt-2">
@@ -307,11 +309,12 @@ export default function RetirementPlanningCalculator() {
 
                                     {/* Monthly Saving */}
                                     <div>
-                                        <label className="block text-[#44475B] font-medium text-sm uppercase mb-2">
+                                        <label htmlFor="monthlyExpenses" className="block text-[#44475B] font-medium text-sm uppercase mb-2">
                                             Monthly expenses for current lifestyle
                                         </label>
                                         <input
                                             type="number"
+                                            id="monthlyExpenses"
                                             className="w-full border rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500 text-[#44475B]"
                                             value={monthlyExpenses}
                                             min={0}
@@ -330,11 +333,12 @@ export default function RetirementPlanningCalculator() {
 
                                     {/* Expected Rate of Return */}
                                     <div>
-                                        <label className="block text-[#44475B] font-medium text-sm uppercase mb-2">
+                                        <label htmlFor="expectedInflationRate" className="block text-[#44475B] font-medium text-sm uppercase mb-2">
                                             Expected Inflation Rate (%)
                                         </label>
                                         <input
                                             type="text"
+                                            id="expectedInflationRate"
                                             inputMode="decimal"
                                             className="w-full border rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500 text-[#44475B]"
                                             value={
@@ -377,11 +381,12 @@ export default function RetirementPlanningCalculator() {
                                         />
                                     </div>
                                     <div>
-                                        <label className="block text-[#44475B] font-medium text-sm uppercase mb-2">
+                                        <label htmlFor="currentSaving" className="block text-[#44475B] font-medium text-sm uppercase mb-2">
                                             Current Savings per month
                                         </label>
                                         <input
                                             type="number"
+                                            id="currentSaving"
                                             className="w-full border rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500 text-[#44475B]"
                                             value={currentSaving}
                                             min={0}
@@ -394,15 +399,16 @@ export default function RetirementPlanningCalculator() {
                                                     e.preventDefault();
                                                 }
                                             }}
-                                            placeholder="₹ 5,000"
+                                            placeholder="₹ 5,00,000"
                                         />
                                     </div>
                                     <div>
-                                        <label className="block text-[#44475B] font-medium text-sm uppercase mb-2">
+                                        <label htmlFor="existingCorpus" className="block text-[#44475B] font-medium text-sm uppercase mb-2">
                                             Existing Corpus
                                         </label>
                                         <input
                                             type="number"
+                                            id="existingCorpus"
                                             className="w-full border rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500 text-[#44475B]"
                                             value={existingCorpus}
                                             min={0}
@@ -421,11 +427,12 @@ export default function RetirementPlanningCalculator() {
 
                                     {/* Expected Rate of Return */}
                                     <div>
-                                        <label className="block text-[#44475B] font-medium text-sm uppercase mb-2">
+                                        <label htmlFor="preRetirementReturns" className="block text-[#44475B] font-medium text-sm uppercase mb-2">
                                             Expected pre-retirement returns (%)
                                         </label>
                                         <input
                                             type="text"
+                                            id="preRetirementReturns"
                                             inputMode="decimal"
                                             className="w-full border rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500 text-[#44475B]"
                                             value={preRetirementReturns}
@@ -467,11 +474,12 @@ export default function RetirementPlanningCalculator() {
                                     </div>
                                     {/* Expected Rate of Return */}
                                     <div>
-                                        <label className="block text-[#44475B] font-medium text-sm uppercase mb-2">
+                                        <label htmlFor="postRetirementReturns" className="block text-[#44475B] font-medium text-sm uppercase mb-2">
                                             Expected post-retirement returns (%)
                                         </label>
                                         <input
                                             type="text"
+                                            id="postRetirementReturns"
                                             inputMode="decimal"
                                             className="w-full border rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500 text-[#44475B]"
                                             value={postRetirementReturns}
@@ -512,11 +520,12 @@ export default function RetirementPlanningCalculator() {
                                         />
                                     </div>
                                     <div>
-                                        <label className="block text-[#44475B] font-medium text-sm uppercase mb-2">
+                                        <label htmlFor="lifeExpectancy" className="block text-[#44475B] font-medium text-sm uppercase mb-2">
                                             Life Expectancy post-retirement (Yrs)
                                         </label>
                                         <input
                                             type="number"
+                                            id="lifeExpectancy"
                                             className="w-full border rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500 text-[#44475B]"
                                             value={lifeExpectancy}
                                             min={0}

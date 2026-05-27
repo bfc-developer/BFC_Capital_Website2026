@@ -69,13 +69,21 @@ export default function BookSessionButton({ buttonText, className }: BookSession
             <button
                 onClick={() => setIsBookingModalOpen(true)}
                 className={className}
+                aria-haspopup="dialog"
+                aria-expanded={isBookingModalOpen}
             >
                 {buttonText}
             </button>
 
             {isBookingModalOpen && (
                 <div className="fixed inset-0 z-[99999] flex items-center justify-center p-4 sm:p-6 bg-black/50 backdrop-blur-sm transition-opacity">
-                    <div className="relative w-full max-w-3xl bg-white rounded-3xl p-8 md:p-14 shadow-2xl overflow-hidden max-h-[95vh]">
+                    <div 
+                        className="relative w-full max-w-3xl bg-white rounded-3xl p-8 md:p-14 shadow-2xl overflow-hidden max-h-[95vh]"
+                        role="dialog"
+                        aria-modal="true"
+                        aria-labelledby="booking-modal-title"
+                        aria-describedby="booking-modal-desc"
+                    >
                         <button
                             onClick={() => setIsBookingModalOpen(false)}
                             className="absolute top-6 right-6 text-gray-400 hover:text-gray-800 transition-colors"
@@ -89,6 +97,7 @@ export default function BookSessionButton({ buttonText, className }: BookSession
 
                         <div className="text-center mb-12">
                             <h2
+                                id="booking-modal-title"
                                 className="text-[28px] md:text-[40px] font-bold mb-3 leading-tight inline-block"
                                 style={{
                                     background: "linear-gradient(90deg, #024B39 39.5%, #011EFE 100%)",
@@ -100,7 +109,7 @@ export default function BookSessionButton({ buttonText, className }: BookSession
                             >
                                 A Thoughtful Start to<br className="hidden md:block" /> Your Financial Journey!
                             </h2>
-                            <p className="text-[#44475B] text-[16px] md:text-[18px] font-medium mt-1">
+                            <p id="booking-modal-desc" className="text-[#44475B] text-[16px] md:text-[18px] font-medium mt-1">
                                 Good financial decisions don’t begin with products; they begin with conversations.
                             </p>
                         </div>
@@ -111,6 +120,7 @@ export default function BookSessionButton({ buttonText, className }: BookSession
                                     <input
                                         type="text"
                                         placeholder="Your name"
+                                        aria-label="Your name"
                                         value={name}
                                         onChange={(e) => setName(e.target.value)}
                                         className={`w-full border-b py-2 text-[#44475B] outline-none transition-colors ${errors.name ? 'border-red-500' : 'border-gray-300 focus:border-[#024B39]'}`}
@@ -121,6 +131,7 @@ export default function BookSessionButton({ buttonText, className }: BookSession
                                     <input
                                         type="text"
                                         placeholder="Mobile Number"
+                                        aria-label="Mobile Number"
                                         value={mobile}
                                         onChange={(e) => setMobile(e.target.value.replace(/\D/g, '').slice(0, 10))}
                                         className={`w-full border-b py-2 text-[#44475B] outline-none transition-colors ${errors.mobile ? 'border-red-500' : 'border-gray-300 focus:border-[#024B39]'}`}
@@ -131,6 +142,7 @@ export default function BookSessionButton({ buttonText, className }: BookSession
                                     <input
                                         type="email"
                                         placeholder="Email Address"
+                                        aria-label="Email Address"
                                         value={email}
                                         onChange={(e) => setEmail(e.target.value)}
                                         className={`w-full border-b py-2 text-[#44475B] outline-none transition-colors ${errors.email ? 'border-red-500' : 'border-gray-300 focus:border-[#024B39]'}`}
@@ -140,10 +152,11 @@ export default function BookSessionButton({ buttonText, className }: BookSession
                             </div>
 
                             <div className="mb-12 text-left w-full">
-                                <label className="flex items-start gap-4 cursor-pointer relative group">
+                                <label htmlFor="booking-consent-checkbox" className="flex items-start gap-4 cursor-pointer relative group">
                                     <div className="relative flex items-center justify-center mt-1 w-[22px] h-[22px] shrink-0">
                                         <input
                                             type="checkbox"
+                                            id="booking-consent-checkbox"
                                             className="peer appearance-none w-[22px] h-[22px] rounded-[4px] shrink-0 border-[2px] border-[#024B39] checked:border-transparent transition-all outline-none"
                                             checked={consent}
                                             onChange={(e) => setConsent(e.target.checked)}

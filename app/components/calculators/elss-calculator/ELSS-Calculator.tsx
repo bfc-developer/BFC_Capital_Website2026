@@ -152,11 +152,12 @@ export default function ELSSCalculatorComponent() {
 
                                     {/* Monthly Saving */}
                                     <div>
-                                        <label className="block text-[#44475B] font-medium uppercase mb-2">
+                                        <label htmlFor="investmentAmount" className="block text-[#44475B] font-medium uppercase mb-2">
                                             Investment Amount (Years)
                                         </label>
                                         <input
                                             type="number"
+                                            id="investmentAmount"
                                             className="w-full border rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500 text-[#212121]"
                                             value={investmentAmount}
                                             min={0}
@@ -180,8 +181,9 @@ export default function ELSSCalculatorComponent() {
                                     </div>
                                     {/* Expected Rate of Return */}
                                     <Form.Group className="mb-3">
-                                        <Form.Label className="block text-[#44475B] font-medium uppercase mb-2">Your Tax Slab</Form.Label>
+                                        <Form.Label htmlFor="taxSlab" className="block text-[#44475B] font-medium uppercase mb-2">Your Tax Slab</Form.Label>
                                         <Form.Select
+                                            id="taxSlab"
                                             value={taxSlab}
                                             onChange={(e) => setTaxSlab(Number(e.target.value))}
                                             className="w-full border rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500 text-[#212121]"

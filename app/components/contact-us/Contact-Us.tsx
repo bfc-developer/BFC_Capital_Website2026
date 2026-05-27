@@ -181,9 +181,10 @@ export default function ContactUsPage() {
                     <div className="w-full lg:w-[55%] p-8 lg:py-12 lg:pl-12 lg:pr-24 xl:py-16 xl:pl-16 xl:pr-28">
                         <form onSubmit={handleSubmit} className="flex flex-col gap-6" noValidate>
                             <div className="flex flex-col">
-                                <label className="text-sm text-gray-700 mb-1">Full Name</label>
+                                <label htmlFor="fullName" className="text-sm text-gray-700 mb-1">Full Name</label>
                                 <input
                                     type="text"
+                                    id="fullName"
                                     name="fullName"
                                     value={formData.fullName}
                                     onChange={handleChange}
@@ -193,9 +194,10 @@ export default function ContactUsPage() {
                             </div>
 
                             <div className="flex flex-col">
-                                <label className="text-sm text-gray-700 mb-1">Mobile Number</label>
+                                <label htmlFor="mobileNumber" className="text-sm text-gray-700 mb-1">Mobile Number</label>
                                 <input
                                     type="tel"
+                                    id="mobileNumber"
                                     name="mobileNumber"
                                     value={formData.mobileNumber}
                                     onChange={handleChange}
@@ -206,9 +208,10 @@ export default function ContactUsPage() {
                             </div>
 
                             <div className="flex flex-col">
-                                <label className="text-sm text-gray-700 mb-1">Email ID</label>
+                                <label htmlFor="email" className="text-sm text-gray-700 mb-1">Email ID</label>
                                 <input
                                     type="email"
+                                    id="email"
                                     name="email"
                                     value={formData.email}
                                     onChange={handleChange}
@@ -218,9 +221,10 @@ export default function ContactUsPage() {
                             </div>
 
                             <div className="flex flex-col">
-                                <label className="text-sm text-gray-700 mb-1">Subject</label>
+                                <label htmlFor="subject" className="text-sm text-gray-700 mb-1">Subject</label>
                                 <input
                                     type="text"
+                                    id="subject"
                                     name="subject"
                                     value={formData.subject}
                                     onChange={handleChange}
@@ -230,8 +234,9 @@ export default function ContactUsPage() {
                             </div>
 
                             <div className="flex flex-col">
-                                <label className="text-sm text-gray-700 mb-1">Message</label>
+                                <label htmlFor="message" className="text-sm text-gray-700 mb-1">Message</label>
                                 <textarea
+                                    id="message"
                                     name="message"
                                     value={formData.message}
                                     onChange={handleChange}
@@ -247,6 +252,7 @@ export default function ContactUsPage() {
                                     <div className="relative mt-1 flex-shrink-0 w-6 h-6">
                                         <input
                                             type="checkbox"
+                                            id="consent"
                                             name="consent"
                                             checked={formData.consent}
                                             onChange={handleChange}
@@ -271,9 +277,9 @@ peer-checked:bg-cover ${errors.consent ? 'border-red-500' : 'border-gray-300'}`}
                                             </svg>
                                         </div>
                                     </div>
-                                    <p className="text-xs text-gray-500 leading-relaxed">
+                                    <label htmlFor="consent" className="text-xs text-gray-500 leading-relaxed cursor-pointer">
                                         I, hereby accord my consent to process my above mentioned personal data by BFC Capital Pvt. Ltd. for the purpose of customer support/product promotion, in accordance with the provisions of DPDP Act 2023. To know more <a href="#" className="text-blue-600 underline hover:text-blue-800">click here.</a>
-                                    </p>
+                                    </label>
                                 </div>
                                 {errors.consent && <span className="text-red-500 text-xs mt-1 block">{errors.consent}</span>}
                             </div>
@@ -309,6 +315,7 @@ peer-checked:bg-cover ${errors.consent ? 'border-red-500' : 'border-gray-300'}`}
                                 height="100%"
                                 style={{ border: 0 }}
                                 loading="lazy"
+                                title="BFC Capital Office Location Google Map"
                             ></iframe>
 
                         </div>

@@ -213,6 +213,7 @@ export default function EducationPlanningCalculator() {
                                             maxLimit={30}
                                             setValue={setChildAge}
                                             value={childAge}
+                                            ariaLabel="Child Age Today in Years"
                                         />
 
                                         <div className="flex justify-between text-sm text-[#44475B] mt-2">
@@ -234,6 +235,7 @@ export default function EducationPlanningCalculator() {
                                             maxLimit={30}
                                             setValue={setStartCollegeAge}
                                             value={startCollegeAge}
+                                            ariaLabel="College Start Age in Years"
                                         />
 
                                         <div className="flex justify-between text-sm text-[#44475B] mt-2">
@@ -255,6 +257,7 @@ export default function EducationPlanningCalculator() {
                                             maxLimit={8}
                                             setValue={setDurationOfEducation}
                                             value={durationOfEducation}
+                                            ariaLabel="Duration of Education in Years"
                                         />
 
                                         <div className="flex justify-between text-sm text-[#44475B] mt-2">
@@ -264,11 +267,12 @@ export default function EducationPlanningCalculator() {
                                     </div>
                                     {/* Monthly Saving */}
                                     <div>
-                                        <label className="block text-[#44475B] font-medium text-sm uppercase mb-2">
+                                        <label htmlFor="annualSavings" className="block text-[#44475B] font-medium text-sm uppercase mb-2">
                                             Approx current cost per year
                                         </label>
                                         <input
                                             type="number"
+                                            id="annualSavings"
                                             className="w-full border rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500 text-[#44475B]"
                                             value={annualSavings}
                                             min={0}
@@ -281,17 +285,18 @@ export default function EducationPlanningCalculator() {
                                                     e.preventDefault();
                                                 }
                                             }}
-                                            placeholder="₹ 10,000"
+                                            placeholder="₹ 10,00,000"
                                         />
                                     </div>
 
                                     {/* Expected Rate of Return */}
                                     <div>
-                                        <label className="block text-[#44475B] font-medium text-sm uppercase mb-2">
+                                        <label htmlFor="expectedRateOfReturn" className="block text-[#44475B] font-medium text-sm uppercase mb-2">
                                             Expected Rate of returns (%)
                                         </label>
                                         <input
                                             type="text"
+                                            id="expectedRateOfReturn"
                                             inputMode="decimal"
                                             className="w-full border rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500 text-[#44475B]"
                                             value={expectedRateOfReturn}
@@ -333,11 +338,12 @@ export default function EducationPlanningCalculator() {
                                     </div>
                                     {/* Expected Rate of Return */}
                                     <div>
-                                        <label className="block text-[#44475B] font-medium text-sm uppercase mb-2">
+                                        <label htmlFor="expectedInflation" className="block text-[#44475B] font-medium text-sm uppercase mb-2">
                                             Expected Inflation (%)
                                         </label>
                                         <input
                                             type="text"
+                                            id="expectedInflation"
                                             inputMode="decimal"
                                             className="w-full border rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500 text-[#44475B]"
                                             value={expectedInflation}

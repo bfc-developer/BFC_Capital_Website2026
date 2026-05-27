@@ -237,11 +237,12 @@ export default function SWPCalculatorComponent() {
 
                                     {/* Total Investment */}
                                     <div>
-                                        <label className="block text-[#44475B] font-medium text-sm uppercase mb-2">
+                                        <label htmlFor="lumpsumAmount" className="block text-[#44475B] font-medium text-sm uppercase mb-2">
                                             Lumpsum Amount
                                         </label>
                                         <input
                                             type="number"
+                                            id="lumpsumAmount"
                                             className="w-full border rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500 text-[#44475B]"
                                             value={lumpsumAmount}
                                             min={0}
@@ -272,6 +273,7 @@ export default function SWPCalculatorComponent() {
                                             maxLimit={30}
                                             setValue={setInvestmentPeriod}
                                             value={investmentPeriod}
+                                            ariaLabel="Investment Period in Years"
                                         />
 
                                         <div className="flex justify-between text-sm text-[#44475B] mt-2">
@@ -299,11 +301,12 @@ export default function SWPCalculatorComponent() {
 
                                     {/* Expected Rate of Return */}
                                     <div>
-                                        <label className="block text-[#44475B] font-medium text-sm uppercase mb-2">
+                                        <label htmlFor="expectedReturn" className="block text-[#44475B] font-medium text-sm uppercase mb-2">
                                             Expected Return (%)
                                         </label>
                                         <input
                                             type="text"
+                                            id="expectedReturn"
                                             inputMode="decimal"
                                             className="w-full border rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500 text-[#44475B]"
                                             value={expectedReturn}
@@ -376,7 +379,7 @@ export default function SWPCalculatorComponent() {
 
                                     {/* Withdrawal Input */}
                                     <Form.Group className="block text-[#44475B] font-medium text-sm uppercase mb-2">
-                                        <Form.Label className="uppercase text-[#44475B] mb-2">
+                                        <Form.Label htmlFor="withdrawalInput" className="uppercase text-[#44475B] mb-2">
                                             {byAmount
                                                 ? "Monthly Withdrawal Amount"
                                                 : "Monthly Withdrawal (% p.m)"}
@@ -384,6 +387,7 @@ export default function SWPCalculatorComponent() {
                                         <div className="relative flex items-center">
                                             {byAmount && <span className="absolute left-3 text-[#585c75]">₹</span>}
                                             <Form.Control
+                                                id="withdrawalInput"
                                                 type="text"
                                                 inputMode="decimal"
                                                 value={byAmount ? withdrawalAmount : withdrawalPercentage}

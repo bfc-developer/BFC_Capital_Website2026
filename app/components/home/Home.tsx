@@ -752,9 +752,9 @@ const SuccessHighlight = () => {
 const Team = () => {
   const teamMembers = [
     {
-      name: "Deepti Bansal",
-      role: "Associate Partner",
-      img: "/Home/Team/Deepti.webp",
+      name: "Anurag Jaiswal",
+      role: "Wealth Manager",
+      img: "/Home/Team/Anurag.jpeg",
     },
     {
       name: "Akash Gupta",

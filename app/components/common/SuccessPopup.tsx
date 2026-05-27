@@ -15,6 +15,10 @@ const SuccessPopup: React.FC<SuccessPopupProps> = ({ isOpen, onClose }) => {
                 style={{
                     background: "linear-gradient(269.9deg, #06A358 24.53%, #001EFE 156.82%)"
                 }}
+                role="dialog"
+                aria-modal="true"
+                aria-labelledby="success-popup-title"
+                aria-describedby="success-popup-desc"
             >
                 {/* Close Button */}
                 <button
@@ -28,11 +32,11 @@ const SuccessPopup: React.FC<SuccessPopupProps> = ({ isOpen, onClose }) => {
                     </svg>
                 </button>
 
-                <h2 className="text-4xl md:text-5xl font-bold mb-4 leading-tight">
+                <h2 id="success-popup-title" className="text-4xl md:text-5xl font-bold mb-4 leading-tight">
                     Thank you for<br />getting in touch!
                 </h2>
 
-                <p className="text-lg md:text-xl font-medium mt-6 text-white/90">
+                <p id="success-popup-desc" className="text-lg md:text-xl font-medium mt-6 text-white/90">
                     We'll connect with you within the next 24 hours to take this forward.
                 </p>
             </div>

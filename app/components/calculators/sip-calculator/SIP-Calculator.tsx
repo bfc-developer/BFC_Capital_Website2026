@@ -239,11 +239,12 @@ export default function Sipcalculators() {
 
                                     {/* Monthly Saving */}
                                     <div>
-                                        <label className="block text-[#44475B] font-medium text-sm uppercase mb-2">
+                                        <label htmlFor="monthlySaving" className="block text-[#44475B] font-medium text-sm uppercase mb-2">
                                             MONTHLY SAVING
                                         </label>
                                         <input
                                             type="number"
+                                            id="monthlySaving"
                                             className="w-full border rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500 text-[#44475B]"
                                             value={monthlySaving}
                                             min={0}
@@ -262,11 +263,12 @@ export default function Sipcalculators() {
 
                                     {/* Expected Rate of Return */}
                                     <div>
-                                        <label className="block text-[#44475B] font-medium text-sm uppercase mb-2">
+                                        <label htmlFor="expectedRateOfReturn" className="block text-[#44475B] font-medium text-sm uppercase mb-2">
                                             EXPECTED RATE OF RETURN (% P.A)
                                         </label>
                                         <input
                                             type="text"
+                                            id="expectedRateOfReturn"
                                             inputMode="decimal"
                                             className="w-full border rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500 text-[#44475B]"
                                             value={expectedRateOfReturn}
@@ -322,6 +324,7 @@ export default function Sipcalculators() {
                                             maxLimit={30}
                                             setValue={setInvestmentPeriod}
                                             value={investmentPeriod}
+                                            ariaLabel="Investment period in years"
                                         />
 
                                         <div className="flex justify-between text-sm text-[#44475B] mt-2">

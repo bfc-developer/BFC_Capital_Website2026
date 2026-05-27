@@ -224,11 +224,12 @@ export default function FDCalculator() {
 
                                     {/* Monthly Saving */}
                                     <div>
-                                        <label className="block text-[#44475B] font-medium text-sm uppercase mb-2">
+                                        <label htmlFor="investmentAmount" className="block text-[#44475B] font-medium text-sm uppercase mb-2">
                                             Investment Amount
                                         </label>
                                         <input
                                             type="number"
+                                            id="investmentAmount"
                                             className="w-full border rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500 text-[#44475B]"
                                             value={investmentAmount}
                                             min={0}
@@ -241,7 +242,7 @@ export default function FDCalculator() {
                                                     e.preventDefault();
                                                 }
                                             }}
-                                            placeholder="₹ 10,000"
+                                            placeholder="₹ 10,00,000"
                                         />
                                     </div>
 
@@ -260,6 +261,7 @@ export default function FDCalculator() {
                                             maxLimit={30}
                                             setValue={setPeriod}
                                             value={period}
+                                            ariaLabel="Investment Period in Years"
                                         />
 
                                         <div className="flex justify-between text-sm text-[#44475B] mt-2">
@@ -270,11 +272,12 @@ export default function FDCalculator() {
 
                                     {/* Expected Rate of Return */}
                                     <div>
-                                        <label className="block text-[#44475B] font-medium text-sm uppercase mb-2">
+                                        <label htmlFor="interestRate" className="block text-[#44475B] font-medium text-sm uppercase mb-2">
                                             Interest Rate (%)
                                         </label>
                                         <input
                                             type="text"
+                                            id="interestRate"
                                             inputMode="decimal"
                                             className="w-full border rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500 text-[#44475B]"
                                             value={interestRate}
@@ -315,10 +318,11 @@ export default function FDCalculator() {
                                         />
                                     </div>
                                     <div>
-                                        <label className="block text-[#44475B] font-medium text-sm uppercase mb-2">
+                                        <label htmlFor="compoundPeriod" className="block text-[#44475B] font-medium text-sm uppercase mb-2">
                                             Compounding Period
                                         </label>
                                         <Form.Select
+                                            id="compoundPeriod"
                                             className="text-[#212121] w-full border rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
                                             value={compound}
                                             onChange={(e) => setCompound(Number(e.target.value))}

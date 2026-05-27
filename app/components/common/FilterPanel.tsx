@@ -214,6 +214,15 @@ const FilterPanel: React.FC<FilterPanelProps> = ({ onFilterChange }) => {
                                 className="flex items-center gap-2.5"
                                 onClick={() => setSortBy(active ? "" : val)}
                                 style={{ cursor: "pointer" }}
+                                role="checkbox"
+                                aria-checked={active}
+                                tabIndex={0}
+                                onKeyDown={(e) => {
+                                    if (e.key === " " || e.key === "Enter") {
+                                        e.preventDefault();
+                                        setSortBy(active ? "" : val);
+                                    }
+                                }}
                             >
                                 <CustomTick active={active} />
 
@@ -239,6 +248,7 @@ const FilterPanel: React.FC<FilterPanelProps> = ({ onFilterChange }) => {
                             return (
                                 <button
                                     key={item.asset_code}
+                                    aria-pressed={active}
                                     className={`px-5 py-1.5 text-[15px] font-medium rounded-full transition-all duration-300 cursor-pointer ${active
                                         ? "border border-transparent text-white"
                                         : "bg-transparent hover:bg-[#F3F9FD] border border-transparent hover:border-[#F3F9FD]"
@@ -284,6 +294,15 @@ const FilterPanel: React.FC<FilterPanelProps> = ({ onFilterChange }) => {
                                 className="flex items-center gap-2.5"
                                 onClick={() => toggleArray(setCategory, value)}
                                 style={{ cursor: "pointer" }}
+                                role="checkbox"
+                                aria-checked={active}
+                                tabIndex={0}
+                                onKeyDown={(e) => {
+                                    if (e.key === " " || e.key === "Enter") {
+                                        e.preventDefault();
+                                        toggleArray(setCategory, value);
+                                    }
+                                }}
                             >
                                 <CustomTick active={active} />
 
@@ -311,6 +330,15 @@ const FilterPanel: React.FC<FilterPanelProps> = ({ onFilterChange }) => {
                                 className="flex items-center gap-2.5"
                                 onClick={() => setRisk(active ? "" : val)}
                                 style={{ cursor: "pointer" }}
+                                role="checkbox"
+                                aria-checked={active}
+                                tabIndex={0}
+                                onKeyDown={(e) => {
+                                    if (e.key === " " || e.key === "Enter") {
+                                        e.preventDefault();
+                                        setRisk(active ? "" : val);
+                                    }
+                                }}
                             >
                                 <CustomTick active={active} />
 
@@ -335,6 +363,15 @@ const FilterPanel: React.FC<FilterPanelProps> = ({ onFilterChange }) => {
                                 className="flex items-center gap-2.5"
                                 onClick={() => toggleArray(setAmc, val)}
                                 style={{ cursor: "pointer" }}
+                                role="checkbox"
+                                aria-checked={active}
+                                tabIndex={0}
+                                onKeyDown={(e) => {
+                                    if (e.key === " " || e.key === "Enter") {
+                                        e.preventDefault();
+                                        toggleArray(setAmc, val);
+                                    }
+                                }}
                             >
                                 <CustomTick active={active} />
 

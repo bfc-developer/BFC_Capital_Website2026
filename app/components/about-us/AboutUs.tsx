@@ -18,10 +18,10 @@ export default function AboutUs() {
 
     const wealthManagementTeam: WealthManagementTeam[] = [
         {
-            name: "Deepti Bansal",
-            role: "Associate Partner",
-            image: "/AboutUs/WealthManagementTeam/Deepti.webp",
-            bio: "For those who don't know her, Deepti is a cheerful individual with a perpetual smile. If you're in severe need of financial advice, there's a strong chance you'll run into her. She is an expert at formulating flawless investing strategies and is an avid reader."
+            name: "Anurag Jaiswal",
+            role: "Wealth Manager",
+            image: "/Home/Team/Anurag.jpeg",
+            bio: "Anurag Jaiswal is a passionate and driven professional known for his adaptability, dedication, and results-oriented approach. Focused on continuous growth and meaningful impact, he combines creativity, professionalism, and enthusiasm to deliver excellence. His ability to build strong professional relationships, collaborate effectively, and approach challenges with enthusiasm makes him a dependable and growth-focused individual."
         },
         {
             name: "Sparsh Awasthi",
@@ -130,10 +130,10 @@ export default function AboutUs() {
     const digitalMarketingTeam: WealthManagementTeam[] = [
 
         {
-            name: "Amulya Ratan",
-            role: "Manager - Digital Marketing",
-            image: "/AboutUs/DigitalMarketing/Amulya.webp",
-            bio: "Amulya’s inquisitive mind and research capabilities make him the perfect fold for us. BFC Capital’s outreach campaigns are so much more effective due to his will to excel and unfazed resolve. On a personal front, he is a foodie who doesn’t mind travelling miles to quench his hunger for rare delicacies."
+            name: "Kashifa Idreesi",
+            role: "Digital Marketing Executive",
+            image: "/AboutUs/DigitalMarketing/Kashifa.jpeg",
+            bio: "Kashifa Idreesi is a Digital Marketing Executive specializing in SEO, social media growth, and performance marketing. With 2+ years of experience, she helps brands grow through data-driven strategies, organic traffic growth, search optimisation, and scalable campaigns. Her expertise includes keyword research, content optimisation, social media management, and performance tracking to drive consistent digital success."
         },
 
 

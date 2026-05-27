@@ -186,6 +186,7 @@ export default function Marriagecalculators() {
                                             maxLimit={30}
                                             setValue={setChildAge}
                                             value={childAge}
+                                            ariaLabel="Child Age Today in Years"
                                         />
 
                                         <div className="flex justify-between text-sm text-[#44475B] mt-2">
@@ -208,6 +209,7 @@ export default function Marriagecalculators() {
                                             maxLimit={40}
                                             setValue={setMarriageAge}
                                             value={marriageAge}
+                                            ariaLabel="Expected Marriage Age of Child in Years"
                                         />
 
                                         <div className="flex justify-between text-sm text-[#44475B] mt-2">
@@ -218,11 +220,12 @@ export default function Marriagecalculators() {
 
                                     {/* Monthly Saving */}
                                     <div>
-                                        <label className="block text-[#44475B] font-medium text-sm uppercase mb-2">
+                                        <label htmlFor="amountRequired" className="block text-[#44475B] font-medium text-sm uppercase mb-2">
                                             Amount required for wedding as on today
                                         </label>
                                         <input
                                             type="number"
+                                            id="amountRequired"
                                             className="w-full border rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500 text-[#44475B]"
                                             value={amountRequired}
                                             min={0}
@@ -240,11 +243,12 @@ export default function Marriagecalculators() {
                                     </div>
 
                                     <div>
-                                        <label className="block text-[#44475B] font-medium text-sm uppercase mb-2">
+                                        <label htmlFor="annualSaving" className="block text-[#44475B] font-medium text-sm uppercase mb-2">
                                             Annual Savings
                                         </label>
                                         <input
                                             type="number"
+                                            id="annualSaving"
                                             className="w-full border rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500 text-[#44475B]"
                                             value={annualSaving}
                                             min={0}
@@ -264,11 +268,12 @@ export default function Marriagecalculators() {
 
                                     {/* Expected Rate of Return */}
                                     <div>
-                                        <label className="block text-[#44475B] font-medium text-sm uppercase mb-2">
+                                        <label htmlFor="rateOfReturn" className="block text-[#44475B] font-medium text-sm uppercase mb-2">
                                             Expected Rate of returns (%)
                                         </label>
                                         <input
                                             type="text"
+                                            id="rateOfReturn"
                                             inputMode="decimal"
                                             className="w-full border rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500 text-[#44475B]"
                                             value={rateOfReturn}
@@ -310,11 +315,12 @@ export default function Marriagecalculators() {
                                     </div>
 
                                     <div>
-                                        <label className="block text-[#44475B] font-medium text-sm uppercase mb-2">
+                                        <label htmlFor="inflation" className="block text-[#44475B] font-medium text-sm uppercase mb-2">
                                             Expected Inflation (%)
                                         </label>
                                         <input
                                             type="text"
+                                            id="inflation"
                                             inputMode="decimal"
                                             className="w-full border rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500 text-[#44475B]"
                                             value={inflation}

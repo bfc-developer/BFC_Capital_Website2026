@@ -225,11 +225,12 @@ export default function EMICalculator() {
 
                                     {/* Monthly Saving */}
                                     <div>
-                                        <label className="block text-[#44475B] font-medium text-sm uppercase mb-2">
+                                        <label htmlFor="loanAmount" className="block text-[#44475B] font-medium text-sm uppercase mb-2">
                                             Loan Amount
                                         </label>
                                         <input
                                             type="number"
+                                            id="loanAmount"
                                             className="w-full border rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500 text-[#44475B]"
                                             value={loanAmount}
                                             min={0}
@@ -242,17 +243,18 @@ export default function EMICalculator() {
                                                     e.preventDefault();
                                                 }
                                             }}
-                                            placeholder="₹ 10,000"
+                                            placeholder="₹ 10,00,000"
                                         />
                                     </div>
 
                                     {/* Expected Rate of Return */}
                                     <div>
-                                        <label className="block text-[#44475B] font-medium text-sm uppercase mb-2">
+                                        <label htmlFor="interestRate" className="block text-[#44475B] font-medium text-sm uppercase mb-2">
                                             Interest Rate (%)
                                         </label>
                                         <input
                                             type="text"
+                                            id="interestRate"
                                             inputMode="decimal"
                                             className="w-full border rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500 text-[#44475B]"
                                             value={interest}
@@ -308,6 +310,7 @@ export default function EMICalculator() {
                                             maxLimit={30}
                                             setValue={setPeriod}
                                             value={period}
+                                            ariaLabel="Loan Tenure in Years"
                                         />
 
                                         <div className="flex justify-between text-sm text-[#44475B] mt-2">

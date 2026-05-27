@@ -190,6 +190,7 @@ export default function CostOfDelay() {
                                             maxLimit={65}
                                             setValue={setMyCurrentAge}
                                             value={myCurrentAge}
+                                            ariaLabel="Your Current Age in Years"
                                         />
 
                                         <div className="flex justify-between text-sm text-[#44475B] mt-2">
@@ -199,11 +200,12 @@ export default function CostOfDelay() {
                                     </div>
                                     {/* Monthly Saving */}
                                     <div>
-                                        <label className="block text-[#44475B] font-medium text-sm uppercase mb-2">
+                                        <label htmlFor="monthlySIP" className="block text-[#44475B] font-medium text-sm uppercase mb-2">
                                             YOU WANT TO START A MONTHLY SIP OF
                                         </label>
                                         <input
                                             type="number"
+                                            id="monthlySIP"
                                             className="w-full border rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500 text-[#44475B]"
                                             value={monthlySIP}
                                             min={0}
@@ -216,7 +218,7 @@ export default function CostOfDelay() {
                                                     e.preventDefault();
                                                 }
                                             }}
-                                            placeholder="₹ 10,000"
+                                            placeholder="₹ 10,00,000"
                                         />
                                     </div>
 
@@ -235,6 +237,7 @@ export default function CostOfDelay() {
                                             maxLimit={80}
                                             setValue={setInvestTillImAge}
                                             value={investTillImAge}
+                                            ariaLabel="Stay Invested Till Age in Years"
                                         />
 
                                         <div className="flex justify-between text-sm text-[#44475B] mt-2">
@@ -245,11 +248,12 @@ export default function CostOfDelay() {
 
                                     {/* Expected Rate of Return */}
                                     <div>
-                                        <label className="block text-[#44475B] font-medium text-sm uppercase mb-2">
+                                        <label htmlFor="ror" className="block text-[#44475B] font-medium text-sm uppercase mb-2">
                                             Expected Rate of Return (% P.A.)
                                         </label>
                                         <input
                                             type="text"
+                                            id="ror"
                                             inputMode="decimal"
                                             className="w-full border rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500 text-[#44475B]"
                                             value={ROR}
@@ -305,6 +309,7 @@ export default function CostOfDelay() {
                                             maxLimit={40}
                                             setValue={setDelayAge}
                                             value={delayAge}
+                                            ariaLabel="Delay Starting Your SIP by Years"
                                         />
 
                                         <div className="flex justify-between text-sm text-[#44475B] mt-2">

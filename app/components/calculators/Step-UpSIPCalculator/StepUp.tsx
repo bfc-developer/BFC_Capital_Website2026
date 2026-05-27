@@ -159,11 +159,12 @@ export default function StepUpCalculator() {
 
                                     {/* Monthly Saving */}
                                     <div>
-                                        <label className="block text-[#44475B] font-medium text-sm uppercase mb-2">
+                                        <label htmlFor="loanAmount" className="block text-[#44475B] font-medium text-sm uppercase mb-2">
                                             How much you can invest through monthly SIP?
                                         </label>
                                         <input
                                             type="number"
+                                            id="loanAmount"
                                             className="w-full border rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500 text-[#44475B]"
                                             value={loanAmount}
                                             min={0}
@@ -195,6 +196,7 @@ export default function StepUpCalculator() {
                                             maxLimit={30}
                                             setValue={setInvestmentPeriod}
                                             value={investmentPeriod}
+                                            ariaLabel="Investment period in years"
                                         />
 
                                         <div className="flex justify-between text-sm text-[#44475B] mt-2">
@@ -205,11 +207,12 @@ export default function StepUpCalculator() {
 
                                     {/* Expected Rate of Return */}
                                     <div>
-                                        <label className="block text-[#44475B] font-medium text-sm uppercase mb-2">
+                                        <label htmlFor="interest" className="block text-[#44475B] font-medium text-sm uppercase mb-2">
                                             Expected Return (% p.a)
                                         </label>
                                         <input
                                             type="text"
+                                            id="interest"
                                             inputMode="decimal"
                                             className="w-full border rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500 text-[#44475B]"
                                             value={interest}
@@ -252,11 +255,12 @@ export default function StepUpCalculator() {
 
                                     {/* Expected Rate of Return */}
                                     <div>
-                                        <label className="block text-[#44475B] font-medium text-sm uppercase mb-2">
+                                        <label htmlFor="expectedRateOfReturn" className="block text-[#44475B] font-medium text-sm uppercase mb-2">
                                             Annual Step Up Percentage (% p.a)
                                         </label>
                                         <input
                                             type="text"
+                                            id="expectedRateOfReturn"
                                             inputMode="decimal"
                                             className="w-full border rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500 text-[#44475B]"
                                             value={expectedRateOfReturn}
