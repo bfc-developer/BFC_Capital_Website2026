@@ -203,7 +203,7 @@ const Navbar = () => {
                   >Grievance Redressal</Link>
                 </div>
                 <div className="px-md-4 mb-2">
-                  <Link href="/compliances/grievance-mechanism-for-PWD" className={`${isActive("/compliances/grievance-mechanism-for-PWD") ? "text-[#001EFE]" : "text-[#4B4949]"} font-[500] text-[15px] hover:text-[#001EFE] font-base font-inter transition-colors`}
+                  <Link href="/compliances/grievance-mechanism-for-pwd" className={`${isActive("/compliances/grievance-mechanism-for-pwd") ? "text-[#001EFE]" : "text-[#4B4949]"} font-[500] text-[15px] hover:text-[#001EFE] font-base font-inter transition-colors`}
                   >Grievance Mechanism  For PWD</Link>
                 </div>
                 <div className="px-md-4 mb-2">
