@@ -36,7 +36,7 @@ const VideoCarousel = ({ videos, autoPlayInterval = 2500 }: VideoCarouselProps) 
     // Convert YouTube URL to embed format
     const getEmbedUrl = (url: string) => {
         const videoId = getYouTubeId(url);
-        return videoId ? `https://www.youtube.com/embed/${videoId}?autoplay=1` : url;
+        return videoId ? `https://www.youtube.com/embed/${videoId}?autoplay=1&cc_load_policy=1&cc_lang_pref=en` : url;
     };
 
     useEffect(() => {
@@ -147,8 +147,8 @@ const VideoCarousel = ({ videos, autoPlayInterval = 2500 }: VideoCarouselProps) 
             {/* Popup Overlay */}
             {isOpen && (
                 <div className="fixed inset-0 z-[9999] flex items-center justify-center bg-black/85" onClick={closePopup}>
-                    <div 
-                        className="popup-video relative bg-white shadow-2xl flex flex-col" 
+                    <div
+                        className="popup-video relative bg-white shadow-2xl flex flex-col"
                         onClick={(e) => e.stopPropagation()}
                         role="dialog"
                         aria-modal="true"
