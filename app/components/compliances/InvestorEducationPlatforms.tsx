@@ -90,7 +90,7 @@ export default function InvestorEducationPlatforms() {
                 <div className="pt-4 pb-6 flex justify-center">
                     <div className="w-full relative rounded-2xl overflow-hidden shadow-md hover:shadow-lg transition-shadow duration-300 border border-[#E5E7EB]">
                         <Image
-                            src="/investor-education.png"
+                            src="/investor-education.webp"
                             alt="SEBI Saarthi App Infographic"
                             width={4096}
                             height={2304}
@@ -109,7 +109,7 @@ export default function InvestorEducationPlatforms() {
                 <div className="pt-4 flex justify-center">
                     <div className="w-full relative rounded-2xl overflow-hidden shadow-md hover:shadow-lg transition-shadow duration-300 border border-[#E5E7EB]">
                         <Image
-                            src="/investor-education2.png"
+                            src="/investor-education2.webp"
                             alt="SEBI Investor Website Infographic"
                             width={2936}
                             height={1652}
