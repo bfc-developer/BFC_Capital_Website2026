@@ -565,7 +565,7 @@ const EventsSection = () => {
             target="_blank"
             rel="noopener noreferrer"
             className="px-8 py-2 bg-bfc-green text-white font-base rounded-full transition-colors relative "
-            aria-label="See all Quality Circle Programmes"
+            aria-label="See all Quality Circle Programme events"
           >
             See All →
           </a>
@@ -702,7 +702,7 @@ const SuccessHighlight = () => {
                 </div>
               </div>
 
-              <button className=" text-bfc-blue px-5 py-2.5 rounded-full font-bold flex items-center gap-2 transition-all shadow-md group text-[13px] bg-[#FFFFFF]" onClick={() => window.open("https://www.youtube.com/playlist?list=PLfOMOlOYTqnXx3yxcrbxx0uMN2_xTt4Rj", "_blank")} aria-label="See all client success stories on YouTube">
+              <button className=" text-bfc-blue px-5 py-2.5 rounded-full font-bold flex items-center gap-2 transition-all shadow-md group text-[13px] bg-[#FFFFFF]" onClick={() => window.open("https://www.youtube.com/playlist?list=PLfOMOlOYTqnXx3yxcrbxx0uMN2_xTt4Rj", "_blank")} aria-label="See all client testimonials">
 
                 See All
                 <span className="text-bfc-blue group-hover:translate-x-1 transition-transform" aria-hidden="true">
@@ -1120,7 +1120,7 @@ const ComplaintsTable = () => {
             # Inclusive of complaints pending as on the last day of the month <br />
             ^ Average Resolution time is the sum total of time taken to resolve each complaint in days, in the current month divided by total number of complaints resolved in the current month.
           </p>
-          <Link href="/trend-of-monthly-disposal-of-complaints" className="bg-[#024B39] text-white px-10 py-3 rounded-full font-bold transition-all shadow-md active:scale-95 whitespace-nowrap inline-block text-center" aria-label="View trend of monthly disposal of complaints details">
+          <Link href="/trend-of-monthly-disposal-of-complaints" className="bg-[#024B39] text-white px-10 py-3 rounded-full font-bold transition-all shadow-md active:scale-95 whitespace-nowrap inline-block text-center" aria-label="View full monthly complaints disposal report">
             View More
           </Link>
         </div>
@@ -1175,7 +1175,7 @@ const ComplaintsTable = () => {
 
           </div>
           <div className="max-w-6xl mx-auto mt-8 flex flex-col md:flex-row justify-end items-start md:items-center gap-6 px-4">
-            <Link href="/client-level-segregation" className="bg-[#024B39] text-white px-10 py-3 rounded-full font-bold transition-all shadow-md active:scale-95 whitespace-nowrap inline-block text-center" aria-label="View more Compliance Audit Status details">
+            <Link href="/compliance-audit-status" className="bg-[#024B39] text-white px-10 py-3 rounded-full font-bold transition-all shadow-md active:scale-95 whitespace-nowrap inline-block text-center" aria-label="View full compliance audit status report">
               View More
             </Link>
           </div>
@@ -1232,7 +1232,7 @@ const ComplaintsTable = () => {
 
           </div>
           <div className="max-w-6xl mx-auto mt-8 flex flex-col md:flex-row justify-end items-start md:items-center gap-6 px-4">
-            <Link href="/client-level-segregation" className="bg-[#024B39] text-white px-10 py-3 rounded-full font-bold transition-all shadow-md active:scale-95 whitespace-nowrap inline-block text-center" aria-label="View more client level segregation details">
+            <Link href="/client-level-segregation" className="bg-[#024B39] text-white px-10 py-3 rounded-full font-bold transition-all shadow-md active:scale-95 whitespace-nowrap inline-block text-center" aria-label="View full client level segregation report">
               View More
             </Link>
           </div>

@@ -29,7 +29,7 @@ export default function FinancialPlanning() {
                         <div className="text-center py-2 order-1 md:order-2">
                             <Image
                                 src="/Financial-Planning/Hero.webp"
-                                alt="Mobile Portfolio"
+                                alt="Smartphone showing Prodigy Pro financial planning interface"
                                 width={300}
                                 height={600}
                                 className="w-[200px] h-[300px] md:w-[500px] md:h-[400px] lg:w-[500px] lg:h-[500px] mx-auto "
@@ -64,7 +64,7 @@ export default function FinancialPlanning() {
                                 <div className="card-body p-0" style={{ display: 'flex', flexDirection: 'column', height: '100%' }}>
                                     <Image
                                         src="/Financial-Planning/Retirement_Planning.webp"
-                                        alt="Prodigy Splash Screen"
+                                        alt="Illustration of retirement planning goal on Prodigy Pro app"
                                         width={64}
                                         height={64}
                                         className="w-[48px] h-[48px] lg:w-[56px] lg:h-[56px] xl:w-[64px] xl:h-[64px] object-contain"
@@ -108,7 +108,7 @@ export default function FinancialPlanning() {
                                 <div className="card-body p-0" style={{ display: 'flex', flexDirection: 'column', height: '100%' }}>
                                     <Image
                                         src="/Financial-Planning/education 1.webp"
-                                        alt="Prodigy Splash Screen"
+                                        alt="Illustration of education planning goal on Prodigy Pro app"
                                         width={64}
                                         height={64}
                                         className="w-[48px] h-[48px] lg:w-[56px] lg:h-[56px] xl:w-[64px] xl:h-[64px] object-contain"
@@ -152,7 +152,7 @@ export default function FinancialPlanning() {
                                 <div className="card-body p-0" style={{ display: 'flex', flexDirection: 'column', height: '100%' }}>
                                     <Image
                                         src="/Financial-Planning/Marriage_Planning.webp"
-                                        alt="Prodigy Splash Screen"
+                                        alt="Illustration of marriage planning goal on Prodigy Pro app"
                                         width={64}
                                         height={64}
                                         className="w-[48px] h-[48px] lg:w-[56px] lg:h-[56px] xl:w-[64px] xl:h-[64px] object-contain"
@@ -197,7 +197,7 @@ export default function FinancialPlanning() {
                                 <div className="card-body p-0" style={{ display: 'flex', flexDirection: 'column', height: '100%' }}>
                                     <Image
                                         src="/Financial-Planning/home 1.webp"
-                                        alt="Prodigy Splash Screen"
+                                        alt="Illustration of house purchase planning goal on Prodigy Pro app"
                                         width={64}
                                         height={64}
                                         className="w-[48px] h-[48px] lg:w-[56px] lg:h-[56px] xl:w-[64px] xl:h-[64px] object-contain"
