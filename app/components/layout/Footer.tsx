@@ -21,11 +21,11 @@ const Footer = () => {
                             <div className="space-y-1 ">
                                 <h3 className="font-bold uppercase text-[#44475B] text-[19px]">BFC CAPITAL PRIVATE LIMITED</h3>
                                 <div className="text-[14px] md:text-[17px] leading-relaxed lg:leading-6">
-                                    <p>SEBI-Registered Investment Adviser: INA000021669</p>
+                                    <p><span aria-label="Sebi">SEBI</span>-Registered Investment Adviser: INA000021669</p>
                                     <p>BSE Enlistment <abbr title="Number">No.</abbr>: 2414</p>
                                     <p>CIN of the IA: U67120UP2004PTC028628</p>
                                     <p>Type of Registration: Non-Individual.</p>
-                                    <p>Valid till cancellation by SEBI.</p>
+                                    <p>Valid till cancellation by <span aria-label="Sebi">SEBI</span>.</p>
                                     <p>AMFI Registration <abbr title="Number">No.</abbr> ARN-21399</p>
                                 </div>
                             </div>
@@ -47,15 +47,15 @@ const Footer = () => {
                             <div className="space-y-1">
                                 <h2 className="font-bold text-[#44475B] text-[17px]">Grievance Cell</h2>
                                 <div className="text-[14px] md:text-[17px] leading-relaxed lg:leading-6">
-                                    <p className="pb-4">SEBI SCORES:<a href="https://scores.sebi.gov.in" target="_blank" rel="noopener noreferrer" className="hover:text-[#001EFE] underline">https://scores.sebi.gov.in</a></p>
+                                    <p className="pb-4"><span aria-label="Sebi">SEBI</span> SCORES:<a href="https://scores.sebi.gov.in" target="_blank" rel="noopener noreferrer" className="hover:text-[#001EFE] underline">https://scores.sebi.gov.in</a></p>
                                     <p>SMART ODR :<a href="https://smartodr.in/login" target="_blank" rel="noopener noreferrer" className="hover:text-[#001EFE] underline">https://smartodr.in/login</a></p>
                                 </div>
                             </div>
 
                             <div className="space-y-1">
-                                <h2 className="font-bold text-[#44475B] text-[17px]">Corresponding SEBI Address:</h2>
+                                <h2 className="font-bold text-[#44475B] text-[17px]">Corresponding <span aria-label="Sebi">SEBI</span> Address:</h2>
                                 <div className="text-[14px] md:text-[17px] leading-relaxed lg:leading-6">
-                                    <p>SEBI Northern Regional Office (Delhi): NBCC</p>
+                                    <p><span aria-label="Sebi">SEBI</span> Northern Regional Office (Delhi): NBCC</p>
                                     <p>Complex, Office Tower–1, 8th Floor, Plate B,</p>
                                     <p>East Kidwai Nagar, New Delhi – 110023.</p>
                                 </div>
@@ -161,7 +161,7 @@ const Footer = () => {
                     <div className="space-y-2">
                         <p className="text-[17px] font-extrabold uppercase tracking-wide mb-0">DISCLAIMER</p>
                         <p className="text-[14px] md:text-[17px] leading-relaxed lg:leading-6 text-[#44475B]">
-                            “Registration granted by SEBI, membership of BSE and certification from NISM in no way guarantee performance of the intermediary or provide any assurance of returns to investors”
+                            “Registration granted by <span aria-label="Sebi">SEBI</span>, membership of BSE and certification from NISM in no way guarantee performance of the intermediary or provide any assurance of returns to investors”
                         </p>
                     </div>
 

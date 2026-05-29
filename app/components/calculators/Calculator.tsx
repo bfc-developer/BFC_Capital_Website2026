@@ -135,10 +135,22 @@ export default function Calculators() {
 
                                     <div className="text-start">
                                         <h3 className="text-[15px] md:text-[24px] font-bold text-[#44475B] mb-[10px] md:mb-[20px] leading-tight">
-                                            {item.title}
+                                            {item.title === "EMI Calculator" ? (
+                                                <>
+                                                    <span aria-label="E M I">EMI</span> Calculator
+                                                </>
+                                            ) : (
+                                                item.title
+                                            )}
                                         </h3>
                                         <p className="text-[13px] md:text-[17px] leading-4 md:leading-6 text-[#44475B] font-inter">
-                                            {item.desc}
+                                            {item.title === "EMI Calculator" ? (
+                                                <>
+                                                    Calculate your monthly <span aria-label="E M I">EMI</span> amount
+                                                </>
+                                            ) : (
+                                                item.desc
+                                            )}
                                         </p>
                                     </div>
                                 </Link>

@@ -23,7 +23,7 @@ const ComplianceAudit = () => {
                 <h2 className="font-bold text-[#44475B] mb-6 text-[20px] md:text-3xl lg:text-4xl">
                     Compliance Audit Status
                 </h2>
-                <p className='mb-4 text-[#44475B] font-semibold'>“Disclosure with respect to compliance with Annual compliance audit requirement under Regulation 19(3) of SEBI (Investment Advisers) Regulations, 2013 for last financial years are as under:</p>
+                <p className='mb-4 text-[#44475B] font-semibold'>“Disclosure with respect to compliance with Annual compliance audit requirement under Regulation 19(3) of <span aria-label="Sebi">SEBI</span> (Investment Advisers) Regulations, 2013 for last financial years are as under:</p>
                 <div className="overflow-x-auto rounded-lg bg-[#FFFFFF] shadow-sm border border-gray-100 rounded-[16px]">
                     <table className="w-full text-sm text-left text-[#212121]">
                         <thead>

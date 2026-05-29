@@ -23,7 +23,7 @@ const ClientLevelSegregation = () => {
                 <h2 className="font-bold text-[#44475B] mb-6 text-[20px] md:text-3xl lg:text-4xl">
                     Client Level Segregation Report
                 </h2>
-                <p className='mb-4 text-[#44475B] font-semibold'>“Disclosure with respect to client level segregation requirement under Regulation 22 of SEBI (Investment Advisers) Regulations.</p>
+                <p className='mb-4 text-[#44475B] font-semibold'>“Disclosure with respect to client level segregation requirement under Regulation 22 of <span aria-label="Sebi">SEBI</span> (Investment Advisers) Regulations.</p>
                 <div className="overflow-x-auto rounded-lg bg-[#FFFFFF] shadow-sm border border-gray-100 rounded-[16px]">
                     <table className="w-full text-sm text-left text-[#212121]">
                         <thead>

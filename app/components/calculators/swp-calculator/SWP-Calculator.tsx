@@ -233,7 +233,7 @@ export default function SWPCalculatorComponent() {
                         <div className="w-full md:w-1/2">
                             <div className="shadow-md rounded-2xl px-8 py-5 bg-[#FFFFFF]">
 
-                                <form className="space-y-6">
+                                <form onSubmit={(e) => { e.preventDefault(); calculateResult(); }} className="space-y-6">
 
                                     {/* Total Investment */}
                                     <div>
@@ -445,8 +445,7 @@ export default function SWPCalculatorComponent() {
 
                                     {/* Button */}
                                     <button
-                                        type="button"
-                                        onClick={calculateResult}
+                                        type="submit"
                                         className="bg-[#024B39] text-white py-3 rounded-lg font-semibold hover:bg-[#024B39] transition duration-300 p-[14px] cursor-pointer"
                                     >
                                         Calculate
@@ -461,7 +460,7 @@ export default function SWPCalculatorComponent() {
                             <div className="space-y-4">
 
                                 {/* Result Card */}
-                                <div className="shadow-md rounded-2xl px-5 py-4 bg-[#FFFFFF]">
+                                <div className="shadow-md rounded-2xl px-5 py-4 bg-[#FFFFFF]" aria-live="polite">
                                     <h2 className="font-primary font-bold text-2xl leading-tight text-[rgba(33, 33, 33, 1)] mb-6">
                                         Result
                                     </h2>
@@ -633,7 +632,7 @@ export default function SWPCalculatorComponent() {
 
             </section >
             <section>
-                <h2 className="text-center text-[28px] md:text-3xl lg:text-5xl font-bold text-[#44475B] mt-16 mb-4">FAQs</h2>
+                <h2 className="text-center text-[28px] md:text-3xl lg:text-5xl font-bold text-[#44475B] mt-16 mb-4" aria-label="Frequently Asked Questions">FAQs</h2>
                 <p className="text-center  text-[#44475B] mb-4">Questions on your mind? Dont worry we have the answers!</p>
                 <div className='container mx-auto px-5 md:px-10 lg:px-20'>
                     {questions.map((item, index) => (

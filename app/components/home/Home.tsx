@@ -18,6 +18,7 @@ import axios from "axios";
 const HeroSection = () => {
   const [currentSlide, setCurrentSlide] = useState(0);
   const [isFading, setIsFading] = useState(false);
+  const [isPaused, setIsPaused] = useState(false);
 
   const changeSlide = (direction: "next" | "prev") => {
     setIsFading(true);
@@ -60,18 +61,23 @@ const HeroSection = () => {
   ];
 
   useEffect(() => {
+    if (isPaused) return;
     const timer = setInterval(() => {
       changeSlide("next");
     }, 6000);
 
     return () => clearInterval(timer);
-  }, []);
+  }, [isPaused]);
 
   const activeSlide = slides[currentSlide];
 
   return (
     <section
       {...swipeHandlers}
+      onMouseEnter={() => setIsPaused(true)}
+      onMouseLeave={() => setIsPaused(false)}
+      onFocus={() => setIsPaused(true)}
+      onBlur={() => setIsPaused(false)}
       className={`relative w-full overflow-hidden transition-all duration-1200 ease-in-out md:min-h-[600px] flex items-center ${activeSlide.type === "app" ? " bg-[linear-gradient(269.9deg,#06A358_24.53%,#001EFE_156.82%)] via-bfc-blue to-bfc-green" : "bg-gradient-to-b from-blue-50 to-white"}`}
       aria-label="Welcome banner slideshow"
     >
@@ -96,12 +102,13 @@ const HeroSection = () => {
       )}
 
       <div
+        aria-live="polite"
         className={`container relative mx-auto px-4  pb-12 pt-5 md:pt-10 xl:pt-0
   transition-opacity duration-[1200ms] ease-in-out
   ${isFading ? "opacity-0" : "opacity-100"}`}
       >
         {activeSlide.type === "wealth" ? (
-          <div className=" text-center">
+          <div className=" text-center" role="group" aria-roledescription="slide" aria-label={`Slide 1 of 2: ${activeSlide.title} ${activeSlide.highlight}`}>
             <h1 className="mx-auto max-w-[350px] md:max-w-5xl font-extrabold leading-tight tracking-tight text-[20px] md:text-3xl lg:text-5xl bg-[linear-gradient(to_right,#024B39_42%,#011EFE_85%)] bg-clip-text text-transparent pb-2 font-inter">
               {activeSlide.title} <br className="hidden md:block" />
               {activeSlide.highlight}
@@ -109,9 +116,9 @@ const HeroSection = () => {
 
             {/* Stats Circles */}
             <div className="mt-5 md:mt-10 xl:mt-15 flex flex-wrap justify-center gap-4 md:gap-10 xl:gap-15" aria-label="BFC Capital key metrics">
-              <div className="flex  flex-col items-center justify-center w-25 h-25 font-inter md:w-40 md:h-40 rounded-full border-gradient-blue-green shadow-xl p-1" aria-label="SEBI Registered Investment Advisor registration number INA000021669">
+              <div className="flex  flex-col items-center justify-center w-25 h-25 font-inter md:w-40 md:h-40 rounded-full border-gradient-blue-green shadow-xl p-1" aria-label="Sebi Registered Investment Advisor registration number INA000021669">
                 <h2 className="text-[14px] md:text-2xl font-extrabold text-[#44475B] font-inter">
-                  SEBI
+                  <span aria-label="Sebi">SEBI</span>
                 </h2>
                 <p className="text-[7px] md:text-[12px] text-gray-600 font-semibold text-center mt-1 font-inter tracking-wide">
                   RIA : <br />INA000021669
@@ -154,8 +161,10 @@ const HeroSection = () => {
         ) : (
           // App Slide Content
           <div
-            className="flex flex-col items-center gap-1 lg:gap-12 lg:flex-row lg:justify-evenly text-white
- w-full px-4 lg:px-0"
+            className="flex flex-col items-center gap-1 lg:gap-12 lg:flex-row lg:justify-evenly text-white w-full px-4 lg:px-0"
+            role="group"
+            aria-roledescription="slide"
+            aria-label={`Slide 2 of 2: ${activeSlide.title}`}
           >
             <div className="text-center lg:w-1/2 lg:text-left lg:pr-12 order-2 lg:order-1">
               <h2 className="mb-6 font-extrabold leading-tight text-[18px] md:text-3xl lg:text-4xl xl:text-5xl drop-shadow-lg max-w-2xl">
@@ -228,6 +237,7 @@ const HeroSection = () => {
                     : "#818181",
             }}
             aria-label={`Go to slide ${idx + 1}`}
+            aria-current={idx === currentSlide ? "true" : "false"}
           ></button>
         ))}
       </div>
@@ -579,8 +589,8 @@ const Credentials = () => {
   const credentialData = [
     {
       logo: "/Home/SEBI.svg",
-      alt: "SEBI Logo",
-      title: "SEBI Registered Investment Advisor",
+      alt: "Sebi Logo",
+      title: "Sebi Registered Investment Advisor",
       desc: "INA000021669",
     },
     {
@@ -895,7 +905,7 @@ const FAQSection = () => {
             sleeves.
           </p>
           <p>
-            At BFC CAPITAL, a SEBI Registered Investment Advisor (RIA), we help
+            At BFC CAPITAL, a <span aria-label="Sebi">SEBI</span> Registered Investment Advisor (RIA), we help
             you do all of that with trusted, regulated advice to make sure your
             financial journey stays on the track that you have envisioned.
           </p>
@@ -1010,17 +1020,17 @@ const ComplaintsTable = () => {
   ];
 
   return (
-    <section className="py-5 md:py-0 " aria-label="SEBI Investor Complaints and Disclosures">
+    <section className="py-5 md:py-0 " aria-label="Sebi Investor Complaints and Disclosures">
       <div className="container mx-auto px-4">
         <div className="text-center mb-5 md:mb-12 px-4">
           <h2 className="text-[20px] md:text-3xl lg:text-5xl font-extrabold text-[#44475B] tracking-tight">
-            Number of Complaints as per SEBI Guidelines
+            Number of Complaints as per <span aria-label="Sebi">SEBI</span> Guidelines
           </h2>
           <p className="text-[#44475B] mt-4">Data for the month ending {monthYear || "..."}</p>
         </div>
 
         <div className="max-w-6xl mx-auto overflow-x-auto shadow-sm border border-gray-100 rounded-[16px]">
-          <table className="w-full text-center border-collapse" aria-label="Table summarizing complaints received, pending status, and resolution time as per SEBI Guidelines">
+          <table className="w-full text-center border-collapse" aria-label="Table summarizing complaints received, pending status, and resolution time as per Sebi Guidelines">
             <thead>
               <tr
                 className="text-[#4D4D4D] border-b border-gray-100"
@@ -1068,7 +1078,13 @@ const ComplaintsTable = () => {
                     {row.sr}
                   </td>
                   <td className="py-[12px] text-sm font-semibold text-left text-gray-700 whitespace-nowrap">
-                    {row.from}
+                    {row.from === "SEBI (SCORES)" ? (
+                      <>
+                        <span aria-label="Sebi">SEBI</span> (SCORES)
+                      </>
+                    ) : (
+                      row.from
+                    )}
                   </td>
                   <td className="py-[12px] text-sm font-bold text-left">
                     {row.lastMonth}

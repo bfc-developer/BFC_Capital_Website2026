@@ -145,7 +145,7 @@ const Navbar = () => {
                 </div>
                 <div className="px-md-4 mb-2">
                   <Link href="/calculators/emi-calculator" className={`${isActive("/calculators/emi-calculator") ? "text-[#001EFE]" : "text-[#4B4949]"} font-[500] text-[15px] hover:text-[#001EFE] font-base font-inter transition-colors`}
-                  >EMI Calculator</Link>
+                  ><span aria-label="E M I">EMI</span> Calculator</Link>
                 </div>
                 <div className="px-md-4 mb-2">
                   <Link href="/calculators/fd-calculator" className={`${isActive("/calculators/fd-calculator") ? "text-[#001EFE]" : "text-[#4B4949]"} font-[500] text-[15px] hover:text-[#001EFE] font-base font-inter transition-colors`}>FD Calculator</Link>
@@ -232,6 +232,7 @@ const Navbar = () => {
               onClick={toggleMore}
               aria-expanded={isMoreOpen}
               aria-haspopup="true"
+              aria-label="More navigation links"
               className="flex items-center gap-1 text-[#4B4949] font-[500] text-[15px] hover:text-[#001EFE] font-base font-inter transition-colors cursor-pointer"
             >
               More
@@ -354,7 +355,7 @@ const Navbar = () => {
                 <Link href="/calculators/education-planning-calculator" className={`${isActive("/calculators/education-planning-calculator") ? "text-[#001EFE]" : "text-[#4B4949]"} font-[500] text-[14px] hover:text-[#001EFE] font-inter transition-colors`}>Education Planning</Link>
                 <Link href="/calculators/lump-sum-calculator" className={`${isActive("/calculators/lump-sum-calculator") ? "text-[#001EFE]" : "text-[#4B4949]"} font-[500] text-[14px] hover:text-[#001EFE] font-inter transition-colors`}>Lump Sum Calculator</Link>
                 <Link href="/calculators/retirement-planning-calculator" className={`${isActive("/calculators/retirement-planning-calculator") ? "text-[#001EFE]" : "text-[#4B4949]"} font-[500] text-[14px] hover:text-[#001EFE] font-inter transition-colors`}>Retirement Calculator</Link>
-                <Link href="/calculators/emi-calculator" className={`${isActive("/calculators/emi-calculator") ? "text-[#001EFE]" : "text-[#4B4949]"} font-[500] text-[14px] hover:text-[#001EFE] font-inter transition-colors`}>EMI Calculator</Link>
+                <Link href="/calculators/emi-calculator" className={`${isActive("/calculators/emi-calculator") ? "text-[#001EFE]" : "text-[#4B4949]"} font-[500] text-[14px] hover:text-[#001EFE] font-inter transition-colors`}><span aria-label="E M I">EMI</span> Calculator</Link>
                 <Link href="/calculators/fd-calculator" className={`${isActive("/calculators/fd-calculator") ? "text-[#001EFE]" : "text-[#4B4949]"} font-[500] text-[14px] hover:text-[#001EFE] font-inter transition-colors`}>FD Calculator</Link>
                 <Link href="/calculators/elss-calculator" className={`${isActive("/calculators/elss-calculator") ? "text-[#001EFE]" : "text-[#4B4949]"} font-[500] text-[14px] hover:text-[#001EFE] font-inter transition-colors`}>ELSS Calculator</Link>
                 <Link href="/calculators/swp-calculator" className={`${isActive("/calculators/swp-calculator") ? "text-[#001EFE]" : "text-[#4B4949]"} font-[500] text-[14px] hover:text-[#001EFE] font-inter transition-colors`}>SWP Calculator</Link>
@@ -401,6 +402,7 @@ const Navbar = () => {
               onClick={toggleMore}
               aria-expanded={isMoreOpen}
               aria-haspopup="true"
+              aria-label="More navigation links"
               className="w-full flex justify-between items-center text-[#4B4949] font-[500] text-[15px] hover:text-[#001EFE] font-inter cursor-pointer"
             >
               <span>More</span>

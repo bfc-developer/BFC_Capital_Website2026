@@ -200,17 +200,11 @@ export default function EMICalculator() {
                         className="h-4 w-4 mx-2"
                         style={{ stroke: "url(#chevron-gradient)" }}
                     />
-                    <span className="text-[#7A7A7A] font-semibold" style={{
-                        // background: "linear-gradient(90deg, #024B39 39.5%, #011EFE 100%)",
-                        // WebkitBackgroundClip: "text",
-                        // WebkitTextFillColor: "transparent",
-                        // backgroundClip: "text",
-                        // color: "transparent"
-                    }}>EMI Calculator</span>
+                    <span className="text-[#7A7A7A] font-semibold"><span aria-label="E M I">EMI</span> Calculator</span>
                 </nav>
                 {/* Title */}
                 <h2 className="text-[40px] md:text-3xl lg:text-5xl font-bold text-[#44475B]">
-                    EMI Calculator
+                    <span aria-label="E M I">EMI</span> Calculator
                 </h2>
             </div>
             <section>
@@ -221,7 +215,7 @@ export default function EMICalculator() {
                         <div className="w-full md:w-1/2">
                             <div className="shadow-md rounded-2xl px-8 py-5 bg-[#FFFFFF]">
 
-                                <form className="space-y-6">
+                                <form onSubmit={handleCalculate} className="space-y-6">
 
                                     {/* Monthly Saving */}
                                     <div>
@@ -321,8 +315,7 @@ export default function EMICalculator() {
 
                                     {/* Button */}
                                     <button
-                                        type="button"
-                                        onClick={handleCalculate}
+                                        type="submit"
                                         className="bg-[#024B39] text-white py-3 rounded-lg font-semibold hover:bg-[#024B39] transition duration-300 p-[14px] cursor-pointer"
                                     >
                                         Calculate
@@ -337,7 +330,7 @@ export default function EMICalculator() {
                             <div className="space-y-4">
 
                                 {/* Result Card */}
-                                <div className="shadow-md rounded-2xl px-5 py-4 bg-[#FFFFFF]">
+                                <div className="shadow-md rounded-2xl px-5 py-4 bg-[#FFFFFF]" aria-live="polite">
                                     <h2 className="font-primary font-bold text-2xl leading-tight text-textdark mb-3">
                                         Result
                                     </h2>
@@ -345,7 +338,7 @@ export default function EMICalculator() {
                                     <div className="grid grid-cols-2 gap-6">
                                         <div className="">
                                             <div className="">
-                                                <p className="text-[#4D4D4D] uppercase font-medium">Your monthly EMI</p>
+                                                <p className="text-[#4D4D4D] uppercase font-medium">Your monthly <span aria-label="E M I">EMI</span></p>
                                                 <h3 className="text-[#212121] font-bold text-xl">₹{monthlyEmi.toLocaleString("en-IN")}</h3>
                                             </div>
                                         </div>
@@ -592,7 +585,7 @@ export default function EMICalculator() {
 
             </section >
             <section>
-                <h2 className="text-center text-[28px] md:text-3xl lg:text-5xl font-bold text-[#44475B] mt-16 mb-4">FAQs</h2>
+                <h2 className="text-center text-[28px] md:text-3xl lg:text-5xl font-bold text-[#44475B] mt-16 mb-4" aria-label="Frequently Asked Questions">FAQs</h2>
                 <p className="text-center  text-[#44475B] mb-4">Questions on your mind? Dont worry we have the answers!</p>
                 <div className='container mx-auto px-5 md:px-10 lg:px-20'>
                     {questions.map((item, index) => (

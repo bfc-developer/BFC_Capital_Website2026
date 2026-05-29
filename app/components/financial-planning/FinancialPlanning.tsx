@@ -19,7 +19,7 @@ export default function FinancialPlanning() {
 
                             <p className="mx-auto mb-4 max-w-6xl text-[15px] md:text-[17px] text-[#44475B] leading-relaxed font-inter opacity-90">
                                 At BFC Capital, we see financial planning as more than numbers on a sheet left open. For us it’s where real-life goals meet practical strategies – and where dreams stop feeling distant or unachievable. <br />
-                                As a SEBI Registered Investment Adviser (RIA), our role is simple:to help you make smarter financial decisions, without pressure, bias, or confusion – so your future feels secure, not uncertain.
+                                As a <span aria-label="Sebi">SEBI</span> Registered Investment Adviser (RIA), our role is simple:to help you make smarter financial decisions, without pressure, bias, or confusion – so your future feels secure, not uncertain.
                             </p>
                             <BookSessionButton
                                 buttonText="Book your financial planning session today"
@@ -238,7 +238,7 @@ export default function FinancialPlanning() {
                         Imagine you’ve been dreaming of going on an international vacation with your family for years. <br />
                         One day, you receive a sudden bonus of ₹3 lakhs. <br />
                         Do you immediately book flights, luxury hotels, and say “life is short”? <br />
-                        Or do you stop for a moment, check your savings, EMIs, upcoming goals, and then decide whether this trip fits into your bigger financial picture? <br />
+                        Or do you stop for a moment, check your savings, <span aria-label="E M Is">EMIs</span>, upcoming goals, and then decide whether this trip fits into your bigger financial picture? <br />
                         If you instinctively chose the second option, you already understand financial planning and that too maybe without realising it. <br />And if you didn’t, that’s okay too. In fact, that’s exactly where financial planning becomes important. <br />
                         At <b>BFC Capital</b>, we believe good financial decisions are rarely rushed. They’re thought through, just like our approach for your wealth.</p>
                 </div>
@@ -258,7 +258,7 @@ export default function FinancialPlanning() {
                     <p className='text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto mb-4'>
                         Financial planning helps you answer these questions honestly. <br />
                         It begins with understanding where you stand today, defining what you want tomorrow, and then creating a clear path between the two. This includes budgeting, saving, managing risks, investing wisely, planning for retirement, and taking care of short-term needs along the way. <br />
-                        As a <b>SEBI Registered Investment Advisor</b>, BFC Capital follows an advice-first approach – meaning recommendations are made for your goals, not for selling products.</p>
+                        As a <b><span aria-label="Sebi">SEBI</span> Registered Investment Advisor</b>, BFC Capital follows an advice-first approach – meaning recommendations are made for your goals, not for selling products.</p>
                 </div>
 
                 <div className='container mx-auto px-5 md:px-10 lg:px-20'>
@@ -331,7 +331,7 @@ export default function FinancialPlanning() {
                         Unavoidable Consumption
                     </p>
                     <p className='text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto'>
-                        The moment income hits your account, fixed expenses line up – rent, EMIs, school fees, groceries, utilities.<br />
+                        The moment income hits your account, fixed expenses line up – rent, <span aria-label="E M Is">EMIs</span>, school fees, groceries, utilities.<br />
                         These aren’t optional. Planning for them is essential.<br />
                         Setting aside a defined portion of income – ideally around 25–30% – ensures stability and prevents stress month after month.
                     </p>
@@ -352,7 +352,7 @@ export default function FinancialPlanning() {
                         <li>Life cover: 8-10 times of annual income</li>
                     </ul>
                     <p className='text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto'>
-                        At <b>BFC Capital</b>, risk planning is never treated casually… it’s a core part of responsible, SEBI RIA led advice.
+                        At <b>BFC Capital</b>, risk planning is never treated casually… it’s a core part of responsible, <span aria-label="Sebi">SEBI</span> <abbr title="Registered Investment Advisor" aria-label="R I A">RIA</abbr> led advice.
                     </p>
                 </div>
                 <div className='container mx-auto px-5 md:px-10 lg:px-20 mb-8'>
