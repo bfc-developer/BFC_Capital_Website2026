@@ -44,29 +44,6 @@ export default function SWPCalculatorComponent() {
         },
     ];
 
-    // useEffect(() => {
-    //   const fetchFaqs = async () => {
-    //     try {
-    //       const res = await fetch(`${Base_url}/${endpoints.calculators}`);
-    //       const data = await res.json();
-
-    //       // Extract FAQ array safely
-    //       const faqItems = data?.data[0]?.attributes?.sipCalculator?.FAQ || [];
-    //       setQuestions(faqItems);
-    //     } catch (error) {
-    //       console.error("Error fetching FAQs:", error);
-    //     }
-    //   };
-
-    //   fetchFaqs();
-    // }, []);
-
-    // const [monthlySaving, setMonthlySaving] = useState("₹ 100,000");
-    // const [rateOfReturn, setRateOfReturn] = useState("12");
-    // const [period, setPeriod] = useState("Monthly");
-
-    // Input states
-    // Input states
     const [lumpsumAmount, setLumpsumAmount] = useState<number>(1000000);
     const [investmentPeriod, setInvestmentPeriod] = useState<number>(10);
     const [expectedReturn, setExpectedReturn] = useState<string | number>(8);

@@ -308,14 +308,14 @@ export default function AllMutualFunds() {
                             {!loading && schemes.length === 0 && (
                                 <div className="d-flex flex-column justify-content-center align-items-center py-5 w-100">
                                     <img
-                                        src="https://app.prodigypro.co.in/assets/empty-scheme-DEgi2czJ.svg"
+                                        src="/All-Mutual-funds/empty-scheme.svg"
                                         alt="No schemes found"
                                         style={{ width: "260px", height: "auto" }}
                                     />
-                                    <h5 className="mt-3 text-muted text-center">
+                                    <h5 className="mt-3 text-[#44475B] text-center text-[28px] font-inter font-semibold">
                                         No Funds Available
                                     </h5>
-                                    <h6 className="mt-3 text-muted text-center">
+                                    <h6 className="mt-3 text-[#44475B] text-center text-[18px] font-inter font-normal">
                                         Looks like there aren't any funds display Fresh
                                         opportunities are on the way!
                                     </h6>
