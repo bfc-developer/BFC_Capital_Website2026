@@ -22,11 +22,11 @@ const Footer = () => {
                                 <h3 className="font-bold uppercase text-[#44475B] text-[19px]">BFC CAPITAL PRIVATE LIMITED</h3>
                                 <div className="text-[14px] md:text-[17px] leading-relaxed lg:leading-6">
                                     <p>SEBI-Registered Investment Adviser: INA000021669</p>
-                                    <p>BSE Enlistment No.: 2414</p>
+                                    <p>BSE Enlistment <abbr title="Number">No.</abbr>: 2414</p>
                                     <p>CIN of the IA: U67120UP2004PTC028628</p>
                                     <p>Type of Registration: Non-Individual.</p>
                                     <p>Valid till cancellation by SEBI.</p>
-                                    <p>AMFI Registration No. ARN-21399</p>
+                                    <p>AMFI Registration <abbr title="Number">No.</abbr> ARN-21399</p>
                                 </div>
                             </div>
 

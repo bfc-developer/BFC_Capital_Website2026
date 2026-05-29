@@ -29,7 +29,7 @@ const ComplaintsTables = () => {
                     <table className="w-full text-sm text-left">
                         <thead className="text-gray-800 font-bold text-xs" style={{ background: 'linear-gradient(270deg, #CFE4F3 0%, #FAFAFA 63.46%)' }}>
                             <tr className='border-b border-gray-100'>
-                                <th className="px-6 py-4 text-[#4D4D4D] text-left">Sr.No.</th>
+                                <th className="px-6 py-4 text-[#4D4D4D] text-left" aria-label="Serial Number">Sr.No.</th>
                                 <th className="px-6 py-4 text-[#4D4D4D] text-left">Month</th>
                                 <th className="px-6 py-4 text-[#4D4D4D] text-left">Carried forward from previous month</th>
                                 <th className="px-6 py-4 text-[#4D4D4D] text-left">Received</th>
@@ -85,7 +85,7 @@ const ComplaintsTables = () => {
                     <table className="w-full text-sm text-left text-gray-700">
                         <thead className="text-gray-800 font-bold text-xs" style={{ background: 'linear-gradient(270deg, #CFE4F3 0%, #FAFAFA 63.46%)' }}>
                             <tr className='border-b border-gray-100'>
-                                <th className="px-6 py-4 text-[#4D4D4D] text-left">Sr.No.</th>
+                                <th className="px-6 py-4 text-[#4D4D4D] text-left" aria-label="Serial Number">Sr.No.</th>
                                 <th className="px-6 py-4 text-[#4D4D4D] text-left">Year</th>
                                 <th className="px-6 py-4 text-[#4D4D4D] text-left">Carried forward from previous year</th>
                                 <th className="px-6 py-4 text-[#4D4D4D] text-left">Received</th>

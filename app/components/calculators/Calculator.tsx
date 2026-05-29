@@ -87,7 +87,7 @@ export default function Calculators() {
         <>
             <div className="flex flex-col min-h-screen font-inter">
 
-                <main className="flex-grow">
+                <main id="main-content" className="flex-grow">
                     <div className="container mx-auto px-4 py-8 md:py-12 md:px-15 lg:px-20">
 
                         {/* Breadcrumb */}

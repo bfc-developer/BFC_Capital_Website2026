@@ -31,7 +31,7 @@ const ComplianceAudit = () => {
                                 className="text-[#334155] border-b border-gray-100"
                                 style={{ background: 'linear-gradient(270deg, #CFE4F3 0%, #FAFAFA 63.46%)' }}
                             >
-                                <th className="px-6 py-4 text-[#4D4D4D] font-bold text-left">Sr.No.</th>
+                                <th className="px-6 py-4 text-[#4D4D4D] font-bold text-left" aria-label="Serial Number">Sr.No.</th>
                                 <th className="px-6 py-4 text-[#4D4D4D] font-bold text-left">Financial Year</th>
                                 <th className="px-6 py-4 text-[#4D4D4D] font-bold text-left">Compliance Audit Status</th>
                                 <th className="px-6 py-4 text-[#4D4D4D] font-bold text-left">Remarks, If any</th>

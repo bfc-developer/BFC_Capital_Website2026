@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useRef } from "react";
 
 interface SuccessPopupProps {
     isOpen: boolean;
@@ -6,6 +6,28 @@ interface SuccessPopupProps {
 }
 
 const SuccessPopup: React.FC<SuccessPopupProps> = ({ isOpen, onClose }) => {
+    const headingRef = useRef<HTMLHeadingElement>(null);
+    const previousFocusRef = useRef<HTMLElement | null>(null);
+
+    useEffect(() => {
+        if (isOpen) {
+            // Save the currently focused element
+            previousFocusRef.current = document.activeElement as HTMLElement;
+            // Delay slightly to ensure browser has updated layout
+            const timer = setTimeout(() => {
+                if (headingRef.current) {
+                    headingRef.current.focus();
+                }
+            }, 100);
+            return () => clearTimeout(timer);
+        } else {
+            // Return focus when closing
+            if (previousFocusRef.current) {
+                previousFocusRef.current.focus();
+            }
+        }
+    }, [isOpen]);
+
     if (!isOpen) return null;
 
     return (
@@ -23,7 +45,7 @@ const SuccessPopup: React.FC<SuccessPopupProps> = ({ isOpen, onClose }) => {
                 {/* Close Button */}
                 <button
                     onClick={onClose}
-                    className="absolute top-4 right-4 text-white/80 hover:text-white transition-colors"
+                    className="absolute top-4 right-4 text-white/80 hover:text-white transition-colors cursor-pointer"
                     aria-label="Close popup"
                 >
                     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
@@ -32,7 +54,12 @@ const SuccessPopup: React.FC<SuccessPopupProps> = ({ isOpen, onClose }) => {
                     </svg>
                 </button>
 
-                <h2 id="success-popup-title" className="text-4xl md:text-5xl font-bold mb-4 leading-tight">
+                <h2 
+                    id="success-popup-title" 
+                    ref={headingRef}
+                    tabIndex={-1}
+                    className="text-4xl md:text-5xl font-bold mb-4 leading-tight focus:outline-none"
+                >
                     Thank you for<br />getting in touch!
                 </h2>
 

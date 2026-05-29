@@ -46,6 +46,7 @@ export default function DownloadJDButton({ base64Data, fileName }: Props) {
         <button 
             onClick={handleDownload}
             className="text-[#011EFE] text-lg hover:underline block cursor-pointer bg-transparent border-none p-0 text-left"
+            aria-label="Click here to download and view the detailed Job Description PDF"
         >
             Click here to view detailed JD
         </button>

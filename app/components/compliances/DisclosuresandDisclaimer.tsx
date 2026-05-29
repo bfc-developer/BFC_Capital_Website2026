@@ -60,7 +60,7 @@ export default function DisclosureAndDisclaimer() {
                 {/* Content */}
                 <div className="text-[15px] md:text-[16px] text-[#44475B] leading-relaxed space-y-6 text-justify">
                     <p>
-                        1. We are a SEBI-registered investment adviser (Registration No. INA000021669) operating on a hybrid model. In addition to our advisory registration, we also hold a valid AMFI registration bearing number 21399. Initial registration date was 31st July 2004, and is valid up to 29 July, 2029. It is renewed from time to time in accordance with applicable regulatory requirements.
+                        1. We are a SEBI-registered investment adviser (Registration <abbr title="Number">No.</abbr> INA000021669) operating on a hybrid model. In addition to our advisory registration, we also hold a valid AMFI registration bearing number 21399. Initial registration date was 31st July 2004, and is valid up to 29 July, 2029. It is renewed from time to time in accordance with applicable regulatory requirements.
                     </p>
 
                     <p>

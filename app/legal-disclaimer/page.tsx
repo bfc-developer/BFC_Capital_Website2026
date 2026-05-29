@@ -19,7 +19,7 @@ export default function LegalDisclaimerPage() {
     return (
         <div className="flex flex-col min-h-screen font-inter">
             <Navbar />
-            <main className="flex-grow">
+            <main id="main-content" className="flex-grow">
                 <LegalDisclaimer />
             </main>
             <Footer />

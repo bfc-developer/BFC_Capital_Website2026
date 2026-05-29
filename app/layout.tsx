@@ -6,6 +6,7 @@ import { defaultSeo } from "./seo-config";
 import "./globals.css";
 import { GlobalLoaderProvider } from "./components/common/GlobalLoader";
 import ScrollToTop from "./components/common/ScrollToTop";
+import RouteFocusManager from "./components/common/RouteFocusManager";
 // import CustomCursor from "./components/common/CustomCursor";
 
 const inter = Inter({
@@ -37,8 +38,12 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={`${inter.variable} antialiased`}>
+        <a href="#main-content" className="sr-only focus:not-sr-only focus:absolute focus:top-4 focus:left-4 focus:z-50 focus:p-4 focus:bg-white focus:text-[#011EFE] focus:border focus:border-[#011EFE] focus:rounded-md focus:shadow-md focus:outline-none">
+          Skip to main content
+        </a>
         <ToastContainer />
         <GlobalLoaderProvider>
+          <RouteFocusManager />
           {/* <CustomCursor /> */}
           <ScrollToTop />
           {children}

@@ -77,7 +77,7 @@ export default function GrievanceRedressal() {
                                     Address
                                 </th>
                                 <th scope="col" className="px-6 py-4 font-semibold text-[13px] md:text-sm leading-tight border-r border-[#E5E7EB]">
-                                    Contact No.
+                                    Contact <abbr title="Number">No.</abbr>
                                 </th>
                                 <th scope="col" className="px-6 py-4 font-semibold text-[13px] md:text-sm leading-tight border-r border-[#E5E7EB]">
                                     Email Id

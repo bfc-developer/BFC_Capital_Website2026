@@ -6,7 +6,7 @@ export default function Loading() {
     return (
         <div className="flex flex-col min-h-screen font-sans bg-[#F8F9FA]">
             <Navbar />
-            <main className="flex-grow flex items-center justify-center">
+            <main id="main-content" className="flex-grow flex items-center justify-center">
                 <div className="flex flex-col items-center">
                     <GradientSpinner />
                 </div>

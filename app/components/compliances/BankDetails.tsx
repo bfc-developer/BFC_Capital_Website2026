@@ -66,7 +66,7 @@ export default function BankDetails() {
                                     Bank Name
                                 </th>
                                 <th scope="col" className="px-6 py-4 font-bold text-[13px] md:text-sm leading-tight border-r border-[#E5E7EB]">
-                                    Bank Account No.
+                                    Bank Account <abbr title="Number">No.</abbr>
                                 </th>
                                 <th scope="col" className="px-6 py-4 font-bold text-[13px] md:text-sm leading-tight border-r border-[#E5E7EB]">
                                     IFSC Code

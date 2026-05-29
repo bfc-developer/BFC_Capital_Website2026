@@ -113,7 +113,7 @@ export default async function JobDetailsPage({ params }: { params: Promise<{ slu
         <div className="flex flex-col min-h-screen font-sans bg-[#F8F9FA]">
             <Navbar />
 
-            <main className="flex-grow">
+            <main id="main-content" className="flex-grow">
                 <div className="container mx-auto px-4 md:px-8 py-8 md:py-12 max-w-6xl">
                     <nav className="flex items-center text-sm mb-8">
                         <Link

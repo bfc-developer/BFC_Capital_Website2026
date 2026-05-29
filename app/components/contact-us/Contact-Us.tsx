@@ -190,7 +190,7 @@ export default function ContactUsPage() {
                                     onChange={handleChange}
                                     className={`w-full border-b py-1.5 focus:outline-none transition-colors bg-transparent text-gray-800 ${errors.fullName ? 'border-red-500 focus:border-red-500' : 'border-gray-300 focus:border-[#00a651]'}`}
                                 />
-                                {errors.fullName && <span className="text-red-500 text-xs mt-1">{errors.fullName}</span>}
+                                {errors.fullName && <span className="text-red-500 text-xs mt-1" role="alert">{errors.fullName}</span>}
                             </div>
 
                             <div className="flex flex-col">
@@ -204,7 +204,7 @@ export default function ContactUsPage() {
                                     maxLength={10}
                                     className={`w-full border-b py-1.5 focus:outline-none transition-colors bg-transparent text-gray-800 ${errors.mobileNumber ? 'border-red-500 focus:border-red-500' : 'border-gray-300 focus:border-[#00a651]'}`}
                                 />
-                                {errors.mobileNumber && <span className="text-red-500 text-xs mt-1">{errors.mobileNumber}</span>}
+                                {errors.mobileNumber && <span className="text-red-500 text-xs mt-1" role="alert">{errors.mobileNumber}</span>}
                             </div>
 
                             <div className="flex flex-col">
@@ -217,7 +217,7 @@ export default function ContactUsPage() {
                                     onChange={handleChange}
                                     className={`w-full border-b py-1.5 focus:outline-none transition-colors bg-transparent text-gray-800 ${errors.email ? 'border-red-500 focus:border-red-500' : 'border-gray-300 focus:border-[#00a651]'}`}
                                 />
-                                {errors.email && <span className="text-red-500 text-xs mt-1">{errors.email}</span>}
+                                {errors.email && <span className="text-red-500 text-xs mt-1" role="alert">{errors.email}</span>}
                             </div>
 
                             <div className="flex flex-col">
@@ -230,7 +230,7 @@ export default function ContactUsPage() {
                                     onChange={handleChange}
                                     className={`w-full border-b py-1.5 focus:outline-none transition-colors bg-transparent text-gray-800 ${errors.subject ? 'border-red-500 focus:border-red-500' : 'border-gray-300 focus:border-[#00a651]'}`}
                                 />
-                                {errors.subject && <span className="text-red-500 text-xs mt-1">{errors.subject}</span>}
+                                {errors.subject && <span className="text-red-500 text-xs mt-1" role="alert">{errors.subject}</span>}
                             </div>
 
                             <div className="flex flex-col">
@@ -243,7 +243,7 @@ export default function ContactUsPage() {
                                     rows={4}
                                     className={`w-full border rounded-md p-3 focus:outline-none transition-colors bg-transparent resize-none mt-1 text-gray-800 ${errors.message ? 'border-red-500 focus:border-red-500' : 'border-gray-300 focus:border-[#00a651]'}`}
                                 ></textarea>
-                                {errors.message && <span className="text-red-500 text-xs mt-1">{errors.message}</span>}
+                                {errors.message && <span className="text-red-500 text-xs mt-1" role="alert">{errors.message}</span>}
                             </div>
 
                             {/* Consent Checkbox */}
@@ -278,10 +278,10 @@ peer-checked:bg-cover ${errors.consent ? 'border-red-500' : 'border-gray-300'}`}
                                         </div>
                                     </div>
                                     <label htmlFor="consent" className="text-xs text-gray-500 leading-relaxed cursor-pointer">
-                                        I, hereby accord my consent to process my above mentioned personal data by BFC Capital Pvt. Ltd. for the purpose of customer support/product promotion, in accordance with the provisions of DPDP Act 2023. To know more <a href="#" className="text-blue-600 underline hover:text-blue-800">click here.</a>
+                                        I, hereby accord my consent to process my above mentioned personal data by BFC Capital Pvt. Ltd. for the purpose of customer support/product promotion, in accordance with the provisions of DPDP Act 2023. To know more <Link href="https://bfccapital.com/dpdpact" className="text-blue-600 underline hover:text-blue-800" aria-label="Click here to read more about personal data processing details in DPDP Act 2023">click here.</Link>
                                     </label>
                                 </div>
-                                {errors.consent && <span className="text-red-500 text-xs mt-1 block">{errors.consent}</span>}
+                                {errors.consent && <span className="text-red-500 text-xs mt-1 block" role="alert">{errors.consent}</span>}
                             </div>
 
                             <div>

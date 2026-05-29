@@ -1029,7 +1029,7 @@ const ComplaintsTable = () => {
                     "linear-gradient(270deg, #CFE4F3 0%, #FAFAFA 63.46%)",
                 }}
               >
-                <th className="py-[10px] text-[12px] w-[70px]  font-extrabold tracking-tight text-center whitespace-nowrap">
+                <th className="py-[10px] text-[12px] w-[70px]  font-extrabold tracking-tight text-center whitespace-nowrap" aria-label="Serial Number">
                   Sr.No.
                 </th>
                 <th className="py-[10px] text-[12px] font-extrabold tracking-tight text-left whitespace-nowrap text-left">
@@ -1147,7 +1147,7 @@ const ComplaintsTable = () => {
                       "linear-gradient(270deg, #CFE4F3 0%, #FAFAFA 63.46%)",
                   }}
                 >
-                  <th className="py-[10px] px-[12px] text-[13px] font-extrabold tracking-tight text-left">
+                  <th className="py-[10px] px-[12px] text-[13px] font-extrabold tracking-tight text-left" aria-label="Serial Number">
                     Sr.No.
                   </th>
                   <th className="py-[10px] text-[13px] font-extrabold tracking-tight text-left">
@@ -1204,7 +1204,7 @@ const ComplaintsTable = () => {
                       "linear-gradient(270deg, #CFE4F3 0%, #FAFAFA 63.46%)",
                   }}
                 >
-                  <th className="py-[10px] px-[12px] text-[13px] font-extrabold tracking-tight text-left">
+                  <th className="py-[10px] px-[12px] text-[13px] font-extrabold tracking-tight text-left" aria-label="Serial Number">
                     Sr.No.
                   </th>
                   <th className="py-[10px] text-[13px] font-extrabold tracking-tight text-left">
@@ -1289,7 +1289,7 @@ const Home = () => {
   return (
     <div className="flex flex-col min-h-screen">
       <Navbar />
-      <main className="flex-grow overflow-x-hidden">
+      <main id="main-content" className="flex-grow overflow-x-hidden">
         <HeroSection />
         <VideoSection />
         <AdvantageSection />

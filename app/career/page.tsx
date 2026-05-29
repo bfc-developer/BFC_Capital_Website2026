@@ -9,7 +9,7 @@ export default function Career() {
         <>
             <div className="flex flex-col min-h-screen font-sans bg-gray-50">
                 <Navbar />
-                <main className="flex-grow">
+                <main id="main-content" className="flex-grow">
                     <CareerPage />
                 </main>
                 <Footer />

@@ -18,7 +18,7 @@ export default function DownloadAppPage() {
     return (
         <div className="flex flex-col min-h-screen font-inter">
             <Navbar />
-            <main className="flex-grow">
+            <main id="main-content" className="flex-grow">
                 <DownloadApp />
             </main>
             <Footer />

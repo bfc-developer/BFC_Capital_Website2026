@@ -100,11 +100,15 @@ export default async function CareerPage() {
                                 </div>
                             </div>
 
-                            <Link href={`/career/${job.jobRole.toLowerCase().replace(/[^a-z0-9]+/g, '-')}`} className="w-full bg-gray-50 flex items-center justify-center py-2.5 rounded-lg text-sm font-medium hover:bg-gray-100 transition-colors group">
+                            <Link 
+                                href={`/career/${job.jobRole.toLowerCase().replace(/[^a-z0-9]+/g, '-')}`} 
+                                className="w-full bg-gray-50 flex items-center justify-center py-2.5 rounded-lg text-sm font-medium hover:bg-gray-100 transition-colors group"
+                                aria-label={`View more details for ${job.jobRole} job opening`}
+                            >
                                 <span className="bg-gradient-to-r from-[#024B39] to-[#011EFE] bg-clip-text text-transparent group-hover:opacity-80">
                                     View More
                                 </span>
-                                <ArrowRight className="w-4 h-4 ml-2 text-[#011EFE] group-hover:translate-x-1 transition-transform" />
+                                <ArrowRight className="w-4 h-4 ml-2 text-[#011EFE] group-hover:translate-x-1 transition-transform" aria-hidden="true" />
                             </Link>
                         </div>
                     ))}
