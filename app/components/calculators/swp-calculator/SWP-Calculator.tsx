@@ -5,7 +5,6 @@ import { Form, Button } from "react-bootstrap";
 import Link from "next/link";
 import Accordion from "react-bootstrap/Accordion";
 import dynamic from "next/dynamic";
-import axios from "axios";
 const ReactApexChart = dynamic(() => import("react-apexcharts"), {
     ssr: false,
 });
@@ -13,7 +12,6 @@ import { ApexOptions } from "apexcharts";
 import RangeBar from "@/app/components/common/RangeBar";
 import { toast } from "react-toastify";
 import { ChevronRight } from "lucide-react";
-import { endpoints } from "../../urls/URLS";
 
 export default function SWPCalculatorComponent() {
     const questions = [
@@ -69,32 +67,118 @@ export default function SWPCalculatorComponent() {
 
     // Input states
     // Input states
-    const [lumpsumAmount, setLumpsumAmount] = useState<number>(65000);
-    const [investmentPeriod, setInvestmentPeriod] = useState<number>(5);
+    const [lumpsumAmount, setLumpsumAmount] = useState<number>(1000000);
+    const [investmentPeriod, setInvestmentPeriod] = useState<number>(10);
     const [expectedReturn, setExpectedReturn] = useState<string | number>(8);
-    const [withdrawalAmount, setWithdrawalAmount] = useState<string | number>(15000);
+    const [withdrawalAmount, setWithdrawalAmount] = useState<string | number>(5000);
     const [withdrawalPercentage, setWithdrawalPercentage] =
-        useState<string | number>(23.08);
+        useState<string | number>(0.5);
     const [byAmount, setByAmount] = useState<boolean>(true);
 
     // Result states
-    const [totalBalanceAmount, setTotalBalanceAmount] = useState<number>(617);
+    const [totalBalanceAmount, setTotalBalanceAmount] = useState<number>(1258304);
     const [totalWithdrawalAmount, setTotalWithdrawalAmount] =
-        useState<number>(60000);
-    const [totalProfit, setTotalProfit] = useState<number>(1107);
+        useState<number>(600000);
+    const [totalProfit, setTotalProfit] = useState<number>(858304);
+    const [isDepleted, setIsDepleted] = useState<boolean>(false);
 
     // Hydration-safe formatted numbers
     const [formattedBalance, setFormattedBalance] = useState<string>("");
     const [formattedWithdrawal, setFormattedWithdrawal] = useState<string>("");
     const [formattedProfit, setFormattedProfit] = useState<string>("");
 
+    interface ChartState {
+        options: ApexOptions;
+        series: { name: string; data: number[] }[];
+    }
 
+    const yearInString = (currentTotalYear: number): string[] => {
+        let xAxisArray: string[] = [];
+        for (let i = 1; i <= currentTotalYear; i++) {
+            xAxisArray.push(i + "Y");
+        }
+        return xAxisArray;
+    };
+
+    const valuesForGraph = (
+        p: number,
+        rateVal: number,
+        withdrawalVal: number,
+        currentTotalYear: number
+    ): { remainingValues: number[]; withdrawnValues: number[] } => {
+        const annualRate = Number(rateVal) || 0;
+        const r = Math.pow(1 + annualRate / 100, 1 / 12) - 1;
+        const monthlyWithdrawal = Number(withdrawalVal) || 0;
+
+        let balance = p;
+        let totalWithdrawn = 0;
+        const remainingValues: number[] = [];
+        const withdrawnValues: number[] = [];
+
+        const totalMonths = currentTotalYear * 12;
+        for (let m = 1; m <= totalMonths; m++) {
+            if (balance > 0) {
+                const interest = balance * r;
+                const nextBalance = balance + interest - monthlyWithdrawal;
+                if (nextBalance < 0) {
+                    totalWithdrawn += balance + interest;
+                    balance = 0;
+                } else {
+                    balance = nextBalance;
+                    totalWithdrawn += monthlyWithdrawal;
+                }
+            } else {
+                balance = 0;
+            }
+
+            if (m % 12 === 0) {
+                remainingValues.push(Math.round(balance));
+                withdrawnValues.push(Math.round(totalWithdrawn));
+            }
+        }
+
+        return { remainingValues, withdrawnValues };
+    };
+
+    const [chartState, setChartState] = useState<ChartState>(() => {
+        const { remainingValues, withdrawnValues } = valuesForGraph(1000000, 8, 5000, 10);
+        return {
+            series: [
+                { name: "Remaining Corpus", data: remainingValues },
+                { name: "Total Withdrawn", data: withdrawnValues },
+            ],
+            options: {
+                legend: { show: true, position: "top" },
+                chart: {
+                    height: 350,
+                    type: "area",
+                    background: "transparent",
+                    toolbar: { show: false },
+                    zoom: { enabled: false },
+                },
+                dataLabels: { enabled: false },
+                stroke: {
+                    curve: "monotoneCubic",
+                    width: [2, 2],
+                    colors: ["#024B39", "#011EFE"],
+                },
+                colors: ["#024B39", "#011EFE"],
+                xaxis: { categories: yearInString(10) },
+                grid: { show: false },
+                tooltip: {
+                    y: {
+                        formatter: function (val) {
+                            return "₹" + val.toLocaleString("en-IN");
+                        }
+                    }
+                }
+            },
+        };
+    });
 
     // Handlers
     const handleWithdrawalBy = (isAmount: boolean) => {
         setByAmount(isAmount);
-        setWithdrawalAmount("");
-        setWithdrawalPercentage("");
     };
 
     const handleLumpsumChange = (value: number) => {
@@ -141,34 +225,50 @@ export default function SWPCalculatorComponent() {
         setWithdrawalAmount((numericValue / 100) * lumpsumAmount);
     };
 
-    const calculateResult = async () => {
-
-        if (!lumpsumAmount || !expectedReturn || !withdrawalAmount) {
-            toast.error("Please make sure all required fields are filled in.")
+    const calculateResult = () => {
+        if (!lumpsumAmount || expectedReturn === "" || !withdrawalAmount) {
+            toast.error("Please make sure all required fields are filled in.");
             return;
         }
-        else {
-            const token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiJjeWhrZHU4dW1mY2o5NHhrIiwiaWF0IjoxNzY0NzQxODQxfQ.VhRKw4h9gU4vybAt2LhTp-bH1g2Z2A0t1K-_-L2_jKE"
-            const res = await axios.post<any>("https://prodigypro-new.bfcsofttech.in/api/v2/calculators/swp", {
-                monthlyWithdrawl: Math.round(Number(withdrawalAmount)),
-                period: Number(investmentPeriod),
-                interestRate: Number(expectedReturn),
-                lumpsum: Math.round(Number(lumpsumAmount))
-            },
-                {
-                    headers: {
-                        Authorization: `Bearer ${token}`,
-                        "Content-Type": "application/json",
-                    },
-                });
 
-            // console.log("ggggg", res.data.data)
+        const p = Number(lumpsumAmount) || 0;
+        const annualRate = Number(expectedReturn) || 0;
+        const years = Number(investmentPeriod) || 0;
+        const monthlyWithdrawal = Number(withdrawalAmount) || 0;
 
-            setTotalBalanceAmount(res.data?.data?.total_balance_amount);
-            setTotalWithdrawalAmount(res.data?.data?.total_withdrawal_amount);
-            setTotalProfit(res.data?.data?.total_profit);
+        const r = Math.pow(1 + annualRate / 100, 1 / 12) - 1;
+        const n = years * 12;
+        const totalWithdrawal = monthlyWithdrawal * n;
+
+        let finalValue = 0;
+        if (r === 0) {
+            finalValue = p - totalWithdrawal;
+        } else {
+            const growth = Math.pow(1 + r, n);
+            const annuity = (growth - 1) / r;
+            finalValue = (p * growth) - (monthlyWithdrawal * annuity);
         }
+
+        const totalProfit = finalValue + totalWithdrawal - p;
+
+        setTotalBalanceAmount(Math.round(finalValue));
+        setTotalWithdrawalAmount(Math.round(totalWithdrawal));
+        setTotalProfit(Math.round(totalProfit));
+        setIsDepleted(finalValue < 0);
+
+        const { remainingValues, withdrawnValues } = valuesForGraph(p, annualRate, monthlyWithdrawal, years);
+        setChartState((prevState) => ({
+            series: [
+                { name: "Remaining Corpus", data: remainingValues },
+                { name: "Total Withdrawn", data: withdrawnValues },
+            ],
+            options: {
+                ...prevState.options,
+                xaxis: { categories: yearInString(years) },
+            },
+        }));
     };
+
 
     return (
         <>
@@ -246,9 +346,10 @@ export default function SWPCalculatorComponent() {
                                             className="w-full border rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500 text-[#44475B]"
                                             value={lumpsumAmount}
                                             min={0}
-                                            onChange={(e) =>
-                                                setLumpsumAmount(parseFloat(e.target.value))
-                                            }
+                                            onChange={(e) => {
+                                                const val = parseFloat(e.target.value);
+                                                handleLumpsumChange(isNaN(val) ? 0 : val);
+                                            }}
                                             onWheel={(e) => (e.target as HTMLInputElement).blur()}
                                             onKeyDown={(e) => {
                                                 if (e.key === "ArrowUp" || e.key === "ArrowDown") {
@@ -486,17 +587,22 @@ export default function SWPCalculatorComponent() {
                                     <p className="font-primary text-base md:text-lg leading-relaxed text-[rgba(33, 33, 33, 1)] font-bold mb-4 text-xl">
                                         ₹{totalProfit.toLocaleString("en-IN")}
                                     </p>
+                                    {isDepleted && (
+                                        <div className="mt-4 p-3 bg-red-50 border border-red-200 rounded-lg text-red-700 text-sm font-medium">
+                                            ⚠️ Monthly withdrawal amount is too high. The corpus will be depleted before the end of the investment period.
+                                        </div>
+                                    )}
                                 </div>
 
                                 {/* Chart Card */}
-                                {/* <div className="shadow-md rounded-2xl px-5 py-4 bg-[#FFFFFF]">
+                                <div className="shadow-md rounded-2xl px-5 py-4 bg-[#FFFFFF]">
                                     <ReactApexChart
                                         options={chartState.options}
                                         series={chartState.series}
-                                        type="bar"
+                                        type="area"
                                         height={350}
                                     />
-                                </div> */}
+                                </div>
 
                                 {/* Invest Now Button */}
                                 <div>
@@ -512,7 +618,6 @@ export default function SWPCalculatorComponent() {
 
                             </div>
                         </div>
-
                     </div>
                 </div>
             </section>
