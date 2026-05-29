@@ -1175,7 +1175,7 @@ const ComplaintsTable = () => {
 
           </div>
           <div className="max-w-6xl mx-auto mt-8 flex flex-col md:flex-row justify-end items-start md:items-center gap-6 px-4">
-            <Link href="/client-level-segregation" className="bg-[#024B39] text-white px-10 py-3 rounded-full font-bold transition-all shadow-md active:scale-95 whitespace-nowrap inline-block text-center" aria-label="View more client level segregation details">
+            <Link href="/client-level-segregation" className="bg-[#024B39] text-white px-10 py-3 rounded-full font-bold transition-all shadow-md active:scale-95 whitespace-nowrap inline-block text-center" aria-label="View more Compliance Audit Status details">
               View More
             </Link>
           </div>
@@ -1232,7 +1232,7 @@ const ComplaintsTable = () => {
 
           </div>
           <div className="max-w-6xl mx-auto mt-8 flex flex-col md:flex-row justify-end items-start md:items-center gap-6 px-4">
-            <Link href="/client-level-segregation" className="bg-[#024B39] text-white px-10 py-3 rounded-full font-bold transition-all shadow-md active:scale-95 whitespace-nowrap inline-block text-center" aria-label="View more details on investor complaints">
+            <Link href="/client-level-segregation" className="bg-[#024B39] text-white px-10 py-3 rounded-full font-bold transition-all shadow-md active:scale-95 whitespace-nowrap inline-block text-center" aria-label="View more client level segregation details">
               View More
             </Link>
           </div>
