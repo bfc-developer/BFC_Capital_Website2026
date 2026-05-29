@@ -19,7 +19,7 @@ const Footer = () => {
 
                         <div className="space-y-4 text-[13px] leading-tight">
                             <div className="space-y-1 ">
-                                <h2 className="font-bold uppercase text-[#44475B] text-[19px]">BFC CAPITAL PRIVATE LIMITED</h2>
+                                <h3 className="font-bold uppercase text-[#44475B] text-[19px]">BFC CAPITAL PRIVATE LIMITED</h3>
                                 <div className="text-[14px] md:text-[17px] leading-relaxed lg:leading-6">
                                     <p>SEBI-Registered Investment Adviser: INA000021669</p>
                                     <p>BSE Enlistment No.: 2414</p>
@@ -80,7 +80,7 @@ const Footer = () => {
                     {/* Column 2: Company Info & Social */}
                     <div className="space-y-10">
                         <div className="space-y-6">
-                            <h2 className="text-[20px] font-bold text-[#475569]">Company Info</h2>
+                            <h3 className="text-[20px] font-bold text-[#475569]">Company Info</h3>
                             <div className="space-y-4 text-[14px] md:text-[17px] leading-relaxed lg:leading-6">
                                 <p>C.P.-61, Viraj Khand-4, Gomti Nagar, Lucknow,<br />Uttar Pradesh 226010</p>
                                 <div className="space-y-1">
@@ -135,7 +135,7 @@ const Footer = () => {
 
                     {/* Column 3: Quick Links */}
                     <div className="space-y-6">
-                        <h2 className="text-[20px] font-bold text-[#475569]">Quick Links</h2>
+                        <h3 className="text-[20px] font-bold text-[#475569]">Quick Links</h3>
                         <ul className="space-y-1 text-[14px] md:text-[17px] leading-relaxed lg:leading-6">
                             <li><Link href="/all-mutual-funds" className="hover:text-bfc-blue transition-colors">Mutual Funds</Link></li>
                             <li><Link href="/sif" className="hover:text-bfc-blue transition-colors">SIF</Link></li>

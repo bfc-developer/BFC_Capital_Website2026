@@ -110,41 +110,41 @@ const HeroSection = () => {
             {/* Stats Circles */}
             <div className="mt-5 md:mt-10 xl:mt-15 flex flex-wrap justify-center gap-4 md:gap-10 xl:gap-15" aria-label="BFC Capital key metrics">
               <div className="flex  flex-col items-center justify-center w-25 h-25 font-inter md:w-40 md:h-40 rounded-full border-gradient-blue-green shadow-xl p-1" aria-label="SEBI Registered Investment Advisor registration number INA000021669">
-                <h3 className="text-[14px] md:text-2xl font-extrabold text-[#44475B] font-inter">
+                <h2 className="text-[14px] md:text-2xl font-extrabold text-[#44475B] font-inter">
                   SEBI
-                </h3>
+                </h2>
                 <p className="text-[7px] md:text-[12px] text-gray-600 font-semibold text-center mt-1 font-inter tracking-wide">
                   RIA : <br />INA000021669
                 </p>
               </div>
               <div className="flex  flex-col items-center justify-center w-25 h-25 font-inter md:w-40 md:h-40 rounded-full border-gradient-blue-green shadow-xl p-1" aria-label="Assets Under Management: 1000+ Crores">
-                <h3 className="text-[14px] md:text-2xl font-extrabold text-[#44475B] font-inter">
+                <h2 className="text-[14px] md:text-2xl font-extrabold text-[#44475B] font-inter">
                   1000+ Cr.
-                </h3>
+                </h2>
                 <p className="text-[7px] md:text-[12px] text-gray-600 font-semibold text-center mt-1 font-inter tracking-wide">
                   Assets Under <br /> Management
                 </p>
               </div>
               <div className="flex  flex-col items-center justify-center w-25 h-25 md:w-40 md:h-40 rounded-full font-inter border-gradient-blue-green shadow-xl p-1" aria-label="Retail Client Base: 16000+">
-                <h3 className="text-[14px] md:text-2xl font-extrabold text-[#44475B] font-inter">
+                <h2 className="text-[14px] md:text-2xl font-extrabold text-[#44475B] font-inter">
                   16000+
-                </h3>
+                </h2>
                 <p className="text-[7px] md:text-[12px]  text-gray-600 font-semibold text-center font-inter mt-1 uppercase tracking-wide">
                   Retail Client <br /> Base
                 </p>
               </div>
               <div className="flex  flex-col items-center justify-center font-inter w-25 h-25 md:w-40 md:h-40 rounded-full border-gradient-blue-green shadow-xl p-1" aria-label="Presence in 80+ Cities">
-                <h3 className="text-[14px] md:text-2xl font-extrabold text-[#44475B] font-inter">
+                <h2 className="text-[14px] md:text-2xl font-extrabold text-[#44475B] font-inter">
                   80+
-                </h3>
+                </h2>
                 <p className="text-[7px] md:text-[12px] text-gray-600 font-semibold text-center mt-1 uppercase tracking-wide">
                   Cities
                 </p>
               </div>
               <div className=" flex  flex-col items-center justify-center font-inter w-25 h-25 md:w-40 md:h-40 rounded-full border-gradient-blue-green shadow-xl p-1" aria-label="More than 22 wealth managers">
-                <h3 className="text-[14px] md:text-3xl font-extrabold text-[#44475B] font-inter">
+                <h2 className="text-[14px] md:text-3xl font-extrabold text-[#44475B] font-inter">
                   22+
-                </h3>
+                </h2>
                 <p className="text-[7px] md:text-[12px] md:text-xs text-gray-600  font-inter font-semibold text-center mt-1 uppercase tracking-wide">
                   Managers
                 </p>
