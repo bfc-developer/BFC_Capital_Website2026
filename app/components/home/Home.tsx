@@ -1264,6 +1264,8 @@ const ComplaintsTable = () => {
 const Home = () => {
   const [showPopup, setShowPopup] = useState(false);
   const footerRef = useRef<HTMLDivElement>(null);
+  const modalRef = useRef<HTMLDivElement>(null);
+  const previousFocusRef = useRef<HTMLElement | null>(null);
   useEffect(() => {
     if (showPopup) {
       // Prevent body scroll when popup is open
@@ -1277,6 +1279,62 @@ const Home = () => {
     return () => {
       document.body.style.overflow = "unset";
     };
+  }, [showPopup]);
+
+  useEffect(() => {
+    if (showPopup) {
+      previousFocusRef.current = document.activeElement as HTMLElement;
+      
+      const timer = setTimeout(() => {
+        if (modalRef.current) {
+          const focusable = modalRef.current.querySelectorAll(
+            'button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])'
+          );
+          if (focusable.length > 0) {
+            (focusable[0] as HTMLElement).focus();
+          }
+        }
+      }, 100);
+
+      const handleKeyDown = (e: KeyboardEvent) => {
+        if (e.key === "Escape") {
+          setShowPopup(false);
+          return;
+        }
+
+        if (e.key === "Tab") {
+          if (!modalRef.current) return;
+          const focusable = modalRef.current.querySelectorAll(
+            'button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])'
+          );
+          if (focusable.length === 0) return;
+
+          const firstElement = focusable[0] as HTMLElement;
+          const lastElement = focusable[focusable.length - 1] as HTMLElement;
+
+          if (e.shiftKey) {
+            if (document.activeElement === firstElement) {
+              lastElement.focus();
+              e.preventDefault();
+            }
+          } else {
+            if (document.activeElement === lastElement) {
+              firstElement.focus();
+              e.preventDefault();
+            }
+          }
+        }
+      };
+
+      window.addEventListener("keydown", handleKeyDown);
+      return () => {
+        clearTimeout(timer);
+        window.removeEventListener("keydown", handleKeyDown);
+        if (previousFocusRef.current) {
+          previousFocusRef.current.focus();
+        }
+      };
+    }
   }, [showPopup]);
   useEffect(() => {
     const observer = new IntersectionObserver(
@@ -1326,7 +1384,7 @@ const Home = () => {
 
       {/* Beware of Impersonation Popup */}
       {showPopup && (
-        <div className="fixed inset-0 z-[9999] flex items-center justify-center bg-black/60 backdrop-blur-sm px-4 overflow-x-hidden overflow-y-auto" role="dialog" aria-modal="true" aria-labelledby="impersonation-title">
+        <div ref={modalRef} className="fixed inset-0 z-[9999] flex items-center justify-center bg-black/60 backdrop-blur-sm px-4 overflow-x-hidden overflow-y-auto" role="dialog" aria-modal="true" aria-labelledby="impersonation-title">
           <div className="relative w-full max-w-3xl bg-[#FFFFFF] p-6 md:p-8 lg:p-10 shadow-2xl rounded-[30px] max-h-[90vh] flex flex-col overflow-x-hidden">
             {/* Close Button */}
             <button

@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { Play } from "lucide-react";
 
 interface Video {
@@ -20,10 +20,68 @@ const VideoCarousel = ({ videos, autoPlayInterval = 2500 }: VideoCarouselProps) 
     const [isOpen, setIsOpen] = useState(false);
     const [videoSrc, setVideoSrc] = useState("");
     const [prevActive, setPrevActive] = useState(0);
+    const modalRef = useRef<HTMLDivElement>(null);
+    const previousFocusRef = useRef<HTMLElement | null>(null);
 
     useEffect(() => {
         setPrevActive(activeVideo);
     }, [activeVideo]);
+
+    useEffect(() => {
+        if (isOpen) {
+            previousFocusRef.current = document.activeElement as HTMLElement;
+
+            const timer = setTimeout(() => {
+                if (modalRef.current) {
+                    const focusable = modalRef.current.querySelectorAll(
+                        'button, [href], iframe, input, select, textarea, [tabindex]:not([tabindex="-1"])'
+                    );
+                    if (focusable.length > 0) {
+                        (focusable[0] as HTMLElement).focus();
+                    }
+                }
+            }, 100);
+
+            const handleKeyDown = (e: KeyboardEvent) => {
+                if (e.key === "Escape") {
+                    closePopup();
+                    return;
+                }
+
+                if (e.key === "Tab") {
+                    if (!modalRef.current) return;
+                    const focusable = modalRef.current.querySelectorAll(
+                        'button, [href], iframe, input, select, textarea, [tabindex]:not([tabindex="-1"])'
+                    );
+                    if (focusable.length === 0) return;
+
+                    const firstElement = focusable[0] as HTMLElement;
+                    const lastElement = focusable[focusable.length - 1] as HTMLElement;
+
+                    if (e.shiftKey) {
+                        if (document.activeElement === firstElement) {
+                            lastElement.focus();
+                            e.preventDefault();
+                        }
+                    } else {
+                        if (document.activeElement === lastElement) {
+                            firstElement.focus();
+                            e.preventDefault();
+                        }
+                    }
+                }
+            };
+
+            window.addEventListener("keydown", handleKeyDown);
+            return () => {
+                clearTimeout(timer);
+                window.removeEventListener("keydown", handleKeyDown);
+                if (previousFocusRef.current) {
+                    previousFocusRef.current.focus();
+                }
+            };
+        }
+    }, [isOpen]);
 
 
     // Helper to extract YouTube ID from various URL formats
@@ -148,6 +206,7 @@ const VideoCarousel = ({ videos, autoPlayInterval = 2500 }: VideoCarouselProps) 
             {isOpen && (
                 <div className="fixed inset-0 z-[9999] flex items-center justify-center bg-black/85" onClick={closePopup}>
                     <div
+                        ref={modalRef}
                         className="popup-video relative bg-white shadow-2xl flex flex-col"
                         onClick={(e) => e.stopPropagation()}
                         role="dialog"
