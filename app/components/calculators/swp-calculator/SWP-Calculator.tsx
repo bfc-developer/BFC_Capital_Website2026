@@ -51,6 +51,7 @@ export default function SWPCalculatorComponent() {
     const [withdrawalPercentage, setWithdrawalPercentage] =
         useState<string | number>(0.5);
     const [byAmount, setByAmount] = useState<boolean>(true);
+    const [startSWP, setStartSWP] = useState<number>(0);
 
     // Result states
     const [totalBalanceAmount, setTotalBalanceAmount] = useState<number>(1258304);
@@ -70,7 +71,7 @@ export default function SWPCalculatorComponent() {
     }
 
     const yearInString = (currentTotalYear: number): string[] => {
-        let xAxisArray: string[] = [];
+        const xAxisArray: string[] = [];
         for (let i = 1; i <= currentTotalYear; i++) {
             xAxisArray.push(i + "Y");
         }
@@ -81,7 +82,8 @@ export default function SWPCalculatorComponent() {
         p: number,
         rateVal: number,
         withdrawalVal: number,
-        currentTotalYear: number
+        currentTotalYear: number,
+        startSWPVal: number
     ): { remainingValues: number[]; withdrawnValues: number[] } => {
         const annualRate = Number(rateVal) || 0;
         const r = Math.pow(1 + annualRate / 100, 1 / 12) - 1;
@@ -93,16 +95,19 @@ export default function SWPCalculatorComponent() {
         const withdrawnValues: number[] = [];
 
         const totalMonths = currentTotalYear * 12;
+        const startMonths = Math.min(startSWPVal * 12, totalMonths);
+
         for (let m = 1; m <= totalMonths; m++) {
+            const currentWithdrawal = m <= startMonths ? 0 : monthlyWithdrawal;
             if (balance > 0) {
                 const interest = balance * r;
-                const nextBalance = balance + interest - monthlyWithdrawal;
+                const nextBalance = balance + interest - currentWithdrawal;
                 if (nextBalance < 0) {
                     totalWithdrawn += balance + interest;
                     balance = 0;
                 } else {
                     balance = nextBalance;
-                    totalWithdrawn += monthlyWithdrawal;
+                    totalWithdrawn += currentWithdrawal;
                 }
             } else {
                 balance = 0;
@@ -118,11 +123,11 @@ export default function SWPCalculatorComponent() {
     };
 
     const [chartState, setChartState] = useState<ChartState>(() => {
-        const { remainingValues, withdrawnValues } = valuesForGraph(1000000, 8, 5000, 10);
+        const { remainingValues, withdrawnValues } = valuesForGraph(1000000, 8, 5000, 10, 0);
         return {
             series: [
-                { name: "Remaining Corpus", data: remainingValues },
-                { name: "Total Withdrawn", data: withdrawnValues },
+                { name: "Total Balance Amount", data: remainingValues },
+                { name: "Total Withdrawl Amount", data: withdrawnValues },
             ],
             options: {
                 legend: { show: true, position: "top" },
@@ -137,9 +142,9 @@ export default function SWPCalculatorComponent() {
                 stroke: {
                     curve: "monotoneCubic",
                     width: [2, 2],
-                    colors: ["#024B39", "#011EFE"],
+                    colors: ["#57BE65", "#357AF6"],
                 },
-                colors: ["#024B39", "#011EFE"],
+                colors: ["#57BE65", "#357AF6"],
                 xaxis: { categories: yearInString(10) },
                 grid: { show: false },
                 tooltip: {
@@ -214,33 +219,53 @@ export default function SWPCalculatorComponent() {
         const monthlyWithdrawal = Number(withdrawalAmount) || 0;
 
         const r = Math.pow(1 + annualRate / 100, 1 / 12) - 1;
-        const n = years * 12;
-        const totalWithdrawal = monthlyWithdrawal * n;
+        const totalMonths = years * 12;
+        const startMonths = Math.min(startSWP * 12, totalMonths);
 
-        let finalValue = 0;
-        if (r === 0) {
-            finalValue = p - totalWithdrawal;
-        } else {
-            const growth = Math.pow(1 + r, n);
-            const annuity = (growth - 1) / r;
-            finalValue = (p * growth) - (monthlyWithdrawal * annuity);
+        let balance = p;
+        let totalWithdrawn = 0;
+
+        for (let m = 1; m <= totalMonths; m++) {
+            const currentWithdrawal = m <= startMonths ? 0 : monthlyWithdrawal;
+            if (balance > 0) {
+                const interest = balance * r;
+                const nextBalance = balance + interest - currentWithdrawal;
+                if (nextBalance < 0) {
+                    totalWithdrawn += balance + interest;
+                    balance = 0;
+                } else {
+                    balance = nextBalance;
+                    totalWithdrawn += currentWithdrawal;
+                }
+            } else {
+                balance = 0;
+            }
         }
 
-        const totalProfit = finalValue + totalWithdrawal - p;
+        const finalValue = balance;
+        const totalProfit = finalValue + totalWithdrawn - p;
 
         setTotalBalanceAmount(Math.round(finalValue));
-        setTotalWithdrawalAmount(Math.round(totalWithdrawal));
+        setTotalWithdrawalAmount(Math.round(totalWithdrawn));
         setTotalProfit(Math.round(totalProfit));
         setIsDepleted(finalValue < 0);
 
-        const { remainingValues, withdrawnValues } = valuesForGraph(p, annualRate, monthlyWithdrawal, years);
+        const isRed = finalValue < totalWithdrawn;
+        const colorPalette = isRed ? ["#EF4444", "#357AF6"] : ["#57BE65", "#357AF6"];
+
+        const { remainingValues, withdrawnValues } = valuesForGraph(p, annualRate, monthlyWithdrawal, years, startSWP);
         setChartState((prevState) => ({
             series: [
-                { name: "Remaining Corpus", data: remainingValues },
-                { name: "Total Withdrawn", data: withdrawnValues },
+                { name: "Total Balance Amount", data: remainingValues },
+                { name: "Total Withdrawl Amount", data: withdrawnValues },
             ],
             options: {
                 ...prevState.options,
+                colors: colorPalette,
+                stroke: {
+                    ...prevState.options.stroke,
+                    colors: colorPalette,
+                },
                 xaxis: { categories: yearInString(years) },
             },
         }));
@@ -498,6 +523,28 @@ export default function SWPCalculatorComponent() {
                                             </span>
                                         </div>
                                     </Form.Group>
+                                    <div>
+                                        <div className="flex justify-between mb-2">
+                                            <label className="text-[#44475B] font-medium text-sm uppercase">
+                                                Start SWP After (Years)
+                                            </label>
+                                            <span className="font-bold text-[#44475B]">
+                                                {startSWP} Yrs
+                                            </span>
+                                        </div>
+
+                                        <RangeBar
+                                            maxLimit={10}
+                                            setValue={setStartSWP}
+                                            value={startSWP}
+                                            ariaLabel="Start SWP After in Years"
+                                        />
+
+                                        <div className="flex justify-between text-sm text-[#44475B] mt-2">
+                                            <span>0 Yr</span>
+                                            <span>10 Yrs</span>
+                                        </div>
+                                    </div>
                                     {/* Investment Period
                                     <div>
                                         <div className="flex justify-between mb-2">
@@ -645,7 +692,7 @@ export default function SWPCalculatorComponent() {
 
                 <div className='container mx-auto px-5 md:px-10 lg:px-20'>
                     <p className="mx-auto mt-4 md:mt-8 mb-4 text-[18px] md:text-[24px] font-bold text-[#44475B] mb-[20px]">
-                        Why Use the BFC Capital's SWP Calculator?
+                        Why Use the BFC Capital&apos;s SWP Calculator?
                     </p>
                     <p className='text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto mb-4'>Because it’s not just about calculations – it’s about peace of mind.</p>
                     <p className='text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto mb-4'>Retirement isn’t about seeing a big number in your bank account.<br />
