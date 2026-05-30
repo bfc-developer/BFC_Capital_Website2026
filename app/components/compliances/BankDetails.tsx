@@ -55,7 +55,12 @@ export default function BankDetails() {
                 </h1>
 
                 {/* Bank Details Table */}
-                <div className="overflow-x-auto border border-[#E5E7EB] rounded-2xl shadow-sm mb-8">
+                <div 
+                    className="overflow-x-auto border border-[#E5E7EB] rounded-2xl shadow-sm mb-8"
+                    tabIndex={0}
+                    role="region"
+                    aria-label="Bank account details table container"
+                >
                     <table className="min-w-full divide-y divide-[#E5E7EB] text-center text-sm text-[#44475B]">
                         <thead className="text-gray-800 font-bold text-xs" style={{ background: 'linear-gradient(270deg, #CFE4F3 0%, #FAFAFA 63.46%)' }}>
                             <tr>

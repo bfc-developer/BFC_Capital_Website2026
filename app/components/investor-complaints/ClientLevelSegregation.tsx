@@ -24,7 +24,12 @@ const ClientLevelSegregation = () => {
                     Client Level Segregation Report
                 </h2>
                 <p className='mb-4 text-[#44475B] font-semibold'>“Disclosure with respect to client level segregation requirement under Regulation 22 of <span aria-label="Sebi">SEBI</span> (Investment Advisers) Regulations.</p>
-                <div className="overflow-x-auto rounded-lg bg-[#FFFFFF] shadow-sm border border-gray-100 rounded-[16px]">
+                <div 
+                    className="overflow-x-auto rounded-lg bg-[#FFFFFF] shadow-sm border border-gray-100 rounded-[16px]"
+                    tabIndex={0}
+                    role="region"
+                    aria-label="Client level segregation report table container"
+                >
                     <table className="w-full text-sm text-left text-[#212121]">
                         <thead>
                             <tr

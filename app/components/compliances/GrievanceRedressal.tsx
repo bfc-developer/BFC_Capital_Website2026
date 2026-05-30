@@ -63,7 +63,12 @@ export default function GrievanceRedressal() {
                 </p>
 
                 {/* Escalation Matrix Table */}
-                <div className="overflow-x-auto border border-[#E5E7EB] rounded-2xl shadow-sm mb-10">
+                <div 
+                    className="overflow-x-auto border border-[#E5E7EB] rounded-2xl shadow-sm mb-10"
+                    tabIndex={0}
+                    role="region"
+                    aria-label="Grievance redressal escalation matrix table container"
+                >
                     <table className="min-w-full divide-y divide-[#E5E7EB] text-left text-sm text-[#44475B]">
                         <thead className="text-gray-800 font-bold text-xs" style={{ background: 'linear-gradient(270deg, #CFE4F3 0%, #FAFAFA 63.46%)' }}>
                             <tr>

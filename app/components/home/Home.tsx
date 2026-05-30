@@ -333,7 +333,7 @@ const AdvantageSection = () => {
       desc: (
         <>
           Buy, Track & Sell Mutual Funds on the go with{" "}
-          <Link href="https://app.prodigypro.co.in" className="text-[#001EFE]" aria-label="PRODIGY Pro online portal">
+          <Link href="https://app.prodigypro.co.in" className="text-[#001EFE] underline hover:text-[#001EFE]/80 font-medium" aria-label="PRODIGY Pro online portal">
             PRODIGY Pro
           </Link>{" "}
           - BFC's Mobile App with 3 S benefits: Speed | Safety | Simplicity.
@@ -436,7 +436,14 @@ const ProcessSection = () => {
 
 const AppTrustSection = () => {
   return (
-    <section className="relative w-full bg-[linear-gradient(269.9deg,#06A358_24.53%,#001EFE_156.82%)] pb-3 lg:pb-0 sm:py-3 md:py-5 lg:py-0 overflow-hidden items-center" aria-label="Technology and investment experience trust details">
+    <section 
+      className="relative w-full pb-3 lg:pb-0 sm:py-3 md:py-5 lg:py-0 overflow-hidden items-center"
+      style={{
+        backgroundColor: '#047D43',
+        background: 'linear-gradient(269.9deg,#047D43 24.53%,#001EFE 156.82%)'
+      }}
+      aria-label="Technology and investment experience trust details"
+    >
       <div className="container mx-auto px-4 flex flex-col md:flex-row items-center justify-between ">
         <div className="md:w-1/2 relative flex justify-center md:justify-start">
           <div className="">
@@ -445,7 +452,7 @@ const AppTrustSection = () => {
               alt="iPhone mockups showcasing the user-friendly interface of Prodigy Pro investment app"
               width={1200}
               height={1200}
-              className="w-full h-auto object-cover drop-shadow-2xl w-[400px] h-[400px] md:w-[400px] md:h-[400px] lg:w-[575px] lg:h-[575px]"
+              className="w-full h-auto max-w-[300px] sm:max-w-[400px] lg:max-w-[575px] object-contain drop-shadow-2xl"
             />
           </div>
         </div>
@@ -455,7 +462,7 @@ const AppTrustSection = () => {
               Experience you trust. <br />
               Technology you deserve.
             </h2>
-            <p className="text-base font-inter opacity-90 mb-5 md:mb-10 leading-5">
+            <p className="text-base font-inter mb-5 md:mb-10 leading-5">
               Built on two decades of trusted advice, now reimagined for modern
               investors.
             </p>
@@ -667,8 +674,9 @@ const SuccessHighlight = () => {
       <section
         className="py-5 md:py-20 overflow-visible relative"
         style={{
+          backgroundColor: "#047D43",
           background:
-            "linear-gradient(269.9deg, #06A358 24.53%, #001EFE 156.82%)",
+            "linear-gradient(269.9deg, #047D43 24.53%, #001EFE 156.82%)",
         }}
         aria-label="Client success highlight and testimonial video"
       >
@@ -683,7 +691,7 @@ const SuccessHighlight = () => {
                 Wisdom
               </h2>
 
-              <div className="flex items-center gap-1 mb-6 text-yellow-500" aria-label="Rated 5 out of 5 stars">
+              <div className="flex items-center gap-1 mb-6 text-yellow-500" role="img" aria-label="Rated 5 out of 5 stars">
                 {[1, 2, 3, 4, 5].map((i) => (
                   <svg
                     key={i}
@@ -708,7 +716,7 @@ const SuccessHighlight = () => {
                   <p className="font-extrabold text-[14px] md:text-[20px]">
                     Mitya Moitra
                   </p>
-                  <p className="opacity-80 text-xs md:text-[15px]">Lucknow</p>
+                  <p className="opacity-95 text-xs md:text-[15px]">Lucknow</p>
                 </div>
               </div>
 
@@ -831,7 +839,7 @@ const Team = () => {
               className={`flex flex-col items-center group text-center transition-all duration-500 ${idx % 2 === 1 ? "lg:mt-12" : "lg:mt-0"
                 }`}
             >
-              <div className="relative aspect-[3/4] w-full mb-6 overflow-hidden rounded-none shadow-sm transition-all duration-300 group-hover:shadow-lg">
+              <div className="relative aspect-[3/4] w-full min-h-[180px] sm:min-h-[220px] md:min-h-[280px] lg:min-h-[220px] xl:min-h-[280px] mb-6 overflow-hidden rounded-none shadow-sm transition-all duration-300 group-hover:shadow-lg">
                 <Image
                   src={member.img}
                   alt={`Portrait of ${member.name}, ${member.role}`}
@@ -1029,11 +1037,16 @@ const ComplaintsTable = () => {
           <p className="text-[#44475B] mt-4">Data for the month ending {monthYear || "..."}</p>
         </div>
 
-        <div className="max-w-6xl mx-auto overflow-x-auto shadow-sm border border-gray-100 rounded-[16px]">
+        <div 
+          className="max-w-6xl mx-auto overflow-x-auto shadow-sm border border-gray-100 rounded-[16px]"
+          tabIndex={0}
+          role="region"
+          aria-label="Investor complaints table container"
+        >
           <table className="w-full text-center border-collapse" aria-label="Table summarizing complaints received, pending status, and resolution time as per Sebi Guidelines">
             <thead>
               <tr
-                className="text-[#4D4D4D] border-b border-gray-100"
+                className="text-[#4D4D4D] border-b border-gray-100 bg-[#E6F0FA]"
                 style={{
                   background:
                     "linear-gradient(270deg, #CFE4F3 0%, #FAFAFA 63.46%)",
@@ -1107,7 +1120,7 @@ const ComplaintsTable = () => {
                 </tr>
               ))}
               <tr
-                className="text-[#4D4D4D] border-b border-gray-100"
+                className="text-[#4D4D4D] border-b border-gray-100 bg-[#E6F0FA]"
                 style={{
                   background:
                     "linear-gradient(270deg, #CFE4F3 0%, #FAFAFA 63.46%)",
@@ -1153,11 +1166,16 @@ const ComplaintsTable = () => {
             </h2>
           </div>
 
-          <div className="max-w-6xl mx-auto overflow-x-auto shadow-sm border border-gray-100 rounded-[16px]">
+          <div 
+            className="max-w-6xl mx-auto overflow-x-auto shadow-sm border border-gray-100 rounded-[16px]"
+            tabIndex={0}
+            role="region"
+            aria-label="Compliance audit status table container"
+          >
             <table className="w-full text-center border-collapse" aria-label="Compliance Audit Status details by Financial Year">
               <thead>
                 <tr
-                  className="text-[#4D4D4D] border-b border-gray-100"
+                  className="text-[#4D4D4D] border-b border-gray-100 bg-[#E6F0FA]"
                   style={{
                     background:
                       "linear-gradient(270deg, #CFE4F3 0%, #FAFAFA 63.46%)",
@@ -1210,11 +1228,16 @@ const ComplaintsTable = () => {
             </h2>
           </div>
 
-          <div className="max-w-6xl mx-auto overflow-x-auto shadow-sm border border-gray-100 rounded-[16px]">
+          <div 
+            className="max-w-6xl mx-auto overflow-x-auto shadow-sm border border-gray-100 rounded-[16px]"
+            tabIndex={0}
+            role="region"
+            aria-label="Client level segregation report table container"
+          >
             <table className="w-full text-center border-collapse" aria-label="Client Level Segregation Report details by Financial Year">
               <thead>
                 <tr
-                  className="text-[#4D4D4D] border-b border-gray-100"
+                  className="text-[#4D4D4D] border-b border-gray-100 bg-[#E6F0FA]"
                   style={{
                     background:
                       "linear-gradient(270deg, #CFE4F3 0%, #FAFAFA 63.46%)",

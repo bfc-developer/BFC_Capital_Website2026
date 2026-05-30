@@ -25,7 +25,12 @@ const ComplaintsTables = () => {
                 <h2 className="font-bold text-[#44475B] mb-6 text-[20px] md:text-3xl lg:text-4xl">
                     Trend of monthly disposal of complaints
                 </h2>
-                <div className="overflow-x-auto rounded-lg bg-[#FFFFFF] shadow-sm border border-gray-100 rounded-[16px]">
+                <div 
+                    className="overflow-x-auto rounded-lg bg-[#FFFFFF] shadow-sm border border-gray-100 rounded-[16px]"
+                    tabIndex={0}
+                    role="region"
+                    aria-label="Monthly complaints disposal trend table container"
+                >
                     <table className="w-full text-sm text-left">
                         <thead className="text-gray-800 font-bold text-xs" style={{ background: 'linear-gradient(270deg, #CFE4F3 0%, #FAFAFA 63.46%)' }}>
                             <tr className='border-b border-gray-100'>
@@ -81,7 +86,12 @@ const ComplaintsTables = () => {
                 <h2 className="font-bold text-[#44475B] mb-6 text-[20px] md:text-3xl lg:text-4xl">
                     Trend of annually disposal of complaints
                 </h2>
-                <div className="overflow-x-auto rounded-lg bg-[#FFFFFF] shadow-sm border border-gray-100 rounded-[16px]">
+                <div 
+                    className="overflow-x-auto rounded-lg bg-[#FFFFFF] shadow-sm border border-gray-100 rounded-[16px]"
+                    tabIndex={0}
+                    role="region"
+                    aria-label="Annual complaints disposal trend table container"
+                >
                     <table className="w-full text-sm text-left text-gray-700">
                         <thead className="text-gray-800 font-bold text-xs" style={{ background: 'linear-gradient(270deg, #CFE4F3 0%, #FAFAFA 63.46%)' }}>
                             <tr className='border-b border-gray-100'>
