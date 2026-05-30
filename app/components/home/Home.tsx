@@ -436,7 +436,7 @@ const ProcessSection = () => {
 
 const AppTrustSection = () => {
   return (
-    <section 
+    <section
       className="relative w-full pb-3 lg:pb-0 sm:py-3 md:py-5 lg:py-0 overflow-hidden items-center"
       style={{
         backgroundColor: '#047D43',
@@ -770,11 +770,6 @@ const SuccessHighlight = () => {
 const Team = () => {
   const teamMembers = [
     {
-      name: "Anurag Jaiswal",
-      role: "Wealth Manager",
-      img: "/Home/Team/Anurag.jpeg",
-    },
-    {
       name: "Akash Gupta",
       role: "AVP- Research & Analysis",
       img: "/Home/Team/AkashGupta.webp",
@@ -795,14 +790,9 @@ const Team = () => {
       img: "/Home/Team/nainee 1.webp",
     },
     {
-      name: "Ayush Mishra",
+      name: "Sandeep Yadav",
       role: "Wealth Manager",
-      img: "/Home/Team/Ayush.webp",
-    },
-    {
-      name: "Shashank Awasthi",
-      role: "Wealth Manager",
-      img: "/Home/Team/Shashank.webp",
+      img: "/Home/Team/Sandeep.webp",
     },
     {
       name: "Shubham Dubey",
@@ -810,14 +800,24 @@ const Team = () => {
       img: "/Home/Team/Shubham.webp",
     },
     {
+      name: "Ayush Mishra",
+      role: "Wealth Manager",
+      img: "/Home/Team/Ayush.webp",
+    },
+    {
       name: "Shivangi Yadav",
       role: "Wealth Manager",
       img: "/Home/Team/Shivangi.webp",
     },
     {
-      name: "Sandeep Yadav",
+      name: "Shashank Awasthi",
       role: "Wealth Manager",
-      img: "/Home/Team/Sandeep.webp",
+      img: "/Home/Team/Shashank.webp",
+    },
+    {
+      name: "Anurag Jaiswal",
+      role: "Wealth Manager",
+      img: "/Home/Team/Anurag.jpeg",
     },
   ];
   return (
@@ -1037,7 +1037,7 @@ const ComplaintsTable = () => {
           <p className="text-[#44475B] mt-4">Data for the month ending {monthYear || "..."}</p>
         </div>
 
-        <div 
+        <div
           className="max-w-6xl mx-auto overflow-x-auto shadow-sm border border-gray-100 rounded-[16px]"
           tabIndex={0}
           role="region"
@@ -1166,7 +1166,7 @@ const ComplaintsTable = () => {
             </h2>
           </div>
 
-          <div 
+          <div
             className="max-w-6xl mx-auto overflow-x-auto shadow-sm border border-gray-100 rounded-[16px]"
             tabIndex={0}
             role="region"
@@ -1228,7 +1228,7 @@ const ComplaintsTable = () => {
             </h2>
           </div>
 
-          <div 
+          <div
             className="max-w-6xl mx-auto overflow-x-auto shadow-sm border border-gray-100 rounded-[16px]"
             tabIndex={0}
             role="region"
@@ -1307,7 +1307,7 @@ const Home = () => {
   useEffect(() => {
     if (showPopup) {
       previousFocusRef.current = document.activeElement as HTMLElement;
-      
+
       const timer = setTimeout(() => {
         if (modalRef.current) {
           const focusable = modalRef.current.querySelectorAll(

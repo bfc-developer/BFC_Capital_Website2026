@@ -18,16 +18,22 @@ export default function AboutUs() {
 
     const wealthManagementTeam: WealthManagementTeam[] = [
         {
-            name: "Anurag Jaiswal",
-            role: "Wealth Manager",
-            image: "/Home/Team/Anurag.jpeg",
-            bio: "Anurag Jaiswal is a passionate and driven professional known for his adaptability, dedication, and results-oriented approach. Focused on continuous growth and meaningful impact, he combines creativity, professionalism, and enthusiasm to deliver excellence. His ability to build strong professional relationships, collaborate effectively, and approach challenges with enthusiasm makes him a dependable and growth-focused individual."
-        },
-        {
             name: "Sparsh Awasthi",
             role: "Sr. Wealth Manager",
             image: "/AboutUs/WealthManagementTeam/Sparsh.webp",
             bio: "Sparsh is your friendly neighbourhood financial superhero! With his expert knowledge, passion for helping clients reach their goals, and impressive public speaking skills, he’s here to save the day from financial worries. Sparsh’s dedication to providing personalised guidance and his commitment to building strong client relationships make him a valuable member of our team.",
+        },
+        {
+            name: "Shubham Dubey",
+            role: "Wealth Manager",
+            image: "/AboutUs/WealthManagementTeam/Shubham.webp",
+            bio: "Shubham works closely with clients to turn financial goals into clear, achievable plans. With a Chartered Accountancy background and a natural comfort with numbers, he simplifies complex financial decisions and builds strategies that balance growth, tax efficiency, and long-term stability."
+        },
+        {
+            name: "Sandeep Yadav",
+            role: "Wealth Manager",
+            image: "/AboutUs/WealthManagementTeam/Sandeep.webp",
+            bio: "Sandeep brings a steady, client-focused approach to portfolio management and financial planning. He works closely with clients to understand their goals and design tailored solutions that balance performance, risk, and long-term value. Known for his attention to detail and strong relationship-building skills, Sandeep prioritises accuracy, compliance, and trust in every client interaction."
         },
         {
             name: "Nainie Rastogi",
@@ -35,6 +41,19 @@ export default function AboutUs() {
             image: "/AboutUs/WealthManagementTeam/Nainie.webp",
             bio: "Nainie is a seasoned results driven professional with six years of experience in Trade/Forex Sales, CRM, and Strategic Growth. She has worked with leading institutions like HDFC Bank and Axis Bank. Presently working as Wealth Manager in BFC Capital, she is handling more than 50 HNI’s/semi HNI’s clients totalling an AUM of around 56 Crs."
         },
+        {
+            name: "Shivangi Yadav",
+            role: "Wealth Manager",
+            image: "/AboutUs/WealthManagementTeam/Shivangi.webp",
+            bio: "Shivangi works closely with clients to make financial planning simple, practical, and approachable. She believes in empowering individuals with clear knowledge and thoughtful guidance, helping them make confident money decisions. Known for her strong communication skills and client-first mindset, she focuses on building trust and supporting long-term financial well-being."
+        },
+        {
+            name: "Anurag Jaiswal",
+            role: "Wealth Manager",
+            image: "/Home/Team/Anurag.jpeg",
+            bio: "Anurag Jaiswal is a passionate and driven professional known for his adaptability, dedication, and results-oriented approach. Focused on continuous growth and meaningful impact, he combines creativity, professionalism, and enthusiasm to deliver excellence. His ability to build strong professional relationships, collaborate effectively, and approach challenges with enthusiasm makes him a dependable and growth-focused individual."
+        },
+
         {
             name: "Ayush Mishra",
             role: "Wealth Manager",
@@ -47,24 +66,7 @@ export default function AboutUs() {
             image: "/AboutUs/WealthManagementTeam/Shashank.webp",
             bio: "Shashank is a growth-driven professional with strong decision-making skills and sharp product analysis abilities. A natural leader, he excels at simplifying complex topics and building lasting client relationships. An Executive MBA graduate from ISB Hyderabad—ranked among the world’s top B-schools—he brings over 4 years of experience in the finance sector."
         },
-        {
-            name: "Shubham Dubey",
-            role: "Wealth Manager",
-            image: "/AboutUs/WealthManagementTeam/Shubham.webp",
-            bio: "Shubham works closely with clients to turn financial goals into clear, achievable plans. With a Chartered Accountancy background and a natural comfort with numbers, he simplifies complex financial decisions and builds strategies that balance growth, tax efficiency, and long-term stability."
-        },
-        {
-            name: "Shivangi Yadav",
-            role: "Wealth Manager",
-            image: "/AboutUs/WealthManagementTeam/Shivangi.webp",
-            bio: "Shivangi works closely with clients to make financial planning simple, practical, and approachable. She believes in empowering individuals with clear knowledge and thoughtful guidance, helping them make confident money decisions. Known for her strong communication skills and client-first mindset, she focuses on building trust and supporting long-term financial well-being."
-        },
-        {
-            name: "Sandeep Yadav",
-            role: "Wealth Manager",
-            image: "/AboutUs/WealthManagementTeam/Sandeep.webp",
-            bio: "Sandeep brings a steady, client-focused approach to portfolio management and financial planning. He works closely with clients to understand their goals and design tailored solutions that balance performance, risk, and long-term value. Known for his attention to detail and strong relationship-building skills, Sandeep prioritises accuracy, compliance, and trust in every client interaction."
-        },
+
     ];
 
     const operationsTeam: WealthManagementTeam[] = [
