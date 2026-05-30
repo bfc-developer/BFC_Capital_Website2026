@@ -16,10 +16,12 @@ export const metadata: Metadata = {
 
 export default function SIFPage() {
     return (
-        <>
+        <div className="flex flex-col min-h-screen">
             <Navbar />
-            <SIF />
+            <main id="main-content" className="flex-grow">
+                <SIF />
+            </main>
             <Footer />
-        </>
+        </div>
     );
 }

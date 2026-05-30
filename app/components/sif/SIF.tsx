@@ -12,9 +12,9 @@ export default function SIF() {
                             className="text-center md:text-left home_smart_heading order-2 md:order-1"
                             data-aos="fade-right"
                         >
-                            <h2 className="md:text-left leading-tight font-bold text-[#44475B] text-[20px] md:text-3xl lg:text-5xl">
+                            <h1 className="md:text-left leading-tight font-bold text-[#44475B] text-[20px] md:text-3xl lg:text-5xl">
                                 Specialized Investment Funds
-                            </h2>
+                            </h1>
 
                             <p className="mx-auto mt-4 md:mt-8 mb-4 max-w-6xl text-[15px] md:text-[17px] text-[#44475B] leading-relaxed font-inter opacity-90">
                                 SIFs are where investing gets smarter!
@@ -46,9 +46,9 @@ export default function SIF() {
 
                 <h2 className="text-center text-[20px] md:text-3xl lg:text-5xl font-bold text-[#44475B] mt-16">All You Need To Know </h2>
                 <div className='container mx-auto px-5 md:px-10 lg:px-20'>
-                    <p className="mx-auto mt-4 md:mt-8 mb-4 text-[15px] md:text-[24px] font-bold text-[#44475B] mb-[10px] md:mb-[20px]">
+                    <h3 className="mx-auto mt-4 md:mt-8 mb-4 text-[15px] md:text-[24px] font-bold text-[#44475B] mb-[10px] md:mb-[20px]">
                         What Are SIFs: Specialized Investment Funds
-                    </p>
+                    </h3>
                     <p className='text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto mb-4'>You’ve probably heard of Mutual Funds. Maybe even PMS. <br />But now, there’s a new investment option that sits right between the two – bringing structure from mutual funds and flexibility from PMS.</p>
                     <p className='text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto mb-4'>These are Specialized Investment Funds (SIFs), the newest addition to India’s investment ecosystem, introduced by SEBI.</p>
                     <p className='text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto mb-4'>SIFs aren’t just another category you add to a list. They’re built very differently. <br />They are strategy-first products – which means every SIF begins with a clear investment idea, and only then is the portfolio designed around it.</p>
@@ -57,9 +57,9 @@ export default function SIF() {
                 </div>
 
                 <div className='container mx-auto px-5 md:px-10 lg:px-20'>
-                    <p className="mx-auto mt-4 md:mt-8 mb-4 text-[15px] md:text-[24px] font-bold text-[#44475B] mb-[10px] md:mb-[20px]">
+                    <h3 className="mx-auto mt-4 md:mt-8 mb-4 text-[15px] md:text-[24px] font-bold text-[#44475B] mb-[10px] md:mb-[20px]">
                         Get Started With BFC Capital
-                    </p>
+                    </h3>
                     <p className='text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto mb-4'>At BFC Capital, investing in SIFs is not about following what’s trending. It’s about choosing the <i>right strategy</i> for where you are and where you want to go financially.</p>
                     <p className='text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto mb-4'>
                         As a SEBI-Registered Investment Adviser (RIA), BFC Capital approaches SIFs through a structured advisory lens. Every recommendation is made after understanding your goals, risk comfort, and investment horizon – not before.</p>
@@ -78,9 +78,9 @@ export default function SIF() {
                 </div>
 
                 <div className='container mx-auto px-5 md:px-10 lg:px-20'>
-                    <p className="mx-auto mt-4 md:mt-8 mb-4 text-[15px] md:text-[24px] font-bold text-[#44475B] mb-[10px] md:mb-[20px]">
+                    <h3 className="mx-auto mt-4 md:mt-8 mb-4 text-[15px] md:text-[24px] font-bold text-[#44475B] mb-[10px] md:mb-[20px]">
                         How Do SIFs Work
-                    </p>
+                    </h3>
                     <p className='text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto mb-4'>SIFs operate under SEBI’s Mutual Fund Regulations, 1996, and at a structural level, they function much like mutual funds.</p>
                     <p className='text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto mb-4'>Investors who meet the minimum investment requirement of ₹10 lakh pool their money into a fund. This capital is then managed by an experienced fund manager who uses advanced investment strategies with the aim of generating better risk-adjusted returns.</p>
                     <p className='text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto mb-4'>Where SIFs truly stand apart is in how much flexibility they are allowed.</p>
@@ -102,9 +102,9 @@ export default function SIF() {
                 </div>
 
                 <div className='container mx-auto px-5 md:px-10 lg:px-20'>
-                    <p className="mx-auto mt-4 md:mt-8 mb-4 text-[15px] md:text-[24px] font-bold text-[#44475B] mb-[10px] md:mb-[20px]">
+                    <h3 className="mx-auto mt-4 md:mt-8 mb-4 text-[15px] md:text-[24px] font-bold text-[#44475B] mb-[10px] md:mb-[20px]">
                         How To Invest In SIFs
-                    </p>
+                    </h3>
                     <p className='text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto mb-4'>Investing in Specialized Investment Funds is simple and seamless through Prodigy Pro, the digital investing platform developed by BFC Capital.</p>
                     <p className='text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto mb-4'>
                         Prodigy Pro is built to make strategy-driven products like SIFs accessible – without losing out on compliance, transparency, or expert support.</p>
@@ -126,9 +126,9 @@ export default function SIF() {
                 </div>
 
                 <div className='container mx-auto px-5 md:px-10 lg:px-20'>
-                    <p className="mx-auto mt-4 md:mt-8 mb-4 text-[15px] md:text-[24px] font-bold text-[#44475B] mb-[10px] md:mb-[20px]">
+                    <h3 className="mx-auto mt-4 md:mt-8 mb-4 text-[15px] md:text-[24px] font-bold text-[#44475B] mb-[10px] md:mb-[20px]">
                         Investment Strategies Allowed For SIFs
-                    </p>
+                    </h3>
                     <p className='text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto'>
                         SIFs bring a higher level of sophistication to fund investing. SEBI has clearly defined seven strategy categories under which SIFs can operate:</p>
                     <ul className='list-disc pl-7 text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto mb-4'>
@@ -147,9 +147,9 @@ export default function SIF() {
                 </div>
 
                 <div className='container mx-auto px-5 md:px-10 lg:px-20'>
-                    <p className="mx-auto mt-4 md:mt-8 mb-4 text-[15px] md:text-[24px] font-bold text-[#44475B] mb-[10px] md:mb-[20px]">
+                    <h3 className="mx-auto mt-4 md:mt-8 mb-4 text-[15px] md:text-[24px] font-bold text-[#44475B] mb-[10px] md:mb-[20px]">
                         SEBI Regulations and Minimum Investment Rule
-                    </p>
+                    </h3>
                     <p className='text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto'>
                         Every SIF operates under strict regulatory oversight.</p>
                     <ul className='list-disc pl-7 text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto mb-4'>
@@ -166,9 +166,9 @@ export default function SIF() {
                 </div>
 
                 <div className='container mx-auto px-5 md:px-10 lg:px-20'>
-                    <p className="mx-auto mt-4 md:mt-8 mb-4 text-[15px] md:text-[24px] font-bold text-[#44475B] mb-[10px] md:mb-[20px]">
+                    <h3 className="mx-auto mt-4 md:mt-8 mb-4 text-[15px] md:text-[24px] font-bold text-[#44475B] mb-[10px] md:mb-[20px]">
                         Features of SIFs
-                    </p>
+                    </h3>
                     <p className='text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto'>
                         SIFs aren’t meant for everyone – and that’s exactly what makes them powerful.</p>
                     <ul className='list-disc pl-7 text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto mb-4'>
@@ -186,9 +186,9 @@ export default function SIF() {
                 </div>
 
                 <div className='container mx-auto px-5 md:px-10 lg:px-20'>
-                    <p className="mx-auto mt-4 md:mt-8 mb-4 text-[15px] md:text-[24px] font-bold text-[#44475B] mb-[10px] md:mb-[20px]">
+                    <h3 className="mx-auto mt-4 md:mt-8 mb-4 text-[15px] md:text-[24px] font-bold text-[#44475B] mb-[10px] md:mb-[20px]">
                         Risk Mitigation in SIFs
-                    </p>
+                    </h3>
                     <p className='text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto'>
                         SIFs don’t eliminate risk – but they are designed to manage it intelligently.</p>
                     <ul className='list-disc pl-7 text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto mb-4'>
@@ -203,9 +203,9 @@ export default function SIF() {
                 </div>
 
                 <div className='container mx-auto px-5 md:px-10 lg:px-20'>
-                    <p className="mx-auto mt-4 md:mt-8 mb-4 text-[15px] md:text-[24px] font-bold text-[#44475B] mb-[10px] md:mb-[20px]">
+                    <h3 className="mx-auto mt-4 md:mt-8 mb-4 text-[15px] md:text-[24px] font-bold text-[#44475B] mb-[10px] md:mb-[20px]">
                         Points to Consider Before Investing in SIFs
-                    </p>
+                    </h3>
                     <p className='text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto mb-4'>SIFs are built for investors who are comfortable with market-linked products and have a long-term view.</p>
                     <p className='text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto'>
                         They may be suitable if you:</p>
@@ -223,9 +223,9 @@ export default function SIF() {
                 </div>
 
                 <div className='container mx-auto px-5 md:px-10 lg:px-20'>
-                    <p className="mx-auto mt-4 md:mt-8 mb-4 text-[15px] md:text-[24px] font-bold text-[#44475B] mb-[10px] md:mb-[20px]">
+                    <h3 className="mx-auto mt-4 md:mt-8 mb-4 text-[15px] md:text-[24px] font-bold text-[#44475B] mb-[10px] md:mb-[20px]">
                         Experience SIFs Exclusively on Prodigy Pro
-                    </p>
+                    </h3>
                     <p className='text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto mb-4'>Specialized Investment Funds represent the future of managed investing – structured, transparent, and strategy-led..</p>
                     <p className='text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto mb-4'>At BFC Capital, we are proud to be among the few firms in India authorised to offer SIFs through a fully compliant advisory and distribution framework. Our team includes professionals NISM-certified specifically for Specialized Investment Funds, ensuring every recommendation is backed by regulatory expertise and deep product understanding.</p>
 

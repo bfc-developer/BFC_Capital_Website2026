@@ -342,9 +342,9 @@ export default function AllMutualFunds() {
                                                         className="w-[42px] h-[42px] object-contain rounded bg-white shadow-sm border border-gray-50 p-1"
                                                     />
                                                     <div>
-                                                        <h6 className="font-bold text-[#44475B] text-[15px] md:text-[16px] mb-0.5 leading-tight">
+                                                        <h5 className="font-bold text-[#44475B] text-[15px] md:text-[16px] mb-0.5 leading-tight">
                                                             {item.scheme_name}
-                                                        </h6>
+                                                        </h5>
                                                         <small className="text-gray-500 text-[12px] font-medium">
                                                             {item.category}
                                                         </small>
