@@ -13,9 +13,9 @@ export default function FinancialPlanning() {
                             className="text-center md:text-left home_smart_heading order-2 md:order-1"
                             data-aos="fade-right"
                         >
-                            <h2 className="md:text-left leading-tight font-bold text-[#44475B] text-[20px] md:text-3xl lg:text-5xl">
+                            <h1 className="md:text-left leading-tight font-bold text-[#44475B] text-[20px] md:text-3xl lg:text-5xl">
                                 Where Goals Meet Strategies and Dreams Meet a Promising Future
-                            </h2>
+                            </h1>
 
                             <p className="mx-auto mb-4 max-w-6xl text-[15px] md:text-[17px] text-[#44475B] leading-relaxed font-inter opacity-90">
                                 At BFC Capital, we see financial planning as more than numbers on a sheet left open. For us it’s where real-life goals meet practical strategies – and where dreams stop feeling distant or unachievable. <br />
@@ -231,9 +231,9 @@ export default function FinancialPlanning() {
             <section>
                 <h2 className="text-center text-[28px] md:text-3xl lg:text-5xl font-bold text-[#44475B] mt-16">All You Need To Know</h2>
                 <div className='container mx-auto px-5 md:px-10 lg:px-20'>
-                    <p className="mx-auto mt-4 md:mt-8 mb-4 text-[18px] md:text-[24px] font-bold text-[#44475B] mb-[10px] md:mb-[20px]">
+                    <h3 className="mx-auto mt-4 md:mt-8 mb-4 text-[18px] md:text-[24px] font-bold text-[#44475B] mb-[10px] md:mb-[20px]">
                         What Is Financial Planning and Why Does It Matter?
-                    </p>
+                    </h3>
                     <p className='text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto mb-4'>Before we begin, let us ask you a question<br />
                         Imagine you’ve been dreaming of going on an international vacation with your family for years. <br />
                         One day, you receive a sudden bonus of ₹3 lakhs. <br />
@@ -244,9 +244,9 @@ export default function FinancialPlanning() {
                 </div>
 
                 <div className='container mx-auto px-5 md:px-10 lg:px-20'>
-                    <p className="mx-auto mt-4 md:mt-8 mb-4 text-[18px] md:text-[24px] font-bold text-[#44475B] mb-[20px]">
+                    <h3 className="mx-auto mt-4 md:mt-8 mb-4 text-[18px] md:text-[24px] font-bold text-[#44475B] mb-[20px]">
                         Understanding Financial Planning
-                    </p>
+                    </h3>
                     <p className='text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto'>Most of us have dreams that require more than just wishful thinking – they require money. Real money. <br />
                         So ask yourself:</p>
                     <ul className='list-disc pl-7 text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto'>
@@ -262,9 +262,9 @@ export default function FinancialPlanning() {
                 </div>
 
                 <div className='container mx-auto px-5 md:px-10 lg:px-20'>
-                    <p className="mx-auto mt-4 md:mt-8 mb-4 text-[18px] md:text-[24px] font-bold text-[#44475B] mb-[20px]">
+                    <h3 className="mx-auto mt-4 md:mt-8 mb-4 text-[18px] md:text-[24px] font-bold text-[#44475B] mb-[20px]">
                         Why You Should Plan Your Finances?
-                    </p>
+                    </h3>
                     <p className='text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto'>
                         Asking why financial planning is important is a bit like asking why you need good health. <br />
                         Life is unpredictable. But when your finances are planned, the stress becomes manageable. <br />
@@ -283,9 +283,9 @@ export default function FinancialPlanning() {
                 </div>
 
                 <div className='container mx-auto px-5 md:px-10 lg:px-20 mb-8'>
-                    <p className="mx-auto mt-4 md:mt-8 mb-4 text-[18px] md:text-[24px] font-bold text-[#44475B] mb-[20px]">
+                    <h3 className="mx-auto mt-4 md:mt-8 mb-4 text-[18px] md:text-[24px] font-bold text-[#44475B] mb-[20px]">
                         To Conclude
-                    </p>
+                    </h3>
                     <p className='text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto mb-4'>
                         Financial planning isn't just about money. <br />
                         It's about peace of mind, confidence, and knowing that you're prepared – whatever life throws at you. <br />
@@ -302,9 +302,9 @@ export default function FinancialPlanning() {
                     <p className='text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto mb-4'>Remember Virus from 3 Idiots saying, “Life is a race”? <br />We laughed then – but today, most of us are running.<br />Running to earn more. To live better. To feel secure.<br />But running without direction can leave you exhausted, not fulfilled.<br />What’s often missing isn’t effort – it’s a <b>holistic approach to financial health</b>.</p>
                 </div>
                 <div className='container mx-auto px-5 md:px-10 lg:px-20 mb-8'>
-                    <p className="mx-auto mt-4 md:mt-8 mb-4 text-[18px] md:text-[24px] font-bold text-[#44475B] mb-[20px]">
+                    <h3 className="mx-auto mt-4 md:mt-8 mb-4 text-[18px] md:text-[24px] font-bold text-[#44475B] mb-[20px]">
                         What’s a Holistic Approach to Your Financial Health?
-                    </p>
+                    </h3>
                     <p className='text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto mb-2'>
                         When your salary gets credited, what happens next?<br />
                         Bills get paid. Expenses follow. Some money is saved. Some is invested. And life moves on.<br />
@@ -327,9 +327,9 @@ export default function FinancialPlanning() {
 
                 </div>
                 <div className='container mx-auto px-5 md:px-10 lg:px-20 mb-8'>
-                    <p className="mx-auto mt-4 md:mt-8 mb-4 text-[18px] md:text-[24px] font-bold text-[#44475B] mb-[20px]">
+                    <h3 className="mx-auto mt-4 md:mt-8 mb-4 text-[18px] md:text-[24px] font-bold text-[#44475B] mb-[20px]">
                         Unavoidable Consumption
-                    </p>
+                    </h3>
                     <p className='text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto'>
                         The moment income hits your account, fixed expenses line up – rent, <span aria-label="E M Is">EMIs</span>, school fees, groceries, utilities.<br />
                         These aren’t optional. Planning for them is essential.<br />
@@ -338,9 +338,9 @@ export default function FinancialPlanning() {
 
                 </div>
                 <div className='container mx-auto px-5 md:px-10 lg:px-20 mb-8'>
-                    <p className="mx-auto mt-4 md:mt-8 mb-4 text-[18px] md:text-[24px] font-bold text-[#44475B] mb-[20px]">
+                    <h3 className="mx-auto mt-4 md:mt-8 mb-4 text-[18px] md:text-[24px] font-bold text-[#44475B] mb-[20px]">
                         Risk Planning
-                    </p>
+                    </h3>
                     <p className='text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto'>
                         Life doesn’t warn you before throwing surprises.<br />
                         Health insurance protects you from rising medical costs.<br />
@@ -356,9 +356,9 @@ export default function FinancialPlanning() {
                     </p>
                 </div>
                 <div className='container mx-auto px-5 md:px-10 lg:px-20 mb-8'>
-                    <p className="mx-auto mt-4 md:mt-8 mb-4 text-[18px] md:text-[24px] font-bold text-[#44475B] mb-[20px]">
+                    <h3 className="mx-auto mt-4 md:mt-8 mb-4 text-[18px] md:text-[24px] font-bold text-[#44475B] mb-[20px]">
                         Contingency Funds
-                    </p>
+                    </h3>
                     <p className='text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto mb-4'>
                         Once expenses and protection are in place, emergency savings become crucial.<br />
                         An emergency fund should ideally cover 3-6 months of expenses. It acts as your financial cushion during job loss, medical emergencies, or unexpected disruptions.<br />
@@ -366,9 +366,9 @@ export default function FinancialPlanning() {
                     </p>
                 </div>
                 <div className='container mx-auto px-5 md:px-10 lg:px-20 mb-8'>
-                    <p className="mx-auto mt-4 md:mt-8 mb-4 text-[18px] md:text-[24px] font-bold text-[#44475B] mb-[20px]">
+                    <h3 className="mx-auto mt-4 md:mt-8 mb-4 text-[18px] md:text-[24px] font-bold text-[#44475B] mb-[20px]">
                         Goal-Based Planning
-                    </p>
+                    </h3>
                     <p className='text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto mb-4'>
                         Buying a car. Planning a wedding. Children’s education. Retirement.<br />
                         Dreams are common but achieving them requires structure.<br />
@@ -376,9 +376,9 @@ export default function FinancialPlanning() {
                     </p>
                 </div>
                 <div className='container mx-auto px-5 md:px-10 lg:px-20 mb-8'>
-                    <p className="mx-auto mt-4 md:mt-8 mb-4 text-[18px] md:text-[24px] font-bold text-[#44475B] mb-[20px]">
+                    <h3 className="mx-auto mt-4 md:mt-8 mb-4 text-[18px] md:text-[24px] font-bold text-[#44475B] mb-[20px]">
                         Wealth Management
-                    </p>
+                    </h3>
                     <p className='text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto mb-4'>
                         If there’s surplus income or a windfall like a bonus, inheritance, or unexpected gains, then strategic investing can help build long-term wealth and financial independence.<br />
                         Now, when you covered yourself against uncertainties, planned for your financial Goals, pause for a while and ask yourself, is there a need to invest further?<br />
@@ -387,9 +387,9 @@ export default function FinancialPlanning() {
                     </p>
                 </div>
                 <div className='container mx-auto px-5 md:px-10 lg:px-20 mb-8'>
-                    <p className="mx-auto mt-4 md:mt-8 mb-4 text-[18px] md:text-[24px] font-bold text-[#44475B] mb-[20px]">
+                    <h3 className="mx-auto mt-4 md:mt-8 mb-4 text-[18px] md:text-[24px] font-bold text-[#44475B] mb-[20px]">
                         On a Parting Note
-                    </p>
+                    </h3>
                     <p className='text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto mb-4'>
                         A holistic financial plan may feel overwhelming at first.<br />
                         But once income and expenses are mapped, everything starts falling into place.<br />
@@ -409,54 +409,54 @@ export default function FinancialPlanning() {
                 </div>
 
                 <div className='container mx-auto px-5 md:px-10 lg:px-20 mb-8'>
-                    <p className="mx-auto mt-4 md:mt-8 mb-4 text-[18px] md:text-[24px] font-bold text-[#44475B] mb-[20px]">
+                    <h3 className="mx-auto mt-4 md:mt-8 mb-4 text-[18px] md:text-[24px] font-bold text-[#44475B] mb-[20px]">
                         Teenage Years (13-17)
-                    </p>
+                    </h3>
                     <p className='text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto mb-4'>
                         Develop financial awareness, saving habits, and basic financial literacy.
                     </p>
                 </div>
 
                 <div className='container mx-auto px-5 md:px-10 lg:px-20 mb-8'>
-                    <p className="mx-auto mt-4 md:mt-8 mb-4 text-[18px] md:text-[24px] font-bold text-[#44475B] mb-[20px]">
+                    <h3 className="mx-auto mt-4 md:mt-8 mb-4 text-[18px] md:text-[24px] font-bold text-[#44475B] mb-[20px]">
                         Young Adulthood (18-25)
-                    </p>
+                    </h3>
                     <p className='text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto mb-4'>
                         Budget income, build emergency funds, use credit responsibly, start investing, and secure basic insurance.
                     </p>
                 </div>
 
                 <div className='container mx-auto px-5 md:px-10 lg:px-20 mb-8'>
-                    <p className="mx-auto mt-4 md:mt-8 mb-4 text-[18px] md:text-[24px] font-bold text-[#44475B] mb-[20px]">
+                    <h3 className="mx-auto mt-4 md:mt-8 mb-4 text-[18px] md:text-[24px] font-bold text-[#44475B] mb-[20px]">
                         Early and Mid-Career (26-45)
-                    </p>
+                    </h3>
                     <p className='text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto mb-4'>
                         Plan for family responsibilities, home ownership, education expenses, and long-term wealth creation.
                     </p>
                 </div>
 
                 <div className='container mx-auto px-5 md:px-10 lg:px-20 mb-8'>
-                    <p className="mx-auto mt-4 md:mt-8 mb-4 text-[18px] md:text-[24px] font-bold text-[#44475B] mb-[20px]">
+                    <h3 className="mx-auto mt-4 md:mt-8 mb-4 text-[18px] md:text-[24px] font-bold text-[#44475B] mb-[20px]">
                         Pre-Retirement (45-60)
-                    </p>
+                    </h3>
                     <p className='text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto mb-4'>
                         Reduce liabilities, rebalance investments, and ensure medical preparedness.
                     </p>
                 </div>
 
                 <div className='container mx-auto px-5 md:px-10 lg:px-20 mb-8'>
-                    <p className="mx-auto mt-4 md:mt-8 mb-4 text-[18px] md:text-[24px] font-bold text-[#44475B] mb-[20px]">
+                    <h3 className="mx-auto mt-4 md:mt-8 mb-4 text-[18px] md:text-[24px] font-bold text-[#44475B] mb-[20px]">
                         Retirement (60+ Years)
-                    </p>
+                    </h3>
                     <p className='text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto mb-4'>
                         Focus on budgeting, income stability, capital preservation, and estate planning.
                     </p>
                 </div>
 
                 <div className='container mx-auto px-5 md:px-10 lg:px-20 mb-8'>
-                    <p className="mx-auto mt-4 md:mt-8 mb-4 text-[18px] md:text-[24px] font-bold text-[#44475B] mb-[20px]">
+                    <h3 className="mx-auto mt-4 md:mt-8 mb-4 text-[18px] md:text-[24px] font-bold text-[#44475B] mb-[20px]">
                         To Conclude
-                    </p>
+                    </h3>
                     <p className='text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto mb-4'>
                         Your financial needs change with time and your strategy must evolve too.
                     </p>
@@ -477,63 +477,63 @@ export default function FinancialPlanning() {
                 </div>
 
                 <div className='container mx-auto px-5 md:px-10 lg:px-20 mb-8'>
-                    <p className="mx-auto mt-4 md:mt-8 mb-4 text-[18px] md:text-[24px] font-bold text-[#44475B] mb-[20px]">
+                    <h3 className="mx-auto mt-4 md:mt-8 mb-4 text-[18px] md:text-[24px] font-bold text-[#44475B] mb-[20px]">
                         Education:
-                    </p>
+                    </h3>
                     <p className='text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto mb-4'>
                         For long-term goals like children’s education (15+ years), equity-oriented funds help beat inflation and build corpus.
                     </p>
                 </div>
 
                 <div className='container mx-auto px-5 md:px-10 lg:px-20 mb-8'>
-                    <p className="mx-auto mt-4 md:mt-8 mb-4 text-[18px] md:text-[24px] font-bold text-[#44475B] mb-[20px]">
+                    <h3 className="mx-auto mt-4 md:mt-8 mb-4 text-[18px] md:text-[24px] font-bold text-[#44475B] mb-[20px]">
                         Vacation:
-                    </p>
+                    </h3>
                     <p className='text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto mb-4'>
                         Short- to medium-term goals can be planned using debt or hybrid funds based on timelines.
                     </p>
                 </div>
 
                 <div className='container mx-auto px-5 md:px-10 lg:px-20 mb-8'>
-                    <p className="mx-auto mt-4 md:mt-8 mb-4 text-[18px] md:text-[24px] font-bold text-[#44475B] mb-[20px]">
+                    <h3 className="mx-auto mt-4 md:mt-8 mb-4 text-[18px] md:text-[24px] font-bold text-[#44475B] mb-[20px]">
                         House:
-                    </p>
+                    </h3>
                     <p className='text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto mb-4'>
                         Hybrid funds work well for down payments (4–5 years), while long-term goals benefit from equity investments.
                     </p>
                 </div>
 
                 <div className='container mx-auto px-5 md:px-10 lg:px-20 mb-8'>
-                    <p className="mx-auto mt-4 md:mt-8 mb-4 text-[18px] md:text-[24px] font-bold text-[#44475B] mb-[20px]">
+                    <h3 className="mx-auto mt-4 md:mt-8 mb-4 text-[18px] md:text-[24px] font-bold text-[#44475B] mb-[20px]">
                         Car:
-                    </p>
+                    </h3>
                     <p className='text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto mb-4'>
                         Investment strategy depends on when the car is required—hybrid for medium term, equity for long term.
                     </p>
                 </div>
 
                 <div className='container mx-auto px-5 md:px-10 lg:px-20 mb-8'>
-                    <p className="mx-auto mt-4 md:mt-8 mb-4 text-[18px] md:text-[24px] font-bold text-[#44475B] mb-[20px]">
+                    <h3 className="mx-auto mt-4 md:mt-8 mb-4 text-[18px] md:text-[24px] font-bold text-[#44475B] mb-[20px]">
                         Marriage:
-                    </p>
+                    </h3>
                     <p className='text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto mb-4'>
                         For a 5-6 year timeline, aggressive hybrid or moderate equity funds are suitable.
                     </p>
                 </div>
 
                 <div className='container mx-auto px-5 md:px-10 lg:px-20 mb-8'>
-                    <p className="mx-auto mt-4 md:mt-8 mb-4 text-[18px] md:text-[24px] font-bold text-[#44475B] mb-[20px]">
+                    <h3 className="mx-auto mt-4 md:mt-8 mb-4 text-[18px] md:text-[24px] font-bold text-[#44475B] mb-[20px]">
                         Retirement:
-                    </p>
+                    </h3>
                     <p className='text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto mb-4'>
                         Early, disciplined investing with step-up SIPs ensures a comfortable retirement. Risk is gradually reduced closer to retirement.
                     </p>
                 </div>
 
                 <div className='container mx-auto px-5 md:px-10 lg:px-20 mb-8'>
-                    <p className="mx-auto mt-4 md:mt-8 mb-4 text-[18px] md:text-[24px] font-bold text-[#44475B] mb-[20px]">
+                    <h3 className="mx-auto mt-4 md:mt-8 mb-4 text-[18px] md:text-[24px] font-bold text-[#44475B] mb-[20px]">
                         To Conclude
-                    </p>
+                    </h3>
                     <p className='text-[#44475B] text-[15px] md:text-[17px] leading-relaxed font-inter mx-auto mb-4'>
                         There is one SIP for every financial goal – when planned correctly. At BFC Capital, we structure SIPs based on goals, not guesses.<br />
                         Start your investment journey today!
