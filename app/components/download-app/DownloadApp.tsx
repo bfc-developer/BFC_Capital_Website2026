@@ -14,9 +14,9 @@ export default function DownloadApp() {
                                 className="text-center md:text-left home_smart_heading"
                                 data-aos="fade-right"
                             >
-                                <h2 className="md:text-left leading-tight font-bold text-[#44475B] text-[20px] md:text-3xl lg:text-5xl">
+                                <h1 className="md:text-left leading-tight font-bold text-[#44475B] text-[20px] md:text-3xl lg:text-5xl">
                                     Prodigy Pro – Thoughtful investing, Built for clarity.
-                                </h2>
+                                </h1>
 
                                 <p className="mx-auto mt-4 md:mt-8 mb-4 max-w-6xl text-[15px] md:text-[17px] text-[#44475B] leading-relaxed font-inter opacity-90">
                                     Investing works best when it is calm, structured, and informed. <br />Prodigy Pro brings that philosophy to your fingertips – a platform designed to help you make better decisions, stay disciplined, and remain focused on long-term outcomes.
