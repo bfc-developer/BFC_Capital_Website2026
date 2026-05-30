@@ -266,9 +266,9 @@ export default function AnnualSIP() {
                     }}>Annual SIP Calculator</span>
                 </nav>
                 {/* Title */}
-                <h2 className="text-[40px] md:text-3xl lg:text-5xl font-bold text-[#44475B]">
+                <h1 className="text-[40px] md:text-3xl lg:text-5xl font-bold text-[#44475B]">
                     Annual SIP Calculator
-                </h2>
+                </h1>
             </div>
             <section>
                 <div className="container mx-auto px-5 md:px-10 lg:px-20">

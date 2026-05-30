@@ -264,9 +264,9 @@ export default function LumpsumCalculator() {
                     }}>Lump Sum Calculator</span>
                 </nav>
                 {/* Title */}
-                <h2 className="text-[40px] md:text-3xl lg:text-5xl font-bold text-[#44475B]">
+                <h1 className="text-[40px] md:text-3xl lg:text-5xl font-bold text-[#44475B]">
                     Lump Sum Calculator
-                </h2>
+                </h1>
             </div>
             <section>
                 <div className="container mx-auto px-4 md:px-15 lg:px-20">
