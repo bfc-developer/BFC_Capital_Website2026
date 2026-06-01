@@ -14,11 +14,14 @@ const HOLIDAYS_2026: Record<string, string> = {
     "2026-03-20": "Eid-ul-Fitr",
     "2026-04-03": "Good Friday",
     "2026-04-14": "Ambedkar Jayanti",
-    "2026-05-01": "May Day",
+    "2026-06-26": "Muharram",
     "2026-08-15": "Independence Day",
     "2026-10-02": "Gandhi Jayanti",
+    "2026-10-19": "Ramnavmi",
     "2026-10-20": "Dussehra",
     "2026-11-08": "Diwali",
+    "2026-11-09": "Diwali",
+    "2026-11-10": "Diwali",
     "2026-12-25": "Christmas",
 };
 
@@ -28,6 +31,64 @@ const TIME_SLOTS = [
     "02:00 PM", "02:30 PM", "03:00 PM", "03:30 PM",
     "04:00 PM", "04:30 PM", "05:00 PM", "05:30 PM"
 ];
+
+const getEndTime = (startTime: string): string => {
+    const nextSlotMap: Record<string, string> = {
+        "10:00 AM": "10:30 AM",
+        "10:30 AM": "11:00 AM",
+        "11:00 AM": "11:30 AM",
+        "11:30 AM": "12:00 PM",
+        "12:00 PM": "12:30 PM",
+        "12:30 PM": "01:00 PM",
+        "01:00 PM": "01:30 PM",
+        "01:30 PM": "02:00 PM",
+        "02:00 PM": "02:30 PM",
+        "02:30 PM": "03:00 PM",
+        "03:00 PM": "03:30 PM",
+        "03:30 PM": "04:00 PM",
+        "04:00 PM": "04:30 PM",
+        "04:30 PM": "05:00 PM",
+        "05:00 PM": "05:30 PM",
+        "05:30 PM": "06:00 PM"
+    };
+    return nextSlotMap[startTime] || "";
+};
+
+
+
+const isSlotInPast = (slotStr: string, dateStr: string): boolean => {
+    const now = new Date();
+    const yyyy = now.getFullYear();
+    const mm = String(now.getMonth() + 1).padStart(2, '0');
+    const dd = String(now.getDate()).padStart(2, '0');
+    const localTodayStr = `${yyyy}-${mm}-${dd}`;
+
+    if (dateStr < localTodayStr) return true;
+    if (dateStr > localTodayStr) return false;
+
+    const parts = slotStr.split(' ');
+    if (parts.length !== 2) return false;
+    const [time, modifier] = parts;
+    const timeParts = time.split(':');
+    if (timeParts.length !== 2) return false;
+    let slotHours = parseInt(timeParts[0], 10);
+    const slotMinutes = parseInt(timeParts[1], 10);
+
+    if (modifier === 'PM' && slotHours < 12) {
+        slotHours += 12;
+    }
+    if (modifier === 'AM' && slotHours === 12) {
+        slotHours = 0;
+    }
+
+    const currentHours = now.getHours();
+    const currentMinutes = now.getMinutes();
+
+    const slotTotal = slotHours * 60 + slotMinutes;
+    const currentTotal = currentHours * 60 + currentMinutes;
+
+    return slotTotal < currentTotal;
+};
 
 declare global {
     interface Window {
@@ -58,6 +119,7 @@ export default function BookSessionButton({ buttonText, className }: BookSession
     const [isLoadingSlots, setIsLoadingSlots] = useState(false);
     const [isSubmitting, setIsSubmitting] = useState(false);
     const [showFloatingTab, setShowFloatingTab] = useState(false);
+    const [minDate, setMinDate] = useState('');
 
     // Old Apps Script URL that saves details to your Google Sheet
     const CALLBACK_SCRIPT_URL: string = "https://script.google.com/macros/s/AKfycbxf8XuWvVM-Q51zbNWsVvTSyFKs7KvY6WtKXobCNVosjZlq_iZoKSkzwFFSua9vvplehw/exec";
@@ -79,6 +141,12 @@ export default function BookSessionButton({ buttonText, className }: BookSession
             setConsent(false);
             setErrors({});
             setActiveTab('booking'); // default to booking tab when opening
+
+            const today = new Date();
+            const yyyy = today.getFullYear();
+            const mm = String(today.getMonth() + 1).padStart(2, '0');
+            const dd = String(today.getDate()).padStart(2, '0');
+            setMinDate(`${yyyy}-${mm}-${dd}`);
         } else {
             document.body.style.overflow = '';
         }
@@ -120,6 +188,7 @@ export default function BookSessionButton({ buttonText, className }: BookSession
         try {
             let slots: string[] = [];
 
+            let fetchSucceeded = false;
             // 1. Fetch from Calendar Apps Script if it is set up
             if (CALENDAR_SCRIPT_URL && CALENDAR_SCRIPT_URL.trim() !== "") {
                 const res = await fetch(`${CALENDAR_SCRIPT_URL}?action=getSlots&date=${dateStr}`);
@@ -127,16 +196,19 @@ export default function BookSessionButton({ buttonText, className }: BookSession
                     const data = await res.json();
                     if (Array.isArray(data)) {
                         slots = data;
+                        fetchSucceeded = true;
                     }
                 }
             }
 
-            // 2. Load and merge from localStorage for local testing/development fallback
-            const localData = localStorage.getItem('bfc_booked_slots');
-            if (localData) {
-                const parsed = JSON.parse(localData);
-                if (parsed[dateStr]) {
-                    slots = Array.from(new Set([...slots, ...parsed[dateStr]]));
+            // 2. Load and merge from localStorage ONLY if fetch failed / wasn't run
+            if (!fetchSucceeded) {
+                const localData = localStorage.getItem('bfc_booked_slots');
+                if (localData) {
+                    const parsed = JSON.parse(localData);
+                    if (parsed[dateStr]) {
+                        slots = Array.from(new Set([...slots, ...parsed[dateStr]]));
+                    }
                 }
             }
 
@@ -171,13 +243,19 @@ export default function BookSessionButton({ buttonText, className }: BookSession
         }
 
         if (isSecondOrFourthSaturday(date)) {
-            setDateError("BFC Capital is closed on the 2nd & 4th Saturday of the month. Please select another date.");
+            setDateError("BFC Capital is closed on the 2nd & 4th Saturday of the month.");
             return;
         }
 
         const holiday = getHolidayName(dateStr);
         if (holiday) {
             setDateError(`Office closed for holiday: ${holiday}. Please select another date.`);
+            return;
+        }
+
+        const availableSlots = TIME_SLOTS.filter(slot => !isSlotInPast(slot, dateStr));
+        if (availableSlots.length === 0) {
+            setDateError("All slots for today are in the past. Please select a future date.");
             return;
         }
 
@@ -202,6 +280,8 @@ export default function BookSessionButton({ buttonText, className }: BookSession
                 newErrors.time = 'Required';
             } else if (bookedSlots.includes(selectedTime)) {
                 newErrors.time = 'Slot already booked';
+            } else if (isSlotInPast(selectedTime, selectedDate)) {
+                newErrors.time = 'Slot is in the past';
             }
         }
 
@@ -213,7 +293,32 @@ export default function BookSessionButton({ buttonText, className }: BookSession
         e.preventDefault();
         if (!validate()) return;
         setIsSubmitting(true);
-
+        // Send session query API in parallel (non-blocking)
+        const localApiPayload = activeTab === 'booking' ? {
+            sessionType: "schedule_session",
+            fullName: name,
+            mobileNumber: mobile,
+            email: email,
+            selectedDate: selectedDate,
+            timeSlot: {
+                startTime: selectedTime,
+                endTime: getEndTime(selectedTime)
+            }
+        } : {
+            sessionType: "request_callback",
+            fullName: name,
+            mobileNumber: mobile,
+            email: email
+        };
+        fetch("http://192.168.18.109:8080/api/v2/query/create-session-query", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify(localApiPayload)
+        }).catch(err => {
+            console.error("Local session query API failed (non-blocking):", err);
+        });
         try {
             if (activeTab === 'booking') {
                 const bookingPayload = {
@@ -274,8 +379,6 @@ export default function BookSessionButton({ buttonText, className }: BookSession
             setIsSubmitting(false);
         }
     };
-
-    const todayStr = new Date().toISOString().split('T')[0];
 
     return (
         <>
@@ -372,8 +475,8 @@ export default function BookSessionButton({ buttonText, className }: BookSession
                                     setErrors({});
                                 }}
                                 className={`flex-1 text-center pb-3 text-[14px] md:text-[15px] font-bold border-b-2 transition-all duration-300 cursor-pointer ${activeTab === 'booking'
-                                        ? 'border-[#024B39] text-[#024B39]'
-                                        : 'border-transparent text-gray-400 hover:text-gray-600'
+                                    ? 'border-[#024B39] text-[#024B39]'
+                                    : 'border-transparent text-gray-400 hover:text-gray-600'
                                     }`}
                             >
                                 📅 Schedule Session
@@ -385,8 +488,8 @@ export default function BookSessionButton({ buttonText, className }: BookSession
                                     setErrors({});
                                 }}
                                 className={`flex-1 text-center pb-3 text-[14px] md:text-[15px] font-bold border-b-2 transition-all duration-300 cursor-pointer ${activeTab === 'callback'
-                                        ? 'border-[#024B39] text-[#024B39]'
-                                        : 'border-transparent text-gray-400 hover:text-gray-600'
+                                    ? 'border-[#024B39] text-[#024B39]'
+                                    : 'border-transparent text-gray-400 hover:text-gray-600'
                                     }`}
                             >
                                 📞 Request Callback
@@ -445,7 +548,7 @@ export default function BookSessionButton({ buttonText, className }: BookSession
                                             type="date"
                                             aria-label="Select Date"
                                             value={selectedDate}
-                                            min={todayStr}
+                                            min={minDate}
                                             onChange={(e) => handleDateChange(e.target.value)}
                                             className={`w-full border-b py-2 text-[#44475B] bg-transparent outline-none transition-colors cursor-pointer ${errors.date || dateError ? 'border-red-500 focus:border-red-500' : 'border-gray-300 focus:border-[#024B39]'}`}
                                         />
@@ -477,7 +580,7 @@ export default function BookSessionButton({ buttonText, className }: BookSession
                                                             : "Choose an available 30-minute slot"
                                                 }
                                             </option>
-                                            {!isLoadingSlots && selectedDate && !dateError && TIME_SLOTS.map((slot) => {
+                                            {!isLoadingSlots && selectedDate && !dateError && TIME_SLOTS.filter(slot => !isSlotInPast(slot, selectedDate)).map((slot) => {
                                                 const isBooked = bookedSlots.includes(slot);
                                                 return (
                                                     <option key={slot} value={slot} disabled={isBooked} className="text-[#44475B]">

@@ -249,19 +249,12 @@ const VideoSection = () => {
   const [isVideoActive, setIsVideoActive] = useState(false);
   const videos = [
     {
-      youtubeUrl: "https://youtu.be/M59P6tNdAvA",
+      youtubeUrl: "https://youtu.be/4LdArFHTYE8?si=acwZFEH-POJyX64H",
     },
     {
-      youtubeUrl: "https://youtu.be/-H9oayFUqVk",
+      youtubeUrl: "https://youtu.be/JOj1Zp-uJqs?si=M1QVdHYhmzh_vSWH",
     },
-    {
-      youtubeUrl: "https://youtu.be/2dmody_8oCc",
-      thumbnail: "/Home/VideoSlider/RetirementPlanningWITHSIPSWPStrategy1.svg",
-    },
-    {
-      youtubeUrl: "https://youtu.be/WzhB2sRvr40",
-      thumbnail: "/Home/VideoSlider/WhatHappens.svg",
-    },
+
   ];
   useEffect(() => {
     if (!isVideoActive) return;
@@ -720,7 +713,7 @@ const SuccessHighlight = () => {
                 </div>
               </div>
 
-              <button className=" text-bfc-blue px-5 py-2.5 rounded-full font-bold flex items-center gap-2 transition-all shadow-md group text-[13px] bg-[#FFFFFF]" onClick={() => window.open("https://www.youtube.com/playlist?list=PLfOMOlOYTqnXx3yxcrbxx0uMN2_xTt4Rj", "_blank")} aria-label="See all client testimonials">
+              <button className=" text-bfc-blue px-5 py-2.5 rounded-full font-bold flex items-center gap-2 transition-all shadow-md group text-[13px] bg-[#FFFFFF]" onClick={() => window.open("https://www.youtube.com/watch?v=TD4Sf-Vo-BU&si=uE_ZuAiMnNLPveX6&cc_load_policy=1&cc_lang_pref=en", "_blank")} aria-label="See all client testimonials">
 
                 See All
                 <span className="text-bfc-blue group-hover:translate-x-1 transition-transform" aria-hidden="true">
@@ -750,7 +743,7 @@ const SuccessHighlight = () => {
                     className="w-[180px] md:w-[300px] lg:w-[400px] m-auto h-full"
                   />
                   {/* Play Button Overlay */}
-                  <Link href="https://youtube.com/shorts/TD4Sf-Vo-BU?si=TEcAgF1lWsj5Gs6G" aria-label="Play Mitya Moitra's testimonial video on YouTube">
+                  <Link href="https://www.youtube.com/watch?v=TD4Sf-Vo-BU&si=TEcAgF1lWsj5Gs6G&cc_load_policy=1&cc_lang_pref=en" aria-label="Play Mitya Moitra's testimonial video on YouTube">
                     <div className="absolute inset-0 bg-transparent flex items-center justify-center transition-colors transition-all hover:scale-110">
                       <div className="w-10 h-10 md:w-16 md:h-16  rounded-full flex items-center justify-center shadow-2xl group-hover:scale-110 transition-transform">
                         <Image src="/Home/Vector.svg" alt="Play Video" width={120} height={120} className="w-10 h-10 md:w-16 md:h-16  rounded-full flex items-center justify-center shadow-2xl group-hover:scale-110 transition-transform" />
