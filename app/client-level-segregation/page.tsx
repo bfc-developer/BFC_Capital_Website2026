@@ -5,9 +5,9 @@ import { pageSeo } from "../seo-config";
 import ClientLevelSegregation from "../components/investor-complaints/ClientLevelSegregation";
 
 export const metadata: Metadata = {
-    title: pageSeo["/client-level-segregation"]?.title,
-    description: pageSeo["/client-level-segregation"]?.description,
-    keywords: pageSeo["/client-level-segregation"]?.keywords,
+    // title: pageSeo["/client-level-segregation"]?.title,
+    // description: pageSeo["/client-level-segregation"]?.description,
+    // keywords: pageSeo["/client-level-segregation"]?.keywords,
     alternates: {
         canonical: pageSeo["/client-level-segregation"]?.canonical,
     },

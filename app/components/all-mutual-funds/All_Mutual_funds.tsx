@@ -164,9 +164,9 @@ export default function AllMutualFunds() {
                             className="text-center md:text-left home_smart_heading order-2 md:order-1"
                             data-aos="fade-right"
                         >
-                            <h2 className="md:text-left leading-tight font-bold text-[#44475B] text-[20px] md:text-3xl lg:text-5xl">
+                            <h1 className="md:text-left leading-tight font-bold text-[#44475B] text-[20px] md:text-3xl lg:text-5xl">
                                 Mutual Funds in India
-                            </h2>
+                            </h1>
 
                             <p className="mx-auto mt-4 md:mt-8 mb-4 max-w-6xl text-[15px] md:text-[17px] text-[#44475B] leading-relaxed font-inter opacity-90">
                                 Mutual funds in India began their journey in 1963 with the launch of UTI MF. The idea was simple yet powerful: to make investing easier for individuals who didn’t have the time, tools, or expertise to track and compare thousands of stocks on their own.

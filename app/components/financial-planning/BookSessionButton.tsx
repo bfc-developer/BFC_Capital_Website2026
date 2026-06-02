@@ -57,10 +57,14 @@ const getEndTime = (startTime: string): string => {
 
 
 const isSlotInPast = (slotStr: string, dateStr: string): boolean => {
+    // Get current time in Indian Standard Time (IST, UTC+5:30)
     const now = new Date();
-    const yyyy = now.getFullYear();
-    const mm = String(now.getMonth() + 1).padStart(2, '0');
-    const dd = String(now.getDate()).padStart(2, '0');
+    const utc = now.getTime() + (now.getTimezoneOffset() * 60000);
+    const indiaTime = new Date(utc + (3600000 * 5.5));
+
+    const yyyy = indiaTime.getFullYear();
+    const mm = String(indiaTime.getMonth() + 1).padStart(2, '0');
+    const dd = String(indiaTime.getDate()).padStart(2, '0');
     const localTodayStr = `${yyyy}-${mm}-${dd}`;
 
     if (dateStr < localTodayStr) return true;
@@ -81,8 +85,8 @@ const isSlotInPast = (slotStr: string, dateStr: string): boolean => {
         slotHours = 0;
     }
 
-    const currentHours = now.getHours();
-    const currentMinutes = now.getMinutes();
+    const currentHours = indiaTime.getHours();
+    const currentMinutes = indiaTime.getMinutes();
 
     const slotTotal = slotHours * 60 + slotMinutes;
     const currentTotal = currentHours * 60 + currentMinutes;
@@ -115,6 +119,7 @@ export default function BookSessionButton({ buttonText, className }: BookSession
         time?: string
     }>({});
     const [dateError, setDateError] = useState('');
+    const [submitError, setSubmitError] = useState('');
     const [bookedSlots, setBookedSlots] = useState<string[]>([]);
     const [isLoadingSlots, setIsLoadingSlots] = useState(false);
     const [isSubmitting, setIsSubmitting] = useState(false);
@@ -125,7 +130,7 @@ export default function BookSessionButton({ buttonText, className }: BookSession
     const CALLBACK_SCRIPT_URL: string = "https://script.google.com/macros/s/AKfycbxf8XuWvVM-Q51zbNWsVvTSyFKs7KvY6WtKXobCNVosjZlq_iZoKSkzwFFSua9vvplehw/exec";
 
     // New Apps Script URL specifically for Google Calendar availability & scheduling
-    const CALENDAR_SCRIPT_URL: string = "https://script.google.com/macros/s/AKfycbwoa6kKDT6A6DWliUIXRQzWp1b1Fd9Ooq4W9_xsZFkWQMAFC_3DcykH2XNAzUMJvDgRQA/exec"; // 👈 paste your new Google Calendar Web App URL here
+    // const CALENDAR_SCRIPT_URL: string = "https://script.google.com/macros/s/AKfycbz25_Qjo0UC4EUp1luNUv7LOSwmi-B35xe9l9XR3WiOGGDgqfaBeh1Jm43LHUhT3elk/exec"; // 👈 paste your new Google Calendar Web App URL here
 
     // Manage scroll locking when modal is open
     useEffect(() => {
@@ -137,6 +142,7 @@ export default function BookSessionButton({ buttonText, className }: BookSession
             setSelectedDate('');
             setSelectedTime('');
             setDateError('');
+            setSubmitError('');
             setBookedSlots([]);
             setConsent(false);
             setErrors({});
@@ -189,7 +195,8 @@ export default function BookSessionButton({ buttonText, className }: BookSession
             let slots: string[] = [];
 
             let fetchSucceeded = false;
-            // 1. Fetch from Calendar Apps Script if it is set up
+            // 1. Fetch from Calendar Apps Script if it is set up (Commented out - using local fallback for now)
+            /*
             if (CALENDAR_SCRIPT_URL && CALENDAR_SCRIPT_URL.trim() !== "") {
                 const res = await fetch(`${CALENDAR_SCRIPT_URL}?action=getSlots&date=${dateStr}`);
                 if (res.ok) {
@@ -200,6 +207,7 @@ export default function BookSessionButton({ buttonText, className }: BookSession
                     }
                 }
             }
+            */
 
             // 2. Load and merge from localStorage ONLY if fetch failed / wasn't run
             if (!fetchSucceeded) {
@@ -293,7 +301,8 @@ export default function BookSessionButton({ buttonText, className }: BookSession
         e.preventDefault();
         if (!validate()) return;
         setIsSubmitting(true);
-        // Send session query API in parallel (non-blocking)
+        setSubmitError('');
+
         const localApiPayload = activeTab === 'booking' ? {
             sessionType: "schedule_session",
             fullName: name,
@@ -310,16 +319,45 @@ export default function BookSessionButton({ buttonText, className }: BookSession
             mobileNumber: mobile,
             email: email
         };
-        fetch("http://192.168.18.109:8080/api/v2/query/create-session-query", {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json"
-            },
-            body: JSON.stringify(localApiPayload)
-        }).catch(err => {
-            console.error("Local session query API failed (non-blocking):", err);
-        });
+
         try {
+            // 1. Send session query API (non-blocking)
+            fetch("http://192.168.18.109:8080/api/v2/query/create-session-query", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify(localApiPayload)
+            }).catch(err => {
+                console.error("Local session query API failed (non-blocking):", err);
+            });
+
+            // 2. Send Custom Email via local SMTP Endpoint (Nodemailer)
+            const emailPayload = {
+                name,
+                mobile,
+                email,
+                date: selectedDate,
+                time: selectedTime,
+                type: activeTab // 'booking' or 'callback'
+            };
+
+            const emailRes = await fetch("/api/send-email", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify(emailPayload)
+            });
+
+            if (!emailRes.ok) {
+                throw new Error("SMTP Email API failed");
+            }
+
+            // ==========================================
+            // FUTURE USE: Google Apps Script Web App Integration
+            // ==========================================
+            /*
             if (activeTab === 'booking') {
                 const bookingPayload = {
                     name,
@@ -330,17 +368,44 @@ export default function BookSessionButton({ buttonText, className }: BookSession
                     consent
                 };
 
-                // Submit to the NEW Google Calendar Web App
-                if (CALENDAR_SCRIPT_URL && CALENDAR_SCRIPT_URL.trim() !== "") {
-                    await fetch(CALENDAR_SCRIPT_URL, {
+                if (typeof CALENDAR_SCRIPT_URL !== 'undefined' && CALENDAR_SCRIPT_URL && CALENDAR_SCRIPT_URL.trim() !== "") {
+                    const calRes = await fetch(CALENDAR_SCRIPT_URL, {
                         method: "POST",
                         mode: "no-cors",
                         headers: { "Content-Type": "application/json" },
                         body: JSON.stringify(bookingPayload),
                     });
-                }
 
-                // Save booking to localStorage so slot shows as booked during offline testing
+                    if (calRes.status !== 0 && !calRes.ok) {
+                        throw new Error("Calendar Web App API failed");
+                    }
+                }
+            } else {
+                const callbackPayload = {
+                    name,
+                    mobile,
+                    email,
+                    consent
+                };
+
+                if (typeof CALLBACK_SCRIPT_URL !== 'undefined' && CALLBACK_SCRIPT_URL) {
+                    const cbRes = await fetch(CALLBACK_SCRIPT_URL, {
+                        method: "POST",
+                        mode: "no-cors",
+                        headers: { "Content-Type": "application/json" },
+                        body: JSON.stringify(callbackPayload),
+                    });
+
+                    if (cbRes.status !== 0 && !cbRes.ok) {
+                        throw new Error("Callback Web App API failed");
+                    }
+                }
+            }
+            */
+            // ==========================================
+
+            // Save booking to localStorage so slot shows as booked during offline testing
+            if (activeTab === 'booking') {
                 const localData = localStorage.getItem('bfc_booked_slots') || '{}';
                 const parsed = JSON.parse(localData);
                 if (!parsed[selectedDate]) {
@@ -350,23 +415,6 @@ export default function BookSessionButton({ buttonText, className }: BookSession
                     parsed[selectedDate].push(selectedTime);
                 }
                 localStorage.setItem('bfc_booked_slots', JSON.stringify(parsed));
-            } else {
-                const callbackPayload = {
-                    name,
-                    mobile,
-                    email,
-                    consent
-                };
-
-                // Submit to the OLD Google Sheet Web App
-                if (CALLBACK_SCRIPT_URL) {
-                    await fetch(CALLBACK_SCRIPT_URL, {
-                        method: "POST",
-                        mode: "no-cors",
-                        headers: { "Content-Type": "application/json" },
-                        body: JSON.stringify(callbackPayload),
-                    });
-                }
             }
 
             setIsBookingModalOpen(false);
@@ -374,7 +422,7 @@ export default function BookSessionButton({ buttonText, className }: BookSession
 
         } catch (err) {
             console.error("Submission failed:", err);
-            alert("Something went wrong. Please try again.");
+            setSubmitError("Server Under maintainace please try after sometime");
         } finally {
             setIsSubmitting(false);
         }
@@ -473,6 +521,7 @@ export default function BookSessionButton({ buttonText, className }: BookSession
                                 onClick={() => {
                                     setActiveTab('booking');
                                     setErrors({});
+                                    setSubmitError('');
                                 }}
                                 className={`flex-1 text-center pb-3 text-[14px] md:text-[15px] font-bold border-b-2 transition-all duration-300 cursor-pointer ${activeTab === 'booking'
                                     ? 'border-[#024B39] text-[#024B39]'
@@ -486,6 +535,7 @@ export default function BookSessionButton({ buttonText, className }: BookSession
                                 onClick={() => {
                                     setActiveTab('callback');
                                     setErrors({});
+                                    setSubmitError('');
                                 }}
                                 className={`flex-1 text-center pb-3 text-[14px] md:text-[15px] font-bold border-b-2 transition-all duration-300 cursor-pointer ${activeTab === 'callback'
                                     ? 'border-[#024B39] text-[#024B39]'
@@ -622,6 +672,13 @@ export default function BookSessionButton({ buttonText, className }: BookSession
                                     </div>
                                 </label>
                             </div>
+
+                            {/* Submit Error Message */}
+                            {submitError && (
+                                <div className="w-full mb-6 p-4 bg-red-50 border border-red-200 text-red-700 rounded-xl text-center font-medium text-sm animate-in fade-in slide-in-from-top-2 duration-200">
+                                    ⚠️ {submitError}
+                                </div>
+                            )}
 
                             {/* Submit Button */}
                             <div className="text-center w-full">

@@ -106,6 +106,21 @@ export default function ContactUsPage() {
             const result = await response.json();
 
             if (result.success) {
+                // Send branded SMTP confirmation email to client & notify admin
+                fetch("/api/contact-email", {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify({
+                        fullName: formData.fullName,
+                        mobileNumber: formData.mobileNumber,
+                        email: formData.email,
+                        subject: formData.subject,
+                        message: formData.message
+                    })
+                }).catch(emailErr => {
+                    console.error("SMTP confirmation email failed:", emailErr);
+                });
+
                 setIsPopupOpen(true);
                 setFormData({
                     fullName: "",

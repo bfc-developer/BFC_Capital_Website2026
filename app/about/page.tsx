@@ -7,9 +7,9 @@ import AboutUs from "../components/about-us/AboutUs";
 
 
 export const metadata: Metadata = {
-    title: pageSeo["/about"]?.title,
-    description: pageSeo["/about"]?.description,
-    keywords: pageSeo["/about"]?.keywords,
+    // title: pageSeo["/about"]?.title,
+    // description: pageSeo["/about"]?.description,
+    // keywords: pageSeo["/about"]?.keywords,
     alternates: {
         canonical: pageSeo["/about"]?.canonical,
     },

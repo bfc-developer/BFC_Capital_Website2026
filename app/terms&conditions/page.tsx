@@ -6,9 +6,9 @@ import { pageSeo } from "../seo-config";
 
 
 export const metadata: Metadata = {
-    title: pageSeo["/terms&conditions"]?.title,
-    description: pageSeo["/terms&conditions"]?.description,
-    keywords: pageSeo["/terms&conditions"]?.keywords,
+    // title: pageSeo["/terms&conditions"]?.title,
+    // description: pageSeo["/terms&conditions"]?.description,
+    // keywords: pageSeo["/terms&conditions"]?.keywords,
     alternates: {
         canonical: pageSeo["/terms&conditions"]?.canonical,
     },

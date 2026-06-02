@@ -6,9 +6,9 @@ import { pageSeo } from "../seo-config";
 import LegalDisclaimer from "../components/legal-disclaimer/LegalDisclaimer";
 
 export const metadata: Metadata = {
-    title: pageSeo["/legal-disclaimer"]?.title,
-    description: pageSeo["/legal-disclaimer"]?.description,
-    keywords: pageSeo["/legal-disclaimer"]?.keywords,
+    // title: pageSeo["/legal-disclaimer"]?.title,
+    // description: pageSeo["/legal-disclaimer"]?.description,
+    // keywords: pageSeo["/legal-disclaimer"]?.keywords,
     alternates: {
         canonical: pageSeo["/legal-disclaimer"]?.canonical,
     },
