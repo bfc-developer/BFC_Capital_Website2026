@@ -89,7 +89,7 @@ export default function ContactUsPage() {
         return isValid;
     };
 
-    const APPS_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbxBkYx_6j_ONc8G8tGkaC4bYfQkPAAwd0xJBIFDwb_nqm3ASp4Iak5AfuS6uEftoD_y/exec"; // 🔁 Paste your deployed URL
+    const APPS_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbyknNiZDBCvRnDtK9uOokSHho_342lZzfx1OM5URHV3OgjDHluyVIsQPK0WxKyluysL/exec"; // 🔁 Paste your deployed URL
 
     const handleSubmit = async (e: any) => {
         e.preventDefault();
