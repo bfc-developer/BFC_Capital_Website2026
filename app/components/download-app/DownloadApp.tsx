@@ -150,7 +150,7 @@ export default function DownloadApp() {
 
                                     <div className="bg-[#F7F7F7] w-fit mt-4">
                                         <Link
-                                            href="https://app.prodigypro.co.in/"
+                                            href="https://app.prodigypro.co.in/goal-planning"
                                             className="inline-flex items-center text-[15px] md:text-[17px] gap-2 text-blue-600 font-medium px-5 py-2 rounded-sm bg-[#F7F7F7] hover:shadow-md transition duration-300 bg-[linear-gradient(to_right,#024B39_42%,#011EFE_85%)] bg-clip-text text-transparent"
                                             data-aos="fade-right"
                                         >
@@ -182,7 +182,7 @@ export default function DownloadApp() {
 
                                     <div className="bg-[#F7F7F7] w-fit mt-4">
                                         <Link
-                                            href="https://app.prodigypro.co.in/"
+                                            href="https://app.prodigypro.co.in/recommended-funds"
                                             className="inline-flex items-center text-[15px] md:text-[17px] gap-2 text-blue-600 font-medium px-5 py-2 rounded-sm bg-[#F7F7F7] hover:shadow-md transition duration-300 bg-[linear-gradient(to_right,#024B39_42%,#011EFE_85%)] bg-clip-text text-transparent"
                                             data-aos="fade-right"
                                         >
@@ -238,7 +238,7 @@ export default function DownloadApp() {
 
                                     <div className="bg-[#F7F7F7] w-fit mt-4">
                                         <Link
-                                            href="https://app.prodigypro.co.in/"
+                                            href="https://app.prodigypro.co.in/portfolio-review"
                                             className="inline-flex items-center text-[15px] md:text-[17px] gap-2 text-blue-600 font-medium px-5 py-2 rounded-sm bg-[#F7F7F7] hover:shadow-md transition duration-300 bg-[linear-gradient(to_right,#024B39_42%,#011EFE_85%)] bg-clip-text text-transparent"
                                             data-aos="fade-right"
                                         >
@@ -327,7 +327,7 @@ export default function DownloadApp() {
 
                                     <div className="bg-[#F7F7F7] w-fit mt-4">
                                         <Link
-                                            href="https://app.prodigypro.co.in/"
+                                            href="https://app.prodigypro.co.in/nfo-live"
                                             className="inline-flex items-center text-[15px] md:text-[17px] gap-2 text-blue-600 font-medium px-5 py-2 rounded-sm bg-[#F7F7F7] hover:shadow-md transition duration-300 bg-[linear-gradient(to_right,#024B39_42%,#011EFE_85%)] bg-clip-text text-transparent"
                                             data-aos="fade-right"
                                         >
@@ -359,7 +359,7 @@ export default function DownloadApp() {
 
                                     <div className="bg-[#F7F7F7] w-fit mt-4">
                                         <Link
-                                            href="https://app.prodigypro.co.in/"
+                                            href="https://app.prodigypro.co.in/all-mutual-funds"
                                             className="inline-flex items-center text-[15px] md:text-[17px] gap-2 text-blue-600 font-medium px-5 py-2 rounded-sm bg-[#F7F7F7] hover:shadow-md transition duration-300 bg-[linear-gradient(to_right,#024B39_42%,#011EFE_85%)] bg-clip-text text-transparent"
                                             data-aos="fade-right"
                                         >
@@ -416,7 +416,7 @@ export default function DownloadApp() {
 
                                     <div className="bg-[#F7F7F7] w-fit mt-4">
                                         <Link
-                                            href="https://app.prodigypro.co.in/"
+                                            href="https://app.prodigypro.co.in/fund-with-100"
                                             className="inline-flex items-center text-[15px] md:text-[17px] gap-2 text-blue-600 font-medium px-5 py-2 rounded-sm bg-[#F7F7F7] hover:shadow-md transition duration-300 bg-[linear-gradient(to_right,#024B39_42%,#011EFE_85%)] bg-clip-text text-transparent"
                                             data-aos="fade-right"
                                         >
@@ -449,7 +449,7 @@ export default function DownloadApp() {
 
                                     <div className="bg-[#F7F7F7] w-fit mt-4">
                                         <Link
-                                            href="https://app.prodigypro.co.in/"
+                                            href="https://app.prodigypro.co.in/calculator-list"
                                             className="inline-flex items-center text-[15px] md:text-[17px] gap-2 text-blue-600 font-medium px-5 py-2 rounded-sm bg-[#F7F7F7] hover:shadow-md transition duration-300 bg-[linear-gradient(to_right,#024B39_42%,#011EFE_85%)] bg-clip-text text-transparent"
                                             data-aos="fade-right"
                                         >

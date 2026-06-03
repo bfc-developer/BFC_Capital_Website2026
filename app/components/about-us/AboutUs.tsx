@@ -71,7 +71,7 @@ export default function AboutUs() {
 
     const operationsTeam: WealthManagementTeam[] = [
         {
-            name: "Vertika Singh",
+            name: "Vertika Tiwari",
             role: "AVP - Operations",
             image: "/AboutUs/Operations/Vertika.webp",
             bio: "Vertika is a perfect fit for the operations team because of her unwavering focus. She has developed into an expert in investing procedures, thanks to her curiosity and desire to learn."

@@ -79,7 +79,7 @@ export default function PrivacyPolicy() {
             <hr className="mutual-funds-hrd mt-5 lg:mt-8 w-[25%] md:w-[15%] lg:w-[10%]" />
 
             <h2 className="text-[18px] md:text-[24px] font-bold mt-8 text-[#44475B] pb-4 mb-4">6. Data Protection Officer</h2>
-            <p className="text-[#44475B]  text-justify text-[15px] md:text-[17px] leading-relaxed">Ms. Vertika Singh has been appointed as Data Protection Officer for the compliance of the DPDP Act 2023. She can be contacted at <a href="mailto:dataprotectionbfc@gmail.com" className="text-[#001EFE] underline hover:text-[#001EFE]/80 font-medium">dataprotectionbfc@gmail.com</a> for any query, concern, grievance related to protection, processing, erase, correction of your personal data.</p>
+            <p className="text-[#44475B]  text-justify text-[15px] md:text-[17px] leading-relaxed">Ms. Vertika Tiwari has been appointed as Data Protection Officer for the compliance of the DPDP Act 2023. She can be contacted at <a href="mailto:dataprotectionbfc@gmail.com" className="text-[#001EFE] underline hover:text-[#001EFE]/80 font-medium">dataprotectionbfc@gmail.com</a> for any query, concern, grievance related to protection, processing, erase, correction of your personal data.</p>
             <hr className="mutual-funds-hrd mt-5 lg:mt-8 w-[25%] md:w-[15%] lg:w-[10%]" />
 
             <h2 className="text-[18px] md:text-[24px] font-bold mt-8 text-[#44475B] pb-4 mb-4">7. Changes in Privacy Policy</h2>

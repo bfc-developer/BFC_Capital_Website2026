@@ -26,26 +26,18 @@ const HOLIDAYS_2026: Record<string, string> = {
 };
 
 const TIME_SLOTS = [
-    "10:00 AM", "10:30 AM", "11:00 AM", "11:30 AM",
-    "12:00 PM", "12:30 PM", "01:00 PM", "01:30 PM",
-    "02:00 PM", "02:30 PM", "03:00 PM", "03:30 PM",
+    "11:00 AM", "11:30 AM",
+    "12:00 PM", "12:30 PM", "01:00 PM",
     "04:00 PM", "04:30 PM", "05:00 PM", "05:30 PM"
 ];
 
 const getEndTime = (startTime: string): string => {
     const nextSlotMap: Record<string, string> = {
-        "10:00 AM": "10:30 AM",
-        "10:30 AM": "11:00 AM",
         "11:00 AM": "11:30 AM",
         "11:30 AM": "12:00 PM",
         "12:00 PM": "12:30 PM",
         "12:30 PM": "01:00 PM",
         "01:00 PM": "01:30 PM",
-        "01:30 PM": "02:00 PM",
-        "02:00 PM": "02:30 PM",
-        "02:30 PM": "03:00 PM",
-        "03:00 PM": "03:30 PM",
-        "03:30 PM": "04:00 PM",
         "04:00 PM": "04:30 PM",
         "04:30 PM": "05:00 PM",
         "05:00 PM": "05:30 PM",
