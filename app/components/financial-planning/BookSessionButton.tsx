@@ -322,7 +322,7 @@ export default function BookSessionButton({ buttonText, className }: BookSession
 
         try {
             // 1. Send session query API (non-blocking)
-            fetch("http://192.168.18.109:8080/api/v2/query/create-session-query", {
+            fetch("https://prodigypro-new.bfcsofttech.in/api/v2/query/create-session-query", {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json"
