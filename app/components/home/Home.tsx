@@ -441,7 +441,7 @@ const AppTrustSection = () => {
         <div className="md:w-1/2 relative flex justify-center md:justify-start">
           <div className="">
             <Image
-              src="/Home/iPhone17.webp"
+              src="/Home/iPhone17.svg"
               alt="iPhone mockups showcasing the user-friendly interface of Prodigy Pro investment app"
               width={1200}
               height={1200}

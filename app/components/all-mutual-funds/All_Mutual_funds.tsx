@@ -1043,7 +1043,7 @@ export default function AllMutualFunds() {
                     </div>
                     <div className="w-full md:w-[35%] xl:w-[45%] relative min-h-[350px] md:min-h-0 hidden md:block">
                         <Image
-                            src="/All-Mutual-funds/Phone.png"
+                            src="/All-Mutual-funds/Phone.svg"
                             alt="Phone"
                             fill
                             className="object-contain object-right-bottom translate-y-[5px]"
