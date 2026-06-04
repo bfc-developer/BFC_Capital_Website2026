@@ -95,7 +95,7 @@ declare global {
 export default function BookSessionButton({ buttonText, className }: BookSessionButtonProps) {
     const [isBookingModalOpen, setIsBookingModalOpen] = useState(false);
     const [isSuccessPopupOpen, setIsSuccessPopupOpen] = useState(false);
-    const [activeTab, setActiveTab] = useState<'booking' | 'callback'>('booking');
+    const [activeTab, setActiveTab] = useState<'booking' | 'callback'>('callback');
     const [name, setName] = useState('');
     const [email, setEmail] = useState('');
     const [mobile, setMobile] = useState('');
@@ -138,7 +138,7 @@ export default function BookSessionButton({ buttonText, className }: BookSession
             setBookedSlots([]);
             setConsent(false);
             setErrors({});
-            setActiveTab('booking'); // default to booking tab when opening
+            setActiveTab('callback'); // default to booking tab when opening
 
             const today = new Date();
             const yyyy = today.getFullYear();
@@ -497,7 +497,7 @@ export default function BookSessionButton({ buttonText, className }: BookSession
                                     color: "transparent"
                                 }}
                             >
-                                {activeTab === 'booking' ? 'Book Your Financial Session' : 'Request a Call Back'}
+                                {activeTab === 'booking' ? 'Book Your Financial Session' : 'A Thoughtful Start to Your Financial Journey!'}
                             </h2>
                             <p id="booking-modal-desc" className="text-[#44475B] text-[15px] md:text-[17px] font-medium max-w-lg mx-auto">
                                 {activeTab === 'booking'
@@ -508,7 +508,7 @@ export default function BookSessionButton({ buttonText, className }: BookSession
 
                         {/* Tabs Navigation */}
                         <div className="flex border-b border-gray-100 mb-8 w-full max-w-md mx-auto">
-                            <button
+                            {/* <button
                                 type="button"
                                 onClick={() => {
                                     setActiveTab('booking');
@@ -521,7 +521,7 @@ export default function BookSessionButton({ buttonText, className }: BookSession
                                     }`}
                             >
                                 📅 Schedule Session
-                            </button>
+                            </button> */}
                             <button
                                 type="button"
                                 onClick={() => {
@@ -542,7 +542,7 @@ export default function BookSessionButton({ buttonText, className }: BookSession
                             <div className="grid grid-cols-1 md:grid-cols-2 gap-x-8 gap-y-8 mb-8 w-full">
                                 {/* Name Input */}
                                 <div className="relative">
-                                    <label className="block text-[11px] font-bold uppercase tracking-wider text-gray-400 mb-1">Your Name</label>
+                                    <label className="block text-[11px] font-bold uppercase tracking-wider text-[#44475B] mb-1">Your Name</label>
                                     <input
                                         type="text"
                                         placeholder="Enter your full name"
@@ -556,7 +556,7 @@ export default function BookSessionButton({ buttonText, className }: BookSession
 
                                 {/* Mobile Input */}
                                 <div className="relative">
-                                    <label className="block text-[11px] font-bold uppercase tracking-wider text-gray-400 mb-1">Mobile Number</label>
+                                    <label className="block text-[11px] font-bold uppercase tracking-wider text-[#44475B] mb-1">Mobile Number</label>
                                     <input
                                         type="text"
                                         placeholder="10-digit mobile number"
@@ -570,7 +570,7 @@ export default function BookSessionButton({ buttonText, className }: BookSession
 
                                 {/* Email Input */}
                                 <div className="relative">
-                                    <label className="block text-[11px] font-bold uppercase tracking-wider text-gray-400 mb-1">Email Address</label>
+                                    <label className="block text-[11px] font-bold uppercase tracking-wider text-[#44475B] mb-1">Email Address</label>
                                     <input
                                         type="email"
                                         placeholder="email@example.com"
@@ -585,7 +585,7 @@ export default function BookSessionButton({ buttonText, className }: BookSession
                                 {/* Conditionally Rendered Date Selector (Booking Tab Only) */}
                                 {activeTab === 'booking' && (
                                     <div className="relative">
-                                        <label className="block text-[11px] font-bold uppercase tracking-wider text-gray-400 mb-1">Select Date</label>
+                                        <label className="block text-[11px] font-bold uppercase tracking-wider text-[#44475B] mb-1">Select Date</label>
                                         <input
                                             type="date"
                                             aria-label="Select Date"
@@ -687,7 +687,7 @@ export default function BookSessionButton({ buttonText, className }: BookSession
                                     )}
                                     {activeTab === 'booking'
                                         ? (isSubmitting ? 'Securing Your Slot...' : 'Book Your Slot Now')
-                                        : (isSubmitting ? 'Sending Request...' : 'Request a Call Back')
+                                        : (isSubmitting ? 'Sending Request...' : 'Request a Callback')
                                     }
                                 </button>
                             </div>

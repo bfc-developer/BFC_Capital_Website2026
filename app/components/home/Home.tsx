@@ -1561,10 +1561,10 @@ const Home = () => {
                         Facebook:
                       </span>{" "}
                       <a
-                        href="https://www.facebook.com/bfcprodigy/"
+                        href="https://www.facebook.com/prodigyprobybfc"
                         className="hover:text-[#001EFE]"
                       >
-                        https://www.facebook.com/bfcprodigy/
+                        https://www.facebook.com/prodigyprobybfc
                       </a>
                     </p>
                     <p className="mb-0 break-words">
@@ -1572,10 +1572,10 @@ const Home = () => {
                         Instagram:
                       </span>{" "}
                       <a
-                        href="https://www.instagram.com/bfcprodigypro/"
+                        href="https://www.instagram.com/prodigyprobybfc/?hl=en"
                         className="hover:text-[#001EFE]"
                       >
-                        https://www.instagram.com/bfcprodigypro/
+                        https://www.instagram.com/prodigyprobybfc/?hl=en
                       </a>
                     </p>
                     <p className="mb-0 break-words">
@@ -1583,10 +1583,10 @@ const Home = () => {
                         Twitter:
                       </span>{" "}
                       <a
-                        href="https://x.com/BFCProdigy_Pro"
+                        href="https://x.com/prodigyprobybfc"
                         className="hover:text-[#001EFE]"
                       >
-                        https://x.com/BFCProdigy_Pro
+                        https://x.com/prodigyprobybfc
                       </a>
                     </p>
                     <p className="mb-0 break-words">
@@ -1594,10 +1594,10 @@ const Home = () => {
                         LinkedIn:
                       </span>{" "}
                       <a
-                        href="https://www.linkedin.com/company/bfcprodigypro/"
+                        href="https://www.linkedin.com/company/prodigyprobybfc"
                         className="hover:text-[#001EFE]"
                       >
-                        https://www.linkedin.com/company/bfcprodigypro/
+                        https://www.linkedin.com/company/prodigyprobybfc
                       </a>
                     </p>
                     <p className="mb-0 break-words">
@@ -1605,10 +1605,12 @@ const Home = () => {
                         YouTube:
                       </span>{" "}
                       <a
-                        href="https://www.youtube.com/@bfcprodigypro"
+                        href=" https://www.youtube.com/@ProdigyProbyBFC
+"
                         className="hover:text-[#001EFE]"
                       >
-                        https://www.youtube.com/@bfcprodigypro
+                        https://www.youtube.com/@ProdigyProbyBFC
+
                       </a>
                     </p>
                   </div>
