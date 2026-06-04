@@ -254,6 +254,9 @@ const VideoSection = () => {
     {
       youtubeUrl: "https://youtu.be/JOj1Zp-uJqs?si=M1QVdHYhmzh_vSWH",
     },
+    {
+      youtubeUrl: "https://youtu.be/M59P6tNdAvA?si=TtAx93jEh419Lbog",
+    }
 
   ];
   useEffect(() => {
