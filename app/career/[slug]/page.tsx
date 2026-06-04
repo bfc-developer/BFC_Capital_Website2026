@@ -5,13 +5,13 @@ import { ChevronRight } from "lucide-react";
 import ApplyJobForm from "../../components/Career/ApplyJobForm";
 import DownloadJDButton from "../../components/Career/DownloadJDButton";
 import { notFound } from "next/navigation";
+import { getJobs, getJobBySlug } from "../../lib/db";
 
 export async function generateStaticParams() {
     try {
-        const res = await fetch("https://hrms-bfc-capital2026.vercel.app/api/job-postings", { cache: "no-store" });
-        const data = await res.json();
-        return (data.jobPostings || []).map((job: any) => ({
-            slug: job.jobRole.toLowerCase().replace(/[^a-z0-9]+/g, '-'),
+        const jobs = await getJobs();
+        return jobs.map((job) => ({
+            slug: job.slug,
         }));
     } catch (e) {
         return [];
@@ -23,13 +23,9 @@ export default async function JobDetailsPage({ params }: { params: Promise<{ slu
 
     let job = null;
     try {
-        const res = await fetch("https://hrms-bfc-capital2026.vercel.app/api/job-postings", { cache: "no-store" });
-        const data = await res.json();
-        job = (data.jobPostings || []).find((j: any) =>
-            j.jobRole.toLowerCase().replace(/[^a-z0-9]+/g, '-') === slug
-        );
+        job = await getJobBySlug(slug);
     } catch (e) {
-        console.error("Failed to fetch jobs", e);
+        console.error("Failed to fetch job", e);
     }
 
     if (!job) {
@@ -47,7 +43,7 @@ export default async function JobDetailsPage({ params }: { params: Promise<{ slu
         vacancyType,
         qualification,
         jdFileName,
-        jdFileBase64
+        jdFileUrl
     } = job;
 
     const renderJobDetails = () => {
@@ -92,9 +88,9 @@ export default async function JobDetailsPage({ params }: { params: Promise<{ slu
                     <p className="text-[#44475B] text-lg mb-2">
                         You can send in your resume to <a href="mailto:hrd@bfccapital.com" className="text-[#011EFE]">hrd@bfccapital.com</a>
                     </p>
-                    {jdFileBase64 && (
+                    {jdFileUrl && (
                         <DownloadJDButton
-                            base64Data={jdFileBase64}
+                            url={jdFileUrl}
                             fileName={jdFileName || `${jobRole.replace(/\s+/g, '_')}_JD.pdf`}
                         />
                     )}

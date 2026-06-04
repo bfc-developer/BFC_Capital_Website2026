@@ -1,11 +1,10 @@
 import Link from "next/link";
 import Image from "next/image";
 import { ChevronRight, Briefcase, MapPin, ArrowRight } from "lucide-react";
+import { getJobs } from "../../lib/db";
 
 export default async function CareerPage() {
-    const res = await fetch("https://hrms-bfc-capital2026.vercel.app/api/job-postings", { cache: 'no-store' });
-    const data = await res.json();
-    const jobOpenings = data.jobPostings;
+    const jobOpenings = await getJobs();
     // const jobOpenings = [
     //     {
     //         title: "Wealth Manager",
