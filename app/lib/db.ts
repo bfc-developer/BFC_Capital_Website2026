@@ -1,7 +1,10 @@
 import { createClient } from '@libsql/client';
+import path from 'path';
+
+const dbPath = path.join(process.cwd(), 'career.db');
 
 const client = createClient({
-  url: 'file:career.db',
+  url: 'file:' + dbPath,
 });
 
 export interface Job {
@@ -58,10 +61,12 @@ export async function initDb() {
   `);
 }
 
-// Run schema initialization asynchronously
-initDb().catch(err => {
-  console.error("Failed to initialize database tables:", err);
-});
+// Run schema initialization asynchronously (only when not running on Vercel)
+if (!process.env.VERCEL) {
+  initDb().catch(err => {
+    console.error("Failed to initialize database tables:", err);
+  });
+}
 
 export async function getJobs(): Promise<Job[]> {
   const result = await client.execute("SELECT * FROM jobs WHERE status = 'active' ORDER BY createdAt DESC");
