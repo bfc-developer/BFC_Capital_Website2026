@@ -64,7 +64,7 @@ initDb().catch(err => {
 });
 
 export async function getJobs(): Promise<Job[]> {
-  const result = await client.execute("SELECT * FROM jobs WHERE status = 'active'");
+  const result = await client.execute("SELECT * FROM jobs WHERE status = 'active' ORDER BY createdAt DESC");
   return result.rows.map(row => ({
     id: row.id as string,
     jobRole: row.jobRole as string,
