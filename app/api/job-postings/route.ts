@@ -1,4 +1,5 @@
 import { NextResponse } from 'next/server';
+import { revalidatePath } from 'next/cache';
 import { getJobById, upsertJob, logChange, Job } from '../../lib/db';
 
 export async function POST(request: Request) {
@@ -87,6 +88,9 @@ export async function POST(request: Request) {
 
     console.log(`[Sync API] Seeding/Syncing complete. Logged ${changeLogs.length} change(s).`);
     
+    // Invalidate entire site cache to show updated jobs on frontend
+    revalidatePath('/', 'layout');
+
     return NextResponse.json({
       status: 'success',
       message: 'Job postings updated and logged successfully',
