@@ -805,11 +805,11 @@ const Team = () => {
       role: "Wealth Manager",
       img: "/Home/Team/Shivangi.webp",
     },
-    {
-      name: "Shashank Awasthi",
-      role: "Wealth Manager",
-      img: "/Home/Team/Shashank.webp",
-    },
+    // {
+    //   name: "Shashank Awasthi",
+    //   role: "Wealth Manager",
+    //   img: "/Home/Team/Shashank.webp",
+    // },
     {
       name: "Anurag Jaiswal",
       role: "Wealth Manager",

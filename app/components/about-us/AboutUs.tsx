@@ -60,12 +60,12 @@ export default function AboutUs() {
             image: "/AboutUs/WealthManagementTeam/Ayush.webp",
             bio: "With a unique understanding of financial expertise and human behavior, Ayush stands out as a wealth manager. With several years of experience in wealth management and Behavioural Finance, he is Presently working as Wealth Manager in BFC Capital and is handling more than 70 HNI’s and semi HNI’s clients totalling an AUM of around 47 Crs."
         },
-        {
-            name: "Shashank Awasthi",
-            role: "Wealth Manager",
-            image: "/AboutUs/WealthManagementTeam/Shashank.webp",
-            bio: "Shashank is a growth-driven professional with strong decision-making skills and sharp product analysis abilities. A natural leader, he excels at simplifying complex topics and building lasting client relationships. An Executive MBA graduate from ISB Hyderabad—ranked among the world’s top B-schools—he brings over 4 years of experience in the finance sector."
-        },
+        // {
+        //     name: "Shashank Awasthi",
+        //     role: "Wealth Manager",
+        //     image: "/AboutUs/WealthManagementTeam/Shashank.webp",
+        //     bio: "Shashank is a growth-driven professional with strong decision-making skills and sharp product analysis abilities. A natural leader, he excels at simplifying complex topics and building lasting client relationships. An Executive MBA graduate from ISB Hyderabad—ranked among the world’s top B-schools—he brings over 4 years of experience in the finance sector."
+        // },
 
     ];
 
