@@ -14,5 +14,6 @@ export const endpoints = {
     getassettypefilter: "prodigy-pro-website/get-asset-types-filter",
     getassetlist: "prodigy-pro-website/get-assetTypes-list",
     sort: "prodigy-pro-website/sort-filters",
-    getWMSCalendarSlots: "operations/slots"
+    getWMSCalendarSlots: "operations/slots",
+    createSessionQuery: "query/create-session-query"
 };

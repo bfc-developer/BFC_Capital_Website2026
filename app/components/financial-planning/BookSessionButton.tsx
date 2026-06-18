@@ -1,7 +1,7 @@
 "use client";
 import React, { useState, useEffect } from 'react';
 import SuccessPopup from '../common/SuccessPopup';
-import { endpoints, wms_URL } from '../urls/URLS';
+import { apiBaseURL, endpoints, wms_URL } from '../urls/URLS';
 
 interface BookSessionButtonProps {
     buttonText: string;
@@ -145,10 +145,6 @@ export default function BookSessionButton({ buttonText, className }: BookSession
     // Old Apps Script URL that saves details to your Google Sheet
     const CALLBACK_SCRIPT_URL: string = "https://script.google.com/macros/s/AKfycbxf8XuWvVM-Q51zbNWsVvTSyFKs7KvY6WtKXobCNVosjZlq_iZoKSkzwFFSua9vvplehw/exec";
 
-    // New Apps Script URL specifically for Google Calendar availability & scheduling
-    // const CALENDAR_SCRIPT_URL: string = "https://script.google.com/macros/s/AKfycbz25_Qjo0UC4EUp1luNUv7LOSwmi-B35xe9l9XR3WiOGGDgqfaBeh1Jm43LHUhT3elk/exec"; // 👈 paste your new Google Calendar Web App URL here
-
-    // Manage scroll locking when modal is open
     useEffect(() => {
         if (isBookingModalOpen) {
             document.body.style.overflow = 'hidden';
@@ -305,7 +301,7 @@ export default function BookSessionButton({ buttonText, className }: BookSession
         setIsSubmitting(true);
         setSubmitError('');
 
-        const localApiPayload = activeTab === 'booking' ? {
+        const localApiPayload = {
             sessionType: "schedule_session",
             fullName: name,
             mobileNumber: mobile,
@@ -315,114 +311,68 @@ export default function BookSessionButton({ buttonText, className }: BookSession
                 startTime: selectedTime,
                 endTime: getEndTime(selectedTime)
             }
-        } : {
-            sessionType: "request_callback",
-            fullName: name,
-            mobileNumber: mobile,
-            email: email
         };
 
         try {
-            // 1. Send session query API (non-blocking)
-            fetch("https://prodigypro-new.bfcsofttech.in/api/v2/query/create-session-query", {
-                method: "POST",
-                headers: {
-                    "Content-Type": "application/json"
-                },
-                body: JSON.stringify(localApiPayload)
-            }).catch(err => {
-                console.error("Local session query API failed (non-blocking):", err);
-            });
+            // Build parallel API calls: create-session-query + update-slot-status
+            const parallelCalls: Promise<Response>[] = [];
 
-            // 2. Send Custom Email via local SMTP Endpoint (Nodemailer)
+            // 1. Create session query API
+            parallelCalls.push(
+                fetch(`${apiBaseURL}${endpoints.createSessionQuery}`, {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify(localApiPayload)
+                })
+            );
+
+            // 2. Update slot status API (only when a matching slot exists)
+            let matchingSlot: any = null;
+            if (apiSlots.length > 0) {
+                const slot24 = time12To24(selectedTime);
+                matchingSlot = apiSlots.find(s => s.startTime === slot24);
+                if (matchingSlot && matchingSlot._id) {
+                    parallelCalls.push(
+                        fetch(`${wms_URL}operations/update-slot-status/${matchingSlot._id}`, {
+                            method: "PATCH",
+                            headers: { "Content-Type": "application/json" },
+                            body: JSON.stringify({ status: "pending" })
+                        })
+                    );
+                }
+            }
+
+            // Fire both APIs in parallel to reduce wait time
+            const results = await Promise.all(parallelCalls);
+
+            // Check create-session-query response
+            if (!results[0].ok) {
+                console.error("Session query API failed");
+            }
+
+            // Check update-slot-status response (if it was called)
+            if (results[1] && !results[1].ok) {
+                console.error("Failed to update slot status to pending via WMS API");
+            }
+
+            // 3. Send Custom Email via local SMTP Endpoint (Nodemailer)
             const emailPayload = {
                 name,
                 mobile,
                 email,
                 date: selectedDate,
                 time: selectedTime,
-                type: activeTab // 'booking' or 'callback'
+                type: activeTab
             };
 
             const emailRes = await fetch("/api/send-email", {
                 method: "POST",
-                headers: {
-                    "Content-Type": "application/json"
-                },
+                headers: { "Content-Type": "application/json" },
                 body: JSON.stringify(emailPayload)
             });
 
             if (!emailRes.ok) {
                 throw new Error("SMTP Email API failed");
-            }
-
-            // ==========================================
-            // FUTURE USE: Google Apps Script Web App Integration
-            // ==========================================
-            /*
-            if (activeTab === 'booking') {
-                const bookingPayload = {
-                    name,
-                    mobile,
-                    email,
-                    date: selectedDate,
-                    time: selectedTime,
-                    consent
-                };
-
-                if (typeof CALENDAR_SCRIPT_URL !== 'undefined' && CALENDAR_SCRIPT_URL && CALENDAR_SCRIPT_URL.trim() !== "") {
-                    const calRes = await fetch(CALENDAR_SCRIPT_URL, {
-                        method: "POST",
-                        mode: "no-cors",
-                        headers: { "Content-Type": "application/json" },
-                        body: JSON.stringify(bookingPayload),
-                    });
-
-                    if (calRes.status !== 0 && !calRes.ok) {
-                        throw new Error("Calendar Web App API failed");
-                    }
-                }
-            } else {
-                const callbackPayload = {
-                    name,
-                    mobile,
-                    email,
-                    consent
-                };
-
-                if (typeof CALLBACK_SCRIPT_URL !== 'undefined' && CALLBACK_SCRIPT_URL) {
-                    const cbRes = await fetch(CALLBACK_SCRIPT_URL, {
-                        method: "POST",
-                        mode: "no-cors",
-                        headers: { "Content-Type": "application/json" },
-                        body: JSON.stringify(callbackPayload),
-                    });
-
-                    if (cbRes.status !== 0 && !cbRes.ok) {
-                        throw new Error("Callback Web App API failed");
-                    }
-                }
-            }
-            */
-            // ==========================================
-
-            if (activeTab === 'booking' && apiSlots.length > 0) {
-                const slot24 = time12To24(selectedTime);
-                const matchingSlot = apiSlots.find(s => s.startTime === slot24);
-                if (matchingSlot && matchingSlot._id) {
-                    try {
-                        const updateRes = await fetch(`${wms_URL}operations/update-slot-status/${matchingSlot._id}`, {
-                            method: "PATCH",
-                            headers: { "Content-Type": "application/json" },
-                            body: JSON.stringify({ status: "pending" })
-                        });
-                        if (!updateRes.ok) {
-                            console.error("Failed to update slot status to pending via WMS API");
-                        }
-                    } catch (err) {
-                        console.error("Error updating slot status:", err);
-                    }
-                }
             }
 
             // Save booking to localStorage so slot shows as booked during offline testing
