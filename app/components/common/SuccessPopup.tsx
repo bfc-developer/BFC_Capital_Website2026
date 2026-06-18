@@ -54,8 +54,8 @@ const SuccessPopup: React.FC<SuccessPopupProps> = ({ isOpen, onClose }) => {
                     </svg>
                 </button>
 
-                <h2 
-                    id="success-popup-title" 
+                <h2
+                    id="success-popup-title"
                     ref={headingRef}
                     tabIndex={-1}
                     className="text-4xl md:text-5xl font-bold mb-4 leading-tight focus:outline-none"
@@ -64,7 +64,7 @@ const SuccessPopup: React.FC<SuccessPopupProps> = ({ isOpen, onClose }) => {
                 </h2>
 
                 <p id="success-popup-desc" className="text-lg md:text-xl font-medium mt-6 text-white/90">
-                    We'll connect with you within the next 24 hours to take this forward.
+                    Our team will connect with you at the scheduled time.
                 </p>
             </div>
         </div>

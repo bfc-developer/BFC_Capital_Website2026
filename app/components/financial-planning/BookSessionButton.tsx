@@ -1,6 +1,7 @@
 "use client";
 import React, { useState, useEffect } from 'react';
 import SuccessPopup from '../common/SuccessPopup';
+import { endpoints, wms_URL } from '../urls/URLS';
 
 interface BookSessionButtonProps {
     buttonText: string;
@@ -26,22 +27,31 @@ const HOLIDAYS_2026: Record<string, string> = {
 };
 
 const TIME_SLOTS = [
+    "10:00 AM",
+    "10:30 AM",
     "11:00 AM", "11:30 AM",
-    "12:00 PM", "12:30 PM", "01:00 PM",
-    "04:00 PM", "04:30 PM", "05:00 PM", "05:30 PM"
+    "12:00 PM", "12:30 PM", "01:00 PM", "01:30 PM", "02:00 PM", "02:30 PM", "03:00 PM", "03:30 PM",
+    "04:00 PM", "04:30 PM", "05:00 PM"
 ];
 
 const getEndTime = (startTime: string): string => {
     const nextSlotMap: Record<string, string> = {
+        "10:00 AM": "10:30 AM",
+        "10:30 AM": "11:00 AM",
         "11:00 AM": "11:30 AM",
         "11:30 AM": "12:00 PM",
         "12:00 PM": "12:30 PM",
         "12:30 PM": "01:00 PM",
         "01:00 PM": "01:30 PM",
+        "01:30 PM": "02:00 PM",
+        "02:00 PM": "02:30 PM",
+        "02:30 PM": "03:00 PM",
+        "03:00 PM": "03:30 PM",
+        "03:30 PM": "04:00 PM",
         "04:00 PM": "04:30 PM",
         "04:30 PM": "05:00 PM",
         "05:00 PM": "05:30 PM",
-        "05:30 PM": "06:00 PM"
+
     };
     return nextSlotMap[startTime] || "";
 };
@@ -86,6 +96,19 @@ const isSlotInPast = (slotStr: string, dateStr: string): boolean => {
     return slotTotal < currentTotal;
 };
 
+const time12To24 = (time12: string): string => {
+    const parts = time12.split(' ');
+    if (parts.length !== 2) return time12;
+    const [time, modifier] = parts;
+    const timeParts = time.split(':');
+    if (timeParts.length !== 2) return time;
+    let h = parseInt(timeParts[0], 10);
+    const m = timeParts[1];
+    if (modifier === 'PM' && h < 12) h += 12;
+    if (modifier === 'AM' && h === 12) h = 0;
+    return `${String(h).padStart(2, '0')}:${m}`;
+};
+
 declare global {
     interface Window {
         __bfc_floating_tab_rendered?: boolean;
@@ -95,7 +118,7 @@ declare global {
 export default function BookSessionButton({ buttonText, className }: BookSessionButtonProps) {
     const [isBookingModalOpen, setIsBookingModalOpen] = useState(false);
     const [isSuccessPopupOpen, setIsSuccessPopupOpen] = useState(false);
-    const [activeTab, setActiveTab] = useState<'booking' | 'callback'>('callback');
+    const [activeTab, setActiveTab] = useState<'booking' | 'callback'>('booking');
     const [name, setName] = useState('');
     const [email, setEmail] = useState('');
     const [mobile, setMobile] = useState('');
@@ -113,6 +136,7 @@ export default function BookSessionButton({ buttonText, className }: BookSession
     const [dateError, setDateError] = useState('');
     const [submitError, setSubmitError] = useState('');
     const [bookedSlots, setBookedSlots] = useState<string[]>([]);
+    const [apiSlots, setApiSlots] = useState<any[]>([]);
     const [isLoadingSlots, setIsLoadingSlots] = useState(false);
     const [isSubmitting, setIsSubmitting] = useState(false);
     const [showFloatingTab, setShowFloatingTab] = useState(false);
@@ -138,7 +162,7 @@ export default function BookSessionButton({ buttonText, className }: BookSession
             setBookedSlots([]);
             setConsent(false);
             setErrors({});
-            setActiveTab('callback'); // default to booking tab when opening
+            setActiveTab('booking'); // default to booking tab when opening
 
             const today = new Date();
             const yyyy = today.getFullYear();
@@ -183,45 +207,31 @@ export default function BookSessionButton({ buttonText, className }: BookSession
 
     const loadBookedSlots = async (dateStr: string) => {
         setIsLoadingSlots(true);
+        setApiSlots([]);
+        try {
+            const res = await fetch(`${wms_URL}${endpoints.getWMSCalendarSlots}/${dateStr}`);
+            if (res.ok) {
+                const json = await res.json();
+                if (json.success && json.data && json.data.slots) {
+                    setApiSlots(json.data.slots);
+                }
+            }
+        } catch (err) {
+            console.warn("Could not fetch slots from API:", err);
+        }
+
         try {
             let slots: string[] = [];
-
-            let fetchSucceeded = false;
-            // 1. Fetch from Calendar Apps Script if it is set up (Commented out - using local fallback for now)
-            /*
-            if (CALENDAR_SCRIPT_URL && CALENDAR_SCRIPT_URL.trim() !== "") {
-                const res = await fetch(`${CALENDAR_SCRIPT_URL}?action=getSlots&date=${dateStr}`);
-                if (res.ok) {
-                    const data = await res.json();
-                    if (Array.isArray(data)) {
-                        slots = data;
-                        fetchSucceeded = true;
-                    }
-                }
-            }
-            */
-
-            // 2. Load and merge from localStorage ONLY if fetch failed / wasn't run
-            if (!fetchSucceeded) {
-                const localData = localStorage.getItem('bfc_booked_slots');
-                if (localData) {
-                    const parsed = JSON.parse(localData);
-                    if (parsed[dateStr]) {
-                        slots = Array.from(new Set([...slots, ...parsed[dateStr]]));
-                    }
-                }
-            }
-
-            setBookedSlots(slots);
-        } catch (err) {
-            console.warn("Could not fetch booked slots from Google Calendar script, using local storage fallback:", err);
             const localData = localStorage.getItem('bfc_booked_slots');
             if (localData) {
                 const parsed = JSON.parse(localData);
                 if (parsed[dateStr]) {
-                    setBookedSlots(parsed[dateStr]);
+                    slots = Array.from(new Set([...slots, ...parsed[dateStr]]));
                 }
             }
+            setBookedSlots(slots);
+        } catch (err) {
+            console.warn("Could not load local slots:", err);
         } finally {
             setIsLoadingSlots(false);
         }
@@ -396,6 +406,25 @@ export default function BookSessionButton({ buttonText, className }: BookSession
             */
             // ==========================================
 
+            if (activeTab === 'booking' && apiSlots.length > 0) {
+                const slot24 = time12To24(selectedTime);
+                const matchingSlot = apiSlots.find(s => s.startTime === slot24);
+                if (matchingSlot && matchingSlot._id) {
+                    try {
+                        const updateRes = await fetch(`${wms_URL}operations/update-slot-status/${matchingSlot._id}`, {
+                            method: "PATCH",
+                            headers: { "Content-Type": "application/json" },
+                            body: JSON.stringify({ status: "pending" })
+                        });
+                        if (!updateRes.ok) {
+                            console.error("Failed to update slot status to pending via WMS API");
+                        }
+                    } catch (err) {
+                        console.error("Error updating slot status:", err);
+                    }
+                }
+            }
+
             // Save booking to localStorage so slot shows as booked during offline testing
             if (activeTab === 'booking') {
                 const localData = localStorage.getItem('bfc_booked_slots') || '{}';
@@ -508,7 +537,7 @@ export default function BookSessionButton({ buttonText, className }: BookSession
 
                         {/* Tabs Navigation */}
                         <div className="flex border-b border-gray-100 mb-8 w-full max-w-md mx-auto">
-                            {/* <button
+                            <button
                                 type="button"
                                 onClick={() => {
                                     setActiveTab('booking');
@@ -521,20 +550,6 @@ export default function BookSessionButton({ buttonText, className }: BookSession
                                     }`}
                             >
                                 📅 Schedule Session
-                            </button> */}
-                            <button
-                                type="button"
-                                onClick={() => {
-                                    setActiveTab('callback');
-                                    setErrors({});
-                                    setSubmitError('');
-                                }}
-                                className={`flex-1 text-center pb-3 text-[14px] md:text-[15px] font-bold border-b-2 transition-all duration-300 cursor-pointer ${activeTab === 'callback'
-                                    ? 'border-[#024B39] text-[#024B39]'
-                                    : 'border-transparent text-gray-400 hover:text-gray-600'
-                                    }`}
-                            >
-                                📞 Request Callback
                             </button>
                         </div>
 
@@ -623,10 +638,28 @@ export default function BookSessionButton({ buttonText, className }: BookSession
                                                 }
                                             </option>
                                             {!isLoadingSlots && selectedDate && !dateError && TIME_SLOTS.filter(slot => !isSlotInPast(slot, selectedDate)).map((slot) => {
-                                                const isBooked = bookedSlots.includes(slot);
+                                                let isBooked = bookedSlots.includes(slot);
+                                                let statusText = "Already Booked";
+
+                                                if (apiSlots.length > 0) {
+                                                    const slot24 = time12To24(slot);
+                                                    const apiSlot = apiSlots.find(s => s.startTime === slot24);
+                                                    if (apiSlot) {
+                                                        isBooked = apiSlot.status !== 'available';
+                                                        if (apiSlot.status === 'pending') {
+                                                            statusText = "Already Booked";
+                                                        } else if (apiSlot.status === 'booked') {
+                                                            statusText = "Already Booked";
+                                                        }
+                                                    } else {
+                                                        isBooked = true;
+                                                        statusText = "Unavailable";
+                                                    }
+                                                }
+
                                                 return (
                                                     <option key={slot} value={slot} disabled={isBooked} className="text-[#44475B]">
-                                                        {slot} {isBooked ? "(Already Booked)" : ""}
+                                                        {slot} {isBooked ? `(${statusText})` : ""}
                                                     </option>
                                                 );
                                             })}

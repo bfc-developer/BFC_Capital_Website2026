@@ -28,15 +28,6 @@ export async function POST(request: Request) {
 
         const isBooking = type === 'booking';
 
-        const clientMail = {
-            from: `"${fromName}" <${fromEmail}>`,
-            to: email,
-            subject: isBooking
-                ? `Your Financial Planning Session is Confirmed`
-                : `Thank You for Taking the First Step Towards Your Financial Goals`,
-            html: isBooking ? getBookingEmailHtml(name, date, time) : getCallbackEmailHtml(name),
-        };
-
         const adminMail = {
             from: `"${fromName} System" <${fromEmail}>`,
             to: adminEmail,
@@ -46,11 +37,10 @@ export async function POST(request: Request) {
             html: getAdminEmailHtml(type, name, mobile, email, date, time),
         };
 
-        // ✅ Send both emails at the same time instead of one after another
-        await Promise.all([
-            transporter.sendMail(clientMail),
-            adminEmail ? transporter.sendMail(adminMail) : Promise.resolve(),
-        ]);
+        // ✅ Send only the admin email (do not send to client)
+        if (adminEmail) {
+            await transporter.sendMail(adminMail);
+        }
 
         return NextResponse.json({ status: 'success' });
 
