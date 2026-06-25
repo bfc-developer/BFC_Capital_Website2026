@@ -1,7 +1,7 @@
 "use client";
 import React, { useState, useEffect } from 'react';
 import SuccessPopup from '../common/SuccessPopup';
-import { apiBaseURL, endpoints, wms_URL } from '../urls/URLS';
+import { endpoints, wms_URL } from '../urls/URLS';
 
 interface BookSessionButtonProps {
     buttonText: string;
@@ -109,6 +109,14 @@ const time12To24 = (time12: string): string => {
     return `${String(h).padStart(2, '0')}:${m}`;
 };
 
+const getApiSlotState = (status?: string) => {
+    if (status === "available") {
+        return { isBooked: false, label: "" };
+    }
+
+    return { isBooked: true, label: "Already Booked" };
+};
+
 declare global {
     interface Window {
         __bfc_floating_tab_rendered?: boolean;
@@ -136,14 +144,11 @@ export default function BookSessionButton({ buttonText, className }: BookSession
     const [dateError, setDateError] = useState('');
     const [submitError, setSubmitError] = useState('');
     const [bookedSlots, setBookedSlots] = useState<string[]>([]);
-    const [apiSlots, setApiSlots] = useState<any[]>([]);
+    const [apiSlots, setApiSlots] = useState<Array<{ startTime: string; endTime: string; status: string; _id?: string }>>([]);
     const [isLoadingSlots, setIsLoadingSlots] = useState(false);
     const [isSubmitting, setIsSubmitting] = useState(false);
     const [showFloatingTab, setShowFloatingTab] = useState(false);
     const [minDate, setMinDate] = useState('');
-
-    // Old Apps Script URL that saves details to your Google Sheet
-    const CALLBACK_SCRIPT_URL: string = "https://script.google.com/macros/s/AKfycbxf8XuWvVM-Q51zbNWsVvTSyFKs7KvY6WtKXobCNVosjZlq_iZoKSkzwFFSua9vvplehw/exec";
 
     useEffect(() => {
         if (isBookingModalOpen) {
@@ -268,8 +273,29 @@ export default function BookSessionButton({ buttonText, className }: BookSession
         loadBookedSlots(dateStr);
     };
 
+    const getSlotBookingInfo = (slot: string) => {
+        let isBooked = bookedSlots.includes(slot);
+        let statusText = isBooked ? "Already Booked" : "";
+
+        if (apiSlots.length > 0) {
+            const slot24 = time12To24(slot);
+            const apiSlot = apiSlots.find(s => s.startTime === slot24);
+            if (apiSlot) {
+                const slotState = getApiSlotState(apiSlot.status);
+                isBooked = slotState.isBooked;
+                statusText = slotState.label;
+            } else {
+                isBooked = true;
+                statusText = "Unavailable";
+            }
+        }
+        return { isBooked, statusText };
+    };
+
     const validate = () => {
-        let newErrors: any = {};
+console.log("from validation selected date============", bookedSlots)
+
+        const newErrors: Record<string, string> = {};
         if (!name.trim()) newErrors.name = 'Required';
         if (!email.trim() || !/^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/.test(email)) newErrors.email = 'Valid email required';
         if (!mobile.trim() || !/^\d{10}$/.test(mobile)) newErrors.mobile = 'Valid 10-digit mobile required';
@@ -284,7 +310,7 @@ export default function BookSessionButton({ buttonText, className }: BookSession
 
             if (!selectedTime) {
                 newErrors.time = 'Required';
-            } else if (bookedSlots.includes(selectedTime)) {
+            } else if (getSlotBookingInfo(selectedTime).isBooked) {
                 newErrors.time = 'Slot already booked';
             } else if (isSlotInPast(selectedTime, selectedDate)) {
                 newErrors.time = 'Slot is in the past';
@@ -297,82 +323,30 @@ export default function BookSessionButton({ buttonText, className }: BookSession
 
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
+        console.log("selected date============", selectedTime)
         if (!validate()) return;
         setIsSubmitting(true);
         setSubmitError('');
-
         const localApiPayload = {
-            sessionType: "schedule_session",
             fullName: name,
             mobileNumber: mobile,
             email: email,
             selectedDate: selectedDate,
             timeSlot: {
-                startTime: selectedTime,
-                endTime: getEndTime(selectedTime)
+                startTime: time12To24(selectedTime),
+                endTime: time12To24(getEndTime(selectedTime))
             }
         };
 
         try {
-            // Build parallel API calls: create-session-query + update-slot-status
-            const parallelCalls: Promise<Response>[] = [];
-
-            // 1. Create session query API
-            parallelCalls.push(
-                fetch(`${apiBaseURL}${endpoints.createSessionQuery}`, {
-                    method: "POST",
-                    headers: { "Content-Type": "application/json" },
-                    body: JSON.stringify(localApiPayload)
-                })
-            );
-
-            // 2. Update slot status API (only when a matching slot exists)
-            let matchingSlot: any = null;
-            if (apiSlots.length > 0) {
-                const slot24 = time12To24(selectedTime);
-                matchingSlot = apiSlots.find(s => s.startTime === slot24);
-                if (matchingSlot && matchingSlot._id) {
-                    parallelCalls.push(
-                        fetch(`${wms_URL}operations/update-slot-status/${matchingSlot._id}`, {
-                            method: "PATCH",
-                            headers: { "Content-Type": "application/json" },
-                            body: JSON.stringify({ status: "pending" })
-                        })
-                    );
-                }
-            }
-
-            // Fire both APIs in parallel to reduce wait time
-            const results = await Promise.all(parallelCalls);
-
-            // Check create-session-query response
-            if (!results[0].ok) {
-                console.error("Session query API failed");
-            }
-
-            // Check update-slot-status response (if it was called)
-            if (results[1] && !results[1].ok) {
-                console.error("Failed to update slot status to pending via WMS API");
-            }
-
-            // 3. Send Custom Email via local SMTP Endpoint (Nodemailer)
-            const emailPayload = {
-                name,
-                mobile,
-                email,
-                date: selectedDate,
-                time: selectedTime,
-                type: activeTab
-            };
-
-            const emailRes = await fetch("/api/send-email", {
+            const response = await fetch(`${wms_URL}${endpoints.createSessionQuery}`, {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
-                body: JSON.stringify(emailPayload)
+                body: JSON.stringify(localApiPayload)
             });
 
-            if (!emailRes.ok) {
-                throw new Error("SMTP Email API failed");
+            if (!response.ok) {
+                console.error("Session query API failed");
             }
 
             // Save booking to localStorage so slot shows as booked during offline testing
@@ -588,24 +562,7 @@ export default function BookSessionButton({ buttonText, className }: BookSession
                                                 }
                                             </option>
                                             {!isLoadingSlots && selectedDate && !dateError && TIME_SLOTS.filter(slot => !isSlotInPast(slot, selectedDate)).map((slot) => {
-                                                let isBooked = bookedSlots.includes(slot);
-                                                let statusText = "Already Booked";
-
-                                                if (apiSlots.length > 0) {
-                                                    const slot24 = time12To24(slot);
-                                                    const apiSlot = apiSlots.find(s => s.startTime === slot24);
-                                                    if (apiSlot) {
-                                                        isBooked = apiSlot.status !== 'available';
-                                                        if (apiSlot.status === 'pending') {
-                                                            statusText = "Already Booked";
-                                                        } else if (apiSlot.status === 'booked') {
-                                                            statusText = "Already Booked";
-                                                        }
-                                                    } else {
-                                                        isBooked = true;
-                                                        statusText = "Unavailable";
-                                                    }
-                                                }
+                                                const { isBooked, statusText } = getSlotBookingInfo(slot);
 
                                                 return (
                                                     <option key={slot} value={slot} disabled={isBooked} className="text-[#44475B]">

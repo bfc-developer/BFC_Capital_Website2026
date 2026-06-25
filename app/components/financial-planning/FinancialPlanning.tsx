@@ -23,7 +23,7 @@ export default function FinancialPlanning() {
                             </p>
                             <BookSessionButton
                                 buttonText="Book your financial planning session today"
-                                className="bg-[#024B39] text-white px-6 py-2 rounded-md hover:bg-[#024B39] transition duration-300"
+                                className="bg-[#024B39] text-white px-6 py-2 rounded-md hover:bg-[#024B39] transition duration-300 cursor-pointer"
                             />
                         </div>
                         <div className="text-center py-2 order-1 md:order-2">

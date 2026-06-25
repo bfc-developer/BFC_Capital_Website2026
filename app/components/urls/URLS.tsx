@@ -15,5 +15,6 @@ export const endpoints = {
     getassetlist: "prodigy-pro-website/get-assetTypes-list",
     sort: "prodigy-pro-website/sort-filters",
     getWMSCalendarSlots: "operations/slots",
-    createSessionQuery: "query/create-session-query"
+    createSessionQuery: "query/create-session-query",
+    updateSlotStatus: "operations/update-slot-status"
 };
