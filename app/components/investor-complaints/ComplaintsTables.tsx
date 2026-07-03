@@ -9,7 +9,7 @@ const ComplaintsTables = () => {
         const now = new Date();
         const monthNames = ["Jan", "Feb", "March", "April", "May", "June", "July", "August", "Sept", "Oct", "Nov", "Dec"];
         const data = [];
-        for (let i = 2; i >= 0; i--) {
+        for (let i = 3; i >= 1; i--) {
             const d = new Date(now.getFullYear(), now.getMonth() - i);
             if (d.getFullYear() < 2026) continue;
             data.push({

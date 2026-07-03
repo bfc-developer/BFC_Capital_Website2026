@@ -47,8 +47,8 @@ const ComplianceAudit = () => {
                         <tbody>
                             <tr>
                                 <td className="px-6 py-4 font-bold text-left">1</td>
-                                <td className="px-6 py-4 text-[#212121] font-semibold text-left">1</td>
-                                <td className="px-6 py-4 font-semibold text-left">FY 2025-26</td>
+                                <td className="px-6 py-4 text-[#212121] font-semibold text-left">FY 2025-26</td>
+                                <td className="px-6 py-4 font-semibold text-left">N/A</td>
                                 <td className="px-6 py-4 font-semibold text-left">N/A</td>
                             </tr>
                         </tbody>
