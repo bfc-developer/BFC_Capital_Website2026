@@ -1,7 +1,17 @@
+"use client";
+
+import { useEffect } from "react";
 import Link from "next/link";
 import { ChevronRight } from "lucide-react";
 
 export default function PrivacyPolicy() {
+    useEffect(() => {
+        if (window.location.hash === "#point-5") {
+            const target = document.getElementById("point-5");
+            target?.scrollIntoView({ behavior: "smooth", block: "start" });
+        }
+    }, []);
+
     return (
         <div className="container mx-auto px-4 py-8 md:py-12 md:px-15 lg:px-20">
 
