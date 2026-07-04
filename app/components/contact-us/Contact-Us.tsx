@@ -293,7 +293,7 @@ peer-checked:bg-cover ${errors.consent ? 'border-red-500' : 'border-gray-300'}`}
                                         </div>
                                     </div>
                                     <label htmlFor="consent" className="text-xs text-gray-500 leading-relaxed cursor-pointer">
-                                        I, hereby accord my consent to process my above mentioned personal data by BFC Capital Pvt. Ltd. for the purpose of customer support/product promotion, in accordance with the provisions of DPDP Act 2023. To know more <Link href="https://bfccapital.com/dpdpact" className="text-blue-600 underline hover:text-blue-800" aria-label="Click here to read more about personal data processing details in DPDP Act 2023">click here.</Link>
+                                        I, hereby accord my consent to process my above mentioned personal data by BFC Capital Pvt. Ltd. for the purpose of customer support/product promotion, in accordance with the provisions of DPDP Act 2023. To know more <Link href="/privacy-policy#point-5" className="text-blue-600 underline hover:text-blue-800" aria-label="Click here to read more about personal data processing details in DPDP Act 2023">click here.</Link>
                                     </label>
                                 </div>
                                 {errors.consent && <span className="text-red-500 text-xs mt-1 block" role="alert">{errors.consent}</span>}

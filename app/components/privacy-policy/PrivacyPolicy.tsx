@@ -67,7 +67,7 @@ export default function PrivacyPolicy() {
             </ul>
             <hr className="mutual-funds-hrd mt-5 lg:mt-8 w-[25%] md:w-[15%] lg:w-[10%]" />
 
-            <h2 className="text-[18px] md:text-[24px] font-bold mt-8 text-[#44475B] pb-4 mb-4">5. User Data Policy</h2>
+            <h2 id="point-5" className="text-[18px] md:text-[24px] font-bold mt-8 text-[#44475B] pb-4 mb-4 scroll-mt-24">5. User Data Policy</h2>
             <ul className="text-[#44475B] list-disc ml-7 text-justify text-[15px] md:text-[17px] leading-relaxed">
                 <li>Users have the right to request for the deletion of their personal data held by “Us”. To initiate the account deletion process, users can contact us via email at <a href="mailto:dataprotectionbfc@gmail.com" className="text-[#001EFE] underline hover:text-[#001EFE]/80 font-medium">dataprotectionbfc@gmail.com</a> or submit a data deletion request through our website using the following link: <a href="https://bfccapital.com/contact-us" target="_blank" rel="noopener noreferrer" className="text-[#001EFE] underline hover:text-[#001EFE]/80 font-medium">https://bfccapital.com/contact-us</a>.</li>
                 <li>We are committed to addressing your concerns and inquiries promptly and transparently.</li>
