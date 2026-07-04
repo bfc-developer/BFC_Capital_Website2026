@@ -256,7 +256,7 @@ export default function ApplyJobForm({ defaultPost = "" }: ApplyJobFormProps) {
                         </div>
                     </div>
                     <label htmlFor="consent-checkbox" className="text-sm text-[#7A7A7A] leading-relaxed cursor-pointer">
-                        I, hereby accord my consent to process my above mentioned personal data by BFC Capital Pvt. Ltd. for the purpose of customer support/product promotion, in accordance with the provisions of DPDP Act 2023. To know more <Link href="https://bfccapital.com/dpdpact" className="underline text-[#011EFE]" aria-label="Click here to read more about personal data processing details in DPDP Act 2023">click here.</Link>
+                        I, hereby accord my consent to process my above mentioned personal data by BFC Capital Pvt. Ltd. for the purpose of career and job opportunities, in accordance with the provisions of DPDP Act 2023. To know more <Link href="https://bfccapital.com/privacy-policy" className="underline text-[#011EFE]" aria-label="Click here to read more about personal data processing details in DPDP Act 2023">click here.</Link>
                     </label>
                 </div>
 
