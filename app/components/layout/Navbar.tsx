@@ -70,7 +70,7 @@ const Navbar = () => {
 
   return (
     <nav className="sticky top-0 z-[999] w-full bg-white shadow-sm font-sans">
-      <div className="container mx-auto px-4 md:px-6 h-20 flex items-center justify-between">
+      <div className="container-xxl mx-auto px-4 md:px-6 h-20 flex items-center justify-between">
 
         {/* Logo */}
         <div className="flex-shrink-0 flex items-center gap-2">
@@ -85,7 +85,7 @@ const Navbar = () => {
         </div>
 
         {/* Desktop Navigation */}
-        <div className="hidden xl:flex items-center space-x-5 xl:space-x-[28px] relative">
+        <div className="hidden xl:flex items-center space-x-4 lg:space-x-[18px] xxl:space-x-[21px] relative">
 
           <Link href="/" className={`${isActive("/") ? "text-[#001EFE]" : "text-[#4B4949]"} font-[500] text-[15px] hover:text-[#001EFE] font-base font-inter transition-colors`}> Home</Link>
           <div className="relative">
@@ -93,7 +93,7 @@ const Navbar = () => {
               onClick={toggleProducts}
               aria-expanded={isproductsOpen}
               aria-haspopup="true"
-              className="flex items-center gap-1 text-[#4B4949] font-[500] text-[15px] hover:text-[#001EFE] font-base font-inter transition-colors cursor-pointer"
+              className="flex items-center gap-1 text-[#4B4949] font-[500] text-[16px] hover:text-[#001EFE] font-base font-inter transition-colors cursor-pointer"
             >
               Products
               <ChevronDown size={14} className={`transform transition-transform duration-200 ${isproductsOpen ? "rotate-180" : ""}`} />
@@ -275,10 +275,10 @@ const Navbar = () => {
         </div>
 
         {/* Desktop Buttons */}
-        <div className="hidden xl:flex items-center gap-10 md:gap-10 xl:gap-20">
+        <div className="hidden xl:flex items-center gap-3 md:gap-4 xl:gap-5">
           <a
             href="https://app.prodigypro.co.in/"
-            className="inline-block px-5 py-1.5 bg-[#024B39] text-white text-sm font-inter rounded-full transition-opacity whitespace-nowrap shadow-md hover:shadow-lg"
+            className="inline-block px-4 py-1.5 bg-[#024B39] text-white text-sm font-inter rounded-full transition-opacity whitespace-nowrap shadow-md hover:shadow-lg"
           >
             Login / Sign-up
           </a>
