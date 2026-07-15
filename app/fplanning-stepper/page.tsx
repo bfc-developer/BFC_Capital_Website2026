@@ -83,8 +83,171 @@ const STEP_COMPONENTS = {
 
 export default function FplanningStepper() {
     const [current, setCurrent] = useState(1);
+    const [profileId, setProfileId] = useState<string | null>(null);
+
+    const [personalData, setPersonalData] = useState({
+        fullName: "",
+        dob: "",
+        mobileNumber: "",
+        email: "",
+        pan: "",
+        panFile: null as File | null,
+        aadharNo: "",
+        aadharFile: null as File | null,
+        address: "",
+        city: "",
+        contactPerson: "",
+        emergencyMobile: "",
+        emergencyEmail: "",
+    });
+
+    const [familyData, setFamilyData] = useState({
+        maritalStatus: "",
+        members: [
+            { name: "", relation: "", dob: "", anniversary: "", remark: "" }
+        ]
+    });
+
+    const [professionalData, setProfessionalData] = useState({
+        occupation: "",
+        pvtOrGovt: "",
+        organisationName: "",
+        designation: "",
+        workProfile: "",
+        businessType: "",
+        professionName: "",
+        lastOrganisation: "",
+        address: "",
+        city: "",
+        remarks: "",
+    });
+
+    const [financialProfileExists, setFinancialProfileExists] = useState(false);
+    const [isSubmitting, setIsSubmitting] = useState(false);
+
+    const handleApiSubmit = async () => {
+        setIsSubmitting(true);
+        try {
+            const payload = {
+                fullName: personalData.fullName || undefined,
+                dob: personalData.dob || undefined,
+                mobileNumber: personalData.mobileNumber || undefined,
+                email: personalData.email || undefined,
+                pan: personalData.pan || undefined,
+                panCardUrl: personalData.panFile ? `https://example.com/${personalData.panFile.name}` : undefined,
+                aadhaarNumber: personalData.aadharNo || undefined,
+                aadhaarCardUrl: personalData.aadharFile ? `https://example.com/${personalData.aadharFile.name}` : undefined,
+                address: personalData.address || undefined,
+                city: personalData.city || undefined,
+                emergencyContactName: personalData.contactPerson || undefined,
+                emergencyMobile: personalData.emergencyMobile || undefined,
+                emergencyEmail: personalData.emergencyEmail || undefined,
+                maritalStatus: familyData.maritalStatus || undefined,
+                familyMembers: familyData.members.some(member => member.name || member.relation)
+                    ? familyData.members.map(member => ({
+                        name: member.name || undefined,
+                        relation: member.relation || undefined,
+                        dob: member.dob || undefined,
+                        anniversary: member.anniversary || undefined,
+                        remark: member.remark || undefined,
+                    }))
+                    : undefined
+            };
+
+            const url = profileId 
+                ? `http://localhost:5000/api/personal/${profileId}` 
+                : "http://localhost:5000/api/personal";
+            const method = profileId ? "PUT" : "POST";
+
+            console.log(`Submitting payload using ${method} to ${url}:`, payload);
+
+            const response = await fetch(url, {
+                method: method,
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify(payload),
+            });
+
+            if (!response.ok) {
+                const errBody = await response.json().catch(() => ({}));
+                throw new Error(errBody.msg || errBody.message || "Failed to submit personal/family profile details");
+            }
+
+            const resData = await response.json();
+            console.log("Submit successful:", resData);
+
+            if (resData.data && resData.data._id) {
+                setProfileId(resData.data._id);
+            }
+            return true;
+        } catch (err) {
+            console.error("API Error:", err);
+            alert("Error saving details: " + (err instanceof Error ? err.message : String(err)));
+            return false;
+        } finally {
+            setIsSubmitting(false);
+        }
+    };
+
+    const handleProfessionalApiSubmit = async () => {
+        if (!profileId) {
+            alert("Please complete the Personal Profile step first.");
+            return false;
+        }
+        setIsSubmitting(true);
+        try {
+            const payload = {
+                _id: profileId,
+                occupation: professionalData.occupation === "Other" ? "Others" : professionalData.occupation,
+                pvtOrGovt: professionalData.pvtOrGovt || undefined,
+                organisationName: professionalData.organisationName || undefined,
+                designation: professionalData.designation || undefined,
+                workProfile: professionalData.workProfile || undefined,
+                businessType: professionalData.businessType || undefined,
+                professionName: professionalData.professionName || undefined,
+                lastOrganisation: professionalData.lastOrganisation || undefined,
+                address: professionalData.address || undefined,
+                city: professionalData.city || undefined,
+                remarks: professionalData.remarks || undefined,
+            };
+
+            const url = financialProfileExists
+                ? `http://localhost:5000/api/financial/${profileId}`
+                : "http://localhost:5000/api/financial";
+            const method = financialProfileExists ? "PUT" : "POST";
+
+            console.log(`Submitting professional payload using ${method} to ${url}:`, payload);
+
+            const response = await fetch(url, {
+                method: method,
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify(payload),
+            });
+
+            if (!response.ok) {
+                const errBody = await response.json().catch(() => ({}));
+                throw new Error(errBody.msg || errBody.message || "Failed to submit professional details");
+            }
+
+            const resData = await response.json();
+            console.log("Professional submit successful:", resData);
+
+            setFinancialProfileExists(true);
+            return true;
+        } catch (err) {
+            console.error("Professional API Error:", err);
+            alert("Error saving professional details: " + (err instanceof Error ? err.message : String(err)));
+            return false;
+        } finally {
+            setIsSubmitting(false);
+        }
+    };
+
     const StepBody =
-        STEP_COMPONENTS[current as keyof typeof STEP_COMPONENTS];
+        STEP_COMPONENTS[current as keyof typeof STEP_COMPONENTS] as React.ComponentType<any>;
 
     useEffect(() => {
         stepRefs.current[current]?.scrollIntoView({
@@ -99,7 +262,20 @@ export default function FplanningStepper() {
             setCurrent(id);
         }
     };
-    const next = () => setCurrent((c) => Math.min(c + 1, STEPS.length));
+    const next = async () => {
+        if (current === 1 || current === 2) {
+            const success = await handleApiSubmit();
+            if (!success) {
+                return;
+            }
+        } else if (current === 3) {
+            const success = await handleProfessionalApiSubmit();
+            if (!success) {
+                return;
+            }
+        }
+        setCurrent((c) => Math.min(c + 1, STEPS.length));
+    };
     const back = () => setCurrent((c) => Math.max(c - 1, 1));
 
     const progressPct = ((current - 1) / (STEPS.length - 1)) * 100;
@@ -214,14 +390,23 @@ export default function FplanningStepper() {
                         <div className="w-full h-px bg-[#e9e9e9] mt-4 sm:mt-5 mb-5 sm:mb-6" /> */}
 
                         <form className="space-y-6 sm:space-y-8" onSubmit={(e) => e.preventDefault()}>
-                            <StepBody />
+                            {current === 1 ? (
+                                <PersonalProfileStep formData={personalData} setFormData={setPersonalData} />
+                            ) : current === 2 ? (
+                                <FamilyDetailsStep formData={familyData} setFormData={setFamilyData} />
+                            ) : current === 3 ? (
+                                <ProfessionalDetailsStep formData={professionalData} setFormData={setProfessionalData} />
+                            ) : (
+                                <StepBody />
+                            )}
 
                             <div className="flex flex-row justify-between sm:justify-end gap-3 pt-2">
                                 {current > 1 && (
                                     <button
                                         type="button"
                                         onClick={back}
-                                        className="w-1/2 sm:w-auto cursor-pointer sm:min-w-[120px] h-[46px] sm:h-[48px] px-4 sm:px-6 bg-white border border-[#e0dbdb] hover:bg-[#fafafa] rounded-[10px] flex items-center justify-center gap-2 text-[#44475b] font-medium text-[15px] sm:text-[18px] transition-colors"
+                                        disabled={isSubmitting}
+                                        className="w-1/2 sm:w-auto cursor-pointer sm:min-w-[120px] h-[46px] sm:h-[48px] px-4 sm:px-6 bg-white border border-[#e0dbdb] hover:bg-[#fafafa] rounded-[10px] flex items-center justify-center gap-2 text-[#44475b] font-medium text-[15px] sm:text-[18px] transition-colors disabled:opacity-55"
                                     >
                                         Back
                                     </button>
@@ -229,12 +414,15 @@ export default function FplanningStepper() {
                                 <button
                                     type="button"
                                     onClick={next}
-                                    className={`${current > 1 ? "w-1/2" : "w-full"} cursor-pointer sm:w-auto sm:min-w-[170px] h-[46px] sm:h-[48px] px-4 sm:px-6 bg-[#06A358] hover:bg-[#06A358] rounded-[10px] shadow-[3px_3px_8.6px_0px_rgba(0,0,0,0.12)] flex items-center justify-center gap-2 text-white font-medium text-[15px] sm:text-[18px] transition-colors`}
+                                    disabled={isSubmitting}
+                                    className={`${current > 1 ? "w-1/2" : "w-full"} cursor-pointer sm:w-auto sm:min-w-[170px] h-[46px] sm:h-[48px] px-4 sm:px-6 bg-[#06A358] hover:bg-[#06A358] rounded-[10px] shadow-[3px_3px_8.6px_0px_rgba(0,0,0,0.12)] flex items-center justify-center gap-2 text-white font-medium text-[15px] sm:text-[18px] transition-colors disabled:opacity-75`}
                                 >
-                                    {current === STEPS.length ? "Submit" : "Continue"}
-                                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                                        <path d="M5 12h14M13 6l6 6-6 6" />
-                                    </svg>
+                                    {isSubmitting ? "Saving..." : current === STEPS.length ? "Submit" : "Continue"}
+                                    {!isSubmitting && (
+                                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                                            <path d="M5 12h14M13 6l6 6-6 6" />
+                                        </svg>
+                                    )}
                                 </button>
                             </div>
                         </form>

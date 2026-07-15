@@ -2,14 +2,80 @@
 
 import { useState, ChangeEvent } from "react";
 
-export default function ProfessionalDetailsStep() {
-  const [occupation, setOccupation] = useState<string>("");
-
-  const handleOccupationChange = (
-    e: ChangeEvent<HTMLSelectElement>
-  ): void => {
-    setOccupation(e.target.value);
+interface ProfessionalDetailsStepProps {
+  formData?: {
+    occupation: string;
+    pvtOrGovt: string;
+    organisationName: string;
+    designation: string;
+    workProfile: string;
+    businessType: string;
+    professionName: string;
+    lastOrganisation: string;
+    address: string;
+    city: string;
+    remarks: string;
   };
+  setFormData?: React.Dispatch<React.SetStateAction<{
+    occupation: string;
+    pvtOrGovt: string;
+    organisationName: string;
+    designation: string;
+    workProfile: string;
+    businessType: string;
+    professionName: string;
+    lastOrganisation: string;
+    address: string;
+    city: string;
+    remarks: string;
+  }>>;
+}
+
+export default function ProfessionalDetailsStep({ formData, setFormData }: ProfessionalDetailsStepProps) {
+  const [localState, setLocalState] = useState({
+    occupation: "",
+    pvtOrGovt: "",
+    organisationName: "",
+    designation: "",
+    workProfile: "",
+    businessType: "",
+    professionName: "",
+    lastOrganisation: "",
+    address: "",
+    city: "",
+    remarks: "",
+  });
+
+  const activeData = formData || localState;
+  const activeSetter = setFormData || setLocalState;
+
+  const handleSelectChange = (e: ChangeEvent<HTMLSelectElement>) => {
+    const { name, value } = e.target;
+    activeSetter((prev: any) => ({
+      ...prev,
+      [name]: value,
+      ...(name === "occupation" ? {
+        pvtOrGovt: "",
+        organisationName: "",
+        designation: "",
+        workProfile: "",
+        businessType: "",
+        professionName: "",
+        lastOrganisation: "",
+        remarks: "",
+      } : {})
+    }));
+  };
+
+  const handleInputChange = (e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+    const { name, value } = e.target;
+    activeSetter((prev: any) => ({
+      ...prev,
+      [name]: value,
+    }));
+  };
+
+  const occupation = activeData.occupation;
 
   return (
     <div className="space-y-6 sm:space-y-8 w-full min-w-0 bg-white border border-[#e0dbdb] rounded-[18px] sm:rounded-[24px] lg:rounded-[33px] shadow-[1px_0px_6.8px_-1px_rgba(0,0,0,0.18)] p-4 sm:p-6 md:p-8 lg:p-10">
@@ -23,8 +89,12 @@ export default function ProfessionalDetailsStep() {
         Occupation
         <span className="text-red-600"> *</span>
       </label>
-      <select value={occupation}
-        onChange={handleOccupationChange} className=" cursor-pointer w-full h-[44px] sm:h-[46px] bg-white border border-[#e9e9e9] rounded-[10px] px-3 text-[13px] text-[#44475b] placeholder-[#8b8b8b] focus:outline-none focus:border-[#04b488] transition-colors">
+      <select 
+        name="occupation"
+        value={occupation}
+        onChange={handleSelectChange} 
+        className="cursor-pointer w-full h-[44px] sm:h-[46px] bg-white border border-[#e9e9e9] rounded-[10px] px-3 text-[13px] text-[#44475b] placeholder-[#8b8b8b] focus:outline-none focus:border-[#04b488] transition-colors"
+      >
         <option value="" disabled>Select Occupation</option>
         <option value="Service">Service</option>
         <option value="Business">Business</option>
@@ -42,8 +112,13 @@ export default function ProfessionalDetailsStep() {
                 PVT/Govt.
                 <span className="text-red-600"> *</span>
               </label>
-              <select className="cursor-pointer w-full h-[44px] sm:h-[46px] bg-white border border-[#e9e9e9] rounded-[10px] px-3 text-[13px] text-[#44475b] placeholder-[#8b8b8b] focus:outline-none focus:border-[#04b488] transition-colors">
-                <option value="" selected disabled>Select</option>
+              <select 
+                name="pvtOrGovt"
+                value={activeData.pvtOrGovt}
+                onChange={handleSelectChange}
+                className="cursor-pointer w-full h-[44px] sm:h-[46px] bg-white border border-[#e9e9e9] rounded-[10px] px-3 text-[13px] text-[#44475b] placeholder-[#8b8b8b] focus:outline-none focus:border-[#04b488] transition-colors"
+              >
+                <option value="" disabled>Select</option>
                 <option value="Select1">Select1</option>
                 <option value="Select1">Select2</option>
                 <option value="Select1">Select3</option>
@@ -56,7 +131,14 @@ export default function ProfessionalDetailsStep() {
                 Organisation Name
                 <span className="text-red-600"> *</span>
               </label>
-              <input type="text" className="w-full h-[44px] sm:h-[46px] bg-white border border-[#e9e9e9] rounded-[10px] px-3 text-[13px] text-[#44475b] placeholder-[#8b8b8b] focus:outline-none focus:border-[#04b488] transition-colors" placeholder="Organisation" />
+              <input 
+                type="text" 
+                name="organisationName"
+                value={activeData.organisationName}
+                onChange={handleInputChange}
+                className="w-full h-[44px] sm:h-[46px] bg-white border border-[#e9e9e9] rounded-[10px] px-3 text-[13px] text-[#44475b] placeholder-[#8b8b8b] focus:outline-none focus:border-[#04b488] transition-colors" 
+                placeholder="Organisation" 
+              />
             </div>
 
             <div>
@@ -64,7 +146,14 @@ export default function ProfessionalDetailsStep() {
                 Designation
                 <span className="text-red-600"> *</span>
               </label>
-              <input className="w-full h-[44px] sm:h-[46px] bg-white border border-[#e9e9e9] rounded-[10px] px-3 text-[13px] text-[#44475b] placeholder-[#8b8b8b] focus:outline-none focus:border-[#04b488] transition-colors" type="text" placeholder="Designation" />
+              <input 
+                type="text"
+                name="designation"
+                value={activeData.designation}
+                onChange={handleInputChange}
+                className="w-full h-[44px] sm:h-[46px] bg-white border border-[#e9e9e9] rounded-[10px] px-3 text-[13px] text-[#44475b] placeholder-[#8b8b8b] focus:outline-none focus:border-[#04b488] transition-colors" 
+                placeholder="Designation" 
+              />
             </div>
 
             <div>
@@ -72,7 +161,14 @@ export default function ProfessionalDetailsStep() {
                 Work Profile
                 <span className="text-red-600"> *</span>
               </label>
-              <input className="w-full h-[44px] sm:h-[46px] bg-white border border-[#e9e9e9] rounded-[10px] px-3 text-[13px] text-[#44475b] placeholder-[#8b8b8b] focus:outline-none focus:border-[#04b488] transition-colors" type="text" placeholder="Work Profile" />
+              <input 
+                type="text" 
+                name="workProfile"
+                value={activeData.workProfile}
+                onChange={handleInputChange}
+                className="w-full h-[44px] sm:h-[46px] bg-white border border-[#e9e9e9] rounded-[10px] px-3 text-[13px] text-[#44475b] placeholder-[#8b8b8b] focus:outline-none focus:border-[#04b488] transition-colors" 
+                placeholder="Work Profile" 
+              />
             </div>
 
             <div>
@@ -80,7 +176,14 @@ export default function ProfessionalDetailsStep() {
                 Address
                 <span className="text-red-600"> *</span>
               </label>
-              <input className="w-full h-[44px] sm:h-[46px] bg-white border border-[#e9e9e9] rounded-[10px] px-3 text-[13px] text-[#44475b] placeholder-[#8b8b8b] focus:outline-none focus:border-[#04b488] transition-colors" type="text" placeholder="Address" />
+              <input 
+                type="text"
+                name="address"
+                value={activeData.address}
+                onChange={handleInputChange}
+                className="w-full h-[44px] sm:h-[46px] bg-white border border-[#e9e9e9] rounded-[10px] px-3 text-[13px] text-[#44475b] placeholder-[#8b8b8b] focus:outline-none focus:border-[#04b488] transition-colors" 
+                placeholder="Address" 
+              />
             </div>
 
             <div>
@@ -88,7 +191,14 @@ export default function ProfessionalDetailsStep() {
                 City
                 <span className="text-red-600"> *</span>
               </label>
-              <input className="w-full h-[44px] sm:h-[46px] bg-white border border-[#e9e9e9] rounded-[10px] px-3 text-[13px] text-[#44475b] placeholder-[#8b8b8b] focus:outline-none focus:border-[#04b488] transition-colors" type="text" placeholder="City" />
+              <input 
+                type="text" 
+                name="city"
+                value={activeData.city}
+                onChange={handleInputChange}
+                className="w-full h-[44px] sm:h-[46px] bg-white border border-[#e9e9e9] rounded-[10px] px-3 text-[13px] text-[#44475b] placeholder-[#8b8b8b] focus:outline-none focus:border-[#04b488] transition-colors" 
+                placeholder="City" 
+              />
             </div>
 
           </div>
@@ -101,6 +211,9 @@ export default function ProfessionalDetailsStep() {
                   <span className="text-red-600"> *</span>
                 </label>
                 <textarea
+                  name="remarks"
+                  value={activeData.remarks}
+                  onChange={handleInputChange}
                   placeholder="Remarks"
                   rows={2}
                   className="w-full bg-[#F8F8F8] text-[#44475b] border border-[#e9e9e9] rounded-xl p-3 resize-none focus:outline-none focus:ring-1 focus:ring-teal-500 placeholder:text-gray-400 placeholder:text-[13px]"
@@ -121,7 +234,14 @@ export default function ProfessionalDetailsStep() {
                 Type of Business
                 <span className="text-red-600"> *</span>
               </label>
-              <input className="w-full h-[44px] sm:h-[46px] bg-white border border-[#e9e9e9] rounded-[10px] px-3 text-[13px] text-[#44475b] placeholder-[#8b8b8b] focus:outline-none focus:border-[#04b488] transition-colors" type="text" placeholder="Business" />
+              <input 
+                type="text"
+                name="businessType"
+                value={activeData.businessType}
+                onChange={handleInputChange}
+                className="w-full h-[44px] sm:h-[46px] bg-white border border-[#e9e9e9] rounded-[10px] px-3 text-[13px] text-[#44475b] placeholder-[#8b8b8b] focus:outline-none focus:border-[#04b488] transition-colors" 
+                placeholder="Business" 
+              />
             </div>
 
             <div>
@@ -129,7 +249,14 @@ export default function ProfessionalDetailsStep() {
                 Address
                 <span className="text-red-600"> *</span>
               </label>
-              <input className="w-full h-[44px] sm:h-[46px] bg-white border border-[#e9e9e9] rounded-[10px] px-3 text-[13px] text-[#44475b] placeholder-[#8b8b8b] focus:outline-none focus:border-[#04b488] transition-colors" type="text" placeholder="Address" />
+              <input 
+                type="text"
+                name="address"
+                value={activeData.address}
+                onChange={handleInputChange}
+                className="w-full h-[44px] sm:h-[46px] bg-white border border-[#e9e9e9] rounded-[10px] px-3 text-[13px] text-[#44475b] placeholder-[#8b8b8b] focus:outline-none focus:border-[#04b488] transition-colors" 
+                placeholder="Address" 
+              />
             </div>
 
             <div>
@@ -137,7 +264,14 @@ export default function ProfessionalDetailsStep() {
                 City
                 <span className="text-red-600"> *</span>
               </label>
-              <input className="w-full h-[44px] sm:h-[46px] bg-white border border-[#e9e9e9] rounded-[10px] px-3 text-[13px] text-[#44475b] placeholder-[#8b8b8b] focus:outline-none focus:border-[#04b488] transition-colors" type="text" placeholder="City" />
+              <input 
+                type="text" 
+                name="city"
+                value={activeData.city}
+                onChange={handleInputChange}
+                className="w-full h-[44px] sm:h-[46px] bg-white border border-[#e9e9e9] rounded-[10px] px-3 text-[13px] text-[#44475b] placeholder-[#8b8b8b] focus:outline-none focus:border-[#04b488] transition-colors" 
+                placeholder="City" 
+              />
             </div>
 
           </div>
@@ -150,6 +284,9 @@ export default function ProfessionalDetailsStep() {
                     Remarks
                   </label>
                   <textarea
+                    name="remarks"
+                    value={activeData.remarks}
+                    onChange={handleInputChange}
                     placeholder="Remarks"
                     rows={2}
                     className="w-full bg-[#F8F8F8] text-[#44475b] border border-[#e9e9e9] rounded-xl p-3 resize-none focus:outline-none focus:ring-1 focus:ring-teal-500 placeholder:text-gray-400 placeholder:text-[13px]"
@@ -172,7 +309,14 @@ export default function ProfessionalDetailsStep() {
                 Name of Profession
                 <span className="text-red-600"> *</span>
               </label>
-              <input className="w-full h-[44px] sm:h-[46px] bg-white border border-[#e9e9e9] rounded-[10px] px-3 text-[13px] text-[#44475b] placeholder-[#8b8b8b] focus:outline-none focus:border-[#04b488] transition-colors" type="text" placeholder="Profession" />
+              <input 
+                type="text"
+                name="professionName"
+                value={activeData.professionName}
+                onChange={handleInputChange}
+                className="w-full h-[44px] sm:h-[46px] bg-white border border-[#e9e9e9] rounded-[10px] px-3 text-[13px] text-[#44475b] placeholder-[#8b8b8b] focus:outline-none focus:border-[#04b488] transition-colors" 
+                placeholder="Profession" 
+              />
             </div>
 
             <div>
@@ -180,7 +324,14 @@ export default function ProfessionalDetailsStep() {
                 Address
                 <span className="text-red-600"> *</span>
               </label>
-              <input className="w-full h-[44px] sm:h-[46px] bg-white border border-[#e9e9e9] rounded-[10px] px-3 text-[13px] text-[#44475b] placeholder-[#8b8b8b] focus:outline-none focus:border-[#04b488] transition-colors" type="text" placeholder="Address" />
+              <input 
+                type="text"
+                name="address"
+                value={activeData.address}
+                onChange={handleInputChange}
+                className="w-full h-[44px] sm:h-[46px] bg-white border border-[#e9e9e9] rounded-[10px] px-3 text-[13px] text-[#44475b] placeholder-[#8b8b8b] focus:outline-none focus:border-[#04b488] transition-colors" 
+                placeholder="Address" 
+              />
             </div>
 
             <div>
@@ -188,7 +339,14 @@ export default function ProfessionalDetailsStep() {
                 City
                 <span className="text-red-600"> *</span>
               </label>
-              <input className="w-full h-[44px] sm:h-[46px] bg-white border border-[#e9e9e9] rounded-[10px] px-3 text-[13px] text-[#44475b] placeholder-[#8b8b8b] focus:outline-none focus:border-[#04b488] transition-colors" type="text" placeholder="City" />
+              <input 
+                type="text" 
+                name="city"
+                value={activeData.city}
+                onChange={handleInputChange}
+                className="w-full h-[44px] sm:h-[46px] bg-white border border-[#e9e9e9] rounded-[10px] px-3 text-[13px] text-[#44475b] placeholder-[#8b8b8b] focus:outline-none focus:border-[#04b488] transition-colors" 
+                placeholder="City" 
+              />
             </div>
 
           </div>
@@ -201,6 +359,9 @@ export default function ProfessionalDetailsStep() {
                     Remarks
                   </label>
                   <textarea
+                    name="remarks"
+                    value={activeData.remarks}
+                    onChange={handleInputChange}
                     placeholder="Remarks"
                     rows={2}
                     className="w-full bg-[#F8F8F8] text-[#44475b] border border-[#e9e9e9] rounded-xl p-3 resize-none focus:outline-none focus:ring-1 focus:ring-teal-500 placeholder:text-gray-400 placeholder:text-[13px]"
@@ -222,7 +383,14 @@ export default function ProfessionalDetailsStep() {
                 Last Organisation
                 <span className="text-red-600"> *</span>
               </label>
-              <input className="w-full h-[44px] sm:h-[46px] bg-white border border-[#e9e9e9] rounded-[10px] px-3 text-[13px] text-[#44475b] placeholder-[#8b8b8b] focus:outline-none focus:border-[#04b488] transition-colors" type="text" placeholder="Organisation" />
+              <input 
+                type="text"
+                name="lastOrganisation"
+                value={activeData.lastOrganisation}
+                onChange={handleInputChange}
+                className="w-full h-[44px] sm:h-[46px] bg-white border border-[#e9e9e9] rounded-[10px] px-3 text-[13px] text-[#44475b] placeholder-[#8b8b8b] focus:outline-none focus:border-[#04b488] transition-colors" 
+                placeholder="Organisation" 
+              />
             </div>
 
             <div>
@@ -230,7 +398,14 @@ export default function ProfessionalDetailsStep() {
                 Designation
                 <span className="text-red-600"> *</span>
               </label>
-              <input className="w-full h-[44px] sm:h-[46px] bg-white border border-[#e9e9e9] rounded-[10px] px-3 text-[13px] text-[#44475b] placeholder-[#8b8b8b] focus:outline-none focus:border-[#04b488] transition-colors" type="text" placeholder="Designation" />
+              <input 
+                type="text"
+                name="designation"
+                value={activeData.designation}
+                onChange={handleInputChange}
+                className="w-full h-[44px] sm:h-[46px] bg-white border border-[#e9e9e9] rounded-[10px] px-3 text-[13px] text-[#44475b] placeholder-[#8b8b8b] focus:outline-none focus:border-[#04b488] transition-colors" 
+                placeholder="Designation" 
+              />
             </div>
 
             <div>
@@ -238,7 +413,14 @@ export default function ProfessionalDetailsStep() {
                 Address
                 <span className="text-red-600"> *</span>
               </label>
-              <input className="w-full h-[44px] sm:h-[46px] bg-white border border-[#e9e9e9] rounded-[10px] px-3 text-[13px] text-[#44475b] placeholder-[#8b8b8b] focus:outline-none focus:border-[#04b488] transition-colors" type="text" placeholder="Address" />
+              <input 
+                type="text"
+                name="address"
+                value={activeData.address}
+                onChange={handleInputChange}
+                className="w-full h-[44px] sm:h-[46px] bg-white border border-[#e9e9e9] rounded-[10px] px-3 text-[13px] text-[#44475b] placeholder-[#8b8b8b] focus:outline-none focus:border-[#04b488] transition-colors" 
+                placeholder="Address" 
+              />
             </div>
 
             <div>
@@ -246,7 +428,14 @@ export default function ProfessionalDetailsStep() {
                 City
                 <span className="text-red-600"> *</span>
               </label>
-              <input className="w-full h-[44px] sm:h-[46px] bg-white border border-[#e9e9e9] rounded-[10px] px-3 text-[13px] text-[#44475b] placeholder-[#8b8b8b] focus:outline-none focus:border-[#04b488] transition-colors" type="text" placeholder="City" />
+              <input 
+                type="text" 
+                name="city"
+                value={activeData.city}
+                onChange={handleInputChange}
+                className="w-full h-[44px] sm:h-[46px] bg-white border border-[#e9e9e9] rounded-[10px] px-3 text-[13px] text-[#44475b] placeholder-[#8b8b8b] focus:outline-none focus:border-[#04b488] transition-colors" 
+                placeholder="City" 
+              />
             </div>
 
           </div>
@@ -260,6 +449,9 @@ export default function ProfessionalDetailsStep() {
                     <span className="text-red-600"> *</span>
                   </label>
                   <textarea
+                    name="remarks"
+                    value={activeData.remarks}
+                    onChange={handleInputChange}
                     placeholder="Remarks"
                     rows={2}
                     className="w-full bg-[#F8F8F8] text-[#44475b] border border-[#e9e9e9] rounded-xl p-3 resize-none focus:outline-none focus:ring-1 focus:ring-teal-500 placeholder:text-gray-400 placeholder:text-[13px]"
@@ -281,7 +473,14 @@ export default function ProfessionalDetailsStep() {
                 Address
                 <span className="text-red-600"> *</span>
               </label>
-              <input className="w-full h-[44px] sm:h-[46px] bg-white border border-[#e9e9e9] rounded-[10px] px-3 text-[13px] text-[#44475b] placeholder-[#8b8b8b] focus:outline-none focus:border-[#04b488] transition-colors" type="text" placeholder="Address" />
+              <input 
+                type="text"
+                name="address"
+                value={activeData.address}
+                onChange={handleInputChange}
+                className="w-full h-[44px] sm:h-[46px] bg-white border border-[#e9e9e9] rounded-[10px] px-3 text-[13px] text-[#44475b] placeholder-[#8b8b8b] focus:outline-none focus:border-[#04b488] transition-colors" 
+                placeholder="Address" 
+              />
             </div>
 
             <div>
@@ -289,7 +488,14 @@ export default function ProfessionalDetailsStep() {
                 City
                 <span className="text-red-600"> *</span>
               </label>
-              <input className="w-full h-[44px] sm:h-[46px] bg-white border border-[#e9e9e9] rounded-[10px] px-3 text-[13px] text-[#44475b] placeholder-[#8b8b8b] focus:outline-none focus:border-[#04b488] transition-colors" type="text" placeholder="City" />
+              <input 
+                type="text" 
+                name="city"
+                value={activeData.city}
+                onChange={handleInputChange}
+                className="w-full h-[44px] sm:h-[46px] bg-white border border-[#e9e9e9] rounded-[10px] px-3 text-[13px] text-[#44475b] placeholder-[#8b8b8b] focus:outline-none focus:border-[#04b488] transition-colors" 
+                placeholder="City" 
+              />
             </div>
 
           </div>
@@ -303,6 +509,9 @@ export default function ProfessionalDetailsStep() {
                     <span className="text-red-600"> *</span>
                   </label>
                   <textarea
+                    name="remarks"
+                    value={activeData.remarks}
+                    onChange={handleInputChange}
                     placeholder="Remarks"
                     rows={2}
                     className="w-full bg-[#F8F8F8] text-[#44475b] border border-[#e9e9e9] rounded-xl p-3 resize-none focus:outline-none focus:ring-1 focus:ring-teal-500 placeholder:text-gray-400 placeholder:text-[13px]"
@@ -324,7 +533,14 @@ export default function ProfessionalDetailsStep() {
                 Address
                 <span className="text-red-600"> *</span>
               </label>
-              <input className="w-full h-[44px] sm:h-[46px] bg-white border border-[#e9e9e9] rounded-[10px] px-3 text-[13px] text-[#44475b] placeholder-[#8b8b8b] focus:outline-none focus:border-[#04b488] transition-colors" type="text" placeholder="Address" />
+              <input 
+                type="text"
+                name="address"
+                value={activeData.address}
+                onChange={handleInputChange}
+                className="w-full h-[44px] sm:h-[46px] bg-white border border-[#e9e9e9] rounded-[10px] px-3 text-[13px] text-[#44475b] placeholder-[#8b8b8b] focus:outline-none focus:border-[#04b488] transition-colors" 
+                placeholder="Address" 
+              />
             </div>
 
             <div>
@@ -332,7 +548,14 @@ export default function ProfessionalDetailsStep() {
                 City
                 <span className="text-red-600"> *</span>
               </label>
-              <input className="w-full h-[44px] sm:h-[46px] bg-white border border-[#e9e9e9] rounded-[10px] px-3 text-[13px] text-[#44475b] placeholder-[#8b8b8b] focus:outline-none focus:border-[#04b488] transition-colors" type="text" placeholder="City" />
+              <input 
+                type="text" 
+                name="city"
+                value={activeData.city}
+                onChange={handleInputChange}
+                className="w-full h-[44px] sm:h-[46px] bg-white border border-[#e9e9e9] rounded-[10px] px-3 text-[13px] text-[#44475b] placeholder-[#8b8b8b] focus:outline-none focus:border-[#04b488] transition-colors" 
+                placeholder="City" 
+              />
             </div>
 
           </div>
@@ -346,6 +569,9 @@ export default function ProfessionalDetailsStep() {
                     <span className="text-red-600"> *</span>
                   </label>
                   <textarea
+                    name="remarks"
+                    value={activeData.remarks}
+                    onChange={handleInputChange}
                     placeholder="Remarks"
                     rows={2}
                     className="w-full bg-[#F8F8F8] text-[#44475b] border border-[#e9e9e9] rounded-xl p-3 resize-none focus:outline-none focus:ring-1 focus:ring-teal-500 placeholder:text-gray-400 placeholder:text-[13px]"
