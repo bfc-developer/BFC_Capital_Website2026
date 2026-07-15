@@ -197,7 +197,14 @@ export default function FinancialProfileStep() {
   };
 
   return (
-    <div >
+    <div className="w-full min-w-0 bg-white border border-[#e0dbdb] rounded-[18px] sm:rounded-[24px] lg:rounded-[33px] shadow-[1px_0px_6.8px_-1px_rgba(0,0,0,0.18)] p-4 sm:p-6 md:p-8 lg:p-10">
+
+      <div className="flex items-center justify-between flex-wrap gap-2 border-bottom">
+        <h1 className="font-bold text-[18px] sm:text-[22px] md:text-[26px] lg:text-[28px] bg-gradient-to-r from-[#06a358] to-[#035daf] bg-clip-text text-transparent">
+         Financial Profile
+        </h1>
+      </div>
+      <div className="w-full h-px bg-[#e9e9e9] mt-4 sm:mt-5 mb-5 sm:mb-6" />
 
       <Section
         title="Gross Inflow (Salary, Rental, etc)"
@@ -256,7 +263,7 @@ export default function FinancialProfileStep() {
       <Section
         title="Monthly Expenses (Rent, Food, etc)"
         buttonText="Add Expense"
-        buttonColor="green"
+        buttonColor="gray"
         onAdd={() => addItem(setExpenses)}
       >
         {expenses.map((item) => (
@@ -289,7 +296,7 @@ export default function FinancialProfileStep() {
         {emis.map((item) => (
           <div
             key={item.id}
-            className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-12 gap-4 items-end"
+            className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-6 xl:grid-cols-12 gap-4 items-end"
           >
             {/* Loan Type */}
             <div className="lg:col-span-3">
@@ -359,7 +366,7 @@ export default function FinancialProfileStep() {
               {emis.length > 1 && (
                 <button
                   onClick={() => removeEMI(item.id)}
-                  className="h-10 w-10 rounded-full bg-[#DB4437] text-white flex items-center justify-center hover:bg-red-600 transition"
+                  className="h-10 w-10 cursor-pointer rounded-full bg-[#DB4437] text-white flex items-center justify-center hover:bg-red-600 transition"
                 >
                   <Trash2 size={18} />
                 </button>
@@ -405,7 +412,7 @@ export default function FinancialProfileStep() {
         {insurepre.map((item) => (
           <div
             key={item.id}
-            className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-12 gap-4 items-end"
+            className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 xl:grid-cols-12 gap-4 items-end"
           >
 
             <div className="lg:col-span-2">
@@ -499,7 +506,7 @@ export default function FinancialProfileStep() {
               {insurepre.length > 1 && (
                 <button
                   onClick={() => removeinsurePremium(item.id)}
-                  className="h-10 w-10 rounded-full bg-[#DB4437] text-white flex items-center justify-center hover:bg-red-600 transition"
+                  className="h-10 w-10 cursor-pointer rounded-full bg-[#DB4437] text-white flex items-center justify-center hover:bg-red-600 transition"
                 >
                   <Trash2 size={18} />
                 </button>
@@ -516,9 +523,7 @@ export default function FinancialProfileStep() {
         onAdd={othertaxsave}
       >
         {othertax.map((item) => (
-          <div
-            key={item.id}
-            className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-12 gap-4 items-end"
+          <div key={item.id} className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-6 xl:grid-cols-12 gap-4 items-end"
           >
 
             <div className="lg:col-span-3">
@@ -569,7 +574,7 @@ export default function FinancialProfileStep() {
               {othertax.length > 1 && (
                 <button
                   onClick={() => removeotherTax(item.id)}
-                  className="h-10 w-10 rounded-full bg-[#DB4437] text-white flex items-center justify-center hover:bg-red-600 transition"
+                  className="h-10 w-10 rounded-full cursor-pointer bg-[#DB4437] text-white flex items-center justify-center hover:bg-red-600 transition"
                 >
                   <Trash2 size={18} />
                 </button>
@@ -582,9 +587,9 @@ export default function FinancialProfileStep() {
       <section className="bg-white border border-[#e9e9e9] rounded-[10px] px-3 text-[13px] text-[#44475b] placeholder-[#8b8b8b] focus:outline-none focus:border-[#04b488] transition-colors p-4 mt-8">
         <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-5">
           {/* Card 1 */}
-          <div className="flex items-center gap-4 rounded-xl border border-[#E8E8E8] bg-[#FFF9E8] p-4">
-            <div className="flex h-12 w-12 items-center justify-center rounded-full bg-[#FFC107] text-white">
-              💰
+          <div className="flex items-center gap-4 rounded-xl bg-[#FFF8E5] p-4">
+            <div className="flex h-12 w-12 items-center justify-center rounded-full bg-[#FFBF08] text-white p-3">
+              <img src="/financialplanning/r1.png" alt="rupee" />
             </div>
 
             <div>
@@ -594,9 +599,9 @@ export default function FinancialProfileStep() {
           </div>
 
           {/* Card 2 */}
-          <div className="flex items-center gap-4 rounded-xl border border-[#E8E8E8] bg-[#ECFFF4] p-4">
-            <div className="flex h-12 w-12 items-center justify-center rounded-full bg-[#04B488] text-white">
-              📄
+          <div className="flex items-center gap-4 rounded-xl bg-[#E4F8EB] p-4">
+            <div className="flex h-12 w-12 items-center justify-center rounded-full bg-gradient-to-r from-[#50E680] to-[#048A42] text-white p-3">
+              <img src="/financialplanning/f1.png" alt="rupee" />
             </div>
 
             <div>
@@ -607,8 +612,8 @@ export default function FinancialProfileStep() {
 
           {/* Card 3 */}
           <div className="flex items-center gap-4 rounded-xl border border-[#E8E8E8] bg-[#F4EEFF] p-4">
-            <div className="flex h-12 w-12 items-center justify-center rounded-full bg-[#7C4DFF] text-white">
-              💼
+            <div className="flex h-12 w-12 items-center justify-center rounded-full bg-[#7C4DFF] text-white p-3">
+              <img src="/financialplanning/r2.png" alt="rupee" />
             </div>
 
             <div>
@@ -618,9 +623,9 @@ export default function FinancialProfileStep() {
           </div>
 
           {/* Card 4 */}
-          <div className="flex items-center gap-4 rounded-xl border border-[#E8E8E8] bg-[#EEF6FF] p-4">
-            <div className="flex h-12 w-12 items-center justify-center rounded-full bg-[#1E88E5] text-white">
-              🏦
+          <div className="flex items-center gap-4 rounded-xl bg-[#BEDEFF] p-4">
+            <div className="flex h-12 w-12 items-center justify-center rounded-full bg-[#1E88E5] text-white p-3">
+              <img src="/financialplanning/r3.png" alt="rupee" />
             </div>
 
             <div>
@@ -633,13 +638,17 @@ export default function FinancialProfileStep() {
 
         <div className="flex-none md:flex gap-2 pt-4">
           <div className="mb-2 md:mb-0">
-            <p className="text-[15px] font-normal"><span className="px-[8px] py-[3px] rounded text-white text-[11px] me-2 bg-[#7b9ebe]">i</span>Gross: Total Inflow Sources</p>
+            <p className="text-[15px] font-normal flex items-center"><span className="px-[8px] py-[3px] rounded text-white text-[11px] me-2 bg-[#7b9ebe]">i</span>
+            <span>Gross: Total Inflow Sources</span></p>
           </div>
           <div className="mb-2 md:mb-0">
-            <p><span className="px-[8px] py-[3px] rounded text-white text-[11px] me-2 bg-[#7b9ebe]">i</span>Net: Gross - Deductions </p>
+            <p className="flex items-center"><span className="px-[8px] py-[3px] rounded text-white text-[11px] me-2 bg-[#7b9ebe]">i</span>
+            <span>Net: Gross - Deductions</span> </p>
           </div>
           <div className="mb-2 md:mb-0">
-            <p><span className="px-[8px] py-[3px] rounded text-white text-[11px] me-2 bg-[#7b9ebe]">i</span>Surplus: Net - EMI - Insurance - Expenses - Other - Monthly Investments</p>
+            <p className="flex items-center"><span className="px-[8px] py-[3px] rounded text-white text-[11px] me-2 bg-[#7b9ebe]">i</span>
+           <span> Surplus: Net - EMI - Insurance - Expenses - Other - Monthly Investments</span>
+            </p>
           </div>
         </div>
       </section>
@@ -679,10 +688,10 @@ function Section({
 
         <button
           onClick={onAdd}
-          className={`inline-flex items-center gap-2 rounded-lg px-4 py-2 text-sm font-medium transition
+          className={`inline-flex cursor-pointer items-center gap-2 rounded-lg px-4 py-2 text-sm font-medium transition
             ${buttonColor === "green"
-              ? "bg-[#04b488] text-white hover:bg-emerald-600"
-              : "flex items-center gap-2 rounded-lg border border-gray-200 px-4 py-2 text-sm font-medium text-gray-700 hover:bg-gray-50"
+              ? "bg-emerald-600 text-white hover:bg-[#04b488]"
+              : "flex items-center gap-2 rounded-lg border border-gray-200 px-4 py-2 text-sm font-medium text-gray-700 group hover:bg-[#06A358] hover:text-white"
             }`}
         >
           <Plus size={16} />
@@ -727,7 +736,7 @@ function Row({
           <span className="text-red-600"> *</span>
         </label>
 
-       <input
+        <input
           className="w-full h-[44px] sm:h-[46px] bg-white border border-[#e9e9e9] rounded-[10px] px-3 text-[13px] text-[#44475b] placeholder-[#8b8b8b] focus:outline-none focus:border-[#04b488] transition-colors w-full rounded-lg border px-4 py-2.5 outline-none"
           type="text"
           value={item.title}
@@ -756,7 +765,7 @@ function Row({
         {showDelete && (
           <button
             onClick={onDelete}
-            className="h-10 w-10 rounded-full bg-[#DB4437] cursor-pointer text-white flex items-center justify-center hover:bg-red-600"
+            className="h-10 w-10 cursor-pointer rounded-full bg-[#DB4437] cursor-pointer text-white flex items-center justify-center hover:bg-red-600"
           >
             <Trash2 size={18} />
           </button>
