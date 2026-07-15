@@ -12,7 +12,13 @@ export default function ProfessionalDetailsStep() {
   };
 
   return (
-    <div className="space-y-6 sm:space-y-8">
+    <div className="space-y-6 sm:space-y-8 w-full min-w-0 bg-white border border-[#e0dbdb] rounded-[18px] sm:rounded-[24px] lg:rounded-[33px] shadow-[1px_0px_6.8px_-1px_rgba(0,0,0,0.18)] p-4 sm:p-6 md:p-8 lg:p-10">
+      <div className="flex items-center justify-between flex-wrap gap-2 border-bottom">
+        <h1 className="font-bold text-[18px] sm:text-[22px] md:text-[26px] lg:text-[28px] bg-gradient-to-r from-[#06a358] to-[#035daf] bg-clip-text text-transparent">
+          Professional Details
+        </h1>
+      </div>
+      <div className="w-full h-px bg-[#e9e9e9] mt-4 sm:mt-5 mb-5 sm:mb-6" />
       <label className="block text-[13px] font-medium text-[#44475b] mb-2">
         Occupation
         <span className="text-red-600"> *</span>
@@ -37,7 +43,7 @@ export default function ProfessionalDetailsStep() {
                 <span className="text-red-600"> *</span>
               </label>
               <select className="cursor-pointer w-full h-[44px] sm:h-[46px] bg-white border border-[#e9e9e9] rounded-[10px] px-3 text-[13px] text-[#44475b] placeholder-[#8b8b8b] focus:outline-none focus:border-[#04b488] transition-colors">
-                <option value="" selected disabled hidden>Select</option>
+                <option value="" selected disabled>Select</option>
                 <option value="Select1">Select1</option>
                 <option value="Select1">Select2</option>
                 <option value="Select1">Select3</option>
