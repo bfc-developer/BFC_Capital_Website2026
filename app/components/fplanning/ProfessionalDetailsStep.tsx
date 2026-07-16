@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, ChangeEvent } from "react";
+import StepActions from "./StepActions";
 
 interface ProfessionalDetailsStepProps {
   formData?: {
@@ -29,9 +30,28 @@ interface ProfessionalDetailsStepProps {
     city: string;
     remarks: string;
   }>>;
+  profileId: string | null;
+  financialProfileId: string | null;
+  setFinancialProfileId: React.Dispatch<React.SetStateAction<string | null>>;
+  financialProfileExists: boolean;
+  setFinancialProfileExists: React.Dispatch<React.SetStateAction<boolean>>;
+  onNext: () => void;
+  onBack?: () => void;
+  showBack?: boolean;
 }
 
-export default function ProfessionalDetailsStep({ formData, setFormData }: ProfessionalDetailsStepProps) {
+export default function ProfessionalDetailsStep({
+  formData,
+  setFormData,
+  profileId,
+  financialProfileId,
+  setFinancialProfileId,
+  financialProfileExists,
+  setFinancialProfileExists,
+  onNext,
+  onBack,
+  showBack = false,
+}: ProfessionalDetailsStepProps) {
   const [localState, setLocalState] = useState({
     occupation: "",
     pvtOrGovt: "",
@@ -48,12 +68,28 @@ export default function ProfessionalDetailsStep({ formData, setFormData }: Profe
 
   const activeData = formData || localState;
   const activeSetter = setFormData || setLocalState;
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [errors, setErrors] = useState<Record<string, string>>({});
 
   const handleSelectChange = (e: ChangeEvent<HTMLSelectElement>) => {
     const { name, value } = e.target;
     activeSetter((prev: any) => ({
       ...prev,
       [name]: value,
+      ...(name === "occupation" ? {
+        pvtOrGovt: "",
+        organisationName: "",
+        designation: "",
+        workProfile: "",
+        businessType: "",
+        professionName: "",
+        lastOrganisation: "",
+        remarks: "",
+      } : {})
+    }));
+    setErrors(prev => ({
+      ...prev,
+      [name]: "",
       ...(name === "occupation" ? {
         pvtOrGovt: "",
         organisationName: "",
@@ -73,9 +109,113 @@ export default function ProfessionalDetailsStep({ formData, setFormData }: Profe
       ...prev,
       [name]: value,
     }));
+    setErrors(prev => ({
+      ...prev,
+      [name]: "",
+    }));
   };
 
   const occupation = activeData.occupation;
+
+  const handleContinue = async () => {
+    if (!profileId) {
+      alert("Please complete the Personal Profile step first.");
+      return;
+    }
+
+    const validationErrors: Record<string, string> = {};
+    if (!activeData.occupation) {
+      validationErrors.occupation = "Occupation is required.";
+    } else {
+      const occ = activeData.occupation;
+      if (occ === "Service") {
+        if (!activeData.pvtOrGovt) validationErrors.pvtOrGovt = "PVT/Govt selection is required.";
+        if (!activeData.organisationName.trim()) validationErrors.organisationName = "Organisation name is required.";
+        if (!activeData.designation.trim()) validationErrors.designation = "Designation is required.";
+        if (!activeData.workProfile.trim()) validationErrors.workProfile = "Work profile is required.";
+        if (!activeData.address.trim()) validationErrors.address = "Address is required.";
+        if (!activeData.city.trim()) validationErrors.city = "City is required.";
+        if (!activeData.remarks.trim()) validationErrors.remarks = "Remarks are required.";
+      } else if (occ === "Business") {
+        if (!activeData.businessType.trim()) validationErrors.businessType = "Type of business is required.";
+        if (!activeData.address.trim()) validationErrors.address = "Address is required.";
+        if (!activeData.city.trim()) validationErrors.city = "City is required.";
+      } else if (occ === "Professional") {
+        if (!activeData.professionName.trim()) validationErrors.professionName = "Name of profession is required.";
+        if (!activeData.address.trim()) validationErrors.address = "Address is required.";
+        if (!activeData.city.trim()) validationErrors.city = "City is required.";
+      } else if (occ === "Retired") {
+        if (!activeData.lastOrganisation.trim()) validationErrors.lastOrganisation = "Last organisation is required.";
+        if (!activeData.designation.trim()) validationErrors.designation = "Designation is required.";
+        if (!activeData.address.trim()) validationErrors.address = "Address is required.";
+        if (!activeData.city.trim()) validationErrors.city = "City is required.";
+        if (!activeData.remarks.trim()) validationErrors.remarks = "Remarks are required.";
+      } else if (occ === "Housewife" || occ === "Other") {
+        if (!activeData.address.trim()) validationErrors.address = "Address is required.";
+        if (!activeData.city.trim()) validationErrors.city = "City is required.";
+        if (!activeData.remarks.trim()) validationErrors.remarks = "Remarks are required.";
+      }
+    }
+
+    if (Object.keys(validationErrors).length > 0) {
+      setErrors(validationErrors);
+      const firstErrorKey = Object.keys(validationErrors)[0];
+      const errorElement = document.getElementsByName(firstErrorKey)[0];
+      if (errorElement) {
+        errorElement.scrollIntoView({ behavior: "smooth", block: "center" });
+        errorElement.focus();
+      }
+      return;
+    }
+
+    setIsSubmitting(true);
+    try {
+      const payload = {
+        _id: profileId,
+        occupation: activeData.occupation === "Other" ? "Others" : activeData.occupation,
+        pvtOrGovt: activeData.pvtOrGovt || undefined,
+        organisationName: activeData.organisationName || undefined,
+        designation: activeData.designation || undefined,
+        workProfile: activeData.workProfile || undefined,
+        businessType: activeData.businessType || undefined,
+        professionName: activeData.professionName || undefined,
+        lastOrganisation: activeData.lastOrganisation || undefined,
+        address: activeData.address || undefined,
+        city: activeData.city || undefined,
+        remarks: activeData.remarks || undefined,
+      };
+
+      const response = await fetch(
+        financialProfileExists && financialProfileId
+          ? `https://h3t0pdfc-5000.inc1.devtunnels.ms/api/financial/${financialProfileId}`
+          : "https://h3t0pdfc-5000.inc1.devtunnels.ms/api/financial",
+        {
+          method: financialProfileExists && financialProfileId ? "PUT" : "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(payload),
+        }
+      );
+
+      if (!response.ok) {
+        const errBody = await response.json().catch(() => ({}));
+        throw new Error(errBody.msg || errBody.message || "Failed to submit professional details");
+      }
+
+      const resData = await response.json();
+      if (resData.data && resData.data._id && setFinancialProfileId) {
+        setFinancialProfileId(resData.data._id);
+      }
+
+      setFinancialProfileExists(true);
+      onNext();
+    } catch (err) {
+      alert("Error saving professional details: " + (err instanceof Error ? err.message : String(err)));
+    } finally {
+      setIsSubmitting(false);
+    }
+  };
 
   return (
     <div className="space-y-6 sm:space-y-8 w-full min-w-0 bg-white border border-[#e0dbdb] rounded-[18px] sm:rounded-[24px] lg:rounded-[33px] shadow-[1px_0px_6.8px_-1px_rgba(0,0,0,0.18)] p-4 sm:p-6 md:p-8 lg:p-10">
@@ -89,11 +229,13 @@ export default function ProfessionalDetailsStep({ formData, setFormData }: Profe
         Occupation
         <span className="text-red-600"> *</span>
       </label>
-      <select 
+      <select
         name="occupation"
         value={occupation}
-        onChange={handleSelectChange} 
-        className="cursor-pointer w-full h-[44px] sm:h-[46px] bg-white border border-[#e9e9e9] rounded-[10px] px-3 text-[13px] text-[#44475b] placeholder-[#8b8b8b] focus:outline-none focus:border-[#04b488] transition-colors"
+        onChange={handleSelectChange}
+        className={`cursor-pointer w-full h-[44px] sm:h-[46px] bg-white border rounded-[10px] px-3 text-[13px] text-[#44475b] placeholder-[#8b8b8b] focus:outline-none transition-colors ${
+          errors.occupation ? "border-red-500 focus:border-red-500" : "border-[#e9e9e9] focus:border-[#04b488]"
+        }`}
       >
         <option value="" disabled>Select Occupation</option>
         <option value="Service">Service</option>
@@ -103,6 +245,7 @@ export default function ProfessionalDetailsStep({ formData, setFormData }: Profe
         <option value="Housewife">Housewife</option>
         <option value="Other">Other</option>
       </select>
+      {errors.occupation && <p className="text-red-500 text-[11px] mt-1">{errors.occupation}</p>}
 
       {occupation === "Service" && (
         <div>
@@ -112,18 +255,19 @@ export default function ProfessionalDetailsStep({ formData, setFormData }: Profe
                 PVT/Govt.
                 <span className="text-red-600"> *</span>
               </label>
-              <select 
+              <select
                 name="pvtOrGovt"
                 value={activeData.pvtOrGovt}
                 onChange={handleSelectChange}
-                className="cursor-pointer w-full h-[44px] sm:h-[46px] bg-white border border-[#e9e9e9] rounded-[10px] px-3 text-[13px] text-[#44475b] placeholder-[#8b8b8b] focus:outline-none focus:border-[#04b488] transition-colors"
+                className={`cursor-pointer w-full h-[44px] sm:h-[46px] bg-white border rounded-[10px] px-3 text-[13px] text-[#44475b] placeholder-[#8b8b8b] focus:outline-none transition-colors ${
+                  errors.pvtOrGovt ? "border-red-500 focus:border-red-500" : "border-[#e9e9e9] focus:border-[#04b488]"
+                }`}
               >
                 <option value="" disabled>Select</option>
-                <option value="Select1">Select1</option>
-                <option value="Select1">Select2</option>
-                <option value="Select1">Select3</option>
-                <option value="Other">Other</option>
+                <option value="Private">Private</option>
+                <option value="Government">Government</option>
               </select>
+              {errors.pvtOrGovt && <p className="text-red-500 text-[11px] mt-1">{errors.pvtOrGovt}</p>}
             </div>
 
             <div>
@@ -131,14 +275,17 @@ export default function ProfessionalDetailsStep({ formData, setFormData }: Profe
                 Organisation Name
                 <span className="text-red-600"> *</span>
               </label>
-              <input 
-                type="text" 
+              <input
+                type="text"
                 name="organisationName"
                 value={activeData.organisationName}
                 onChange={handleInputChange}
-                className="w-full h-[44px] sm:h-[46px] bg-white border border-[#e9e9e9] rounded-[10px] px-3 text-[13px] text-[#44475b] placeholder-[#8b8b8b] focus:outline-none focus:border-[#04b488] transition-colors" 
-                placeholder="Organisation" 
+                className={`w-full h-[44px] sm:h-[46px] bg-white border rounded-[10px] px-3 text-[13px] text-[#44475b] placeholder-[#8b8b8b] focus:outline-none transition-colors ${
+                  errors.organisationName ? "border-red-500 focus:border-red-500" : "border-[#e9e9e9] focus:border-[#04b488]"
+                }`}
+                placeholder="Organisation"
               />
+              {errors.organisationName && <p className="text-red-500 text-[11px] mt-1">{errors.organisationName}</p>}
             </div>
 
             <div>
@@ -146,14 +293,17 @@ export default function ProfessionalDetailsStep({ formData, setFormData }: Profe
                 Designation
                 <span className="text-red-600"> *</span>
               </label>
-              <input 
+              <input
                 type="text"
                 name="designation"
                 value={activeData.designation}
                 onChange={handleInputChange}
-                className="w-full h-[44px] sm:h-[46px] bg-white border border-[#e9e9e9] rounded-[10px] px-3 text-[13px] text-[#44475b] placeholder-[#8b8b8b] focus:outline-none focus:border-[#04b488] transition-colors" 
-                placeholder="Designation" 
+                className={`w-full h-[44px] sm:h-[46px] bg-white border rounded-[10px] px-3 text-[13px] text-[#44475b] placeholder-[#8b8b8b] focus:outline-none transition-colors ${
+                  errors.designation ? "border-red-500 focus:border-red-500" : "border-[#e9e9e9] focus:border-[#04b488]"
+                }`}
+                placeholder="Designation"
               />
+              {errors.designation && <p className="text-red-500 text-[11px] mt-1">{errors.designation}</p>}
             </div>
 
             <div>
@@ -161,14 +311,17 @@ export default function ProfessionalDetailsStep({ formData, setFormData }: Profe
                 Work Profile
                 <span className="text-red-600"> *</span>
               </label>
-              <input 
-                type="text" 
+              <input
+                type="text"
                 name="workProfile"
                 value={activeData.workProfile}
                 onChange={handleInputChange}
-                className="w-full h-[44px] sm:h-[46px] bg-white border border-[#e9e9e9] rounded-[10px] px-3 text-[13px] text-[#44475b] placeholder-[#8b8b8b] focus:outline-none focus:border-[#04b488] transition-colors" 
-                placeholder="Work Profile" 
+                className={`w-full h-[44px] sm:h-[46px] bg-white border rounded-[10px] px-3 text-[13px] text-[#44475b] placeholder-[#8b8b8b] focus:outline-none transition-colors ${
+                  errors.workProfile ? "border-red-500 focus:border-red-500" : "border-[#e9e9e9] focus:border-[#04b488]"
+                }`}
+                placeholder="Work Profile"
               />
+              {errors.workProfile && <p className="text-red-500 text-[11px] mt-1">{errors.workProfile}</p>}
             </div>
 
             <div>
@@ -176,14 +329,17 @@ export default function ProfessionalDetailsStep({ formData, setFormData }: Profe
                 Address
                 <span className="text-red-600"> *</span>
               </label>
-              <input 
+              <input
                 type="text"
                 name="address"
                 value={activeData.address}
                 onChange={handleInputChange}
-                className="w-full h-[44px] sm:h-[46px] bg-white border border-[#e9e9e9] rounded-[10px] px-3 text-[13px] text-[#44475b] placeholder-[#8b8b8b] focus:outline-none focus:border-[#04b488] transition-colors" 
-                placeholder="Address" 
+                className={`w-full h-[44px] sm:h-[46px] bg-white border rounded-[10px] px-3 text-[13px] text-[#44475b] placeholder-[#8b8b8b] focus:outline-none transition-colors ${
+                  errors.address ? "border-red-500 focus:border-red-500" : "border-[#e9e9e9] focus:border-[#04b488]"
+                }`}
+                placeholder="Address"
               />
+              {errors.address && <p className="text-red-500 text-[11px] mt-1">{errors.address}</p>}
             </div>
 
             <div>
@@ -191,14 +347,17 @@ export default function ProfessionalDetailsStep({ formData, setFormData }: Profe
                 City
                 <span className="text-red-600"> *</span>
               </label>
-              <input 
-                type="text" 
+              <input
+                type="text"
                 name="city"
                 value={activeData.city}
                 onChange={handleInputChange}
-                className="w-full h-[44px] sm:h-[46px] bg-white border border-[#e9e9e9] rounded-[10px] px-3 text-[13px] text-[#44475b] placeholder-[#8b8b8b] focus:outline-none focus:border-[#04b488] transition-colors" 
-                placeholder="City" 
+                className={`w-full h-[44px] sm:h-[46px] bg-white border rounded-[10px] px-3 text-[13px] text-[#44475b] placeholder-[#8b8b8b] focus:outline-none transition-colors ${
+                  errors.city ? "border-red-500 focus:border-red-500" : "border-[#e9e9e9] focus:border-[#04b488]"
+                }`}
+                placeholder="City"
               />
+              {errors.city && <p className="text-red-500 text-[11px] mt-1">{errors.city}</p>}
             </div>
 
           </div>
@@ -216,8 +375,11 @@ export default function ProfessionalDetailsStep({ formData, setFormData }: Profe
                   onChange={handleInputChange}
                   placeholder="Remarks"
                   rows={2}
-                  className="w-full bg-[#F8F8F8] text-[#44475b] border border-[#e9e9e9] rounded-xl p-3 resize-none focus:outline-none focus:ring-1 focus:ring-teal-500 placeholder:text-gray-400 placeholder:text-[13px]"
+                  className={`w-full bg-[#F8F8F8] text-[#44475b] border rounded-xl p-3 resize-none focus:outline-none focus:ring-1 focus:ring-teal-500 placeholder:text-gray-400 placeholder:text-[13px] ${
+                    errors.remarks ? "border-red-500" : "border-[#e9e9e9]"
+                  }`}
                 />
+                {errors.remarks && <p className="text-red-500 text-[11px] mt-1">{errors.remarks}</p>}
               </div>
 
             </div>
@@ -234,14 +396,17 @@ export default function ProfessionalDetailsStep({ formData, setFormData }: Profe
                 Type of Business
                 <span className="text-red-600"> *</span>
               </label>
-              <input 
+              <input
                 type="text"
                 name="businessType"
                 value={activeData.businessType}
                 onChange={handleInputChange}
-                className="w-full h-[44px] sm:h-[46px] bg-white border border-[#e9e9e9] rounded-[10px] px-3 text-[13px] text-[#44475b] placeholder-[#8b8b8b] focus:outline-none focus:border-[#04b488] transition-colors" 
-                placeholder="Business" 
+                className={`w-full h-[44px] sm:h-[46px] bg-white border rounded-[10px] px-3 text-[13px] text-[#44475b] placeholder-[#8b8b8b] focus:outline-none transition-colors ${
+                  errors.businessType ? "border-red-500 focus:border-red-500" : "border-[#e9e9e9] focus:border-[#04b488]"
+                }`}
+                placeholder="Business"
               />
+              {errors.businessType && <p className="text-red-500 text-[11px] mt-1">{errors.businessType}</p>}
             </div>
 
             <div>
@@ -249,14 +414,17 @@ export default function ProfessionalDetailsStep({ formData, setFormData }: Profe
                 Address
                 <span className="text-red-600"> *</span>
               </label>
-              <input 
+              <input
                 type="text"
                 name="address"
                 value={activeData.address}
                 onChange={handleInputChange}
-                className="w-full h-[44px] sm:h-[46px] bg-white border border-[#e9e9e9] rounded-[10px] px-3 text-[13px] text-[#44475b] placeholder-[#8b8b8b] focus:outline-none focus:border-[#04b488] transition-colors" 
-                placeholder="Address" 
+                className={`w-full h-[44px] sm:h-[46px] bg-white border rounded-[10px] px-3 text-[13px] text-[#44475b] placeholder-[#8b8b8b] focus:outline-none transition-colors ${
+                  errors.address ? "border-red-500 focus:border-red-500" : "border-[#e9e9e9] focus:border-[#04b488]"
+                }`}
+                placeholder="Address"
               />
+              {errors.address && <p className="text-red-500 text-[11px] mt-1">{errors.address}</p>}
             </div>
 
             <div>
@@ -264,14 +432,17 @@ export default function ProfessionalDetailsStep({ formData, setFormData }: Profe
                 City
                 <span className="text-red-600"> *</span>
               </label>
-              <input 
-                type="text" 
+              <input
+                type="text"
                 name="city"
                 value={activeData.city}
                 onChange={handleInputChange}
-                className="w-full h-[44px] sm:h-[46px] bg-white border border-[#e9e9e9] rounded-[10px] px-3 text-[13px] text-[#44475b] placeholder-[#8b8b8b] focus:outline-none focus:border-[#04b488] transition-colors" 
-                placeholder="City" 
+                className={`w-full h-[44px] sm:h-[46px] bg-white border rounded-[10px] px-3 text-[13px] text-[#44475b] placeholder-[#8b8b8b] focus:outline-none transition-colors ${
+                  errors.city ? "border-red-500 focus:border-red-500" : "border-[#e9e9e9] focus:border-[#04b488]"
+                }`}
+                placeholder="City"
               />
+              {errors.city && <p className="text-red-500 text-[11px] mt-1">{errors.city}</p>}
             </div>
 
           </div>
@@ -309,14 +480,17 @@ export default function ProfessionalDetailsStep({ formData, setFormData }: Profe
                 Name of Profession
                 <span className="text-red-600"> *</span>
               </label>
-              <input 
+              <input
                 type="text"
                 name="professionName"
                 value={activeData.professionName}
                 onChange={handleInputChange}
-                className="w-full h-[44px] sm:h-[46px] bg-white border border-[#e9e9e9] rounded-[10px] px-3 text-[13px] text-[#44475b] placeholder-[#8b8b8b] focus:outline-none focus:border-[#04b488] transition-colors" 
-                placeholder="Profession" 
+                className={`w-full h-[44px] sm:h-[46px] bg-white border rounded-[10px] px-3 text-[13px] text-[#44475b] placeholder-[#8b8b8b] focus:outline-none transition-colors ${
+                  errors.professionName ? "border-red-500 focus:border-red-500" : "border-[#e9e9e9] focus:border-[#04b488]"
+                }`}
+                placeholder="Profession"
               />
+              {errors.professionName && <p className="text-red-500 text-[11px] mt-1">{errors.professionName}</p>}
             </div>
 
             <div>
@@ -324,14 +498,17 @@ export default function ProfessionalDetailsStep({ formData, setFormData }: Profe
                 Address
                 <span className="text-red-600"> *</span>
               </label>
-              <input 
+              <input
                 type="text"
                 name="address"
                 value={activeData.address}
                 onChange={handleInputChange}
-                className="w-full h-[44px] sm:h-[46px] bg-white border border-[#e9e9e9] rounded-[10px] px-3 text-[13px] text-[#44475b] placeholder-[#8b8b8b] focus:outline-none focus:border-[#04b488] transition-colors" 
-                placeholder="Address" 
+                className={`w-full h-[44px] sm:h-[46px] bg-white border rounded-[10px] px-3 text-[13px] text-[#44475b] placeholder-[#8b8b8b] focus:outline-none transition-colors ${
+                  errors.address ? "border-red-500 focus:border-red-500" : "border-[#e9e9e9] focus:border-[#04b488]"
+                }`}
+                placeholder="Address"
               />
+              {errors.address && <p className="text-red-500 text-[11px] mt-1">{errors.address}</p>}
             </div>
 
             <div>
@@ -339,14 +516,17 @@ export default function ProfessionalDetailsStep({ formData, setFormData }: Profe
                 City
                 <span className="text-red-600"> *</span>
               </label>
-              <input 
-                type="text" 
+              <input
+                type="text"
                 name="city"
                 value={activeData.city}
                 onChange={handleInputChange}
-                className="w-full h-[44px] sm:h-[46px] bg-white border border-[#e9e9e9] rounded-[10px] px-3 text-[13px] text-[#44475b] placeholder-[#8b8b8b] focus:outline-none focus:border-[#04b488] transition-colors" 
-                placeholder="City" 
+                className={`w-full h-[44px] sm:h-[46px] bg-white border rounded-[10px] px-3 text-[13px] text-[#44475b] placeholder-[#8b8b8b] focus:outline-none transition-colors ${
+                  errors.city ? "border-red-500 focus:border-red-500" : "border-[#e9e9e9] focus:border-[#04b488]"
+                }`}
+                placeholder="City"
               />
+              {errors.city && <p className="text-red-500 text-[11px] mt-1">{errors.city}</p>}
             </div>
 
           </div>
@@ -383,14 +563,17 @@ export default function ProfessionalDetailsStep({ formData, setFormData }: Profe
                 Last Organisation
                 <span className="text-red-600"> *</span>
               </label>
-              <input 
+              <input
                 type="text"
                 name="lastOrganisation"
                 value={activeData.lastOrganisation}
                 onChange={handleInputChange}
-                className="w-full h-[44px] sm:h-[46px] bg-white border border-[#e9e9e9] rounded-[10px] px-3 text-[13px] text-[#44475b] placeholder-[#8b8b8b] focus:outline-none focus:border-[#04b488] transition-colors" 
-                placeholder="Organisation" 
+                className={`w-full h-[44px] sm:h-[46px] bg-white border rounded-[10px] px-3 text-[13px] text-[#44475b] placeholder-[#8b8b8b] focus:outline-none transition-colors ${
+                  errors.lastOrganisation ? "border-red-500 focus:border-red-500" : "border-[#e9e9e9] focus:border-[#04b488]"
+                }`}
+                placeholder="Organisation"
               />
+              {errors.lastOrganisation && <p className="text-red-500 text-[11px] mt-1">{errors.lastOrganisation}</p>}
             </div>
 
             <div>
@@ -398,14 +581,17 @@ export default function ProfessionalDetailsStep({ formData, setFormData }: Profe
                 Designation
                 <span className="text-red-600"> *</span>
               </label>
-              <input 
+              <input
                 type="text"
                 name="designation"
                 value={activeData.designation}
                 onChange={handleInputChange}
-                className="w-full h-[44px] sm:h-[46px] bg-white border border-[#e9e9e9] rounded-[10px] px-3 text-[13px] text-[#44475b] placeholder-[#8b8b8b] focus:outline-none focus:border-[#04b488] transition-colors" 
-                placeholder="Designation" 
+                className={`w-full h-[44px] sm:h-[46px] bg-white border rounded-[10px] px-3 text-[13px] text-[#44475b] placeholder-[#8b8b8b] focus:outline-none transition-colors ${
+                  errors.designation ? "border-red-500 focus:border-red-500" : "border-[#e9e9e9] focus:border-[#04b488]"
+                }`}
+                placeholder="Designation"
               />
+              {errors.designation && <p className="text-red-500 text-[11px] mt-1">{errors.designation}</p>}
             </div>
 
             <div>
@@ -413,14 +599,17 @@ export default function ProfessionalDetailsStep({ formData, setFormData }: Profe
                 Address
                 <span className="text-red-600"> *</span>
               </label>
-              <input 
+              <input
                 type="text"
                 name="address"
                 value={activeData.address}
                 onChange={handleInputChange}
-                className="w-full h-[44px] sm:h-[46px] bg-white border border-[#e9e9e9] rounded-[10px] px-3 text-[13px] text-[#44475b] placeholder-[#8b8b8b] focus:outline-none focus:border-[#04b488] transition-colors" 
-                placeholder="Address" 
+                className={`w-full h-[44px] sm:h-[46px] bg-white border rounded-[10px] px-3 text-[13px] text-[#44475b] placeholder-[#8b8b8b] focus:outline-none transition-colors ${
+                  errors.address ? "border-red-500 focus:border-red-500" : "border-[#e9e9e9] focus:border-[#04b488]"
+                }`}
+                placeholder="Address"
               />
+              {errors.address && <p className="text-red-500 text-[11px] mt-1">{errors.address}</p>}
             </div>
 
             <div>
@@ -428,14 +617,17 @@ export default function ProfessionalDetailsStep({ formData, setFormData }: Profe
                 City
                 <span className="text-red-600"> *</span>
               </label>
-              <input 
-                type="text" 
+              <input
+                type="text"
                 name="city"
                 value={activeData.city}
                 onChange={handleInputChange}
-                className="w-full h-[44px] sm:h-[46px] bg-white border border-[#e9e9e9] rounded-[10px] px-3 text-[13px] text-[#44475b] placeholder-[#8b8b8b] focus:outline-none focus:border-[#04b488] transition-colors" 
-                placeholder="City" 
+                className={`w-full h-[44px] sm:h-[46px] bg-white border rounded-[10px] px-3 text-[13px] text-[#44475b] placeholder-[#8b8b8b] focus:outline-none transition-colors ${
+                  errors.city ? "border-red-500 focus:border-red-500" : "border-[#e9e9e9] focus:border-[#04b488]"
+                }`}
+                placeholder="City"
               />
+              {errors.city && <p className="text-red-500 text-[11px] mt-1">{errors.city}</p>}
             </div>
 
           </div>
@@ -454,8 +646,11 @@ export default function ProfessionalDetailsStep({ formData, setFormData }: Profe
                     onChange={handleInputChange}
                     placeholder="Remarks"
                     rows={2}
-                    className="w-full bg-[#F8F8F8] text-[#44475b] border border-[#e9e9e9] rounded-xl p-3 resize-none focus:outline-none focus:ring-1 focus:ring-teal-500 placeholder:text-gray-400 placeholder:text-[13px]"
+                    className={`w-full bg-[#F8F8F8] text-[#44475b] border rounded-xl p-3 resize-none focus:outline-none focus:ring-1 focus:ring-teal-500 placeholder:text-gray-400 placeholder:text-[13px] ${
+                      errors.remarks ? "border-red-500" : "border-[#e9e9e9]"
+                    }`}
                   />
+                  {errors.remarks && <p className="text-red-500 text-[11px] mt-1">{errors.remarks}</p>}
                 </div>
               </div>
 
@@ -473,14 +668,17 @@ export default function ProfessionalDetailsStep({ formData, setFormData }: Profe
                 Address
                 <span className="text-red-600"> *</span>
               </label>
-              <input 
+              <input
                 type="text"
                 name="address"
                 value={activeData.address}
                 onChange={handleInputChange}
-                className="w-full h-[44px] sm:h-[46px] bg-white border border-[#e9e9e9] rounded-[10px] px-3 text-[13px] text-[#44475b] placeholder-[#8b8b8b] focus:outline-none focus:border-[#04b488] transition-colors" 
-                placeholder="Address" 
+                className={`w-full h-[44px] sm:h-[46px] bg-white border rounded-[10px] px-3 text-[13px] text-[#44475b] placeholder-[#8b8b8b] focus:outline-none transition-colors ${
+                  errors.address ? "border-red-500 focus:border-red-500" : "border-[#e9e9e9] focus:border-[#04b488]"
+                }`}
+                placeholder="Address"
               />
+              {errors.address && <p className="text-red-500 text-[11px] mt-1">{errors.address}</p>}
             </div>
 
             <div>
@@ -488,14 +686,17 @@ export default function ProfessionalDetailsStep({ formData, setFormData }: Profe
                 City
                 <span className="text-red-600"> *</span>
               </label>
-              <input 
-                type="text" 
+              <input
+                type="text"
                 name="city"
                 value={activeData.city}
                 onChange={handleInputChange}
-                className="w-full h-[44px] sm:h-[46px] bg-white border border-[#e9e9e9] rounded-[10px] px-3 text-[13px] text-[#44475b] placeholder-[#8b8b8b] focus:outline-none focus:border-[#04b488] transition-colors" 
-                placeholder="City" 
+                className={`w-full h-[44px] sm:h-[46px] bg-white border rounded-[10px] px-3 text-[13px] text-[#44475b] placeholder-[#8b8b8b] focus:outline-none transition-colors ${
+                  errors.city ? "border-red-500 focus:border-red-500" : "border-[#e9e9e9] focus:border-[#04b488]"
+                }`}
+                placeholder="City"
               />
+              {errors.city && <p className="text-red-500 text-[11px] mt-1">{errors.city}</p>}
             </div>
 
           </div>
@@ -514,8 +715,11 @@ export default function ProfessionalDetailsStep({ formData, setFormData }: Profe
                     onChange={handleInputChange}
                     placeholder="Remarks"
                     rows={2}
-                    className="w-full bg-[#F8F8F8] text-[#44475b] border border-[#e9e9e9] rounded-xl p-3 resize-none focus:outline-none focus:ring-1 focus:ring-teal-500 placeholder:text-gray-400 placeholder:text-[13px]"
+                    className={`w-full bg-[#F8F8F8] text-[#44475b] border rounded-xl p-3 resize-none focus:outline-none focus:ring-1 focus:ring-teal-500 placeholder:text-gray-400 placeholder:text-[13px] ${
+                      errors.remarks ? "border-red-500" : "border-[#e9e9e9]"
+                    }`}
                   />
+                  {errors.remarks && <p className="text-red-500 text-[11px] mt-1">{errors.remarks}</p>}
                 </div>
               </div>
 
@@ -533,14 +737,17 @@ export default function ProfessionalDetailsStep({ formData, setFormData }: Profe
                 Address
                 <span className="text-red-600"> *</span>
               </label>
-              <input 
+              <input
                 type="text"
                 name="address"
                 value={activeData.address}
                 onChange={handleInputChange}
-                className="w-full h-[44px] sm:h-[46px] bg-white border border-[#e9e9e9] rounded-[10px] px-3 text-[13px] text-[#44475b] placeholder-[#8b8b8b] focus:outline-none focus:border-[#04b488] transition-colors" 
-                placeholder="Address" 
+                className={`w-full h-[44px] sm:h-[46px] bg-white border rounded-[10px] px-3 text-[13px] text-[#44475b] placeholder-[#8b8b8b] focus:outline-none transition-colors ${
+                  errors.address ? "border-red-500 focus:border-red-500" : "border-[#e9e9e9] focus:border-[#04b488]"
+                }`}
+                placeholder="Address"
               />
+              {errors.address && <p className="text-red-500 text-[11px] mt-1">{errors.address}</p>}
             </div>
 
             <div>
@@ -548,14 +755,17 @@ export default function ProfessionalDetailsStep({ formData, setFormData }: Profe
                 City
                 <span className="text-red-600"> *</span>
               </label>
-              <input 
-                type="text" 
+              <input
+                type="text"
                 name="city"
                 value={activeData.city}
                 onChange={handleInputChange}
-                className="w-full h-[44px] sm:h-[46px] bg-white border border-[#e9e9e9] rounded-[10px] px-3 text-[13px] text-[#44475b] placeholder-[#8b8b8b] focus:outline-none focus:border-[#04b488] transition-colors" 
-                placeholder="City" 
+                className={`w-full h-[44px] sm:h-[46px] bg-white border rounded-[10px] px-3 text-[13px] text-[#44475b] placeholder-[#8b8b8b] focus:outline-none transition-colors ${
+                  errors.city ? "border-red-500 focus:border-red-500" : "border-[#e9e9e9] focus:border-[#04b488]"
+                }`}
+                placeholder="City"
               />
+              {errors.city && <p className="text-red-500 text-[11px] mt-1">{errors.city}</p>}
             </div>
 
           </div>
@@ -574,8 +784,11 @@ export default function ProfessionalDetailsStep({ formData, setFormData }: Profe
                     onChange={handleInputChange}
                     placeholder="Remarks"
                     rows={2}
-                    className="w-full bg-[#F8F8F8] text-[#44475b] border border-[#e9e9e9] rounded-xl p-3 resize-none focus:outline-none focus:ring-1 focus:ring-teal-500 placeholder:text-gray-400 placeholder:text-[13px]"
+                    className={`w-full bg-[#F8F8F8] text-[#44475b] border rounded-xl p-3 resize-none focus:outline-none focus:ring-1 focus:ring-teal-500 placeholder:text-gray-400 placeholder:text-[13px] ${
+                      errors.remarks ? "border-red-500" : "border-[#e9e9e9]"
+                    }`}
                   />
+                  {errors.remarks && <p className="text-red-500 text-[11px] mt-1">{errors.remarks}</p>}
                 </div>
               </div>
 
@@ -584,6 +797,12 @@ export default function ProfessionalDetailsStep({ formData, setFormData }: Profe
         </div>
       )}
 
+      <StepActions
+        showBack={showBack}
+        onBack={onBack}
+        onContinue={handleContinue}
+        isSubmitting={isSubmitting}
+      />
     </div>
   );
 }

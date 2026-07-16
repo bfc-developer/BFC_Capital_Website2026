@@ -1,5 +1,6 @@
-import { useState, ChangeEvent } from "react";
+import { useState } from "react";
 import { Plus, X } from "lucide-react";
+import StepActions from "./StepActions";
 
 interface FamilyMember {
     name: string;
@@ -14,13 +15,32 @@ interface FamilyDetailsStepProps {
         maritalStatus: string;
         members: FamilyMember[];
     };
+    personalData: {
+        fullName: string;
+        dob: string;
+        mobileNumber: string;
+        email: string;
+        pan: string;
+        panFile: File | null;
+        aadharNo: string;
+        aadharFile: File | null;
+        address: string;
+        city: string;
+        contactPerson: string;
+        emergencyMobile: string;
+        emergencyEmail: string;
+    };
     setFormData?: React.Dispatch<React.SetStateAction<{
         maritalStatus: string;
         members: FamilyMember[];
     }>>;
+    profileId: string | null;
+    onNext: () => void;
+    onBack?: () => void;
+    showBack?: boolean;
 }
 
-export default function FamilyDetailsStep({ formData, setFormData }: FamilyDetailsStepProps) {
+export default function FamilyDetailsStep({ formData, personalData, setFormData, profileId, onNext, onBack, showBack = false }: FamilyDetailsStepProps) {
     const [localState, setLocalState] = useState({
         maritalStatus: "",
         members: [
@@ -30,6 +50,8 @@ export default function FamilyDetailsStep({ formData, setFormData }: FamilyDetai
 
     const activeData = formData || localState;
     const activeSetter = setFormData || setLocalState;
+    const [isSubmitting, setIsSubmitting] = useState(false);
+    const [errors, setErrors] = useState<Record<string, string>>({});
 
     const addMember = () =>
         activeSetter((prev: any) => ({
@@ -37,11 +59,19 @@ export default function FamilyDetailsStep({ formData, setFormData }: FamilyDetai
             members: [...prev.members, { name: "", relation: "", dob: "", anniversary: "", remark: "" }],
         }));
 
-    const removeMember = (i: number) =>
+    const removeMember = (i: number) => {
         activeSetter((prev: any) => ({
             ...prev,
             members: prev.members.filter((_: any, idx: number) => idx !== i),
         }));
+        // Clean up errors for this member index
+        setErrors(prev => {
+            const copy = { ...prev };
+            delete copy[`member_${i}_name`];
+            delete copy[`member_${i}_relation`];
+            return copy;
+        });
+    };
 
     const updateMemberField = (index: number, field: keyof FamilyMember, value: string) => {
         activeSetter((prev: any) => ({
@@ -54,6 +84,83 @@ export default function FamilyDetailsStep({ formData, setFormData }: FamilyDetai
 
     const isMarried = activeData.maritalStatus === "Married";
     const isSingle = activeData.maritalStatus === "Single";
+
+    const handleContinue = async () => {
+        if (!profileId) {
+            alert("Please complete the Personal Profile step first.");
+            return;
+        }
+
+        const validationErrors: Record<string, string> = {};
+        if (!activeData.maritalStatus) {
+            validationErrors.maritalStatus = "Please select your marital status.";
+        }
+
+        activeData.members.forEach((member, i) => {
+            const hasAnyField = member.name.trim() || member.relation.trim() || member.dob || member.anniversary || member.remark.trim();
+            if (hasAnyField) {
+                if (!member.name.trim()) {
+                    validationErrors[`member_${i}_name`] = "Name is required.";
+                }
+                if (!member.relation.trim()) {
+                    validationErrors[`member_${i}_relation`] = "Relation is required.";
+                }
+            }
+        });
+
+        if (Object.keys(validationErrors).length > 0) {
+            setErrors(validationErrors);
+            return;
+        }
+
+        setIsSubmitting(true);
+        try {
+            const payload = {
+                fullName: personalData.fullName || undefined,
+                dob: personalData.dob || undefined,
+                mobileNumber: personalData.mobileNumber || undefined,
+                email: personalData.email || undefined,
+                pan: personalData.pan || undefined,
+                panCardUrl: personalData.panFile ? `https://example.com/${personalData.panFile.name}` : undefined,
+                aadhaarNumber: personalData.aadharNo || undefined,
+                aadhaarCardUrl: personalData.aadharFile ? `https://example.com/${personalData.aadharFile.name}` : undefined,
+                address: personalData.address || undefined,
+                city: personalData.city || undefined,
+                emergencyContactName: personalData.contactPerson || undefined,
+                emergencyMobile: personalData.emergencyMobile || undefined,
+                emergencyEmail: personalData.emergencyEmail || undefined,
+                maritalStatus: activeData.maritalStatus || undefined,
+                familyMembers: activeData.members.some(member => member.name || member.relation)
+                    ? activeData.members.map(member => ({
+                        name: member.name || undefined,
+                        relation: member.relation || undefined,
+                        dob: member.dob || undefined,
+                        anniversary: member.anniversary || undefined,
+                        remark: member.remark || undefined,
+                    }))
+                    : undefined,
+            };
+
+            const response = await fetch(`https://h3t0pdfc-5000.inc1.devtunnels.ms/api/personal/${profileId}`, {
+                method: "PUT",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify(payload),
+            });
+
+            if (!response.ok) {
+                const errBody = await response.json().catch(() => ({}));
+                throw new Error(errBody.msg || errBody.message || "Failed to submit family details");
+            }
+
+            onNext();
+        } catch (err) {
+            alert("Error saving family details: " + (err instanceof Error ? err.message : String(err)));
+        } finally {
+            setIsSubmitting(false);
+        }
+    };
 
     return (
         <>
@@ -72,11 +179,16 @@ export default function FamilyDetailsStep({ formData, setFormData }: FamilyDetai
                         <button
                             type="button"
                             role="radio"
-                            onClick={() => activeSetter((prev: any) => ({ ...prev, maritalStatus: "Married" }))}
+                            onClick={() => {
+                                activeSetter((prev: any) => ({ ...prev, maritalStatus: "Married" }));
+                                setErrors(prev => ({ ...prev, maritalStatus: "" }));
+                            }}
                             className={`flex cursor-pointer items-center justify-center gap-2 rounded-xl border px-4 py-3 text-sm font-medium transition-colors ${
                                 isMarried 
                                     ? "bg-[#06A358] border-[#06A358] text-white" 
-                                    : "border-gray-200 text-gray-700 hover:bg-[#06A358] hover:text-white group"
+                                    : errors.maritalStatus
+                                        ? "border-red-500 text-gray-700 hover:bg-[#06A358] hover:text-white group"
+                                        : "border-gray-200 text-gray-700 hover:bg-[#06A358] hover:text-white group"
                             }`}
                         >
                             <span className="flex gap-1 items-center">
@@ -87,11 +199,16 @@ export default function FamilyDetailsStep({ formData, setFormData }: FamilyDetai
                         <button
                             type="button"
                             role="radio"
-                            onClick={() => activeSetter((prev: any) => ({ ...prev, maritalStatus: "Single" }))}
+                            onClick={() => {
+                                activeSetter((prev: any) => ({ ...prev, maritalStatus: "Single" }));
+                                setErrors(prev => ({ ...prev, maritalStatus: "" }));
+                            }}
                             className={`flex cursor-pointer items-center justify-center gap-2 rounded-xl border px-4 py-3 text-sm font-medium transition-colors ${
                                 isSingle 
                                     ? "bg-[#06A358] border-[#06A358] text-white" 
-                                    : "border-gray-200 text-gray-700 hover:bg-[#06A358] hover:text-white group"
+                                    : errors.maritalStatus
+                                        ? "border-red-500 text-gray-700 hover:bg-[#06A358] hover:text-white group"
+                                        : "border-gray-200 text-gray-700 hover:bg-[#06A358] hover:text-white group"
                             }`}
                         >
                             <span className="flex gap-1 items-center">
@@ -100,6 +217,7 @@ export default function FamilyDetailsStep({ formData, setFormData }: FamilyDetai
                             </span>
                         </button>
                     </div>
+                    {errors.maritalStatus && <p className="text-red-500 text-[11px] mt-1">{errors.maritalStatus}</p>}
                 </div>
 
                 <div className="border-t border-gray-100 pt-6 space-y-5">
@@ -114,9 +232,17 @@ export default function FamilyDetailsStep({ formData, setFormData }: FamilyDetai
                                         type="text"
                                         placeholder="Enter Name"
                                         value={row.name}
-                                        onChange={(e) => updateMemberField(i, "name", e.target.value)}
-                                        className="w-full rounded-lg border border-gray-200 bg-white px-3 py-2.5 text-sm text-gray-700 placeholder:text-gray-400 focus:outline-none focus:ring-2 focus:ring-emerald-100 focus:border-emerald-400"
+                                        onChange={(e) => {
+                                            updateMemberField(i, "name", e.target.value);
+                                            setErrors(prev => ({ ...prev, [`member_${i}_name`]: "" }));
+                                        }}
+                                        className={`w-full rounded-lg border bg-white px-3 py-2.5 text-sm text-gray-700 placeholder:text-gray-400 focus:outline-none focus:ring-2 ${
+                                            errors[`member_${i}_name`]
+                                                ? "border-red-500 focus:ring-red-100 focus:border-red-500"
+                                                : "border-gray-200 focus:ring-emerald-100 focus:border-emerald-400"
+                                        }`}
                                     />
+                                    {errors[`member_${i}_name`] && <p className="text-red-500 text-[11px] mt-1">{errors[`member_${i}_name`]}</p>}
                                 </div>
                                 <div className="space-y-1.5">
                                     <label className="block text-sm font-medium text-gray-800">Relation</label>
@@ -124,9 +250,17 @@ export default function FamilyDetailsStep({ formData, setFormData }: FamilyDetai
                                         type="text"
                                         placeholder="Relation"
                                         value={row.relation}
-                                        onChange={(e) => updateMemberField(i, "relation", e.target.value)}
-                                        className="w-full rounded-lg border border-gray-200 bg-white px-3 py-2.5 text-sm text-gray-700 placeholder:text-gray-400 focus:outline-none focus:ring-2 focus:ring-emerald-100 focus:border-emerald-400"
+                                        onChange={(e) => {
+                                            updateMemberField(i, "relation", e.target.value);
+                                            setErrors(prev => ({ ...prev, [`member_${i}_relation`]: "" }));
+                                        }}
+                                        className={`w-full rounded-lg border bg-white px-3 py-2.5 text-sm text-gray-700 placeholder:text-gray-400 focus:outline-none focus:ring-2 ${
+                                            errors[`member_${i}_relation`]
+                                                ? "border-red-500 focus:ring-red-100 focus:border-red-500"
+                                                : "border-gray-200 focus:ring-emerald-100 focus:border-emerald-400"
+                                        }`}
                                     />
+                                    {errors[`member_${i}_relation`] && <p className="text-red-500 text-[11px] mt-1">{errors[`member_${i}_relation`]}</p>}
                                 </div>
                                 <div className="space-y-1.5">
                                     <label className="block text-sm font-medium text-gray-800">DOB</label>
@@ -188,6 +322,12 @@ export default function FamilyDetailsStep({ formData, setFormData }: FamilyDetai
                         </button>
                     </div>
                 </div>
+                <StepActions
+                    showBack={showBack}
+                    onBack={onBack}
+                    onContinue={handleContinue}
+                    isSubmitting={isSubmitting}
+                />
             </div>
         </>
     );
