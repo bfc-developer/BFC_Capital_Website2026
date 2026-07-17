@@ -79,7 +79,7 @@ export default function FplanningStepper() {
     const progressPct = ((current - 1) / (STEPS.length - 1)) * 100;
     const stepRefs = useRef<Record<number, HTMLLIElement | null>>({});
     return (
-        <div className="relative min-h-screen bg-white overflow-x-hidden font-sans">
+        <div className="relative min-h-screen bg-white overflow-x-hidden font-sans bg-[url('/financialplanning/stepper-bg.png')] bg-cover bg-center bg-no-repeat">
             <div
                 className="absolute inset-0 -z-10 opacity-60"
                 style={{
