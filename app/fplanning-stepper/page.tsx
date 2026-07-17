@@ -10,6 +10,7 @@ import KnowYourRiskProfile from "../components/fplanning/KnowYourRiskProfile";
 import ExistingInvestmentsStep from "../components/fplanning/ExistingInvestmentsStep";
 import PortfolioReview from "../components/fplanning/PortfolioReview";
 import GoalIdentificationStep from "../components/fplanning/GoalIdentificationStep";
+import StepActions from "../components/fplanning/StepActions";
 
 
 const STEPS = [
@@ -23,25 +24,6 @@ const STEPS = [
     { id: 8, label: "Goal Identification" },
     { id: 9, label: "Portfolio Review" },
 ];
-
-<PersonalProfileStep />;
-
-<FamilyDetailsStep />;
-
-<ProfessionalDetailsStep />;
-
-<FinancialProfileStep />;
-
-<ContingencyPlanningStep />;
-
-<KnowYourRiskProfile />;
-
-<ExistingInvestmentsStep />;
-
-<GoalIdentificationStep />;
-
-<PortfolioReview />
-
 
 const STEP_COMPONENTS = {
     1: PersonalProfileStep,
@@ -58,6 +40,16 @@ const STEP_COMPONENTS = {
 export default function FplanningStepper() {
     const [current, setCurrent] = useState(1);
     const [profileId, setProfileId] = useState<string | null>(null);
+    const [financialProfileId, setFinancialProfileId] = useState<string | null>(null);
+    const [financialProfileExists, setFinancialProfileExists] = useState(false);
+    const [financialPlanningId, setFinancialPlanningId] = useState<string | null>(null);
+
+    const [sessionChoice, setSessionChoice] = useState<"ask" | "new" | "continue">("ask");
+    const [resumeMobileNumber, setResumeMobileNumber] = useState("");
+    const [resumePan, setResumePan] = useState("");
+    const [matchingProfiles, setMatchingProfiles] = useState<any[]>([]);
+    const [isFetchingSession, setIsFetchingSession] = useState(false);
+    const [sessionError, setSessionError] = useState("");
 
     const [personalData, setPersonalData] = useState({
         fullName: "",
@@ -96,130 +88,6 @@ export default function FplanningStepper() {
         remarks: "",
     });
 
-    const [financialProfileExists, setFinancialProfileExists] = useState(false);
-    const [isSubmitting, setIsSubmitting] = useState(false);
-
-    const handleApiSubmit = async () => {
-        setIsSubmitting(true);
-        try {
-            const payload = {
-                fullName: personalData.fullName || undefined,
-                dob: personalData.dob || undefined,
-                mobileNumber: personalData.mobileNumber || undefined,
-                email: personalData.email || undefined,
-                pan: personalData.pan || undefined,
-                panCardUrl: personalData.panFile ? `https://example.com/${personalData.panFile.name}` : undefined,
-                aadhaarNumber: personalData.aadharNo || undefined,
-                aadhaarCardUrl: personalData.aadharFile ? `https://example.com/${personalData.aadharFile.name}` : undefined,
-                address: personalData.address || undefined,
-                city: personalData.city || undefined,
-                emergencyContactName: personalData.contactPerson || undefined,
-                emergencyMobile: personalData.emergencyMobile || undefined,
-                emergencyEmail: personalData.emergencyEmail || undefined,
-                maritalStatus: familyData.maritalStatus || undefined,
-                familyMembers: familyData.members.some(member => member.name || member.relation)
-                    ? familyData.members.map(member => ({
-                        name: member.name || undefined,
-                        relation: member.relation || undefined,
-                        dob: member.dob || undefined,
-                        anniversary: member.anniversary || undefined,
-                        remark: member.remark || undefined,
-                    }))
-                    : undefined
-            };
-
-            const url = profileId 
-                ? `http://localhost:5000/api/personal/${profileId}` 
-                : "http://localhost:5000/api/personal";
-            const method = profileId ? "PUT" : "POST";
-
-            console.log(`Submitting payload using ${method} to ${url}:`, payload);
-
-            const response = await fetch(url, {
-                method: method,
-                headers: {
-                    "Content-Type": "application/json",
-                },
-                body: JSON.stringify(payload),
-            });
-
-            if (!response.ok) {
-                const errBody = await response.json().catch(() => ({}));
-                throw new Error(errBody.msg || errBody.message || "Failed to submit personal/family profile details");
-            }
-
-            const resData = await response.json();
-            console.log("Submit successful:", resData);
-
-            if (resData.data && resData.data._id) {
-                setProfileId(resData.data._id);
-            }
-            return true;
-        } catch (err) {
-            console.error("API Error:", err);
-            alert("Error saving details: " + (err instanceof Error ? err.message : String(err)));
-            return false;
-        } finally {
-            setIsSubmitting(false);
-        }
-    };
-
-    const handleProfessionalApiSubmit = async () => {
-        if (!profileId) {
-            alert("Please complete the Personal Profile step first.");
-            return false;
-        }
-        setIsSubmitting(true);
-        try {
-            const payload = {
-                _id: profileId,
-                occupation: professionalData.occupation === "Other" ? "Others" : professionalData.occupation,
-                pvtOrGovt: professionalData.pvtOrGovt || undefined,
-                organisationName: professionalData.organisationName || undefined,
-                designation: professionalData.designation || undefined,
-                workProfile: professionalData.workProfile || undefined,
-                businessType: professionalData.businessType || undefined,
-                professionName: professionalData.professionName || undefined,
-                lastOrganisation: professionalData.lastOrganisation || undefined,
-                address: professionalData.address || undefined,
-                city: professionalData.city || undefined,
-                remarks: professionalData.remarks || undefined,
-            };
-
-            const url = financialProfileExists
-                ? `http://localhost:5000/api/financial/${profileId}`
-                : "http://localhost:5000/api/financial";
-            const method = financialProfileExists ? "PUT" : "POST";
-
-            console.log(`Submitting professional payload using ${method} to ${url}:`, payload);
-
-            const response = await fetch(url, {
-                method: method,
-                headers: {
-                    "Content-Type": "application/json",
-                },
-                body: JSON.stringify(payload),
-            });
-
-            if (!response.ok) {
-                const errBody = await response.json().catch(() => ({}));
-                throw new Error(errBody.msg || errBody.message || "Failed to submit professional details");
-            }
-
-            const resData = await response.json();
-            console.log("Professional submit successful:", resData);
-
-            setFinancialProfileExists(true);
-            return true;
-        } catch (err) {
-            console.error("Professional API Error:", err);
-            alert("Error saving professional details: " + (err instanceof Error ? err.message : String(err)));
-            return false;
-        } finally {
-            setIsSubmitting(false);
-        }
-    };
-
     const StepBody =
         STEP_COMPONENTS[current as keyof typeof STEP_COMPONENTS] as React.ComponentType<any>;
 
@@ -236,24 +104,416 @@ export default function FplanningStepper() {
             setCurrent(id);
         }
     };
-    const next = async () => {
-        if (current === 1 || current === 2) {
-            const success = await handleApiSubmit();
-            if (!success) {
-                return;
-            }
-        } else if (current === 3) {
-            const success = await handleProfessionalApiSubmit();
-            if (!success) {
-                return;
-            }
-        }
-        setCurrent((c) => Math.min(c + 1, STEPS.length));
-    };
     const back = () => setCurrent((c) => Math.max(c - 1, 1));
 
     const progressPct = ((current - 1) / (STEPS.length - 1)) * 100;
     const stepRefs = useRef<Record<number, HTMLLIElement | null>>({});
+
+    const handleResumeSubmit = async (e: React.FormEvent) => {
+        e.preventDefault();
+        if (resumeMobileNumber.length !== 10) {
+            setSessionError("Please enter a valid 10-digit mobile number.");
+            return;
+        }
+        const panRegex = /^[A-Z]{5}[0-9]{4}[A-Z]{1}$/;
+        if (!panRegex.test(resumePan)) {
+            setSessionError("Please enter a valid PAN format (e.g. ABCDE1234F).");
+            return;
+        }
+        setIsFetchingSession(true);
+        setSessionError("");
+        setMatchingProfiles([]);
+        try {
+            const response = await fetch(`https://h3t0pdfc-5000.inc1.devtunnels.ms/api/personal/mobile-state/${resumeMobileNumber}/${resumePan}`);
+            if (!response.ok) {
+                throw new Error("Unable to contact backend server.");
+            }
+            const resData = await response.json();
+            if (resData.success) {
+                if (resData.multiple) {
+                    setMatchingProfiles(resData.profiles || []);
+                } else {
+                    // Prefill state variables for single matching profile
+                    const personal = resData.personal;
+                    setProfileId(personal._id);
+                    setFinancialProfileId(resData.financialProfile ? resData.financialProfile._id : null);
+                    setFinancialProfileExists(!!resData.financialProfile);
+                    setFinancialPlanningId(resData.financialPlanning ? resData.financialPlanning._id : null);
+
+                    // Personal data prefill
+                    setPersonalData({
+                        fullName: personal.fullName || "",
+                        dob: personal.dob ? personal.dob.split("T")[0] : "",
+                        mobileNumber: personal.mobileNumber || "",
+                        email: personal.email || "",
+                        pan: personal.pan || "",
+                        panFile: null,
+                        aadharNo: personal.aadhaarNumber || "",
+                        aadharFile: null,
+                        address: personal.address || "",
+                        city: personal.city || "",
+                        contactPerson: personal.emergencyContactName || "",
+                        emergencyMobile: personal.emergencyMobile || "",
+                        emergencyEmail: personal.emergencyEmail || "",
+                    });
+
+                    // Family data prefill
+                    setFamilyData({
+                        maritalStatus: personal.maritalStatus || "",
+                        members: (personal.familyMembers && personal.familyMembers.length > 0)
+                            ? personal.familyMembers.map((member: any) => ({
+                                  name: member.name || "",
+                                  relation: member.relation || "",
+                                  dob: member.dob ? member.dob.split("T")[0] : "",
+                                  anniversary: member.anniversary ? member.anniversary.split("T")[0] : "",
+                                  remark: member.remark || ""
+                              }))
+                            : [{ name: "", relation: "", dob: "", anniversary: "", remark: "" }]
+                    });
+
+                    // Professional data prefill
+                    setProfessionalData({
+                        occupation: resData.financialProfile?.occupation || "",
+                        pvtOrGovt: resData.financialProfile?.pvtOrGovt || "",
+                        organisationName: resData.financialProfile?.organisationName || "",
+                        designation: resData.financialProfile?.designation || "",
+                        workProfile: resData.financialProfile?.workProfile || "",
+                        businessType: resData.financialProfile?.businessType || "",
+                        professionName: resData.financialProfile?.professionName || "",
+                        lastOrganisation: resData.financialProfile?.lastOrganisation || "",
+                        address: resData.financialProfile?.address || "",
+                        city: resData.financialProfile?.city || "",
+                        remarks: resData.financialProfile?.remarks || "",
+                    });
+
+                    // Move stepper to target step
+                    setCurrent(resData.step || 1);
+                }
+            } else {
+                setSessionError("No existing record found for this mobile number and PAN.");
+            }
+        } catch (err) {
+            setSessionError(err instanceof Error ? err.message : "Error connecting to server. Please try again.");
+        } finally {
+            setIsFetchingSession(false);
+        }
+    };
+
+    const handleSelectProfile = async (id: string) => {
+        setIsFetchingSession(true);
+        setSessionError("");
+        try {
+            const response = await fetch(`https://h3t0pdfc-5000.inc1.devtunnels.ms/api/personal/state-by-id/${id}`);
+            if (!response.ok) {
+                throw new Error("Unable to contact backend server.");
+            }
+            const resData = await response.json();
+            if (resData.success) {
+                const personal = resData.personal;
+                setProfileId(personal._id);
+                setFinancialProfileId(resData.financialProfile ? resData.financialProfile._id : null);
+                setFinancialProfileExists(!!resData.financialProfile);
+                setFinancialPlanningId(resData.financialPlanning ? resData.financialPlanning._id : null);
+
+                // Personal data prefill
+                setPersonalData({
+                    fullName: personal.fullName || "",
+                    dob: personal.dob ? personal.dob.split("T")[0] : "",
+                    mobileNumber: personal.mobileNumber || "",
+                    email: personal.email || "",
+                    pan: personal.pan || "",
+                    panFile: null,
+                    aadharNo: personal.aadhaarNumber || "",
+                    aadharFile: null,
+                    address: personal.address || "",
+                    city: personal.city || "",
+                    contactPerson: personal.emergencyContactName || "",
+                    emergencyMobile: personal.emergencyMobile || "",
+                    emergencyEmail: personal.emergencyEmail || "",
+                });
+
+                // Family data prefill
+                setFamilyData({
+                    maritalStatus: personal.maritalStatus || "",
+                    members: (personal.familyMembers && personal.familyMembers.length > 0)
+                        ? personal.familyMembers.map((member: any) => ({
+                              name: member.name || "",
+                              relation: member.relation || "",
+                              dob: member.dob ? member.dob.split("T")[0] : "",
+                              anniversary: member.anniversary ? member.anniversary.split("T")[0] : "",
+                              remark: member.remark || ""
+                          }))
+                        : [{ name: "", relation: "", dob: "", anniversary: "", remark: "" }]
+                });
+
+                // Professional data prefill
+                setProfessionalData({
+                    occupation: resData.financialProfile?.occupation || "",
+                    pvtOrGovt: resData.financialProfile?.pvtOrGovt || "",
+                    organisationName: resData.financialProfile?.organisationName || "",
+                    designation: resData.financialProfile?.designation || "",
+                    workProfile: resData.financialProfile?.workProfile || "",
+                    businessType: resData.financialProfile?.businessType || "",
+                    professionName: resData.financialProfile?.professionName || "",
+                    lastOrganisation: resData.financialProfile?.lastOrganisation || "",
+                    address: resData.financialProfile?.address || "",
+                    city: resData.financialProfile?.city || "",
+                    remarks: resData.financialProfile?.remarks || "",
+                });
+
+                // Move stepper to target step
+                setCurrent(resData.step || 1);
+                // Clear matching list
+                setMatchingProfiles([]);
+            } else {
+                setSessionError("Failed to retrieve profile details.");
+            }
+        } catch (err) {
+            setSessionError(err instanceof Error ? err.message : "Error connecting to server. Please try again.");
+        } finally {
+            setIsFetchingSession(false);
+        }
+    };
+
+    const sharedFooter = (
+        <StepActions
+            showBack={current > 1}
+            onBack={back}
+            onContinue={() => setCurrent((c) => Math.min(c + 1, STEPS.length))}
+            continueLabel={current === STEPS.length ? "Submit" : "Continue"}
+        />
+    );
+
+    if (sessionChoice === "ask") {
+        return (
+            <div className="relative min-h-screen bg-white overflow-x-hidden font-sans flex items-center justify-center py-10 px-4">
+                <div
+                    className="absolute inset-0 -z-10 opacity-60"
+                    style={{
+                        backgroundImage:
+                            "linear-gradient(#f1f2f9 1px, transparent 1px), linear-gradient(90deg, #f1f2f9 1px, transparent 1px)",
+                        backgroundSize: "40px 40px",
+                    }}
+                />
+                <div className="absolute inset-0 -z-10 bg-gradient-to-b from-white/0 to-white" />
+                
+                <div className="w-full max-w-[600px] bg-white border border-[#e0dbdb] rounded-[24px] sm:rounded-[33px] shadow-[0px_10px_30px_rgba(0,0,0,0.08)] p-6 sm:p-10 md:p-12 text-center space-y-8 relative overflow-hidden">
+                    <div className="absolute -top-10 -left-10 w-40 h-40 bg-gradient-to-tr from-[#06a358]/10 to-[#001EFE]/10 rounded-full blur-2xl" />
+                    <div className="absolute -bottom-10 -right-10 w-40 h-40 bg-gradient-to-tr from-[#001EFE]/10 to-[#06a358]/10 rounded-full blur-2xl" />
+                    
+                    <div className="flex justify-center mb-4">
+                        <img src="/logo/cap-logo.svg" alt="BFC Capital" className="w-[180px] sm:w-[220px] h-auto object-contain" />
+                    </div>
+                    
+                    <div className="space-y-3">
+                        <h1 className="font-bold text-[24px] sm:text-[30px] bg-gradient-to-r from-[#06a358] to-[#001EFE] bg-clip-text text-transparent leading-tight">
+                            Financial Planning Stepper
+                        </h1>
+                        <p className="text-[14px] sm:text-[16px] text-[#8b8b8b] font-medium max-w-md mx-auto">
+                            Plan your financial future with expert assistance. Choose an option below to begin.
+                        </p>
+                    </div>
+                    
+                    <div className="flex flex-col sm:flex-row gap-4 pt-4 justify-center">
+                        <button
+                            onClick={() => setSessionChoice("continue")}
+                            className="flex-1 min-h-[52px] bg-gradient-to-r from-[#06a358] to-[#035daf] hover:from-[#058f4d] hover:to-[#024d91] text-white font-bold text-[14px] sm:text-[15px] rounded-[12px] shadow-[0px_4px_12px_rgba(6,163,88,0.2)] transition-all duration-300 transform hover:-translate-y-0.5 active:translate-y-0"
+                        >
+                            Continue Where You Left
+                        </button>
+                        <button
+                            onClick={() => setSessionChoice("new")}
+                            className="flex-1 min-h-[52px] bg-white border border-[#e0dbdb] hover:border-[#06a358] text-[#44475b] hover:text-[#06a358] font-bold text-[14px] sm:text-[15px] rounded-[12px] transition-all duration-300 transform hover:-translate-y-0.5 active:translate-y-0 shadow-[0px_2px_4px_rgba(0,0,0,0.02)]"
+                        >
+                            Start New Session
+                        </button>
+                    </div>
+                </div>
+            </div>
+        );
+    }
+
+    if (sessionChoice === "continue" && !profileId && matchingProfiles.length > 0) {
+        return (
+            <div className="relative min-h-screen bg-white overflow-x-hidden font-sans flex items-center justify-center py-10 px-4">
+                <div
+                    className="absolute inset-0 -z-10 opacity-60"
+                    style={{
+                        backgroundImage:
+                            "linear-gradient(#f1f2f9 1px, transparent 1px), linear-gradient(90deg, #f1f2f9 1px, transparent 1px)",
+                        backgroundSize: "40px 40px",
+                    }}
+                />
+                <div className="absolute inset-0 -z-10 bg-gradient-to-b from-white/0 to-white" />
+                
+                <div className="w-full max-w-[600px] bg-white border border-[#e0dbdb] rounded-[24px] sm:rounded-[33px] shadow-[0px_10px_30px_rgba(0,0,0,0.08)] p-6 sm:p-10 text-center space-y-6 relative overflow-hidden">
+                    <div className="flex justify-center mb-2">
+                        <img src="/logo/cap-logo.svg" alt="BFC Capital" className="w-[140px] sm:w-[180px] h-auto object-contain" />
+                    </div>
+                    
+                    <div className="space-y-2">
+                        <h2 className="font-bold text-[20px] sm:text-[24px] text-[#44475b]">
+                            Multiple Records Found
+                        </h2>
+                        <p className="text-[13px] sm:text-[14px] text-[#8b8b8b] font-medium">
+                            Please select the profile session you want to continue.
+                        </p>
+                    </div>
+
+                    <div className="space-y-3 max-h-[300px] overflow-y-auto pr-1">
+                        {matchingProfiles.map((prof: any) => {
+                            const dateStr = prof.createdAt ? new Date(prof.createdAt).toLocaleDateString("en-IN", {
+                                day: "numeric",
+                                month: "short",
+                                year: "numeric",
+                                hour: "2-digit",
+                                minute: "2-digit"
+                            }) : "";
+                            return (
+                                <div key={prof._id} className="flex flex-col sm:flex-row sm:items-center justify-between p-4 bg-gradient-to-r from-[#faf9fa] to-[#eaf6ff] hover:to-[#dfeffd] border border-[#e2e3ea] rounded-[14px] text-left gap-3 transition-colors">
+                                    <div className="space-y-1">
+                                        <h4 className="font-bold text-[15px] text-[#44475b]">{prof.fullName || "Unnamed Profile"}</h4>
+                                        <p className="text-[12px] text-[#8b8b8b] font-medium">Email: {prof.email || "N/A"}</p>
+                                        <p className="text-[11px] text-[#b0b0b0]">Created: {dateStr}</p>
+                                    </div>
+                                    <button
+                                        onClick={() => handleSelectProfile(prof._id)}
+                                        className="h-[36px] px-5 bg-[#06A358] hover:bg-[#058f4d] text-white font-bold text-[12px] rounded-[8px] transition-colors flex-shrink-0"
+                                    >
+                                        Select
+                                    </button>
+                                </div>
+                            );
+                        })}
+                    </div>
+                    
+                    {sessionError && (
+                        <p className="text-[12px] font-semibold text-red-500 text-center bg-red-50 py-2 px-3 rounded-[8px]">
+                            {sessionError}
+                        </p>
+                    )}
+                    
+                    <button
+                        type="button"
+                        onClick={() => {
+                            setMatchingProfiles([]);
+                            setSessionError("");
+                        }}
+                        className="text-[13px] text-[#06A358] font-bold hover:underline"
+                    >
+                        Go Back to Input
+                    </button>
+                </div>
+            </div>
+        );
+    }
+
+    if (sessionChoice === "continue" && !profileId) {
+        return (
+            <div className="relative min-h-screen bg-white overflow-x-hidden font-sans flex items-center justify-center py-10 px-4">
+                <div
+                    className="absolute inset-0 -z-10 opacity-60"
+                    style={{
+                        backgroundImage:
+                            "linear-gradient(#f1f2f9 1px, transparent 1px), linear-gradient(90deg, #f1f2f9 1px, transparent 1px)",
+                        backgroundSize: "40px 40px",
+                    }}
+                />
+                <div className="absolute inset-0 -z-10 bg-gradient-to-b from-white/0 to-white" />
+                
+                <div className="w-full max-w-[500px] bg-white border border-[#e0dbdb] rounded-[24px] sm:rounded-[33px] shadow-[0px_10px_30px_rgba(0,0,0,0.08)] p-6 sm:p-10 text-center space-y-6 relative overflow-hidden">
+                    <div className="flex justify-center mb-2">
+                        <img src="/logo/cap-logo.svg" alt="BFC Capital" className="w-[140px] sm:w-[180px] h-auto object-contain" />
+                    </div>
+                    
+                    <div className="space-y-2">
+                        <h2 className="font-bold text-[20px] sm:text-[24px] text-[#44475b]">
+                            Resume Your Progress
+                        </h2>
+                        <p className="text-[13px] sm:text-[14px] text-[#8b8b8b] font-medium">
+                            Enter the mobile number and PAN associated with your previous session.
+                        </p>
+                    </div>
+                    
+                    <form onSubmit={handleResumeSubmit} className="space-y-4 text-left">
+                        <div>
+                            <label className="block text-[12px] font-semibold text-[#44475b] mb-1.5">
+                                Mobile Number
+                            </label>
+                            <input
+                                type="text"
+                                maxLength={10}
+                                placeholder="Enter 10-digit mobile number"
+                                value={resumeMobileNumber}
+                                onChange={(e) => {
+                                    const val = e.target.value.replace(/\D/g, "");
+                                    setResumeMobileNumber(val);
+                                    setSessionError("");
+                                }}
+                                className="w-full h-[48px] bg-white border border-[#e9e9e9] rounded-[10px] px-4 text-[14px] text-[#44475b] placeholder-[#8b8b8b] focus:outline-none focus:border-[#06A358] transition-colors"
+                            />
+                        </div>
+
+                        <div>
+                            <label className="block text-[12px] font-semibold text-[#44475b] mb-1.5">
+                                PAN
+                            </label>
+                            <input
+                                type="text"
+                                maxLength={10}
+                                placeholder="Enter 10-digit PAN (e.g. ABCDE1234F)"
+                                value={resumePan}
+                                onChange={(e) => {
+                                    setResumePan(e.target.value.toUpperCase());
+                                    setSessionError("");
+                                }}
+                                className="w-full h-[48px] bg-white border border-[#e9e9e9] rounded-[10px] px-4 text-[14px] text-[#44475b] placeholder-[#8b8b8b] focus:outline-none focus:border-[#06A358] transition-colors"
+                            />
+                        </div>
+                        
+                        {sessionError && (
+                            <p className="text-[12px] font-semibold text-red-500 text-center bg-red-50 py-2 px-3 rounded-[8px]">
+                                {sessionError}
+                            </p>
+                        )}
+                        
+                        <button
+                            type="submit"
+                            disabled={isFetchingSession}
+                            className="w-full min-h-[48px] bg-gradient-to-r from-[#06a358] to-[#035daf] hover:from-[#058f4d] hover:to-[#024d91] disabled:opacity-70 text-white font-bold text-[14px] sm:text-[15px] rounded-[10px] shadow-[0px_4px_12px_rgba(6,163,88,0.2)] transition-all duration-300"
+                        >
+                            {isFetchingSession ? "Retrieving Record..." : "Retrieve and Continue"}
+                        </button>
+                    </form>
+                    
+                    <div className="flex flex-col gap-2 pt-2 text-center">
+                        <button
+                            type="button"
+                            onClick={() => {
+                                setSessionChoice("ask");
+                                setSessionError("");
+                            }}
+                            className="text-[13px] text-[#06A358] font-bold hover:underline"
+                        >
+                            Go Back
+                        </button>
+                        <span className="text-[12px] text-[#8b8b8b]">or</span>
+                        <button
+                            type="button"
+                            onClick={() => {
+                                setSessionChoice("new");
+                                setSessionError("");
+                            }}
+                            className="text-[13px] text-[#44475b] font-semibold hover:underline"
+                        >
+                            Start a new session instead
+                        </button>
+                    </div>
+                </div>
+            </div>
+        );
+    }
+
     return (
         <div className="relative min-h-screen bg-white overflow-x-hidden font-sans">
             <div
@@ -365,40 +625,67 @@ export default function FplanningStepper() {
 
                         <form className="space-y-6 sm:space-y-8" onSubmit={(e) => e.preventDefault()}>
                             {current === 1 ? (
-                                <PersonalProfileStep formData={personalData} setFormData={setPersonalData} />
+                                <PersonalProfileStep
+                                    formData={personalData}
+                                    setFormData={setPersonalData}
+                                    profileId={profileId}
+                                    setProfileId={setProfileId}
+                                    onNext={() => setCurrent((c) => Math.min(c + 1, STEPS.length))}
+                                    onBack={back}
+                                    showBack={current > 1}
+                                />
                             ) : current === 2 ? (
-                                <FamilyDetailsStep formData={familyData} setFormData={setFamilyData} />
+                                <FamilyDetailsStep
+                                    formData={familyData}
+                                    personalData={personalData}
+                                    setFormData={setFamilyData}
+                                    profileId={profileId}
+                                    onNext={() => setCurrent((c) => Math.min(c + 1, STEPS.length))}
+                                    onBack={back}
+                                    showBack={current > 1}
+                                />
                             ) : current === 3 ? (
-                                <ProfessionalDetailsStep formData={professionalData} setFormData={setProfessionalData} />
+                                <ProfessionalDetailsStep
+                                    formData={professionalData}
+                                    setFormData={setProfessionalData}
+                                    profileId={profileId}
+                                    financialProfileId={financialProfileId}
+                                    setFinancialProfileId={setFinancialProfileId}
+                                    financialProfileExists={financialProfileExists}
+                                    setFinancialProfileExists={setFinancialProfileExists}
+                                    onNext={() => setCurrent((c) => Math.min(c + 1, STEPS.length))}
+                                    onBack={back}
+                                    showBack={current > 1}
+                                />
+                            ) : current === 4 ? (
+                                <FinancialProfileStep
+                                    profileId={profileId}
+                                    financialProfileId={financialProfileId}
+                                    professionalData={professionalData}
+                                    onNext={() => setCurrent((c) => Math.min(c + 1, STEPS.length))}
+                                    onBack={back}
+                                    showBack={current > 1}
+                                />
+                            ) : current === 5 ? (
+                                <ContingencyPlanningStep
+                                    profileId={profileId}
+                                    financialPlanningId={financialPlanningId}
+                                    setFinancialPlanningId={setFinancialPlanningId}
+                                    onNext={() => setCurrent((c) => Math.min(c + 1, STEPS.length))}
+                                    onBack={back}
+                                    showBack={current > 1}
+                                />
+                            ) : current === 6 ? (
+                                <KnowYourRiskProfile
+                                    profileId={profileId}
+                                    financialPlanningId={financialPlanningId}
+                                    onNext={() => setCurrent((c) => Math.min(c + 1, STEPS.length))}
+                                    onBack={back}
+                                    showBack={current > 1}
+                                />
                             ) : (
-                                <StepBody />
+                                <StepBody footer={sharedFooter} />
                             )}
-
-                            <div className="flex flex-row justify-between sm:justify-end gap-3 pt-2">
-                                {current > 1 && (
-                                    <button
-                                        type="button"
-                                        onClick={back}
-                                        disabled={isSubmitting}
-                                        className="w-1/2 sm:w-auto cursor-pointer sm:min-w-[120px] h-[46px] sm:h-[48px] px-4 sm:px-6 bg-white border border-[#e0dbdb] hover:bg-[#fafafa] rounded-[10px] flex items-center justify-center gap-2 text-[#44475b] font-medium text-[15px] sm:text-[18px] transition-colors disabled:opacity-55"
-                                    >
-                                        Back
-                                    </button>
-                                )}
-                                <button
-                                    type="button"
-                                    onClick={next}
-                                    disabled={isSubmitting}
-                                    className={`${current > 1 ? "w-1/2" : "w-full"} cursor-pointer sm:w-auto sm:min-w-[170px] h-[46px] sm:h-[48px] px-4 sm:px-6 bg-[#06A358] hover:bg-[#06A358] rounded-[10px] shadow-[3px_3px_8.6px_0px_rgba(0,0,0,0.12)] flex items-center justify-center gap-2 text-white font-medium text-[15px] sm:text-[18px] transition-colors disabled:opacity-75`}
-                                >
-                                    {isSubmitting ? "Saving..." : current === STEPS.length ? "Submit" : "Continue"}
-                                    {!isSubmitting && (
-                                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                                            <path d="M5 12h14M13 6l6 6-6 6" />
-                                        </svg>
-                                    )}
-                                </button>
-                            </div>
                         </form>
                     </main>
                 </div>

@@ -1,4 +1,5 @@
 import { useState, ChangeEvent } from "react";
+import StepActions from "./StepActions";
 
 const fieldBase =
     "w-full h-[44px] sm:h-[46px] bg-white border border-[#e9e9e9] rounded-[10px] px-3 text-[13px] text-[#44475b] placeholder-[#8b8b8b] focus:outline-none focus:border-[#06A358] transition-colors";
@@ -61,9 +62,22 @@ interface PersonalProfileStepProps {
         emergencyMobile: string;
         emergencyEmail: string;
     }>>;
+    profileId: string | null;
+    setProfileId: React.Dispatch<React.SetStateAction<string | null>>;
+    onNext: () => void;
+    onBack?: () => void;
+    showBack?: boolean;
 }
 
-export default function PersonalProfileStep({ formData, setFormData }: PersonalProfileStepProps) {
+export default function PersonalProfileStep({
+    formData,
+    setFormData,
+    profileId,
+    setProfileId,
+    onNext,
+    onBack,
+    showBack = false,
+}: PersonalProfileStepProps) {
     const [localState, setLocalState] = useState({
         fullName: "",
         dob: "",
@@ -79,6 +93,8 @@ export default function PersonalProfileStep({ formData, setFormData }: PersonalP
         emergencyMobile: "",
         emergencyEmail: "",
     });
+    const [isSubmitting, setIsSubmitting] = useState(false);
+    const [errors, setErrors] = useState<Record<string, string>>({});
 
     const activeData = formData || localState;
     const activeSetter = setFormData || setLocalState;
@@ -89,6 +105,103 @@ export default function PersonalProfileStep({ formData, setFormData }: PersonalP
             ...prev,
             [name]: name === "pan" ? value.toUpperCase() : value,
         }));
+        setErrors((prev) => ({
+            ...prev,
+            [name]: "",
+        }));
+    };
+
+    const handleContinue = async () => {
+        const validationErrors: Record<string, string> = {};
+        if (!activeData.fullName || !activeData.fullName.trim()) {
+            validationErrors.fullName = "Full name is required.";
+        }
+        if (!activeData.dob) {
+            validationErrors.dob = "Date of birth is required.";
+        }
+        if (!activeData.mobileNumber || !activeData.mobileNumber.trim()) {
+            validationErrors.mobileNumber = "Mobile number is required.";
+        } else if (activeData.mobileNumber.trim().length !== 10) {
+            validationErrors.mobileNumber = "Mobile number must be exactly 10 digits.";
+        }
+        if (!activeData.email || !activeData.email.trim()) {
+            validationErrors.email = "Email ID is required.";
+        } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(activeData.email.trim())) {
+            validationErrors.email = "Please enter a valid email address.";
+        }
+        if (!activeData.pan || !activeData.pan.trim()) {
+            validationErrors.pan = "PAN is required.";
+        } else if (!/^[A-Z]{5}[0-9]{4}[A-Z]{1}$/.test(activeData.pan.trim().toUpperCase())) {
+            validationErrors.pan = "Please enter a valid PAN format (e.g. ABCDE1234F).";
+        }
+        if (!activeData.address || !activeData.address.trim()) {
+            validationErrors.address = "Address is required.";
+        }
+        if (!activeData.city || !activeData.city.trim()) {
+            validationErrors.city = "City is required.";
+        }
+        if (activeData.emergencyMobile && activeData.emergencyMobile.trim() && activeData.emergencyMobile.trim().length !== 10) {
+            validationErrors.emergencyMobile = "Emergency mobile must be exactly 10 digits.";
+        }
+        if (activeData.emergencyEmail && activeData.emergencyEmail.trim() && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(activeData.emergencyEmail.trim())) {
+            validationErrors.emergencyEmail = "Please enter a valid email address.";
+        }
+
+        if (Object.keys(validationErrors).length > 0) {
+            setErrors(validationErrors);
+            const firstErrorKey = Object.keys(validationErrors)[0];
+            const errorElement = document.getElementsByName(firstErrorKey)[0];
+            if (errorElement) {
+                errorElement.scrollIntoView({ behavior: "smooth", block: "center" });
+                errorElement.focus();
+            }
+            return;
+        }
+
+        setIsSubmitting(true);
+        try {
+            const payload = {
+                fullName: activeData.fullName || undefined,
+                dob: activeData.dob || undefined,
+                mobileNumber: activeData.mobileNumber || undefined,
+                email: activeData.email || undefined,
+                pan: activeData.pan || undefined,
+                panCardUrl: activeData.panFile ? `https://example.com/${activeData.panFile.name}` : undefined,
+                aadhaarNumber: activeData.aadharNo || undefined,
+                aadhaarCardUrl: activeData.aadharFile ? `https://example.com/${activeData.aadharFile.name}` : undefined,
+                address: activeData.address || undefined,
+                city: activeData.city || undefined,
+                emergencyContactName: activeData.contactPerson || undefined,
+                emergencyMobile: activeData.emergencyMobile || undefined,
+                emergencyEmail: activeData.emergencyEmail || undefined,
+            };
+
+            const url = profileId
+                ? `https://h3t0pdfc-5000.inc1.devtunnels.ms/api/personal/${profileId}`
+                : "https://h3t0pdfc-5000.inc1.devtunnels.ms/api/personal";
+            const method = profileId ? "PUT" : "POST";
+
+            const response = await fetch(url, {
+                method,
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify(payload),
+            });
+
+            if (!response.ok) {
+                const errBody = await response.json().catch(() => ({}));
+                throw new Error(errBody.msg || errBody.message || "Failed to submit personal profile details");
+            }
+
+            const resData = await response.json();
+            if (resData.data && resData.data._id) {
+                setProfileId(resData.data._id);
+            }
+            onNext();
+        } catch (err) {
+            alert("Error saving details: " + (err instanceof Error ? err.message : String(err)));
+        } finally {
+            setIsSubmitting(false);
+        }
     };
 
     return (
@@ -107,56 +220,68 @@ export default function PersonalProfileStep({ formData, setFormData }: PersonalP
                             Full Name
                             <span className="text-red-600"> *</span>
                         </label>
-                        <input
-                            className="w-full h-[44px] sm:h-[46px] bg-white border border-[#e9e9e9] rounded-[10px] px-3 text-[13px] text-[#44475b] placeholder-[#8b8b8b] focus:outline-none focus:border-[#06A358] transition-colors"
-                            type="text"
+                        <input 
+                            className={`w-full h-[44px] sm:h-[46px] bg-white border rounded-[10px] px-3 text-[13px] text-[#44475b] placeholder-[#8b8b8b] focus:outline-none transition-colors ${
+                                errors.fullName ? "border-red-500 focus:border-red-500" : "border-[#e9e9e9] focus:border-[#06A358]"
+                            }`}
+                            type="text" 
                             placeholder="Enter Name"
                             name="fullName"
                             value={activeData.fullName}
                             onChange={handleChange}
                         />
+                        {errors.fullName && <p className="text-red-500 text-[11px] mt-1">{errors.fullName}</p>}
                     </div>
                     <div>
                         <label className="block text-[13px] font-medium text-[#44475b] mb-2">
                             Date of Birth
                             <span className="text-red-600"> *</span>
                         </label>
-                        <input
-                            className="w-full h-[44px] sm:h-[46px] bg-white border border-[#e9e9e9] rounded-[10px] px-3 text-[13px] text-[#44475b] placeholder-[#8b8b8b] focus:outline-none focus:border-[#06A358] transition-colors"
+                        <input 
+                            className={`w-full h-[44px] sm:h-[46px] bg-white border rounded-[10px] px-3 text-[13px] text-[#44475b] placeholder-[#8b8b8b] focus:outline-none transition-colors ${
+                                errors.dob ? "border-red-500 focus:border-red-500" : "border-[#e9e9e9] focus:border-[#06A358]"
+                            }`}
                             type="date"
                             name="dob"
                             value={activeData.dob}
                             onChange={handleChange}
                         />
+                        {errors.dob && <p className="text-red-500 text-[11px] mt-1">{errors.dob}</p>}
                     </div>
                     <div>
                         <label className="block text-[13px] font-medium text-[#44475b] mb-2">
                             Mobile Number
                             <span className="text-red-600"> *</span>
                         </label>
-                        <input
-                            className="w-full h-[44px] sm:h-[46px] bg-white border border-[#e9e9e9] rounded-[10px] px-3 text-[13px] text-[#44475b] placeholder-[#8b8b8b] focus:outline-none focus:border-[#06A358] transition-colors"
-                            type="tel"
-                            maxLength={10}
+                        <input 
+                            className={`w-full h-[44px] sm:h-[46px] bg-white border rounded-[10px] px-3 text-[13px] text-[#44475b] placeholder-[#8b8b8b] focus:outline-none transition-colors ${
+                                errors.mobileNumber ? "border-red-500 focus:border-red-500" : "border-[#e9e9e9] focus:border-[#06A358]"
+                            }`}
+                            type="tel" 
+                            maxLength={10} 
                             placeholder="10 Digits Mobile No."
                             name="mobileNumber"
                             value={activeData.mobileNumber}
                             onChange={handleChange}
                         />
+                        {errors.mobileNumber && <p className="text-red-500 text-[11px] mt-1">{errors.mobileNumber}</p>}
                     </div>
                     <div>
                         <label className="block text-[13px] font-medium text-[#44475b] mb-2">
                             Email ID
                             <span className="text-red-600"> *</span>
                         </label>
-                        <input
-                            className="w-full h-[44px] sm:h-[46px] bg-white border border-[#e9e9e9] rounded-[10px] px-3 text-[13px] text-[#44475b] placeholder-[#8b8b8b] focus:outline-none focus:border-[#06A358] transition-colors"
-                            type="email"
+                        <input 
+                            className={`w-full h-[44px] sm:h-[46px] bg-white border rounded-[10px] px-3 text-[13px] text-[#44475b] placeholder-[#8b8b8b] focus:outline-none transition-colors ${
+                                errors.email ? "border-red-500 focus:border-red-500" : "border-[#e9e9e9] focus:border-[#06A358]"
+                            }`}
+                            type="email" 
                             placeholder="Enter Email ID"
                             name="email"
                             value={activeData.email}
                             onChange={handleChange}
                         />
+                        {errors.email && <p className="text-red-500 text-[11px] mt-1">{errors.email}</p>}
                     </div>
                 </div>
 
@@ -167,15 +292,18 @@ export default function PersonalProfileStep({ formData, setFormData }: PersonalP
                                 PAN
                                 <span className="text-red-600"> *</span>
                             </label>
-                            <input
-                                className="w-full h-[44px] sm:h-[46px] bg-white border border-[#e9e9e9] rounded-[10px] px-3 text-[13px] text-[#44475b] placeholder-[#8b8b8b] focus:outline-none focus:border-[#06A358] transition-colors uppercase"
-                                type="text"
-                                maxLength={10}
+                            <input 
+                                className={`w-full h-[44px] sm:h-[46px] bg-white border rounded-[10px] px-3 text-[13px] text-[#44475b] placeholder-[#8b8b8b] focus:outline-none transition-colors uppercase ${
+                                    errors.pan ? "border-red-500 focus:border-red-500" : "border-[#e9e9e9] focus:border-[#06A358]"
+                                }`}
+                                type="text" 
+                                maxLength={10} 
                                 placeholder="Enter"
                                 name="pan"
                                 value={activeData.pan}
                                 onChange={handleChange}
                             />
+                            {errors.pan && <p className="text-red-500 text-[11px] mt-1">{errors.pan}</p>}
                         </div>
                         <div>
                             <label className="block text-[13px] font-medium text-[#44475b] mb-2">
@@ -224,14 +352,17 @@ export default function PersonalProfileStep({ formData, setFormData }: PersonalP
                                     Address (House No, Building, Area)
                                     <span className="text-red-600"> *</span>
                                 </label>
-                                <input
-                                    className="w-full h-[44px] sm:h-[46px] bg-white border border-[#e9e9e9] rounded-[10px] px-3 text-[13px] text-[#44475b] placeholder-[#8b8b8b] focus:outline-none focus:border-[#06A358] transition-colors"
-                                    type="text"
+                                <input 
+                                    className={`w-full h-[44px] sm:h-[46px] bg-white border rounded-[10px] px-3 text-[13px] text-[#44475b] placeholder-[#8b8b8b] focus:outline-none transition-colors ${
+                                        errors.address ? "border-red-500 focus:border-red-500" : "border-[#e9e9e9] focus:border-[#06A358]"
+                                    }`}
+                                    type="text" 
                                     placeholder="Enter Your Address"
                                     name="address"
                                     value={activeData.address}
                                     onChange={handleChange}
                                 />
+                                {errors.address && <p className="text-red-500 text-[11px] mt-1">{errors.address}</p>}
                             </div>
                         </div>
                         <div>
@@ -239,14 +370,17 @@ export default function PersonalProfileStep({ formData, setFormData }: PersonalP
                                 City
                                 <span className="text-red-600"> *</span>
                             </label>
-                            <input
-                                className="w-full h-[44px] sm:h-[46px] bg-white border border-[#e9e9e9] rounded-[10px] px-3 text-[13px] text-[#44475b] placeholder-[#8b8b8b] focus:outline-none focus:border-[#06A358] transition-colors"
-                                type="text"
+                            <input 
+                                className={`w-full h-[44px] sm:h-[46px] bg-white border rounded-[10px] px-3 text-[13px] text-[#44475b] placeholder-[#8b8b8b] focus:outline-none transition-colors ${
+                                    errors.city ? "border-red-500 focus:border-red-500" : "border-[#e9e9e9] focus:border-[#06A358]"
+                                }`}
+                                type="text" 
                                 placeholder="e.g. Lucknow"
                                 name="city"
                                 value={activeData.city}
                                 onChange={handleChange}
                             />
+                            {errors.city && <p className="text-red-500 text-[11px] mt-1">{errors.city}</p>}
                         </div>
                     </div>
                 </div>
@@ -271,31 +405,43 @@ export default function PersonalProfileStep({ formData, setFormData }: PersonalP
                             <label className="block text-[13px] font-medium text-[#44475b] mb-2">
                                 Mobile No
                             </label>
-                            <input
-                                className="w-full h-[44px] sm:h-[46px] bg-white border border-[#e9e9e9] rounded-[10px] px-3 text-[13px] text-[#44475b] placeholder-[#8b8b8b] focus:outline-none focus:border-[#06A358] transition-colors"
-                                type="tel"
-                                maxLength={10}
+                            <input 
+                                className={`w-full h-[44px] sm:h-[46px] bg-white border rounded-[10px] px-3 text-[13px] text-[#44475b] placeholder-[#8b8b8b] focus:outline-none transition-colors ${
+                                    errors.emergencyMobile ? "border-red-500 focus:border-red-500" : "border-[#e9e9e9] focus:border-[#06A358]"
+                                }`}
+                                type="tel" 
+                                maxLength={10} 
                                 placeholder="10 Digits Mobile No."
                                 name="emergencyMobile"
                                 value={activeData.emergencyMobile}
                                 onChange={handleChange}
                             />
+                            {errors.emergencyMobile && <p className="text-red-500 text-[11px] mt-1">{errors.emergencyMobile}</p>}
                         </div>
                         <div>
                             <label className="block text-[13px] font-medium text-[#44475b] mb-2">
                                 Emergency Email
                             </label>
-                            <input
-                                className="w-full h-[44px] sm:h-[46px] bg-white border border-[#e9e9e9] rounded-[10px] px-3 text-[13px] text-[#44475b] placeholder-[#8b8b8b] focus:outline-none focus:border-[#06A358] transition-colors"
-                                type="email"
+                            <input 
+                                className={`w-full h-[44px] sm:h-[46px] bg-white border rounded-[10px] px-3 text-[13px] text-[#44475b] placeholder-[#8b8b8b] focus:outline-none transition-colors ${
+                                    errors.emergencyEmail ? "border-red-500 focus:border-red-500" : "border-[#e9e9e9] focus:border-[#06A358]"
+                                }`}
+                                type="email" 
                                 placeholder="Enter Email ID"
                                 name="emergencyEmail"
                                 value={activeData.emergencyEmail}
                                 onChange={handleChange}
                             />
+                            {errors.emergencyEmail && <p className="text-red-500 text-[11px] mt-1">{errors.emergencyEmail}</p>}
                         </div>
                     </div>
                 </div>
+                <StepActions
+                    showBack={showBack}
+                    onBack={onBack}
+                    onContinue={handleContinue}
+                    isSubmitting={isSubmitting}
+                />
             </div>
         </>
     );
