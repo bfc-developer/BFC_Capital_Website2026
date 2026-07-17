@@ -25,7 +25,7 @@ export default function ProfessionalDetailsStep() {
       </label>
       <select value={occupation}
         onChange={handleOccupationChange} className=" cursor-pointer w-full h-[44px] sm:h-[46px] bg-white border border-[#e9e9e9] rounded-[10px] px-3 text-[13px] text-[#44475b] placeholder-[#8b8b8b] focus:outline-none focus:border-[#04b488] transition-colors">
-        <option value="" disabled>Select Occupation</option>
+        <option value="">Select Occupation</option>
         <option value="Service">Service</option>
         <option value="Business">Business</option>
         <option value="Professional">Professional</option>
