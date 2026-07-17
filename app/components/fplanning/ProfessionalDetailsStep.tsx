@@ -89,10 +89,10 @@ export default function ProfessionalDetailsStep({ formData, setFormData }: Profe
         Occupation
         <span className="text-red-600"> *</span>
       </label>
-      <select 
+      <select
         name="occupation"
         value={occupation}
-        onChange={handleSelectChange} 
+        onChange={handleSelectChange}
         className="cursor-pointer w-full h-[44px] sm:h-[46px] bg-white border border-[#e9e9e9] rounded-[10px] px-3 text-[13px] text-[#44475b] placeholder-[#8b8b8b] focus:outline-none focus:border-[#04b488] transition-colors"
       >
         <option value="" disabled>Select Occupation</option>
@@ -112,7 +112,7 @@ export default function ProfessionalDetailsStep({ formData, setFormData }: Profe
                 PVT/Govt.
                 <span className="text-red-600"> *</span>
               </label>
-              <select 
+              <select
                 name="pvtOrGovt"
                 value={activeData.pvtOrGovt}
                 onChange={handleSelectChange}
@@ -131,13 +131,13 @@ export default function ProfessionalDetailsStep({ formData, setFormData }: Profe
                 Organisation Name
                 <span className="text-red-600"> *</span>
               </label>
-              <input 
-                type="text" 
+              <input
+                type="text"
                 name="organisationName"
                 value={activeData.organisationName}
                 onChange={handleInputChange}
-                className="w-full h-[44px] sm:h-[46px] bg-white border border-[#e9e9e9] rounded-[10px] px-3 text-[13px] text-[#44475b] placeholder-[#8b8b8b] focus:outline-none focus:border-[#04b488] transition-colors" 
-                placeholder="Organisation" 
+                className="w-full h-[44px] sm:h-[46px] bg-white border border-[#e9e9e9] rounded-[10px] px-3 text-[13px] text-[#44475b] placeholder-[#8b8b8b] focus:outline-none focus:border-[#04b488] transition-colors"
+                placeholder="Organisation"
               />
             </div>
 
@@ -146,13 +146,13 @@ export default function ProfessionalDetailsStep({ formData, setFormData }: Profe
                 Designation
                 <span className="text-red-600"> *</span>
               </label>
-              <input 
+              <input
                 type="text"
                 name="designation"
                 value={activeData.designation}
                 onChange={handleInputChange}
-                className="w-full h-[44px] sm:h-[46px] bg-white border border-[#e9e9e9] rounded-[10px] px-3 text-[13px] text-[#44475b] placeholder-[#8b8b8b] focus:outline-none focus:border-[#04b488] transition-colors" 
-                placeholder="Designation" 
+                className="w-full h-[44px] sm:h-[46px] bg-white border border-[#e9e9e9] rounded-[10px] px-3 text-[13px] text-[#44475b] placeholder-[#8b8b8b] focus:outline-none focus:border-[#04b488] transition-colors"
+                placeholder="Designation"
               />
             </div>
 
@@ -161,13 +161,13 @@ export default function ProfessionalDetailsStep({ formData, setFormData }: Profe
                 Work Profile
                 <span className="text-red-600"> *</span>
               </label>
-              <input 
-                type="text" 
+              <input
+                type="text"
                 name="workProfile"
                 value={activeData.workProfile}
                 onChange={handleInputChange}
-                className="w-full h-[44px] sm:h-[46px] bg-white border border-[#e9e9e9] rounded-[10px] px-3 text-[13px] text-[#44475b] placeholder-[#8b8b8b] focus:outline-none focus:border-[#04b488] transition-colors" 
-                placeholder="Work Profile" 
+                className="w-full h-[44px] sm:h-[46px] bg-white border border-[#e9e9e9] rounded-[10px] px-3 text-[13px] text-[#44475b] placeholder-[#8b8b8b] focus:outline-none focus:border-[#04b488] transition-colors"
+                placeholder="Work Profile"
               />
             </div>
 
@@ -176,13 +176,13 @@ export default function ProfessionalDetailsStep({ formData, setFormData }: Profe
                 Address
                 <span className="text-red-600"> *</span>
               </label>
-              <input 
+              <input
                 type="text"
                 name="address"
                 value={activeData.address}
                 onChange={handleInputChange}
-                className="w-full h-[44px] sm:h-[46px] bg-white border border-[#e9e9e9] rounded-[10px] px-3 text-[13px] text-[#44475b] placeholder-[#8b8b8b] focus:outline-none focus:border-[#04b488] transition-colors" 
-                placeholder="Address" 
+                className="w-full h-[44px] sm:h-[46px] bg-white border border-[#e9e9e9] rounded-[10px] px-3 text-[13px] text-[#44475b] placeholder-[#8b8b8b] focus:outline-none focus:border-[#04b488] transition-colors"
+                placeholder="Address"
               />
             </div>
 
@@ -191,13 +191,13 @@ export default function ProfessionalDetailsStep({ formData, setFormData }: Profe
                 City
                 <span className="text-red-600"> *</span>
               </label>
-              <input 
-                type="text" 
+              <input
+                type="text"
                 name="city"
                 value={activeData.city}
                 onChange={handleInputChange}
-                className="w-full h-[44px] sm:h-[46px] bg-white border border-[#e9e9e9] rounded-[10px] px-3 text-[13px] text-[#44475b] placeholder-[#8b8b8b] focus:outline-none focus:border-[#04b488] transition-colors" 
-                placeholder="City" 
+                className="w-full h-[44px] sm:h-[46px] bg-white border border-[#e9e9e9] rounded-[10px] px-3 text-[13px] text-[#44475b] placeholder-[#8b8b8b] focus:outline-none focus:border-[#04b488] transition-colors"
+                placeholder="City"
               />
             </div>
 
@@ -234,13 +234,13 @@ export default function ProfessionalDetailsStep({ formData, setFormData }: Profe
                 Type of Business
                 <span className="text-red-600"> *</span>
               </label>
-              <input 
+              <input
                 type="text"
                 name="businessType"
                 value={activeData.businessType}
                 onChange={handleInputChange}
-                className="w-full h-[44px] sm:h-[46px] bg-white border border-[#e9e9e9] rounded-[10px] px-3 text-[13px] text-[#44475b] placeholder-[#8b8b8b] focus:outline-none focus:border-[#04b488] transition-colors" 
-                placeholder="Business" 
+                className="w-full h-[44px] sm:h-[46px] bg-white border border-[#e9e9e9] rounded-[10px] px-3 text-[13px] text-[#44475b] placeholder-[#8b8b8b] focus:outline-none focus:border-[#04b488] transition-colors"
+                placeholder="Business"
               />
             </div>
 
@@ -249,13 +249,13 @@ export default function ProfessionalDetailsStep({ formData, setFormData }: Profe
                 Address
                 <span className="text-red-600"> *</span>
               </label>
-              <input 
+              <input
                 type="text"
                 name="address"
                 value={activeData.address}
                 onChange={handleInputChange}
-                className="w-full h-[44px] sm:h-[46px] bg-white border border-[#e9e9e9] rounded-[10px] px-3 text-[13px] text-[#44475b] placeholder-[#8b8b8b] focus:outline-none focus:border-[#04b488] transition-colors" 
-                placeholder="Address" 
+                className="w-full h-[44px] sm:h-[46px] bg-white border border-[#e9e9e9] rounded-[10px] px-3 text-[13px] text-[#44475b] placeholder-[#8b8b8b] focus:outline-none focus:border-[#04b488] transition-colors"
+                placeholder="Address"
               />
             </div>
 
@@ -264,13 +264,13 @@ export default function ProfessionalDetailsStep({ formData, setFormData }: Profe
                 City
                 <span className="text-red-600"> *</span>
               </label>
-              <input 
-                type="text" 
+              <input
+                type="text"
                 name="city"
                 value={activeData.city}
                 onChange={handleInputChange}
-                className="w-full h-[44px] sm:h-[46px] bg-white border border-[#e9e9e9] rounded-[10px] px-3 text-[13px] text-[#44475b] placeholder-[#8b8b8b] focus:outline-none focus:border-[#04b488] transition-colors" 
-                placeholder="City" 
+                className="w-full h-[44px] sm:h-[46px] bg-white border border-[#e9e9e9] rounded-[10px] px-3 text-[13px] text-[#44475b] placeholder-[#8b8b8b] focus:outline-none focus:border-[#04b488] transition-colors"
+                placeholder="City"
               />
             </div>
 
@@ -309,13 +309,13 @@ export default function ProfessionalDetailsStep({ formData, setFormData }: Profe
                 Name of Profession
                 <span className="text-red-600"> *</span>
               </label>
-              <input 
+              <input
                 type="text"
                 name="professionName"
                 value={activeData.professionName}
                 onChange={handleInputChange}
-                className="w-full h-[44px] sm:h-[46px] bg-white border border-[#e9e9e9] rounded-[10px] px-3 text-[13px] text-[#44475b] placeholder-[#8b8b8b] focus:outline-none focus:border-[#04b488] transition-colors" 
-                placeholder="Profession" 
+                className="w-full h-[44px] sm:h-[46px] bg-white border border-[#e9e9e9] rounded-[10px] px-3 text-[13px] text-[#44475b] placeholder-[#8b8b8b] focus:outline-none focus:border-[#04b488] transition-colors"
+                placeholder="Profession"
               />
             </div>
 
@@ -324,13 +324,13 @@ export default function ProfessionalDetailsStep({ formData, setFormData }: Profe
                 Address
                 <span className="text-red-600"> *</span>
               </label>
-              <input 
+              <input
                 type="text"
                 name="address"
                 value={activeData.address}
                 onChange={handleInputChange}
-                className="w-full h-[44px] sm:h-[46px] bg-white border border-[#e9e9e9] rounded-[10px] px-3 text-[13px] text-[#44475b] placeholder-[#8b8b8b] focus:outline-none focus:border-[#04b488] transition-colors" 
-                placeholder="Address" 
+                className="w-full h-[44px] sm:h-[46px] bg-white border border-[#e9e9e9] rounded-[10px] px-3 text-[13px] text-[#44475b] placeholder-[#8b8b8b] focus:outline-none focus:border-[#04b488] transition-colors"
+                placeholder="Address"
               />
             </div>
 
@@ -339,13 +339,13 @@ export default function ProfessionalDetailsStep({ formData, setFormData }: Profe
                 City
                 <span className="text-red-600"> *</span>
               </label>
-              <input 
-                type="text" 
+              <input
+                type="text"
                 name="city"
                 value={activeData.city}
                 onChange={handleInputChange}
-                className="w-full h-[44px] sm:h-[46px] bg-white border border-[#e9e9e9] rounded-[10px] px-3 text-[13px] text-[#44475b] placeholder-[#8b8b8b] focus:outline-none focus:border-[#04b488] transition-colors" 
-                placeholder="City" 
+                className="w-full h-[44px] sm:h-[46px] bg-white border border-[#e9e9e9] rounded-[10px] px-3 text-[13px] text-[#44475b] placeholder-[#8b8b8b] focus:outline-none focus:border-[#04b488] transition-colors"
+                placeholder="City"
               />
             </div>
 
@@ -383,13 +383,13 @@ export default function ProfessionalDetailsStep({ formData, setFormData }: Profe
                 Last Organisation
                 <span className="text-red-600"> *</span>
               </label>
-              <input 
+              <input
                 type="text"
                 name="lastOrganisation"
                 value={activeData.lastOrganisation}
                 onChange={handleInputChange}
-                className="w-full h-[44px] sm:h-[46px] bg-white border border-[#e9e9e9] rounded-[10px] px-3 text-[13px] text-[#44475b] placeholder-[#8b8b8b] focus:outline-none focus:border-[#04b488] transition-colors" 
-                placeholder="Organisation" 
+                className="w-full h-[44px] sm:h-[46px] bg-white border border-[#e9e9e9] rounded-[10px] px-3 text-[13px] text-[#44475b] placeholder-[#8b8b8b] focus:outline-none focus:border-[#04b488] transition-colors"
+                placeholder="Organisation"
               />
             </div>
 
@@ -398,13 +398,13 @@ export default function ProfessionalDetailsStep({ formData, setFormData }: Profe
                 Designation
                 <span className="text-red-600"> *</span>
               </label>
-              <input 
+              <input
                 type="text"
                 name="designation"
                 value={activeData.designation}
                 onChange={handleInputChange}
-                className="w-full h-[44px] sm:h-[46px] bg-white border border-[#e9e9e9] rounded-[10px] px-3 text-[13px] text-[#44475b] placeholder-[#8b8b8b] focus:outline-none focus:border-[#04b488] transition-colors" 
-                placeholder="Designation" 
+                className="w-full h-[44px] sm:h-[46px] bg-white border border-[#e9e9e9] rounded-[10px] px-3 text-[13px] text-[#44475b] placeholder-[#8b8b8b] focus:outline-none focus:border-[#04b488] transition-colors"
+                placeholder="Designation"
               />
             </div>
 
@@ -413,13 +413,13 @@ export default function ProfessionalDetailsStep({ formData, setFormData }: Profe
                 Address
                 <span className="text-red-600"> *</span>
               </label>
-              <input 
+              <input
                 type="text"
                 name="address"
                 value={activeData.address}
                 onChange={handleInputChange}
-                className="w-full h-[44px] sm:h-[46px] bg-white border border-[#e9e9e9] rounded-[10px] px-3 text-[13px] text-[#44475b] placeholder-[#8b8b8b] focus:outline-none focus:border-[#04b488] transition-colors" 
-                placeholder="Address" 
+                className="w-full h-[44px] sm:h-[46px] bg-white border border-[#e9e9e9] rounded-[10px] px-3 text-[13px] text-[#44475b] placeholder-[#8b8b8b] focus:outline-none focus:border-[#04b488] transition-colors"
+                placeholder="Address"
               />
             </div>
 
@@ -428,13 +428,13 @@ export default function ProfessionalDetailsStep({ formData, setFormData }: Profe
                 City
                 <span className="text-red-600"> *</span>
               </label>
-              <input 
-                type="text" 
+              <input
+                type="text"
                 name="city"
                 value={activeData.city}
                 onChange={handleInputChange}
-                className="w-full h-[44px] sm:h-[46px] bg-white border border-[#e9e9e9] rounded-[10px] px-3 text-[13px] text-[#44475b] placeholder-[#8b8b8b] focus:outline-none focus:border-[#04b488] transition-colors" 
-                placeholder="City" 
+                className="w-full h-[44px] sm:h-[46px] bg-white border border-[#e9e9e9] rounded-[10px] px-3 text-[13px] text-[#44475b] placeholder-[#8b8b8b] focus:outline-none focus:border-[#04b488] transition-colors"
+                placeholder="City"
               />
             </div>
 
@@ -473,13 +473,13 @@ export default function ProfessionalDetailsStep({ formData, setFormData }: Profe
                 Address
                 <span className="text-red-600"> *</span>
               </label>
-              <input 
+              <input
                 type="text"
                 name="address"
                 value={activeData.address}
                 onChange={handleInputChange}
-                className="w-full h-[44px] sm:h-[46px] bg-white border border-[#e9e9e9] rounded-[10px] px-3 text-[13px] text-[#44475b] placeholder-[#8b8b8b] focus:outline-none focus:border-[#04b488] transition-colors" 
-                placeholder="Address" 
+                className="w-full h-[44px] sm:h-[46px] bg-white border border-[#e9e9e9] rounded-[10px] px-3 text-[13px] text-[#44475b] placeholder-[#8b8b8b] focus:outline-none focus:border-[#04b488] transition-colors"
+                placeholder="Address"
               />
             </div>
 
@@ -488,13 +488,13 @@ export default function ProfessionalDetailsStep({ formData, setFormData }: Profe
                 City
                 <span className="text-red-600"> *</span>
               </label>
-              <input 
-                type="text" 
+              <input
+                type="text"
                 name="city"
                 value={activeData.city}
                 onChange={handleInputChange}
-                className="w-full h-[44px] sm:h-[46px] bg-white border border-[#e9e9e9] rounded-[10px] px-3 text-[13px] text-[#44475b] placeholder-[#8b8b8b] focus:outline-none focus:border-[#04b488] transition-colors" 
-                placeholder="City" 
+                className="w-full h-[44px] sm:h-[46px] bg-white border border-[#e9e9e9] rounded-[10px] px-3 text-[13px] text-[#44475b] placeholder-[#8b8b8b] focus:outline-none focus:border-[#04b488] transition-colors"
+                placeholder="City"
               />
             </div>
 
@@ -533,13 +533,13 @@ export default function ProfessionalDetailsStep({ formData, setFormData }: Profe
                 Address
                 <span className="text-red-600"> *</span>
               </label>
-              <input 
+              <input
                 type="text"
                 name="address"
                 value={activeData.address}
                 onChange={handleInputChange}
-                className="w-full h-[44px] sm:h-[46px] bg-white border border-[#e9e9e9] rounded-[10px] px-3 text-[13px] text-[#44475b] placeholder-[#8b8b8b] focus:outline-none focus:border-[#04b488] transition-colors" 
-                placeholder="Address" 
+                className="w-full h-[44px] sm:h-[46px] bg-white border border-[#e9e9e9] rounded-[10px] px-3 text-[13px] text-[#44475b] placeholder-[#8b8b8b] focus:outline-none focus:border-[#04b488] transition-colors"
+                placeholder="Address"
               />
             </div>
 
@@ -548,13 +548,13 @@ export default function ProfessionalDetailsStep({ formData, setFormData }: Profe
                 City
                 <span className="text-red-600"> *</span>
               </label>
-              <input 
-                type="text" 
+              <input
+                type="text"
                 name="city"
                 value={activeData.city}
                 onChange={handleInputChange}
-                className="w-full h-[44px] sm:h-[46px] bg-white border border-[#e9e9e9] rounded-[10px] px-3 text-[13px] text-[#44475b] placeholder-[#8b8b8b] focus:outline-none focus:border-[#04b488] transition-colors" 
-                placeholder="City" 
+                className="w-full h-[44px] sm:h-[46px] bg-white border border-[#e9e9e9] rounded-[10px] px-3 text-[13px] text-[#44475b] placeholder-[#8b8b8b] focus:outline-none focus:border-[#04b488] transition-colors"
+                placeholder="City"
               />
             </div>
 

@@ -7,6 +7,9 @@ import ProfessionalDetailsStep from "../components/fplanning/ProfessionalDetails
 import FinancialProfileStep from "../components/fplanning/FinancialProfileStep";
 import ContingencyPlanningStep from "../components/fplanning/ContingencyPlanningStep";
 import KnowYourRiskProfile from "../components/fplanning/KnowYourRiskProfile";
+import ExistingInvestmentsStep from "../components/fplanning/ExistingInvestmentsStep";
+import PortfolioReview from "../components/fplanning/PortfolioReview";
+import GoalIdentificationStep from "../components/fplanning/GoalIdentificationStep";
 
 
 const STEPS = [
@@ -31,43 +34,14 @@ const STEPS = [
 
 <ContingencyPlanningStep />;
 
-<KnowYourRiskProfile />
+<KnowYourRiskProfile />;
 
-function ExistingInvestmentsStep() {
-    const [rows, setRows] = useState([
-        { type: "Mutual Funds", institution: "", value: "", maturity: "" },
-    ]);
-    return (
-        <div className="space-y-6 sm:space-y-8">
-            <div className="w-full min-w-0 bg-white border border-[#e0dbdb] rounded-[18px] sm:rounded-[24px] lg:rounded-[33px] shadow-[1px_0px_6.8px_-1px_rgba(0,0,0,0.18)] p-4 sm:p-6 md:p-8 lg:p-10">
-                <h3 className="font-bold text-[16px] sm:text-[18px] md:text-[20px] lg:text-[25px] bg-gradient-to-r from-[#06a358] to-[#001EFE] bg-clip-text text-transparent pb-5">
-                    Your Existing Investments
-                </h3>
-                <div className="w-full h-px bg-[#e9e9e9] mt-5 sm:mt-5 mb-5 sm:mb-6" />
-            </div>
-        </div>
-    );
-}
+<ExistingInvestmentsStep />;
 
-function GoalIdentificationStep() {
-    const [goals, setGoals] = useState([
-        { goal: "Retirement", amount: "", year: "", priority: "High" },
-    ]);
-    return (
-        <div className="space-y-6 sm:space-y-8">
-            <h2 className="text-[16px] sm:text-[17px] lg:text-[18px] font-medium text-[#44475b]">Testing Step</h2>
+<GoalIdentificationStep />;
 
-        </div>
-    );
-}
+<PortfolioReview />
 
-function PortfolioReview() {
-    return (
-        <div className="space-y-6 sm:space-y-8">
-            <h2 className="text-[16px] sm:text-[17px] lg:text-[18px] font-medium text-[#44475b]">Testing Step</h2>
-        </div>
-    );
-}
 
 const STEP_COMPONENTS = {
     1: PersonalProfileStep,
