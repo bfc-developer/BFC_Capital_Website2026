@@ -26,7 +26,7 @@ export default function ContingencyPlanningStep({
 
     useEffect(() => {
         if (!profileId) return;
-        fetch("https://h3t0pdfc-5000.inc1.devtunnels.ms/api/financial")
+        fetch("http://localhost:5000/api/financial")
             .then(res => res.json())
             .then(resData => {
                 if (resData.success && Array.isArray(resData.data)) {
@@ -42,7 +42,7 @@ export default function ContingencyPlanningStep({
 
     useEffect(() => {
         if (!profileId) return;
-        fetch("https://h3t0pdfc-5000.inc1.devtunnels.ms/api/financial-planning")
+        fetch("http://localhost:5000/api/financial-planning")
             .then(res => res.json())
             .then(resData => {
                 if (resData.success && Array.isArray(resData.data)) {
@@ -89,11 +89,11 @@ export default function ContingencyPlanningStep({
                 idealReserve,
                 excessOrShortfall
             };
-            
+
             const method = financialPlanningId ? "PUT" : "POST";
-            const url = financialPlanningId 
-                ? `https://h3t0pdfc-5000.inc1.devtunnels.ms/api/financial-planning/${financialPlanningId}`
-                : "https://h3t0pdfc-5000.inc1.devtunnels.ms/api/financial-planning";
+            const url = financialPlanningId
+                ? `http://localhost:5000/api/financial-planning/${financialPlanningId}`
+                : "http://localhost:5000/api/financial-planning";
 
             const response = await fetch(url, {
                 method,
@@ -109,7 +109,7 @@ export default function ContingencyPlanningStep({
             if (data.data && data.data._id && setFinancialPlanningId) {
                 setFinancialPlanningId(data.data._id);
             }
-            
+
             if (onNext) onNext();
         } catch (err) {
             alert("Error: " + (err instanceof Error ? err.message : String(err)));
@@ -174,9 +174,8 @@ export default function ContingencyPlanningStep({
                             </label>
                             <input
                                 name="amount"
-                                className={`w-full h-[44px] sm:h-[46px] bg-white border rounded-[10px] px-3 text-[13px] text-[#44475b] placeholder-[#8b8b8b] focus:outline-none transition-colors ${
-                                    errors.amount ? "border-red-500 focus:border-red-500" : "border-[#e9e9e9] focus:border-[#04b488]"
-                                }`}
+                                className={`w-full h-[44px] sm:h-[46px] bg-white border rounded-[10px] px-3 text-[13px] text-[#44475b] placeholder-[#8b8b8b] focus:outline-none transition-colors ${errors.amount ? "border-red-500 focus:border-red-500" : "border-[#e9e9e9] focus:border-[#04b488]"
+                                    }`}
                                 type="number"
                                 placeholder="₹10,000.00"
                                 value={amount}
@@ -237,11 +236,11 @@ export default function ContingencyPlanningStep({
                     </div>
                 </div>
 
-                <StepActions 
-                    showBack={showBack} 
-                    onBack={onBack} 
-                    onContinue={handleContinue} 
-                    isSubmitting={isSubmitting} 
+                <StepActions
+                    showBack={showBack}
+                    onBack={onBack}
+                    onContinue={handleContinue}
+                    isSubmitting={isSubmitting}
                 />
             </div>
         </>

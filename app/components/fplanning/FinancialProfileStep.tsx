@@ -67,7 +67,7 @@ export default function FinancialProfileStep({
 
   useEffect(() => {
     if (!profileId) return;
-    fetch("https://h3t0pdfc-5000.inc1.devtunnels.ms/api/financial")
+    fetch("http://localhost:5000/api/financial")
       .then((res) => res.json())
       .then((resData) => {
         if (resData.success && Array.isArray(resData.data)) {
@@ -159,29 +159,9 @@ export default function FinancialProfileStep({
     },
   ]);
 
-  const [deductions, setDeductions] = useState<Item[]>([
-    {
-      id: Date.now() + 1,
-      title: "",
-      amount: "",
-    },
-  ]);
-
-  const [Investments, setInvestments] = useState<Item[]>([
-    {
-      id: Date.now() + 2,
-      title: "",
-      amount: "",
-    },
-  ]);
-
-  const [expenses, setExpenses] = useState<Item[]>([
-    {
-      id: Date.now() + 3,
-      title: "",
-      amount: "",
-    },
-  ]);
+  const [deductions, setDeductions] = useState<Item[]>([]);
+  const [Investments, setInvestments] = useState<Item[]>([]);
+  const [expenses, setExpenses] = useState<Item[]>([]);
 
   const updateItem = (
     list: Item[],
@@ -215,19 +195,10 @@ export default function FinancialProfileStep({
     setList: React.Dispatch<React.SetStateAction<Item[]>>,
     id: number
   ) => {
-    if (list.length === 1) return;
     setList(list.filter((item) => item.id !== id));
   };
 
-  const [emis, setEmis] = useState<EMIItem[]>([
-    {
-      id: Date.now() + 4,
-      loanType: "",
-      outstanding: "",
-      emi: "",
-      roi: "",
-    },
-  ]);
+  const [emis, setEmis] = useState<EMIItem[]>([]);
 
   const updateEMI = (
     id: number,
@@ -255,21 +226,10 @@ export default function FinancialProfileStep({
   };
 
   const removeEMI = (id: number) => {
-    if (emis.length === 1) return;
     setEmis((prev) => prev.filter((item) => item.id !== id));
   };
 
-  const [insurepre, setEnsurepre] = useState<InsuranceItem[]>([
-    {
-      id: Date.now() + 5,
-      policyName: "",
-      policyNumber: "",
-      insuranceType: "",
-      premiumType: "Annual",
-      premium: "",
-      sumInsured: "",
-    },
-  ]);
+  const [insurepre, setEnsurepre] = useState<InsuranceItem[]>([]);
 
   const updateinsurePremium = (
     id: number,
@@ -299,18 +259,10 @@ export default function FinancialProfileStep({
   };
 
   const removeinsurePremium = (id: number) => {
-    if (insurepre.length === 1) return;
     setEnsurepre((prev) => prev.filter((item) => item.id !== id));
   };
 
-  const [othertax, setOthertax] = useState<TaxSavingItem[]>([
-    {
-      id: Date.now() + 6,
-      date: "",
-      investmentName: "",
-      amount: "",
-    },
-  ]);
+  const [othertax, setOthertax] = useState<TaxSavingItem[]>([]);
 
   const updateOthertax = (
     id: number,
@@ -337,7 +289,6 @@ export default function FinancialProfileStep({
   };
 
   const removeotherTax = (id: number) => {
-    if (othertax.length === 1) return;
     setOthertax((prev) => prev.filter((item) => item.id !== id));
   };
 
@@ -373,77 +324,88 @@ export default function FinancialProfileStep({
 
     // 2. Deductions validation
     deductions.forEach((item, idx) => {
-      const hasTitle = item.title.trim();
-      const hasAmount = item.amount.trim();
-      if (hasTitle || hasAmount) {
-        if (!hasTitle) validationErrors[`deduction_${idx}_title`] = "Deduction detail is required.";
-        if (!hasAmount) validationErrors[`deduction_${idx}_amount`] = "Amount is required.";
-        else if (Number(item.amount) <= 0) validationErrors[`deduction_${idx}_amount`] = "Amount must be greater than zero.";
+      if (!item.title.trim()) {
+        validationErrors[`deduction_${idx}_title`] = "Deduction detail is required.";
+      }
+      if (!item.amount.trim()) {
+        validationErrors[`deduction_${idx}_amount`] = "Amount is required.";
+      } else if (Number(item.amount) <= 0) {
+        validationErrors[`deduction_${idx}_amount`] = "Amount must be greater than zero.";
       }
     });
 
     // 3. Expenses validation
     expenses.forEach((item, idx) => {
-      const hasTitle = item.title.trim();
-      const hasAmount = item.amount.trim();
-      if (hasTitle || hasAmount) {
-        if (!hasTitle) validationErrors[`expense_${idx}_title`] = "Expense detail is required.";
-        if (!hasAmount) validationErrors[`expense_${idx}_amount`] = "Amount is required.";
-        else if (Number(item.amount) <= 0) validationErrors[`expense_${idx}_amount`] = "Amount must be greater than zero.";
+      if (!item.title.trim()) {
+        validationErrors[`expense_${idx}_title`] = "Expense detail is required.";
+      }
+      if (!item.amount.trim()) {
+        validationErrors[`expense_${idx}_amount`] = "Amount is required.";
+      } else if (Number(item.amount) <= 0) {
+        validationErrors[`expense_${idx}_amount`] = "Amount must be greater than zero.";
       }
     });
 
     // 4. EMI validation
     emis.forEach((item, idx) => {
-      const hasType = item.loanType;
-      const hasEMI = item.emi.trim();
-      const hasOutstanding = item.outstanding.trim();
-      const hasROI = item.roi.trim();
-      if (hasType || hasEMI || hasOutstanding || hasROI) {
-        if (!hasType) validationErrors[`emi_${idx}_loanType`] = "Loan type is required.";
-        if (!hasEMI) validationErrors[`emi_${idx}_emi`] = "Monthly EMI is required.";
-        else if (Number(item.emi) <= 0) validationErrors[`emi_${idx}_emi`] = "EMI must be greater than zero.";
+      if (!item.loanType) {
+        validationErrors[`emi_${idx}_loanType`] = "Loan type is required.";
+      }
+      if (!item.emi.trim()) {
+        validationErrors[`emi_${idx}_emi`] = "Monthly EMI is required.";
+      } else if (Number(item.emi) <= 0) {
+        validationErrors[`emi_${idx}_emi`] = "EMI must be greater than zero.";
       }
     });
 
     // 5. Investments validation
     Investments.forEach((item, idx) => {
-      const hasTitle = item.title.trim();
-      const hasAmount = item.amount.trim();
-      if (hasTitle || hasAmount) {
-        if (!hasTitle) validationErrors[`investment_${idx}_title`] = "Investment name is required.";
-        if (!hasAmount) validationErrors[`investment_${idx}_amount`] = "Monthly amount is required.";
-        else if (Number(item.amount) <= 0) validationErrors[`investment_${idx}_amount`] = "Amount must be greater than zero.";
+      if (!item.title.trim()) {
+        validationErrors[`investment_${idx}_title`] = "Investment name is required.";
+      }
+      if (!item.amount.trim()) {
+        validationErrors[`investment_${idx}_amount`] = "Monthly amount is required.";
+      } else if (Number(item.amount) <= 0) {
+        validationErrors[`investment_${idx}_amount`] = "Amount must be greater than zero.";
       }
     });
 
     // 6. Insurance validation
     insurepre.forEach((item, idx) => {
-      const hasName = item.policyName.trim();
-      const hasNo = item.policyNumber.trim();
-      const hasType = item.insuranceType;
-      const hasPrem = item.premium.trim();
-      const hasSum = item.sumInsured.trim();
-      if (hasName || hasNo || hasType || hasPrem || hasSum) {
-        if (!hasName) validationErrors[`insurance_${idx}_policyName`] = "Policy name is required.";
-        if (!hasNo) validationErrors[`insurance_${idx}_policyNumber`] = "Policy number is required.";
-        if (!hasType) validationErrors[`insurance_${idx}_insuranceType`] = "Insurance type is required.";
-        if (!hasSum) validationErrors[`insurance_${idx}_sumInsured`] = "Sum insured is required.";
-        else if (Number(item.sumInsured) <= 0) validationErrors[`insurance_${idx}_sumInsured`] = "Sum insured must be greater than zero.";
-        if (hasPrem && Number(item.premium) <= 0) validationErrors[`insurance_${idx}_premium`] = "Premium must be greater than zero.";
+      if (!item.policyName.trim()) {
+        validationErrors[`insurance_${idx}_policyName`] = "Policy name is required.";
+      }
+      if (!item.policyNumber.trim()) {
+        validationErrors[`insurance_${idx}_policyNumber`] = "Policy number is required.";
+      }
+      if (!item.insuranceType) {
+        validationErrors[`insurance_${idx}_insuranceType`] = "Insurance type is required.";
+      }
+      if (!item.premiumType) {
+        validationErrors[`insurance_${idx}_premiumType`] = "Premium type is required.";
+      }
+      if (!item.sumInsured.trim()) {
+        validationErrors[`insurance_${idx}_sumInsured`] = "Sum insured is required.";
+      } else if (Number(item.sumInsured) <= 0) {
+        validationErrors[`insurance_${idx}_sumInsured`] = "Sum insured must be greater than zero.";
+      }
+      if (item.premium.trim() && Number(item.premium) <= 0) {
+        validationErrors[`insurance_${idx}_premium`] = "Premium must be greater than zero.";
       }
     });
 
     // 7. Tax Saving validation
     othertax.forEach((item, idx) => {
-      const hasDate = item.date;
-      const hasName = item.investmentName.trim();
-      const hasAmt = item.amount.trim();
-      if (hasDate || hasName || hasAmt) {
-        if (!hasDate) validationErrors[`tax_${idx}_date`] = "Date is required.";
-        if (!hasName) validationErrors[`tax_${idx}_investmentName`] = "Investment name is required.";
-        if (!hasAmt) validationErrors[`tax_${idx}_amount`] = "Amount is required.";
-        else if (Number(item.amount) <= 0) validationErrors[`tax_${idx}_amount`] = "Amount must be greater than zero.";
+      if (!item.date) {
+        validationErrors[`tax_${idx}_date`] = "Date is required.";
+      }
+      if (!item.investmentName.trim()) {
+        validationErrors[`tax_${idx}_investmentName`] = "Investment name is required.";
+      }
+      if (!item.amount.trim()) {
+        validationErrors[`tax_${idx}_amount`] = "Amount is required.";
+      } else if (Number(item.amount) <= 0) {
+        validationErrors[`tax_${idx}_amount`] = "Amount must be greater than zero.";
       }
     });
 
@@ -472,9 +434,9 @@ export default function FinancialProfileStep({
         taxSavingInvestments: othertax.filter(i => i.investmentName.trim()).map(i => ({ date: i.date ? new Date(i.date).toISOString() : new Date().toISOString(), investmentName: i.investmentName, amount: Number(i.amount) }))
       };
 
-      const url = financialProfileId 
-        ? `https://h3t0pdfc-5000.inc1.devtunnels.ms/api/financial/${financialProfileId}` 
-        : "https://h3t0pdfc-5000.inc1.devtunnels.ms/api/financial";
+      const url = financialProfileId
+        ? `http://localhost:5000/api/financial/${financialProfileId}`
+        : "http://localhost:5000/api/financial";
       const method = financialProfileId ? "PUT" : "POST";
 
       const response = await fetch(url, {
@@ -512,7 +474,7 @@ export default function FinancialProfileStep({
 
       <div className="flex items-center justify-between flex-wrap gap-2 border-bottom">
         <h1 className="font-bold text-[18px] sm:text-[22px] md:text-[26px] lg:text-[28px] bg-gradient-to-r from-[#06a358] to-[#035daf] bg-clip-text text-transparent">
-         Financial Profile
+          Financial Profile
         </h1>
       </div>
       <div className="w-full h-px bg-[#e9e9e9] mt-4 sm:mt-5 mb-5 sm:mb-6" />
@@ -584,7 +546,7 @@ export default function FinancialProfileStep({
                 return copy;
               });
             }}
-            showDelete={deductions.length > 1}
+            showDelete={true}
             prefix={`deduction_${idx}`}
             errors={errors}
           />
@@ -621,7 +583,7 @@ export default function FinancialProfileStep({
                 return copy;
               });
             }}
-            showDelete={expenses.length > 1}
+            showDelete={true}
             prefix={`expense_${idx}`}
             errors={errors}
           />
@@ -637,7 +599,7 @@ export default function FinancialProfileStep({
         {emis.map((item, idx) => (
           <div
             key={item.id}
-            className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-6 xl:grid-cols-12 gap-4 items-end"
+            className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-6 xl:grid-cols-12 gap-4 items-start"
           >
             {/* Loan Type */}
             <div className="lg:col-span-3">
@@ -653,9 +615,8 @@ export default function FinancialProfileStep({
                   updateEMI(item.id, "loanType", e.target.value);
                   setErrors(prev => ({ ...prev, [`emi_${idx}_loanType`]: "" }));
                 }}
-                className={`w-full h-[44px] sm:h-[46px] bg-white border rounded-[10px] px-3 text-[13px] text-[#44475b] placeholder-[#8b8b8b] focus:outline-none transition-colors cursor-pointer ${
-                  errors[`emi_${idx}_loanType`] ? "border-red-500 focus:border-red-500" : "border-[#e9e9e9] focus:border-[#04b488]"
-                }`}
+                className={`w-full h-[44px] sm:h-[46px] bg-white border rounded-[10px] px-3 text-[13px] text-[#44475b] placeholder-[#8b8b8b] focus:outline-none transition-colors cursor-pointer ${errors[`emi_${idx}_loanType`] ? "border-red-500 focus:border-red-500" : "border-[#e9e9e9] focus:border-[#04b488]"
+                  }`}
               >
                 <option value="">Select Loan Type</option>
                 <option value="Home Loan">Home Loan</option>
@@ -701,9 +662,8 @@ export default function FinancialProfileStep({
                 }}
                 onWheel={(e) => e.currentTarget.blur()}
                 onKeyDown={(e) => (e.key === "ArrowUp" || e.key === "ArrowDown") && e.preventDefault()}
-                className={`w-full h-[44px] sm:h-[46px] bg-white border rounded-[10px] px-3 text-[13px] text-[#44475b] placeholder-[#8b8b8b] focus:outline-none transition-colors ${
-                  errors[`emi_${idx}_emi`] ? "border-red-500 focus:border-red-500" : "border-[#e9e9e9] focus:border-[#04b488]"
-                }`}
+                className={`w-full h-[44px] sm:h-[46px] bg-white border rounded-[10px] px-3 text-[13px] text-[#44475b] placeholder-[#8b8b8b] focus:outline-none transition-colors ${errors[`emi_${idx}_emi`] ? "border-red-500 focus:border-red-500" : "border-[#e9e9e9] focus:border-[#04b488]"
+                  }`}
                 type="number"
                 placeholder="₹ Required"
               />
@@ -730,23 +690,22 @@ export default function FinancialProfileStep({
             </div>
 
             {/* Delete */}
-            <div className="lg:col-span-1 flex lg:justify-center">
-              {emis.length > 1 && (
-                <button
-                  onClick={() => {
-                    removeEMI(item.id);
-                    setErrors(prev => {
-                      const copy = { ...prev };
-                      delete copy[`emi_${idx}_loanType`];
-                      delete copy[`emi_${idx}_emi`];
-                      return copy;
-                    });
-                  }}
-                  className="h-10 w-10 cursor-pointer rounded-full bg-[#DB4437] text-white flex items-center justify-center hover:bg-red-600 transition"
-                >
-                  <Trash2 size={18} />
-                </button>
-              )}
+            <div className="lg:col-span-1 flex lg:justify-center mt-7 lg:mt-7">
+              <button
+                type="button"
+                onClick={() => {
+                  removeEMI(item.id);
+                  setErrors(prev => {
+                    const copy = { ...prev };
+                    delete copy[`emi_${idx}_loanType`];
+                    delete copy[`emi_${idx}_emi`];
+                    return copy;
+                  });
+                }}
+                className="h-10 w-10 cursor-pointer rounded-full bg-[#DB4437] text-white flex items-center justify-center hover:bg-red-600 transition"
+              >
+                <Trash2 size={18} />
+              </button>
             </div>
           </div>
         ))}
@@ -782,7 +741,7 @@ export default function FinancialProfileStep({
                 return copy;
               });
             }}
-            showDelete={Investments.length > 1}
+            showDelete={true}
             prefix={`investment_${idx}`}
             errors={errors}
           />
@@ -798,7 +757,7 @@ export default function FinancialProfileStep({
         {insurepre.map((item, idx) => (
           <div
             key={item.id}
-            className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 xl:grid-cols-12 gap-4 items-end"
+            className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 xl:grid-cols-12 gap-4 items-start"
           >
 
             <div className="lg:col-span-2">
@@ -814,9 +773,8 @@ export default function FinancialProfileStep({
                   updateinsurePremium(item.id, "policyName", e.target.value);
                   setErrors(prev => ({ ...prev, [`insurance_${idx}_policyName`]: "" }));
                 }}
-                className={`w-full h-[44px] sm:h-[46px] bg-white border rounded-[10px] px-3 text-[13px] text-[#44475b] placeholder-[#8b8b8b] focus:outline-none transition-colors ${
-                  errors[`insurance_${idx}_policyName`] ? "border-red-500 focus:border-red-500" : "border-[#e9e9e9] focus:border-[#04b488]"
-                }`}
+                className={`w-full h-[44px] sm:h-[46px] bg-white border rounded-[10px] px-3 text-[13px] text-[#44475b] placeholder-[#8b8b8b] focus:outline-none transition-colors ${errors[`insurance_${idx}_policyName`] ? "border-red-500 focus:border-red-500" : "border-[#e9e9e9] focus:border-[#04b488]"
+                  }`}
                 type="text"
                 placeholder="Policy Name"
               />
@@ -838,9 +796,8 @@ export default function FinancialProfileStep({
                 }}
                 onWheel={(e) => e.currentTarget.blur()}
                 onKeyDown={(e) => (e.key === "ArrowUp" || e.key === "ArrowDown") && e.preventDefault()}
-                className={`w-full h-[44px] sm:h-[46px] bg-white border rounded-[10px] px-3 text-[13px] text-[#44475b] placeholder-[#8b8b8b] focus:outline-none transition-colors ${
-                  errors[`insurance_${idx}_policyNumber`] ? "border-red-500 focus:border-red-500" : "border-[#e9e9e9] focus:border-[#04b488]"
-                }`}
+                className={`w-full h-[44px] sm:h-[46px] bg-white border rounded-[10px] px-3 text-[13px] text-[#44475b] placeholder-[#8b8b8b] focus:outline-none transition-colors ${errors[`insurance_${idx}_policyNumber`] ? "border-red-500 focus:border-red-500" : "border-[#e9e9e9] focus:border-[#04b488]"
+                  }`}
                 type="number"
                 placeholder="Policy Number"
               />
@@ -860,9 +817,8 @@ export default function FinancialProfileStep({
                   updateinsurePremium(item.id, "insuranceType", e.target.value);
                   setErrors(prev => ({ ...prev, [`insurance_${idx}_insuranceType`]: "" }));
                 }}
-                className={`w-full h-[44px] sm:h-[46px] bg-white border rounded-[10px] px-3 text-[13px] text-[#44475b] placeholder-[#8b8b8b] focus:outline-none transition-colors cursor-pointer ${
-                  errors[`insurance_${idx}_insuranceType`] ? "border-red-500 focus:border-red-500" : "border-[#e9e9e9] focus:border-[#04b488]"
-                }`}
+                className={`w-full h-[44px] sm:h-[46px] bg-white border rounded-[10px] px-3 text-[13px] text-[#44475b] placeholder-[#8b8b8b] focus:outline-none transition-colors cursor-pointer ${errors[`insurance_${idx}_insuranceType`] ? "border-red-500 focus:border-red-500" : "border-[#e9e9e9] focus:border-[#04b488]"
+                  }`}
               >
                 <option value="">Select Type</option>
                 <option value="Life Insurance">Life Insurance</option>
@@ -886,9 +842,8 @@ export default function FinancialProfileStep({
                   updateinsurePremium(item.id, "premiumType", e.target.value);
                   setErrors(prev => ({ ...prev, [`insurance_${idx}_premiumType`]: "" }));
                 }}
-                className={`w-full h-[44px] sm:h-[46px] bg-white border rounded-[10px] px-3 text-[13px] text-[#44475b] placeholder-[#8b8b8b] focus:outline-none transition-colors cursor-pointer ${
-                  errors[`insurance_${idx}_premiumType`] ? "border-red-500 focus:border-red-500" : "border-[#e9e9e9] focus:border-[#04b488]"
-                }`}
+                className={`w-full h-[44px] sm:h-[46px] bg-white border rounded-[10px] px-3 text-[13px] text-[#44475b] placeholder-[#8b8b8b] focus:outline-none transition-colors cursor-pointer ${errors[`insurance_${idx}_premiumType`] ? "border-red-500 focus:border-red-500" : "border-[#e9e9e9] focus:border-[#04b488]"
+                  }`}
               >
                 <option value="Annual">Annually</option>
                 <option value="Monthly">Monthly</option>
@@ -910,9 +865,8 @@ export default function FinancialProfileStep({
                 }}
                 onWheel={(e) => e.currentTarget.blur()}
                 onKeyDown={(e) => (e.key === "ArrowUp" || e.key === "ArrowDown") && e.preventDefault()}
-                className={`w-full h-[44px] sm:h-[46px] bg-white border rounded-[10px] px-3 text-[13px] text-[#44475b] placeholder-[#8b8b8b] focus:outline-none transition-colors ${
-                  errors[`insurance_${idx}_premium`] ? "border-red-500 focus:border-red-500" : "border-[#e9e9e9] focus:border-[#04b488]"
-                }`}
+                className={`w-full h-[44px] sm:h-[46px] bg-white border rounded-[10px] px-3 text-[13px] text-[#44475b] placeholder-[#8b8b8b] focus:outline-none transition-colors ${errors[`insurance_${idx}_premium`] ? "border-red-500 focus:border-red-500" : "border-[#e9e9e9] focus:border-[#04b488]"
+                  }`}
                 type="number"
                 placeholder="₹"
               />
@@ -934,37 +888,34 @@ export default function FinancialProfileStep({
                 }}
                 onWheel={(e) => e.currentTarget.blur()}
                 onKeyDown={(e) => (e.key === "ArrowUp" || e.key === "ArrowDown") && e.preventDefault()}
-                className={`w-full h-[44px] sm:h-[46px] bg-white border rounded-[10px] px-3 text-[13px] text-[#44475b] placeholder-[#8b8b8b] focus:outline-none transition-colors ${
-                  errors[`insurance_${idx}_sumInsured`] ? "border-red-500 focus:border-red-500" : "border-[#e9e9e9] focus:border-[#04b488]"
-                }`}
+                className={`w-full h-[44px] sm:h-[46px] bg-white border rounded-[10px] px-3 text-[13px] text-[#44475b] placeholder-[#8b8b8b] focus:outline-none transition-colors ${errors[`insurance_${idx}_sumInsured`] ? "border-red-500 focus:border-red-500" : "border-[#e9e9e9] focus:border-[#04b488]"
+                  }`}
                 type="number"
                 placeholder="₹"
               />
               {errors[`insurance_${idx}_sumInsured`] && <p className="text-red-500 text-[11px] mt-1">{errors[`insurance_${idx}_sumInsured`]}</p>}
             </div>
 
-            <div className="lg:col-span-1 flex lg:justify-center">
-              {insurepre.length > 1 && (
-                <button
-                  type="button"
-                  onClick={() => {
-                    removeinsurePremium(item.id);
-                    setErrors(prev => {
-                      const copy = { ...prev };
-                      delete copy[`insurance_${idx}_policyName`];
-                      delete copy[`insurance_${idx}_policyNumber`];
-                      delete copy[`insurance_${idx}_insuranceType`];
-                      delete copy[`insurance_${idx}_premiumType`];
-                      delete copy[`insurance_${idx}_premium`];
-                      delete copy[`insurance_${idx}_sumInsured`];
-                      return copy;
-                    });
-                  }}
-                  className="h-10 w-10 cursor-pointer rounded-full bg-[#DB4437] text-white flex items-center justify-center hover:bg-red-600 transition"
-                >
-                  <Trash2 size={18} />
-                </button>
-              )}
+            <div className="lg:col-span-1 flex lg:justify-center mt-7 lg:mt-7">
+              <button
+                type="button"
+                onClick={() => {
+                  removeinsurePremium(item.id);
+                  setErrors(prev => {
+                    const copy = { ...prev };
+                    delete copy[`insurance_${idx}_policyName`];
+                    delete copy[`insurance_${idx}_policyNumber`];
+                    delete copy[`insurance_${idx}_insuranceType`];
+                    delete copy[`insurance_${idx}_premiumType`];
+                    delete copy[`insurance_${idx}_premium`];
+                    delete copy[`insurance_${idx}_sumInsured`];
+                    return copy;
+                  });
+                }}
+                className="h-10 w-10 cursor-pointer rounded-full bg-[#DB4437] text-white flex items-center justify-center hover:bg-red-600 transition"
+              >
+                <Trash2 size={18} />
+              </button>
             </div>
           </div>
         ))}
@@ -977,7 +928,7 @@ export default function FinancialProfileStep({
         onAdd={othertaxsave}
       >
         {othertax.map((item, idx) => (
-          <div key={item.id} className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-6 xl:grid-cols-12 gap-4 items-end"
+          <div key={item.id} className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-6 xl:grid-cols-12 gap-4 items-start"
           >
 
             <div className="lg:col-span-3">
@@ -993,9 +944,8 @@ export default function FinancialProfileStep({
                   updateOthertax(item.id, "date", e.target.value);
                   setErrors(prev => ({ ...prev, [`tax_${idx}_date`]: "" }));
                 }}
-                className={`w-full h-[44px] sm:h-[46px] bg-white border rounded-[10px] px-3 text-[13px] text-[#44475b] placeholder-[#8b8b8b] focus:outline-none transition-colors ${
-                  errors[`tax_${idx}_date`] ? "border-red-500 focus:border-red-500" : "border-[#e9e9e9] focus:border-[#04b488]"
-                }`}
+                className={`w-full h-[44px] sm:h-[46px] bg-white border rounded-[10px] px-3 text-[13px] text-[#44475b] placeholder-[#8b8b8b] focus:outline-none transition-colors ${errors[`tax_${idx}_date`] ? "border-red-500 focus:border-red-500" : "border-[#e9e9e9] focus:border-[#04b488]"
+                  }`}
                 type="date"
                 placeholder="DD/MM/YYYY"
               />
@@ -1015,9 +965,8 @@ export default function FinancialProfileStep({
                   updateOthertax(item.id, "investmentName", e.target.value);
                   setErrors(prev => ({ ...prev, [`tax_${idx}_investmentName`]: "" }));
                 }}
-                className={`w-full h-[44px] sm:h-[46px] bg-white border rounded-[10px] px-3 text-[13px] text-[#44475b] placeholder-[#8b8b8b] focus:outline-none transition-colors ${
-                  errors[`tax_${idx}_investmentName`] ? "border-red-500 focus:border-red-500" : "border-[#e9e9e9] focus:border-[#04b488]"
-                }`}
+                className={`w-full h-[44px] sm:h-[46px] bg-white border rounded-[10px] px-3 text-[13px] text-[#44475b] placeholder-[#8b8b8b] focus:outline-none transition-colors ${errors[`tax_${idx}_investmentName`] ? "border-red-500 focus:border-red-500" : "border-[#e9e9e9] focus:border-[#04b488]"
+                  }`}
                 type="text"
                 placeholder="e.g. PPF 2024 or LIC"
               />
@@ -1039,34 +988,31 @@ export default function FinancialProfileStep({
                 }}
                 onWheel={(e) => e.currentTarget.blur()}
                 onKeyDown={(e) => (e.key === "ArrowUp" || e.key === "ArrowDown") && e.preventDefault()}
-                className={`w-full h-[44px] sm:h-[46px] bg-white border rounded-[10px] px-3 text-[13px] text-[#44475b] placeholder-[#8b8b8b] focus:outline-none transition-colors ${
-                  errors[`tax_${idx}_amount`] ? "border-red-500 focus:border-red-500" : "border-[#e9e9e9] focus:border-[#04b488]"
-                }`}
+                className={`w-full h-[44px] sm:h-[46px] bg-white border rounded-[10px] px-3 text-[13px] text-[#44475b] placeholder-[#8b8b8b] focus:outline-none transition-colors ${errors[`tax_${idx}_amount`] ? "border-red-500 focus:border-red-500" : "border-[#e9e9e9] focus:border-[#04b488]"
+                  }`}
                 type="number"
                 placeholder="₹"
               />
               {errors[`tax_${idx}_amount`] && <p className="text-red-500 text-[11px] mt-1">{errors[`tax_${idx}_amount`]}</p>}
             </div>
 
-            <div className="lg:col-span-1 flex lg:justify-center">
-              {othertax.length > 1 && (
-                <button
-                  type="button"
-                  onClick={() => {
-                    removeotherTax(item.id);
-                    setErrors(prev => {
-                      const copy = { ...prev };
-                      delete copy[`tax_${idx}_date`];
-                      delete copy[`tax_${idx}_investmentName`];
-                      delete copy[`tax_${idx}_amount`];
-                      return copy;
-                    });
-                  }}
-                  className="h-10 w-10 rounded-full cursor-pointer bg-[#DB4437] text-white flex items-center justify-center hover:bg-red-600 transition"
-                >
-                  <Trash2 size={18} />
-                </button>
-              )}
+            <div className="lg:col-span-1 flex lg:justify-center mt-7 lg:mt-7">
+              <button
+                type="button"
+                onClick={() => {
+                  removeotherTax(item.id);
+                  setErrors(prev => {
+                    const copy = { ...prev };
+                    delete copy[`tax_${idx}_date`];
+                    delete copy[`tax_${idx}_investmentName`];
+                    delete copy[`tax_${idx}_amount`];
+                    return copy;
+                  });
+                }}
+                className="h-10 w-10 rounded-full cursor-pointer bg-[#DB4437] text-white flex items-center justify-center hover:bg-red-600 transition"
+              >
+                <Trash2 size={18} />
+              </button>
             </div>
           </div>
         ))}
@@ -1129,24 +1075,24 @@ export default function FinancialProfileStep({
         <div className="flex-none md:flex gap-2 pt-4">
           <div className="mb-2 md:mb-0">
             <p className="text-[15px] font-normal flex items-center"><span className="px-[8px] py-[3px] rounded text-white text-[11px] me-2 bg-[#7b9ebe]">i</span>
-            <span>Gross: Total Inflow Sources</span></p>
+              <span>Gross: Total Inflow Sources</span></p>
           </div>
           <div className="mb-2 md:mb-0">
             <p className="flex items-center"><span className="px-[8px] py-[3px] rounded text-white text-[11px] me-2 bg-[#7b9ebe]">i</span>
-            <span>Net: Gross - Deductions</span> </p>
+              <span>Net: Gross - Deductions</span> </p>
           </div>
           <div className="mb-2 md:mb-0">
             <p className="flex items-center"><span className="px-[8px] py-[3px] rounded text-white text-[11px] me-2 bg-[#7b9ebe]">i</span>
-           <span> Surplus: Net - EMI - Insurance - Expenses - Other - Monthly Investments</span>
+              <span> Surplus: Net - EMI - Insurance - Expenses - Other - Monthly Investments</span>
             </p>
           </div>
         </div>
       </section>
-      <StepActions 
-        showBack={showBack} 
-        onBack={onBack} 
-        onContinue={handleContinue} 
-        isSubmitting={isSubmitting} 
+      <StepActions
+        showBack={showBack}
+        onBack={onBack}
+        onContinue={handleContinue}
+        isSubmitting={isSubmitting}
       />
     </div>
   );
@@ -1231,7 +1177,7 @@ function Row({
   const amountError = errors[`${prefix}_amount`];
 
   return (
-    <div className="grid grid-cols-1 md:grid-cols-12 gap-4 items-end">
+    <div className="grid grid-cols-1 md:grid-cols-12 gap-4 items-start">
 
       <div className="md:col-span-5">
         <label className="block text-[13px] font-medium text-[#44475b] mb-2">
@@ -1241,9 +1187,8 @@ function Row({
 
         <input
           name={`${prefix}_title`}
-          className={`w-full h-[44px] sm:h-[46px] bg-white border rounded-[10px] px-3 text-[13px] text-[#44475b] placeholder-[#8b8b8b] focus:outline-none transition-colors w-full rounded-lg border px-4 py-2.5 outline-none ${
-            titleError ? "border-red-500 focus:border-red-500" : "border-[#e9e9e9] focus:border-[#04b488]"
-          }`}
+          className={`w-full h-[44px] sm:h-[46px] bg-white border rounded-[10px] px-3 text-[13px] text-[#44475b] placeholder-[#8b8b8b] focus:outline-none transition-colors w-full rounded-lg border px-4 py-2.5 outline-none ${titleError ? "border-red-500 focus:border-red-500" : "border-[#e9e9e9] focus:border-[#04b488]"
+            }`}
           type="text"
           value={item.title}
           onChange={(e) => onTitle(e.target.value)}
@@ -1261,9 +1206,8 @@ function Row({
 
         <input
           name={`${prefix}_amount`}
-          className={`w-full h-[44px] sm:h-[46px] bg-white border rounded-[10px] px-3 text-[13px] text-[#44475b] placeholder-[#8b8b8b] focus:outline-none transition-colors w-full rounded-lg border px-4 py-2.5 outline-none ${
-            amountError ? "border-red-500 focus:border-red-500" : "border-[#e9e9e9] focus:border-[#04b488]"
-          }`}
+          className={`w-full h-[44px] sm:h-[46px] bg-white border rounded-[10px] px-3 text-[13px] text-[#44475b] placeholder-[#8b8b8b] focus:outline-none transition-colors w-full rounded-lg border px-4 py-2.5 outline-none ${amountError ? "border-red-500 focus:border-red-500" : "border-[#e9e9e9] focus:border-[#04b488]"
+            }`}
           type="number"
           value={item.amount}
           onChange={(e) => onAmount(e.target.value)}
@@ -1274,11 +1218,11 @@ function Row({
         {amountError && <p className="text-red-500 text-[11px] mt-1">{amountError}</p>}
       </div>
 
-      <div className="md:col-span-2 flex md:justify-center">
+      <div className="md:col-span-2 flex md:justify-center mt-7 md:mt-7">
         {showDelete && (
           <button
             onClick={onDelete}
-            className="h-10 w-10 cursor-pointer rounded-full bg-[#DB4437] cursor-pointer text-white flex items-center justify-center hover:bg-red-600"
+            className="h-10 w-10 cursor-pointer rounded-full bg-[#DB4437] text-white flex items-center justify-center hover:bg-red-600"
           >
             <Trash2 size={18} />
           </button>

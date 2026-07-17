@@ -101,9 +101,36 @@ export default function PersonalProfileStep({
 
     const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
         const { name, value } = e.target;
+
+        let processedValue = value;
+
+        if (name === "pan") {
+            processedValue = value.toUpperCase();
+        } else if (name === "fullName" || name === "contactPerson" || name === "city") {
+            // Remove numbers from name fields and city field
+            processedValue = value.replace(/\d/g, "");
+        } else if (name === "mobileNumber" || name === "emergencyMobile") {
+            // Allow only digits
+            processedValue = value.replace(/\D/g, "");
+        } else if (name === "aadharNo") {
+            // Format Aadhaar as XXXX-XXXX-XXXX
+            const digits = value.replace(/\D/g, "");
+            let formatted = "";
+            if (digits.length > 0) {
+                formatted += digits.substring(0, 4);
+            }
+            if (digits.length > 4) {
+                formatted += "-" + digits.substring(4, 8);
+            }
+            if (digits.length > 8) {
+                formatted += "-" + digits.substring(8, 12);
+            }
+            processedValue = formatted;
+        }
+
         activeSetter((prev: any) => ({
             ...prev,
-            [name]: name === "pan" ? value.toUpperCase() : value,
+            [name]: processedValue,
         }));
         setErrors((prev) => ({
             ...prev,
@@ -115,34 +142,80 @@ export default function PersonalProfileStep({
         const validationErrors: Record<string, string> = {};
         if (!activeData.fullName || !activeData.fullName.trim()) {
             validationErrors.fullName = "Full name is required.";
+        } else if (/\d/.test(activeData.fullName)) {
+            validationErrors.fullName = "Full name must not contain numbers.";
+        } else if (!/^[a-zA-Z\s'.\-]+$/.test(activeData.fullName.trim())) {
+            validationErrors.fullName = "Full name must contain only alphabets and spaces.";
         }
+
         if (!activeData.dob) {
             validationErrors.dob = "Date of birth is required.";
+        } else {
+            const birthDate = new Date(activeData.dob);
+            const today = new Date();
+            if (birthDate > today) {
+                validationErrors.dob = "Date of birth cannot be in the future.";
+            } else {
+                let age = today.getFullYear() - birthDate.getFullYear();
+                const m = today.getMonth() - birthDate.getMonth();
+                if (m < 0 || (m === 0 && today.getDate() < birthDate.getDate())) {
+                    age--;
+                }
+
+            }
         }
+
         if (!activeData.mobileNumber || !activeData.mobileNumber.trim()) {
             validationErrors.mobileNumber = "Mobile number is required.";
-        } else if (activeData.mobileNumber.trim().length !== 10) {
-            validationErrors.mobileNumber = "Mobile number must be exactly 10 digits.";
+        } else if (!/^[6-9]\d{9}$/.test(activeData.mobileNumber.trim())) {
+            validationErrors.mobileNumber = "Please enter a valid 10-digit Indian mobile number starting with 6-9.";
         }
+
         if (!activeData.email || !activeData.email.trim()) {
             validationErrors.email = "Email ID is required.";
         } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(activeData.email.trim())) {
             validationErrors.email = "Please enter a valid email address.";
         }
+
         if (!activeData.pan || !activeData.pan.trim()) {
             validationErrors.pan = "PAN is required.";
         } else if (!/^[A-Z]{5}[0-9]{4}[A-Z]{1}$/.test(activeData.pan.trim().toUpperCase())) {
             validationErrors.pan = "Please enter a valid PAN format (e.g. ABCDE1234F).";
         }
+
+        if (activeData.aadharNo && activeData.aadharNo.trim()) {
+            const cleanAadhar = activeData.aadharNo.replace(/[\s-]/g, "");
+            if (!/^\d{12}$/.test(cleanAadhar)) {
+                validationErrors.aadharNo = "Aadhar number must be exactly 12 digits.";
+            }
+        }
+
         if (!activeData.address || !activeData.address.trim()) {
             validationErrors.address = "Address is required.";
         }
+
         if (!activeData.city || !activeData.city.trim()) {
             validationErrors.city = "City is required.";
+        } else if (/\d/.test(activeData.city)) {
+            validationErrors.city = "City name must not contain numbers.";
+        } else if (!/^[a-zA-Z\s'.\-]+$/.test(activeData.city.trim())) {
+            validationErrors.city = "City name must contain only alphabets and spaces.";
         }
-        if (activeData.emergencyMobile && activeData.emergencyMobile.trim() && activeData.emergencyMobile.trim().length !== 10) {
-            validationErrors.emergencyMobile = "Emergency mobile must be exactly 10 digits.";
+
+        if (activeData.contactPerson && activeData.contactPerson.trim()) {
+            if (/\d/.test(activeData.contactPerson)) {
+                validationErrors.contactPerson = "Contact person name must not contain numbers.";
+            } else if (!/^[a-zA-Z\s'.\-]+$/.test(activeData.contactPerson.trim())) {
+                validationErrors.contactPerson = "Contact person name must contain only alphabets and spaces.";
+            }
         }
+
+        if (activeData.emergencyMobile && activeData.emergencyMobile.trim()) {
+            if (!/^[6-9]\d{9}$/.test(activeData.emergencyMobile.trim())) {
+                validationErrors.emergencyMobile = "Please enter a valid 10-digit Indian mobile number starting with 6-9.";
+            }
+        }
+
         if (activeData.emergencyEmail && activeData.emergencyEmail.trim() && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(activeData.emergencyEmail.trim())) {
             validationErrors.emergencyEmail = "Please enter a valid email address.";
         }
@@ -177,8 +250,8 @@ export default function PersonalProfileStep({
             };
 
             const url = profileId
-                ? `https://h3t0pdfc-5000.inc1.devtunnels.ms/api/personal/${profileId}`
-                : "https://h3t0pdfc-5000.inc1.devtunnels.ms/api/personal";
+                ? `http://localhost:5000/api/personal/${profileId}`
+                : "http://localhost:5000/api/personal";
             const method = profileId ? "PUT" : "POST";
 
             const response = await fetch(url, {
@@ -220,11 +293,10 @@ export default function PersonalProfileStep({
                             Full Name
                             <span className="text-red-600"> *</span>
                         </label>
-                        <input 
-                            className={`w-full h-[44px] sm:h-[46px] bg-white border rounded-[10px] px-3 text-[13px] text-[#44475b] placeholder-[#8b8b8b] focus:outline-none transition-colors ${
-                                errors.fullName ? "border-red-500 focus:border-red-500" : "border-[#e9e9e9] focus:border-[#06A358]"
-                            }`}
-                            type="text" 
+                        <input
+                            className={`w-full h-[44px] sm:h-[46px] bg-white border rounded-[10px] px-3 text-[13px] text-[#44475b] placeholder-[#8b8b8b] focus:outline-none transition-colors ${errors.fullName ? "border-red-500 focus:border-red-500" : "border-[#e9e9e9] focus:border-[#06A358]"
+                                }`}
+                            type="text"
                             placeholder="Enter Name"
                             name="fullName"
                             value={activeData.fullName}
@@ -237,10 +309,9 @@ export default function PersonalProfileStep({
                             Date of Birth
                             <span className="text-red-600"> *</span>
                         </label>
-                        <input 
-                            className={`w-full h-[44px] sm:h-[46px] bg-white border rounded-[10px] px-3 text-[13px] text-[#44475b] placeholder-[#8b8b8b] focus:outline-none transition-colors ${
-                                errors.dob ? "border-red-500 focus:border-red-500" : "border-[#e9e9e9] focus:border-[#06A358]"
-                            }`}
+                        <input
+                            className={`w-full h-[44px] sm:h-[46px] bg-white border rounded-[10px] px-3 text-[13px] text-[#44475b] placeholder-[#8b8b8b] focus:outline-none transition-colors ${errors.dob ? "border-red-500 focus:border-red-500" : "border-[#e9e9e9] focus:border-[#06A358]"
+                                }`}
                             type="date"
                             name="dob"
                             value={activeData.dob}
@@ -253,12 +324,11 @@ export default function PersonalProfileStep({
                             Mobile Number
                             <span className="text-red-600"> *</span>
                         </label>
-                        <input 
-                            className={`w-full h-[44px] sm:h-[46px] bg-white border rounded-[10px] px-3 text-[13px] text-[#44475b] placeholder-[#8b8b8b] focus:outline-none transition-colors ${
-                                errors.mobileNumber ? "border-red-500 focus:border-red-500" : "border-[#e9e9e9] focus:border-[#06A358]"
-                            }`}
-                            type="tel" 
-                            maxLength={10} 
+                        <input
+                            className={`w-full h-[44px] sm:h-[46px] bg-white border rounded-[10px] px-3 text-[13px] text-[#44475b] placeholder-[#8b8b8b] focus:outline-none transition-colors ${errors.mobileNumber ? "border-red-500 focus:border-red-500" : "border-[#e9e9e9] focus:border-[#06A358]"
+                                }`}
+                            type="tel"
+                            maxLength={10}
                             placeholder="10 Digits Mobile No."
                             name="mobileNumber"
                             value={activeData.mobileNumber}
@@ -271,11 +341,10 @@ export default function PersonalProfileStep({
                             Email ID
                             <span className="text-red-600"> *</span>
                         </label>
-                        <input 
-                            className={`w-full h-[44px] sm:h-[46px] bg-white border rounded-[10px] px-3 text-[13px] text-[#44475b] placeholder-[#8b8b8b] focus:outline-none transition-colors ${
-                                errors.email ? "border-red-500 focus:border-red-500" : "border-[#e9e9e9] focus:border-[#06A358]"
-                            }`}
-                            type="email" 
+                        <input
+                            className={`w-full h-[44px] sm:h-[46px] bg-white border rounded-[10px] px-3 text-[13px] text-[#44475b] placeholder-[#8b8b8b] focus:outline-none transition-colors ${errors.email ? "border-red-500 focus:border-red-500" : "border-[#e9e9e9] focus:border-[#06A358]"
+                                }`}
+                            type="email"
                             placeholder="Enter Email ID"
                             name="email"
                             value={activeData.email}
@@ -292,12 +361,11 @@ export default function PersonalProfileStep({
                                 PAN
                                 <span className="text-red-600"> *</span>
                             </label>
-                            <input 
-                                className={`w-full h-[44px] sm:h-[46px] bg-white border rounded-[10px] px-3 text-[13px] text-[#44475b] placeholder-[#8b8b8b] focus:outline-none transition-colors uppercase ${
-                                    errors.pan ? "border-red-500 focus:border-red-500" : "border-[#e9e9e9] focus:border-[#06A358]"
-                                }`}
-                                type="text" 
-                                maxLength={10} 
+                            <input
+                                className={`w-full h-[44px] sm:h-[46px] bg-white border rounded-[10px] px-3 text-[13px] text-[#44475b] placeholder-[#8b8b8b] focus:outline-none transition-colors uppercase ${errors.pan ? "border-red-500 focus:border-red-500" : "border-[#e9e9e9] focus:border-[#06A358]"
+                                    }`}
+                                type="text"
+                                maxLength={10}
                                 placeholder="Enter"
                                 name="pan"
                                 value={activeData.pan}
@@ -319,14 +387,16 @@ export default function PersonalProfileStep({
                                 Aadhar No.
                             </label>
                             <input
-                                className="w-full h-[44px] sm:h-[46px] bg-white border border-[#e9e9e9] rounded-[10px] px-3 text-[13px] text-[#44475b] placeholder-[#8b8b8b] focus:outline-none focus:border-[#06A358] transition-colors"
+                                className={`w-full h-[44px] sm:h-[46px] bg-white border rounded-[10px] px-3 text-[13px] text-[#44475b] placeholder-[#8b8b8b] focus:outline-none transition-colors ${errors.aadharNo ? "border-red-500 focus:border-red-500" : "border-[#e9e9e9] focus:border-[#06A358]"
+                                    }`}
                                 type="text"
                                 maxLength={14}
-                                placeholder="XXXX-XXXX-XXXX-XXXX"
+                                placeholder="XXXX-XXXX-XXXX"
                                 name="aadharNo"
                                 value={activeData.aadharNo}
                                 onChange={handleChange}
                             />
+                            {errors.aadharNo && <p className="text-red-500 text-[11px] mt-1">{errors.aadharNo}</p>}
                         </div>
                         <div>
                             <label className="block text-[13px] font-medium text-[#44475b] mb-2">
@@ -352,11 +422,10 @@ export default function PersonalProfileStep({
                                     Address (House No, Building, Area)
                                     <span className="text-red-600"> *</span>
                                 </label>
-                                <input 
-                                    className={`w-full h-[44px] sm:h-[46px] bg-white border rounded-[10px] px-3 text-[13px] text-[#44475b] placeholder-[#8b8b8b] focus:outline-none transition-colors ${
-                                        errors.address ? "border-red-500 focus:border-red-500" : "border-[#e9e9e9] focus:border-[#06A358]"
-                                    }`}
-                                    type="text" 
+                                <input
+                                    className={`w-full h-[44px] sm:h-[46px] bg-white border rounded-[10px] px-3 text-[13px] text-[#44475b] placeholder-[#8b8b8b] focus:outline-none transition-colors ${errors.address ? "border-red-500 focus:border-red-500" : "border-[#e9e9e9] focus:border-[#06A358]"
+                                        }`}
+                                    type="text"
                                     placeholder="Enter Your Address"
                                     name="address"
                                     value={activeData.address}
@@ -370,11 +439,10 @@ export default function PersonalProfileStep({
                                 City
                                 <span className="text-red-600"> *</span>
                             </label>
-                            <input 
-                                className={`w-full h-[44px] sm:h-[46px] bg-white border rounded-[10px] px-3 text-[13px] text-[#44475b] placeholder-[#8b8b8b] focus:outline-none transition-colors ${
-                                    errors.city ? "border-red-500 focus:border-red-500" : "border-[#e9e9e9] focus:border-[#06A358]"
-                                }`}
-                                type="text" 
+                            <input
+                                className={`w-full h-[44px] sm:h-[46px] bg-white border rounded-[10px] px-3 text-[13px] text-[#44475b] placeholder-[#8b8b8b] focus:outline-none transition-colors ${errors.city ? "border-red-500 focus:border-red-500" : "border-[#e9e9e9] focus:border-[#06A358]"
+                                    }`}
+                                type="text"
                                 placeholder="e.g. Lucknow"
                                 name="city"
                                 value={activeData.city}
@@ -393,24 +461,25 @@ export default function PersonalProfileStep({
                                 Contact Person
                             </label>
                             <input
-                                className="w-full h-[44px] sm:h-[46px] bg-white border border-[#e9e9e9] rounded-[10px] px-3 text-[13px] text-[#44475b] placeholder-[#8b8b8b] focus:outline-none focus:border-[#06A358] transition-colors"
+                                className={`w-full h-[44px] sm:h-[46px] bg-white border rounded-[10px] px-3 text-[13px] text-[#44475b] placeholder-[#8b8b8b] focus:outline-none transition-colors ${errors.contactPerson ? "border-red-500 focus:border-red-500" : "border-[#e9e9e9] focus:border-[#06A358]"
+                                    }`}
                                 type="text"
                                 placeholder="Enter Name"
                                 name="contactPerson"
                                 value={activeData.contactPerson}
                                 onChange={handleChange}
                             />
+                            {errors.contactPerson && <p className="text-red-500 text-[11px] mt-1">{errors.contactPerson}</p>}
                         </div>
                         <div>
                             <label className="block text-[13px] font-medium text-[#44475b] mb-2">
                                 Mobile No
                             </label>
-                            <input 
-                                className={`w-full h-[44px] sm:h-[46px] bg-white border rounded-[10px] px-3 text-[13px] text-[#44475b] placeholder-[#8b8b8b] focus:outline-none transition-colors ${
-                                    errors.emergencyMobile ? "border-red-500 focus:border-red-500" : "border-[#e9e9e9] focus:border-[#06A358]"
-                                }`}
-                                type="tel" 
-                                maxLength={10} 
+                            <input
+                                className={`w-full h-[44px] sm:h-[46px] bg-white border rounded-[10px] px-3 text-[13px] text-[#44475b] placeholder-[#8b8b8b] focus:outline-none transition-colors ${errors.emergencyMobile ? "border-red-500 focus:border-red-500" : "border-[#e9e9e9] focus:border-[#06A358]"
+                                    }`}
+                                type="tel"
+                                maxLength={10}
                                 placeholder="10 Digits Mobile No."
                                 name="emergencyMobile"
                                 value={activeData.emergencyMobile}
@@ -422,11 +491,10 @@ export default function PersonalProfileStep({
                             <label className="block text-[13px] font-medium text-[#44475b] mb-2">
                                 Emergency Email
                             </label>
-                            <input 
-                                className={`w-full h-[44px] sm:h-[46px] bg-white border rounded-[10px] px-3 text-[13px] text-[#44475b] placeholder-[#8b8b8b] focus:outline-none transition-colors ${
-                                    errors.emergencyEmail ? "border-red-500 focus:border-red-500" : "border-[#e9e9e9] focus:border-[#06A358]"
-                                }`}
-                                type="email" 
+                            <input
+                                className={`w-full h-[44px] sm:h-[46px] bg-white border rounded-[10px] px-3 text-[13px] text-[#44475b] placeholder-[#8b8b8b] focus:outline-none transition-colors ${errors.emergencyEmail ? "border-red-500 focus:border-red-500" : "border-[#e9e9e9] focus:border-[#06A358]"
+                                    }`}
+                                type="email"
                                 placeholder="Enter Email ID"
                                 name="emergencyEmail"
                                 value={activeData.emergencyEmail}

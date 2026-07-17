@@ -24,7 +24,7 @@ export default function KnowYourRiskProfile({
 
     useEffect(() => {
         if (!financialPlanningId) return;
-        fetch(`https://h3t0pdfc-5000.inc1.devtunnels.ms/api/financial-planning/${financialPlanningId}`)
+        fetch(`http://localhost:5000/api/financial-planning/${financialPlanningId}`)
             .then(res => res.json())
             .then(resData => {
                 if (resData.success && resData.data) {
@@ -44,9 +44,9 @@ export default function KnowYourRiskProfile({
     const calculateRiskProfile = () => {
         if (!q1 || !q2 || !q3 || !q4) return "";
         if (q1 === "Agree" && q2 === "Agree" && q3 === "Agree" && q4 === "Agree") {
-            return "Conservative";
-        } else if (q1 === "No" && q2 === "No" && q3 === "No" && q4 === "No") {
             return "Aggressive";
+        } else if (q1 === "No" && q2 === "No" && q3 === "No" && q4 === "No") {
+            return "Conservative";
         } else {
             return "Moderate";
         }
@@ -67,7 +67,7 @@ export default function KnowYourRiskProfile({
         setIsSubmitting(true);
         try {
             // Fetch current planning data to get existing contingency details
-            const getResponse = await fetch(`https://h3t0pdfc-5000.inc1.devtunnels.ms/api/financial-planning/${financialPlanningId}`);
+            const getResponse = await fetch(`http://localhost:5000/api/financial-planning/${financialPlanningId}`);
             if (!getResponse.ok) {
                 throw new Error("Failed to fetch existing financial planning details");
             }
@@ -85,7 +85,7 @@ export default function KnowYourRiskProfile({
                 riskProfile
             };
 
-            const response = await fetch(`https://h3t0pdfc-5000.inc1.devtunnels.ms/api/financial-planning/${financialPlanningId}`, {
+            const response = await fetch(`http://localhost:5000/api/financial-planning/${financialPlanningId}`, {
                 method: "PUT",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify(payload),
@@ -95,7 +95,7 @@ export default function KnowYourRiskProfile({
                 const errBody = await response.json().catch(() => ({}));
                 throw new Error(errBody.msg || errBody.message || "Failed to update risk profile");
             }
-            
+
             if (onNext) onNext();
         } catch (err) {
             alert("Error: " + (err instanceof Error ? err.message : String(err)));
@@ -152,7 +152,7 @@ export default function KnowYourRiskProfile({
     return (
         <div className="space-y-6 sm:space-y-8">
             <div className="w-full min-w-0 bg-white border border-[#e0dbdb] rounded-[18px] sm:rounded-[24px] lg:rounded-[33px] shadow-[1px_0px_6.8px_-1px_rgba(0,0,0,0.18)] p-4 sm:p-6 md:p-8 lg:p-10">
-                
+
                 {renderQuestion("I Seek Above Average Returns From My Investments", q1, setQ1)}
                 {renderQuestion("I'm Patient With My Investments & Can Bear Short Term Volatility in My Portfolio", q2, setQ2)}
                 {renderQuestion("I Have a Regular & Stable Income Resource", q3, setQ3)}
@@ -182,24 +182,24 @@ export default function KnowYourRiskProfile({
                         <span className="text-[20px] lg:text-[30px] text-[#44475B] whitespace-nowrap text-center">
                             Your risk profile is <span className={
                                 riskProfile === "Moderate" ? "text-[#FFAF19]" :
-                                riskProfile === "Conservative" ? "text-[#95DF3D]" :
-                                "text-[#FF3333]"
+                                    riskProfile === "Conservative" ? "text-[#95DF3D]" :
+                                        "text-[#FF3333]"
                             }>{riskProfile}</span>
                         </span>
                     </div>
 
                     <p className="text-[#44475B] text-center pt-5 md:w-100 m-auto leading-tight">
                         {riskProfile === "Moderate" ? "You seek a balance between stability and growth. Your portfolio captures market opportunities while maintaining a reasonable safety net." :
-                         riskProfile === "Conservative" ? "You prioritize the safety of your capital over high returns. Your focus is on stability and steady, low-risk investments." :
-                         "You are willing to accept significant short-term volatility in pursuit of higher long-term returns. You seek maximum capital appreciation."}
+                            riskProfile === "Conservative" ? "You prioritize the safety of your capital over high returns. Your focus is on stability and steady, low-risk investments." :
+                                "You are willing to accept significant short-term volatility in pursuit of higher long-term returns. You seek maximum capital appreciation."}
                     </p>
                 </div>
             )}
-            <StepActions 
-                showBack={showBack} 
-                onBack={onBack} 
-                onContinue={handleContinue} 
-                isSubmitting={isSubmitting} 
+            <StepActions
+                showBack={showBack}
+                onBack={onBack}
+                onContinue={handleContinue}
+                isSubmitting={isSubmitting}
             />
         </div>
     );

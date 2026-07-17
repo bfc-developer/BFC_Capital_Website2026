@@ -187,8 +187,8 @@ export default function ProfessionalDetailsStep({
 
       const response = await fetch(
         financialProfileExists && financialProfileId
-          ? `https://h3t0pdfc-5000.inc1.devtunnels.ms/api/financial/${financialProfileId}`
-          : "https://h3t0pdfc-5000.inc1.devtunnels.ms/api/financial",
+          ? `http://localhost:5000/api/financial/${financialProfileId}`
+          : "http://localhost:5000/api/financial",
         {
           method: financialProfileExists && financialProfileId ? "PUT" : "POST",
           headers: {
@@ -233,9 +233,8 @@ export default function ProfessionalDetailsStep({
         name="occupation"
         value={occupation}
         onChange={handleSelectChange}
-        className={`cursor-pointer w-full h-[44px] sm:h-[46px] bg-white border rounded-[10px] px-3 text-[13px] text-[#44475b] placeholder-[#8b8b8b] focus:outline-none transition-colors ${
-          errors.occupation ? "border-red-500 focus:border-red-500" : "border-[#e9e9e9] focus:border-[#04b488]"
-        }`}
+        className={`cursor-pointer w-full h-[44px] sm:h-[46px] bg-white border rounded-[10px] px-3 text-[13px] text-[#44475b] placeholder-[#8b8b8b] focus:outline-none transition-colors ${errors.occupation ? "border-red-500 focus:border-red-500" : "border-[#e9e9e9] focus:border-[#04b488]"
+          }`}
       >
         <option value="" disabled>Select Occupation</option>
         <option value="Service">Service</option>
@@ -259,9 +258,8 @@ export default function ProfessionalDetailsStep({
                 name="pvtOrGovt"
                 value={activeData.pvtOrGovt}
                 onChange={handleSelectChange}
-                className={`cursor-pointer w-full h-[44px] sm:h-[46px] bg-white border rounded-[10px] px-3 text-[13px] text-[#44475b] placeholder-[#8b8b8b] focus:outline-none transition-colors ${
-                  errors.pvtOrGovt ? "border-red-500 focus:border-red-500" : "border-[#e9e9e9] focus:border-[#04b488]"
-                }`}
+                className={`cursor-pointer w-full h-[44px] sm:h-[46px] bg-white border rounded-[10px] px-3 text-[13px] text-[#44475b] placeholder-[#8b8b8b] focus:outline-none transition-colors ${errors.pvtOrGovt ? "border-red-500 focus:border-red-500" : "border-[#e9e9e9] focus:border-[#04b488]"
+                  }`}
               >
                 <option value="" disabled>Select</option>
                 <option value="Private">Private</option>
@@ -280,9 +278,8 @@ export default function ProfessionalDetailsStep({
                 name="organisationName"
                 value={activeData.organisationName}
                 onChange={handleInputChange}
-                className={`w-full h-[44px] sm:h-[46px] bg-white border rounded-[10px] px-3 text-[13px] text-[#44475b] placeholder-[#8b8b8b] focus:outline-none transition-colors ${
-                  errors.organisationName ? "border-red-500 focus:border-red-500" : "border-[#e9e9e9] focus:border-[#04b488]"
-                }`}
+                className={`w-full h-[44px] sm:h-[46px] bg-white border rounded-[10px] px-3 text-[13px] text-[#44475b] placeholder-[#8b8b8b] focus:outline-none transition-colors ${errors.organisationName ? "border-red-500 focus:border-red-500" : "border-[#e9e9e9] focus:border-[#04b488]"
+                  }`}
                 placeholder="Organisation"
               />
               {errors.organisationName && <p className="text-red-500 text-[11px] mt-1">{errors.organisationName}</p>}
@@ -298,9 +295,8 @@ export default function ProfessionalDetailsStep({
                 name="designation"
                 value={activeData.designation}
                 onChange={handleInputChange}
-                className={`w-full h-[44px] sm:h-[46px] bg-white border rounded-[10px] px-3 text-[13px] text-[#44475b] placeholder-[#8b8b8b] focus:outline-none transition-colors ${
-                  errors.designation ? "border-red-500 focus:border-red-500" : "border-[#e9e9e9] focus:border-[#04b488]"
-                }`}
+                className={`w-full h-[44px] sm:h-[46px] bg-white border rounded-[10px] px-3 text-[13px] text-[#44475b] placeholder-[#8b8b8b] focus:outline-none transition-colors ${errors.designation ? "border-red-500 focus:border-red-500" : "border-[#e9e9e9] focus:border-[#04b488]"
+                  }`}
                 placeholder="Designation"
               />
               {errors.designation && <p className="text-red-500 text-[11px] mt-1">{errors.designation}</p>}
@@ -316,9 +312,8 @@ export default function ProfessionalDetailsStep({
                 name="workProfile"
                 value={activeData.workProfile}
                 onChange={handleInputChange}
-                className={`w-full h-[44px] sm:h-[46px] bg-white border rounded-[10px] px-3 text-[13px] text-[#44475b] placeholder-[#8b8b8b] focus:outline-none transition-colors ${
-                  errors.workProfile ? "border-red-500 focus:border-red-500" : "border-[#e9e9e9] focus:border-[#04b488]"
-                }`}
+                className={`w-full h-[44px] sm:h-[46px] bg-white border rounded-[10px] px-3 text-[13px] text-[#44475b] placeholder-[#8b8b8b] focus:outline-none transition-colors ${errors.workProfile ? "border-red-500 focus:border-red-500" : "border-[#e9e9e9] focus:border-[#04b488]"
+                  }`}
                 placeholder="Work Profile"
               />
               {errors.workProfile && <p className="text-red-500 text-[11px] mt-1">{errors.workProfile}</p>}
@@ -334,9 +329,8 @@ export default function ProfessionalDetailsStep({
                 name="address"
                 value={activeData.address}
                 onChange={handleInputChange}
-                className={`w-full h-[44px] sm:h-[46px] bg-white border rounded-[10px] px-3 text-[13px] text-[#44475b] placeholder-[#8b8b8b] focus:outline-none transition-colors ${
-                  errors.address ? "border-red-500 focus:border-red-500" : "border-[#e9e9e9] focus:border-[#04b488]"
-                }`}
+                className={`w-full h-[44px] sm:h-[46px] bg-white border rounded-[10px] px-3 text-[13px] text-[#44475b] placeholder-[#8b8b8b] focus:outline-none transition-colors ${errors.address ? "border-red-500 focus:border-red-500" : "border-[#e9e9e9] focus:border-[#04b488]"
+                  }`}
                 placeholder="Address"
               />
               {errors.address && <p className="text-red-500 text-[11px] mt-1">{errors.address}</p>}
@@ -352,9 +346,8 @@ export default function ProfessionalDetailsStep({
                 name="city"
                 value={activeData.city}
                 onChange={handleInputChange}
-                className={`w-full h-[44px] sm:h-[46px] bg-white border rounded-[10px] px-3 text-[13px] text-[#44475b] placeholder-[#8b8b8b] focus:outline-none transition-colors ${
-                  errors.city ? "border-red-500 focus:border-red-500" : "border-[#e9e9e9] focus:border-[#04b488]"
-                }`}
+                className={`w-full h-[44px] sm:h-[46px] bg-white border rounded-[10px] px-3 text-[13px] text-[#44475b] placeholder-[#8b8b8b] focus:outline-none transition-colors ${errors.city ? "border-red-500 focus:border-red-500" : "border-[#e9e9e9] focus:border-[#04b488]"
+                  }`}
                 placeholder="City"
               />
               {errors.city && <p className="text-red-500 text-[11px] mt-1">{errors.city}</p>}
@@ -375,9 +368,8 @@ export default function ProfessionalDetailsStep({
                   onChange={handleInputChange}
                   placeholder="Remarks"
                   rows={2}
-                  className={`w-full bg-[#F8F8F8] text-[#44475b] border rounded-xl p-3 resize-none focus:outline-none focus:ring-1 focus:ring-teal-500 placeholder:text-gray-400 placeholder:text-[13px] ${
-                    errors.remarks ? "border-red-500" : "border-[#e9e9e9]"
-                  }`}
+                  className={`w-full bg-[#F8F8F8] text-[#44475b] border rounded-xl p-3 resize-none focus:outline-none focus:ring-1 focus:ring-teal-500 placeholder:text-gray-400 placeholder:text-[13px] ${errors.remarks ? "border-red-500" : "border-[#e9e9e9]"
+                    }`}
                 />
                 {errors.remarks && <p className="text-red-500 text-[11px] mt-1">{errors.remarks}</p>}
               </div>
@@ -401,9 +393,8 @@ export default function ProfessionalDetailsStep({
                 name="businessType"
                 value={activeData.businessType}
                 onChange={handleInputChange}
-                className={`w-full h-[44px] sm:h-[46px] bg-white border rounded-[10px] px-3 text-[13px] text-[#44475b] placeholder-[#8b8b8b] focus:outline-none transition-colors ${
-                  errors.businessType ? "border-red-500 focus:border-red-500" : "border-[#e9e9e9] focus:border-[#04b488]"
-                }`}
+                className={`w-full h-[44px] sm:h-[46px] bg-white border rounded-[10px] px-3 text-[13px] text-[#44475b] placeholder-[#8b8b8b] focus:outline-none transition-colors ${errors.businessType ? "border-red-500 focus:border-red-500" : "border-[#e9e9e9] focus:border-[#04b488]"
+                  }`}
                 placeholder="Business"
               />
               {errors.businessType && <p className="text-red-500 text-[11px] mt-1">{errors.businessType}</p>}
@@ -419,9 +410,8 @@ export default function ProfessionalDetailsStep({
                 name="address"
                 value={activeData.address}
                 onChange={handleInputChange}
-                className={`w-full h-[44px] sm:h-[46px] bg-white border rounded-[10px] px-3 text-[13px] text-[#44475b] placeholder-[#8b8b8b] focus:outline-none transition-colors ${
-                  errors.address ? "border-red-500 focus:border-red-500" : "border-[#e9e9e9] focus:border-[#04b488]"
-                }`}
+                className={`w-full h-[44px] sm:h-[46px] bg-white border rounded-[10px] px-3 text-[13px] text-[#44475b] placeholder-[#8b8b8b] focus:outline-none transition-colors ${errors.address ? "border-red-500 focus:border-red-500" : "border-[#e9e9e9] focus:border-[#04b488]"
+                  }`}
                 placeholder="Address"
               />
               {errors.address && <p className="text-red-500 text-[11px] mt-1">{errors.address}</p>}
@@ -437,9 +427,8 @@ export default function ProfessionalDetailsStep({
                 name="city"
                 value={activeData.city}
                 onChange={handleInputChange}
-                className={`w-full h-[44px] sm:h-[46px] bg-white border rounded-[10px] px-3 text-[13px] text-[#44475b] placeholder-[#8b8b8b] focus:outline-none transition-colors ${
-                  errors.city ? "border-red-500 focus:border-red-500" : "border-[#e9e9e9] focus:border-[#04b488]"
-                }`}
+                className={`w-full h-[44px] sm:h-[46px] bg-white border rounded-[10px] px-3 text-[13px] text-[#44475b] placeholder-[#8b8b8b] focus:outline-none transition-colors ${errors.city ? "border-red-500 focus:border-red-500" : "border-[#e9e9e9] focus:border-[#04b488]"
+                  }`}
                 placeholder="City"
               />
               {errors.city && <p className="text-red-500 text-[11px] mt-1">{errors.city}</p>}
@@ -485,9 +474,8 @@ export default function ProfessionalDetailsStep({
                 name="professionName"
                 value={activeData.professionName}
                 onChange={handleInputChange}
-                className={`w-full h-[44px] sm:h-[46px] bg-white border rounded-[10px] px-3 text-[13px] text-[#44475b] placeholder-[#8b8b8b] focus:outline-none transition-colors ${
-                  errors.professionName ? "border-red-500 focus:border-red-500" : "border-[#e9e9e9] focus:border-[#04b488]"
-                }`}
+                className={`w-full h-[44px] sm:h-[46px] bg-white border rounded-[10px] px-3 text-[13px] text-[#44475b] placeholder-[#8b8b8b] focus:outline-none transition-colors ${errors.professionName ? "border-red-500 focus:border-red-500" : "border-[#e9e9e9] focus:border-[#04b488]"
+                  }`}
                 placeholder="Profession"
               />
               {errors.professionName && <p className="text-red-500 text-[11px] mt-1">{errors.professionName}</p>}
@@ -503,9 +491,8 @@ export default function ProfessionalDetailsStep({
                 name="address"
                 value={activeData.address}
                 onChange={handleInputChange}
-                className={`w-full h-[44px] sm:h-[46px] bg-white border rounded-[10px] px-3 text-[13px] text-[#44475b] placeholder-[#8b8b8b] focus:outline-none transition-colors ${
-                  errors.address ? "border-red-500 focus:border-red-500" : "border-[#e9e9e9] focus:border-[#04b488]"
-                }`}
+                className={`w-full h-[44px] sm:h-[46px] bg-white border rounded-[10px] px-3 text-[13px] text-[#44475b] placeholder-[#8b8b8b] focus:outline-none transition-colors ${errors.address ? "border-red-500 focus:border-red-500" : "border-[#e9e9e9] focus:border-[#04b488]"
+                  }`}
                 placeholder="Address"
               />
               {errors.address && <p className="text-red-500 text-[11px] mt-1">{errors.address}</p>}
@@ -521,9 +508,8 @@ export default function ProfessionalDetailsStep({
                 name="city"
                 value={activeData.city}
                 onChange={handleInputChange}
-                className={`w-full h-[44px] sm:h-[46px] bg-white border rounded-[10px] px-3 text-[13px] text-[#44475b] placeholder-[#8b8b8b] focus:outline-none transition-colors ${
-                  errors.city ? "border-red-500 focus:border-red-500" : "border-[#e9e9e9] focus:border-[#04b488]"
-                }`}
+                className={`w-full h-[44px] sm:h-[46px] bg-white border rounded-[10px] px-3 text-[13px] text-[#44475b] placeholder-[#8b8b8b] focus:outline-none transition-colors ${errors.city ? "border-red-500 focus:border-red-500" : "border-[#e9e9e9] focus:border-[#04b488]"
+                  }`}
                 placeholder="City"
               />
               {errors.city && <p className="text-red-500 text-[11px] mt-1">{errors.city}</p>}
@@ -568,9 +554,8 @@ export default function ProfessionalDetailsStep({
                 name="lastOrganisation"
                 value={activeData.lastOrganisation}
                 onChange={handleInputChange}
-                className={`w-full h-[44px] sm:h-[46px] bg-white border rounded-[10px] px-3 text-[13px] text-[#44475b] placeholder-[#8b8b8b] focus:outline-none transition-colors ${
-                  errors.lastOrganisation ? "border-red-500 focus:border-red-500" : "border-[#e9e9e9] focus:border-[#04b488]"
-                }`}
+                className={`w-full h-[44px] sm:h-[46px] bg-white border rounded-[10px] px-3 text-[13px] text-[#44475b] placeholder-[#8b8b8b] focus:outline-none transition-colors ${errors.lastOrganisation ? "border-red-500 focus:border-red-500" : "border-[#e9e9e9] focus:border-[#04b488]"
+                  }`}
                 placeholder="Organisation"
               />
               {errors.lastOrganisation && <p className="text-red-500 text-[11px] mt-1">{errors.lastOrganisation}</p>}
@@ -586,9 +571,8 @@ export default function ProfessionalDetailsStep({
                 name="designation"
                 value={activeData.designation}
                 onChange={handleInputChange}
-                className={`w-full h-[44px] sm:h-[46px] bg-white border rounded-[10px] px-3 text-[13px] text-[#44475b] placeholder-[#8b8b8b] focus:outline-none transition-colors ${
-                  errors.designation ? "border-red-500 focus:border-red-500" : "border-[#e9e9e9] focus:border-[#04b488]"
-                }`}
+                className={`w-full h-[44px] sm:h-[46px] bg-white border rounded-[10px] px-3 text-[13px] text-[#44475b] placeholder-[#8b8b8b] focus:outline-none transition-colors ${errors.designation ? "border-red-500 focus:border-red-500" : "border-[#e9e9e9] focus:border-[#04b488]"
+                  }`}
                 placeholder="Designation"
               />
               {errors.designation && <p className="text-red-500 text-[11px] mt-1">{errors.designation}</p>}
@@ -604,9 +588,8 @@ export default function ProfessionalDetailsStep({
                 name="address"
                 value={activeData.address}
                 onChange={handleInputChange}
-                className={`w-full h-[44px] sm:h-[46px] bg-white border rounded-[10px] px-3 text-[13px] text-[#44475b] placeholder-[#8b8b8b] focus:outline-none transition-colors ${
-                  errors.address ? "border-red-500 focus:border-red-500" : "border-[#e9e9e9] focus:border-[#04b488]"
-                }`}
+                className={`w-full h-[44px] sm:h-[46px] bg-white border rounded-[10px] px-3 text-[13px] text-[#44475b] placeholder-[#8b8b8b] focus:outline-none transition-colors ${errors.address ? "border-red-500 focus:border-red-500" : "border-[#e9e9e9] focus:border-[#04b488]"
+                  }`}
                 placeholder="Address"
               />
               {errors.address && <p className="text-red-500 text-[11px] mt-1">{errors.address}</p>}
@@ -622,9 +605,8 @@ export default function ProfessionalDetailsStep({
                 name="city"
                 value={activeData.city}
                 onChange={handleInputChange}
-                className={`w-full h-[44px] sm:h-[46px] bg-white border rounded-[10px] px-3 text-[13px] text-[#44475b] placeholder-[#8b8b8b] focus:outline-none transition-colors ${
-                  errors.city ? "border-red-500 focus:border-red-500" : "border-[#e9e9e9] focus:border-[#04b488]"
-                }`}
+                className={`w-full h-[44px] sm:h-[46px] bg-white border rounded-[10px] px-3 text-[13px] text-[#44475b] placeholder-[#8b8b8b] focus:outline-none transition-colors ${errors.city ? "border-red-500 focus:border-red-500" : "border-[#e9e9e9] focus:border-[#04b488]"
+                  }`}
                 placeholder="City"
               />
               {errors.city && <p className="text-red-500 text-[11px] mt-1">{errors.city}</p>}
@@ -646,9 +628,8 @@ export default function ProfessionalDetailsStep({
                     onChange={handleInputChange}
                     placeholder="Remarks"
                     rows={2}
-                    className={`w-full bg-[#F8F8F8] text-[#44475b] border rounded-xl p-3 resize-none focus:outline-none focus:ring-1 focus:ring-teal-500 placeholder:text-gray-400 placeholder:text-[13px] ${
-                      errors.remarks ? "border-red-500" : "border-[#e9e9e9]"
-                    }`}
+                    className={`w-full bg-[#F8F8F8] text-[#44475b] border rounded-xl p-3 resize-none focus:outline-none focus:ring-1 focus:ring-teal-500 placeholder:text-gray-400 placeholder:text-[13px] ${errors.remarks ? "border-red-500" : "border-[#e9e9e9]"
+                      }`}
                   />
                   {errors.remarks && <p className="text-red-500 text-[11px] mt-1">{errors.remarks}</p>}
                 </div>
@@ -673,9 +654,8 @@ export default function ProfessionalDetailsStep({
                 name="address"
                 value={activeData.address}
                 onChange={handleInputChange}
-                className={`w-full h-[44px] sm:h-[46px] bg-white border rounded-[10px] px-3 text-[13px] text-[#44475b] placeholder-[#8b8b8b] focus:outline-none transition-colors ${
-                  errors.address ? "border-red-500 focus:border-red-500" : "border-[#e9e9e9] focus:border-[#04b488]"
-                }`}
+                className={`w-full h-[44px] sm:h-[46px] bg-white border rounded-[10px] px-3 text-[13px] text-[#44475b] placeholder-[#8b8b8b] focus:outline-none transition-colors ${errors.address ? "border-red-500 focus:border-red-500" : "border-[#e9e9e9] focus:border-[#04b488]"
+                  }`}
                 placeholder="Address"
               />
               {errors.address && <p className="text-red-500 text-[11px] mt-1">{errors.address}</p>}
@@ -691,9 +671,8 @@ export default function ProfessionalDetailsStep({
                 name="city"
                 value={activeData.city}
                 onChange={handleInputChange}
-                className={`w-full h-[44px] sm:h-[46px] bg-white border rounded-[10px] px-3 text-[13px] text-[#44475b] placeholder-[#8b8b8b] focus:outline-none transition-colors ${
-                  errors.city ? "border-red-500 focus:border-red-500" : "border-[#e9e9e9] focus:border-[#04b488]"
-                }`}
+                className={`w-full h-[44px] sm:h-[46px] bg-white border rounded-[10px] px-3 text-[13px] text-[#44475b] placeholder-[#8b8b8b] focus:outline-none transition-colors ${errors.city ? "border-red-500 focus:border-red-500" : "border-[#e9e9e9] focus:border-[#04b488]"
+                  }`}
                 placeholder="City"
               />
               {errors.city && <p className="text-red-500 text-[11px] mt-1">{errors.city}</p>}
@@ -715,9 +694,8 @@ export default function ProfessionalDetailsStep({
                     onChange={handleInputChange}
                     placeholder="Remarks"
                     rows={2}
-                    className={`w-full bg-[#F8F8F8] text-[#44475b] border rounded-xl p-3 resize-none focus:outline-none focus:ring-1 focus:ring-teal-500 placeholder:text-gray-400 placeholder:text-[13px] ${
-                      errors.remarks ? "border-red-500" : "border-[#e9e9e9]"
-                    }`}
+                    className={`w-full bg-[#F8F8F8] text-[#44475b] border rounded-xl p-3 resize-none focus:outline-none focus:ring-1 focus:ring-teal-500 placeholder:text-gray-400 placeholder:text-[13px] ${errors.remarks ? "border-red-500" : "border-[#e9e9e9]"
+                      }`}
                   />
                   {errors.remarks && <p className="text-red-500 text-[11px] mt-1">{errors.remarks}</p>}
                 </div>
@@ -742,9 +720,8 @@ export default function ProfessionalDetailsStep({
                 name="address"
                 value={activeData.address}
                 onChange={handleInputChange}
-                className={`w-full h-[44px] sm:h-[46px] bg-white border rounded-[10px] px-3 text-[13px] text-[#44475b] placeholder-[#8b8b8b] focus:outline-none transition-colors ${
-                  errors.address ? "border-red-500 focus:border-red-500" : "border-[#e9e9e9] focus:border-[#04b488]"
-                }`}
+                className={`w-full h-[44px] sm:h-[46px] bg-white border rounded-[10px] px-3 text-[13px] text-[#44475b] placeholder-[#8b8b8b] focus:outline-none transition-colors ${errors.address ? "border-red-500 focus:border-red-500" : "border-[#e9e9e9] focus:border-[#04b488]"
+                  }`}
                 placeholder="Address"
               />
               {errors.address && <p className="text-red-500 text-[11px] mt-1">{errors.address}</p>}
@@ -760,9 +737,8 @@ export default function ProfessionalDetailsStep({
                 name="city"
                 value={activeData.city}
                 onChange={handleInputChange}
-                className={`w-full h-[44px] sm:h-[46px] bg-white border rounded-[10px] px-3 text-[13px] text-[#44475b] placeholder-[#8b8b8b] focus:outline-none transition-colors ${
-                  errors.city ? "border-red-500 focus:border-red-500" : "border-[#e9e9e9] focus:border-[#04b488]"
-                }`}
+                className={`w-full h-[44px] sm:h-[46px] bg-white border rounded-[10px] px-3 text-[13px] text-[#44475b] placeholder-[#8b8b8b] focus:outline-none transition-colors ${errors.city ? "border-red-500 focus:border-red-500" : "border-[#e9e9e9] focus:border-[#04b488]"
+                  }`}
                 placeholder="City"
               />
               {errors.city && <p className="text-red-500 text-[11px] mt-1">{errors.city}</p>}
@@ -784,9 +760,8 @@ export default function ProfessionalDetailsStep({
                     onChange={handleInputChange}
                     placeholder="Remarks"
                     rows={2}
-                    className={`w-full bg-[#F8F8F8] text-[#44475b] border rounded-xl p-3 resize-none focus:outline-none focus:ring-1 focus:ring-teal-500 placeholder:text-gray-400 placeholder:text-[13px] ${
-                      errors.remarks ? "border-red-500" : "border-[#e9e9e9]"
-                    }`}
+                    className={`w-full bg-[#F8F8F8] text-[#44475b] border rounded-xl p-3 resize-none focus:outline-none focus:ring-1 focus:ring-teal-500 placeholder:text-gray-400 placeholder:text-[13px] ${errors.remarks ? "border-red-500" : "border-[#e9e9e9]"
+                      }`}
                   />
                   {errors.remarks && <p className="text-red-500 text-[11px] mt-1">{errors.remarks}</p>}
                 </div>

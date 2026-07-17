@@ -124,7 +124,7 @@ export default function FplanningStepper() {
         setSessionError("");
         setMatchingProfiles([]);
         try {
-            const response = await fetch(`https://h3t0pdfc-5000.inc1.devtunnels.ms/api/personal/mobile-state/${resumeMobileNumber}/${resumePan}`);
+            const response = await fetch(`http://localhost:5000/api/personal/mobile-state/${resumeMobileNumber}/${resumePan}`);
             if (!response.ok) {
                 throw new Error("Unable to contact backend server.");
             }
@@ -162,12 +162,12 @@ export default function FplanningStepper() {
                         maritalStatus: personal.maritalStatus || "",
                         members: (personal.familyMembers && personal.familyMembers.length > 0)
                             ? personal.familyMembers.map((member: any) => ({
-                                  name: member.name || "",
-                                  relation: member.relation || "",
-                                  dob: member.dob ? member.dob.split("T")[0] : "",
-                                  anniversary: member.anniversary ? member.anniversary.split("T")[0] : "",
-                                  remark: member.remark || ""
-                              }))
+                                name: member.name || "",
+                                relation: member.relation || "",
+                                dob: member.dob ? member.dob.split("T")[0] : "",
+                                anniversary: member.anniversary ? member.anniversary.split("T")[0] : "",
+                                remark: member.remark || ""
+                            }))
                             : [{ name: "", relation: "", dob: "", anniversary: "", remark: "" }]
                     });
 
@@ -203,7 +203,7 @@ export default function FplanningStepper() {
         setIsFetchingSession(true);
         setSessionError("");
         try {
-            const response = await fetch(`https://h3t0pdfc-5000.inc1.devtunnels.ms/api/personal/state-by-id/${id}`);
+            const response = await fetch(`http://localhost:5000/api/personal/state-by-id/${id}`);
             if (!response.ok) {
                 throw new Error("Unable to contact backend server.");
             }
@@ -237,12 +237,12 @@ export default function FplanningStepper() {
                     maritalStatus: personal.maritalStatus || "",
                     members: (personal.familyMembers && personal.familyMembers.length > 0)
                         ? personal.familyMembers.map((member: any) => ({
-                              name: member.name || "",
-                              relation: member.relation || "",
-                              dob: member.dob ? member.dob.split("T")[0] : "",
-                              anniversary: member.anniversary ? member.anniversary.split("T")[0] : "",
-                              remark: member.remark || ""
-                          }))
+                            name: member.name || "",
+                            relation: member.relation || "",
+                            dob: member.dob ? member.dob.split("T")[0] : "",
+                            anniversary: member.anniversary ? member.anniversary.split("T")[0] : "",
+                            remark: member.remark || ""
+                        }))
                         : [{ name: "", relation: "", dob: "", anniversary: "", remark: "" }]
                 });
 
@@ -296,15 +296,15 @@ export default function FplanningStepper() {
                     }}
                 />
                 <div className="absolute inset-0 -z-10 bg-gradient-to-b from-white/0 to-white" />
-                
+
                 <div className="w-full max-w-[600px] bg-white border border-[#e0dbdb] rounded-[24px] sm:rounded-[33px] shadow-[0px_10px_30px_rgba(0,0,0,0.08)] p-6 sm:p-10 md:p-12 text-center space-y-8 relative overflow-hidden">
                     <div className="absolute -top-10 -left-10 w-40 h-40 bg-gradient-to-tr from-[#06a358]/10 to-[#001EFE]/10 rounded-full blur-2xl" />
                     <div className="absolute -bottom-10 -right-10 w-40 h-40 bg-gradient-to-tr from-[#001EFE]/10 to-[#06a358]/10 rounded-full blur-2xl" />
-                    
+
                     <div className="flex justify-center mb-4">
                         <img src="/logo/cap-logo.svg" alt="BFC Capital" className="w-[180px] sm:w-[220px] h-auto object-contain" />
                     </div>
-                    
+
                     <div className="space-y-3">
                         <h1 className="font-bold text-[24px] sm:text-[30px] bg-gradient-to-r from-[#06a358] to-[#001EFE] bg-clip-text text-transparent leading-tight">
                             Financial Planning Stepper
@@ -313,7 +313,7 @@ export default function FplanningStepper() {
                             Plan your financial future with expert assistance. Choose an option below to begin.
                         </p>
                     </div>
-                    
+
                     <div className="flex flex-col sm:flex-row gap-4 pt-4 justify-center">
                         <button
                             onClick={() => setSessionChoice("continue")}
@@ -345,12 +345,12 @@ export default function FplanningStepper() {
                     }}
                 />
                 <div className="absolute inset-0 -z-10 bg-gradient-to-b from-white/0 to-white" />
-                
+
                 <div className="w-full max-w-[600px] bg-white border border-[#e0dbdb] rounded-[24px] sm:rounded-[33px] shadow-[0px_10px_30px_rgba(0,0,0,0.08)] p-6 sm:p-10 text-center space-y-6 relative overflow-hidden">
                     <div className="flex justify-center mb-2">
                         <img src="/logo/cap-logo.svg" alt="BFC Capital" className="w-[140px] sm:w-[180px] h-auto object-contain" />
                     </div>
-                    
+
                     <div className="space-y-2">
                         <h2 className="font-bold text-[20px] sm:text-[24px] text-[#44475b]">
                             Multiple Records Found
@@ -386,13 +386,13 @@ export default function FplanningStepper() {
                             );
                         })}
                     </div>
-                    
+
                     {sessionError && (
                         <p className="text-[12px] font-semibold text-red-500 text-center bg-red-50 py-2 px-3 rounded-[8px]">
                             {sessionError}
                         </p>
                     )}
-                    
+
                     <button
                         type="button"
                         onClick={() => {
@@ -420,12 +420,12 @@ export default function FplanningStepper() {
                     }}
                 />
                 <div className="absolute inset-0 -z-10 bg-gradient-to-b from-white/0 to-white" />
-                
+
                 <div className="w-full max-w-[500px] bg-white border border-[#e0dbdb] rounded-[24px] sm:rounded-[33px] shadow-[0px_10px_30px_rgba(0,0,0,0.08)] p-6 sm:p-10 text-center space-y-6 relative overflow-hidden">
                     <div className="flex justify-center mb-2">
                         <img src="/logo/cap-logo.svg" alt="BFC Capital" className="w-[140px] sm:w-[180px] h-auto object-contain" />
                     </div>
-                    
+
                     <div className="space-y-2">
                         <h2 className="font-bold text-[20px] sm:text-[24px] text-[#44475b]">
                             Resume Your Progress
@@ -434,7 +434,7 @@ export default function FplanningStepper() {
                             Enter the mobile number and PAN associated with your previous session.
                         </p>
                     </div>
-                    
+
                     <form onSubmit={handleResumeSubmit} className="space-y-4 text-left">
                         <div>
                             <label className="block text-[12px] font-semibold text-[#44475b] mb-1.5">
@@ -470,13 +470,13 @@ export default function FplanningStepper() {
                                 className="w-full h-[48px] bg-white border border-[#e9e9e9] rounded-[10px] px-4 text-[14px] text-[#44475b] placeholder-[#8b8b8b] focus:outline-none focus:border-[#06A358] transition-colors"
                             />
                         </div>
-                        
+
                         {sessionError && (
                             <p className="text-[12px] font-semibold text-red-500 text-center bg-red-50 py-2 px-3 rounded-[8px]">
                                 {sessionError}
                             </p>
                         )}
-                        
+
                         <button
                             type="submit"
                             disabled={isFetchingSession}
@@ -485,7 +485,7 @@ export default function FplanningStepper() {
                             {isFetchingSession ? "Retrieving Record..." : "Retrieve and Continue"}
                         </button>
                     </form>
-                    
+
                     <div className="flex flex-col gap-2 pt-2 text-center">
                         <button
                             type="button"
