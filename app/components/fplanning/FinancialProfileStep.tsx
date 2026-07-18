@@ -303,7 +303,12 @@ export default function FinancialProfileStep({
     // 1. Gross Inflow validation
     if (!income[0] || !income[0].title.trim()) {
       validationErrors[`income_0_title`] = "Source of inflow is required.";
+    } else if (!/[a-zA-Z]/.test(income[0].title)) {
+      validationErrors[`income_0_title`] = "Source of inflow cannot be numeric.";
+    } else if (!/^[a-zA-Z0-9\s.\-\/()&]+$/.test(income[0].title)) {
+      validationErrors[`income_0_title`] = "Source of inflow must be alphanumeric.";
     }
+
     if (!income[0] || !income[0].amount.trim()) {
       validationErrors[`income_0_amount`] = "Monthly amount is required.";
     } else if (Number(income[0].amount) <= 0) {
@@ -315,7 +320,14 @@ export default function FinancialProfileStep({
         const hasTitle = item.title.trim();
         const hasAmount = item.amount.trim();
         if (hasTitle || hasAmount) {
-          if (!hasTitle) validationErrors[`income_${idx}_title`] = "Source of inflow is required.";
+          if (!hasTitle) {
+            validationErrors[`income_${idx}_title`] = "Source of inflow is required.";
+          } else if (!/[a-zA-Z]/.test(item.title)) {
+            validationErrors[`income_${idx}_title`] = "Source of inflow cannot be numeric.";
+          } else if (!/^[a-zA-Z0-9\s.\-\/()&]+$/.test(item.title)) {
+            validationErrors[`income_${idx}_title`] = "Source of inflow must be alphanumeric.";
+          }
+
           if (!hasAmount) validationErrors[`income_${idx}_amount`] = "Monthly amount is required.";
           else if (Number(item.amount) <= 0) validationErrors[`income_${idx}_amount`] = "Amount must be greater than zero.";
         }
@@ -326,7 +338,12 @@ export default function FinancialProfileStep({
     deductions.forEach((item, idx) => {
       if (!item.title.trim()) {
         validationErrors[`deduction_${idx}_title`] = "Deduction detail is required.";
+      } else if (!/[a-zA-Z]/.test(item.title)) {
+        validationErrors[`deduction_${idx}_title`] = "Deduction detail cannot be numeric.";
+      } else if (!/^[a-zA-Z0-9\s.\-\/()&]+$/.test(item.title)) {
+        validationErrors[`deduction_${idx}_title`] = "Deduction detail must be alphanumeric.";
       }
+
       if (!item.amount.trim()) {
         validationErrors[`deduction_${idx}_amount`] = "Amount is required.";
       } else if (Number(item.amount) <= 0) {
@@ -338,7 +355,12 @@ export default function FinancialProfileStep({
     expenses.forEach((item, idx) => {
       if (!item.title.trim()) {
         validationErrors[`expense_${idx}_title`] = "Expense detail is required.";
+      } else if (!/[a-zA-Z]/.test(item.title)) {
+        validationErrors[`expense_${idx}_title`] = "Expense detail cannot be numeric.";
+      } else if (!/^[a-zA-Z0-9\s.\-\/()&]+$/.test(item.title)) {
+        validationErrors[`expense_${idx}_title`] = "Expense detail must be alphanumeric.";
       }
+
       if (!item.amount.trim()) {
         validationErrors[`expense_${idx}_amount`] = "Amount is required.";
       } else if (Number(item.amount) <= 0) {
@@ -350,7 +372,12 @@ export default function FinancialProfileStep({
     emis.forEach((item, idx) => {
       if (!item.loanType) {
         validationErrors[`emi_${idx}_loanType`] = "Loan type is required.";
+      } else if (!/[a-zA-Z]/.test(item.loanType)) {
+        validationErrors[`emi_${idx}_loanType`] = "Loan type cannot be numeric.";
+      } else if (!/^[a-zA-Z0-9\s.\-\/()&]+$/.test(item.loanType)) {
+        validationErrors[`emi_${idx}_loanType`] = "Loan type must be alphanumeric.";
       }
+
       if (!item.emi.trim()) {
         validationErrors[`emi_${idx}_emi`] = "Monthly EMI is required.";
       } else if (Number(item.emi) <= 0) {
@@ -362,7 +389,12 @@ export default function FinancialProfileStep({
     Investments.forEach((item, idx) => {
       if (!item.title.trim()) {
         validationErrors[`investment_${idx}_title`] = "Investment name is required.";
+      } else if (!/[a-zA-Z]/.test(item.title)) {
+        validationErrors[`investment_${idx}_title`] = "Investment name cannot be numeric.";
+      } else if (!/^[a-zA-Z0-9\s.\-\/()&]+$/.test(item.title)) {
+        validationErrors[`investment_${idx}_title`] = "Investment name must be alphanumeric.";
       }
+
       if (!item.amount.trim()) {
         validationErrors[`investment_${idx}_amount`] = "Monthly amount is required.";
       } else if (Number(item.amount) <= 0) {
@@ -401,7 +433,12 @@ export default function FinancialProfileStep({
       }
       if (!item.investmentName.trim()) {
         validationErrors[`tax_${idx}_investmentName`] = "Investment name is required.";
+      } else if (!/[a-zA-Z]/.test(item.investmentName)) {
+        validationErrors[`tax_${idx}_investmentName`] = "Investment name cannot be numeric.";
+      } else if (!/^[a-zA-Z0-9\s.\-\/()&]+$/.test(item.investmentName)) {
+        validationErrors[`tax_${idx}_investmentName`] = "Investment name must be alphanumeric.";
       }
+
       if (!item.amount.trim()) {
         validationErrors[`tax_${idx}_amount`] = "Amount is required.";
       } else if (Number(item.amount) <= 0) {

@@ -683,6 +683,13 @@ export default function FplanningStepper() {
                                     onBack={back}
                                     showBack={current > 1}
                                 />
+                            ) : current === 7 ? (
+                                <ExistingInvestmentsStep
+                                    profileId={profileId}
+                                    onNext={() => setCurrent((c) => Math.min(c + 1, STEPS.length))}
+                                    onBack={back}
+                                    showBack={current > 1}
+                                />
                             ) : (
                                 <StepBody footer={sharedFooter} />
                             )}

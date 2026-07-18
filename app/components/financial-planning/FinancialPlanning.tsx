@@ -1,3 +1,4 @@
+"use client";
 import React from 'react'
 import Image from 'next/image'
 import Link from 'next/link'
@@ -21,10 +22,17 @@ export default function FinancialPlanning() {
                                 At BFC Capital, we see financial planning as more than numbers on a sheet left open. For us it’s where real-life goals meet practical strategies – and where dreams stop feeling distant or unachievable. <br />
                                 As a <span aria-label="Sebi">SEBI</span> Registered Investment Adviser (RIA), our role is simple:to help you make smarter financial decisions, without pressure, bias, or confusion – so your future feels secure, not uncertain.
                             </p>
-                            <BookSessionButton
-                                buttonText="Book your financial planning session today"
-                                className="bg-[#024B39] text-white px-6 py-2 rounded-md hover:bg-[#024B39] transition duration-300 cursor-pointer"
-                            />
+                            <div className="flex gap-4 justify-center md:justify-start">
+                                <BookSessionButton
+                                    buttonText="Book your financial planning session today"
+                                    className="bg-[#024B39] text-white px-6 py-2 rounded-md hover:bg-[#024B39] transition duration-300 cursor-pointer"
+                                />
+                                <button
+                                    className="bg-[#024B39] text-white px-6 py-2 rounded-md hover:bg-[#024B39] transition duration-300 cursor-pointer"
+                                    onClick={() => window.location.href = "/fplanning-stepper"}
+                                >DIY Financial Planning</button>
+                            </div>
+
                         </div>
                         <div className="text-center py-2 order-1 md:order-2">
                             <Image
