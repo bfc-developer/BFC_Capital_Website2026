@@ -246,7 +246,7 @@ export default function ExistingInvestmentsStep({
     // Load existing investments for prefill
     useEffect(() => {
         if (!profileId) return;
-        fetch(`http://localhost:5000/api/existing-investments/profile/${profileId}`)
+        fetch(`https://k2b02x8c-5000.inc1.devtunnels.ms/api/existing-investments/profile/${profileId}`)
             .then((res) => res.json())
             .then((resData) => {
                 if (resData.success && resData.data) {
@@ -542,7 +542,7 @@ export default function ExistingInvestmentsStep({
                 }),
             };
 
-            const response = await fetch("http://localhost:5000/api/existing-investments", {
+            const response = await fetch("https://k2b02x8c-5000.inc1.devtunnels.ms/api/existing-investments", {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify(payload),

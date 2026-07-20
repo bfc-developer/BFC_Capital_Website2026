@@ -24,7 +24,7 @@ export default function KnowYourRiskProfile({
 
     useEffect(() => {
         if (!financialPlanningId) return;
-        fetch(`http://localhost:5000/api/financial-planning/${financialPlanningId}`)
+        fetch(`https://k2b02x8c-5000.inc1.devtunnels.ms/api/financial-planning/${financialPlanningId}`)
             .then(res => res.json())
             .then(resData => {
                 if (resData.success && resData.data) {
@@ -67,7 +67,7 @@ export default function KnowYourRiskProfile({
         setIsSubmitting(true);
         try {
             // Fetch current planning data to get existing contingency details
-            const getResponse = await fetch(`http://localhost:5000/api/financial-planning/${financialPlanningId}`);
+            const getResponse = await fetch(`https://k2b02x8c-5000.inc1.devtunnels.ms/api/financial-planning/${financialPlanningId}`);
             if (!getResponse.ok) {
                 throw new Error("Failed to fetch existing financial planning details");
             }
@@ -85,7 +85,7 @@ export default function KnowYourRiskProfile({
                 riskProfile
             };
 
-            const response = await fetch(`http://localhost:5000/api/financial-planning/${financialPlanningId}`, {
+            const response = await fetch(`https://k2b02x8c-5000.inc1.devtunnels.ms/api/financial-planning/${financialPlanningId}`, {
                 method: "PUT",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify(payload),

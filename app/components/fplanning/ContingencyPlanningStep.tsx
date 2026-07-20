@@ -26,7 +26,7 @@ export default function ContingencyPlanningStep({
 
     useEffect(() => {
         if (!profileId) return;
-        fetch("http://localhost:5000/api/financial")
+        fetch("https://k2b02x8c-5000.inc1.devtunnels.ms/api/financial")
             .then(res => res.json())
             .then(resData => {
                 if (resData.success && Array.isArray(resData.data)) {
@@ -42,7 +42,7 @@ export default function ContingencyPlanningStep({
 
     useEffect(() => {
         if (!profileId) return;
-        fetch("http://localhost:5000/api/financial-planning")
+        fetch("https://k2b02x8c-5000.inc1.devtunnels.ms/api/financial-planning")
             .then(res => res.json())
             .then(resData => {
                 if (resData.success && Array.isArray(resData.data)) {
@@ -92,8 +92,8 @@ export default function ContingencyPlanningStep({
 
             const method = financialPlanningId ? "PUT" : "POST";
             const url = financialPlanningId
-                ? `http://localhost:5000/api/financial-planning/${financialPlanningId}`
-                : "http://localhost:5000/api/financial-planning";
+                ? `https://k2b02x8c-5000.inc1.devtunnels.ms/api/financial-planning/${financialPlanningId}`
+                : "https://k2b02x8c-5000.inc1.devtunnels.ms/api/financial-planning";
 
             const response = await fetch(url, {
                 method,

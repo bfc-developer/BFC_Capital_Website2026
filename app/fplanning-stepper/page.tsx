@@ -132,7 +132,7 @@ export default function FplanningStepper() {
         setSessionError("");
         setMatchingProfiles([]);
         try {
-            const response = await fetch(`http://localhost:5000/api/personal/mobile-state`, {
+            const response = await fetch(`https://k2b02x8c-5000.inc1.devtunnels.ms/api/personal/mobile-state`, {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify({
@@ -221,7 +221,7 @@ export default function FplanningStepper() {
         setIsFetchingSession(true);
         setSessionError("");
         try {
-            const response = await fetch(`http://localhost:5000/api/personal/state-by-id/${id}`);
+            const response = await fetch(`https://k2b02x8c-5000.inc1.devtunnels.ms/api/personal/state-by-id/${id}`);
             if (!response.ok) {
                 throw new Error("Unable to contact backend server.");
             }

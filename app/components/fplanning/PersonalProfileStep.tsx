@@ -271,8 +271,8 @@ export default function PersonalProfileStep({
             };
 
             const url = profileId
-                ? `http://localhost:5000/api/personal/${profileId}`
-                : "http://localhost:5000/api/personal";
+                ? `https://k2b02x8c-5000.inc1.devtunnels.ms/api/personal/${profileId}`
+                : "https://k2b02x8c-5000.inc1.devtunnels.ms/api/personal";
             const method = profileId ? "PUT" : "POST";
 
             const response = await fetch(url, {

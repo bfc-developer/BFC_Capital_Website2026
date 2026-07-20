@@ -187,8 +187,8 @@ export default function ProfessionalDetailsStep({
 
       const response = await fetch(
         financialProfileExists && financialProfileId
-          ? `http://localhost:5000/api/financial/${financialProfileId}`
-          : "http://localhost:5000/api/financial",
+          ? `https://k2b02x8c-5000.inc1.devtunnels.ms/api/financial/${financialProfileId}`
+          : "https://k2b02x8c-5000.inc1.devtunnels.ms/api/financial",
         {
           method: financialProfileExists && financialProfileId ? "PUT" : "POST",
           headers: {

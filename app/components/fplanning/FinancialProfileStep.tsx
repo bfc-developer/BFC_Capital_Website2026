@@ -67,7 +67,7 @@ export default function FinancialProfileStep({
 
   useEffect(() => {
     if (!profileId) return;
-    fetch("http://localhost:5000/api/financial")
+    fetch("https://k2b02x8c-5000.inc1.devtunnels.ms/api/financial")
       .then((res) => res.json())
       .then((resData) => {
         if (resData.success && Array.isArray(resData.data)) {
@@ -472,8 +472,8 @@ export default function FinancialProfileStep({
       };
 
       const url = financialProfileId
-        ? `http://localhost:5000/api/financial/${financialProfileId}`
-        : "http://localhost:5000/api/financial";
+        ? `https://k2b02x8c-5000.inc1.devtunnels.ms/api/financial/${financialProfileId}`
+        : "https://k2b02x8c-5000.inc1.devtunnels.ms/api/financial";
       const method = financialProfileId ? "PUT" : "POST";
 
       const response = await fetch(url, {
