@@ -208,7 +208,7 @@ const HeroSection = () => {
             <div className=" order-1 lg:order-2">
               <div className="w-full h-full transform hover:scale-105 transition-transform duration-500">
                 <Image
-                  src="/Home/iPhone16Pro.svg"
+                  src="/Home/iPhone16Pro.png"
                   alt="Prodigy Pro App displaying investment interface on iPhone"
                   width={220}
                   height={260}

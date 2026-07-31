@@ -5,7 +5,8 @@ export const apiBaseURL = "https://prodigypro-new.bfcsofttech.in/api/v2/"
 export const PLAYSTORE_URL = "https://play.google.com/store/apps/details?id=com.bfc_mf.prodigy_app"; // Placeholder
 export const APPSTORE_URL = "https://apps.apple.com/in/app/prodigy-pro-mutual-funds-sip/id1575700744"; // Placeholder
 export const SipWithAnnualIncrease_URL = "https://prodigypro-new.bfcsofttech.in/api/v2/calculators/sip-with-annual-increase"
-export const wms_URL = "https://wms.bfccapital.com/api/"
+export const WMS_url = "https://wms.bfccapital.com/api/";
+export const wms_URL = WMS_url;
 export const endpoints = {
     bestMutualFunds: "best-mutual-funds?populate=*",
     getFilteredSchemes: "prodigy-pro-website/get-filtered-scheme",
@@ -16,5 +17,9 @@ export const endpoints = {
     sort: "prodigy-pro-website/sort-filters",
     getWMSCalendarSlots: "operations/slots",
     createSessionQuery: "query/create-session-query",
-    updateSlotStatus: "operations/update-slot-status"
+    updateSlotStatus: "operations/update-slot-status",
+    sendOTP: "verification/send-otp",
+    verifyOTP: "verification/verify-otp",
+    sendOtp: "verification/send-otp",
+    verifyOtp: "verification/verify-otp"
 };

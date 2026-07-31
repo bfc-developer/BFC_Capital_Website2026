@@ -1,7 +1,7 @@
 "use client";
 import React, { useState, useEffect } from 'react';
 import SuccessPopup from '../common/SuccessPopup';
-import { endpoints, wms_URL } from '../urls/URLS';
+import { endpoints, WMS_url, wms_URL } from '../urls/URLS';
 
 interface BookSessionButtonProps {
     buttonText: string;
@@ -51,15 +51,11 @@ const getEndTime = (startTime: string): string => {
         "04:00 PM": "04:30 PM",
         "04:30 PM": "05:00 PM",
         "05:00 PM": "05:30 PM",
-
     };
     return nextSlotMap[startTime] || "";
 };
 
-
-
 const isSlotInPast = (slotStr: string, dateStr: string): boolean => {
-    // Get current time in Indian Standard Time (IST, UTC+5:30)
     const now = new Date();
     const utc = now.getTime() + (now.getTimezoneOffset() * 60000);
     const indiaTime = new Date(utc + (3600000 * 5.5));
@@ -86,12 +82,9 @@ const isSlotInPast = (slotStr: string, dateStr: string): boolean => {
     if (modifier === 'AM' && slotHours === 12) {
         slotHours = 0;
     }
-
-    const currentHours = indiaTime.getHours();
-    const currentMinutes = indiaTime.getMinutes();
-
+    const bufferTime = new Date(indiaTime.getTime() + 2 * 60 * 60 * 1000);
+    const currentTotal = bufferTime.getHours() * 60 + bufferTime.getMinutes();
     const slotTotal = slotHours * 60 + slotMinutes;
-    const currentTotal = currentHours * 60 + currentMinutes;
 
     return slotTotal < currentTotal;
 };
@@ -113,7 +106,6 @@ const getApiSlotState = (status?: string) => {
     if (status === "available") {
         return { isBooked: false, label: "" };
     }
-
     return { isBooked: true, label: "Already Booked" };
 };
 
@@ -149,6 +141,17 @@ export default function BookSessionButton({ buttonText, className }: BookSession
     const [isSubmitting, setIsSubmitting] = useState(false);
     const [showFloatingTab, setShowFloatingTab] = useState(false);
     const [minDate, setMinDate] = useState('');
+    const [isPreviewMode, setIsPreviewMode] = useState(false);
+
+    // OTP states
+    const [otp, setOtp] = useState('');
+    const [isOtpSent, setIsOtpSent] = useState(false);
+    const [isOtpSending, setIsOtpSending] = useState(false);
+    const [isOtpVerified, setIsOtpVerified] = useState(false);
+    const [isOtpVerifying, setIsOtpVerifying] = useState(false);
+    const [verificationToken, setVerificationToken] = useState('');
+    const [otpError, setOtpError] = useState('');
+    const [otpSuccessMessage, setOtpSuccessMessage] = useState('');
 
     useEffect(() => {
         if (isBookingModalOpen) {
@@ -163,7 +166,16 @@ export default function BookSessionButton({ buttonText, className }: BookSession
             setBookedSlots([]);
             setConsent(false);
             setErrors({});
-            setActiveTab('booking'); // default to booking tab when opening
+            setActiveTab('booking');
+            setIsPreviewMode(false);
+            setOtp('');
+            setIsOtpSent(false);
+            setIsOtpSending(false);
+            setIsOtpVerified(false);
+            setIsOtpVerifying(false);
+            setVerificationToken('');
+            setOtpError('');
+            setOtpSuccessMessage('');
 
             const today = new Date();
             const yyyy = today.getFullYear();
@@ -176,7 +188,6 @@ export default function BookSessionButton({ buttonText, className }: BookSession
         return () => { document.body.style.overflow = ''; }
     }, [isBookingModalOpen]);
 
-    // Ensure only one floating tab is rendered if multiple BookSessionButton instances are on the same page
     useEffect(() => {
         if (typeof window !== 'undefined') {
             if (!window.__bfc_floating_tab_rendered) {
@@ -266,7 +277,7 @@ export default function BookSessionButton({ buttonText, className }: BookSession
 
         const availableSlots = TIME_SLOTS.filter(slot => !isSlotInPast(slot, dateStr));
         if (availableSlots.length === 0) {
-            setDateError("All slots for today are in the past. Please select a future date.");
+            setDateError("All slots for today are booked. Please select a future date.");
             return;
         }
 
@@ -292,13 +303,15 @@ export default function BookSessionButton({ buttonText, className }: BookSession
         return { isBooked, statusText };
     };
 
-    const validate = () => {
-console.log("from validation selected date============", bookedSlots)
+    const isValidIndianMobile = (input: string) => {
+        return /^[6-9]\d{9}$/.test(input);
+    };
 
+    const validate = () => {
         const newErrors: Record<string, string> = {};
         if (!name.trim()) newErrors.name = 'Required';
         if (!email.trim() || !/^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/.test(email)) newErrors.email = 'Valid email required';
-        if (!mobile.trim() || !/^\d{10}$/.test(mobile)) newErrors.mobile = 'Valid 10-digit mobile required';
+        if (!mobile.trim() || !isValidIndianMobile(mobile)) newErrors.mobile = 'Enter a valid Indian mobile number';
         if (!consent) newErrors.consent = 'Required';
 
         if (activeTab === 'booking') {
@@ -321,16 +334,92 @@ console.log("from validation selected date============", bookedSlots)
         return Object.keys(newErrors).length === 0;
     };
 
-    const handleSubmit = async (e: React.FormEvent) => {
+    const handleSubmit = (e: React.FormEvent) => {
         e.preventDefault();
-        console.log("selected date============", selectedTime)
         if (!validate()) return;
+
+        if (activeTab === 'booking') {
+            const trimmedEmail = email.trim();
+            setIsPreviewMode(true);
+            setIsOtpSending(true);
+            setSubmitError('');
+            setOtpError('');
+            setOtpSuccessMessage('');
+
+            fetch(`${wms_URL}${endpoints.sendOTP}`, {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ email: trimmedEmail })
+            }).then(async (response) => {
+                if (response.ok) {
+                    setIsOtpSent(true);
+                    setOtpSuccessMessage(`An OTP has been successfully sent to ${trimmedEmail}`);
+                } else {
+                    const errData = await response.json().catch(() => ({}));
+                    setOtpError(errData.message || "Failed to send OTP. Please try again.");
+                }
+            }).catch((err) => {
+                console.error("Error sending OTP in background:", err);
+                setOtpError("Failed to send OTP. Please check your internet connection.");
+            }).finally(() => {
+                setIsOtpSending(false);
+            });
+        } else {
+            setIsPreviewMode(true);
+        }
+    };
+
+    const handleVerifyOtp = async () => {
+        if (!otp.trim()) {
+            setOtpError("Please enter the OTP.");
+            return;
+        }
+        setIsOtpVerifying(true);
+        setOtpError('');
+        setOtpSuccessMessage('');
+        const trimmedEmail = email.trim();
+        const trimmedOtp = otp.trim();
+
+        try {
+            const response = await fetch(`${wms_URL}${endpoints.verifyOTP}`, {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({
+                    email: trimmedEmail,
+                    otp: trimmedOtp
+                })
+            });
+
+            if (response.ok) {
+                const resData = await response.json();
+                if (resData.success && resData.verificationToken) {
+                    setVerificationToken(resData.verificationToken);
+                    setIsOtpVerified(true);
+                    setOtpSuccessMessage("OTP verified successfully!");
+                } else {
+                    setOtpError(resData.message || "Failed to retrieve verification token. Please try again.");
+                }
+            } else {
+                const errData = await response.json().catch(() => ({}));
+                setOtpError(errData.message || "Invalid OTP. Please check and try again.");
+            }
+        } catch (err) {
+            console.error("Error verifying OTP:", err);
+            setOtpError("Connection error. Please try again.");
+        } finally {
+            setIsOtpVerifying(false);
+        }
+    };
+
+    const handleConfirmSubmit = async () => {
         setIsSubmitting(true);
         setSubmitError('');
-        const localApiPayload = {
+        const normalizedMobile = mobile.replace(/\D/g, '');
+
+        const localApiPayload: any = {
             fullName: name,
-            mobileNumber: mobile,
-            email: email,
+            mobileNumber: normalizedMobile,
+            email: email.trim(),
             selectedDate: selectedDate,
             timeSlot: {
                 startTime: time12To24(selectedTime),
@@ -338,10 +427,18 @@ console.log("from validation selected date============", bookedSlots)
             }
         };
 
+        const headers: Record<string, string> = {
+            "Content-Type": "application/json"
+        };
+
+        if (activeTab === 'booking' && verificationToken) {
+            headers["Authorization"] = `Bearer ${verificationToken}`;
+        }
+
         try {
             const response = await fetch(`${wms_URL}${endpoints.createSessionQuery}`, {
                 method: "POST",
-                headers: { "Content-Type": "application/json" },
+                headers: headers,
                 body: JSON.stringify(localApiPayload)
             });
 
@@ -349,7 +446,6 @@ console.log("from validation selected date============", bookedSlots)
                 console.error("Session query API failed");
             }
 
-            // Save booking to localStorage so slot shows as booked during offline testing
             if (activeTab === 'booking') {
                 const localData = localStorage.getItem('bfc_booked_slots') || '{}';
                 const parsed = JSON.parse(localData);
@@ -362,20 +458,25 @@ console.log("from validation selected date============", bookedSlots)
                 localStorage.setItem('bfc_booked_slots', JSON.stringify(parsed));
             }
 
+            setIsPreviewMode(false);
             setIsBookingModalOpen(false);
             setIsSuccessPopupOpen(true);
 
         } catch (err) {
             console.error("Submission failed:", err);
-            setSubmitError("Server Under maintainace please try after sometime");
+            setSubmitError("Server under maintenance, please try again after some time.");
         } finally {
             setIsSubmitting(false);
         }
     };
 
+    const formattedDate = selectedDate
+        ? new Date(selectedDate + 'T00:00:00').toLocaleDateString('en-IN', { weekday: 'long', day: 'numeric', month: 'long', year: 'numeric' })
+        : '';
+
     return (
         <>
-            {/* Inline Button passed as child or standard CTA */}
+            {/* Inline Button */}
             <button
                 onClick={() => setIsBookingModalOpen(true)}
                 className={className}
@@ -385,7 +486,7 @@ console.log("from validation selected date============", bookedSlots)
                 {buttonText}
             </button>
 
-            {/* Floating Sticky Tab for Desktop (Hidden on mobile) */}
+            {/* Floating Sticky Tab for Desktop */}
             {showFloatingTab && (
                 <div className="hidden md:block fixed right-0 top-1/2 -translate-y-1/2 z-[9999]">
                     <button
@@ -404,7 +505,7 @@ console.log("from validation selected date============", bookedSlots)
                 </div>
             )}
 
-            {/* Floating Action Button (FAB) for Mobile (Hidden on desktop) */}
+            {/* Floating Action Button for Mobile */}
             {showFloatingTab && (
                 <div className="md:hidden fixed bottom-6 right-6 z-[9999]">
                     <button
@@ -421,7 +522,7 @@ console.log("from validation selected date============", bookedSlots)
             {isBookingModalOpen && (
                 <div className="fixed inset-0 z-[99999] flex items-center justify-center p-4 sm:p-6 bg-black/60 backdrop-blur-sm transition-opacity">
                     <div
-                        className="relative w-full max-w-3xl bg-white rounded-3xl p-8 md:p-12 shadow-2xl overflow-y-auto max-h-[95vh] border border-gray-100 animate-in fade-in zoom-in-95 duration-200"
+                        className="relative w-full max-w-2xl bg-white rounded-3xl p-6 md:p-10 shadow-2xl overflow-y-auto max-h-[95vh] border border-gray-100 animate-in fade-in zoom-in-95 duration-200"
                         role="dialog"
                         aria-modal="true"
                         aria-labelledby="booking-modal-title"
@@ -438,200 +539,424 @@ console.log("from validation selected date============", bookedSlots)
                             </svg>
                         </button>
 
-                        <div className="text-center mb-6">
-                            <h2
-                                id="booking-modal-title"
-                                className="text-[26px] md:text-[36px] font-bold mb-2 leading-tight inline-block"
-                                style={{
-                                    background: "linear-gradient(90deg, #024B39 39.5%, #011EFE 100%)",
-                                    WebkitBackgroundClip: "text",
-                                    WebkitTextFillColor: "transparent",
-                                    backgroundClip: "text",
-                                    color: "transparent"
-                                }}
-                            >
-                                {activeTab === 'booking' ? 'Book Your Financial Session' : 'A Thoughtful Start to Your Financial Journey!'}
-                            </h2>
-                            <p id="booking-modal-desc" className="text-[#44475B] text-[15px] md:text-[17px] font-medium max-w-lg mx-auto">
-                                {activeTab === 'booking'
-                                    ? 'Select a date and time slot to connect with our certified advisors.'
-                                    : 'Good financial decisions don’t begin with products; they begin with conversations.'}
-                            </p>
-                        </div>
-
-                        {/* Tabs Navigation */}
-                        <div className="flex border-b border-gray-100 mb-8 w-full max-w-md mx-auto">
-                            <button
-                                type="button"
-                                onClick={() => {
-                                    setActiveTab('booking');
-                                    setErrors({});
-                                    setSubmitError('');
-                                }}
-                                className={`flex-1 text-center pb-3 text-[14px] md:text-[15px] font-bold border-b-2 transition-all duration-300 cursor-pointer ${activeTab === 'booking'
-                                    ? 'border-[#024B39] text-[#024B39]'
-                                    : 'border-transparent text-gray-400 hover:text-gray-600'
-                                    }`}
-                            >
-                                📅 Schedule Session
-                            </button>
-                        </div>
-
-                        <form onSubmit={handleSubmit} className="w-full text-left flex flex-col items-center">
-                            <div className="grid grid-cols-1 md:grid-cols-2 gap-x-8 gap-y-8 mb-8 w-full">
-                                {/* Name Input */}
-                                <div className="relative">
-                                    <label className="block text-[11px] font-bold uppercase tracking-wider text-[#44475B] mb-1">Your Name</label>
-                                    <input
-                                        type="text"
-                                        placeholder="Enter your full name"
-                                        aria-label="Your name"
-                                        value={name}
-                                        onChange={(e) => setName(e.target.value)}
-                                        className={`w-full border-b py-2 text-[#44475B] bg-transparent outline-none transition-colors ${errors.name ? 'border-red-500' : 'border-gray-300 focus:border-[#024B39]'}`}
-                                    />
-                                    {errors.name && <p className="text-red-500 text-xs mt-1 absolute -bottom-5 font-medium">{errors.name}</p>}
+                        {isPreviewMode ? (
+                            <div style={{ width: '100%', maxWidth: '520px', margin: '0 auto' }}>
+                                {/* ── Header with BFC Capital Gradient Title & Icon ── */}
+                                <div style={{ textAlign: 'center', marginBottom: '24px' }}>
+                                    <div style={{
+                                        width: '56px', height: '56px', borderRadius: '50%',
+                                        background: 'linear-gradient(269.9deg, #06A358 24.53%, #001EFE 156.82%)',
+                                        display: 'flex', alignItems: 'center', justifyContent: 'center',
+                                        margin: '0 auto 16px',
+                                        boxShadow: '0 4px 14px rgba(2, 75, 57, 0.25)'
+                                    }}>
+                                        <svg width="26" height="26" viewBox="0 0 24 24" fill="none">
+                                            <path d="M9 12L11 14L15 10M21 12C21 16.9706 16.9706 21 12 21C7.02944 21 3 16.9706 3 12C3 7.02944 7.02944 3 12 3C16.9706 3 21 7.02944 21 12Z" stroke="white" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" />
+                                        </svg>
+                                    </div>
+                                    <h2 style={{
+                                        fontSize: '26px',
+                                        fontWeight: '800',
+                                        margin: '0 0 8px',
+                                        letterSpacing: '-0.01em',
+                                        background: "linear-gradient(90deg, #024B39 39.5%, #011EFE 100%)",
+                                        WebkitBackgroundClip: "text",
+                                        WebkitTextFillColor: "transparent",
+                                        backgroundClip: "text",
+                                        color: "transparent"
+                                    }}>
+                                        Almost done!
+                                    </h2>
+                                    <p style={{ fontSize: '15px', color: '#44475B', margin: 0, lineHeight: '1.6', fontWeight: '500' }}>
+                                        Review your details and confirm your booking.
+                                    </p>
                                 </div>
 
-                                {/* Mobile Input */}
-                                <div className="relative">
-                                    <label className="block text-[11px] font-bold uppercase tracking-wider text-[#44475B] mb-1">Mobile Number</label>
-                                    <input
-                                        type="text"
-                                        placeholder="10-digit mobile number"
-                                        aria-label="Mobile Number"
-                                        value={mobile}
-                                        onChange={(e) => setMobile(e.target.value.replace(/\D/g, '').slice(0, 10))}
-                                        className={`w-full border-b py-2 text-[#44475B] bg-transparent outline-none transition-colors ${errors.mobile ? 'border-red-500' : 'border-gray-300 focus:border-[#024B39]'}`}
-                                    />
-                                    {errors.mobile && <p className="text-red-500 text-xs mt-1 absolute -bottom-5 font-medium">{errors.mobile}</p>}
+                                {/* ── Info Row Card (Crisp Dark Text) ── */}
+                                <div className="flex flex-col md:flex-row justify-around items-center gap-6 md:gap-4" style={{ border: '1px solid #e5e7eb', borderRadius: '16px', padding: '24px 20px', marginBottom: '20px', backgroundColor: '#ffffff', boxShadow: '0 1px 3px rgba(0,0,0,0.05)' }}>
+                                    {/* Name */}
+                                    <div className="flex flex-col items-center text-center flex-1 min-w-0 w-full">
+                                        <div style={{ width: '38px', height: '38px', borderRadius: '10px', background: 'linear-gradient(135deg, rgba(2,75,57,0.1) 0%, rgba(1,30,254,0.1) 100%)', display: 'flex', alignItems: 'center', justifyContent: 'center', marginBottom: '10px' }}>
+                                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#024B39" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2" /><circle cx="12" cy="7" r="4" /></svg>
+                                        </div>
+                                        <p style={{ margin: '0 0 4px', fontSize: '11px', color: '#44475B', fontWeight: '700', textTransform: 'uppercase', letterSpacing: '0.05em' }}>Name</p>
+                                        <p style={{ margin: 0, fontSize: '16px', fontWeight: '700', color: '#111827', wordBreak: 'break-word', lineHeight: '1.3' }}>{name}</p>
+                                    </div>
+
+                                    <div className="hidden md:block" style={{ width: '1px', alignSelf: 'stretch', backgroundColor: '#f3f4f6' }}></div>
+                                    <div className="md:hidden" style={{ height: '1px', width: '100%', backgroundColor: '#f3f4f6' }}></div>
+
+                                    {/* Mobile */}
+                                    <div className="flex flex-col items-center text-center flex-1 min-w-0 w-full">
+                                        <div style={{ width: '38px', height: '38px', borderRadius: '10px', background: 'linear-gradient(135deg, rgba(2,75,57,0.1) 0%, rgba(1,30,254,0.1) 100%)', display: 'flex', alignItems: 'center', justifyContent: 'center', marginBottom: '10px' }}>
+                                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#024B39" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><rect x="5" y="2" width="14" height="20" rx="2" ry="2" /><line x1="12" y1="18" x2="12.01" y2="18" /></svg>
+                                        </div>
+                                        <p style={{ margin: '0 0 4px', fontSize: '11px', color: '#44475B', fontWeight: '700', textTransform: 'uppercase', letterSpacing: '0.05em' }}>Mobile</p>
+                                        <p style={{ margin: 0, fontSize: '16px', fontWeight: '700', color: '#111827', wordBreak: 'break-word', lineHeight: '1.3' }}>+91 {mobile}</p>
+                                    </div>
+
+                                    <div className="hidden md:block" style={{ width: '1px', alignSelf: 'stretch', backgroundColor: '#f3f4f6' }}></div>
+                                    <div className="md:hidden" style={{ height: '1px', width: '100%', backgroundColor: '#f3f4f6' }}></div>
+
+                                    {/* Email */}
+                                    <div className="flex flex-col items-center text-center flex-1 min-w-0 w-full">
+                                        <div style={{ width: '38px', height: '38px', borderRadius: '10px', background: 'linear-gradient(135deg, rgba(2,75,57,0.1) 0%, rgba(1,30,254,0.1) 100%)', display: 'flex', alignItems: 'center', justifyContent: 'center', marginBottom: '10px' }}>
+                                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#024B39" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z" /><polyline points="22,6 12,13 2,6" /></svg>
+                                        </div>
+                                        <p style={{ margin: '0 0 4px', fontSize: '11px', color: '#44475B', fontWeight: '700', textTransform: 'uppercase', letterSpacing: '0.05em' }}>Email</p>
+                                        <p style={{ margin: 0, fontSize: '14px', fontWeight: '700', color: '#111827', wordBreak: 'break-all', lineHeight: '1.3' }}>{email}</p>
+                                    </div>
                                 </div>
 
-                                {/* Email Input */}
-                                <div className="relative">
-                                    <label className="block text-[11px] font-bold uppercase tracking-wider text-[#44475B] mb-1">Email Address</label>
-                                    <input
-                                        type="email"
-                                        placeholder="email@example.com"
-                                        aria-label="Email Address"
-                                        value={email}
-                                        onChange={(e) => setEmail(e.target.value)}
-                                        className={`w-full border-b py-2 text-[#44475B] bg-transparent outline-none transition-colors ${errors.email ? 'border-red-500' : 'border-gray-300 focus:border-[#024B39]'}`}
-                                    />
-                                    {errors.email && <p className="text-red-500 text-xs mt-1 absolute -bottom-5 font-medium">{errors.email}</p>}
-                                </div>
-
-                                {/* Conditionally Rendered Date Selector (Booking Tab Only) */}
+                                {/* ── Scheduled Session Banner (BFC Capital Gradient) ── */}
                                 {activeTab === 'booking' && (
-                                    <div className="relative">
-                                        <label className="block text-[11px] font-bold uppercase tracking-wider text-[#44475B] mb-1">Select Date</label>
-                                        <input
-                                            type="date"
-                                            aria-label="Select Date"
-                                            value={selectedDate}
-                                            min={minDate}
-                                            onChange={(e) => handleDateChange(e.target.value)}
-                                            className={`w-full border-b py-2 text-[#44475B] bg-transparent outline-none transition-colors cursor-pointer ${errors.date || dateError ? 'border-red-500 focus:border-red-500' : 'border-gray-300 focus:border-[#024B39]'}`}
-                                        />
-                                        {(errors.date || dateError) && (
-                                            <p className="text-red-500 text-xs mt-1 absolute -bottom-5 font-medium max-w-full truncate">{errors.date || dateError}</p>
+                                    <div style={{
+                                        background: 'linear-gradient(269.9deg, #024B39 24.53%, #001EFE 156.82%)',
+                                        borderRadius: '16px', padding: '16px 20px',
+                                        display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center',
+                                        textAlign: 'center', gap: '6px',
+                                        marginBottom: '20px',
+                                        boxShadow: '0 4px 16px rgba(2, 75, 57, 0.2)'
+                                    }}>
+                                        <div style={{ width: '36px', height: '36px', borderRadius: '10px', background: 'rgba(255,255,255,0.2)', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" ry="2" /><line x1="16" y1="2" x2="16" y2="6" /><line x1="8" y1="2" x2="8" y2="6" /><line x1="3" y1="10" x2="21" y2="10" /></svg>
+                                        </div>
+                                        <div>
+                                            <p style={{ margin: '0 0 3px', fontSize: '11px', color: 'rgba(255,255,255,0.85)', fontWeight: '700', textTransform: 'uppercase', letterSpacing: '0.06em' }}>Scheduled Session</p>
+                                            <p style={{ margin: '0 0 2px', fontSize: '20px', fontWeight: '800', color: '#ffffff', lineHeight: '1.3' }}>{formattedDate}</p>
+                                            <p style={{ margin: 0, fontSize: '14px', fontWeight: '600', color: 'rgba(255,255,255,0.95)' }}>{selectedTime}</p>
+                                        </div>
+                                    </div>
+                                )}
+
+                                {/* ── OTP Verification Section ── */}
+                                {activeTab === 'booking' && (
+                                    <div style={{
+                                        border: '1px solid #e5e7eb',
+                                        borderRadius: '16px',
+                                        padding: '20px',
+                                        marginBottom: '20px',
+                                        backgroundColor: '#f9fafb',
+                                        textAlign: 'left'
+                                    }}>
+                                        <p style={{ margin: '0 0 12px', fontSize: '14px', color: '#44475B', fontWeight: '500', lineHeight: '1.5' }}>
+                                            ✉️ {isOtpSending ? "Sending OTP to your email..." : (otpSuccessMessage || `An OTP has been sent to your email: ${email}`)}
+                                        </p>
+                                        <div style={{ display: 'flex', gap: '10px', alignItems: 'center' }}>
+                                            <input
+                                                type="text"
+                                                maxLength={6}
+                                                placeholder="Enter 6-digit OTP"
+                                                value={otp}
+                                                disabled={isOtpVerified || isOtpVerifying}
+                                                onChange={(e) => setOtp(e.target.value.replace(/\D/g, ''))}
+                                                style={{
+                                                    flex: 1,
+                                                    padding: '12px 14px',
+                                                    borderRadius: '10px',
+                                                    border: otpError ? '1.5px solid #ef4444' : '1.5px solid #d1d5db',
+                                                    fontSize: '15px',
+                                                    outline: 'none',
+                                                    backgroundColor: isOtpVerified ? '#f3f4f6' : '#ffffff',
+                                                    color: '#111827',
+                                                    letterSpacing: '0.05em',
+                                                    fontWeight: '600'
+                                                }}
+                                            />
+                                            <button
+                                                type="button"
+                                                onClick={handleVerifyOtp}
+                                                disabled={isOtpVerified || isOtpVerifying || otp.length < 4}
+                                                style={{
+                                                    padding: '12px 20px',
+                                                    borderRadius: '10px',
+                                                    background: isOtpVerified
+                                                        ? '#06A358'
+                                                        : 'linear-gradient(269.9deg, #06A358 24.53%, #001EFE 156.82%)',
+                                                    color: '#ffffff',
+                                                    fontWeight: '700',
+                                                    fontSize: '14px',
+                                                    border: 'none',
+                                                    cursor: (isOtpVerified || isOtpVerifying || otp.length < 4) ? 'not-allowed' : 'pointer',
+                                                    opacity: (isOtpVerified || isOtpVerifying || otp.length < 4) ? 0.7 : 1,
+                                                    transition: 'all 0.2s ease-in-out',
+                                                    display: 'flex',
+                                                    alignItems: 'center',
+                                                    gap: '6px'
+                                                }}
+                                            >
+                                                {isOtpVerifying ? (
+                                                    <>
+                                                        <svg className="animate-spin" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" style={{ width: '16px', height: '16px', color: '#ffffff' }}>
+                                                            <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
+                                                            <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                                                        </svg>
+                                                        Verifying...
+                                                    </>
+                                                ) : isOtpVerified ? (
+                                                    "Verified ✓"
+                                                ) : (
+                                                    "Verify OTP"
+                                                )}
+                                            </button>
+                                        </div>
+                                        {otpError && (
+                                            <p style={{ margin: '8px 0 0', fontSize: '12px', color: '#ef4444', fontWeight: '500' }}>
+                                                ⚠️ {otpError}
+                                            </p>
+                                        )}
+                                        {isOtpVerified && (
+                                            <p style={{ margin: '8px 0 0', fontSize: '12px', color: '#06A358', fontWeight: '600' }}>
+                                                ✓ OTP verified successfully! You can now confirm your booking.
+                                            </p>
                                         )}
                                     </div>
                                 )}
 
-                                {/* Conditionally Rendered Time Dropdown (Booking Tab Only) */}
-                                {activeTab === 'booking' && (
-                                    <div className="relative md:col-span-2">
-                                        <label className="block text-[11px] font-bold uppercase tracking-wider text-gray-400 mb-1">Select Time Slot</label>
-                                        <select
-                                            aria-label="Select Time Slot"
-                                            value={selectedTime}
-                                            disabled={!selectedDate || !!dateError || isLoadingSlots}
-                                            onChange={(e) => setSelectedTime(e.target.value)}
-                                            className={`w-full border-b py-2 text-[#44475B] bg-transparent outline-none transition-colors cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed ${errors.time ? 'border-red-500' : 'border-gray-300 focus:border-[#024B39]'
-                                                }`}
-                                        >
-                                            <option value="" className="text-gray-400">
-                                                {isLoadingSlots
-                                                    ? "Checking slot availability..."
-                                                    : !selectedDate
-                                                        ? "Please select a date first"
-                                                        : dateError
-                                                            ? "Date is unavailable"
-                                                            : "Choose an available 30-minute slot"
-                                                }
-                                            </option>
-                                            {!isLoadingSlots && selectedDate && !dateError && TIME_SLOTS.filter(slot => !isSlotInPast(slot, selectedDate)).map((slot) => {
-                                                const { isBooked, statusText } = getSlotBookingInfo(slot);
-
-                                                return (
-                                                    <option key={slot} value={slot} disabled={isBooked} className="text-[#44475B]">
-                                                        {slot} {isBooked ? `(${statusText})` : ""}
-                                                    </option>
-                                                );
-                                            })}
-                                        </select>
-                                        {errors.time && <p className="text-red-500 text-xs mt-1 absolute -bottom-5 font-medium">{errors.time}</p>}
+                                {/* ── Error ── */}
+                                {submitError && (
+                                    <div className="w-full mb-6 p-4 bg-red-50 border border-red-200 text-red-700 rounded-xl text-center font-medium text-sm">
+                                        ⚠️ {submitError}
                                     </div>
                                 )}
-                            </div>
 
-                            {/* Consent Checkbox */}
-                            <div className="mb-8 text-left w-full mt-4">
-                                <label htmlFor="booking-consent-checkbox" className="flex items-start gap-4 cursor-pointer relative group">
-                                    <div className="relative flex items-center justify-center mt-1 w-[22px] h-[22px] shrink-0">
-                                        <input
-                                            type="checkbox"
-                                            id="booking-consent-checkbox"
-                                            className="peer appearance-none w-[22px] h-[22px] rounded-[4px] shrink-0 border-[2px] border-[#024B39] checked:border-transparent transition-all outline-none cursor-pointer"
-                                            checked={consent}
-                                            onChange={(e) => setConsent(e.target.checked)}
-                                        />
-                                        <div
-                                            className={`absolute inset-0 rounded-[4px] pointer-events-none transition-opacity flex items-center justify-center ${consent ? "opacity-100" : "opacity-0"}`}
-                                            style={{ background: "linear-gradient(269.9deg, #06A358 24.53%, #001EFE 156.82%)" }}
-                                        >
-                                            <svg className="w-3.5 h-3.5 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={3}>
-                                                <path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" />
-                                            </svg>
-                                        </div>
-                                    </div>
-                                    <div>
-                                        <span className="text-[14px] text-[#44475B] leading-[1.6]">
-                                            I hereby consent to the processing of my personal information by BFC Capital Pvt. Ltd. for financial planning communication, consultation, and related follow-ups, in accordance with the provisions of DPDP Act, 2023.
-                                        </span>
-                                        {errors.consent && <p className="text-red-500 text-xs mt-1 block font-medium">{errors.consent}</p>}
-                                    </div>
-                                </label>
-                            </div>
-
-                            {/* Submit Error Message */}
-                            {submitError && (
-                                <div className="w-full mb-6 p-4 bg-red-50 border border-red-200 text-red-700 rounded-xl text-center font-medium text-sm animate-in fade-in slide-in-from-top-2 duration-200">
-                                    ⚠️ {submitError}
+                                {/* ── Confirm CTA Button with BFC Capital Gradient ── */}
+                                <div style={{ display: 'flex', flexDirection: 'column', gap: '12px', width: '100%', alignItems: 'center', marginTop: '16px' }}>
+                                    <button
+                                        type="button"
+                                        onClick={handleConfirmSubmit}
+                                        disabled={isSubmitting || (activeTab === 'booking' && !isOtpVerified)}
+                                        style={{
+                                            width: '100%',
+                                            padding: '16px',
+                                            fontSize: '16px',
+                                            fontWeight: '700',
+                                            borderRadius: '12px',
+                                            border: 'none',
+                                            color: '#ffffff',
+                                            background: (activeTab === 'booking' && !isOtpVerified)
+                                                ? 'linear-gradient(269.9deg, rgba(6, 163, 88, 0.5) 24.53%, rgba(0, 30, 254, 0.5) 156.82%)'
+                                                : 'linear-gradient(269.9deg, #06A358 24.53%, #001EFE 156.82%)',
+                                            cursor: (activeTab === 'booking' && !isOtpVerified) ? 'not-allowed' : 'pointer',
+                                            boxShadow: '0 4px 14px rgba(2, 75, 57, 0.25)',
+                                            transition: 'all 0.3s ease-in-out',
+                                            display: 'flex',
+                                            alignItems: 'center',
+                                            justifyContent: 'center',
+                                            gap: '8px'
+                                        }}
+                                    >
+                                        {(isSubmitting || isOtpSending) ? (
+                                            <>
+                                                <svg className="animate-spin" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" style={{ width: '18px', height: '18px', display: 'inline-block' }}>
+                                                    <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
+                                                    <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                                                </svg>
+                                                {isOtpSending ? 'Sending OTP...' : 'Confirming...'}
+                                            </>
+                                        ) : 'Confirm & Book Session'}
+                                    </button>
+                                    <button
+                                        type="button"
+                                        onClick={() => setIsPreviewMode(false)}
+                                        style={{
+                                            width: '100%', padding: '10px',
+                                            background: 'none', border: 'none',
+                                            color: '#44475B', fontWeight: '600',
+                                            fontSize: '15px', cursor: 'pointer',
+                                            textAlign: 'center'
+                                        }}
+                                    >
+                                        ← Edit my details
+                                    </button>
                                 </div>
-                            )}
-
-                            {/* Submit Button */}
-                            <div className="text-center w-full">
-                                <button
-                                    type="submit"
-                                    disabled={isSubmitting || (activeTab === 'booking' && (isLoadingSlots || !!dateError))}
-                                    className={`bg-[#024B39] text-white px-10 py-3.5 rounded-xl hover:bg-[#013527] transition duration-300 font-semibold text-[16px] flex items-center justify-center gap-2 w-full sm:w-auto shadow-md disabled:opacity-50 disabled:cursor-not-allowed cursor-pointer`}
-                                >
-                                    {isSubmitting && (
-                                        <svg className="animate-spin h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
-                                            <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
-                                            <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
-                                        </svg>
-                                    )}
-                                    {activeTab === 'booking'
-                                        ? (isSubmitting ? 'Securing Your Slot...' : 'Book Your Slot Now')
-                                        : (isSubmitting ? 'Sending Request...' : 'Request a Callback')
-                                    }
-                                </button>
                             </div>
-                        </form>
+                        ) : (
+                            <>
+                                <div className="text-center mb-6">
+                                    <h2
+                                        id="booking-modal-title"
+                                        className="text-[26px] md:text-[36px] font-bold mb-2 leading-tight inline-block"
+                                        style={{
+                                            background: "linear-gradient(90deg, #024B39 39.5%, #011EFE 100%)",
+                                            WebkitBackgroundClip: "text",
+                                            WebkitTextFillColor: "transparent",
+                                            backgroundClip: "text",
+                                            color: "transparent"
+                                        }}
+                                    >
+                                        {activeTab === 'booking' ? 'Book Your Session' : 'A Thoughtful Start to Your Financial Journey!'}
+                                    </h2>
+                                    <p id="booking-modal-desc" className="text-[#44475B] text-[15px] md:text-[17px] font-medium max-w-lg mx-auto">
+                                        {activeTab === 'booking'
+                                            ? 'Select a date and time slot to connect with our experts.'
+                                            : 'Good financial decisions don’t begin with products; they begin with conversations.'}
+                                    </p>
+                                </div>
+
+                                {/* Tabs Navigation */}
+                                <div className="flex border-b border-gray-100 mb-8 w-full max-w-md mx-auto">
+                                    <button
+                                        type="button"
+                                        onClick={() => {
+                                            setActiveTab('booking');
+                                            setErrors({});
+                                            setSubmitError('');
+                                        }}
+                                        className={`flex-1 text-center pb-3 text-[14px] md:text-[15px] font-bold border-b-2 transition-all duration-300 cursor-pointer ${activeTab === 'booking'
+                                            ? 'border-[#024B39] text-[#024B39]'
+                                            : 'border-transparent text-gray-400 hover:text-gray-600'
+                                            }`}
+                                    >
+                                        📅 Schedule Session
+                                    </button>
+                                </div>
+
+                                <form onSubmit={handleSubmit} className="w-full text-left flex flex-col items-center">
+                                    <div className="grid grid-cols-1 md:grid-cols-2 gap-x-8 gap-y-8 mb-8 w-full">
+                                        {/* Name Input */}
+                                        <div className="relative">
+                                            <label className="block text-[11px] font-bold uppercase tracking-wider text-[#44475B] mb-1">Your Name</label>
+                                            <input
+                                                type="text"
+                                                placeholder="Enter your full name"
+                                                aria-label="Your name"
+                                                value={name}
+                                                onChange={(e) => setName(e.target.value)}
+                                                className={`w-full border-b py-2 text-[#44475B] bg-transparent outline-none transition-colors ${errors.name ? 'border-red-500' : 'border-gray-300 focus:border-[#024B39]'}`}
+                                            />
+                                            {errors.name && <p className="text-red-500 text-xs mt-1 absolute -bottom-5 font-medium">{errors.name}</p>}
+                                        </div>
+
+                                        {/* Mobile Input */}
+                                        <div className="relative">
+                                            <label className="block text-[11px] font-bold uppercase tracking-wider text-[#44475B] mb-1">Mobile Number</label>
+                                            <input
+                                                type="text"
+                                                placeholder="10-digit mobile number"
+                                                aria-label="Mobile Number"
+                                                value={mobile}
+                                                onChange={(e) => setMobile(e.target.value.replace(/\D/g, '').slice(0, 10))}
+                                                className={`w-full border-b py-2 text-[#44475B] bg-transparent outline-none transition-colors ${errors.mobile ? 'border-red-500' : 'border-gray-300 focus:border-[#024B39]'}`}
+                                            />
+                                            {errors.mobile && <p className="text-red-500 text-xs mt-1 absolute -bottom-5 font-medium">{errors.mobile}</p>}
+                                        </div>
+
+                                        {/* Email Input */}
+                                        <div className="relative">
+                                            <label className="block text-[11px] font-bold uppercase tracking-wider text-[#44475B] mb-1">Email Address</label>
+                                            <input
+                                                type="email"
+                                                placeholder="email@example.com"
+                                                aria-label="Email Address"
+                                                value={email}
+                                                onChange={(e) => setEmail(e.target.value)}
+                                                className={`w-full border-b py-2 text-[#44475B] bg-transparent outline-none transition-colors ${errors.email ? 'border-red-500' : 'border-gray-300 focus:border-[#024B39]'}`}
+                                            />
+                                            {errors.email && <p className="text-red-500 text-xs mt-1 absolute -bottom-5 font-medium">{errors.email}</p>}
+                                        </div>
+
+                                        {/* Conditionally Rendered Date Selector */}
+                                        {activeTab === 'booking' && (
+                                            <div className="relative">
+                                                <label className="block text-[11px] font-bold uppercase tracking-wider text-[#44475B] mb-1">Select Date</label>
+                                                <input
+                                                    type="date"
+                                                    aria-label="Select Date"
+                                                    value={selectedDate}
+                                                    min={minDate}
+                                                    onChange={(e) => handleDateChange(e.target.value)}
+                                                    className={`w-full border-b py-2 text-[#44475B] bg-transparent outline-none transition-colors cursor-pointer ${errors.date || dateError ? 'border-red-500 focus:border-red-500' : 'border-gray-300 focus:border-[#024B39]'}`}
+                                                />
+                                                {(errors.date || dateError) && (
+                                                    <p className="text-red-500 text-xs mt-1 absolute -bottom-5 font-medium max-w-full truncate">{errors.date || dateError}</p>
+                                                )}
+                                            </div>
+                                        )}
+
+                                        {/* Conditionally Rendered Time Dropdown */}
+                                        {activeTab === 'booking' && (
+                                            <div className="relative md:col-span-2">
+                                                <label className="block text-[11px] font-bold uppercase tracking-wider text-gray-400 mb-1">Select Time Slot</label>
+                                                <select
+                                                    aria-label="Select Time Slot"
+                                                    value={selectedTime}
+                                                    disabled={!selectedDate || !!dateError || isLoadingSlots}
+                                                    onChange={(e) => setSelectedTime(e.target.value)}
+                                                    className={`w-full border-b py-2 text-[#44475B] bg-transparent outline-none transition-colors cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed ${errors.time ? 'border-red-500' : 'border-gray-300 focus:border-[#024B39]'}`}
+                                                >
+                                                    <option value="" className="text-gray-400">
+                                                        {isLoadingSlots
+                                                            ? "Checking slot availability..."
+                                                            : !selectedDate
+                                                                ? "Please select a date first"
+                                                                : dateError
+                                                                    ? "Date is unavailable"
+                                                                    : "Choose an available 30-minute slot"
+                                                        }
+                                                    </option>
+                                                    {!isLoadingSlots && selectedDate && !dateError && TIME_SLOTS.filter(slot => !isSlotInPast(slot, selectedDate)).map((slot) => {
+                                                        const { isBooked, statusText } = getSlotBookingInfo(slot);
+                                                        return (
+                                                            <option key={slot} value={slot} disabled={isBooked} className="text-[#44475B]">
+                                                                {slot} {isBooked ? `(${statusText})` : ""}
+                                                            </option>
+                                                        );
+                                                    })}
+                                                </select>
+                                                {errors.time && <p className="text-red-500 text-xs mt-1 absolute -bottom-5 font-medium">{errors.time}</p>}
+                                            </div>
+                                        )}
+                                    </div>
+
+                                    {/* Consent Checkbox */}
+                                    <div className="mb-8 text-left w-full mt-4">
+                                        <label htmlFor="booking-consent-checkbox" className="flex items-start gap-4 cursor-pointer relative group">
+                                            <div className="relative flex items-center justify-center mt-1 w-[22px] h-[22px] shrink-0">
+                                                <input
+                                                    type="checkbox"
+                                                    id="booking-consent-checkbox"
+                                                    className="peer appearance-none w-[22px] h-[22px] rounded-[4px] shrink-0 border-[2px] border-[#024B39] checked:border-transparent transition-all outline-none cursor-pointer"
+                                                    checked={consent}
+                                                    onChange={(e) => setConsent(e.target.checked)}
+                                                />
+                                                <div
+                                                    className={`absolute inset-0 rounded-[4px] pointer-events-none transition-opacity flex items-center justify-center ${consent ? "opacity-100" : "opacity-0"}`}
+                                                    style={{ background: "linear-gradient(269.9deg, #06A358 24.53%, #001EFE 156.82%)" }}
+                                                >
+                                                    <svg className="w-3.5 h-3.5 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={3}>
+                                                        <path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" />
+                                                    </svg>
+                                                </div>
+                                            </div>
+                                            <div>
+                                                <span className="text-[14px] text-[#44475B] leading-[1.6]">
+                                                    I hereby consent to the processing of my personal information by BFC Capital Pvt. Ltd. for financial planning communication, consultation, and related follow-ups, in accordance with the provisions of DPDP Act, 2023.
+                                                </span>
+                                                {errors.consent && <p className="text-red-500 text-xs mt-1 block font-medium">{errors.consent}</p>}
+                                            </div>
+                                        </label>
+                                    </div>
+
+                                    {/* Submit Button */}
+                                    <div className="text-center w-full">
+                                        <button
+                                            type="submit"
+                                            disabled={isOtpSending || (activeTab === 'booking' && (isLoadingSlots || !!dateError))}
+                                            className={`bg-[#024B39] text-white px-10 py-3.5 rounded-xl hover:bg-[#013527] transition duration-300 font-semibold text-[16px] flex items-center justify-center gap-2 w-full sm:w-auto shadow-md disabled:opacity-50 disabled:cursor-not-allowed cursor-pointer`}
+                                        >
+                                            {isOtpSending && (
+                                                <svg className="animate-spin h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                                                    <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
+                                                    <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                                                </svg>
+                                            )}
+                                            {isOtpSending ? 'Sending OTP...' : 'Book Your Slot Now'}
+                                        </button>
+                                    </div>
+                                </form>
+                            </>
+                        )}
                     </div>
                 </div>
             )}
