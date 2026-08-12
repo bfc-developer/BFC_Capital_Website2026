@@ -10,6 +10,7 @@ import {
 import Navbar from "../layout/Navbar";
 import Footer from "../layout/Footer";
 import VideoCarousel from "../common/VideoCarousel";
+import ComplianceAuditModal from "./ComplianceAuditModal";
 import { useSwipeable } from "react-swipeable";
 import axios from "axios";
 
@@ -1381,6 +1382,9 @@ const Home = () => {
 
   return (
     <div className="flex flex-col min-h-screen">
+      {/* Landing Compliance Modal (Opens once per visit) */}
+      <ComplianceAuditModal delay={400} />
+
       <Navbar />
       <main id="main-content" className="flex-grow overflow-x-hidden">
         <HeroSection />
