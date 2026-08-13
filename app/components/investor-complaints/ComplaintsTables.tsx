@@ -7,15 +7,27 @@ const ComplaintsTables = () => {
 
     useEffect(() => {
         const now = new Date();
+        const currentYear = now.getFullYear();
+        const currentMonth = now.getMonth(); // 0 = Jan, 1 = Feb, ..., 11 = Dec
         const monthNames = ["Jan", "Feb", "March", "April", "May", "June", "July", "August", "Sept", "Oct", "Nov", "Dec"];
         const data = [];
-        for (let i = 3; i >= 1; i--) {
-            const d = new Date(now.getFullYear(), now.getMonth() - i);
-            if (d.getFullYear() < 2026) continue;
+
+        // Financial cycle: Starts in April (month index 3) and continues across year-end until next April
+        // If month is May (4) or later, cycle started in April of currentYear.
+        // If month is April (3) or earlier (Jan - Apr), cycle started in April of previous year.
+        const fyStartYear = currentMonth >= 4 ? currentYear : currentYear - 1;
+
+        const startDate = new Date(fyStartYear, 3, 1); // April 1st
+        const endDate = new Date(currentYear, currentMonth - 1, 1); // Previous month
+
+        const cursor = new Date(startDate);
+        while (cursor <= endDate) {
             data.push({
-                monthStr: `${monthNames[d.getMonth()]}, ${d.getFullYear()}`,
+                monthStr: `${monthNames[cursor.getMonth()]}, ${cursor.getFullYear()}`,
             });
+            cursor.setMonth(cursor.getMonth() + 1);
         }
+
         setMonthlyTrendData(data);
     }, []);
 
