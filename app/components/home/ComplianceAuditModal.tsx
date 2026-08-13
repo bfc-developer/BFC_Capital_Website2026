@@ -239,7 +239,15 @@ export default function ComplianceAuditModal({
             </tbody>
           </table>
         </div>
+        <div className="w-full mt-6 text-left">
+          <p className="text-[13px] text-[#44475B] leading-relaxed font-medium text-left">
+            * Inclusive of complaints of previous months resolved in the current month. <br />
+            # Inclusive of complaints pending as on the last day of the month <br />
+            ^ Average Resolution time is the sum total of time taken to resolve each complaint in days, in the current month divided by total number of complaints resolved in the current month.
+          </p>
+        </div>
       </div>
+
     </div>
   );
 }
