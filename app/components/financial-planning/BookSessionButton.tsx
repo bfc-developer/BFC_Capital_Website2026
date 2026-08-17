@@ -346,11 +346,12 @@ export default function BookSessionButton({ buttonText, className }: BookSession
             setSubmitError('');
             setOtpError('');
             setOtpSuccessMessage('');
-
+            const payload = { email: trimmedEmail };
+            const encodedPayload = btoa(JSON.stringify(payload));
             fetch(`${wms_URL}${endpoints.sendOTP}`, {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
-                body: JSON.stringify({ email: trimmedEmail })
+                body: JSON.stringify({ data: encodedPayload })
             }).then(async (response) => {
                 if (response.ok) {
                     setIsOtpSent(true);
@@ -382,12 +383,16 @@ export default function BookSessionButton({ buttonText, className }: BookSession
         const trimmedOtp = otp.trim();
 
         try {
-            const response = await fetch(`${wms_URL}${endpoints.verifyOTP}`, {
+            const payload = {
+                email: trimmedEmail,
+                otp: trimmedOtp
+            };
+            const encodedPayload = btoa(JSON.stringify(payload));
+            const response = await fetch(`${WMS_url}${endpoints.verifyOTP}`, {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify({
-                    email: trimmedEmail,
-                    otp: trimmedOtp
+                    data: encodedPayload
                 })
             });
 
@@ -437,12 +442,12 @@ export default function BookSessionButton({ buttonText, className }: BookSession
         }
 
         try {
+            const encodedPayload = btoa(JSON.stringify(localApiPayload));
             const response = await fetch(`${wms_URL}${endpoints.createSessionQuery}`, {
                 method: "POST",
                 headers: headers,
-                body: JSON.stringify(localApiPayload)
+                body: JSON.stringify({ data: encodedPayload })
             });
-
             if (!response.ok) {
                 console.error("Session query API failed");
             }
