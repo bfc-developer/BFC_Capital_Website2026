@@ -144,7 +144,7 @@ export default function FamilyDetailsStep({ formData, personalData, setFormData,
                     : undefined,
             };
 
-            const response = await fetch(`https://k2b02x8c-5000.inc1.devtunnels.ms/api/personal/${profileId}`, {
+            const response = await fetch(`http://localhost:5000/api/personal/${profileId}`, {
                 method: "PUT",
                 headers: {
                     "Content-Type": "application/json",
@@ -187,10 +187,10 @@ export default function FamilyDetailsStep({ formData, personalData, setFormData,
                                 setErrors(prev => ({ ...prev, maritalStatus: "" }));
                             }}
                             className={`flex cursor-pointer items-center justify-center gap-2 rounded-xl border px-4 py-3 text-sm font-medium transition-colors ${isMarried
-                                    ? "bg-[#06A358] border-[#06A358] text-white"
-                                    : errors.maritalStatus
-                                        ? "border-red-500 text-gray-700 hover:bg-[#06A358] hover:text-white group"
-                                        : "border-gray-200 text-gray-700 hover:bg-[#06A358] hover:text-white group"
+                                ? "bg-[#06A358] border-[#06A358] text-white"
+                                : errors.maritalStatus
+                                    ? "border-red-500 text-gray-700 hover:bg-[#06A358] hover:text-white group"
+                                    : "border-gray-200 text-gray-700 hover:bg-[#06A358] hover:text-white group"
                                 }`}
                         >
                             <span className="flex gap-1 items-center">
@@ -215,10 +215,10 @@ export default function FamilyDetailsStep({ formData, personalData, setFormData,
                                 });
                             }}
                             className={`flex cursor-pointer items-center justify-center gap-2 rounded-xl border px-4 py-3 text-sm font-medium transition-colors ${isSingle
-                                    ? "bg-[#06A358] border-[#06A358] text-white"
-                                    : errors.maritalStatus
-                                        ? "border-red-500 text-gray-700 hover:bg-[#06A358] hover:text-white group"
-                                        : "border-gray-200 text-gray-700 hover:bg-[#06A358] hover:text-white group"
+                                ? "bg-[#06A358] border-[#06A358] text-white"
+                                : errors.maritalStatus
+                                    ? "border-red-500 text-gray-700 hover:bg-[#06A358] hover:text-white group"
+                                    : "border-gray-200 text-gray-700 hover:bg-[#06A358] hover:text-white group"
                                 }`}
                         >
                             <span className="flex gap-1 items-center">
@@ -248,8 +248,8 @@ export default function FamilyDetailsStep({ formData, personalData, setFormData,
                                                 setErrors(prev => ({ ...prev, [`member_${i}_name`]: "" }));
                                             }}
                                             className={`w-full rounded-lg border bg-white px-3 py-2.5 text-sm text-gray-700 placeholder:text-gray-400 focus:outline-none focus:ring-2 ${errors[`member_${i}_name`]
-                                                    ? "border-red-500 focus:ring-red-100 focus:border-red-500"
-                                                    : "border-gray-200 focus:ring-emerald-100 focus:border-emerald-400"
+                                                ? "border-red-500 focus:ring-red-100 focus:border-red-500"
+                                                : "border-gray-200 focus:ring-emerald-100 focus:border-emerald-400"
                                                 }`}
                                         />
                                         {errors[`member_${i}_name`] && <p className="text-red-500 text-[11px] mt-1">{errors[`member_${i}_name`]}</p>}
@@ -267,8 +267,8 @@ export default function FamilyDetailsStep({ formData, personalData, setFormData,
                                                 setErrors(prev => ({ ...prev, [`member_${i}_relation`]: "" }));
                                             }}
                                             className={`w-full rounded-lg border bg-white px-3 py-2.5 text-sm text-gray-700 placeholder:text-gray-400 focus:outline-none focus:ring-2 ${errors[`member_${i}_relation`]
-                                                    ? "border-red-500 focus:ring-red-100 focus:border-red-500"
-                                                    : "border-gray-200 focus:ring-emerald-100 focus:border-emerald-400"
+                                                ? "border-red-500 focus:ring-red-100 focus:border-red-500"
+                                                : "border-gray-200 focus:ring-emerald-100 focus:border-emerald-400"
                                                 }`}
                                         />
                                         {errors[`member_${i}_relation`] && <p className="text-red-500 text-[11px] mt-1">{errors[`member_${i}_relation`]}</p>}
@@ -287,8 +287,8 @@ export default function FamilyDetailsStep({ formData, personalData, setFormData,
                                                     setErrors(prev => ({ ...prev, [`member_${i}_dob`]: "" }));
                                                 }}
                                                 className={`w-full rounded-lg border bg-white px-3 py-2.5 pr-9 text-sm text-gray-700 placeholder:text-gray-400 focus:outline-none focus:ring-2 ${errors[`member_${i}_dob`]
-                                                        ? "border-red-500 focus:ring-red-100 focus:border-red-500"
-                                                        : "border-gray-200 focus:ring-emerald-100 focus:border-emerald-400"
+                                                    ? "border-red-500 focus:ring-red-100 focus:border-red-500"
+                                                    : "border-gray-200 focus:ring-emerald-100 focus:border-emerald-400"
                                                     }`}
                                             />
                                         </div>
