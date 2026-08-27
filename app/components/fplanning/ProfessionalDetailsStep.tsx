@@ -105,9 +105,13 @@ export default function ProfessionalDetailsStep({
 
   const handleInputChange = (e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const { name, value } = e.target;
+    let processedValue = value;
+    if (name === "city") {
+      processedValue = value.replace(/\d/g, "");
+    }
     activeSetter((prev: any) => ({
       ...prev,
-      [name]: value,
+      [name]: processedValue,
     }));
     setErrors(prev => ({
       ...prev,
@@ -115,7 +119,7 @@ export default function ProfessionalDetailsStep({
     }));
   };
 
-  const occupation = activeData.occupation;
+  const occupation = (activeData.occupation === "Others" || activeData.occupation === "Other") ? "Other" : activeData.occupation;
 
   const handleContinue = async () => {
     if (!profileId) {
@@ -127,32 +131,43 @@ export default function ProfessionalDetailsStep({
     if (!activeData.occupation) {
       validationErrors.occupation = "Occupation is required.";
     } else {
-      const occ = activeData.occupation;
+      const occ = occupation;
+
+      const validateCity = () => {
+        if (!activeData.city || !activeData.city.trim()) {
+          validationErrors.city = "City is required.";
+        } else if (/\d/.test(activeData.city)) {
+          validationErrors.city = "City name must not contain numbers.";
+        } else if (!/^[a-zA-Z\s'.\-]+$/.test(activeData.city.trim())) {
+          validationErrors.city = "City name must contain only alphabets and spaces.";
+        }
+      };
+
       if (occ === "Service") {
         if (!activeData.pvtOrGovt) validationErrors.pvtOrGovt = "PVT/Govt selection is required.";
         if (!activeData.organisationName.trim()) validationErrors.organisationName = "Organisation name is required.";
         if (!activeData.designation.trim()) validationErrors.designation = "Designation is required.";
         if (!activeData.workProfile.trim()) validationErrors.workProfile = "Work profile is required.";
         if (!activeData.address.trim()) validationErrors.address = "Address is required.";
-        if (!activeData.city.trim()) validationErrors.city = "City is required.";
+        validateCity();
         if (!activeData.remarks.trim()) validationErrors.remarks = "Remarks are required.";
       } else if (occ === "Business") {
         if (!activeData.businessType.trim()) validationErrors.businessType = "Type of business is required.";
         if (!activeData.address.trim()) validationErrors.address = "Address is required.";
-        if (!activeData.city.trim()) validationErrors.city = "City is required.";
+        validateCity();
       } else if (occ === "Professional") {
         if (!activeData.professionName.trim()) validationErrors.professionName = "Name of profession is required.";
         if (!activeData.address.trim()) validationErrors.address = "Address is required.";
-        if (!activeData.city.trim()) validationErrors.city = "City is required.";
+        validateCity();
       } else if (occ === "Retired") {
         if (!activeData.lastOrganisation.trim()) validationErrors.lastOrganisation = "Last organisation is required.";
         if (!activeData.designation.trim()) validationErrors.designation = "Designation is required.";
         if (!activeData.address.trim()) validationErrors.address = "Address is required.";
-        if (!activeData.city.trim()) validationErrors.city = "City is required.";
+        validateCity();
         if (!activeData.remarks.trim()) validationErrors.remarks = "Remarks are required.";
       } else if (occ === "Housewife" || occ === "Other") {
         if (!activeData.address.trim()) validationErrors.address = "Address is required.";
-        if (!activeData.city.trim()) validationErrors.city = "City is required.";
+        validateCity();
         if (!activeData.remarks.trim()) validationErrors.remarks = "Remarks are required.";
       }
     }
@@ -207,6 +222,11 @@ export default function ProfessionalDetailsStep({
       if (resData.data && resData.data._id && setFinancialProfileId) {
         setFinancialProfileId(resData.data._id);
       }
+
+      activeSetter((prev: any) => ({
+        ...prev,
+        occupation: occupation === "Other" ? "Others" : occupation,
+      }));
 
       setFinancialProfileExists(true);
       onNext();

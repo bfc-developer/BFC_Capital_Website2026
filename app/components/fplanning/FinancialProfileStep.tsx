@@ -462,6 +462,9 @@ export default function FinancialProfileStep({
       const payload = {
         personalProfileId: profileId,
         ...professionalData,
+        occupation: (professionalData?.occupation === "Other" || professionalData?.occupation === "Others")
+          ? "Others"
+          : professionalData?.occupation,
         grossInflow: income.filter(i => i.title.trim()).map(i => ({ sourceOfInflow: i.title, monthlyAmount: Number(i.amount) })),
         monthlyDeductions: deductions.filter(i => i.title.trim()).map(i => ({ deductionDetail: i.title, amount: Number(i.amount) })),
         monthlyExpenses: expenses.filter(i => i.title.trim()).map(i => ({ expenseDetail: i.title, amount: Number(i.amount) })),

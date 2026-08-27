@@ -180,7 +180,7 @@ export default function FplanningStepper() {
 
                     // Professional data prefill
                     setProfessionalData({
-                        occupation: resData.financialProfile?.occupation || "",
+                        occupation: (resData.financialProfile?.occupation === "Others" || resData.financialProfile?.occupation === "Other") ? "Other" : (resData.financialProfile?.occupation || ""),
                         pvtOrGovt: resData.financialProfile?.pvtOrGovt || "",
                         organisationName: resData.financialProfile?.organisationName || "",
                         designation: resData.financialProfile?.designation || "",
@@ -255,7 +255,7 @@ export default function FplanningStepper() {
 
                 // Professional data prefill
                 setProfessionalData({
-                    occupation: resData.financialProfile?.occupation || "",
+                    occupation: (resData.financialProfile?.occupation === "Others" || resData.financialProfile?.occupation === "Other") ? "Other" : (resData.financialProfile?.occupation || ""),
                     pvtOrGovt: resData.financialProfile?.pvtOrGovt || "",
                     organisationName: resData.financialProfile?.organisationName || "",
                     designation: resData.financialProfile?.designation || "",
