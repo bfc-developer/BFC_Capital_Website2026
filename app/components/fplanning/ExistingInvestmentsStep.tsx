@@ -105,45 +105,96 @@ const WMS_SUB_CATEGORIES: Record<string, string[]> = {
     ]
 };
 
-const WMS_RETURNS_AND_HORIZON: Record<string, { returns: string; horizon: string }> = {
-    "Multi Cap Fund": { horizon: "7", returns: "15" },
-    "Flexi Cap Fund": { horizon: "7", returns: "15" },
-    "Large Cap Fund": { horizon: "7", returns: "14" },
-    "Large & Mid Cap Fund": { horizon: "7", returns: "15" },
-    "Mid Cap Fund": { horizon: "8", returns: "17" },
-    "Small Cap Fund": { horizon: "10", returns: "18" },
-    "Dividend Yield Fund": { horizon: "6", returns: "13" },
-    "Value Fund": { horizon: "8", returns: "15" },
-    "Contra Fund": { horizon: "8", returns: "15" },
-    "Focused Fund": { horizon: "8", returns: "14" },
-    "Sectoral/Thematic Fund": { horizon: "8", returns: "17" },
-    "ELSS": { horizon: "7", returns: "15" },
-    "Conservative Hybrid": { horizon: "2", returns: "8" },
-    "Balanced Hybrid": { horizon: "4", returns: "11" },
-    "Aggressive Hybrid": { horizon: "5", returns: "13" },
-    "Dynamic Asset Allocation": { horizon: "4", returns: "11" },
-    "Multi Asset Allocation": { horizon: "5", returns: "12" },
-    "Arbitrage Fund": { horizon: "1", returns: "6.5" },
-    "Equity Savings Fund": { horizon: "3", returns: "9" },
-    "Overnight Fund": { horizon: "1", returns: "5" },
-    "Liquid Fund": { horizon: "0.25", returns: "6" },
-    "Money Market Fund": { horizon: "1", returns: "6" },
-    "Ultra Short Duration": { horizon: "0.5", returns: "6" },
-    "Low Duration Fund": { horizon: "1", returns: "6" },
-    "Short Duration Fund": { horizon: "3", returns: "7" },
-    "Medium Duration Fund": { horizon: "4", returns: "7" },
-    "Medium to Long Duration": { horizon: "7", returns: "6" },
-    "Long Duration Fund": { horizon: "7", returns: "7" },
-    "Dynamic Bond Fund": { horizon: "7", returns: "7" },
-    "Corporate Bond Fund": { horizon: "7", returns: "7" },
-    "Credit Risk Fund": { horizon: "3", returns: "8" },
-    "Banking & PSU Fund": { horizon: "3", returns: "7" },
-    "Gilt Fund": { horizon: "15", returns: "7" },
-    "Gilt 10Y Fund": { horizon: "10", returns: "7" },
-    "Floater Fund": { horizon: "", returns: "6" },
-    "Gold Fund": { horizon: "", returns: "10" },
-    "Silver Fund": { horizon: "", returns: "10" }
+// Mapping of Expected Return (%) and Ideal Investment Horizon based on Category and Sub-Category
+const WMS_RETURNS_AND_HORIZON_BY_CATEGORY: Record<string, Record<string, { returns: string; horizon: string }>> = {
+    "Equity": {
+        "Multi Cap Fund": { horizon: "7", returns: "15" },
+        "Flexi Cap Fund": { horizon: "7", returns: "15" },
+        "Large Cap Fund": { horizon: "7", returns: "14" },
+        "Large & Mid Cap Fund": { horizon: "7", returns: "15" },
+        "Mid Cap Fund": { horizon: "8", returns: "17" },
+        "Small Cap Fund": { horizon: "10", returns: "18" },
+        "Dividend Yield Fund": { horizon: "6", returns: "13" },
+        "Value Fund": { horizon: "8", returns: "15" },
+        "Contra Fund": { horizon: "8", returns: "15" },
+        "Focused Fund": { horizon: "8", returns: "14" },
+        "Sectoral/Thematic Fund": { horizon: "8", returns: "17" },
+        "ELSS": { horizon: "7", returns: "15" }
+    },
+    "Hybrid": {
+        "Conservative Hybrid": { horizon: "2", returns: "8" },
+        "Balanced Hybrid": { horizon: "4", returns: "11" },
+        "Aggressive Hybrid": { horizon: "5", returns: "13" },
+        "Dynamic Asset Allocation": { horizon: "4", returns: "11" },
+        "Multi Asset Allocation": { horizon: "5", returns: "12" },
+        "Arbitrage Fund": { horizon: "1", returns: "6.5" },
+        "Equity Savings Fund": { horizon: "3", returns: "9" }
+    },
+    "Debt": {
+        "Overnight Fund": { horizon: "1", returns: "5" },
+        "Liquid Fund": { horizon: "0.25", returns: "6" },
+        "Money Market Fund": { horizon: "1", returns: "6" },
+        "Ultra Short Duration": { horizon: "0.5", returns: "6" },
+        "Low Duration Fund": { horizon: "1", returns: "6" },
+        "Short Duration Fund": { horizon: "3", returns: "7" },
+        "Medium Duration Fund": { horizon: "4", returns: "7" },
+        "Medium to Long Duration": { horizon: "7", returns: "6" },
+        "Long Duration Fund": { horizon: "7", returns: "7" },
+        "Dynamic Bond Fund": { horizon: "7", returns: "7" },
+        "Corporate Bond Fund": { horizon: "7", returns: "7" },
+        "Credit Risk Fund": { horizon: "3", returns: "8" },
+        "Banking & PSU Fund": { horizon: "3", returns: "7" },
+        "Gilt Fund": { horizon: "15", returns: "7" },
+        "Gilt 10Y Fund": { horizon: "10", returns: "7" },
+        "Floater Fund": { horizon: "", returns: "6" }
+    },
+    "Commodity": {
+        "Gold Fund": { horizon: "", returns: "10" },
+        "Silver Fund": { horizon: "", returns: "10" }
+    }
 };
+
+const normalizeCategoryKey = (category?: string): string => {
+    if (!category) return "";
+    const clean = category.trim().toLowerCase();
+    if (clean.includes("equity")) return "Equity";
+    if (clean.includes("hybrid")) return "Hybrid";
+    if (clean.includes("debt")) return "Debt";
+    if (clean.includes("commodity")) return "Commodity";
+    if (clean.includes("other")) return "Commodity";
+    return category.trim();
+};
+
+const getCategorySubCategoryExpectedReturn = (
+    category?: string,
+    subCategory?: string
+): { returns: string; horizon: string } | null => {
+    if (!subCategory) return null;
+    const catKey = normalizeCategoryKey(category);
+    const subClean = subCategory.trim().toLowerCase();
+
+    // 1. Look up in the normalized category
+    if (catKey && WMS_RETURNS_AND_HORIZON_BY_CATEGORY[catKey]) {
+        const catMap = WMS_RETURNS_AND_HORIZON_BY_CATEGORY[catKey];
+        const matchKey = Object.keys(catMap).find(k => k.trim().toLowerCase() === subClean);
+        if (matchKey) return catMap[matchKey];
+    }
+
+    // 2. Fallback search across all categories
+    for (const c of Object.keys(WMS_RETURNS_AND_HORIZON_BY_CATEGORY)) {
+        const catMap = WMS_RETURNS_AND_HORIZON_BY_CATEGORY[c];
+        const matchKey = Object.keys(catMap).find(k => k.trim().toLowerCase() === subClean);
+        if (matchKey) return catMap[matchKey];
+    }
+
+    return null;
+};
+
+// Backward-compatible flat map
+const WMS_RETURNS_AND_HORIZON: Record<string, { returns: string; horizon: string }> = Object.assign(
+    {},
+    ...Object.values(WMS_RETURNS_AND_HORIZON_BY_CATEGORY)
+);
 
 interface ExistingInvestmentsStepProps {
     profileId?: string | null;
@@ -622,9 +673,13 @@ export default function ExistingInvestmentsStep({
                                 mfMode: asset.mfMode || "",
                                 mfAmount: asset.mfAmount !== undefined ? String(asset.mfAmount) : "",
                                 mfCurrentValue: asset.mfCurrentValue !== undefined ? String(asset.mfCurrentValue) : "",
-                                mfExpectedReturn: asset.mfExpectedReturn !== undefined ? String(asset.mfExpectedReturn) : "",
+                                mfExpectedReturn: asset.mfExpectedReturn !== undefined && asset.mfExpectedReturn !== ""
+                                    ? String(asset.mfExpectedReturn)
+                                    : (getCategorySubCategoryExpectedReturn(asset.mfCategory, asset.mfSubCategory)?.returns || ""),
                                 mfDate: asset.mfDate ? asset.mfDate.split("T")[0] : "",
-                                mfHoldingPeriod: asset.mfHoldingPeriod !== undefined ? String(asset.mfHoldingPeriod) : "",
+                                mfHoldingPeriod: asset.mfHoldingPeriod !== undefined && asset.mfHoldingPeriod !== ""
+                                    ? String(asset.mfHoldingPeriod)
+                                    : (getCategorySubCategoryExpectedReturn(asset.mfCategory, asset.mfSubCategory)?.horizon || ""),
                                 mfSchemesList: [],
                                 mfAmcsList: [],
 
@@ -1148,7 +1203,20 @@ export default function ExistingInvestmentsStep({
                                                             className={`cursor-pointer w-full h-[44px] sm:h-[46px] bg-white border rounded-[10px] px-3 text-[13px] text-[#44475b] focus:outline-none transition-colors ${errors[`${item.id}_stockCategory`] ? "border-red-500 focus:border-red-500" : "border-[#e9e9e9] focus:border-[#04b488]"
                                                                 }`}
                                                             value={item.stockCategory || ""}
-                                                            onChange={(e) => updateAssetField(asset.id, item.id, "stockCategory", e.target.value)}
+                                                            onChange={(e) => {
+                                                                const val = e.target.value;
+                                                                updateAssetField(asset.id, item.id, "stockCategory", val);
+                                                                if (val === "Large Cap") {
+                                                                    if (!item.stockRoi) updateAssetField(asset.id, item.id, "stockRoi", "14");
+                                                                    if (!item.stockHoldingPeriod) updateAssetField(asset.id, item.id, "stockHoldingPeriod", "7");
+                                                                } else if (val === "Mid Cap") {
+                                                                    if (!item.stockRoi) updateAssetField(asset.id, item.id, "stockRoi", "17");
+                                                                    if (!item.stockHoldingPeriod) updateAssetField(asset.id, item.id, "stockHoldingPeriod", "8");
+                                                                } else if (val === "Small Cap") {
+                                                                    if (!item.stockRoi) updateAssetField(asset.id, item.id, "stockRoi", "18");
+                                                                    if (!item.stockHoldingPeriod) updateAssetField(asset.id, item.id, "stockHoldingPeriod", "10");
+                                                                }
+                                                            }}
                                                         >
                                                             <option value="">Select</option>
                                                             <option value="Large Cap">Large Cap</option>
@@ -1320,7 +1388,7 @@ export default function ExistingInvestmentsStep({
                                                                     updateAssetField(asset.id, item.id, "mfSubCategoryCode", undefined);
                                                                 }
 
-                                                                const mapping = WMS_RETURNS_AND_HORIZON[subCategoryName];
+                                                                const mapping = getCategorySubCategoryExpectedReturn(item.mfCategory, subCategoryName);
                                                                 if (mapping) {
                                                                     updateAssetField(asset.id, item.id, "mfExpectedReturn", mapping.returns);
                                                                     updateAssetField(asset.id, item.id, "mfHoldingPeriod", mapping.horizon);
@@ -1338,7 +1406,7 @@ export default function ExistingInvestmentsStep({
                                                                 }`}
                                                         >
                                                             <option value="" disabled>Select Sub Category</option>
-                                                            {(WMS_SUB_CATEGORIES[item.mfCategory || ""] || []).map((subCategoryName) => (
+                                                            {(WMS_SUB_CATEGORIES[normalizeCategoryKey(item.mfCategory) || item.mfCategory || ""] || []).map((subCategoryName) => (
                                                                 <option key={subCategoryName} value={subCategoryName}>
                                                                     {subCategoryName}
                                                                 </option>

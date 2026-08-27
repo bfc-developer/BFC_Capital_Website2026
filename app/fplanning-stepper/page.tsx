@@ -703,6 +703,7 @@ export default function FplanningStepper() {
                                 <GoalIdentificationStep
                                     profileId={profileId}
                                     financialPlanningId={financialPlanningId}
+                                    dob={personalData.dob}
                                     onNext={() => setCurrent((c) => Math.min(c + 1, STEPS.length))}
                                     onBack={back}
                                     showBack={current > 1}
