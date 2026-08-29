@@ -4,6 +4,14 @@ import StepActions from "./StepActions";
 const fieldBase =
     "w-full h-[44px] sm:h-[46px] bg-white border border-[#e9e9e9] rounded-[10px] px-3 text-[13px] text-[#44475b] placeholder-[#8b8b8b] focus:outline-none focus:border-[#06A358] transition-colors";
 
+const getTodayString = () => {
+    const today = new Date();
+    const yyyy = today.getFullYear();
+    const mm = String(today.getMonth() + 1).padStart(2, "0");
+    const dd = String(today.getDate()).padStart(2, "0");
+    return `${yyyy}-${mm}-${dd}`;
+};
+
 interface FileFieldProps {
     file: File | null;
     onChange: (file: File | null) => void;
@@ -98,6 +106,8 @@ export default function PersonalProfileStep({
     const [showPassword, setShowPassword] = useState(false);
     const [showConfirmPassword, setShowConfirmPassword] = useState(false);
 
+    const todayStr = getTodayString();
+
     const activeData = formData || localState;
     const activeSetter = setFormData || setLocalState;
 
@@ -134,10 +144,17 @@ export default function PersonalProfileStep({
             ...prev,
             [name]: processedValue,
         }));
-        setErrors((prev) => ({
-            ...prev,
-            [name]: "",
-        }));
+        if (name === "dob" && processedValue && processedValue > todayStr) {
+            setErrors((prev) => ({
+                ...prev,
+                dob: "Date of birth cannot be in the future.",
+            }));
+        } else {
+            setErrors((prev) => ({
+                ...prev,
+                [name]: "",
+            }));
+        }
     };
 
     const handleContinue = async () => {
@@ -152,19 +169,8 @@ export default function PersonalProfileStep({
 
         if (!activeData.dob) {
             validationErrors.dob = "Date of birth is required.";
-        } else {
-            const birthDate = new Date(activeData.dob);
-            const today = new Date();
-            if (birthDate > today) {
-                validationErrors.dob = "Date of birth cannot be in the future.";
-            } else {
-                let age = today.getFullYear() - birthDate.getFullYear();
-                const m = today.getMonth() - birthDate.getMonth();
-                if (m < 0 || (m === 0 && today.getDate() < birthDate.getDate())) {
-                    age--;
-                }
-
-            }
+        } else if (activeData.dob > todayStr) {
+            validationErrors.dob = "Date of birth cannot be in the future.";
         }
 
         if (!activeData.mobileNumber || !activeData.mobileNumber.trim()) {
@@ -254,8 +260,8 @@ export default function PersonalProfileStep({
             };
 
             const url = profileId
-                ? `http://localhost:5000/api/personal/${profileId}`
-                : "http://localhost:5000/api/personal";
+                ? `https://k2b02x8c-5000.inc1.devtunnels.ms/api/personal/${profileId}`
+                : "https://k2b02x8c-5000.inc1.devtunnels.ms/api/personal";
             const method = profileId ? "PUT" : "POST";
 
             const response = await fetch(url, {
@@ -318,6 +324,7 @@ export default function PersonalProfileStep({
                                 }`}
                             type="date"
                             name="dob"
+                            max={todayStr}
                             value={activeData.dob}
                             onChange={handleChange}
                         />

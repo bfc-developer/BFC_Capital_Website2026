@@ -568,6 +568,20 @@ const formatCurrencyInput = (val: string | number | undefined | null) => {
     return `₹ ${Number(digits).toLocaleString("en-IN")}`;
 };
 
+const annualRateToMonthlyRate = (R: number) => {
+    return Math.pow(1 + R / 100, 1 / 12) - 1;
+};
+
+const getGoalNamePlaceholder = (selectedGoal?: string) => {
+    if (!selectedGoal) return "Enter Goal Name";
+    if (selectedGoal === "Education") return "Education";
+    if (selectedGoal === "Marriage") return "Marriage";
+    if (selectedGoal === "Home Purchase") return "Home Purchase";
+    if (selectedGoal === "Vehicle") return "Vehicle";
+    if (selectedGoal === "Others") return "Enter Goal Name";
+    return selectedGoal;
+};
+
 export default function GoalIdentificationStep({
     profileId,
     financialPlanningId,
@@ -597,12 +611,17 @@ export default function GoalIdentificationStep({
     const [q4, setQ4] = useState<string>("No");
     const [showRiskProfileAssessment, setShowRiskProfileAssessment] = useState<boolean>(false);
 
-    // Dynamic CAGR Map for Non-Retirement Calculators fetched via BFC Group API
+    // Dynamic CAGR Map for Calculators fetched via BFC Group API
     const [cagrMap, setCagrMap] = useState<Record<number, number>>({});
     const cagrCache = useRef<Record<string, number>>({});
 
     const fetchGoalCagr = async (riskProfile: string, tenure: string | number): Promise<number> => {
-        const horizon = String(Number(tenure) || 5);
+        const tenureNum = Number(tenure);
+        if (!tenureNum || tenureNum <= 0) {
+            return 18; // Default fallback when tenure is not specified
+        }
+
+        const horizon = String(tenureNum);
         const risk = riskProfile || "Moderate";
         const cacheKey = `${risk}_${horizon}`;
         if (cagrCache.current[cacheKey] !== undefined) {
@@ -613,14 +632,12 @@ export default function GoalIdentificationStep({
             const url = `https://bfcgroup.in/Api_controller/goal_wise_return?risk_profile=${encodeURIComponent(risk)}&investment_horizon=${encodeURIComponent(horizon)}`;
             const res = await fetch(url);
             if (res.ok) {
-                let json = await res.json();
-                if ((!json || json.status === false) && Number(horizon) >= 10) {
-                    const fallbackRes = await fetch(`https://bfcgroup.in/Api_controller/goal_wise_return?risk_profile=${encodeURIComponent(risk)}&investment_horizon=11`);
-                    if (fallbackRes.ok) json = await fallbackRes.json();
-                }
-                if (json && json.status && json.data && typeof json.data.percentage === "number") {
-                    cagrCache.current[cacheKey] = json.data.percentage;
-                    return json.data.percentage;
+                const json = await res.json();
+                const rawPct = json?.data?.percentage ?? json?.data?.cagr ?? json?.percentage;
+                const numPct = Number(rawPct);
+                if (!isNaN(numPct) && numPct > 0) {
+                    cagrCache.current[cacheKey] = numPct;
+                    return numPct;
                 }
             }
         } catch (e) {
@@ -660,7 +677,7 @@ export default function GoalIdentificationStep({
                 {
                     id: Date.now() + 1,
                     selectedAssetId: "",
-                    taggedPercentage: "25",
+                    taggedPercentage: "",
                     taggedCV: 0,
                     taggedFV: 0,
                     expectedReturn: 0,
@@ -677,7 +694,7 @@ export default function GoalIdentificationStep({
             let birthDateStr = dob;
             if (!birthDateStr && profileId) {
                 try {
-                    const res = await fetch(`http://localhost:5000/api/personal/state-by-id/${profileId}`);
+                    const res = await fetch(`https://k2b02x8c-5000.inc1.devtunnels.ms/api/personal/state-by-id/${profileId}`);
                     if (res.ok) {
                         const data = await res.json();
                         if (data.success && data.personal?.dob) {
@@ -719,19 +736,38 @@ export default function GoalIdentificationStep({
         };
     }, [dob, profileId]);
 
-    // Automatically fetch CAGR percentage from bfcgroup API for all non-retirement calculators
+    // Automatically fetch CAGR percentage from bfcgroup API for all calculators (including Pre-Retirement)
     useEffect(() => {
         let isCancelled = false;
         goals.forEach(async (goal) => {
             const isRetirement = goal.selectedGoal === "Retirement";
-            if (!isRetirement) {
-                const tenureVal = Number(goal.tenure) || 5;
-                const pct = await fetchGoalCagr(currentRiskProfile, tenureVal);
-                if (!isCancelled) {
-                    setCagrMap((prev) => {
-                        if (prev[goal.id] === pct) return prev;
-                        return { ...prev, [goal.id]: pct };
-                    });
+            const isPostRetirement = isRetirement && goal.goalName === "Post-Retirement";
+
+            // Post-Retirement has no pre-retirement tenure / accumulation horizon
+            if (isPostRetirement) return;
+
+            const tenureVal = isRetirement
+                ? (Number(goal.tenure) || Math.max(0, (Number(goal.retirementAge) || 60) - (Number(goal.currentAge) || 30)))
+                : (Number(goal.tenure) || 0);
+
+            if (!tenureVal || tenureVal <= 0) return;
+
+            const pct = await fetchGoalCagr(currentRiskProfile, tenureVal);
+            if (!isCancelled) {
+                setCagrMap((prev) => {
+                    if (prev[goal.id] === pct) return prev;
+                    return { ...prev, [goal.id]: pct };
+                });
+
+                if (isRetirement && goal.goalName === "Pre-Retirement") {
+                    setGoals((prev) =>
+                        prev.map((g) => {
+                            if (g.id === goal.id && g.expectedReturnPreRetirement !== String(pct)) {
+                                return { ...g, expectedReturnPreRetirement: String(pct) };
+                            }
+                            return g;
+                        })
+                    );
                 }
             }
         });
@@ -739,7 +775,10 @@ export default function GoalIdentificationStep({
         return () => {
             isCancelled = true;
         };
-    }, [goals.map((g) => `${g.id}_${g.selectedGoal}_${g.tenure}`).join(","), currentRiskProfile]);
+    }, [
+        goals.map((g) => `${g.id}_${g.selectedGoal}_${g.goalName}_${g.tenure}_${g.retirementAge}_${g.currentAge}`).join(","),
+        currentRiskProfile,
+    ]);
 
     // 1. Fetch Existing Investments from MongoDB
     useEffect(() => {
@@ -749,7 +788,7 @@ export default function GoalIdentificationStep({
 
                 if (profileId) {
                     try {
-                        const res = await fetch(`http://localhost:5000/api/existing-investments/profile/${profileId}`);
+                        const res = await fetch(`https://k2b02x8c-5000.inc1.devtunnels.ms/api/existing-investments/profile/${profileId}`);
                         if (res.ok) {
                             const resData = await res.json();
                             if (resData.success && resData.data && Array.isArray(resData.data.assets) && resData.data.assets.length > 0) {
@@ -784,15 +823,18 @@ export default function GoalIdentificationStep({
                             cv = Number(asset.mfCurrentValue) || Number(asset.mfAmount) || 0;
                             ret = Number(asset.mfExpectedReturn) || 12;
                         } else if (cls === "Real Estate") {
-                            name = `Real Estate: ${asset.reType || "Property"} - ${asset.reCity || asset.reLocality || ""}`;
+                            const locationStr = [asset.reLocality, asset.reCity].filter(Boolean).join(", ");
+                            name = `Real Estate: ${asset.reType || "Property"}${locationStr ? ` - ${locationStr}` : ""}`;
                             cv = Number(asset.reCurrentValue) || Number(asset.reAmount) || 0;
                             ret = Number(asset.reExpectedReturn) || 8;
                         } else if (cls === "Gold") {
-                            name = `Gold: ${asset.goldForm || "Physical"} (${asset.goldQuantity || 0}g)`;
+                            const qtyStr = Number(asset.goldQuantity) > 0 ? ` (${asset.goldQuantity}g)` : "";
+                            name = `Gold: ${asset.goldForm || "Physical"}${qtyStr}`;
                             cv = Number(asset.goldCurrentValue) || Number(asset.goldPurchaseValue) || 0;
                             ret = Number(asset.goldExpectedReturn) || 10;
                         } else if (cls === "Silver") {
-                            name = `Silver: ${asset.silverForm || "Physical"} (${asset.silverQuantity || 0}g)`;
+                            const qtyStr = Number(asset.silverQuantity) > 0 ? ` (${asset.silverQuantity}g)` : "";
+                            name = `Silver: ${asset.silverForm || "Physical"}${qtyStr}`;
                             cv = Number(asset.silverCurrentValue) || Number(asset.silverPurchaseValue) || 0;
                             ret = Number(asset.silverExpectedReturn) || 10;
                         } else {
@@ -826,23 +868,39 @@ export default function GoalIdentificationStep({
         const fetchRiskProfile = async () => {
             try {
                 let foundRisk = "";
+                const urls: string[] = [];
+
                 if (financialPlanningId) {
-                    const res = await fetch(`http://localhost:5000/api/financial-planning/${financialPlanningId}`);
-                    if (res.ok) {
-                        const data = await res.json();
-                        if (data.success && data.data?.riskProfile) {
-                            foundRisk = data.data.riskProfile;
-                        }
+                    if (typeof window !== "undefined" && (window.location.hostname === "localhost" || window.location.hostname === "127.0.0.1")) {
+                        urls.push(`http://localhost:5000/api/financial-planning/${financialPlanningId}`);
                     }
+                    urls.push(`https://k2b02x8c-5000.inc1.devtunnels.ms/api/financial-planning/${financialPlanningId}`);
                 }
 
-                if (!foundRisk && profileId) {
-                    const res = await fetch(`http://localhost:5000/api/financial-planning/profile/${profileId}`);
-                    if (res.ok) {
-                        const data = await res.json();
-                        if (data.success && data.data?.riskProfile) {
-                            foundRisk = data.data.riskProfile;
+                if (profileId) {
+                    if (typeof window !== "undefined" && (window.location.hostname === "localhost" || window.location.hostname === "127.0.0.1")) {
+                        urls.push(`http://localhost:5000/api/financial-planning/profile/${profileId}`);
+                    }
+                    urls.push(`https://k2b02x8c-5000.inc1.devtunnels.ms/api/financial-planning/profile/${profileId}`);
+                }
+
+                for (const u of urls) {
+                    try {
+                        const res = await fetch(u, {
+                            headers: {
+                                "Content-Type": "application/json",
+                                "X-Tunnel-Skip-Anti-Abuse-Page": "true",
+                            },
+                        });
+                        if (res.ok) {
+                            const data = await res.json();
+                            if (data.success && data.data?.riskProfile) {
+                                foundRisk = data.data.riskProfile;
+                                break;
+                            }
                         }
+                    } catch {
+                        // try next
                     }
                 }
 
@@ -868,7 +926,7 @@ export default function GoalIdentificationStep({
     useEffect(() => {
         if (!profileId) return;
 
-        fetch(`http://localhost:5000/api/goal-identification/profile/${profileId}`)
+        fetch(`https://k2b02x8c-5000.inc1.devtunnels.ms/api/goal-identification/profile/${profileId}`)
             .then((res) => res.json())
             .then((resData) => {
                 if (resData.success && resData.data && Array.isArray(resData.data.goals) && resData.data.goals.length > 0) {
@@ -942,53 +1000,40 @@ export default function GoalIdentificationStep({
     // Backend sync for risk profile
     const updateRiskProfileBackend = async (newRisk: string) => {
         try {
-            let activePlanningId = financialPlanningId;
+            const payload = {
+                personalProfileId: profileId,
+                riskProfile: newRisk,
+            };
 
-            if (!activePlanningId && profileId) {
-                try {
-                    const checkRes = await fetch(`http://localhost:5000/api/financial-planning/profile/${profileId}`);
-                    if (checkRes.ok) {
-                        const checkData = await checkRes.json();
-                        if (checkData.success && checkData.data?._id) {
-                            activePlanningId = checkData.data._id;
-                        }
-                    }
-                } catch (e) {
-                    console.warn("Error fetching planning by profile:", e);
+            const endpoints: { url: string; method: string }[] = [];
+            if (profileId) {
+                if (typeof window !== "undefined" && (window.location.hostname === "localhost" || window.location.hostname === "127.0.0.1")) {
+                    endpoints.push({ url: `http://localhost:5000/api/financial-planning/profile/${profileId}`, method: "PUT" });
                 }
+                endpoints.push({ url: `https://k2b02x8c-5000.inc1.devtunnels.ms/api/financial-planning/profile/${profileId}`, method: "PUT" });
             }
 
-            if (activePlanningId) {
-                const getResponse = await fetch(`http://localhost:5000/api/financial-planning/${activePlanningId}`);
-                if (getResponse.ok) {
-                    const getResData = await getResponse.json();
-                    const existingData = getResData.data || {};
-                    const payload = {
-                        personalProfileId: profileId || existingData.personalProfileId,
-                        hasContingencyReserve: existingData.hasContingencyReserve,
-                        amount: existingData.amount,
-                        existingReserve: existingData.existingReserve,
-                        idealReserve: existingData.idealReserve,
-                        excessOrShortfall: existingData.excessOrShortfall,
-                        riskProfile: newRisk,
-                    };
+            if (financialPlanningId) {
+                if (typeof window !== "undefined" && (window.location.hostname === "localhost" || window.location.hostname === "127.0.0.1")) {
+                    endpoints.push({ url: `http://localhost:5000/api/financial-planning/${financialPlanningId}`, method: "PUT" });
+                }
+                endpoints.push({ url: `https://k2b02x8c-5000.inc1.devtunnels.ms/api/financial-planning/${financialPlanningId}`, method: "PUT" });
+            }
 
-                    await fetch(`http://localhost:5000/api/financial-planning/${activePlanningId}`, {
-                        method: "PUT",
-                        headers: { "Content-Type": "application/json" },
+            for (const ep of endpoints) {
+                try {
+                    const res = await fetch(ep.url, {
+                        method: ep.method,
+                        headers: {
+                            "Content-Type": "application/json",
+                            "X-Tunnel-Skip-Anti-Abuse-Page": "true",
+                        },
                         body: JSON.stringify(payload),
                     });
+                    if (res.ok) break;
+                } catch {
+                    // try next
                 }
-            } else if (profileId) {
-                const payload = {
-                    personalProfileId: profileId,
-                    riskProfile: newRisk,
-                };
-                await fetch(`http://localhost:5000/api/financial-planning`, {
-                    method: "POST",
-                    headers: { "Content-Type": "application/json" },
-                    body: JSON.stringify(payload),
-                });
             }
         } catch (err) {
             console.error("Failed to update risk profile in backend:", err);
@@ -1071,6 +1116,11 @@ export default function GoalIdentificationStep({
     // Goal Handlers
     const addGoal = () => {
         const firstAvailable = ALL_GOAL_OPTIONS.find((opt) => opt !== "Others" && !goals.some((g) => g.selectedGoal === opt)) || "Others";
+        const isRet = firstAvailable === "Retirement";
+        const resolvedAge = userCalculatedAgeRef.current || getAgeFromDob(dob);
+        const curAge = resolvedAge || 30;
+        const retAge = 60;
+        const initialTenure = isRet ? String(Math.max(0, retAge - curAge)) : "";
 
         setGoals((prev) => [
             ...prev,
@@ -1078,18 +1128,18 @@ export default function GoalIdentificationStep({
                 id: Date.now(),
                 occupation: "p1",
                 selectedGoal: firstAvailable === "Others" ? "" : firstAvailable,
-                goalName: firstAvailable === "Retirement" ? "Pre-Retirement" : "",
-                tenure: "5",
+                goalName: isRet ? "Pre-Retirement" : "",
+                tenure: initialTenure,
                 currentCost: "",
-                currentAge: "30",
-                retirementAge: "60",
+                currentAge: String(curAge),
+                retirementAge: String(retAge),
                 lifeExpectancy: "80",
                 inflationRate: "6",
-                expectedReturnPreRetirement: "12",
-                postRetirementReturn: "7",
-                currentMonthlyExpenses: "",
-                isPensionable: "",
-                pensionAmount: "",
+                expectedReturnPreRetirement: "15",
+                postRetirementReturn: "10",
+                currentMonthlyExpenses: isRet ? "₹ 50,000" : "",
+                isPensionable: isRet ? "Yes" : "",
+                pensionAmount: isRet ? "₹ 50,000" : "",
                 selectedAllocationOptionId: "option_2",
                 additionalAssets: [
                     {
@@ -1141,26 +1191,32 @@ export default function GoalIdentificationStep({
                             if (!updated.pensionAmount) updated.pensionAmount = "₹ 50,000";
                             const ret = Number(updated.retirementAge) || 60;
                             const cur = Number(updated.currentAge) || 30;
-                            updated.tenure = String(Math.max(0, ret - cur));
+                            if (updated.goalName === "Pre-Retirement") {
+                                updated.tenure = String(Math.max(0, ret - cur));
+                            } else {
+                                updated.tenure = "";
+                            }
                         } else {
                             if (updated.goalName === "Pre-Retirement" || updated.goalName === "Post-Retirement") {
                                 updated.goalName = "";
                             }
+                            updated.tenure = "";
                         }
                     }
 
                     if (field === "goalName") {
                         if (value === "Pre-Retirement" && updated.selectedGoal === "Retirement") {
                             const resolvedAge = userCalculatedAgeRef.current || getAgeFromDob(dob);
-                            if (resolvedAge) {
-                                updated.currentAge = String(resolvedAge);
-                                const ret = Number(updated.retirementAge) || 60;
-                                updated.tenure = String(Math.max(0, ret - resolvedAge));
-                            }
+                            const cur = resolvedAge || Number(updated.currentAge) || 30;
+                            const ret = Number(updated.retirementAge) || 60;
+                            updated.currentAge = String(cur);
+                            updated.tenure = String(Math.max(0, ret - cur));
                             if (!updated.lifeExpectancy) updated.lifeExpectancy = "80";
                             if (!updated.inflationRate) updated.inflationRate = "6";
                             if (!updated.expectedReturnPreRetirement || updated.expectedReturnPreRetirement === "12") updated.expectedReturnPreRetirement = "15";
                             if (!updated.postRetirementReturn || updated.postRetirementReturn === "7" || updated.postRetirementReturn === "6") updated.postRetirementReturn = "10";
+                        } else if (value === "Post-Retirement" && updated.selectedGoal === "Retirement") {
+                            updated.tenure = "";
                         }
                     }
 
@@ -1170,6 +1226,14 @@ export default function GoalIdentificationStep({
                             const cur = Number(updated.currentAge) || 0;
                             const ret = Number(updated.retirementAge) || 0;
                             updated.tenure = String(Math.max(0, ret - cur));
+                        }
+                    }
+
+                    if (field === "tenure") {
+                        if (updated.selectedGoal === "Retirement" && updated.goalName === "Pre-Retirement") {
+                            const cur = Number(updated.currentAge) || 30;
+                            const t = Number(value) || 0;
+                            updated.retirementAge = String(cur + t);
                         }
                     }
 
@@ -1513,20 +1577,26 @@ export default function GoalIdentificationStep({
         const postRetReturnNum = (Number(goal.postRetirementReturn) || 10) / 100;
         const monthlyExpNum = Number(String(goal.currentMonthlyExpenses).replace(/\D/g, "")) || 0;
 
-        const futureMonthlyExpenses = isPostRetirement
+        const futureMonthlyExpensesExact = isPostRetirement
             ? monthlyExpNum
-            : Math.round(monthlyExpNum * Math.pow(1 + infRateNum, timeToRetirement));
+            : monthlyExpNum * Math.pow(1 + infRateNum, timeToRetirement);
+        const futureMonthlyExpenses = Math.round(futureMonthlyExpensesExact);
 
         const pensionAmountNum = goal.isPensionable === "Yes" ? Number(String(goal.pensionAmount).replace(/\D/g, "")) || 0 : 0;
-        const netFutureMonthlyExpenses = Math.max(0, futureMonthlyExpenses - pensionAmountNum);
+        const netFutureMonthlyExpenses = Math.max(0, futureMonthlyExpensesExact - pensionAmountNum);
 
         const realPostReturn = (postRetReturnNum - infRateNum) / (1 + infRateNum);
+        const rm = realPostReturn / 12;
+        const totalPostRetMonths = (lifeExpectancyPostRetirement || 20) * 12;
+
         let corpusRequired = 0;
-        if (realPostReturn === 0) {
-            corpusRequired = Math.round(netFutureMonthlyExpenses * 12 * (lifeExpectancyPostRetirement || 20));
+        if (totalPostRetMonths <= 0 || netFutureMonthlyExpenses <= 0) {
+            corpusRequired = 0;
+        } else if (rm === 0) {
+            corpusRequired = Math.round(netFutureMonthlyExpenses * totalPostRetMonths);
         } else {
-            const n = lifeExpectancyPostRetirement || 20;
-            corpusRequired = Math.round((netFutureMonthlyExpenses * 12) * ((1 - Math.pow(1 + realPostReturn, -n)) / realPostReturn));
+            const pvif = Math.pow(1 + rm, totalPostRetMonths);
+            corpusRequired = Math.round((netFutureMonthlyExpenses * (1 + rm) * (pvif - 1) / rm) / pvif);
         }
 
         let goalFutureValue = 0;
@@ -1544,8 +1614,10 @@ export default function GoalIdentificationStep({
         const shortfallOrExcess = goalFutureValue - totalTaggedFV;
         const shortfall = Math.max(0, shortfallOrExcess);
 
-        // CAGR logic: 18% for Retirement; dynamic percentage from bfcgroup API for all other calculators
-        const cagrPercentage = isRetirement ? 18 : (cagrMap[goal.id] ?? goal.cagrPercentage ?? 18);
+        // CAGR logic: dynamic percentage from bfcgroup API (cagrMap) or user-specified expectedReturnPreRetirement
+        const cagrPercentage = isRetirement
+            ? (Number(goal.expectedReturnPreRetirement) || cagrMap[goal.id] || 18)
+            : (cagrMap[goal.id] ?? goal.cagrPercentage ?? 18);
         const cagr = cagrPercentage / 100;
 
         // Target Amount Calculator formula for SIP Required and Lumpsum Required
@@ -1554,17 +1626,22 @@ export default function GoalIdentificationStep({
         let lumpsumRequired = 0;
 
         if (shortfall > 0) {
-            const monthlyReturn = cagr / 12;
-            const monthsTime = tenureYears * 12;
+            const monthlyRate = annualRateToMonthlyRate(cagrPercentage);
+            const totalMonths = tenureYears * 12;
 
-            // Target Amount Calculator: pmt = (monthlyReturn * amount) / (Math.pow(1 + monthlyReturn, monthsTime) - 1)
-            if (monthlyReturn > 0 && monthsTime > 0) {
-                sipRequired = Math.round((monthlyReturn * shortfall) / (Math.pow(1 + monthlyReturn, monthsTime) - 1));
+            // Monthly SIP (PMT equivalent)
+            if (monthlyRate > 0 && totalMonths > 0) {
+                const monthlySipValue =
+                    (shortfall * monthlyRate) /
+                    ((Math.pow(1 + monthlyRate, totalMonths) - 1) * (1 + monthlyRate));
+                sipRequired = Math.round(monthlySipValue);
             }
 
-            // Target Amount Calculator: pv = amount / Math.pow(1 + rate / 100, time)
+            // One-time Lump Sum
             if (tenureYears > 0) {
-                lumpsumRequired = Math.round(shortfall / Math.pow(1 + cagr, tenureYears));
+                const lumpSum =
+                    shortfall / Math.pow(1 + cagrPercentage / 100, tenureYears);
+                lumpsumRequired = Math.round(lumpSum);
             } else if (isPostRetirement) {
                 lumpsumRequired = shortfall;
             }
@@ -1659,7 +1736,7 @@ export default function GoalIdentificationStep({
                     goals: formattedGoals,
                 };
 
-                await fetch("http://localhost:5000/api/goal-identification", {
+                await fetch("https://k2b02x8c-5000.inc1.devtunnels.ms/api/goal-identification", {
                     method: "POST",
                     headers: { "Content-Type": "application/json" },
                     body: JSON.stringify(payload),
@@ -1834,7 +1911,7 @@ export default function GoalIdentificationStep({
                                                         onChange={(e) => updateGoalField(goal.id, "goalName", e.target.value)}
                                                         className="w-full h-[44px] sm:h-[46px] bg-white border border-[#e9e9e9] rounded-[10px] px-3 text-[13px] text-[#44475b] placeholder-[#8b8b8b] focus:outline-none focus:border-[#04b488] transition-colors"
                                                         type="text"
-                                                        placeholder="e.g. House or Education"
+                                                        placeholder={getGoalNamePlaceholder(goal.selectedGoal)}
                                                     />
                                                 )}
                                             </div>
@@ -1849,7 +1926,7 @@ export default function GoalIdentificationStep({
                                                         onChange={(e) => updateGoalField(goal.id, "tenure", e.target.value.replace(/\D/g, ""))}
                                                         className="w-full h-[44px] sm:h-[46px] bg-white border border-[#e9e9e9] rounded-[10px] px-3 text-[13px] text-[#44475b] placeholder-[#8b8b8b] focus:outline-none focus:border-[#04b488] transition-colors"
                                                         type="text"
-                                                        placeholder={isRetirement ? "5" : "Enter Years"}
+                                                        placeholder="Enter Years"
                                                     />
                                                 </div>
                                             )}
@@ -2072,6 +2149,11 @@ export default function GoalIdentificationStep({
                                                                 <div className="space-y-2.5">
                                                                     <label className="block text-[13.5px] sm:text-[14px] font-semibold text-[#44475B]">
                                                                         Expected Return Pre - Retirement (%)
+                                                                        {cagrMap[goal.id] !== undefined && (
+                                                                            <span className="text-[#035daf] font-bold text-xs ml-1">
+                                                                                (GRID RATE: {cagrMap[goal.id]}%)
+                                                                            </span>
+                                                                        )}
                                                                     </label>
                                                                     <input
                                                                         value={goal.expectedReturnPreRetirement}
@@ -2081,7 +2163,7 @@ export default function GoalIdentificationStep({
                                                                         onChange={(e) => updateGoalField(goal.id, "expectedReturnPreRetirement", e.target.value)}
                                                                         className="w-full h-[48px] sm:h-[50px] bg-white border border-[#e9e9e9] rounded-[12px] px-4 text-[14px] text-[#44475b] placeholder-[#8b8b8b] focus:outline-none focus:border-[#04b488] transition-colors shadow-2xs"
                                                                         type="text"
-                                                                        placeholder="15"
+                                                                        placeholder={String(cagrMap[goal.id] || 18)}
                                                                     />
                                                                 </div>
 
@@ -2308,7 +2390,13 @@ export default function GoalIdentificationStep({
                                                             </div>
                                                             <input
                                                                 type="text"
-                                                                value={asset.taggedPercentage ? `${asset.taggedPercentage}%` : ""}
+                                                                inputMode="numeric"
+                                                                value={asset.taggedPercentage || ""}
+                                                                onKeyDown={(e) => {
+                                                                    if (e.ctrlKey || e.metaKey || e.altKey) return;
+                                                                    if (e.key === "ArrowUp" || e.key === "ArrowDown") e.preventDefault();
+                                                                    if (e.key.length === 1 && !/^\d$/.test(e.key)) e.preventDefault();
+                                                                }}
                                                                 onChange={(e) => updateAssetPercentage(goal.id, asset.id, e.target.value)}
                                                                 className="w-full h-[44px] sm:h-[46px] bg-white border border-[#e9e9e9] rounded-[10px] px-3 text-[13px] text-[#44475b] placeholder-[#8b8b8b] focus:outline-none focus:border-[#04b488] transition-colors"
                                                                 placeholder={`Max ${availablePct}%`}
@@ -2385,7 +2473,7 @@ export default function GoalIdentificationStep({
                                                                 <input
                                                                     type="text"
                                                                     value={aa.amount}
-                                                                    onChange={(e) => updateAdditionalAssetField(goal.id, aa.id, "amount", e.target.value)}
+                                                                    onChange={(e) => updateAdditionalAssetField(goal.id, aa.id, "amount", formatCurrencyInput(e.target.value))}
                                                                     className="w-full h-[46px] sm:h-[48px] bg-white border border-[#e9e9e9] rounded-[10px] px-4 text-[14px] text-[#44475b] placeholder-[#8b8b8b] focus:outline-none focus:border-[#04b488] transition-colors"
                                                                     placeholder="₹ Amount"
                                                                 />

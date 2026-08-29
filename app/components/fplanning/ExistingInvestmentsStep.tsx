@@ -3,6 +3,7 @@ import { useState, useEffect, ChangeEvent } from "react";
 import { Plus, Trash2 } from "lucide-react";
 import StepActions from "./StepActions";
 import { apiBaseURL, endpoints } from "../urls/URLS";
+import { formatIndianAmount, parseIndianAmount } from "./formatters";
 
 interface Entry {
     id: number;
@@ -295,12 +296,20 @@ export default function ExistingInvestmentsStep({
     };
 
     const removeAsset = (id: number) => {
-        if (assets.length <= 1) return; // At least one asset card must remain
         setGeneralError("");
         const cardToRemove = assets.find((item) => item.id === id);
-        setAssets((prev) =>
-            prev.filter((item) => item.id !== id)
-        );
+        if (assets.length <= 1) {
+            // Reset single card back to unselected empty state
+            setAssets([
+                {
+                    id: Date.now(),
+                    assetClass: "",
+                    items: [],
+                },
+            ]);
+        } else {
+            setAssets((prev) => prev.filter((item) => item.id !== id));
+        }
         // Clean up errors for this asset and all its items
         setErrors((prev) => {
             const next = { ...prev };
@@ -657,7 +666,7 @@ export default function ExistingInvestmentsStep({
     // Load existing investments for prefill
     useEffect(() => {
         if (!profileId) return;
-        fetch(`http://localhost:5000/api/existing-investments/profile/${profileId}`)
+        fetch(`https://k2b02x8c-5000.inc1.devtunnels.ms/api/existing-investments/profile/${profileId}`)
             .then((res) => res.json())
             .then((resData) => {
                 if (resData.success && resData.data) {
@@ -672,17 +681,17 @@ export default function ExistingInvestmentsStep({
                                 id: asset._id || Date.now() + Math.random(),
                                 fdBankName: asset.fdBankName || "",
                                 fdTenure: asset.fdTenure || "",
-                                fdAmount: asset.fdAmount !== undefined ? String(asset.fdAmount) : "",
+                                fdAmount: asset.fdAmount !== undefined ? formatIndianAmount(asset.fdAmount) : "",
                                 fdRoi: asset.fdRoi !== undefined ? String(asset.fdRoi) : "",
                                 fdMaturityDate: asset.fdMaturityDate ? asset.fdMaturityDate.split("T")[0] : "",
-                                fdMaturityValue: asset.fdMaturityValue !== undefined ? String(asset.fdMaturityValue) : "",
+                                fdMaturityValue: asset.fdMaturityValue !== undefined ? formatIndianAmount(asset.fdMaturityValue) : "",
 
                                 stockName: asset.stockName || "",
                                 stockCategory: asset.stockCategory || "",
-                                stockAvgBuyPrice: asset.stockAvgBuyPrice !== undefined ? String(asset.stockAvgBuyPrice) : "",
+                                stockAvgBuyPrice: asset.stockAvgBuyPrice !== undefined ? formatIndianAmount(asset.stockAvgBuyPrice, true) : "",
                                 stockQuantity: asset.stockQuantity !== undefined ? String(asset.stockQuantity) : "",
-                                stockAmount: asset.stockAmount !== undefined ? String(asset.stockAmount) : "",
-                                stockCurrentValue: asset.stockCurrentValue !== undefined ? String(asset.stockCurrentValue) : "",
+                                stockAmount: asset.stockAmount !== undefined ? formatIndianAmount(asset.stockAmount) : "",
+                                stockCurrentValue: asset.stockCurrentValue !== undefined ? formatIndianAmount(asset.stockCurrentValue) : "",
                                 stockRoi: asset.stockRoi !== undefined ? String(asset.stockRoi) : "",
                                 stockHoldingPeriod: asset.stockHoldingPeriod !== undefined ? String(asset.stockHoldingPeriod) : "",
 
@@ -694,8 +703,8 @@ export default function ExistingInvestmentsStep({
                                 mfAmcCode: asset.mfAmcCode || undefined,
                                 mfSchemeName: asset.mfSchemeName || "",
                                 mfMode: asset.mfMode || "",
-                                mfAmount: asset.mfAmount !== undefined ? String(asset.mfAmount) : "",
-                                mfCurrentValue: asset.mfCurrentValue !== undefined ? String(asset.mfCurrentValue) : "",
+                                mfAmount: asset.mfAmount !== undefined ? formatIndianAmount(asset.mfAmount) : "",
+                                mfCurrentValue: asset.mfCurrentValue !== undefined ? formatIndianAmount(asset.mfCurrentValue) : "",
                                 mfExpectedReturn: asset.mfExpectedReturn !== undefined && asset.mfExpectedReturn !== ""
                                     ? String(asset.mfExpectedReturn)
                                     : (getCategorySubCategoryExpectedReturn(asset.mfCategory, asset.mfSubCategory)?.returns || ""),
@@ -709,31 +718,31 @@ export default function ExistingInvestmentsStep({
                                 reType: asset.reType || "",
                                 reCity: asset.reCity || "",
                                 reLocality: asset.reLocality || "",
-                                reAmount: asset.reAmount !== undefined ? String(asset.reAmount) : "",
-                                reCurrentValue: asset.reCurrentValue !== undefined ? String(asset.reCurrentValue) : "",
-                                reLoanAmount: asset.reLoanAmount !== undefined ? String(asset.reLoanAmount) : "",
+                                reAmount: asset.reAmount !== undefined ? formatIndianAmount(asset.reAmount) : "",
+                                reCurrentValue: asset.reCurrentValue !== undefined ? formatIndianAmount(asset.reCurrentValue) : "",
+                                reLoanAmount: asset.reLoanAmount !== undefined ? formatIndianAmount(asset.reLoanAmount) : "",
                                 reLoanRoi: asset.reLoanRoi !== undefined ? String(asset.reLoanRoi) : "",
                                 reExpectedReturn: asset.reExpectedReturn !== undefined ? String(asset.reExpectedReturn) : "",
 
                                 goldForm: asset.goldForm || "",
                                 goldQuantity: asset.goldQuantity !== undefined ? String(asset.goldQuantity) : "",
                                 goldPurchaseYear: asset.goldPurchaseYear !== undefined ? String(asset.goldPurchaseYear) : "",
-                                goldPurchaseValue: asset.goldPurchaseValue !== undefined ? String(asset.goldPurchaseValue) : "",
-                                goldCurrentValue: asset.goldCurrentValue !== undefined ? String(asset.goldCurrentValue) : "",
+                                goldPurchaseValue: asset.goldPurchaseValue !== undefined ? formatIndianAmount(asset.goldPurchaseValue) : "",
+                                goldCurrentValue: asset.goldCurrentValue !== undefined ? formatIndianAmount(asset.goldCurrentValue) : "",
                                 goldExpectedReturn: asset.goldExpectedReturn !== undefined ? String(asset.goldExpectedReturn) : "",
 
                                 silverForm: asset.silverForm || "",
                                 silverQuantity: asset.silverQuantity !== undefined ? String(asset.silverQuantity) : "",
                                 silverPurchaseYear: asset.silverPurchaseYear !== undefined ? String(asset.silverPurchaseYear) : "",
-                                silverPurchaseValue: asset.silverPurchaseValue !== undefined ? String(asset.silverPurchaseValue) : "",
-                                silverCurrentValue: asset.silverCurrentValue !== undefined ? String(asset.silverCurrentValue) : "",
+                                silverPurchaseValue: asset.silverPurchaseValue !== undefined ? formatIndianAmount(asset.silverPurchaseValue) : "",
+                                silverCurrentValue: asset.silverCurrentValue !== undefined ? formatIndianAmount(asset.silverCurrentValue) : "",
                                 silverExpectedReturn: asset.silverExpectedReturn !== undefined ? String(asset.silverExpectedReturn) : "",
 
                                 otherName: asset.otherName || "",
                                 otherDetails: asset.otherDetails || "",
                                 otherDate: asset.otherDate ? asset.otherDate.split("T")[0] : "",
-                                otherAmount: asset.otherAmount !== undefined ? String(asset.otherAmount) : "",
-                                otherCurrentValue: asset.otherCurrentValue !== undefined ? String(asset.otherCurrentValue) : "",
+                                otherAmount: asset.otherAmount !== undefined ? formatIndianAmount(asset.otherAmount) : "",
+                                otherCurrentValue: asset.otherCurrentValue !== undefined ? formatIndianAmount(asset.otherCurrentValue) : "",
                                 otherExpectedReturn: asset.otherExpectedReturn !== undefined ? String(asset.otherExpectedReturn) : "",
                                 otherFileName: asset.otherFileName || "",
                             };
@@ -785,19 +794,19 @@ export default function ExistingInvestmentsStep({
         assets.forEach((card) => {
             card.items.forEach((item) => {
                 if (card.assetClass === "FixedDeposits") {
-                    total += Number(item.fdAmount) || 0;
+                    total += parseIndianAmount(item.fdAmount);
                 } else if (card.assetClass === "Stocks") {
-                    total += Number(item.stockAmount) || 0;
+                    total += parseIndianAmount(item.stockAmount);
                 } else if (card.assetClass === "Mutual Funds (MF)") {
-                    total += Number(item.mfAmount) || 0;
+                    total += parseIndianAmount(item.mfAmount);
                 } else if (card.assetClass === "Real Estate") {
-                    total += Number(item.reAmount) || 0;
+                    total += parseIndianAmount(item.reAmount);
                 } else if (card.assetClass === "Gold") {
-                    total += Number(item.goldPurchaseValue) || 0;
+                    total += parseIndianAmount(item.goldPurchaseValue);
                 } else if (card.assetClass === "Silver") {
-                    total += Number(item.silverPurchaseValue) || 0;
+                    total += parseIndianAmount(item.silverPurchaseValue);
                 } else if (card.assetClass === "Other Assest Classes") {
-                    total += Number(item.otherAmount) || 0;
+                    total += parseIndianAmount(item.otherAmount);
                 }
             });
         });
@@ -808,26 +817,77 @@ export default function ExistingInvestmentsStep({
         updateAssetField(cardId, itemId, "otherFileName", file ? file.name : "");
     };
 
+    const handleSkip = async () => {
+        setGeneralError("");
+        setErrors({});
+        setIsSubmitting(true);
+        try {
+            if (profileId) {
+                await fetch("https://k2b02x8c-5000.inc1.devtunnels.ms/api/existing-investments", {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify({
+                        personalProfileId: profileId,
+                        assets: [],
+                    }),
+                }).catch((err) => console.warn("Could not record skipped investments:", err));
+            }
+            if (onNext) onNext();
+        } catch (err) {
+            console.error("Error skipping step:", err);
+            if (onNext) onNext();
+        } finally {
+            setIsSubmitting(false);
+        }
+    };
+
     const handleContinue = async () => {
+        // Helper to check if an item has any user-entered data
+        const isItemFilled = (cls: string, item: any) => {
+            if (cls === "FixedDeposits") {
+                return !!(item.fdBankName?.trim() || parseIndianAmount(item.fdAmount) > 0 || parseIndianAmount(item.fdMaturityValue) > 0);
+            }
+            if (cls === "Stocks") {
+                return !!(item.stockName?.trim() || parseIndianAmount(item.stockAmount) > 0 || parseIndianAmount(item.stockCurrentValue) > 0);
+            }
+            if (cls === "Mutual Funds (MF)") {
+                return !!(item.mfSchemeName?.trim() || parseIndianAmount(item.mfAmount) > 0 || parseIndianAmount(item.mfCurrentValue) > 0);
+            }
+            if (cls === "Real Estate") {
+                return !!(item.reType?.trim() || parseIndianAmount(item.reAmount) > 0 || parseIndianAmount(item.reCurrentValue) > 0);
+            }
+            if (cls === "Gold") {
+                return !!(item.goldForm?.trim() || parseIndianAmount(item.goldPurchaseValue) > 0 || parseIndianAmount(item.goldCurrentValue) > 0);
+            }
+            if (cls === "Silver") {
+                return !!(item.silverForm?.trim() || parseIndianAmount(item.silverPurchaseValue) > 0 || parseIndianAmount(item.silverCurrentValue) > 0);
+            }
+            if (cls === "Other Assest Classes") {
+                return !!(item.otherName?.trim() || parseIndianAmount(item.otherAmount) > 0 || parseIndianAmount(item.otherCurrentValue) > 0);
+            }
+            return false;
+        };
+
+        // Check if any asset card with a selected class has actual data entered
+        const activeCardsWithData = assets.filter(
+            (card) => card.assetClass && card.assetClass.trim() !== "" && card.items?.some((it) => isItemFilled(card.assetClass, it))
+        );
+
+        // If no investment data was entered, proceed to the next step directly
+        if (activeCardsWithData.length === 0) {
+            await handleSkip();
+            return;
+        }
+
         if (!profileId) {
             alert("No Personal Profile ID found. Please complete the Personal Profile step first.");
             return;
         }
 
-        if (!assets || assets.length === 0) {
-            setGeneralError("Your Existing Investments details are mandatory. Please select and fill details for at least one investment.");
-            return;
-        }
-
         const newErrors: Record<string, string> = {};
 
-        // Frontend validation
-        assets.forEach((card) => {
-            if (!card.assetClass) {
-                newErrors[`${card.id}_assetClass`] = "Please select an asset class.";
-                return;
-            }
-
+        // Frontend validation only for cards with filled data
+        activeCardsWithData.forEach((card) => {
             if (!card.items || card.items.length === 0) {
                 newErrors[`${card.id}_assetClass`] = "Please add at least one entry for this asset class.";
                 return;
@@ -841,63 +901,49 @@ export default function ExistingInvestmentsStep({
                         newErrors[`${a.id}_fdBankName`] = "Bank name cannot contain numbers.";
                     }
                     if (!a.fdTenure?.trim()) newErrors[`${a.id}_fdTenure`] = "Tenure is required.";
-                    if (!a.fdAmount || Number(a.fdAmount) <= 0) newErrors[`${a.id}_fdAmount`] = "Please enter a valid amount.";
+                    if (!a.fdAmount || parseIndianAmount(a.fdAmount) <= 0) newErrors[`${a.id}_fdAmount`] = "Please enter a valid amount.";
                     if (!a.fdRoi || Number(a.fdRoi) < 0) newErrors[`${a.id}_fdRoi`] = "Please enter a valid ROI.";
                     if (!a.fdMaturityDate) newErrors[`${a.id}_fdMaturityDate`] = "Maturity Date is required.";
-                    if (!a.fdMaturityValue || Number(a.fdMaturityValue) <= 0) newErrors[`${a.id}_fdMaturityValue`] = "Please enter a valid maturity value.";
+                    if (!a.fdMaturityValue || parseIndianAmount(a.fdMaturityValue) <= 0) newErrors[`${a.id}_fdMaturityValue`] = "Please enter a valid maturity value.";
                 } else if (card.assetClass === "Stocks") {
                     if (!a.stockName?.trim()) newErrors[`${a.id}_stockName`] = "Stock name is required.";
                     if (!a.stockCategory) newErrors[`${a.id}_stockCategory`] = "Category is required.";
-                    if (!a.stockAvgBuyPrice || Number(a.stockAvgBuyPrice) <= 0) newErrors[`${a.id}_stockAvgBuyPrice`] = "Please enter average buy price.";
-                    if (!a.stockQuantity || Number(a.stockQuantity) <= 0) newErrors[`${a.id}_stockQuantity`] = "Please enter quantity.";
-                    if (!a.stockAmount || Number(a.stockAmount) <= 0) newErrors[`${a.id}_stockAmount`] = "Please enter investment amount.";
-                    if (!a.stockCurrentValue || Number(a.stockCurrentValue) <= 0) newErrors[`${a.id}_stockCurrentValue`] = "Please enter current value.";
-                    if (!a.stockRoi || Number(a.stockRoi) < 0) newErrors[`${a.id}_stockRoi`] = "Please enter rate of return.";
-                    if (!a.stockHoldingPeriod || Number(a.stockHoldingPeriod) <= 0) newErrors[`${a.id}_stockHoldingPeriod`] = "Please enter holding period.";
+                    if (!a.stockAmount || parseIndianAmount(a.stockAmount) <= 0) newErrors[`${a.id}_stockAmount`] = "Please enter investment amount.";
+                    if (!a.stockCurrentValue || parseIndianAmount(a.stockCurrentValue) <= 0) newErrors[`${a.id}_stockCurrentValue`] = "Please enter current value.";
                 } else if (card.assetClass === "Mutual Funds (MF)") {
                     if (!a.mfCategory) newErrors[`${a.id}_mfCategory`] = "Category is required.";
                     if (!a.mfSubCategory) newErrors[`${a.id}_mfSubCategory`] = "Sub Category is required.";
                     if (!a.mfAmc) newErrors[`${a.id}_mfAmc`] = "AMC is required.";
                     if (!a.mfSchemeName) newErrors[`${a.id}_mfSchemeName`] = "Scheme name is required.";
                     if (!a.mfMode?.trim()) newErrors[`${a.id}_mfMode`] = "Mode is required.";
-                    if (!a.mfAmount || Number(a.mfAmount) <= 0) newErrors[`${a.id}_mfAmount`] = "Please enter amount.";
-                    if (!a.mfCurrentValue || Number(a.mfCurrentValue) <= 0) newErrors[`${a.id}_mfCurrentValue`] = "Please enter current value.";
+                    if (!a.mfAmount || parseIndianAmount(a.mfAmount) <= 0) newErrors[`${a.id}_mfAmount`] = "Please enter amount.";
+                    if (!a.mfCurrentValue || parseIndianAmount(a.mfCurrentValue) <= 0) newErrors[`${a.id}_mfCurrentValue`] = "Please enter current value.";
                     if (!a.mfExpectedReturn || Number(a.mfExpectedReturn) < 0) newErrors[`${a.id}_mfExpectedReturn`] = "Please enter expected return.";
                     if (!a.mfDate) newErrors[`${a.id}_mfDate`] = "Date is required.";
                     if (!a.mfHoldingPeriod || Number(a.mfHoldingPeriod) <= 0) newErrors[`${a.id}_mfHoldingPeriod`] = "Please enter holding period.";
                 } else if (card.assetClass === "Real Estate") {
                     if (!a.reType) newErrors[`${a.id}_reType`] = "Type is required.";
-                    if (!a.reCity?.trim()) {
-                        newErrors[`${a.id}_reCity`] = "City is required.";
-                    } else if (/\d/.test(a.reCity)) {
+                    if (a.reCity?.trim() && /\d/.test(a.reCity)) {
                         newErrors[`${a.id}_reCity`] = "City name cannot contain numbers.";
                     }
-                    if (!a.reLocality?.trim()) newErrors[`${a.id}_reLocality`] = "Locality is required.";
-                    if (!a.reAmount || Number(a.reAmount) <= 0) newErrors[`${a.id}_reAmount`] = "Please enter amount.";
-                    if (!a.reCurrentValue || Number(a.reCurrentValue) <= 0) newErrors[`${a.id}_reCurrentValue`] = "Please enter current value.";
-                    if (a.reLoanAmount === undefined || a.reLoanAmount === "") newErrors[`${a.id}_reLoanAmount`] = "Please specify loan amount (use 0 if none).";
-                    if (a.reLoanRoi === undefined || a.reLoanRoi === "") newErrors[`${a.id}_reLoanRoi`] = "Please specify loan interest rate (use 0 if none).";
-                    if (!a.reExpectedReturn || Number(a.reExpectedReturn) < 0) newErrors[`${a.id}_reExpectedReturn`] = "Please enter rate of return.";
+                    if (!a.reAmount || parseIndianAmount(a.reAmount) <= 0) newErrors[`${a.id}_reAmount`] = "Please enter amount.";
+                    if (!a.reCurrentValue || parseIndianAmount(a.reCurrentValue) <= 0) newErrors[`${a.id}_reCurrentValue`] = "Please enter current value.";
                 } else if (card.assetClass === "Gold") {
                     if (!a.goldForm) newErrors[`${a.id}_goldForm`] = "Form of Gold is required.";
-                    if (!a.goldQuantity || Number(a.goldQuantity) <= 0) newErrors[`${a.id}_goldQuantity`] = "Please enter quantity.";
-                    if (!a.goldPurchaseYear || Number(a.goldPurchaseYear) < 1900) newErrors[`${a.id}_goldPurchaseYear`] = "Please enter purchase year.";
-                    if (!a.goldPurchaseValue || Number(a.goldPurchaseValue) <= 0) newErrors[`${a.id}_goldPurchaseValue`] = "Please enter purchase value.";
-                    if (!a.goldCurrentValue || Number(a.goldCurrentValue) <= 0) newErrors[`${a.id}_goldCurrentValue`] = "Please enter current value.";
+                    if (!a.goldPurchaseValue || parseIndianAmount(a.goldPurchaseValue) <= 0) newErrors[`${a.id}_goldPurchaseValue`] = "Please enter purchase value.";
+                    if (!a.goldCurrentValue || parseIndianAmount(a.goldCurrentValue) <= 0) newErrors[`${a.id}_goldCurrentValue`] = "Please enter current value.";
                     if (!a.goldExpectedReturn || Number(a.goldExpectedReturn) < 0) newErrors[`${a.id}_goldExpectedReturn`] = "Please enter rate of return.";
                 } else if (card.assetClass === "Silver") {
                     if (!a.silverForm) newErrors[`${a.id}_silverForm`] = "Form of Silver is required.";
-                    if (!a.silverQuantity || Number(a.silverQuantity) <= 0) newErrors[`${a.id}_silverQuantity`] = "Please enter quantity.";
-                    if (!a.silverPurchaseYear || Number(a.silverPurchaseYear) < 1900) newErrors[`${a.id}_silverPurchaseYear`] = "Please enter purchase year.";
-                    if (!a.silverPurchaseValue || Number(a.silverPurchaseValue) <= 0) newErrors[`${a.id}_silverPurchaseValue`] = "Please enter purchase value.";
-                    if (!a.silverCurrentValue || Number(a.silverCurrentValue) <= 0) newErrors[`${a.id}_silverCurrentValue`] = "Please enter current value.";
+                    if (!a.silverPurchaseValue || parseIndianAmount(a.silverPurchaseValue) <= 0) newErrors[`${a.id}_silverPurchaseValue`] = "Please enter purchase value.";
+                    if (!a.silverCurrentValue || parseIndianAmount(a.silverCurrentValue) <= 0) newErrors[`${a.id}_silverCurrentValue`] = "Please enter current value.";
                     if (!a.silverExpectedReturn || Number(a.silverExpectedReturn) < 0) newErrors[`${a.id}_silverExpectedReturn`] = "Please enter rate of return.";
                 } else if (card.assetClass === "Other Assest Classes") {
                     if (!a.otherName?.trim()) newErrors[`${a.id}_otherName`] = "Asset name is required.";
                     if (!a.otherDetails?.trim()) newErrors[`${a.id}_otherDetails`] = "Details are required.";
                     if (!a.otherDate) newErrors[`${a.id}_otherDate`] = "Date is required.";
-                    if (!a.otherAmount || Number(a.otherAmount) <= 0) newErrors[`${a.id}_otherAmount`] = "Please enter cost.";
-                    if (!a.otherCurrentValue || Number(a.otherCurrentValue) <= 0) newErrors[`${a.id}_otherCurrentValue`] = "Please enter current value.";
+                    if (!a.otherAmount || parseIndianAmount(a.otherAmount) <= 0) newErrors[`${a.id}_otherAmount`] = "Please enter cost.";
+                    if (!a.otherCurrentValue || parseIndianAmount(a.otherCurrentValue) <= 0) newErrors[`${a.id}_otherCurrentValue`] = "Please enter current value.";
                     if (!a.otherExpectedReturn || Number(a.otherExpectedReturn) < 0) newErrors[`${a.id}_otherExpectedReturn`] = "Please enter rate of return.";
                 }
             });
@@ -905,7 +951,7 @@ export default function ExistingInvestmentsStep({
 
         if (Object.keys(newErrors).length > 0) {
             setErrors(newErrors);
-            setGeneralError("Please fill in all mandatory fields marked with * before continuing.");
+            setGeneralError("Please fill in all required fields marked with * for the selected investments.");
             const firstErrorKey = Object.keys(newErrors)[0];
             const errorElement = document.getElementById(firstErrorKey);
             if (errorElement) {
@@ -920,7 +966,7 @@ export default function ExistingInvestmentsStep({
         try {
             // Formulate payload converting frontend text inputs to types expected by API
             const flatAssets: any[] = [];
-            assets.forEach((card) => {
+            activeCardsWithData.forEach((card) => {
                 card.items.forEach((a) => {
                     const formatted: any = {
                         assetClass: card.assetClass,
@@ -928,19 +974,19 @@ export default function ExistingInvestmentsStep({
                     if (card.assetClass === "FixedDeposits") {
                         formatted.fdBankName = a.fdBankName;
                         formatted.fdTenure = a.fdTenure;
-                        formatted.fdAmount = Number(a.fdAmount);
+                        formatted.fdAmount = parseIndianAmount(a.fdAmount);
                         formatted.fdRoi = Number(a.fdRoi);
                         formatted.fdMaturityDate = a.fdMaturityDate ? new Date(a.fdMaturityDate) : undefined;
-                        formatted.fdMaturityValue = Number(a.fdMaturityValue);
+                        formatted.fdMaturityValue = parseIndianAmount(a.fdMaturityValue);
                     } else if (card.assetClass === "Stocks") {
                         formatted.stockName = a.stockName;
                         formatted.stockCategory = a.stockCategory;
-                        formatted.stockAvgBuyPrice = Number(a.stockAvgBuyPrice);
-                        formatted.stockQuantity = Number(a.stockQuantity);
-                        formatted.stockAmount = Number(a.stockAmount);
-                        formatted.stockCurrentValue = Number(a.stockCurrentValue);
-                        formatted.stockRoi = Number(a.stockRoi);
-                        formatted.stockHoldingPeriod = Number(a.stockHoldingPeriod);
+                        formatted.stockAvgBuyPrice = a.stockAvgBuyPrice !== undefined && a.stockAvgBuyPrice !== "" ? parseIndianAmount(a.stockAvgBuyPrice) : 0;
+                        formatted.stockQuantity = a.stockQuantity !== undefined && a.stockQuantity !== "" ? Number(a.stockQuantity) : 0;
+                        formatted.stockAmount = parseIndianAmount(a.stockAmount);
+                        formatted.stockCurrentValue = parseIndianAmount(a.stockCurrentValue);
+                        formatted.stockRoi = a.stockRoi !== undefined && a.stockRoi !== "" ? Number(a.stockRoi) : 12;
+                        formatted.stockHoldingPeriod = a.stockHoldingPeriod !== undefined && a.stockHoldingPeriod !== "" ? Number(a.stockHoldingPeriod) : 0;
                     } else if (card.assetClass === "Mutual Funds (MF)") {
                         let resolvedSubCode = a.mfSubCategoryCode;
                         if (!resolvedSubCode && a.mfSubCategory) {
@@ -960,40 +1006,40 @@ export default function ExistingInvestmentsStep({
                         formatted.mfAmcCode = a.mfAmcCode;
                         formatted.mfSchemeName = a.mfSchemeName;
                         formatted.mfMode = a.mfMode;
-                        formatted.mfAmount = Number(a.mfAmount);
-                        formatted.mfCurrentValue = Number(a.mfCurrentValue);
+                        formatted.mfAmount = parseIndianAmount(a.mfAmount);
+                        formatted.mfCurrentValue = parseIndianAmount(a.mfCurrentValue);
                         formatted.mfExpectedReturn = Number(a.mfExpectedReturn);
                         formatted.mfDate = a.mfDate ? new Date(a.mfDate) : undefined;
                         formatted.mfHoldingPeriod = Number(a.mfHoldingPeriod);
                     } else if (card.assetClass === "Real Estate") {
                         formatted.reType = a.reType;
-                        formatted.reCity = a.reCity;
-                        formatted.reLocality = a.reLocality;
-                        formatted.reAmount = Number(a.reAmount);
-                        formatted.reCurrentValue = Number(a.reCurrentValue);
-                        formatted.reLoanAmount = Number(a.reLoanAmount) || 0;
+                        formatted.reCity = a.reCity || "";
+                        formatted.reLocality = a.reLocality || "";
+                        formatted.reAmount = parseIndianAmount(a.reAmount);
+                        formatted.reCurrentValue = parseIndianAmount(a.reCurrentValue);
+                        formatted.reLoanAmount = parseIndianAmount(a.reLoanAmount) || 0;
                         formatted.reLoanRoi = Number(a.reLoanRoi) || 0;
-                        formatted.reExpectedReturn = Number(a.reExpectedReturn);
+                        formatted.reExpectedReturn = a.reExpectedReturn !== undefined && a.reExpectedReturn !== "" ? Number(a.reExpectedReturn) : 8;
                     } else if (card.assetClass === "Gold") {
                         formatted.goldForm = a.goldForm;
-                        formatted.goldQuantity = Number(a.goldQuantity);
-                        formatted.goldPurchaseYear = Number(a.goldPurchaseYear);
-                        formatted.goldPurchaseValue = Number(a.goldPurchaseValue);
-                        formatted.goldCurrentValue = Number(a.goldCurrentValue);
+                        formatted.goldQuantity = a.goldQuantity !== undefined && a.goldQuantity !== "" ? Number(a.goldQuantity) : 0;
+                        formatted.goldPurchaseYear = a.goldPurchaseYear !== undefined && a.goldPurchaseYear !== "" ? Number(a.goldPurchaseYear) : null;
+                        formatted.goldPurchaseValue = parseIndianAmount(a.goldPurchaseValue);
+                        formatted.goldCurrentValue = parseIndianAmount(a.goldCurrentValue);
                         formatted.goldExpectedReturn = Number(a.goldExpectedReturn);
                     } else if (card.assetClass === "Silver") {
                         formatted.silverForm = a.silverForm;
-                        formatted.silverQuantity = Number(a.silverQuantity);
-                        formatted.silverPurchaseYear = Number(a.silverPurchaseYear);
-                        formatted.silverPurchaseValue = Number(a.silverPurchaseValue);
-                        formatted.silverCurrentValue = Number(a.silverCurrentValue);
+                        formatted.silverQuantity = a.silverQuantity !== undefined && a.silverQuantity !== "" ? Number(a.silverQuantity) : 0;
+                        formatted.silverPurchaseYear = a.silverPurchaseYear !== undefined && a.silverPurchaseYear !== "" ? Number(a.silverPurchaseYear) : null;
+                        formatted.silverPurchaseValue = parseIndianAmount(a.silverPurchaseValue);
+                        formatted.silverCurrentValue = parseIndianAmount(a.silverCurrentValue);
                         formatted.silverExpectedReturn = Number(a.silverExpectedReturn);
                     } else if (card.assetClass === "Other Assest Classes") {
                         formatted.otherName = a.otherName;
                         formatted.otherDetails = a.otherDetails;
                         formatted.otherDate = a.otherDate ? new Date(a.otherDate) : undefined;
-                        formatted.otherAmount = Number(a.otherAmount);
-                        formatted.otherCurrentValue = Number(a.otherCurrentValue);
+                        formatted.otherAmount = parseIndianAmount(a.otherAmount);
+                        formatted.otherCurrentValue = parseIndianAmount(a.otherCurrentValue);
                         formatted.otherExpectedReturn = Number(a.otherExpectedReturn);
                         formatted.otherFileName = a.otherFileName;
                     }
@@ -1001,18 +1047,12 @@ export default function ExistingInvestmentsStep({
                 });
             });
 
-            if (flatAssets.length === 0) {
-                setGeneralError("Your Existing Investments details are mandatory. Please fill in details for at least one investment.");
-                setIsSubmitting(false);
-                return;
-            }
-
             const payload = {
                 personalProfileId: profileId,
                 assets: flatAssets,
             };
 
-            const response = await fetch("http://localhost:5000/api/existing-investments", {
+            const response = await fetch("https://k2b02x8c-5000.inc1.devtunnels.ms/api/existing-investments", {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify(payload),
@@ -1034,9 +1074,14 @@ export default function ExistingInvestmentsStep({
     return (
         <div className="rounded-[24px] border border-[#E5E5E5] bg-white p-6 shadow-sm">
             <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between items-center gap-2">
-                <h3 className="col-span-8 font-bold text-[16px] sm:text-[18px] md:text-[20px] lg:text-[25px] bg-gradient-to-r from-[#06a358] to-[#001EFE] bg-clip-text text-transparent pb-3">
-                    Your Existing Investments
-                </h3>
+                <div className="flex items-center gap-2.5 pb-3">
+                    <h3 className="font-bold text-[16px] sm:text-[18px] md:text-[20px] lg:text-[25px] bg-gradient-to-r from-[#06a358] to-[#001EFE] bg-clip-text text-transparent">
+                        Your Existing Investments
+                    </h3>
+                    <span className="text-[11px] sm:text-[12px] font-semibold text-[#8b8b8b] bg-[#f4f4f5] border border-[#e4e4e7] px-2.5 py-0.5 rounded-full">
+                        Optional
+                    </span>
+                </div>
 
                 <div className="col-span-1 items-center text-end rounded-[10px] shadow-[1px_0px_6.8px_-1px_rgba(0,0,0,0.18)] p-1 md:p-2">
                     <div className="flex items-center gap-1 justify-end px-5">
@@ -1065,14 +1110,14 @@ export default function ExistingInvestmentsStep({
                         <div className="flex-1">
                             <div className="flex gap-4 items-end justify-between mb-4">
                                 <label className="block text-sm font-medium text-[#44475B]">
-                                    Select Asset Class <span className="text-red-600"> *</span>
+                                    Select Asset Class
                                 </label>
-                                {assets.length > 1 && (
+                                {(assets.length > 1 || !!asset.assetClass) && (
                                     <button
                                         type="button"
                                         onClick={() => removeAsset(asset.id)}
                                         className="cursor-pointer h-10 w-10 rounded-full bg-[#DB4437] text-white flex items-center justify-center hover:bg-red-700 transition"
-                                        title="Remove Asset Class"
+                                        title={assets.length <= 1 ? "Clear Asset Class" : "Remove Asset Class"}
                                     >
                                         <Trash2 size={18} />
                                     </button>
@@ -1169,12 +1214,13 @@ export default function ExistingInvestmentsStep({
                                                         </label>
                                                         <input
                                                             id={`${item.id}_fdAmount`}
-                                                            type="number"
+                                                            type="text"
+                                                            inputMode="numeric"
                                                             className={`w-full h-[44px] sm:h-[46px] bg-white border rounded-[10px] px-3 text-[13px] text-[#44475b] placeholder-[#8b8b8b] focus:outline-none transition-colors ${errors[`${item.id}_fdAmount`] ? "border-red-500 focus:border-red-500" : "border-[#e9e9e9] focus:border-[#04b488]"
                                                                 }`}
                                                             placeholder="₹ Amount"
                                                             value={item.fdAmount || ""}
-                                                            onChange={(e) => updateAssetField(asset.id, item.id, "fdAmount", e.target.value)}
+                                                            onChange={(e) => updateAssetField(asset.id, item.id, "fdAmount", formatIndianAmount(e.target.value))}
                                                         />
                                                         {errors[`${item.id}_fdAmount`] && <p className="text-red-500 text-[11px] mt-1">{errors[`${item.id}_fdAmount`]}</p>}
                                                     </div>
@@ -1217,12 +1263,13 @@ export default function ExistingInvestmentsStep({
                                                         </label>
                                                         <input
                                                             id={`${item.id}_fdMaturityValue`}
-                                                            type="number"
+                                                            type="text"
+                                                            inputMode="numeric"
                                                             className={`w-full h-[44px] sm:h-[46px] bg-white border rounded-[10px] px-3 text-[13px] text-[#44475b] placeholder-[#8b8b8b] focus:outline-none transition-colors ${errors[`${item.id}_fdMaturityValue`] ? "border-red-500 focus:border-red-500" : "border-[#e9e9e9] focus:border-[#04b488]"
                                                                 }`}
                                                             placeholder="₹ Amount"
                                                             value={item.fdMaturityValue || ""}
-                                                            onChange={(e) => updateAssetField(asset.id, item.id, "fdMaturityValue", e.target.value)}
+                                                            onChange={(e) => updateAssetField(asset.id, item.id, "fdMaturityValue", formatIndianAmount(e.target.value))}
                                                         />
                                                         {errors[`${item.id}_fdMaturityValue`] && <p className="text-red-500 text-[11px] mt-1">{errors[`${item.id}_fdMaturityValue`]}</p>}
                                                     </div>
@@ -1282,23 +1329,24 @@ export default function ExistingInvestmentsStep({
 
                                                     <div>
                                                         <label className="block text-[13px] font-medium text-[#44475b] mb-2">
-                                                            Avg Buy Price <span className="text-red-600"> *</span>
+                                                            Avg Buy Price
                                                         </label>
                                                         <input
                                                             id={`${item.id}_stockAvgBuyPrice`}
-                                                            type="number"
+                                                            type="text"
+                                                            inputMode="decimal"
                                                             className={`w-full h-[44px] sm:h-[46px] bg-white border rounded-[10px] px-3 text-[13px] text-[#44475b] placeholder-[#8b8b8b] focus:outline-none transition-colors ${errors[`${item.id}_stockAvgBuyPrice`] ? "border-red-500 focus:border-red-500" : "border-[#e9e9e9] focus:border-[#04b488]"
                                                                 }`}
                                                             placeholder="₹ Price"
                                                             value={item.stockAvgBuyPrice || ""}
-                                                            onChange={(e) => updateAssetField(asset.id, item.id, "stockAvgBuyPrice", e.target.value)}
+                                                            onChange={(e) => updateAssetField(asset.id, item.id, "stockAvgBuyPrice", formatIndianAmount(e.target.value, true))}
                                                         />
                                                         {errors[`${item.id}_stockAvgBuyPrice`] && <p className="text-red-500 text-[11px] mt-1">{errors[`${item.id}_stockAvgBuyPrice`]}</p>}
                                                     </div>
 
                                                     <div>
                                                         <label className="block text-[13px] font-medium text-[#44475b] mb-2">
-                                                            Quantity <span className="text-red-600"> *</span>
+                                                            Quantity
                                                         </label>
                                                         <input
                                                             id={`${item.id}_stockQuantity`}
@@ -1318,12 +1366,13 @@ export default function ExistingInvestmentsStep({
                                                         </label>
                                                         <input
                                                             id={`${item.id}_stockAmount`}
-                                                            type="number"
+                                                            type="text"
+                                                            inputMode="numeric"
                                                             className={`w-full h-[44px] sm:h-[46px] bg-white border rounded-[10px] px-3 text-[13px] text-[#44475b] placeholder-[#8b8b8b] focus:outline-none transition-colors ${errors[`${item.id}_stockAmount`] ? "border-red-500 focus:border-red-500" : "border-[#e9e9e9] focus:border-[#04b488]"
                                                                 }`}
                                                             placeholder="₹ Amount"
                                                             value={item.stockAmount || ""}
-                                                            onChange={(e) => updateAssetField(asset.id, item.id, "stockAmount", e.target.value)}
+                                                            onChange={(e) => updateAssetField(asset.id, item.id, "stockAmount", formatIndianAmount(e.target.value))}
                                                         />
                                                         {errors[`${item.id}_stockAmount`] && <p className="text-red-500 text-[11px] mt-1">{errors[`${item.id}_stockAmount`]}</p>}
                                                     </div>
@@ -1334,19 +1383,20 @@ export default function ExistingInvestmentsStep({
                                                         </label>
                                                         <input
                                                             id={`${item.id}_stockCurrentValue`}
-                                                            type="number"
+                                                            type="text"
+                                                            inputMode="numeric"
                                                             className={`w-full h-[44px] sm:h-[46px] bg-white border rounded-[10px] px-3 text-[13px] text-[#44475b] placeholder-[#8b8b8b] focus:outline-none transition-colors ${errors[`${item.id}_stockCurrentValue`] ? "border-red-500 focus:border-red-500" : "border-[#e9e9e9] focus:border-[#04b488]"
                                                                 }`}
                                                             placeholder="₹ Value"
                                                             value={item.stockCurrentValue || ""}
-                                                            onChange={(e) => updateAssetField(asset.id, item.id, "stockCurrentValue", e.target.value)}
+                                                            onChange={(e) => updateAssetField(asset.id, item.id, "stockCurrentValue", formatIndianAmount(e.target.value))}
                                                         />
                                                         {errors[`${item.id}_stockCurrentValue`] && <p className="text-red-500 text-[11px] mt-1">{errors[`${item.id}_stockCurrentValue`]}</p>}
                                                     </div>
 
                                                     <div>
                                                         <label className="block text-[13px] font-medium text-[#44475b] mb-2">
-                                                            Avg Rate of Return (%) <span className="text-red-600"> *</span>
+                                                            Avg Rate of Return (%)
                                                         </label>
                                                         <input
                                                             id={`${item.id}_stockRoi`}
@@ -1363,7 +1413,7 @@ export default function ExistingInvestmentsStep({
 
                                                     <div>
                                                         <label className="block text-[13px] font-medium text-[#44475b] mb-2">
-                                                            Holding Period <span className="text-red-600"> *</span>
+                                                            Holding Period
                                                         </label>
                                                         <input
                                                             id={`${item.id}_stockHoldingPeriod`}
@@ -1555,12 +1605,13 @@ export default function ExistingInvestmentsStep({
                                                         </label>
                                                         <input
                                                             id={`${item.id}_mfAmount`}
-                                                            type="number"
+                                                            type="text"
+                                                            inputMode="numeric"
                                                             className={`w-full h-[44px] sm:h-[46px] bg-white border rounded-[10px] px-3 text-[13px] text-[#44475b] placeholder-[#8b8b8b] focus:outline-none transition-colors ${errors[`${item.id}_mfAmount`] ? "border-red-500 focus:border-red-500" : "border-[#e9e9e9] focus:border-[#04b488]"
                                                                 }`}
                                                             placeholder="₹ Amount"
                                                             value={item.mfAmount || ""}
-                                                            onChange={(e) => updateAssetField(asset.id, item.id, "mfAmount", e.target.value)}
+                                                            onChange={(e) => updateAssetField(asset.id, item.id, "mfAmount", formatIndianAmount(e.target.value))}
                                                         />
                                                         {errors[`${item.id}_mfAmount`] && <p className="text-red-500 text-[11px] mt-1">{errors[`${item.id}_mfAmount`]}</p>}
                                                     </div>
@@ -1571,12 +1622,13 @@ export default function ExistingInvestmentsStep({
                                                         </label>
                                                         <input
                                                             id={`${item.id}_mfCurrentValue`}
-                                                            type="number"
+                                                            type="text"
+                                                            inputMode="numeric"
                                                             className={`w-full h-[44px] sm:h-[46px] bg-white border rounded-[10px] px-3 text-[13px] text-[#44475b] placeholder-[#8b8b8b] focus:outline-none transition-colors ${errors[`${item.id}_mfCurrentValue`] ? "border-red-500 focus:border-red-500" : "border-[#e9e9e9] focus:border-[#04b488]"
                                                                 }`}
                                                             placeholder="₹ Value"
                                                             value={item.mfCurrentValue || ""}
-                                                            onChange={(e) => updateAssetField(asset.id, item.id, "mfCurrentValue", e.target.value)}
+                                                            onChange={(e) => updateAssetField(asset.id, item.id, "mfCurrentValue", formatIndianAmount(e.target.value))}
                                                         />
                                                         {errors[`${item.id}_mfCurrentValue`] && <p className="text-red-500 text-[11px] mt-1">{errors[`${item.id}_mfCurrentValue`]}</p>}
                                                     </div>
@@ -1657,7 +1709,7 @@ export default function ExistingInvestmentsStep({
 
                                                     <div className="mb-3">
                                                         <label className="block text-[13px] font-medium text-[#44475b] mb-2">
-                                                            City <span className="text-red-600"> *</span>
+                                                            City
                                                         </label>
                                                         <input
                                                             id={`${item.id}_reCity`}
@@ -1673,7 +1725,7 @@ export default function ExistingInvestmentsStep({
 
                                                     <div className="mb-3">
                                                         <label className="block text-[13px] font-medium text-[#44475b] mb-2">
-                                                            Locality <span className="text-red-600"> *</span>
+                                                            Locality
                                                         </label>
                                                         <input
                                                             id={`${item.id}_reLocality`}
@@ -1693,12 +1745,13 @@ export default function ExistingInvestmentsStep({
                                                         </label>
                                                         <input
                                                             id={`${item.id}_reAmount`}
-                                                            type="number"
+                                                            type="text"
+                                                            inputMode="numeric"
                                                             className={`w-full h-[44px] sm:h-[46px] bg-white border rounded-[10px] px-3 text-[13px] text-[#44475b] placeholder-[#8b8b8b] focus:outline-none transition-colors ${errors[`${item.id}_reAmount`] ? "border-red-500 focus:border-red-500" : "border-[#e9e9e9] focus:border-[#04b488]"
                                                                 }`}
                                                             placeholder="₹ Amount"
                                                             value={item.reAmount || ""}
-                                                            onChange={(e) => updateAssetField(asset.id, item.id, "reAmount", e.target.value)}
+                                                            onChange={(e) => updateAssetField(asset.id, item.id, "reAmount", formatIndianAmount(e.target.value))}
                                                         />
                                                         {errors[`${item.id}_reAmount`] && <p className="text-red-500 text-[11px] mt-1">{errors[`${item.id}_reAmount`]}</p>}
                                                     </div>
@@ -1709,35 +1762,37 @@ export default function ExistingInvestmentsStep({
                                                         </label>
                                                         <input
                                                             id={`${item.id}_reCurrentValue`}
-                                                            type="number"
+                                                            type="text"
+                                                            inputMode="numeric"
                                                             className={`w-full h-[44px] sm:h-[46px] bg-white border rounded-[10px] px-3 text-[13px] text-[#44475b] placeholder-[#8b8b8b] focus:outline-none transition-colors ${errors[`${item.id}_reCurrentValue`] ? "border-red-500 focus:border-red-500" : "border-[#e9e9e9] focus:border-[#04b488]"
                                                                 }`}
                                                             placeholder="₹ Value"
                                                             value={item.reCurrentValue || ""}
-                                                            onChange={(e) => updateAssetField(asset.id, item.id, "reCurrentValue", e.target.value)}
+                                                            onChange={(e) => updateAssetField(asset.id, item.id, "reCurrentValue", formatIndianAmount(e.target.value))}
                                                         />
                                                         {errors[`${item.id}_reCurrentValue`] && <p className="text-red-500 text-[11px] mt-1">{errors[`${item.id}_reCurrentValue`]}</p>}
                                                     </div>
 
                                                     <div className="mb-3">
                                                         <label className="block text-[13px] font-medium text-[#44475b] mb-2">
-                                                            Loan's (If any) <span className="text-red-600"> *</span>
+                                                            Loan's (If any)
                                                         </label>
                                                         <input
                                                             id={`${item.id}_reLoanAmount`}
-                                                            type="number"
+                                                            type="text"
+                                                            inputMode="numeric"
                                                             className={`w-full h-[44px] sm:h-[46px] bg-white border rounded-[10px] px-3 text-[13px] text-[#44475b] placeholder-[#8b8b8b] focus:outline-none transition-colors ${errors[`${item.id}_reLoanAmount`] ? "border-red-500 focus:border-red-500" : "border-[#e9e9e9] focus:border-[#04b488]"
                                                                 }`}
                                                             placeholder="₹ Amount"
                                                             value={item.reLoanAmount !== undefined ? item.reLoanAmount : ""}
-                                                            onChange={(e) => updateAssetField(asset.id, item.id, "reLoanAmount", e.target.value)}
+                                                            onChange={(e) => updateAssetField(asset.id, item.id, "reLoanAmount", formatIndianAmount(e.target.value))}
                                                         />
                                                         {errors[`${item.id}_reLoanAmount`] && <p className="text-red-500 text-[11px] mt-1">{errors[`${item.id}_reLoanAmount`]}</p>}
                                                     </div>
 
                                                     <div className="mb-3">
                                                         <label className="block text-[13px] font-medium text-[#44475b] mb-2">
-                                                            Rate of Interest on Loan (%) <span className="text-red-600"> *</span>
+                                                            Rate of Interest on Loan (%)
                                                         </label>
                                                         <input
                                                             id={`${item.id}_reLoanRoi`}
@@ -1754,7 +1809,7 @@ export default function ExistingInvestmentsStep({
 
                                                     <div className="mb-3">
                                                         <label className="block text-[13px] font-medium text-[#44475b] mb-2">
-                                                            Avg Rate of Return (%) <span className="text-red-600"> *</span>
+                                                            Avg Rate of Return (%)
                                                         </label>
                                                         <input
                                                             id={`${item.id}_reExpectedReturn`}
@@ -1798,7 +1853,7 @@ export default function ExistingInvestmentsStep({
 
                                                     <div className="mb-3">
                                                         <label className="block text-[13px] font-medium text-[#44475b] mb-2">
-                                                            Quantity (Grams) <span className="text-red-600"> *</span>
+                                                            Quantity (Grams)
                                                         </label>
                                                         <input
                                                             id={`${item.id}_goldQuantity`}
@@ -1814,7 +1869,7 @@ export default function ExistingInvestmentsStep({
 
                                                     <div className="mb-3">
                                                         <label className="block text-[13px] font-medium text-[#44475b] mb-2">
-                                                            Purchase Year <span className="text-red-600"> *</span>
+                                                            Purchase Year
                                                         </label>
                                                         <input
                                                             id={`${item.id}_goldPurchaseYear`}
@@ -1834,12 +1889,13 @@ export default function ExistingInvestmentsStep({
                                                         </label>
                                                         <input
                                                             id={`${item.id}_goldPurchaseValue`}
-                                                            type="number"
+                                                            type="text"
+                                                            inputMode="numeric"
                                                             className={`w-full h-[44px] sm:h-[46px] bg-white border rounded-[10px] px-3 text-[13px] text-[#44475b] placeholder-[#8b8b8b] focus:outline-none transition-colors ${errors[`${item.id}_goldPurchaseValue`] ? "border-red-500 focus:border-red-500" : "border-[#e9e9e9] focus:border-[#04b488]"
                                                                 }`}
                                                             placeholder="₹ Value"
                                                             value={item.goldPurchaseValue || ""}
-                                                            onChange={(e) => updateAssetField(asset.id, item.id, "goldPurchaseValue", e.target.value)}
+                                                            onChange={(e) => updateAssetField(asset.id, item.id, "goldPurchaseValue", formatIndianAmount(e.target.value))}
                                                         />
                                                         {errors[`${item.id}_goldPurchaseValue`] && <p className="text-red-500 text-[11px] mt-1">{errors[`${item.id}_goldPurchaseValue`]}</p>}
                                                     </div>
@@ -1850,12 +1906,13 @@ export default function ExistingInvestmentsStep({
                                                         </label>
                                                         <input
                                                             id={`${item.id}_goldCurrentValue`}
-                                                            type="number"
+                                                            type="text"
+                                                            inputMode="numeric"
                                                             className={`w-full h-[44px] sm:h-[46px] bg-white border rounded-[10px] px-3 text-[13px] text-[#44475b] placeholder-[#8b8b8b] focus:outline-none transition-colors ${errors[`${item.id}_goldCurrentValue`] ? "border-red-500 focus:border-red-500" : "border-[#e9e9e9] focus:border-[#04b488]"
                                                                 }`}
                                                             placeholder="₹ Value"
                                                             value={item.goldCurrentValue || ""}
-                                                            onChange={(e) => updateAssetField(asset.id, item.id, "goldCurrentValue", e.target.value)}
+                                                            onChange={(e) => updateAssetField(asset.id, item.id, "goldCurrentValue", formatIndianAmount(e.target.value))}
                                                         />
                                                         {errors[`${item.id}_goldCurrentValue`] && <p className="text-red-500 text-[11px] mt-1">{errors[`${item.id}_goldCurrentValue`]}</p>}
                                                     </div>
@@ -1906,7 +1963,7 @@ export default function ExistingInvestmentsStep({
 
                                                     <div className="mb-3">
                                                         <label className="block text-[13px] font-medium text-[#44475b] mb-2">
-                                                            Quantity (Grams) <span className="text-red-600"> *</span>
+                                                            Quantity (Grams)
                                                         </label>
                                                         <input
                                                             id={`${item.id}_silverQuantity`}
@@ -1922,7 +1979,7 @@ export default function ExistingInvestmentsStep({
 
                                                     <div className="mb-3">
                                                         <label className="block text-[13px] font-medium text-[#44475b] mb-2">
-                                                            Purchase Year <span className="text-red-600"> *</span>
+                                                            Purchase Year
                                                         </label>
                                                         <input
                                                             id={`${item.id}_silverPurchaseYear`}
@@ -1942,12 +1999,13 @@ export default function ExistingInvestmentsStep({
                                                         </label>
                                                         <input
                                                             id={`${item.id}_silverPurchaseValue`}
-                                                            type="number"
+                                                            type="text"
+                                                            inputMode="numeric"
                                                             className={`w-full h-[44px] sm:h-[46px] bg-white border rounded-[10px] px-3 text-[13px] text-[#44475b] placeholder-[#8b8b8b] focus:outline-none transition-colors ${errors[`${item.id}_silverPurchaseValue`] ? "border-red-500 focus:border-red-500" : "border-[#e9e9e9] focus:border-[#04b488]"
                                                                 }`}
                                                             placeholder="₹ Value"
                                                             value={item.silverPurchaseValue || ""}
-                                                            onChange={(e) => updateAssetField(asset.id, item.id, "silverPurchaseValue", e.target.value)}
+                                                            onChange={(e) => updateAssetField(asset.id, item.id, "silverPurchaseValue", formatIndianAmount(e.target.value))}
                                                         />
                                                         {errors[`${item.id}_silverPurchaseValue`] && <p className="text-red-500 text-[11px] mt-1">{errors[`${item.id}_silverPurchaseValue`]}</p>}
                                                     </div>
@@ -1958,12 +2016,13 @@ export default function ExistingInvestmentsStep({
                                                         </label>
                                                         <input
                                                             id={`${item.id}_silverCurrentValue`}
-                                                            type="number"
+                                                            type="text"
+                                                            inputMode="numeric"
                                                             className={`w-full h-[44px] sm:h-[46px] bg-white border rounded-[10px] px-3 text-[13px] text-[#44475b] placeholder-[#8b8b8b] focus:outline-none transition-colors ${errors[`${item.id}_silverCurrentValue`] ? "border-red-500 focus:border-red-500" : "border-[#e9e9e9] focus:border-[#04b488]"
                                                                 }`}
                                                             placeholder="₹ Value"
                                                             value={item.silverCurrentValue || ""}
-                                                            onChange={(e) => updateAssetField(asset.id, item.id, "silverCurrentValue", e.target.value)}
+                                                            onChange={(e) => updateAssetField(asset.id, item.id, "silverCurrentValue", formatIndianAmount(e.target.value))}
                                                         />
                                                         {errors[`${item.id}_silverCurrentValue`] && <p className="text-red-500 text-[11px] mt-1">{errors[`${item.id}_silverCurrentValue`]}</p>}
                                                     </div>
@@ -2037,19 +2096,19 @@ export default function ExistingInvestmentsStep({
                                                             />
                                                             {errors[`${item.id}_otherDate`] && <p className="text-red-500 text-[11px] mt-1">{errors[`${item.id}_otherDate`]}</p>}
                                                         </div>
-
                                                         <div className="mb-3">
                                                             <label className="block text-[13px] font-medium text-[#44475b] mb-2">
                                                                 Invested Value <span className="text-red-600"> *</span>
                                                             </label>
                                                             <input
                                                                 id={`${item.id}_otherAmount`}
-                                                                type="number"
+                                                                type="text"
+                                                                inputMode="numeric"
                                                                 className={`w-full h-[44px] sm:h-[46px] bg-white border rounded-[10px] px-3 text-[13px] text-[#44475b] placeholder-[#8b8b8b] focus:outline-none transition-colors ${errors[`${item.id}_otherAmount`] ? "border-red-500 focus:border-red-500" : "border-[#e9e9e9] focus:border-[#04b488]"
                                                                     }`}
                                                                 placeholder="₹ Cost"
                                                                 value={item.otherAmount || ""}
-                                                                onChange={(e) => updateAssetField(asset.id, item.id, "otherAmount", e.target.value)}
+                                                                onChange={(e) => updateAssetField(asset.id, item.id, "otherAmount", formatIndianAmount(e.target.value))}
                                                             />
                                                             {errors[`${item.id}_otherAmount`] && <p className="text-red-500 text-[11px] mt-1">{errors[`${item.id}_otherAmount`]}</p>}
                                                         </div>
@@ -2060,12 +2119,13 @@ export default function ExistingInvestmentsStep({
                                                             </label>
                                                             <input
                                                                 id={`${item.id}_otherCurrentValue`}
-                                                                type="number"
+                                                                type="text"
+                                                                inputMode="numeric"
                                                                 className={`w-full h-[44px] sm:h-[46px] bg-white border rounded-[10px] px-3 text-[13px] text-[#44475b] placeholder-[#8b8b8b] focus:outline-none transition-colors ${errors[`${item.id}_otherCurrentValue`] ? "border-red-500 focus:border-red-500" : "border-[#e9e9e9] focus:border-[#04b488]"
                                                                     }`}
                                                                 placeholder="₹ Value"
                                                                 value={item.otherCurrentValue || ""}
-                                                                onChange={(e) => updateAssetField(asset.id, item.id, "otherCurrentValue", e.target.value)}
+                                                                onChange={(e) => updateAssetField(asset.id, item.id, "otherCurrentValue", formatIndianAmount(e.target.value))}
                                                             />
                                                             {errors[`${item.id}_otherCurrentValue`] && <p className="text-red-500 text-[11px] mt-1">{errors[`${item.id}_otherCurrentValue`]}</p>}
                                                         </div>
@@ -2142,6 +2202,7 @@ export default function ExistingInvestmentsStep({
                 <StepActions
                     showBack={showBack}
                     onBack={onBack}
+                    showSkip={false}
                     onContinue={handleContinue}
                     isSubmitting={isSubmitting}
                 />

@@ -1,6 +1,7 @@
-import { useState, useEffect, type ReactNode } from "react";
+import { useState, useEffect, useCallback, type ReactNode } from "react";
 import { Trash2, Plus } from "lucide-react";
 import StepActions from "./StepActions";
+import { formatIndianAmount, parseIndianAmount } from "./formatters";
 
 interface Item {
   id: number;
@@ -36,6 +37,8 @@ interface TaxSavingItem {
 interface FinancialProfileStepProps {
   profileId?: string | null;
   financialProfileId?: string | null;
+  setFinancialProfileId?: (id: string | null) => void;
+  initialData?: any;
   professionalData?: {
     occupation: string;
     pvtOrGovt: string;
@@ -57,6 +60,8 @@ interface FinancialProfileStepProps {
 export default function FinancialProfileStep({
   profileId,
   financialProfileId,
+  setFinancialProfileId,
+  initialData,
   professionalData,
   onNext,
   onBack,
@@ -64,92 +69,6 @@ export default function FinancialProfileStep({
 }: FinancialProfileStepProps) {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [errors, setErrors] = useState<Record<string, string>>({});
-
-  useEffect(() => {
-    if (!profileId) return;
-    fetch("http://localhost:5000/api/financial")
-      .then((res) => res.json())
-      .then((resData) => {
-        if (resData.success && Array.isArray(resData.data)) {
-          const profile = resData.data.find(
-            (p: any) => p.personalProfileId === profileId
-          );
-          if (profile) {
-            if (Array.isArray(profile.grossInflow) && profile.grossInflow.length > 0) {
-              setIncome(
-                profile.grossInflow.map((item: any, idx: number) => ({
-                  id: item._id || idx,
-                  title: item.sourceOfInflow || "",
-                  amount: item.monthlyAmount !== null && item.monthlyAmount !== undefined ? String(item.monthlyAmount) : "",
-                }))
-              );
-            }
-            if (Array.isArray(profile.monthlyDeductions) && profile.monthlyDeductions.length > 0) {
-              setDeductions(
-                profile.monthlyDeductions.map((item: any, idx: number) => ({
-                  id: item._id || idx,
-                  title: item.deductionDetail || "",
-                  amount: item.amount !== null && item.amount !== undefined ? String(item.amount) : "",
-                }))
-              );
-            }
-            if (Array.isArray(profile.monthlyExpenses) && profile.monthlyExpenses.length > 0) {
-              setExpenses(
-                profile.monthlyExpenses.map((item: any, idx: number) => ({
-                  id: item._id || idx,
-                  title: item.expenseDetail || "",
-                  amount: item.amount !== null && item.amount !== undefined ? String(item.amount) : "",
-                }))
-              );
-            }
-            if (Array.isArray(profile.monthlyInvestments) && profile.monthlyInvestments.length > 0) {
-              setInvestments(
-                profile.monthlyInvestments.map((item: any, idx: number) => ({
-                  id: item._id || idx,
-                  title: item.investmentName || "",
-                  amount: item.monthlyAmount !== null && item.monthlyAmount !== undefined ? String(item.monthlyAmount) : "",
-                }))
-              );
-            }
-            if (Array.isArray(profile.emi) && profile.emi.length > 0) {
-              setEmis(
-                profile.emi.map((item: any, idx: number) => ({
-                  id: item._id || idx,
-                  loanType: item.loanType || "",
-                  outstanding: item.outstandingLoanAmt !== null && item.outstandingLoanAmt !== undefined ? String(item.outstandingLoanAmt) : "",
-                  emi: item.monthlyEmi !== null && item.monthlyEmi !== undefined ? String(item.monthlyEmi) : "",
-                  roi: item.roi !== null && item.roi !== undefined ? String(item.roi) : "",
-                }))
-              );
-            }
-            if (Array.isArray(profile.insurancePremium) && profile.insurancePremium.length > 0) {
-              setEnsurepre(
-                profile.insurancePremium.map((item: any, idx: number) => ({
-                  id: item._id || idx,
-                  policyName: item.policyName || "Policy",
-                  policyNumber: item.policyNumber || "",
-                  insuranceType: item.insuranceType || "",
-                  premiumType: item.premiumType || "Annual",
-                  premium: item.premium !== null && item.premium !== undefined ? String(item.premium) : "",
-                  sumInsured: item.sumInsured !== null && item.sumInsured !== undefined ? String(item.sumInsured) : "",
-                }))
-              );
-            }
-            if (Array.isArray(profile.taxSavingInvestments) && profile.taxSavingInvestments.length > 0) {
-              setOthertax(
-                profile.taxSavingInvestments.map((item: any, idx: number) => ({
-                  id: item._id || idx,
-                  date: item.date ? item.date.split("T")[0] : "",
-                  investmentName: item.investmentName || "",
-                  amount: item.amount !== null && item.amount !== undefined ? String(item.amount) : "",
-                }))
-              );
-            }
-          }
-        }
-      })
-      .catch((err) => console.error("Error prefilling financial profile:", err));
-  }, [profileId]);
 
   const [income, setIncome] = useState<Item[]>([
     {
@@ -162,6 +81,240 @@ export default function FinancialProfileStep({
   const [deductions, setDeductions] = useState<Item[]>([]);
   const [Investments, setInvestments] = useState<Item[]>([]);
   const [expenses, setExpenses] = useState<Item[]>([]);
+  const [emis, setEmis] = useState<EMIItem[]>([]);
+  const [insurepre, setEnsurepre] = useState<InsuranceItem[]>([]);
+  const [othertax, setOthertax] = useState<TaxSavingItem[]>([]);
+
+  const populateData = useCallback((profile: any) => {
+    if (!profile) return;
+
+    // Gross Inflow
+    const rawInflow = profile.grossInflow || profile.inflow;
+    if (Array.isArray(rawInflow) && rawInflow.length > 0) {
+      const mapped = rawInflow
+        .filter((item: any) => item && (item.sourceOfInflow || item.title || item.source || item.monthlyAmount || item.amount))
+        .map((item: any, idx: number) => ({
+          id: item._id || item.id || idx + 1,
+          title: item.sourceOfInflow || item.title || item.source || item.name || "",
+          amount: (item.monthlyAmount !== null && item.monthlyAmount !== undefined && item.monthlyAmount !== "")
+            ? formatIndianAmount(item.monthlyAmount)
+            : ((item.amount !== null && item.amount !== undefined && item.amount !== "")
+                ? formatIndianAmount(item.amount)
+                : ""),
+        }));
+      if (mapped.length > 0) {
+        setIncome(mapped);
+      }
+    }
+
+    // Deductions
+    const rawDeductions = profile.monthlyDeductions || profile.deductions;
+    if (Array.isArray(rawDeductions) && rawDeductions.length > 0) {
+      const mapped = rawDeductions
+        .filter((item: any) => item && (item.deductionDetail || item.title || item.detail || item.amount))
+        .map((item: any, idx: number) => ({
+          id: item._id || item.id || idx + 1,
+          title: item.deductionDetail || item.title || item.detail || item.name || "",
+          amount: (item.amount !== null && item.amount !== undefined && item.amount !== "")
+            ? formatIndianAmount(item.amount)
+            : ((item.monthlyAmount !== null && item.monthlyAmount !== undefined && item.monthlyAmount !== "")
+                ? formatIndianAmount(item.monthlyAmount)
+                : ""),
+        }));
+      if (mapped.length > 0) {
+        setDeductions(mapped);
+      }
+    }
+
+    // Expenses
+    const rawExpenses = profile.monthlyExpenses || profile.expenses;
+    if (Array.isArray(rawExpenses) && rawExpenses.length > 0) {
+      const mapped = rawExpenses
+        .filter((item: any) => item && (item.expenseDetail || item.title || item.detail || item.amount))
+        .map((item: any, idx: number) => ({
+          id: item._id || item.id || idx + 1,
+          title: item.expenseDetail || item.title || item.detail || item.name || "",
+          amount: (item.amount !== null && item.amount !== undefined && item.amount !== "")
+            ? formatIndianAmount(item.amount)
+            : ((item.monthlyAmount !== null && item.monthlyAmount !== undefined && item.monthlyAmount !== "")
+                ? formatIndianAmount(item.monthlyAmount)
+                : ""),
+        }));
+      if (mapped.length > 0) {
+        setExpenses(mapped);
+      }
+    }
+
+    // Investments
+    const rawInvestments = profile.monthlyInvestments || profile.investments;
+    if (Array.isArray(rawInvestments) && rawInvestments.length > 0) {
+      const mapped = rawInvestments
+        .filter((item: any) => item && (item.investmentName || item.title || item.monthlyAmount || item.amount))
+        .map((item: any, idx: number) => ({
+          id: item._id || item.id || idx + 1,
+          title: item.investmentName || item.title || item.name || "",
+          amount: (item.monthlyAmount !== null && item.monthlyAmount !== undefined && item.monthlyAmount !== "")
+            ? formatIndianAmount(item.monthlyAmount)
+            : ((item.amount !== null && item.amount !== undefined && item.amount !== "")
+                ? formatIndianAmount(item.amount)
+                : ""),
+        }));
+      if (mapped.length > 0) {
+        setInvestments(mapped);
+      }
+    }
+
+    // EMI
+    const rawEmi = profile.emi || profile.emis;
+    if (Array.isArray(rawEmi) && rawEmi.length > 0) {
+      const mapped = rawEmi
+        .filter((item: any) => item && (item.loanType || item.monthlyEmi || item.emi))
+        .map((item: any, idx: number) => ({
+          id: item._id || item.id || idx + 1,
+          loanType: item.loanType || "",
+          outstanding: item.outstandingLoanAmt !== null && item.outstandingLoanAmt !== undefined
+            ? formatIndianAmount(item.outstandingLoanAmt)
+            : (item.outstanding ? formatIndianAmount(item.outstanding) : ""),
+          emi: item.monthlyEmi !== null && item.monthlyEmi !== undefined
+            ? formatIndianAmount(item.monthlyEmi)
+            : (item.emi ? formatIndianAmount(item.emi) : ""),
+          roi: item.roi !== null && item.roi !== undefined ? String(item.roi) : "",
+        }));
+      if (mapped.length > 0) {
+        setEmis(mapped);
+      }
+    }
+
+    // Insurance
+    const rawInsurance = profile.insurancePremium || profile.insurance;
+    if (Array.isArray(rawInsurance) && rawInsurance.length > 0) {
+      const mapped = rawInsurance
+        .filter((item: any) => item && (item.policyName || item.premium || item.sumInsured))
+        .map((item: any, idx: number) => ({
+          id: item._id || item.id || idx + 1,
+          policyName: item.policyName || "Policy",
+          policyNumber: item.policyNumber || "",
+          insuranceType: item.insuranceType || "",
+          premiumType: item.premiumType || "Annual",
+          premium: item.premium !== null && item.premium !== undefined ? formatIndianAmount(item.premium) : "",
+          sumInsured: item.sumInsured !== null && item.sumInsured !== undefined ? formatIndianAmount(item.sumInsured) : "",
+        }));
+      if (mapped.length > 0) {
+        setEnsurepre(mapped);
+      }
+    }
+
+    // Tax Saving
+    const rawTax = profile.taxSavingInvestments || profile.taxSavings;
+    if (Array.isArray(rawTax) && rawTax.length > 0) {
+      const mapped = rawTax
+        .filter((item: any) => item && (item.investmentName || item.amount))
+        .map((item: any, idx: number) => ({
+          id: item._id || item.id || idx + 1,
+          date: item.date ? item.date.split("T")[0] : "",
+          investmentName: item.investmentName || "",
+          amount: item.amount !== null && item.amount !== undefined ? formatIndianAmount(item.amount) : "",
+        }));
+      if (mapped.length > 0) {
+        setOthertax(mapped);
+      }
+    }
+  }, []);
+
+  useEffect(() => {
+    if (initialData) {
+      populateData(initialData);
+    }
+  }, [initialData, populateData]);
+
+  useEffect(() => {
+    if (!profileId && !financialProfileId) return;
+
+    let active = true;
+
+    const fetchJson = async (path: string) => {
+      const urls: string[] = [];
+      if (typeof window !== "undefined" && (window.location.hostname === "localhost" || window.location.hostname === "127.0.0.1")) {
+        urls.push(`http://localhost:5000${path}`);
+      }
+      urls.push(`https://k2b02x8c-5000.inc1.devtunnels.ms${path}`);
+
+      for (const url of urls) {
+        try {
+          const res = await fetch(url, {
+            headers: {
+              "Content-Type": "application/json",
+              "X-Tunnel-Skip-Anti-Abuse-Page": "true",
+            },
+          });
+          if (res.ok) {
+            const data = await res.json();
+            return data;
+          }
+        } catch {
+          // try next
+        }
+      }
+      return null;
+    };
+
+    const fetchFinancialData = async () => {
+      // 1. Try fetching directly by profileId
+      if (profileId) {
+        try {
+          const resData = await fetchJson(`/api/financial/profile/${profileId}`);
+          if (active && resData && resData.success && resData.data) {
+            populateData(resData.data);
+            if (setFinancialProfileId && resData.data._id) {
+              setFinancialProfileId(resData.data._id);
+            }
+            return;
+          }
+        } catch (e) {
+          console.warn("Could not fetch by profileId, trying fallback:", e);
+        }
+      }
+
+      // 2. Try fetching by financialProfileId if profileId route didn't return
+      if (financialProfileId) {
+        try {
+          const resData = await fetchJson(`/api/financial/${financialProfileId}`);
+          if (active && resData && resData.success && resData.data) {
+            populateData(resData.data);
+            return;
+          }
+        } catch (e) {
+          console.warn("Could not fetch by financialProfileId, trying fallback:", e);
+        }
+      }
+
+      // 3. Fallback: fetch all and find
+      try {
+        const resData = await fetchJson(`/api/financial`);
+        if (active && resData && resData.success && Array.isArray(resData.data)) {
+          const profile = resData.data.find(
+            (p: any) =>
+              (financialProfileId && String(p._id) === String(financialProfileId)) ||
+              (profileId && String(p.personalProfileId?._id || p.personalProfileId) === String(profileId))
+          );
+          if (profile) {
+            populateData(profile);
+            if (setFinancialProfileId && profile._id) {
+              setFinancialProfileId(profile._id);
+            }
+          }
+        }
+      } catch (err) {
+        console.error("Error prefilling financial profile:", err);
+      }
+    };
+
+    fetchFinancialData();
+
+    return () => {
+      active = false;
+    };
+  }, [profileId, financialProfileId, populateData, setFinancialProfileId]);
 
   const updateItem = (
     list: Item[],
@@ -198,8 +351,6 @@ export default function FinancialProfileStep({
     setList(list.filter((item) => item.id !== id));
   };
 
-  const [emis, setEmis] = useState<EMIItem[]>([]);
-
   const updateEMI = (
     id: number,
     field: keyof EMIItem,
@@ -228,8 +379,6 @@ export default function FinancialProfileStep({
   const removeEMI = (id: number) => {
     setEmis((prev) => prev.filter((item) => item.id !== id));
   };
-
-  const [insurepre, setEnsurepre] = useState<InsuranceItem[]>([]);
 
   const updateinsurePremium = (
     id: number,
@@ -261,8 +410,6 @@ export default function FinancialProfileStep({
   const removeinsurePremium = (id: number) => {
     setEnsurepre((prev) => prev.filter((item) => item.id !== id));
   };
-
-  const [othertax, setOthertax] = useState<TaxSavingItem[]>([]);
 
   const updateOthertax = (
     id: number,
@@ -303,15 +450,15 @@ export default function FinancialProfileStep({
     // 1. Gross Inflow validation
     if (!income[0] || !income[0].title.trim()) {
       validationErrors[`income_0_title`] = "Source of inflow is required.";
-    } else if (!/[a-zA-Z]/.test(income[0].title)) {
-      validationErrors[`income_0_title`] = "Source of inflow cannot be numeric.";
-    } else if (!/^[a-zA-Z0-9\s.\-\/()&]+$/.test(income[0].title)) {
-      validationErrors[`income_0_title`] = "Source of inflow must be alphanumeric.";
+    } else if (/\d/.test(income[0].title)) {
+      validationErrors[`income_0_title`] = "Source of inflow must not contain numbers.";
+    } else if (!/^[a-zA-Z\s]+$/.test(income[0].title.trim())) {
+      validationErrors[`income_0_title`] = "Source of inflow must contain only alphabets and spaces.";
     }
 
     if (!income[0] || !income[0].amount.trim()) {
       validationErrors[`income_0_amount`] = "Monthly amount is required.";
-    } else if (Number(income[0].amount) <= 0) {
+    } else if (parseIndianAmount(income[0].amount) <= 0) {
       validationErrors[`income_0_amount`] = "Amount must be greater than zero.";
     }
 
@@ -322,14 +469,17 @@ export default function FinancialProfileStep({
         if (hasTitle || hasAmount) {
           if (!hasTitle) {
             validationErrors[`income_${idx}_title`] = "Source of inflow is required.";
-          } else if (!/[a-zA-Z]/.test(item.title)) {
-            validationErrors[`income_${idx}_title`] = "Source of inflow cannot be numeric.";
-          } else if (!/^[a-zA-Z0-9\s.\-\/()&]+$/.test(item.title)) {
-            validationErrors[`income_${idx}_title`] = "Source of inflow must be alphanumeric.";
+          } else if (/\d/.test(item.title)) {
+            validationErrors[`income_${idx}_title`] = "Source of inflow must not contain numbers.";
+          } else if (!/^[a-zA-Z\s]+$/.test(item.title.trim())) {
+            validationErrors[`income_${idx}_title`] = "Source of inflow must contain only alphabets and spaces.";
           }
 
-          if (!hasAmount) validationErrors[`income_${idx}_amount`] = "Monthly amount is required.";
-          else if (Number(item.amount) <= 0) validationErrors[`income_${idx}_amount`] = "Amount must be greater than zero.";
+          if (!hasAmount) {
+            validationErrors[`income_${idx}_amount`] = "Monthly amount is required.";
+          } else if (parseIndianAmount(item.amount) <= 0) {
+            validationErrors[`income_${idx}_amount`] = "Amount must be greater than zero.";
+          }
         }
       }
     });
@@ -338,15 +488,15 @@ export default function FinancialProfileStep({
     deductions.forEach((item, idx) => {
       if (!item.title.trim()) {
         validationErrors[`deduction_${idx}_title`] = "Deduction detail is required.";
-      } else if (!/[a-zA-Z]/.test(item.title)) {
-        validationErrors[`deduction_${idx}_title`] = "Deduction detail cannot be numeric.";
-      } else if (!/^[a-zA-Z0-9\s.\-\/()&]+$/.test(item.title)) {
-        validationErrors[`deduction_${idx}_title`] = "Deduction detail must be alphanumeric.";
+      } else if (/\d/.test(item.title)) {
+        validationErrors[`deduction_${idx}_title`] = "Deduction detail must not contain numbers.";
+      } else if (!/^[a-zA-Z\s]+$/.test(item.title.trim())) {
+        validationErrors[`deduction_${idx}_title`] = "Deduction detail must contain only alphabets and spaces.";
       }
 
       if (!item.amount.trim()) {
         validationErrors[`deduction_${idx}_amount`] = "Amount is required.";
-      } else if (Number(item.amount) <= 0) {
+      } else if (parseIndianAmount(item.amount) <= 0) {
         validationErrors[`deduction_${idx}_amount`] = "Amount must be greater than zero.";
       }
     });
@@ -355,15 +505,15 @@ export default function FinancialProfileStep({
     expenses.forEach((item, idx) => {
       if (!item.title.trim()) {
         validationErrors[`expense_${idx}_title`] = "Expense detail is required.";
-      } else if (!/[a-zA-Z]/.test(item.title)) {
-        validationErrors[`expense_${idx}_title`] = "Expense detail cannot be numeric.";
-      } else if (!/^[a-zA-Z0-9\s.\-\/()&]+$/.test(item.title)) {
-        validationErrors[`expense_${idx}_title`] = "Expense detail must be alphanumeric.";
+      } else if (/\d/.test(item.title)) {
+        validationErrors[`expense_${idx}_title`] = "Expense detail must not contain numbers.";
+      } else if (!/^[a-zA-Z\s]+$/.test(item.title.trim())) {
+        validationErrors[`expense_${idx}_title`] = "Expense detail must contain only alphabets and spaces.";
       }
 
       if (!item.amount.trim()) {
         validationErrors[`expense_${idx}_amount`] = "Amount is required.";
-      } else if (Number(item.amount) <= 0) {
+      } else if (parseIndianAmount(item.amount) <= 0) {
         validationErrors[`expense_${idx}_amount`] = "Amount must be greater than zero.";
       }
     });
@@ -372,16 +522,24 @@ export default function FinancialProfileStep({
     emis.forEach((item, idx) => {
       if (!item.loanType) {
         validationErrors[`emi_${idx}_loanType`] = "Loan type is required.";
-      } else if (!/[a-zA-Z]/.test(item.loanType)) {
-        validationErrors[`emi_${idx}_loanType`] = "Loan type cannot be numeric.";
-      } else if (!/^[a-zA-Z0-9\s.\-\/()&]+$/.test(item.loanType)) {
-        validationErrors[`emi_${idx}_loanType`] = "Loan type must be alphanumeric.";
+      }
+
+      if (item.outstanding.trim() && parseIndianAmount(item.outstanding) < 0) {
+        validationErrors[`emi_${idx}_outstanding`] = "Outstanding amount must be valid.";
       }
 
       if (!item.emi.trim()) {
         validationErrors[`emi_${idx}_emi`] = "Monthly EMI is required.";
-      } else if (Number(item.emi) <= 0) {
+      } else if (parseIndianAmount(item.emi) <= 0) {
         validationErrors[`emi_${idx}_emi`] = "EMI must be greater than zero.";
+      }
+
+      if (item.roi.trim()) {
+        if (isNaN(Number(item.roi))) {
+          validationErrors[`emi_${idx}_roi`] = "ROI must be a valid number.";
+        } else if (Number(item.roi) <= 0 || Number(item.roi) > 100) {
+          validationErrors[`emi_${idx}_roi`] = "ROI must be between 0 and 100%.";
+        }
       }
     });
 
@@ -389,15 +547,15 @@ export default function FinancialProfileStep({
     Investments.forEach((item, idx) => {
       if (!item.title.trim()) {
         validationErrors[`investment_${idx}_title`] = "Investment name is required.";
-      } else if (!/[a-zA-Z]/.test(item.title)) {
-        validationErrors[`investment_${idx}_title`] = "Investment name cannot be numeric.";
-      } else if (!/^[a-zA-Z0-9\s.\-\/()&]+$/.test(item.title)) {
-        validationErrors[`investment_${idx}_title`] = "Investment name must be alphanumeric.";
+      } else if (/\d/.test(item.title)) {
+        validationErrors[`investment_${idx}_title`] = "Investment name must not contain numbers.";
+      } else if (!/^[a-zA-Z\s]+$/.test(item.title.trim())) {
+        validationErrors[`investment_${idx}_title`] = "Investment name must contain only alphabets and spaces.";
       }
 
       if (!item.amount.trim()) {
         validationErrors[`investment_${idx}_amount`] = "Monthly amount is required.";
-      } else if (Number(item.amount) <= 0) {
+      } else if (parseIndianAmount(item.amount) <= 0) {
         validationErrors[`investment_${idx}_amount`] = "Amount must be greater than zero.";
       }
     });
@@ -406,23 +564,33 @@ export default function FinancialProfileStep({
     insurepre.forEach((item, idx) => {
       if (!item.policyName.trim()) {
         validationErrors[`insurance_${idx}_policyName`] = "Policy name is required.";
+      } else if (/\d/.test(item.policyName)) {
+        validationErrors[`insurance_${idx}_policyName`] = "Policy name must not contain numbers.";
+      } else if (!/^[a-zA-Z\s]+$/.test(item.policyName.trim())) {
+        validationErrors[`insurance_${idx}_policyName`] = "Policy name must contain only alphabets and spaces.";
       }
-      if (!item.policyNumber.trim()) {
-        validationErrors[`insurance_${idx}_policyNumber`] = "Policy number is required.";
+
+      if (item.policyNumber.trim() && !/^\d+$/.test(item.policyNumber.trim())) {
+        validationErrors[`insurance_${idx}_policyNumber`] = "Policy number must contain only numbers.";
       }
+
       if (!item.insuranceType) {
         validationErrors[`insurance_${idx}_insuranceType`] = "Insurance type is required.";
       }
       if (!item.premiumType) {
         validationErrors[`insurance_${idx}_premiumType`] = "Premium type is required.";
       }
+
+      if (!item.premium.trim()) {
+        validationErrors[`insurance_${idx}_premium`] = "Premium is required.";
+      } else if (parseIndianAmount(item.premium) <= 0) {
+        validationErrors[`insurance_${idx}_premium`] = "Premium must be greater than zero.";
+      }
+
       if (!item.sumInsured.trim()) {
         validationErrors[`insurance_${idx}_sumInsured`] = "Sum insured is required.";
-      } else if (Number(item.sumInsured) <= 0) {
+      } else if (parseIndianAmount(item.sumInsured) <= 0) {
         validationErrors[`insurance_${idx}_sumInsured`] = "Sum insured must be greater than zero.";
-      }
-      if (item.premium.trim() && Number(item.premium) <= 0) {
-        validationErrors[`insurance_${idx}_premium`] = "Premium must be greater than zero.";
       }
     });
 
@@ -433,15 +601,15 @@ export default function FinancialProfileStep({
       }
       if (!item.investmentName.trim()) {
         validationErrors[`tax_${idx}_investmentName`] = "Investment name is required.";
-      } else if (!/[a-zA-Z]/.test(item.investmentName)) {
-        validationErrors[`tax_${idx}_investmentName`] = "Investment name cannot be numeric.";
-      } else if (!/^[a-zA-Z0-9\s.\-\/()&]+$/.test(item.investmentName)) {
-        validationErrors[`tax_${idx}_investmentName`] = "Investment name must be alphanumeric.";
+      } else if (/\d/.test(item.investmentName)) {
+        validationErrors[`tax_${idx}_investmentName`] = "Investment name must not contain numbers.";
+      } else if (!/^[a-zA-Z\s]+$/.test(item.investmentName.trim())) {
+        validationErrors[`tax_${idx}_investmentName`] = "Investment name must contain only alphabets and spaces.";
       }
 
       if (!item.amount.trim()) {
         validationErrors[`tax_${idx}_amount`] = "Amount is required.";
-      } else if (Number(item.amount) <= 0) {
+      } else if (parseIndianAmount(item.amount) <= 0) {
         validationErrors[`tax_${idx}_amount`] = "Amount must be greater than zero.";
       }
     });
@@ -465,29 +633,58 @@ export default function FinancialProfileStep({
         occupation: (professionalData?.occupation === "Other" || professionalData?.occupation === "Others")
           ? "Others"
           : professionalData?.occupation,
-        grossInflow: income.filter(i => i.title.trim()).map(i => ({ sourceOfInflow: i.title, monthlyAmount: Number(i.amount) })),
-        monthlyDeductions: deductions.filter(i => i.title.trim()).map(i => ({ deductionDetail: i.title, amount: Number(i.amount) })),
-        monthlyExpenses: expenses.filter(i => i.title.trim()).map(i => ({ expenseDetail: i.title, amount: Number(i.amount) })),
-        emi: emis.filter(i => i.loanType).map(i => ({ loanType: i.loanType, outstandingLoanAmt: Number(i.outstanding) || null, monthlyEmi: Number(i.emi), roi: Number(i.roi) || null })),
-        monthlyInvestments: Investments.filter(i => i.title.trim()).map(i => ({ investmentName: i.title, monthlyAmount: Number(i.amount) })),
-        insurancePremium: insurepre.filter(i => i.policyName.trim()).map(i => ({ policyName: i.policyName, insuranceType: i.insuranceType, premiumType: i.premiumType, premium: Number(i.premium) || null, sumInsured: Number(i.sumInsured) })),
-        taxSavingInvestments: othertax.filter(i => i.investmentName.trim()).map(i => ({ date: i.date ? new Date(i.date).toISOString() : new Date().toISOString(), investmentName: i.investmentName, amount: Number(i.amount) }))
+        grossInflow: income.filter(i => i.title.trim()).map(i => ({ sourceOfInflow: i.title, monthlyAmount: parseIndianAmount(i.amount) })),
+        monthlyDeductions: deductions.filter(i => i.title.trim()).map(i => ({ deductionDetail: i.title, amount: parseIndianAmount(i.amount) })),
+        monthlyExpenses: expenses.filter(i => i.title.trim()).map(i => ({ expenseDetail: i.title, amount: parseIndianAmount(i.amount) })),
+        emi: emis.filter(i => i.loanType).map(i => ({ loanType: i.loanType, outstandingLoanAmt: parseIndianAmount(i.outstanding) || null, monthlyEmi: parseIndianAmount(i.emi), roi: Number(i.roi) || null })),
+        monthlyInvestments: Investments.filter(i => i.title.trim()).map(i => ({ investmentName: i.title, monthlyAmount: parseIndianAmount(i.amount) })),
+        insurancePremium: insurepre.filter(i => i.policyName.trim()).map(i => ({ policyName: i.policyName, insuranceType: i.insuranceType, premiumType: i.premiumType, premium: parseIndianAmount(i.premium) || null, sumInsured: parseIndianAmount(i.sumInsured) })),
+        taxSavingInvestments: othertax.filter(i => i.investmentName.trim()).map(i => ({ date: i.date ? new Date(i.date).toISOString() : new Date().toISOString(), investmentName: i.investmentName, amount: parseIndianAmount(i.amount) }))
       };
 
-      const url = financialProfileId
-        ? `http://localhost:5000/api/financial/${financialProfileId}`
-        : "http://localhost:5000/api/financial";
+      const path = financialProfileId
+        ? `/api/financial/${financialProfileId}`
+        : `/api/financial`;
       const method = financialProfileId ? "PUT" : "POST";
 
-      const response = await fetch(url, {
-        method,
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(payload),
-      });
+      const urls: string[] = [];
+      if (typeof window !== "undefined" && (window.location.hostname === "localhost" || window.location.hostname === "127.0.0.1")) {
+        urls.push(`http://localhost:5000${path}`);
+      }
+      urls.push(`https://k2b02x8c-5000.inc1.devtunnels.ms${path}`);
 
-      if (!response.ok) {
-        const errBody = await response.json().catch(() => ({}));
-        throw new Error(errBody.msg || errBody.message || "Failed to submit financial profile details");
+      let response = null;
+      let lastErrMsg = "Failed to submit financial profile details";
+
+      for (const targetUrl of urls) {
+        try {
+          const res = await fetch(targetUrl, {
+            method,
+            headers: {
+              "Content-Type": "application/json",
+              "X-Tunnel-Skip-Anti-Abuse-Page": "true",
+            },
+            body: JSON.stringify(payload),
+          });
+          if (res.ok) {
+            response = res;
+            break;
+          } else {
+            const errBody = await res.json().catch(() => ({}));
+            lastErrMsg = errBody.msg || errBody.message || lastErrMsg;
+          }
+        } catch {
+          // try next
+        }
+      }
+
+      if (!response) {
+        throw new Error(lastErrMsg);
+      }
+
+      const resData = await response.json().catch(() => ({}));
+      if (resData.data && resData.data._id && setFinancialProfileId) {
+        setFinancialProfileId(resData.data._id);
       }
 
       if (onNext) onNext();
@@ -498,14 +695,14 @@ export default function FinancialProfileStep({
     }
   };
 
-  const grossInflowSum = income.reduce((acc, item) => acc + (Number(item.amount) || 0), 0);
-  const deductionsSum = deductions.reduce((acc, item) => acc + (Number(item.amount) || 0), 0);
+  const grossInflowSum = income.reduce((acc, item) => acc + parseIndianAmount(item.amount), 0);
+  const deductionsSum = deductions.reduce((acc, item) => acc + parseIndianAmount(item.amount), 0);
   const netInflowSum = grossInflowSum - deductionsSum;
-  const investmentsSum = Investments.reduce((acc, item) => acc + (Number(item.amount) || 0), 0);
-  const emisSum = emis.reduce((acc, item) => acc + (Number(item.emi) || 0), 0);
-  const insuranceSum = insurepre.reduce((acc, item) => acc + (Number(item.premium) || 0), 0);
-  const otherTaxSum = othertax.reduce((acc, item) => acc + (Number(item.amount) || 0), 0);
-  const expensesSum = expenses.reduce((acc, item) => acc + (Number(item.amount) || 0), 0);
+  const investmentsSum = Investments.reduce((acc, item) => acc + parseIndianAmount(item.amount), 0);
+  const emisSum = emis.reduce((acc, item) => acc + parseIndianAmount(item.emi), 0);
+  const insuranceSum = insurepre.reduce((acc, item) => acc + parseIndianAmount(item.premium), 0);
+  const otherTaxSum = othertax.reduce((acc, item) => acc + parseIndianAmount(item.amount), 0);
+  const expensesSum = expenses.reduce((acc, item) => acc + parseIndianAmount(item.amount), 0);
 
   const overallSurplus = netInflowSum - emisSum - insuranceSum - expensesSum - otherTaxSum - investmentsSum;
 
@@ -529,15 +726,17 @@ export default function FinancialProfileStep({
           <Row
             key={item.id}
             titleLabel="Source of Inflow"
-            titlePlaceholder="e.g. Salary 1 or Sales"
+            titlePlaceholder="e.g. Salary or Rental"
             amountLabel="Monthly Amount"
             item={item}
             onTitle={(value) => {
-              updateItem(income, setIncome, item.id, "title", value);
+              const filtered = value.replace(/[^a-zA-Z\s]/g, "");
+              updateItem(income, setIncome, item.id, "title", filtered);
               setErrors(prev => ({ ...prev, [`income_${idx}_title`]: "" }));
             }}
             onAmount={(value) => {
-              updateItem(income, setIncome, item.id, "amount", value);
+              const filtered = formatIndianAmount(value);
+              updateItem(income, setIncome, item.id, "amount", filtered);
               setErrors(prev => ({ ...prev, [`income_${idx}_amount`]: "" }));
             }}
             onDelete={() => {
@@ -566,15 +765,17 @@ export default function FinancialProfileStep({
           <Row
             key={item.id}
             titleLabel="Deduction Detail"
-            titlePlaceholder="e.g. Tax 80C or Rent"
+            titlePlaceholder="e.g. Provident Fund or Professional Tax"
             amountLabel="Amount"
             item={item}
             onTitle={(value) => {
-              updateItem(deductions, setDeductions, item.id, "title", value);
+              const filtered = value.replace(/[^a-zA-Z\s]/g, "");
+              updateItem(deductions, setDeductions, item.id, "title", filtered);
               setErrors(prev => ({ ...prev, [`deduction_${idx}_title`]: "" }));
             }}
             onAmount={(value) => {
-              updateItem(deductions, setDeductions, item.id, "amount", value);
+              const filtered = formatIndianAmount(value);
+              updateItem(deductions, setDeductions, item.id, "amount", filtered);
               setErrors(prev => ({ ...prev, [`deduction_${idx}_amount`]: "" }));
             }}
             onDelete={() => {
@@ -603,15 +804,17 @@ export default function FinancialProfileStep({
           <Row
             key={item.id}
             titleLabel="Expense Detail"
-            titlePlaceholder="e.g. Rent 2025 or Food"
+            titlePlaceholder="e.g. House Rent or Groceries"
             amountLabel="Amount"
             item={item}
             onTitle={(value) => {
-              updateItem(expenses, setExpenses, item.id, "title", value);
+              const filtered = value.replace(/[^a-zA-Z\s]/g, "");
+              updateItem(expenses, setExpenses, item.id, "title", filtered);
               setErrors(prev => ({ ...prev, [`expense_${idx}_title`]: "" }));
             }}
             onAmount={(value) => {
-              updateItem(expenses, setExpenses, item.id, "amount", value);
+              const filtered = formatIndianAmount(value);
+              updateItem(expenses, setExpenses, item.id, "amount", filtered);
               setErrors(prev => ({ ...prev, [`expense_${idx}_amount`]: "" }));
             }}
             onDelete={() => {
@@ -676,14 +879,23 @@ export default function FinancialProfileStep({
               <input
                 name={`emi_${idx}_outstanding`}
                 value={item.outstanding}
-                onChange={(e) => updateEMI(item.id, "outstanding", e.target.value)}
+                onChange={(e) => {
+                  updateEMI(item.id, "outstanding", formatIndianAmount(e.target.value));
+                  setErrors(prev => ({ ...prev, [`emi_${idx}_outstanding`]: "" }));
+                }}
                 onWheel={(e) => e.currentTarget.blur()}
-                onKeyDown={(e) => (e.key === "ArrowUp" || e.key === "ArrowDown") && e.preventDefault()}
-                className="w-full h-[44px] sm:h-[46px] bg-white border border-[#e9e9e9] rounded-[10px] px-3 text-[13px] text-[#44475b] placeholder-[#8b8b8b] focus:outline-none focus:border-[#04b488] transition-colors"
-                type="number"
+                onKeyDown={(e) => {
+                  if (e.ctrlKey || e.metaKey || e.altKey) return;
+                  if (e.key === "ArrowUp" || e.key === "ArrowDown") e.preventDefault();
+                  if (e.key.length === 1 && !/^\d$/.test(e.key)) e.preventDefault();
+                }}
+                className={`w-full h-[44px] sm:h-[46px] bg-white border rounded-[10px] px-3 text-[13px] text-[#44475b] placeholder-[#8b8b8b] focus:outline-none transition-colors ${errors[`emi_${idx}_outstanding`] ? "border-red-500 focus:border-red-500" : "border-[#e9e9e9] focus:border-[#04b488]"
+                  }`}
+                type="text"
+                inputMode="numeric"
                 placeholder="₹ Amount"
               />
-
+              {errors[`emi_${idx}_outstanding`] && <p className="text-red-500 text-[11px] mt-1">{errors[`emi_${idx}_outstanding`]}</p>}
             </div>
 
             {/* EMI */}
@@ -697,14 +909,19 @@ export default function FinancialProfileStep({
                 name={`emi_${idx}_emi`}
                 value={item.emi}
                 onChange={(e) => {
-                  updateEMI(item.id, "emi", e.target.value);
+                  updateEMI(item.id, "emi", formatIndianAmount(e.target.value));
                   setErrors(prev => ({ ...prev, [`emi_${idx}_emi`]: "" }));
                 }}
                 onWheel={(e) => e.currentTarget.blur()}
-                onKeyDown={(e) => (e.key === "ArrowUp" || e.key === "ArrowDown") && e.preventDefault()}
+                onKeyDown={(e) => {
+                  if (e.ctrlKey || e.metaKey || e.altKey) return;
+                  if (e.key === "ArrowUp" || e.key === "ArrowDown") e.preventDefault();
+                  if (e.key.length === 1 && !/^\d$/.test(e.key)) e.preventDefault();
+                }}
                 className={`w-full h-[44px] sm:h-[46px] bg-white border rounded-[10px] px-3 text-[13px] text-[#44475b] placeholder-[#8b8b8b] focus:outline-none transition-colors ${errors[`emi_${idx}_emi`] ? "border-red-500 focus:border-red-500" : "border-[#e9e9e9] focus:border-[#04b488]"
                   }`}
-                type="number"
+                type="text"
+                inputMode="numeric"
                 placeholder="₹ Required"
               />
               {errors[`emi_${idx}_emi`] && <p className="text-red-500 text-[11px] mt-1">{errors[`emi_${idx}_emi`]}</p>}
@@ -719,14 +936,24 @@ export default function FinancialProfileStep({
               <input
                 name={`emi_${idx}_roi`}
                 value={item.roi}
-                onChange={(e) => updateEMI(item.id, "roi", e.target.value)}
+                onChange={(e) => {
+                  const val = e.target.value.replace(/[^0-9.]/g, "").replace(/(\..*?)\..*/g, "$1");
+                  updateEMI(item.id, "roi", val);
+                  setErrors(prev => ({ ...prev, [`emi_${idx}_roi`]: "" }));
+                }}
                 onWheel={(e) => e.currentTarget.blur()}
-                onKeyDown={(e) => (e.key === "ArrowUp" || e.key === "ArrowDown") && e.preventDefault()}
-                className="w-full h-[44px] sm:h-[46px] bg-white border border-[#e9e9e9] rounded-[10px] px-3 text-[13px] text-[#44475b] placeholder-[#8b8b8b] focus:outline-none focus:border-[#04b488] transition-colors"
-                type="number"
+                onKeyDown={(e) => {
+                  if (e.ctrlKey || e.metaKey || e.altKey) return;
+                  if (e.key === "ArrowUp" || e.key === "ArrowDown") e.preventDefault();
+                  if (e.key.length === 1 && !/^[0-9.]$/.test(e.key)) e.preventDefault();
+                }}
+                className={`w-full h-[44px] sm:h-[46px] bg-white border rounded-[10px] px-3 text-[13px] text-[#44475b] placeholder-[#8b8b8b] focus:outline-none transition-colors ${errors[`emi_${idx}_roi`] ? "border-red-500 focus:border-red-500" : "border-[#e9e9e9] focus:border-[#04b488]"
+                  }`}
+                type="text"
+                inputMode="decimal"
                 placeholder="ROI"
               />
-
+              {errors[`emi_${idx}_roi`] && <p className="text-red-500 text-[11px] mt-1">{errors[`emi_${idx}_roi`]}</p>}
             </div>
 
             {/* Delete */}
@@ -738,7 +965,9 @@ export default function FinancialProfileStep({
                   setErrors(prev => {
                     const copy = { ...prev };
                     delete copy[`emi_${idx}_loanType`];
+                    delete copy[`emi_${idx}_outstanding`];
                     delete copy[`emi_${idx}_emi`];
+                    delete copy[`emi_${idx}_roi`];
                     return copy;
                   });
                 }}
@@ -760,16 +989,18 @@ export default function FinancialProfileStep({
         {Investments.map((item, idx) => (
           <Row
             key={item.id}
-            titleLabel="Investment Name "
-            titlePlaceholder="e.g. SIP 1 or Mutual Fund"
-            amountLabel="Monthly Amount "
+            titleLabel="Investment Name"
+            titlePlaceholder="e.g. Mutual Fund or Fixed Deposit"
+            amountLabel="Monthly Amount"
             item={item}
             onTitle={(value) => {
-              updateItem(Investments, setInvestments, item.id, "title", value);
+              const filtered = value.replace(/[^a-zA-Z\s]/g, "");
+              updateItem(Investments, setInvestments, item.id, "title", filtered);
               setErrors(prev => ({ ...prev, [`investment_${idx}_title`]: "" }));
             }}
             onAmount={(value) => {
-              updateItem(Investments, setInvestments, item.id, "amount", value);
+              const filtered = formatIndianAmount(value);
+              updateItem(Investments, setInvestments, item.id, "amount", filtered);
               setErrors(prev => ({ ...prev, [`investment_${idx}_amount`]: "" }));
             }}
             onDelete={() => {
@@ -797,7 +1028,7 @@ export default function FinancialProfileStep({
         {insurepre.map((item, idx) => (
           <div
             key={item.id}
-            className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 xl:grid-cols-12 gap-4 items-start"
+            className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-12 gap-4 items-start"
           >
 
             <div className="lg:col-span-2">
@@ -810,36 +1041,44 @@ export default function FinancialProfileStep({
                 name={`insurance_${idx}_policyName`}
                 value={item.policyName}
                 onChange={(e) => {
-                  updateinsurePremium(item.id, "policyName", e.target.value);
+                  updateinsurePremium(item.id, "policyName", e.target.value.replace(/[^a-zA-Z\s]/g, ""));
                   setErrors(prev => ({ ...prev, [`insurance_${idx}_policyName`]: "" }));
+                }}
+                onKeyDown={(e) => {
+                  if (e.ctrlKey || e.metaKey || e.altKey) return;
+                  if (e.key.length === 1 && !/^[a-zA-Z\s]$/.test(e.key)) e.preventDefault();
                 }}
                 className={`w-full h-[44px] sm:h-[46px] bg-white border rounded-[10px] px-3 text-[13px] text-[#44475b] placeholder-[#8b8b8b] focus:outline-none transition-colors ${errors[`insurance_${idx}_policyName`] ? "border-red-500 focus:border-red-500" : "border-[#e9e9e9] focus:border-[#04b488]"
                   }`}
                 type="text"
-                placeholder="Policy Name"
+                placeholder="e.g. Life Term Insurance"
               />
               {errors[`insurance_${idx}_policyName`] && <p className="text-red-500 text-[11px] mt-1">{errors[`insurance_${idx}_policyName`]}</p>}
             </div>
 
-            <div className="lg:col-span-2">
+            <div className="lg:col-span-1">
 
               <label className="block text-[13px] font-medium text-[#44475b] mb-2">
-                Number
-                <span className="text-red-600"> *</span>
+                Policy No.
               </label>
               <input
                 name={`insurance_${idx}_policyNumber`}
                 value={item.policyNumber}
                 onChange={(e) => {
-                  updateinsurePremium(item.id, "policyNumber", e.target.value);
+                  updateinsurePremium(item.id, "policyNumber", e.target.value.replace(/\D/g, ""));
                   setErrors(prev => ({ ...prev, [`insurance_${idx}_policyNumber`]: "" }));
                 }}
                 onWheel={(e) => e.currentTarget.blur()}
-                onKeyDown={(e) => (e.key === "ArrowUp" || e.key === "ArrowDown") && e.preventDefault()}
+                onKeyDown={(e) => {
+                  if (e.ctrlKey || e.metaKey || e.altKey) return;
+                  if (e.key === "ArrowUp" || e.key === "ArrowDown") e.preventDefault();
+                  if (e.key.length === 1 && !/^\d$/.test(e.key)) e.preventDefault();
+                }}
                 className={`w-full h-[44px] sm:h-[46px] bg-white border rounded-[10px] px-3 text-[13px] text-[#44475b] placeholder-[#8b8b8b] focus:outline-none transition-colors ${errors[`insurance_${idx}_policyNumber`] ? "border-red-500 focus:border-red-500" : "border-[#e9e9e9] focus:border-[#04b488]"
                   }`}
-                type="number"
-                placeholder="Policy Number"
+                type="text"
+                inputMode="numeric"
+                placeholder="Policy No."
               />
               {errors[`insurance_${idx}_policyNumber`] && <p className="text-red-500 text-[11px] mt-1">{errors[`insurance_${idx}_policyNumber`]}</p>}
             </div>
@@ -891,24 +1130,30 @@ export default function FinancialProfileStep({
               {errors[`insurance_${idx}_premiumType`] && <p className="text-red-500 text-[11px] mt-1">{errors[`insurance_${idx}_premiumType`]}</p>}
             </div>
 
-            <div className="lg:col-span-1">
+            <div className="lg:col-span-2">
 
               <label className="block text-[13px] font-medium text-[#44475b] mb-2">
                 Premium
+                <span className="text-red-600"> *</span>
               </label>
               <input
                 name={`insurance_${idx}_premium`}
                 value={item.premium}
                 onChange={(e) => {
-                  updateinsurePremium(item.id, "premium", e.target.value);
+                  updateinsurePremium(item.id, "premium", formatIndianAmount(e.target.value));
                   setErrors(prev => ({ ...prev, [`insurance_${idx}_premium`]: "" }));
                 }}
                 onWheel={(e) => e.currentTarget.blur()}
-                onKeyDown={(e) => (e.key === "ArrowUp" || e.key === "ArrowDown") && e.preventDefault()}
+                onKeyDown={(e) => {
+                  if (e.ctrlKey || e.metaKey || e.altKey) return;
+                  if (e.key === "ArrowUp" || e.key === "ArrowDown") e.preventDefault();
+                  if (e.key.length === 1 && !/^\d$/.test(e.key)) e.preventDefault();
+                }}
                 className={`w-full h-[44px] sm:h-[46px] bg-white border rounded-[10px] px-3 text-[13px] text-[#44475b] placeholder-[#8b8b8b] focus:outline-none transition-colors ${errors[`insurance_${idx}_premium`] ? "border-red-500 focus:border-red-500" : "border-[#e9e9e9] focus:border-[#04b488]"
                   }`}
-                type="number"
-                placeholder="₹"
+                type="text"
+                inputMode="numeric"
+                placeholder="₹ Amount"
               />
               {errors[`insurance_${idx}_premium`] && <p className="text-red-500 text-[11px] mt-1">{errors[`insurance_${idx}_premium`]}</p>}
             </div>
@@ -923,14 +1168,19 @@ export default function FinancialProfileStep({
                 name={`insurance_${idx}_sumInsured`}
                 value={item.sumInsured}
                 onChange={(e) => {
-                  updateinsurePremium(item.id, "sumInsured", e.target.value);
+                  updateinsurePremium(item.id, "sumInsured", formatIndianAmount(e.target.value));
                   setErrors(prev => ({ ...prev, [`insurance_${idx}_sumInsured`]: "" }));
                 }}
                 onWheel={(e) => e.currentTarget.blur()}
-                onKeyDown={(e) => (e.key === "ArrowUp" || e.key === "ArrowDown") && e.preventDefault()}
+                onKeyDown={(e) => {
+                  if (e.ctrlKey || e.metaKey || e.altKey) return;
+                  if (e.key === "ArrowUp" || e.key === "ArrowDown") e.preventDefault();
+                  if (e.key.length === 1 && !/^\d$/.test(e.key)) e.preventDefault();
+                }}
                 className={`w-full h-[44px] sm:h-[46px] bg-white border rounded-[10px] px-3 text-[13px] text-[#44475b] placeholder-[#8b8b8b] focus:outline-none transition-colors ${errors[`insurance_${idx}_sumInsured`] ? "border-red-500 focus:border-red-500" : "border-[#e9e9e9] focus:border-[#04b488]"
                   }`}
-                type="number"
+                type="text"
+                inputMode="numeric"
                 placeholder="₹"
               />
               {errors[`insurance_${idx}_sumInsured`] && <p className="text-red-500 text-[11px] mt-1">{errors[`insurance_${idx}_sumInsured`]}</p>}
@@ -1002,13 +1252,17 @@ export default function FinancialProfileStep({
                 name={`tax_${idx}_investmentName`}
                 value={item.investmentName}
                 onChange={(e) => {
-                  updateOthertax(item.id, "investmentName", e.target.value);
+                  updateOthertax(item.id, "investmentName", e.target.value.replace(/[^a-zA-Z\s]/g, ""));
                   setErrors(prev => ({ ...prev, [`tax_${idx}_investmentName`]: "" }));
+                }}
+                onKeyDown={(e) => {
+                  if (e.ctrlKey || e.metaKey || e.altKey) return;
+                  if (e.key.length === 1 && !/^[a-zA-Z\s]$/.test(e.key)) e.preventDefault();
                 }}
                 className={`w-full h-[44px] sm:h-[46px] bg-white border rounded-[10px] px-3 text-[13px] text-[#44475b] placeholder-[#8b8b8b] focus:outline-none transition-colors ${errors[`tax_${idx}_investmentName`] ? "border-red-500 focus:border-red-500" : "border-[#e9e9e9] focus:border-[#04b488]"
                   }`}
                 type="text"
-                placeholder="e.g. PPF 2024 or LIC"
+                placeholder="e.g. Public Provident Fund or NPS"
               />
               {errors[`tax_${idx}_investmentName`] && <p className="text-red-500 text-[11px] mt-1">{errors[`tax_${idx}_investmentName`]}</p>}
             </div>
@@ -1023,14 +1277,19 @@ export default function FinancialProfileStep({
                 name={`tax_${idx}_amount`}
                 value={item.amount}
                 onChange={(e) => {
-                  updateOthertax(item.id, "amount", e.target.value);
+                  updateOthertax(item.id, "amount", formatIndianAmount(e.target.value));
                   setErrors(prev => ({ ...prev, [`tax_${idx}_amount`]: "" }));
                 }}
                 onWheel={(e) => e.currentTarget.blur()}
-                onKeyDown={(e) => (e.key === "ArrowUp" || e.key === "ArrowDown") && e.preventDefault()}
+                onKeyDown={(e) => {
+                  if (e.ctrlKey || e.metaKey || e.altKey) return;
+                  if (e.key === "ArrowUp" || e.key === "ArrowDown") e.preventDefault();
+                  if (e.key.length === 1 && !/^\d$/.test(e.key)) e.preventDefault();
+                }}
                 className={`w-full h-[44px] sm:h-[46px] bg-white border rounded-[10px] px-3 text-[13px] text-[#44475b] placeholder-[#8b8b8b] focus:outline-none transition-colors ${errors[`tax_${idx}_amount`] ? "border-red-500 focus:border-red-500" : "border-[#e9e9e9] focus:border-[#04b488]"
                   }`}
-                type="number"
+                type="text"
+                inputMode="numeric"
                 placeholder="₹"
               />
               {errors[`tax_${idx}_amount`] && <p className="text-red-500 text-[11px] mt-1">{errors[`tax_${idx}_amount`]}</p>}
@@ -1227,11 +1486,18 @@ function Row({
 
         <input
           name={`${prefix}_title`}
-          className={`w-full h-[44px] sm:h-[46px] bg-white border rounded-[10px] px-3 text-[13px] text-[#44475b] placeholder-[#8b8b8b] focus:outline-none transition-colors w-full rounded-lg border px-4 py-2.5 outline-none ${titleError ? "border-red-500 focus:border-red-500" : "border-[#e9e9e9] focus:border-[#04b488]"
-            }`}
+          className={`w-full h-[44px] sm:h-[46px] bg-white border rounded-[10px] px-3 text-[13px] text-[#44475b] placeholder-[#8b8b8b] focus:outline-none transition-colors ${
+            titleError ? "border-red-500 focus:border-red-500" : "border-[#e9e9e9] focus:border-[#04b488]"
+          }`}
           type="text"
           value={item.title}
-          onChange={(e) => onTitle(e.target.value)}
+          onKeyDown={(e) => {
+            if (e.ctrlKey || e.metaKey || e.altKey) return;
+            if (e.key.length === 1 && !/^[a-zA-Z\s]$/.test(e.key)) {
+              e.preventDefault();
+            }
+          }}
+          onChange={(e) => onTitle(e.target.value.replace(/[^a-zA-Z\s]/g, ""))}
           placeholder={titlePlaceholder}
         />
         {titleError && <p className="text-red-500 text-[11px] mt-1">{titleError}</p>}
@@ -1246,13 +1512,21 @@ function Row({
 
         <input
           name={`${prefix}_amount`}
-          className={`w-full h-[44px] sm:h-[46px] bg-white border rounded-[10px] px-3 text-[13px] text-[#44475b] placeholder-[#8b8b8b] focus:outline-none transition-colors w-full rounded-lg border px-4 py-2.5 outline-none ${amountError ? "border-red-500 focus:border-red-500" : "border-[#e9e9e9] focus:border-[#04b488]"
-            }`}
-          type="number"
+          className={`w-full h-[44px] sm:h-[46px] bg-white border rounded-[10px] px-3 text-[13px] text-[#44475b] placeholder-[#8b8b8b] focus:outline-none transition-colors ${
+            amountError ? "border-red-500 focus:border-red-500" : "border-[#e9e9e9] focus:border-[#04b488]"
+          }`}
+          type="text"
+          inputMode="numeric"
           value={item.amount}
-          onChange={(e) => onAmount(e.target.value)}
           onWheel={(e) => e.currentTarget.blur()}
-          onKeyDown={(e) => (e.key === "ArrowUp" || e.key === "ArrowDown") && e.preventDefault()}
+          onKeyDown={(e) => {
+            if (e.ctrlKey || e.metaKey || e.altKey) return;
+            if (e.key === "ArrowUp" || e.key === "ArrowDown") e.preventDefault();
+            if (e.key.length === 1 && !/^\d$/.test(e.key)) {
+              e.preventDefault();
+            }
+          }}
+          onChange={(e) => onAmount(formatIndianAmount(e.target.value))}
           placeholder="₹ Enter Amount"
         />
         {amountError && <p className="text-red-500 text-[11px] mt-1">{amountError}</p>}
@@ -1261,8 +1535,9 @@ function Row({
       <div className="md:col-span-2 flex md:justify-center mt-7 md:mt-7">
         {showDelete && (
           <button
+            type="button"
             onClick={onDelete}
-            className="h-10 w-10 cursor-pointer rounded-full bg-[#DB4437] text-white flex items-center justify-center hover:bg-red-600"
+            className="h-10 w-10 cursor-pointer rounded-full bg-[#DB4437] text-white flex items-center justify-center hover:bg-red-600 transition"
           >
             <Trash2 size={18} />
           </button>

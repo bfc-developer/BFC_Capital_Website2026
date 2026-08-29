@@ -1,5 +1,6 @@
 import { useState, useEffect, type ReactNode } from "react";
 import StepActions from "./StepActions";
+import { formatIndianAmount, parseIndianAmount } from "./formatters";
 
 interface ContingencyPlanningStepProps {
     profileId?: string | null;
@@ -26,15 +27,28 @@ export default function ContingencyPlanningStep({
 
     useEffect(() => {
         if (!profileId) return;
-        fetch("http://localhost:5000/api/financial")
+        fetch(`https://k2b02x8c-5000.inc1.devtunnels.ms/api/financial/profile/${profileId}`)
             .then(res => res.json())
             .then(resData => {
-                if (resData.success && Array.isArray(resData.data)) {
-                    const profile = resData.data.find((p: any) => p.personalProfileId === profileId);
-                    if (profile && Array.isArray(profile.grossInflow)) {
+                if (resData.success && resData.data) {
+                    const profile = resData.data;
+                    if (Array.isArray(profile.grossInflow)) {
                         const totalGross = profile.grossInflow.reduce((sum: number, item: any) => sum + (Number(item.monthlyAmount) || 0), 0);
                         setGrossInflow(totalGross);
                     }
+                } else {
+                    // Fallback to fetch all
+                    fetch("https://k2b02x8c-5000.inc1.devtunnels.ms/api/financial")
+                        .then(r => r.json())
+                        .then(rd => {
+                            if (rd.success && Array.isArray(rd.data)) {
+                                const profile = rd.data.find((p: any) => String(p.personalProfileId?._id || p.personalProfileId) === String(profileId));
+                                if (profile && Array.isArray(profile.grossInflow)) {
+                                    const totalGross = profile.grossInflow.reduce((sum: number, item: any) => sum + (Number(item.monthlyAmount) || 0), 0);
+                                    setGrossInflow(totalGross);
+                                }
+                            }
+                        });
                 }
             })
             .catch(err => console.error("Error fetching financial profile:", err));
@@ -42,14 +56,15 @@ export default function ContingencyPlanningStep({
 
     useEffect(() => {
         if (!profileId) return;
-        fetch("http://localhost:5000/api/financial-planning")
+        fetch("https://k2b02x8c-5000.inc1.devtunnels.ms/api/financial-planning")
             .then(res => res.json())
             .then(resData => {
                 if (resData.success && Array.isArray(resData.data)) {
                     const planning = resData.data.find((p: any) => p.personalProfileId === profileId);
                     if (planning) {
-                        setHasContingencyReserve(planning.hasContingencyReserve === "Yes");
-                        setAmount(planning.amount !== null && planning.amount !== undefined ? String(planning.amount) : "");
+                        const hasReserve = planning.hasContingencyReserve === "Yes";
+                        setHasContingencyReserve(hasReserve);
+                        setAmount(hasReserve && planning.amount !== null && planning.amount !== undefined ? formatIndianAmount(planning.amount) : "");
                         if (setFinancialPlanningId) {
                             setFinancialPlanningId(planning._id);
                         }
@@ -59,7 +74,7 @@ export default function ContingencyPlanningStep({
             .catch(err => console.error("Error prefilling financial planning contingency details:", err));
     }, [profileId, setFinancialPlanningId]);
 
-    const existingReserve = hasContingencyReserve ? (Number(amount) || 0) : 0;
+    const existingReserve = hasContingencyReserve ? parseIndianAmount(amount) : 0;
     const idealReserve = 6 * grossInflow;
     const excessOrShortfall = existingReserve - idealReserve;
 
@@ -73,7 +88,7 @@ export default function ContingencyPlanningStep({
             if (!amount.trim()) {
                 setErrors({ amount: "Amount is required when contingency reserve is Yes." });
                 return;
-            } else if (Number(amount) <= 0) {
+            } else if (parseIndianAmount(amount) <= 0) {
                 setErrors({ amount: "Amount must be greater than zero." });
                 return;
             }
@@ -84,7 +99,7 @@ export default function ContingencyPlanningStep({
             const payload = {
                 personalProfileId: profileId,
                 hasContingencyReserve: hasContingencyReserve ? "Yes" : "No",
-                amount: hasContingencyReserve ? Number(amount) : null,
+                amount: hasContingencyReserve ? parseIndianAmount(amount) : null,
                 existingReserve,
                 idealReserve,
                 excessOrShortfall
@@ -92,8 +107,8 @@ export default function ContingencyPlanningStep({
 
             const method = financialPlanningId ? "PUT" : "POST";
             const url = financialPlanningId
-                ? `http://localhost:5000/api/financial-planning/${financialPlanningId}`
-                : "http://localhost:5000/api/financial-planning";
+                ? `https://k2b02x8c-5000.inc1.devtunnels.ms/api/financial-planning/${financialPlanningId}`
+                : "https://k2b02x8c-5000.inc1.devtunnels.ms/api/financial-planning";
 
             const response = await fetch(url, {
                 method,
@@ -151,6 +166,7 @@ export default function ContingencyPlanningStep({
                             type="button"
                             onClick={() => {
                                 setHasContingencyReserve(false);
+                                setAmount("");
                                 setErrors({});
                             }}
                             role="radio"
@@ -163,35 +179,38 @@ export default function ContingencyPlanningStep({
                     </div>
                 </div>
 
-                <div className="border-t border-gray-100 pt-6 space-y-5">
-
-                    <div className="relative grid grid-cols-1 sm:grid-cols-4 gap-4">
-                        <div className="lg:col-span-12">
-
-                            <label className="block text-[13px] font-medium text-[#44475b] mb-2">
-                                Amount
-                                {hasContingencyReserve && <span className="text-red-600"> *</span>}
-                            </label>
-                            <input
-                                name="amount"
-                                className={`w-full h-[44px] sm:h-[46px] bg-white border rounded-[10px] px-3 text-[13px] text-[#44475b] placeholder-[#8b8b8b] focus:outline-none transition-colors ${errors.amount ? "border-red-500 focus:border-red-500" : "border-[#e9e9e9] focus:border-[#04b488]"
-                                    }`}
-                                type="number"
-                                placeholder="₹10,000.00"
-                                value={amount}
-                                onChange={(e) => {
-                                    setAmount(e.target.value);
-                                    setErrors({});
-                                }}
-                                onWheel={(e) => e.currentTarget.blur()}
-                                onKeyDown={(e) => (e.key === "ArrowUp" || e.key === "ArrowDown") && e.preventDefault()}
-                                disabled={!hasContingencyReserve}
-                            />
-                            {errors.amount && <p className="text-red-500 text-[11px] mt-1">{errors.amount}</p>}
-
+                {hasContingencyReserve && (
+                    <div className="border-t border-gray-100 pt-6 space-y-5">
+                        <div className="relative grid grid-cols-1 sm:grid-cols-4 gap-4">
+                            <div className="lg:col-span-12">
+                                <label className="block text-[13px] font-medium text-[#44475b] mb-2">
+                                    Amount
+                                    <span className="text-red-600"> *</span>
+                                </label>
+                                <input
+                                    name="amount"
+                                    className={`w-full h-[44px] sm:h-[46px] bg-white border rounded-[10px] px-3 text-[13px] text-[#44475b] placeholder-[#8b8b8b] focus:outline-none transition-colors ${errors.amount ? "border-red-500 focus:border-red-500" : "border-[#e9e9e9] focus:border-[#04b488]"
+                                        }`}
+                                    type="text"
+                                    inputMode="numeric"
+                                    placeholder="₹ Enter Amount"
+                                    value={amount}
+                                    onChange={(e) => {
+                                        setAmount(formatIndianAmount(e.target.value));
+                                        setErrors({});
+                                    }}
+                                    onWheel={(e) => e.currentTarget.blur()}
+                                    onKeyDown={(e) => {
+                                        if (e.ctrlKey || e.metaKey || e.altKey) return;
+                                        if (e.key === "ArrowUp" || e.key === "ArrowDown") e.preventDefault();
+                                        if (e.key.length === 1 && !/^\d$/.test(e.key)) e.preventDefault();
+                                    }}
+                                />
+                                {errors.amount && <p className="text-red-500 text-[11px] mt-1">{errors.amount}</p>}
+                            </div>
                         </div>
                     </div>
-                </div>
+                )}
 
                 <div className="border-t border-gray-100 pt-6 space-y-5">
                     <label className="block text-sm font-medium text-gray-800">Contingency Analysis</label>

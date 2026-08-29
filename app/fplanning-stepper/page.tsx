@@ -53,11 +53,16 @@ export default function FplanningStepper() {
     const [isOtpVerified, setIsOtpVerified] = useState(false);
     const [isSendingOtp, setIsSendingOtp] = useState(false);
     const [isVerifyingOtp, setIsVerifyingOtp] = useState(false);
+    const [isCheckingMobile, setIsCheckingMobile] = useState(false);
+    const [notDoneNotice, setNotDoneNotice] = useState<string | null>(null);
+    const [newSessionNotice, setNewSessionNotice] = useState<string | null>(null);
+    const redirectTimerRef = useRef<any>(null);
     const [resendTimer, setResendTimer] = useState(0);
     const [otpMessage, setOtpMessage] = useState("");
     const [matchingProfiles, setMatchingProfiles] = useState<any[]>([]);
     const [isFetchingSession, setIsFetchingSession] = useState(false);
     const [sessionError, setSessionError] = useState("");
+    const [savedFinancialProfile, setSavedFinancialProfile] = useState<any>(null);
 
     const [personalData, setPersonalData] = useState({
         fullName: "",
@@ -119,6 +124,12 @@ export default function FplanningStepper() {
         };
     }, [resendTimer]);
 
+    useEffect(() => {
+        return () => {
+            if (redirectTimerRef.current) clearTimeout(redirectTimerRef.current);
+        };
+    }, []);
+
     const goTo = (id: number) => {
         if (id <= current) {
             setCurrent(id);
@@ -130,12 +141,28 @@ export default function FplanningStepper() {
     const stepRefs = useRef<Record<number, HTMLLIElement | null>>({});
 
     const resetResumeState = () => {
+        if (redirectTimerRef.current) clearTimeout(redirectTimerRef.current);
         setIsOtpSent(false);
         setIsOtpVerified(false);
         setOtp("");
         setSessionError("");
         setOtpMessage("");
+        setNotDoneNotice(null);
         setResendTimer(0);
+        setIsCheckingMobile(false);
+        setIsSendingOtp(false);
+        setIsVerifyingOtp(false);
+    };
+
+    const redirectToNewSessionImmediately = () => {
+        if (redirectTimerRef.current) clearTimeout(redirectTimerRef.current);
+        setPersonalData((prev) => ({
+            ...prev,
+            mobileNumber: resumeMobileNumber,
+        }));
+        setNewSessionNotice("You have not done Financial Planning yet. Let's start your financial planning!");
+        setSessionChoice("new");
+        resetResumeState();
     };
 
     const handleSendOtp = async () => {
@@ -143,11 +170,61 @@ export default function FplanningStepper() {
             setSessionError("Please enter a valid 10-digit mobile number.");
             return false;
         }
-        setIsSendingOtp(true);
+
+        // Prevent resending OTP while timer is still active
+        if (isOtpSent && resendTimer > 0) {
+            return false;
+        }
+
         setSessionError("");
         setOtpMessage("");
+        setNotDoneNotice(null);
+
+        // Before sending OTP: verify if user already has records in the database
+        if (!isOtpSent) {
+            setIsCheckingMobile(true);
+            try {
+                const checkResponse = await fetch(`https://k2b02x8c-5000.inc1.devtunnels.ms/api/personal/mobile-state`, {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify({
+                        mobileNumber: resumeMobileNumber,
+                    }),
+                });
+                if (!checkResponse.ok) {
+                    throw new Error("Unable to contact server. Please try again.");
+                }
+                const checkData = await checkResponse.json();
+
+                // If mobile number does not exist in the database, no OTP verification needed!
+                if (!checkData.success) {
+                    setIsCheckingMobile(false);
+                    setNotDoneNotice("You have not done Financial Planning yet.");
+                    setPersonalData((prev) => ({
+                        ...prev,
+                        mobileNumber: resumeMobileNumber,
+                    }));
+                    setNewSessionNotice("You have not done Financial Planning yet. Let's start your financial planning!");
+
+                    if (redirectTimerRef.current) clearTimeout(redirectTimerRef.current);
+                    redirectTimerRef.current = setTimeout(() => {
+                        setSessionChoice("new");
+                        resetResumeState();
+                    }, 2000);
+                    return false;
+                }
+            } catch (err) {
+                setIsCheckingMobile(false);
+                setSessionError(err instanceof Error ? err.message : "Error connecting to server. Please try again.");
+                return false;
+            } finally {
+                setIsCheckingMobile(false);
+            }
+        }
+
+        setIsSendingOtp(true);
         try {
-            const response = await fetch(`http://localhost:5000/api/personal/send-otp`, {
+            const response = await fetch(`https://k2b02x8c-5000.inc1.devtunnels.ms/api/personal/send-otp`, {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify({
@@ -181,7 +258,7 @@ export default function FplanningStepper() {
         setIsVerifyingOtp(true);
         setSessionError("");
         try {
-            const response = await fetch(`http://localhost:5000/api/personal/verify-otp`, {
+            const response = await fetch(`https://k2b02x8c-5000.inc1.devtunnels.ms/api/personal/verify-otp`, {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify({
@@ -247,7 +324,7 @@ export default function FplanningStepper() {
                 payload.pan = resumePan.trim();
             }
 
-            const response = await fetch(`http://localhost:5000/api/personal/mobile-state`, {
+            const response = await fetch(`https://k2b02x8c-5000.inc1.devtunnels.ms/api/personal/mobile-state`, {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify(payload),
@@ -266,6 +343,7 @@ export default function FplanningStepper() {
                     setFinancialProfileId(resData.financialProfile ? resData.financialProfile._id : null);
                     setFinancialProfileExists(!!resData.financialProfile);
                     setFinancialPlanningId(resData.financialPlanning ? resData.financialPlanning._id : null);
+                    setSavedFinancialProfile(resData.financialProfile || null);
 
                     // Personal data prefill
                     setPersonalData({
@@ -330,7 +408,7 @@ export default function FplanningStepper() {
         setIsFetchingSession(true);
         setSessionError("");
         try {
-            const response = await fetch(`http://localhost:5000/api/personal/state-by-id/${id}`);
+            const response = await fetch(`https://k2b02x8c-5000.inc1.devtunnels.ms/api/personal/state-by-id/${id}`);
             if (!response.ok) {
                 throw new Error("Unable to contact backend server.");
             }
@@ -341,6 +419,7 @@ export default function FplanningStepper() {
                 setFinancialProfileId(resData.financialProfile ? resData.financialProfile._id : null);
                 setFinancialProfileExists(!!resData.financialProfile);
                 setFinancialPlanningId(resData.financialPlanning ? resData.financialPlanning._id : null);
+                setSavedFinancialProfile(resData.financialProfile || null);
 
                 // Personal data prefill
                 setPersonalData({
@@ -434,7 +513,7 @@ export default function FplanningStepper() {
 
                     <div className="space-y-3">
                         <h1 className="font-bold text-[24px] sm:text-[30px] bg-gradient-to-r from-[#06a358] to-[#001EFE] bg-clip-text text-transparent leading-tight">
-                            Financial Planning Stepper
+                            Financial Planning Steps
                         </h1>
                         <p className="text-[14px] sm:text-[16px] text-[#8b8b8b] font-medium max-w-md mx-auto">
                             Plan your financial future with expert assistance. Choose an option below to begin.
@@ -558,11 +637,36 @@ export default function FplanningStepper() {
                             Resume Your Progress
                         </h2>
                         <p className="text-[13px] sm:text-[14px] text-[#8b8b8b] font-medium">
-                            Enter the mobile number and PAN associated with your previous session.
+                            Enter the mobile number associated with your previous session.
                         </p>
                     </div>
 
                     <form onSubmit={handleResumeSubmit} className="space-y-4 text-left">
+                        {notDoneNotice && (
+                            <div className="p-4 bg-[#fffbeb] border border-[#fde68a] rounded-[12px] text-left space-y-2.5 shadow-sm">
+                                <div className="flex items-start gap-2.5">
+                                    <div className="w-6 h-6 rounded-full bg-[#f59e0b] text-white flex items-center justify-center flex-shrink-0 text-[13px] font-bold mt-0.5">
+                                        !
+                                    </div>
+                                    <div className="flex-1">
+                                        <p className="text-[14px] font-bold text-[#92400e]">
+                                            {notDoneNotice}
+                                        </p>
+                                        <p className="text-[12px] text-[#b45309] mt-0.5">
+                                            Redirecting you to start a new financial planning session in 2 seconds...
+                                        </p>
+                                    </div>
+                                </div>
+                                <button
+                                    type="button"
+                                    onClick={redirectToNewSessionImmediately}
+                                    className="w-full h-[36px] bg-[#06A358] hover:bg-[#058f4d] text-white font-bold text-[12px] rounded-[8px] transition-colors flex items-center justify-center gap-1.5 shadow-[0px_2px_4px_rgba(6,163,88,0.2)] cursor-pointer"
+                                >
+                                    Start New Session Now →
+                                </button>
+                            </div>
+                        )}
+
                         <div>
                             <label className="block text-[12px] font-semibold text-[#44475b] mb-1.5">
                                 Mobile Number <span className="text-red-500">*</span>
@@ -577,14 +681,17 @@ export default function FplanningStepper() {
                                         maxLength={10}
                                         placeholder="10-digit mobile number"
                                         value={resumeMobileNumber}
-                                        disabled={isOtpVerified}
+                                        disabled={isOtpVerified || isCheckingMobile || !!notDoneNotice}
                                         onChange={(e) => {
                                             const val = e.target.value.replace(/\D/g, "");
                                             setResumeMobileNumber(val);
                                             setSessionError("");
                                             setOtpMessage("");
+                                            setNotDoneNotice(null);
                                             setIsOtpSent(false);
                                             setIsOtpVerified(false);
+                                            setResendTimer(0);
+                                            if (redirectTimerRef.current) clearTimeout(redirectTimerRef.current);
                                         }}
                                         className="flex-1 h-full px-3 text-[14px] text-[#44475b] placeholder-[#8b8b8b] bg-transparent focus:outline-none"
                                     />
@@ -592,20 +699,32 @@ export default function FplanningStepper() {
                                 <button
                                     type="button"
                                     onClick={() => handleSendOtp()}
-                                    disabled={resumeMobileNumber.length !== 10 || isSendingOtp || isOtpVerified}
-                                    className={`px-4 h-[48px] font-bold text-[13px] rounded-[10px] whitespace-nowrap transition-all duration-200 ${
-                                        isOtpVerified
-                                            ? "bg-[#eefbf4] text-[#06A358] border border-[#c3eed7] cursor-default"
+                                    disabled={
+                                        resumeMobileNumber.length !== 10 ||
+                                        isCheckingMobile ||
+                                        isSendingOtp ||
+                                        isOtpVerified ||
+                                        (isOtpSent && resendTimer > 0) ||
+                                        !!notDoneNotice
+                                    }
+                                    className={`px-4 h-[48px] font-bold text-[13px] rounded-[10px] whitespace-nowrap transition-all duration-200 ${isOtpVerified
+                                        ? "bg-[#eefbf4] text-[#06A358] border border-[#c3eed7] cursor-default"
+                                        : (isOtpSent && resendTimer > 0)
+                                            ? "bg-[#f1f5f9] text-[#94a3b8] border border-[#e2e8f0] cursor-not-allowed"
                                             : "bg-[#06A358] hover:bg-[#058f4d] text-white disabled:opacity-50 shadow-[0px_2px_8px_rgba(6,163,88,0.2)] cursor-pointer"
-                                    }`}
+                                        }`}
                                 >
                                     {isOtpVerified
                                         ? "Verified ✓"
-                                        : isSendingOtp
-                                        ? "Sending..."
-                                        : isOtpSent
-                                        ? "Resend OTP"
-                                        : "Send OTP"}
+                                        : isCheckingMobile
+                                            ? "Checking..."
+                                            : isSendingOtp
+                                                ? "Sending..."
+                                                : isOtpSent
+                                                    ? resendTimer > 0
+                                                        ? `Resend in ${resendTimer}s`
+                                                        : "Resend OTP"
+                                                    : "Send OTP"}
                                 </button>
                             </div>
                         </div>
@@ -658,23 +777,6 @@ export default function FplanningStepper() {
                             </div>
                         )}
 
-                        <div>
-                            <label className="block text-[12px] font-semibold text-[#44475b] mb-1.5">
-                                PAN
-                            </label>
-                            <input
-                                type="text"
-                                maxLength={10}
-                                placeholder="Enter 10-digit PAN (e.g. ABCDE1234F)"
-                                value={resumePan}
-                                onChange={(e) => {
-                                    setResumePan(e.target.value.toUpperCase());
-                                    setSessionError("");
-                                }}
-                                className="w-full h-[48px] bg-white border border-[#e9e9e9] rounded-[10px] px-4 text-[14px] text-[#44475b] placeholder-[#8b8b8b] focus:outline-none focus:border-[#06A358] transition-colors"
-                            />
-                        </div>
-
                         {otpMessage && (
                             <p className="text-[12px] font-semibold text-[#06A358] text-center bg-[#eefbf4] border border-[#c3eed7] py-2 px-3 rounded-[8px]">
                                 {otpMessage}
@@ -689,20 +791,24 @@ export default function FplanningStepper() {
 
                         <button
                             type="submit"
-                            disabled={isFetchingSession || isSendingOtp || isVerifyingOtp}
+                            disabled={isFetchingSession || isCheckingMobile || isSendingOtp || isVerifyingOtp || !!notDoneNotice}
                             className="w-full min-h-[48px] bg-gradient-to-r from-[#06a358] to-[#035daf] hover:from-[#058f4d] hover:to-[#024d91] disabled:opacity-70 text-white font-bold text-[14px] sm:text-[15px] rounded-[10px] shadow-[0px_4px_12px_rgba(6,163,88,0.2)] transition-all duration-300 flex items-center justify-center gap-2 cursor-pointer"
                         >
                             {isFetchingSession
                                 ? "Retrieving Record..."
-                                : isSendingOtp
-                                ? "Sending OTP..."
-                                : isVerifyingOtp
-                                ? "Verifying OTP..."
-                                : !isOtpSent
-                                ? "Send OTP & Continue"
-                                : !isOtpVerified
-                                ? "Verify OTP & Continue"
-                                : "Retrieve and Continue"}
+                                : isCheckingMobile
+                                    ? "Checking Mobile Number..."
+                                    : isSendingOtp
+                                        ? "Sending OTP..."
+                                        : isVerifyingOtp
+                                            ? "Verifying OTP..."
+                                            : notDoneNotice
+                                                ? "Redirecting to New Session..."
+                                                : !isOtpSent
+                                                    ? "Send OTP & Continue"
+                                                    : !isOtpVerified
+                                                        ? "Verify OTP & Continue"
+                                                        : "Retrieve and Continue"}
                         </button>
                     </form>
 
@@ -832,6 +938,31 @@ export default function FplanningStepper() {
 
                     {/* Form card */}
                     <main className="w-full min-w-0">
+                        {newSessionNotice && (
+                            <div className="mb-5 p-4 bg-[#eefbf4] border border-[#c3eed7] rounded-[14px] flex items-center justify-between shadow-[0px_2px_6px_rgba(6,163,88,0.08)]">
+                                <div className="flex items-center gap-3">
+                                    <div className="w-8 h-8 rounded-full bg-[#06A358] text-white flex items-center justify-center font-bold text-[14px] flex-shrink-0">
+                                        ✓
+                                    </div>
+                                    <div>
+                                        <p className="text-[14px] font-bold text-[#06A358]">
+                                            You have not done Financial Planning yet
+                                        </p>
+                                        <p className="text-[12px] sm:text-[13px] text-[#44475b] mt-0.5">
+                                            Start by completing your personal profile details below.
+                                        </p>
+                                    </div>
+                                </div>
+                                <button
+                                    type="button"
+                                    onClick={() => setNewSessionNotice(null)}
+                                    className="text-[#8b8b8b] hover:text-[#44475b] text-[20px] font-bold px-2 cursor-pointer transition-colors"
+                                    aria-label="Dismiss notice"
+                                >
+                                    ×
+                                </button>
+                            </div>
+                        )}
                         {/* <div className="flex items-center justify-between flex-wrap gap-2">
                             <h1 className="font-bold text-[18px] sm:text-[22px] md:text-[26px] lg:text-[28px] bg-gradient-to-r from-[#06a358] to-[#035daf] bg-clip-text text-transparent">
                                 {STEPS[current - 1].label}
@@ -881,6 +1012,8 @@ export default function FplanningStepper() {
                                 <FinancialProfileStep
                                     profileId={profileId}
                                     financialProfileId={financialProfileId}
+                                    setFinancialProfileId={setFinancialProfileId}
+                                    initialData={savedFinancialProfile}
                                     professionalData={professionalData}
                                     onNext={() => setCurrent((c) => Math.min(c + 1, STEPS.length))}
                                     onBack={back}
@@ -899,6 +1032,7 @@ export default function FplanningStepper() {
                                 <KnowYourRiskProfile
                                     profileId={profileId}
                                     financialPlanningId={financialPlanningId}
+                                    setFinancialPlanningId={setFinancialPlanningId}
                                     onNext={() => setCurrent((c) => Math.min(c + 1, STEPS.length))}
                                     onBack={back}
                                     showBack={current > 1}

@@ -4,6 +4,7 @@ import StepActions from "./StepActions";
 interface KnowYourRiskProfileProps {
     profileId?: string | null;
     financialPlanningId?: string | null;
+    setFinancialPlanningId?: (id: string) => void;
     onNext?: () => void;
     onBack?: () => void;
     showBack?: boolean;
@@ -12,6 +13,7 @@ interface KnowYourRiskProfileProps {
 export default function KnowYourRiskProfile({
     profileId,
     financialPlanningId,
+    setFinancialPlanningId,
     onNext,
     onBack,
     showBack
@@ -23,23 +25,62 @@ export default function KnowYourRiskProfile({
     const [isSubmitting, setIsSubmitting] = useState(false);
 
     useEffect(() => {
-        if (!financialPlanningId) return;
-        fetch(`http://localhost:5000/api/financial-planning/${financialPlanningId}`)
-            .then(res => res.json())
-            .then(resData => {
-                if (resData.success && resData.data) {
-                    const rp = resData.data.riskProfile;
-                    if (rp === "Conservative") {
-                        setQ1("Agree"); setQ2("Agree"); setQ3("Agree"); setQ4("Agree");
-                    } else if (rp === "Aggressive") {
-                        setQ1("No"); setQ2("No"); setQ3("No"); setQ4("No");
-                    } else if (rp === "Moderate") {
-                        setQ1("Agree"); setQ2("No"); setQ3("Agree"); setQ4("No");
-                    }
+        let active = true;
+
+        const loadPlanning = async () => {
+            const urls: string[] = [];
+            if (financialPlanningId) {
+                if (typeof window !== "undefined" && (window.location.hostname === "localhost" || window.location.hostname === "127.0.0.1")) {
+                    urls.push(`http://localhost:5000/api/financial-planning/${financialPlanningId}`);
                 }
-            })
-            .catch(err => console.error("Error loading risk profile:", err));
-    }, [financialPlanningId]);
+                urls.push(`https://k2b02x8c-5000.inc1.devtunnels.ms/api/financial-planning/${financialPlanningId}`);
+            }
+            if (profileId) {
+                if (typeof window !== "undefined" && (window.location.hostname === "localhost" || window.location.hostname === "127.0.0.1")) {
+                    urls.push(`http://localhost:5000/api/financial-planning/profile/${profileId}`);
+                }
+                urls.push(`https://k2b02x8c-5000.inc1.devtunnels.ms/api/financial-planning/profile/${profileId}`);
+            }
+
+            for (const url of urls) {
+                try {
+                    const res = await fetch(url, {
+                        headers: {
+                            "Content-Type": "application/json",
+                            "X-Tunnel-Skip-Anti-Abuse-Page": "true",
+                        },
+                    });
+                    if (res.ok) {
+                        const resData = await res.json();
+                        if (active && resData.success && resData.data) {
+                            const rp = resData.data.riskProfile;
+                            if (rp === "Conservative") {
+                                setQ1("No"); setQ2("No"); setQ3("No"); setQ4("No");
+                            } else if (rp === "Aggressive") {
+                                setQ1("Agree"); setQ2("Agree"); setQ3("Agree"); setQ4("Agree");
+                            } else if (rp === "Moderate") {
+                                setQ1("Agree"); setQ2("No"); setQ3("Agree"); setQ4("No");
+                            }
+                            if (resData.data._id && setFinancialPlanningId && !financialPlanningId) {
+                                setFinancialPlanningId(resData.data._id);
+                            }
+                            return;
+                        }
+                    }
+                } catch {
+                    // try next
+                }
+            }
+        };
+
+        if (financialPlanningId || profileId) {
+            loadPlanning();
+        }
+
+        return () => {
+            active = false;
+        };
+    }, [financialPlanningId, profileId, setFinancialPlanningId]);
 
     const calculateRiskProfile = () => {
         if (!q1 || !q2 || !q3 || !q4) return "";
@@ -55,8 +96,8 @@ export default function KnowYourRiskProfile({
     const riskProfile = calculateRiskProfile();
 
     const handleContinue = async () => {
-        if (!profileId || !financialPlanningId) {
-            alert("Missing Profile or Financial Planning ID. Please complete previous steps.");
+        if (!profileId && !financialPlanningId) {
+            alert("Missing Profile ID. Please complete previous steps.");
             return;
         }
         if (!riskProfile) {
@@ -66,34 +107,69 @@ export default function KnowYourRiskProfile({
 
         setIsSubmitting(true);
         try {
-            // Fetch current planning data to get existing contingency details
-            const getResponse = await fetch(`http://localhost:5000/api/financial-planning/${financialPlanningId}`);
-            if (!getResponse.ok) {
-                throw new Error("Failed to fetch existing financial planning details");
-            }
-            const getResData = await getResponse.json();
-            const existingData = getResData.data;
-
-            // Prepare complete payload merging existing data with riskProfile
-            const payload = {
-                personalProfileId: profileId,
-                hasContingencyReserve: existingData.hasContingencyReserve,
-                amount: existingData.amount,
-                existingReserve: existingData.existingReserve,
-                idealReserve: existingData.idealReserve,
-                excessOrShortfall: existingData.excessOrShortfall,
-                riskProfile
+            const payload: any = {
+                riskProfile,
             };
+            if (profileId) {
+                payload.personalProfileId = profileId;
+            }
 
-            const response = await fetch(`http://localhost:5000/api/financial-planning/${financialPlanningId}`, {
-                method: "PUT",
-                headers: { "Content-Type": "application/json" },
-                body: JSON.stringify(payload),
-            });
+            const endpoints: { url: string; method: string }[] = [];
 
-            if (!response.ok) {
-                const errBody = await response.json().catch(() => ({}));
-                throw new Error(errBody.msg || errBody.message || "Failed to update risk profile");
+            // 1. Update by profileId (primary and most reliable)
+            if (profileId) {
+                if (typeof window !== "undefined" && (window.location.hostname === "localhost" || window.location.hostname === "127.0.0.1")) {
+                    endpoints.push({ url: `http://localhost:5000/api/financial-planning/profile/${profileId}`, method: "PUT" });
+                }
+                endpoints.push({ url: `https://k2b02x8c-5000.inc1.devtunnels.ms/api/financial-planning/profile/${profileId}`, method: "PUT" });
+            }
+
+            // 2. Update by financialPlanningId if available
+            if (financialPlanningId) {
+                if (typeof window !== "undefined" && (window.location.hostname === "localhost" || window.location.hostname === "127.0.0.1")) {
+                    endpoints.push({ url: `http://localhost:5000/api/financial-planning/${financialPlanningId}`, method: "PUT" });
+                }
+                endpoints.push({ url: `https://k2b02x8c-5000.inc1.devtunnels.ms/api/financial-planning/${financialPlanningId}`, method: "PUT" });
+            }
+
+            // 3. Fallback POST upsert
+            if (typeof window !== "undefined" && (window.location.hostname === "localhost" || window.location.hostname === "127.0.0.1")) {
+                endpoints.push({ url: `http://localhost:5000/api/financial-planning`, method: "POST" });
+            }
+            endpoints.push({ url: `https://k2b02x8c-5000.inc1.devtunnels.ms/api/financial-planning`, method: "POST" });
+
+            let response = null;
+            let lastErrMsg = "Failed to update risk profile";
+
+            for (const ep of endpoints) {
+                try {
+                    const res = await fetch(ep.url, {
+                        method: ep.method,
+                        headers: {
+                            "Content-Type": "application/json",
+                            "X-Tunnel-Skip-Anti-Abuse-Page": "true",
+                        },
+                        body: JSON.stringify(payload),
+                    });
+                    if (res.ok) {
+                        response = res;
+                        break;
+                    } else {
+                        const errBody = await res.json().catch(() => ({}));
+                        lastErrMsg = errBody.msg || errBody.message || lastErrMsg;
+                    }
+                } catch {
+                    // try next endpoint
+                }
+            }
+
+            if (!response) {
+                throw new Error(lastErrMsg);
+            }
+
+            const resData = await response.json().catch(() => ({}));
+            if (resData.data?._id && setFinancialPlanningId) {
+                setFinancialPlanningId(resData.data._id);
             }
 
             if (onNext) onNext();

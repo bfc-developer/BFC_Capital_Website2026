@@ -30,7 +30,7 @@ export default function PortfolioReview({
 
         const fetchExisting = async () => {
             try {
-                const res = await fetch(`http://localhost:5000/api/portfolio-review/profile/${profileId}`);
+                const res = await fetch(`https://k2b02x8c-5000.inc1.devtunnels.ms/api/portfolio-review/profile/${profileId}`);
                 if (res.ok) {
                     const json = await res.json();
                     if (json.data) {
@@ -69,7 +69,7 @@ export default function PortfolioReview({
                 remarks: remarks.trim(),
             };
 
-            const res = await fetch("http://localhost:5000/api/portfolio-review", {
+            const res = await fetch("https://k2b02x8c-5000.inc1.devtunnels.ms/api/portfolio-review", {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify(payload),
@@ -372,7 +372,7 @@ export default function PortfolioReview({
                                 zIndex: 10,
                             }}
                         >
-                            Your personalised financial report is ready.
+                            Your personalised financial report is ready and sent on your E-mail.
                         </p>
                         <p
                             style={{
