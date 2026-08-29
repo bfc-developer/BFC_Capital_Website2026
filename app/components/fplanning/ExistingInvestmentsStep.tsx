@@ -209,11 +209,19 @@ export default function ExistingInvestmentsStep({
     onBack,
     showBack = false,
 }: ExistingInvestmentsStepProps) {
-    const [assets, setAssets] = useState<AssetItem[]>([]);
+    const [assets, setAssets] = useState<AssetItem[]>([
+        {
+            id: Date.now(),
+            assetClass: "",
+            items: [],
+        },
+    ]);
     const [isSubmitting, setIsSubmitting] = useState(false);
     const [errors, setErrors] = useState<Record<string, string>>({});
+    const [generalError, setGeneralError] = useState<string>("");
 
     const addAsset = () => {
+        setGeneralError("");
         setAssets((prev) => [
             ...prev,
             {
@@ -225,9 +233,17 @@ export default function ExistingInvestmentsStep({
     };
 
     const updateAsset = (id: number, value: string) => {
+        setGeneralError("");
         setAssets((prev) =>
             prev.map((item) => {
                 if (item.id === id) {
+                    if (!value) {
+                        return {
+                            id: item.id,
+                            assetClass: "",
+                            items: [],
+                        };
+                    }
                     const defaultEntry: Entry = { id: Date.now() + Math.random() };
                     if (value === "Real Estate") {
                         defaultEntry.reExpectedReturn = "8";
@@ -248,10 +264,15 @@ export default function ExistingInvestmentsStep({
             })
         );
         // Clear errors when asset class is modified
-        setErrors({});
+        setErrors((prev) => {
+            const next = { ...prev };
+            delete next[`${id}_assetClass`];
+            return next;
+        });
     };
 
     const updateAssetField = (cardId: number, itemId: number, field: keyof Entry, value: any) => {
+        setGeneralError("");
         setAssets((prev) =>
             prev.map((card) =>
                 card.id === cardId
@@ -274,6 +295,8 @@ export default function ExistingInvestmentsStep({
     };
 
     const removeAsset = (id: number) => {
+        if (assets.length <= 1) return; // At least one asset card must remain
+        setGeneralError("");
         const cardToRemove = assets.find((item) => item.id === id);
         setAssets((prev) =>
             prev.filter((item) => item.id !== id)
@@ -638,7 +661,7 @@ export default function ExistingInvestmentsStep({
             .then((res) => res.json())
             .then((resData) => {
                 if (resData.success && resData.data) {
-                    if (Array.isArray(resData.data.assets)) {
+                    if (Array.isArray(resData.data.assets) && resData.data.assets.length > 0) {
                         const grouped: Record<string, Entry[]> = {};
                         resData.data.assets.forEach((asset: any) => {
                             const cls = asset.assetClass || "Other Assest Classes";
@@ -787,7 +810,12 @@ export default function ExistingInvestmentsStep({
 
     const handleContinue = async () => {
         if (!profileId) {
-            alert("No Personal Profile ID found.");
+            alert("No Personal Profile ID found. Please complete the Personal Profile step first.");
+            return;
+        }
+
+        if (!assets || assets.length === 0) {
+            setGeneralError("Your Existing Investments details are mandatory. Please select and fill details for at least one investment.");
             return;
         }
 
@@ -797,6 +825,11 @@ export default function ExistingInvestmentsStep({
         assets.forEach((card) => {
             if (!card.assetClass) {
                 newErrors[`${card.id}_assetClass`] = "Please select an asset class.";
+                return;
+            }
+
+            if (!card.items || card.items.length === 0) {
+                newErrors[`${card.id}_assetClass`] = "Please add at least one entry for this asset class.";
                 return;
             }
 
@@ -872,6 +905,7 @@ export default function ExistingInvestmentsStep({
 
         if (Object.keys(newErrors).length > 0) {
             setErrors(newErrors);
+            setGeneralError("Please fill in all mandatory fields marked with * before continuing.");
             const firstErrorKey = Object.keys(newErrors)[0];
             const errorElement = document.getElementById(firstErrorKey);
             if (errorElement) {
@@ -881,6 +915,7 @@ export default function ExistingInvestmentsStep({
             return;
         }
 
+        setGeneralError("");
         setIsSubmitting(true);
         try {
             // Formulate payload converting frontend text inputs to types expected by API
@@ -966,6 +1001,12 @@ export default function ExistingInvestmentsStep({
                 });
             });
 
+            if (flatAssets.length === 0) {
+                setGeneralError("Your Existing Investments details are mandatory. Please fill in details for at least one investment.");
+                setIsSubmitting(false);
+                return;
+            }
+
             const payload = {
                 personalProfileId: profileId,
                 assets: flatAssets,
@@ -1007,6 +1048,16 @@ export default function ExistingInvestmentsStep({
 
             <div className="w-full h-px bg-[#e9e9e9] mt-5 sm:mt-5 mb-5 sm:mb-6" />
 
+            {/* General Error Banner */}
+            {generalError && (
+                <div className="mb-6 p-4 bg-red-50 border border-red-200 rounded-[12px] flex items-center gap-2.5 text-red-600 text-[13px] font-semibold animate-pulse">
+                    <svg className="w-5 h-5 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
+                        <path fillRule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7 4a1 1 0 11-2 0 1 1 0 012 0zm-1-9a1 1 0 00-1 1v4a1 1 0 102 0V6a1 1 0 00-1-1z" clipRule="evenodd" />
+                    </svg>
+                    <span>{generalError}</span>
+                </div>
+            )}
+
             {/* Asset List */}
             <div className="space-y-5">
                 {assets.map((asset) => (
@@ -1016,13 +1067,16 @@ export default function ExistingInvestmentsStep({
                                 <label className="block text-sm font-medium text-[#44475B]">
                                     Select Asset Class <span className="text-red-600"> *</span>
                                 </label>
-                                <button
-                                    type="button"
-                                    onClick={() => removeAsset(asset.id)}
-                                    className="cursor-pointer h-10 w-10 rounded-full bg-[#DB4437] text-white flex items-center justify-center"
-                                >
-                                    <Trash2 size={18} />
-                                </button>
+                                {assets.length > 1 && (
+                                    <button
+                                        type="button"
+                                        onClick={() => removeAsset(asset.id)}
+                                        className="cursor-pointer h-10 w-10 rounded-full bg-[#DB4437] text-white flex items-center justify-center hover:bg-red-700 transition"
+                                        title="Remove Asset Class"
+                                    >
+                                        <Trash2 size={18} />
+                                    </button>
+                                )}
                             </div>
 
                             <select

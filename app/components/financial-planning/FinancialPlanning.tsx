@@ -27,10 +27,10 @@ export default function FinancialPlanning() {
                                     buttonText="Book your financial planning session today"
                                     className="bg-[#024B39] text-white px-6 py-2 rounded-md hover:bg-[#024B39] transition duration-300 cursor-pointer"
                                 />
-                                {/* <button
+                                <button
                                     className="bg-[#024B39] text-white px-6 py-2 rounded-md hover:bg-[#024B39] transition duration-300 cursor-pointer"
                                     onClick={() => window.location.href = "/fplanning-stepper"}
-                                >DIY Financial Planning</button> */}
+                                >DIY Financial Planning</button>
                             </div>
 
                         </div>

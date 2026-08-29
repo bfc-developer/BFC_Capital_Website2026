@@ -48,6 +48,13 @@ export default function FplanningStepper() {
     const [sessionChoice, setSessionChoice] = useState<"ask" | "new" | "continue">("ask");
     const [resumeMobileNumber, setResumeMobileNumber] = useState("");
     const [resumePan, setResumePan] = useState("");
+    const [otp, setOtp] = useState("");
+    const [isOtpSent, setIsOtpSent] = useState(false);
+    const [isOtpVerified, setIsOtpVerified] = useState(false);
+    const [isSendingOtp, setIsSendingOtp] = useState(false);
+    const [isVerifyingOtp, setIsVerifyingOtp] = useState(false);
+    const [resendTimer, setResendTimer] = useState(0);
+    const [otpMessage, setOtpMessage] = useState("");
     const [matchingProfiles, setMatchingProfiles] = useState<any[]>([]);
     const [isFetchingSession, setIsFetchingSession] = useState(false);
     const [sessionError, setSessionError] = useState("");
@@ -100,6 +107,18 @@ export default function FplanningStepper() {
         });
     }, [current]);
 
+    useEffect(() => {
+        let interval: any = null;
+        if (resendTimer > 0) {
+            interval = setInterval(() => {
+                setResendTimer((prev) => prev - 1);
+            }, 1000);
+        }
+        return () => {
+            if (interval) clearInterval(interval);
+        };
+    }, [resendTimer]);
+
     const goTo = (id: number) => {
         if (id <= current) {
             setCurrent(id);
@@ -110,28 +129,128 @@ export default function FplanningStepper() {
     const progressPct = ((current - 1) / (STEPS.length - 1)) * 100;
     const stepRefs = useRef<Record<number, HTMLLIElement | null>>({});
 
+    const resetResumeState = () => {
+        setIsOtpSent(false);
+        setIsOtpVerified(false);
+        setOtp("");
+        setSessionError("");
+        setOtpMessage("");
+        setResendTimer(0);
+    };
+
+    const handleSendOtp = async () => {
+        if (resumeMobileNumber.length !== 10) {
+            setSessionError("Please enter a valid 10-digit mobile number.");
+            return false;
+        }
+        setIsSendingOtp(true);
+        setSessionError("");
+        setOtpMessage("");
+        try {
+            const response = await fetch(`http://localhost:5000/api/personal/send-otp`, {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({
+                    mobileNumber: resumeMobileNumber,
+                }),
+            });
+            const resData = await response.json();
+            if (response.ok && resData.success) {
+                setIsOtpSent(true);
+                setResendTimer(30);
+                setOtpMessage("OTP sent successfully to your mobile number.");
+                return true;
+            } else {
+                setSessionError(resData.message || "Failed to send OTP. Please try again.");
+                return false;
+            }
+        } catch (err) {
+            setSessionError(err instanceof Error ? err.message : "Error connecting to server. Please try again.");
+            return false;
+        } finally {
+            setIsSendingOtp(false);
+        }
+    };
+
+    const handleVerifyOtp = async () => {
+        const cleanOtp = otp.trim();
+        if (cleanOtp.length !== 4) {
+            setSessionError("Please enter the 4-digit OTP.");
+            return false;
+        }
+        setIsVerifyingOtp(true);
+        setSessionError("");
+        try {
+            const response = await fetch(`http://localhost:5000/api/personal/verify-otp`, {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({
+                    mobileNumber: resumeMobileNumber,
+                    otp: cleanOtp,
+                }),
+            });
+            const resData = await response.json();
+            if (response.ok && resData.success) {
+                setIsOtpVerified(true);
+                setOtpMessage("OTP verified successfully!");
+                return true;
+            } else {
+                setSessionError(resData.message || "Invalid OTP. Please check and try again.");
+                return false;
+            }
+        } catch (err) {
+            setSessionError(err instanceof Error ? err.message : "Error connecting to server. Please try again.");
+            return false;
+        } finally {
+            setIsVerifyingOtp(false);
+        }
+    };
+
     const handleResumeSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
         if (resumeMobileNumber.length !== 10) {
             setSessionError("Please enter a valid 10-digit mobile number.");
             return;
         }
-        const panRegex = /^[A-Z]{5}[0-9]{4}[A-Z]{1}$/;
-        if (!panRegex.test(resumePan)) {
-            setSessionError("Please enter a valid PAN format (e.g. ABCDE1234F).");
+        if (resumePan && resumePan.trim()) {
+            const panRegex = /^[A-Z]{5}[0-9]{4}[A-Z]{1}$/;
+            if (!panRegex.test(resumePan.trim())) {
+                setSessionError("Please enter a valid PAN format (e.g. ABCDE1234F).");
+                return;
+            }
+        }
+
+        // If OTP not sent yet, send OTP first!
+        if (!isOtpSent) {
+            await handleSendOtp();
             return;
         }
+
+        // If OTP sent but not verified, verify it now!
+        if (!isOtpVerified) {
+            if (otp.trim().length !== 4) {
+                setSessionError("Please enter the 4-digit OTP to continue.");
+                return;
+            }
+            const ok = await handleVerifyOtp();
+            if (!ok) return;
+        }
+
         setIsFetchingSession(true);
         setSessionError("");
         setMatchingProfiles([]);
         try {
+            const payload: { mobileNumber: string; pan?: string } = {
+                mobileNumber: resumeMobileNumber,
+            };
+            if (resumePan && resumePan.trim()) {
+                payload.pan = resumePan.trim();
+            }
+
             const response = await fetch(`http://localhost:5000/api/personal/mobile-state`, {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
-                body: JSON.stringify({
-                    mobileNumber: resumeMobileNumber,
-                    pan: resumePan,
-                }),
+                body: JSON.stringify(payload),
             });
             if (!response.ok) {
                 throw new Error("Unable to contact backend server.");
@@ -198,7 +317,7 @@ export default function FplanningStepper() {
                     setCurrent(resData.step || 1);
                 }
             } else {
-                setSessionError("No existing record found for this mobile number and PAN.");
+                setSessionError(resData.message || "No existing record found for this mobile number and PAN.");
             }
         } catch (err) {
             setSessionError(err instanceof Error ? err.message : "Error connecting to server. Please try again.");
@@ -446,21 +565,98 @@ export default function FplanningStepper() {
                     <form onSubmit={handleResumeSubmit} className="space-y-4 text-left">
                         <div>
                             <label className="block text-[12px] font-semibold text-[#44475b] mb-1.5">
-                                Mobile Number
+                                Mobile Number <span className="text-red-500">*</span>
                             </label>
-                            <input
-                                type="text"
-                                maxLength={10}
-                                placeholder="Enter 10-digit mobile number"
-                                value={resumeMobileNumber}
-                                onChange={(e) => {
-                                    const val = e.target.value.replace(/\D/g, "");
-                                    setResumeMobileNumber(val);
-                                    setSessionError("");
-                                }}
-                                className="w-full h-[48px] bg-white border border-[#e9e9e9] rounded-[10px] px-4 text-[14px] text-[#44475b] placeholder-[#8b8b8b] focus:outline-none focus:border-[#06A358] transition-colors"
-                            />
+                            <div className="flex gap-2">
+                                <div className="flex-1 flex h-[48px] bg-white border border-[#e9e9e9] rounded-[10px] overflow-hidden focus-within:border-[#06A358] transition-colors">
+                                    <span className="flex items-center px-3 text-[13px] font-semibold text-[#8b8b8b] bg-[#f8fafc] border-r border-[#e9e9e9] select-none">
+                                        +91
+                                    </span>
+                                    <input
+                                        type="text"
+                                        maxLength={10}
+                                        placeholder="10-digit mobile number"
+                                        value={resumeMobileNumber}
+                                        disabled={isOtpVerified}
+                                        onChange={(e) => {
+                                            const val = e.target.value.replace(/\D/g, "");
+                                            setResumeMobileNumber(val);
+                                            setSessionError("");
+                                            setOtpMessage("");
+                                            setIsOtpSent(false);
+                                            setIsOtpVerified(false);
+                                        }}
+                                        className="flex-1 h-full px-3 text-[14px] text-[#44475b] placeholder-[#8b8b8b] bg-transparent focus:outline-none"
+                                    />
+                                </div>
+                                <button
+                                    type="button"
+                                    onClick={() => handleSendOtp()}
+                                    disabled={resumeMobileNumber.length !== 10 || isSendingOtp || isOtpVerified}
+                                    className={`px-4 h-[48px] font-bold text-[13px] rounded-[10px] whitespace-nowrap transition-all duration-200 ${
+                                        isOtpVerified
+                                            ? "bg-[#eefbf4] text-[#06A358] border border-[#c3eed7] cursor-default"
+                                            : "bg-[#06A358] hover:bg-[#058f4d] text-white disabled:opacity-50 shadow-[0px_2px_8px_rgba(6,163,88,0.2)] cursor-pointer"
+                                    }`}
+                                >
+                                    {isOtpVerified
+                                        ? "Verified ✓"
+                                        : isSendingOtp
+                                        ? "Sending..."
+                                        : isOtpSent
+                                        ? "Resend OTP"
+                                        : "Send OTP"}
+                                </button>
+                            </div>
                         </div>
+
+                        {/* OTP input section appears when OTP has been sent and not yet verified */}
+                        {isOtpSent && !isOtpVerified && (
+                            <div className="p-4 bg-[#f8fafc] border border-[#cbd5e1] rounded-[12px] space-y-2.5 transition-all">
+                                <div className="flex items-center justify-between">
+                                    <label className="block text-[12px] font-semibold text-[#44475b]">
+                                        Enter 4-Digit OTP <span className="text-red-500">*</span>
+                                    </label>
+                                    {resendTimer > 0 ? (
+                                        <span className="text-[11px] text-[#8b8b8b]">
+                                            Resend in <span className="font-semibold text-[#06A358]">{resendTimer}s</span>
+                                        </span>
+                                    ) : (
+                                        <button
+                                            type="button"
+                                            onClick={() => handleSendOtp()}
+                                            disabled={isSendingOtp}
+                                            className="text-[11px] font-bold text-[#06A358] hover:underline cursor-pointer"
+                                        >
+                                            Resend OTP
+                                        </button>
+                                    )}
+                                </div>
+                                <div className="flex gap-2">
+                                    <input
+                                        type="text"
+                                        inputMode="numeric"
+                                        maxLength={4}
+                                        placeholder="• • • •"
+                                        value={otp}
+                                        onChange={(e) => {
+                                            const val = e.target.value.replace(/\D/g, "");
+                                            setOtp(val);
+                                            setSessionError("");
+                                        }}
+                                        className="flex-1 h-[44px] bg-white border border-[#cbd5e1] rounded-[8px] text-center font-bold text-[20px] tracking-[0.5em] text-[#44475b] placeholder-[#94a3b8] focus:outline-none focus:border-[#06A358]"
+                                    />
+                                    <button
+                                        type="button"
+                                        onClick={() => handleVerifyOtp()}
+                                        disabled={otp.trim().length !== 4 || isVerifyingOtp}
+                                        className="px-5 h-[44px] bg-[#035daf] hover:bg-[#024d91] text-white font-bold text-[13px] rounded-[8px] disabled:opacity-50 transition-colors cursor-pointer shadow-[0px_2px_6px_rgba(3,93,175,0.25)]"
+                                    >
+                                        {isVerifyingOtp ? "Verifying..." : "Verify"}
+                                    </button>
+                                </div>
+                            </div>
+                        )}
 
                         <div>
                             <label className="block text-[12px] font-semibold text-[#44475b] mb-1.5">
@@ -479,20 +675,34 @@ export default function FplanningStepper() {
                             />
                         </div>
 
-
+                        {otpMessage && (
+                            <p className="text-[12px] font-semibold text-[#06A358] text-center bg-[#eefbf4] border border-[#c3eed7] py-2 px-3 rounded-[8px]">
+                                {otpMessage}
+                            </p>
+                        )}
 
                         {sessionError && (
-                            <p className="text-[12px] font-semibold text-red-500 text-center bg-red-50 py-2 px-3 rounded-[8px]">
+                            <p className="text-[12px] font-semibold text-red-500 text-center bg-red-50 border border-red-100 py-2 px-3 rounded-[8px]">
                                 {sessionError}
                             </p>
                         )}
 
                         <button
                             type="submit"
-                            disabled={isFetchingSession}
-                            className="w-full min-h-[48px] bg-gradient-to-r from-[#06a358] to-[#035daf] hover:from-[#058f4d] hover:to-[#024d91] disabled:opacity-70 text-white font-bold text-[14px] sm:text-[15px] rounded-[10px] shadow-[0px_4px_12px_rgba(6,163,88,0.2)] transition-all duration-300"
+                            disabled={isFetchingSession || isSendingOtp || isVerifyingOtp}
+                            className="w-full min-h-[48px] bg-gradient-to-r from-[#06a358] to-[#035daf] hover:from-[#058f4d] hover:to-[#024d91] disabled:opacity-70 text-white font-bold text-[14px] sm:text-[15px] rounded-[10px] shadow-[0px_4px_12px_rgba(6,163,88,0.2)] transition-all duration-300 flex items-center justify-center gap-2 cursor-pointer"
                         >
-                            {isFetchingSession ? "Retrieving Record..." : "Retrieve and Continue"}
+                            {isFetchingSession
+                                ? "Retrieving Record..."
+                                : isSendingOtp
+                                ? "Sending OTP..."
+                                : isVerifyingOtp
+                                ? "Verifying OTP..."
+                                : !isOtpSent
+                                ? "Send OTP & Continue"
+                                : !isOtpVerified
+                                ? "Verify OTP & Continue"
+                                : "Retrieve and Continue"}
                         </button>
                     </form>
 
@@ -501,7 +711,7 @@ export default function FplanningStepper() {
                             type="button"
                             onClick={() => {
                                 setSessionChoice("ask");
-                                setSessionError("");
+                                resetResumeState();
                             }}
                             className="text-[13px] text-[#06A358] font-bold hover:underline"
                         >
@@ -512,7 +722,7 @@ export default function FplanningStepper() {
                             type="button"
                             onClick={() => {
                                 setSessionChoice("new");
-                                setSessionError("");
+                                resetResumeState();
                             }}
                             className="text-[13px] text-[#44475b] font-semibold hover:underline"
                         >
