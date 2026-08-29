@@ -1499,10 +1499,10 @@ const Home = () => {
                         Facebook:
                       </span>{" "}
                       <a
-                        href="https://www.facebook.com/bfccapital/"
+                        href="https://www.facebook.com/bfccapitalindia"
                         className="hover:text-[#001EFE]"
                       >
-                        https://www.facebook.com/bfccapital/
+                        https://www.facebook.com/bfccapitalindia
                       </a>
                     </p>
                     <p className="mb-0 break-words">
@@ -1568,10 +1568,10 @@ const Home = () => {
                         Facebook:
                       </span>{" "}
                       <a
-                        href="https://www.facebook.com/prodigyprobybfc"
+                        href="https://www.facebook.com/profile.php?id=61591880938605"
                         className="hover:text-[#001EFE]"
                       >
-                        https://www.facebook.com/prodigyprobybfc
+                        https://www.facebook.com/profile.php?id=61591880938605
                       </a>
                     </p>
                     <p className="mb-0 break-words">

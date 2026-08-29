@@ -582,11 +582,8 @@ export default function GoalIdentificationStep({
     // Alert Popup Modal State for Default Value Changes
     const [alertPopup, setAlertPopup] = useState<{
         isOpen: boolean;
-        title: string;
-        fieldName: string;
-        oldValue: string;
-        newValue: string;
-        message?: string;
+        title?: string;
+        message: React.ReactNode;
     } | null>(null);
     const focusedValuesRef = useRef<Record<string, string>>({});
     const [userCalculatedAge, setUserCalculatedAge] = useState<number | null>(() => getAgeFromDob(dob));
@@ -1217,29 +1214,56 @@ export default function GoalIdentificationStep({
         if (prevVal !== undefined && prevVal !== currentValue && currentValue.trim() !== "") {
             const config = PRE_RETIREMENT_FIELD_CONFIG[field];
             if (config) {
-                const unit = config.unit ? ` ${config.unit}` : "";
-                let extraMessage = "";
-                if (field === "currentAge" || field === "retirementAge") {
-                    const targetGoal = goals.find((g) => g.id === goalId);
-                    const cur = field === "currentAge" ? Number(currentValue) : Number(targetGoal?.currentAge || 30);
-                    const ret = field === "retirementAge" ? Number(currentValue) : Number(targetGoal?.retirementAge || 60);
-                    const newTenure = Math.max(0, ret - cur);
-                    extraMessage = `The investment tenure has been automatically updated to ${newTenure} years based on Retirement Age (${ret}) - Current Age (${cur}).`;
+                if (field === "expectedReturnPreRetirement") {
+                    setAlertPopup({
+                        isOpen: true,
+                        title: "Alert",
+                        message: (
+                            <span style={{ color: "#2c3a5b" }}>
+                                Your expected pre-retirement return is higher than our recommended average. Higher return assumptions may underestimate the investment required. Consider using a more realistic return for accurate retirement planning.
+                            </span>
+                        ),
+                    });
+                } else if (field === "inflationRate") {
+                    setAlertPopup({
+                        isOpen: true,
+                        title: "Alert",
+                        message: (
+                            <span style={{ color: "#2c3a5b" }}>
+                                The entered inflation rate of <strong style={{ color: "#94191e", fontWeight: 700 }}>{currentValue}%</strong> is higher than the recommended inflation rate of <strong style={{ color: "#94191e", fontWeight: 700 }}>6%</strong>.
+                            </span>
+                        ),
+                    });
+                } else if (field === "postRetirementReturn") {
+                    setAlertPopup({
+                        isOpen: true,
+                        title: "Alert",
+                        message: (
+                            <span style={{ color: "#2c3a5b" }}>
+                                Your expected post-retirement return is higher than our recommended average. Higher return assumptions may underestimate the investment required. Consider using a more realistic return for accurate retirement planning.
+                            </span>
+                        ),
+                    });
+                } else {
+                    const unit = config.unit ? ` ${config.unit}` : "";
+                    let extraMessage = "";
+                    if (field === "currentAge" || field === "retirementAge") {
+                        const targetGoal = goals.find((g) => g.id === goalId);
+                        const cur = field === "currentAge" ? Number(currentValue) : Number(targetGoal?.currentAge || 30);
+                        const ret = field === "retirementAge" ? Number(currentValue) : Number(targetGoal?.retirementAge || 60);
+                        const newTenure = Math.max(0, ret - cur);
+                        extraMessage = ` The investment tenure has been automatically updated to ${newTenure} years based on Retirement Age (${ret}) - Current Age (${cur}).`;
+                    }
+                    setAlertPopup({
+                        isOpen: true,
+                        title: "Alert",
+                        message: (
+                            <span style={{ color: "#2c3a5b" }}>
+                                You have modified the default assumption for <strong style={{ color: "#1e293b", fontWeight: 600 }}>{config.label}</strong> from <strong style={{ color: "#334155", fontWeight: 700 }}>{prevVal}{unit}</strong> to <strong style={{ color: "#94191e", fontWeight: 700 }}>{currentValue}{unit}</strong>.{extraMessage}
+                            </span>
+                        ),
+                    });
                 }
-
-                setAlertPopup({
-                    isOpen: true,
-                    title: "Pre-Retirement Assumption Modified",
-                    fieldName: config.label,
-                    oldValue: `${prevVal}${unit}`,
-                    newValue: `${currentValue}${unit}`,
-                    message: extraMessage,
-                });
-
-                toast.info(
-                    `${config.label} changed from ${prevVal}${unit} to ${currentValue}${unit}.${extraMessage ? " " + extraMessage : ""}`,
-                    { position: "top-right", autoClose: 4000 }
-                );
 
                 focusedValuesRef.current[key] = currentValue;
             }
@@ -2047,7 +2071,7 @@ export default function GoalIdentificationStep({
                                                                 {/* Expected Return Pre - Retirment (%) */}
                                                                 <div className="space-y-2.5">
                                                                     <label className="block text-[13.5px] sm:text-[14px] font-semibold text-[#44475B]">
-                                                                        Expected Return Pre - Retirment (%)
+                                                                        Expected Return Pre - Retirement (%)
                                                                     </label>
                                                                     <input
                                                                         value={goal.expectedReturnPreRetirement}
@@ -2699,52 +2723,115 @@ export default function GoalIdentificationStep({
 
             {/* Pre-Retirement Assumption Alert Popup Modal */}
             {alertPopup && alertPopup.isOpen && (
-                <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/50 backdrop-blur-xs transition-opacity animate-in fade-in duration-200">
-                    <div className="bg-white rounded-2xl shadow-2xl max-w-md w-full p-6 border border-gray-100 transform transition-all animate-in zoom-in-95 duration-200">
-                        <div className="flex items-start gap-4">
-                            <div className="w-12 h-12 rounded-full bg-amber-50 border border-amber-200 flex items-center justify-center shrink-0 text-amber-600">
-                                <AlertTriangle className="w-6 h-6" />
-                            </div>
-                            <div className="flex-1">
-                                <h4 className="text-lg font-bold text-gray-900">
-                                    {alertPopup.title || "Assumption Modified"}
-                                </h4>
-                                <p className="text-sm text-gray-600 mt-1">
-                                    You have modified the default assumption for <span className="font-semibold text-gray-800">{alertPopup.fieldName}</span>.
-                                </p>
-                            </div>
+                <div
+                    style={{
+                        position: "fixed",
+                        top: 0,
+                        left: 0,
+                        right: 0,
+                        bottom: 0,
+                        zIndex: 999999,
+                        display: "flex",
+                        alignItems: "center",
+                        justifyContent: "center",
+                        padding: "16px",
+                        backgroundColor: "rgba(15, 23, 42, 0.45)",
+                        backdropFilter: "blur(4px)",
+                        WebkitBackdropFilter: "blur(4px)",
+                    }}
+                    onClick={() => setAlertPopup(null)}
+                >
+                    <div
+                        style={{
+                            backgroundColor: "#ffffff",
+                            borderRadius: "32px",
+                            boxShadow: "0 25px 60px rgba(0, 0, 0, 0.22)",
+                            maxWidth: "540px",
+                            width: "100%",
+                            paddingTop: "40px",
+                            paddingBottom: "44px",
+                            paddingLeft: "36px",
+                            paddingRight: "36px",
+                            display: "flex",
+                            flexDirection: "column",
+                            alignItems: "center",
+                            textAlign: "center",
+                            position: "relative",
+                            boxSizing: "border-box",
+                        }}
+                        onClick={(e) => e.stopPropagation()}
+                    >
+                        {/* Warning Icon */}
+                        <div style={{ display: "flex", alignItems: "center", justifyContent: "center", marginBottom: "18px" }}>
+                            <svg width="60" height="52" viewBox="0 0 64 56" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path
+                                    d="M28.47 4.56c1.55-2.75 5.51-2.75 7.06 0l25.8 45.74c1.52 2.7-0.42 6.07-3.53 6.07H6.2c-3.11 0-5.05-3.37-3.53-6.07L28.47 4.56z"
+                                    fill="url(#alert_icon_grad_v2)"
+                                />
+                                <defs>
+                                    <linearGradient id="alert_icon_grad_v2" x1="32" y1="0" x2="32" y2="56" gradientUnits="userSpaceOnUse">
+                                        <stop stopColor="#FCCF5A" />
+                                        <stop offset="1" stopColor="#FEA85B" />
+                                    </linearGradient>
+                                </defs>
+                                <path d="M32 20v13" stroke="#232323" strokeWidth="4.2" strokeLinecap="round" />
+                                <circle cx="32" cy="40.5" r="2.6" fill="#232323" />
+                            </svg>
                         </div>
 
-                        <div className="my-5 p-4 rounded-xl bg-gray-50 border border-gray-200/80 space-y-2 text-sm">
-                            <div className="flex justify-between items-center">
-                                <span className="text-gray-500 font-medium">Previous / Default Value:</span>
-                                <span className="font-bold text-gray-700 bg-gray-200/70 px-2.5 py-0.5 rounded-md text-[13px]">
-                                    {alertPopup.oldValue}
-                                </span>
-                            </div>
-                            <div className="flex justify-between items-center">
-                                <span className="text-gray-500 font-medium">New Modified Value:</span>
-                                <span className="font-bold text-[#04b488] bg-[#EBFFEC] border border-[#04b488]/30 px-2.5 py-0.5 rounded-md text-[13px]">
-                                    {alertPopup.newValue}
-                                </span>
-                            </div>
-                            {alertPopup.message && (
-                                <div className="pt-2 border-t border-gray-200 text-xs text-blue-700 font-medium flex items-center gap-1.5">
-                                    <span className="inline-block w-1.5 h-1.5 rounded-full bg-blue-600 shrink-0"></span>
-                                    {alertPopup.message}
-                                </div>
-                            )}
+                        {/* Title */}
+                        <h3
+                            style={{
+                                fontSize: "28px",
+                                fontWeight: 700,
+                                color: "#94191e",
+                                letterSpacing: "-0.01em",
+                                margin: "0 0 16px 0",
+                                lineHeight: "1.2",
+                            }}
+                        >
+                            {alertPopup.title || "Alert"}
+                        </h3>
+
+                        {/* Message Body */}
+                        <div
+                            style={{
+                                color: "#2c3a5b",
+                                fontSize: "16px",
+                                lineHeight: "1.65",
+                                fontWeight: 400,
+                                margin: "0 0 32px 0",
+                                maxWidth: "440px",
+                            }}
+                        >
+                            {alertPopup.message}
                         </div>
 
-                        <div className="flex justify-end">
-                            <button
-                                type="button"
-                                onClick={() => setAlertPopup(null)}
-                                className="cursor-pointer px-5 py-2.5 bg-gradient-to-r from-[#06A358] to-[#001EFE] text-white text-sm font-semibold rounded-xl hover:opacity-95 shadow-sm transition"
-                            >
-                                I Understand
-                            </button>
-                        </div>
+                        {/* Action Button */}
+                        <button
+                            type="button"
+                            onClick={() => setAlertPopup(null)}
+                            style={{
+                                width: "305px",
+                                maxWidth: "100%",
+                                height: "52px",
+                                backgroundColor: "#d32f2f",
+                                backgroundImage: "linear-gradient(180deg, #de3838 0%, #c82828 100%)",
+                                color: "#ffffff",
+                                fontSize: "16px",
+                                fontWeight: 700,
+                                borderRadius: "16px",
+                                border: "none",
+                                boxShadow: "0 8px 20px rgba(216, 40, 40, 0.35)",
+                                cursor: "pointer",
+                                display: "flex",
+                                alignItems: "center",
+                                justifyContent: "center",
+                                outline: "none",
+                            }}
+                        >
+                            Acknowledge &amp; Continue
+                        </button>
                     </div>
                 </div>
             )}

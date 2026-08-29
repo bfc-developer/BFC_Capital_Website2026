@@ -43,6 +43,7 @@ export default function FplanningStepper() {
     const [financialProfileId, setFinancialProfileId] = useState<string | null>(null);
     const [financialProfileExists, setFinancialProfileExists] = useState(false);
     const [financialPlanningId, setFinancialPlanningId] = useState<string | null>(null);
+    const [isPlanningCompleted, setIsPlanningCompleted] = useState(false);
 
     const [sessionChoice, setSessionChoice] = useState<"ask" | "new" | "continue">("ask");
     const [resumeMobileNumber, setResumeMobileNumber] = useState("");
@@ -565,7 +566,7 @@ export default function FplanningStepper() {
                         >
                             {STEPS.map((s, idx) => {
                                 const isActive = s.id === current;
-                                const isDone = s.id < current;
+                                const isDone = s.id < current || (s.id === 9 && isPlanningCompleted);
                                 const clickable = s.id <= current;
                                 return (
                                     <li
@@ -707,6 +708,14 @@ export default function FplanningStepper() {
                                     onNext={() => setCurrent((c) => Math.min(c + 1, STEPS.length))}
                                     onBack={back}
                                     showBack={current > 1}
+                                />
+                            ) : current === 9 ? (
+                                <PortfolioReview
+                                    profileId={profileId}
+                                    financialPlanningId={financialPlanningId}
+                                    onBack={back}
+                                    showBack={current > 1}
+                                    onSuccess={() => setIsPlanningCompleted(true)}
                                 />
                             ) : (
                                 <StepBody footer={sharedFooter} />
