@@ -599,9 +599,11 @@ export default function GoalIdentificationStep({
         title?: string;
         message: React.ReactNode;
     } | null>(null);
-    const focusedValuesRef = useRef<Record<string, string>>({});
+    const debounceTimersRef = useRef<Record<string, NodeJS.Timeout>>({});
     const [userCalculatedAge, setUserCalculatedAge] = useState<number | null>(() => getAgeFromDob(dob));
     const userCalculatedAgeRef = useRef<number | null>(getAgeFromDob(dob));
+    const [fetchedMonthlyExpenses, setFetchedMonthlyExpenses] = useState<string>("");
+    const fetchedMonthlyExpensesRef = useRef<string>("");
 
     // Risk Profile Assessment States matching KnowYourRiskProfile.tsx
     const [currentRiskProfile, setCurrentRiskProfile] = useState<string>("Conservative");
@@ -662,9 +664,9 @@ export default function GoalIdentificationStep({
             inflationRate: "6",
             expectedReturnPreRetirement: "15",
             postRetirementReturn: "10",
-            currentMonthlyExpenses: "₹ 50,000",
+            currentMonthlyExpenses: "",
             isPensionable: "Yes",
-            pensionAmount: "₹ 50,000",
+            pensionAmount: "",
             selectedAllocationOptionId: "option_2",
             additionalAssets: [
                 {
@@ -735,6 +737,75 @@ export default function GoalIdentificationStep({
             active = false;
         };
     }, [dob, profileId]);
+
+    // Fetch Current Monthly Expenses from FinancialProfileStep (financial profile API)
+    useEffect(() => {
+        if (!profileId) return;
+        let active = true;
+
+        const fetchExpenses = async () => {
+            const urls: string[] = [];
+            if (typeof window !== "undefined" && (window.location.hostname === "localhost" || window.location.hostname === "127.0.0.1")) {
+                urls.push(`http://localhost:5000/api/financial/profile/${profileId}`);
+                urls.push(`http://localhost:5000/api/financial`);
+            }
+            urls.push(`https://k2b02x8c-5000.inc1.devtunnels.ms/api/financial/profile/${profileId}`);
+            urls.push(`https://k2b02x8c-5000.inc1.devtunnels.ms/api/financial`);
+
+            for (const url of urls) {
+                try {
+                    const res = await fetch(url, {
+                        headers: {
+                            "Content-Type": "application/json",
+                            "X-Tunnel-Skip-Anti-Abuse-Page": "true",
+                        },
+                    });
+                    if (res.ok) {
+                        const json = await res.json();
+                        let targetProfile = null;
+                        if (json && json.success && json.data) {
+                            if (Array.isArray(json.data)) {
+                                targetProfile = json.data.find(
+                                    (p: any) => String(p.personalProfileId?._id || p.personalProfileId) === String(profileId)
+                                );
+                            } else {
+                                targetProfile = json.data;
+                            }
+                        }
+
+                        if (targetProfile && Array.isArray(targetProfile.monthlyExpenses) && targetProfile.monthlyExpenses.length > 0) {
+                            const total = targetProfile.monthlyExpenses.reduce(
+                                (sum: number, item: any) => sum + (Number(item.amount) || Number(item.monthlyAmount) || 0),
+                                0
+                            );
+                            if (total > 0 && active) {
+                                const formatted = formatCurrencyInput(String(total));
+                                setFetchedMonthlyExpenses(formatted);
+                                fetchedMonthlyExpensesRef.current = formatted;
+                                setGoals((prevGoals) =>
+                                    prevGoals.map((g) => {
+                                        if (g.selectedGoal === "Retirement" && !g.currentMonthlyExpenses) {
+                                            return { ...g, currentMonthlyExpenses: formatted };
+                                        }
+                                        return g;
+                                    })
+                                );
+                                break;
+                            }
+                        }
+                    }
+                } catch {
+                    // Try next URL
+                }
+            }
+        };
+
+        fetchExpenses();
+
+        return () => {
+            active = false;
+        };
+    }, [profileId]);
 
     // Automatically fetch CAGR percentage from bfcgroup API for all calculators (including Pre-Retirement)
     useEffect(() => {
@@ -1137,9 +1208,9 @@ export default function GoalIdentificationStep({
                 inflationRate: "6",
                 expectedReturnPreRetirement: "15",
                 postRetirementReturn: "10",
-                currentMonthlyExpenses: isRet ? "₹ 50,000" : "",
+                currentMonthlyExpenses: isRet ? (fetchedMonthlyExpensesRef.current || fetchedMonthlyExpenses || "") : "",
                 isPensionable: isRet ? "Yes" : "",
-                pensionAmount: isRet ? "₹ 50,000" : "",
+                pensionAmount: "",
                 selectedAllocationOptionId: "option_2",
                 additionalAssets: [
                     {
@@ -1178,7 +1249,7 @@ export default function GoalIdentificationStep({
                                 updated.goalName = "Pre-Retirement";
                             }
                             if (!updated.currentMonthlyExpenses) {
-                                updated.currentMonthlyExpenses = "₹ 50,000";
+                                updated.currentMonthlyExpenses = fetchedMonthlyExpensesRef.current || fetchedMonthlyExpenses || "";
                             }
                             const computedAge = userCalculatedAgeRef.current || getAgeFromDob(dob);
                             if (!updated.currentAge) updated.currentAge = String(computedAge || 30);
@@ -1188,7 +1259,7 @@ export default function GoalIdentificationStep({
                             if (!updated.expectedReturnPreRetirement) updated.expectedReturnPreRetirement = "15";
                             if (!updated.postRetirementReturn) updated.postRetirementReturn = "10";
                             if (!updated.isPensionable) updated.isPensionable = "Yes";
-                            if (!updated.pensionAmount) updated.pensionAmount = "₹ 50,000";
+                            if (updated.pensionAmount === undefined || updated.pensionAmount === null) updated.pensionAmount = "";
                             const ret = Number(updated.retirementAge) || 60;
                             const cur = Number(updated.currentAge) || 30;
                             if (updated.goalName === "Pre-Retirement") {
@@ -1267,71 +1338,99 @@ export default function GoalIdentificationStep({
         );
     };
 
-    // Pre-Retirement Field Change Handlers to trigger Alert Popup
-    const handlePreRetirementFieldFocus = (goalId: number, field: string, currentValue: string) => {
-        focusedValuesRef.current[`${goalId}_${field}`] = currentValue;
-    };
+    // Pre-Retirement Field Change Handler with Debounce for Alert Popup
+    // Triggers on onChange, debounced 750ms; if user changes value back to default, no alert is shown
+    const handlePreRetirementFieldChange = (goalId: number, field: string, rawVal: string) => {
+        // 1. Sanitize value
+        let sanitizedVal = rawVal;
+        if (field === "currentAge" || field === "retirementAge" || field === "lifeExpectancy") {
+            sanitizedVal = rawVal.replace(/\D/g, "");
+        }
+        updateGoalField(goalId, field as keyof GoalItem, sanitizedVal);
 
-    const handlePreRetirementFieldBlur = (goalId: number, field: string, currentValue: string) => {
-        const key = `${goalId}_${field}`;
-        const prevVal = focusedValuesRef.current[key];
-        if (prevVal !== undefined && prevVal !== currentValue && currentValue.trim() !== "") {
-            const config = PRE_RETIREMENT_FIELD_CONFIG[field];
-            if (config) {
-                if (field === "expectedReturnPreRetirement") {
-                    setAlertPopup({
-                        isOpen: true,
-                        title: "Alert",
-                        message: (
-                            <span style={{ color: "#2c3a5b" }}>
-                                Your expected pre-retirement return is higher than our recommended average. Higher return assumptions may underestimate the investment required. Consider using a more realistic return for accurate retirement planning.
-                            </span>
-                        ),
-                    });
-                } else if (field === "inflationRate") {
-                    setAlertPopup({
-                        isOpen: true,
-                        title: "Alert",
-                        message: (
-                            <span style={{ color: "#2c3a5b" }}>
-                                The entered inflation rate of <strong style={{ color: "#94191e", fontWeight: 700 }}>{currentValue}%</strong> is higher than the recommended inflation rate of <strong style={{ color: "#94191e", fontWeight: 700 }}>6%</strong>.
-                            </span>
-                        ),
-                    });
-                } else if (field === "postRetirementReturn") {
-                    setAlertPopup({
-                        isOpen: true,
-                        title: "Alert",
-                        message: (
-                            <span style={{ color: "#2c3a5b" }}>
-                                Your expected post-retirement return is higher than our recommended average. Higher return assumptions may underestimate the investment required. Consider using a more realistic return for accurate retirement planning.
-                            </span>
-                        ),
-                    });
-                } else {
-                    const unit = config.unit ? ` ${config.unit}` : "";
-                    let extraMessage = "";
-                    if (field === "currentAge" || field === "retirementAge") {
-                        const targetGoal = goals.find((g) => g.id === goalId);
-                        const cur = field === "currentAge" ? Number(currentValue) : Number(targetGoal?.currentAge || 30);
-                        const ret = field === "retirementAge" ? Number(currentValue) : Number(targetGoal?.retirementAge || 60);
-                        const newTenure = Math.max(0, ret - cur);
-                        extraMessage = ` The investment tenure has been automatically updated to ${newTenure} years based on Retirement Age (${ret}) - Current Age (${cur}).`;
-                    }
-                    setAlertPopup({
-                        isOpen: true,
-                        title: "Alert",
-                        message: (
-                            <span style={{ color: "#2c3a5b" }}>
-                                You have modified the default assumption for <strong style={{ color: "#1e293b", fontWeight: 600 }}>{config.label}</strong> from <strong style={{ color: "#334155", fontWeight: 700 }}>{prevVal}{unit}</strong> to <strong style={{ color: "#94191e", fontWeight: 700 }}>{currentValue}{unit}</strong>.{extraMessage}
-                            </span>
-                        ),
-                    });
-                }
+        // 2. Clear any pending debounce timer for this field
+        const timerKey = `${goalId}_${field}`;
+        if (debounceTimersRef.current[timerKey]) {
+            clearTimeout(debounceTimersRef.current[timerKey]);
+            delete debounceTimersRef.current[timerKey];
+        }
 
-                focusedValuesRef.current[key] = currentValue;
+        // 3. Resolve default value for this field
+        let defaultVal = PRE_RETIREMENT_FIELD_CONFIG[field]?.defaultVal || "";
+        if (field === "currentAge") {
+            const resolvedAge = userCalculatedAgeRef.current || getAgeFromDob(dob);
+            if (resolvedAge) defaultVal = String(resolvedAge);
+        } else if (field === "expectedReturnPreRetirement") {
+            if (cagrMap[goalId] !== undefined) {
+                defaultVal = String(cagrMap[goalId]);
             }
         }
+
+        // 4. If value is empty or equals default value, do NOT trigger any popup
+        if (
+            sanitizedVal.trim() === "" ||
+            sanitizedVal === defaultVal ||
+            Number(sanitizedVal) === Number(defaultVal)
+        ) {
+            return;
+        }
+
+        // 5. Schedule debounced alert popup (750ms)
+        debounceTimersRef.current[timerKey] = setTimeout(() => {
+            const config = PRE_RETIREMENT_FIELD_CONFIG[field];
+            if (!config) return;
+
+            if (field === "expectedReturnPreRetirement") {
+                setAlertPopup({
+                    isOpen: true,
+                    title: "Alert",
+                    message: (
+                        <span style={{ color: "#2c3a5b" }}>
+                            Your expected pre-retirement return is higher than our recommended average. Higher return assumptions may underestimate the investment required. Consider using a more realistic return for accurate retirement planning.
+                        </span>
+                    ),
+                });
+            } else if (field === "inflationRate") {
+                setAlertPopup({
+                    isOpen: true,
+                    title: "Alert",
+                    message: (
+                        <span style={{ color: "#2c3a5b" }}>
+                            The entered inflation rate of <strong style={{ color: "#94191e", fontWeight: 700 }}>{sanitizedVal}%</strong> is higher than the recommended inflation rate of <strong style={{ color: "#94191e", fontWeight: 700 }}>6%</strong>.
+                        </span>
+                    ),
+                });
+            } else if (field === "postRetirementReturn") {
+                setAlertPopup({
+                    isOpen: true,
+                    title: "Alert",
+                    message: (
+                        <span style={{ color: "#2c3a5b" }}>
+                            Your expected post-retirement return is higher than our recommended average. Higher return assumptions may underestimate the investment required. Consider using a more realistic return for accurate retirement planning.
+                        </span>
+                    ),
+                });
+            } else {
+                const unit = config.unit ? ` ${config.unit}` : "";
+                let extraMessage = "";
+                if (field === "currentAge" || field === "retirementAge") {
+                    const targetGoal = goals.find((g) => g.id === goalId);
+                    const cur = field === "currentAge" ? Number(sanitizedVal) : Number(targetGoal?.currentAge || 30);
+                    const ret = field === "retirementAge" ? Number(sanitizedVal) : Number(targetGoal?.retirementAge || 60);
+                    const newTenure = Math.max(0, ret - cur);
+                    extraMessage = ` The investment tenure has been automatically updated to ${newTenure} years based on Retirement Age (${ret}) - Current Age (${cur}).`;
+                }
+                setAlertPopup({
+                    isOpen: true,
+                    title: "Alert",
+                    message: (
+                        <span style={{ color: "#2c3a5b" }}>
+                            You have modified the default assumption for <strong style={{ color: "#1e293b", fontWeight: 600 }}>{config.label}</strong> from <strong style={{ color: "#334155", fontWeight: 700 }}>{defaultVal}{unit}</strong> to <strong style={{ color: "#94191e", fontWeight: 700 }}>{sanitizedVal}{unit}</strong>.{extraMessage}
+                        </span>
+                    ),
+                });
+            }
+        }, 750);
     };
 
     // Tagged Assets Handlers
@@ -2002,7 +2101,7 @@ export default function GoalIdentificationStep({
                                                                         onChange={(e) => updateGoalField(goal.id, "currentMonthlyExpenses", formatCurrencyInput(e.target.value))}
                                                                         className="w-full h-[48px] sm:h-[50px] bg-white border border-[#e9e9e9] rounded-[12px] px-4 text-[14px] text-[#44475b] placeholder-[#8b8b8b] focus:outline-none focus:border-[#04b488] transition-colors shadow-2xs"
                                                                         type="text"
-                                                                        placeholder="₹ 50,000"
+                                                                        placeholder=""
                                                                     />
                                                                 </div>
                                                             </div>
@@ -2056,7 +2155,7 @@ export default function GoalIdentificationStep({
                                                                                 onChange={(e) => updateGoalField(goal.id, "pensionAmount", formatCurrencyInput(e.target.value))}
                                                                                 className="w-full h-[46px] sm:h-[48px] bg-white border border-[#e9e9e9] rounded-[12px] px-4 text-[14px] text-[#44475b] placeholder-[#8b8b8b] focus:outline-none focus:border-[#04b488] transition-colors"
                                                                                 type="text"
-                                                                                placeholder="₹ 50,000"
+                                                                                placeholder=""
                                                                             />
                                                                         </div>
                                                                     </div>
@@ -2084,10 +2183,8 @@ export default function GoalIdentificationStep({
                                                                     </label>
                                                                     <input
                                                                         value={goal.currentAge}
-                                                                        onFocus={() => handlePreRetirementFieldFocus(goal.id, "currentAge", goal.currentAge)}
-                                                                        onBlur={(e) => handlePreRetirementFieldBlur(goal.id, "currentAge", e.target.value)}
                                                                         onKeyDown={(e) => { if (e.key === "Enter") (e.target as HTMLInputElement).blur(); }}
-                                                                        onChange={(e) => updateGoalField(goal.id, "currentAge", e.target.value.replace(/\D/g, ""))}
+                                                                        onChange={(e) => handlePreRetirementFieldChange(goal.id, "currentAge", e.target.value)}
                                                                         className="w-full h-[48px] sm:h-[50px] bg-white border border-[#e9e9e9] rounded-[12px] px-4 text-[14px] text-[#44475b] placeholder-[#8b8b8b] focus:outline-none focus:border-[#04b488] transition-colors shadow-2xs"
                                                                         type="text"
                                                                         placeholder="30"
@@ -2101,10 +2198,8 @@ export default function GoalIdentificationStep({
                                                                     </label>
                                                                     <input
                                                                         value={goal.retirementAge}
-                                                                        onFocus={() => handlePreRetirementFieldFocus(goal.id, "retirementAge", goal.retirementAge)}
-                                                                        onBlur={(e) => handlePreRetirementFieldBlur(goal.id, "retirementAge", e.target.value)}
                                                                         onKeyDown={(e) => { if (e.key === "Enter") (e.target as HTMLInputElement).blur(); }}
-                                                                        onChange={(e) => updateGoalField(goal.id, "retirementAge", e.target.value.replace(/\D/g, ""))}
+                                                                        onChange={(e) => handlePreRetirementFieldChange(goal.id, "retirementAge", e.target.value)}
                                                                         className="w-full h-[48px] sm:h-[50px] bg-white border border-[#e9e9e9] rounded-[12px] px-4 text-[14px] text-[#44475b] placeholder-[#8b8b8b] focus:outline-none focus:border-[#04b488] transition-colors shadow-2xs"
                                                                         type="text"
                                                                         placeholder="60"
@@ -2118,10 +2213,8 @@ export default function GoalIdentificationStep({
                                                                     </label>
                                                                     <input
                                                                         value={goal.lifeExpectancy}
-                                                                        onFocus={() => handlePreRetirementFieldFocus(goal.id, "lifeExpectancy", goal.lifeExpectancy)}
-                                                                        onBlur={(e) => handlePreRetirementFieldBlur(goal.id, "lifeExpectancy", e.target.value)}
                                                                         onKeyDown={(e) => { if (e.key === "Enter") (e.target as HTMLInputElement).blur(); }}
-                                                                        onChange={(e) => updateGoalField(goal.id, "lifeExpectancy", e.target.value.replace(/\D/g, ""))}
+                                                                        onChange={(e) => handlePreRetirementFieldChange(goal.id, "lifeExpectancy", e.target.value)}
                                                                         className="w-full h-[48px] sm:h-[50px] bg-white border border-[#e9e9e9] rounded-[12px] px-4 text-[14px] text-[#44475b] placeholder-[#8b8b8b] focus:outline-none focus:border-[#04b488] transition-colors shadow-2xs"
                                                                         type="text"
                                                                         placeholder="80"
@@ -2135,10 +2228,8 @@ export default function GoalIdentificationStep({
                                                                     </label>
                                                                     <input
                                                                         value={goal.inflationRate}
-                                                                        onFocus={() => handlePreRetirementFieldFocus(goal.id, "inflationRate", goal.inflationRate)}
-                                                                        onBlur={(e) => handlePreRetirementFieldBlur(goal.id, "inflationRate", e.target.value)}
                                                                         onKeyDown={(e) => { if (e.key === "Enter") (e.target as HTMLInputElement).blur(); }}
-                                                                        onChange={(e) => updateGoalField(goal.id, "inflationRate", e.target.value)}
+                                                                        onChange={(e) => handlePreRetirementFieldChange(goal.id, "inflationRate", e.target.value)}
                                                                         className="w-full h-[48px] sm:h-[50px] bg-white border border-[#e9e9e9] rounded-[12px] px-4 text-[14px] text-[#44475b] placeholder-[#8b8b8b] focus:outline-none focus:border-[#04b488] transition-colors shadow-2xs"
                                                                         type="text"
                                                                         placeholder="6"
@@ -2151,16 +2242,14 @@ export default function GoalIdentificationStep({
                                                                         Expected Return Pre - Retirement (%)
                                                                         {cagrMap[goal.id] !== undefined && (
                                                                             <span className="text-[#035daf] font-bold text-xs ml-1">
-                                                                                (GRID RATE: {cagrMap[goal.id]}%)
+
                                                                             </span>
                                                                         )}
                                                                     </label>
                                                                     <input
                                                                         value={goal.expectedReturnPreRetirement}
-                                                                        onFocus={() => handlePreRetirementFieldFocus(goal.id, "expectedReturnPreRetirement", goal.expectedReturnPreRetirement)}
-                                                                        onBlur={(e) => handlePreRetirementFieldBlur(goal.id, "expectedReturnPreRetirement", e.target.value)}
                                                                         onKeyDown={(e) => { if (e.key === "Enter") (e.target as HTMLInputElement).blur(); }}
-                                                                        onChange={(e) => updateGoalField(goal.id, "expectedReturnPreRetirement", e.target.value)}
+                                                                        onChange={(e) => handlePreRetirementFieldChange(goal.id, "expectedReturnPreRetirement", e.target.value)}
                                                                         className="w-full h-[48px] sm:h-[50px] bg-white border border-[#e9e9e9] rounded-[12px] px-4 text-[14px] text-[#44475b] placeholder-[#8b8b8b] focus:outline-none focus:border-[#04b488] transition-colors shadow-2xs"
                                                                         type="text"
                                                                         placeholder={String(cagrMap[goal.id] || 18)}
@@ -2174,10 +2263,8 @@ export default function GoalIdentificationStep({
                                                                     </label>
                                                                     <input
                                                                         value={goal.postRetirementReturn}
-                                                                        onFocus={() => handlePreRetirementFieldFocus(goal.id, "postRetirementReturn", goal.postRetirementReturn)}
-                                                                        onBlur={(e) => handlePreRetirementFieldBlur(goal.id, "postRetirementReturn", e.target.value)}
                                                                         onKeyDown={(e) => { if (e.key === "Enter") (e.target as HTMLInputElement).blur(); }}
-                                                                        onChange={(e) => updateGoalField(goal.id, "postRetirementReturn", e.target.value)}
+                                                                        onChange={(e) => handlePreRetirementFieldChange(goal.id, "postRetirementReturn", e.target.value)}
                                                                         className="w-full h-[48px] sm:h-[50px] bg-white border border-[#e9e9e9] rounded-[12px] px-4 text-[14px] text-[#44475b] placeholder-[#8b8b8b] focus:outline-none focus:border-[#04b488] transition-colors shadow-2xs"
                                                                         type="text"
                                                                         placeholder="10"
@@ -2194,7 +2281,7 @@ export default function GoalIdentificationStep({
                                                                         onChange={(e) => updateGoalField(goal.id, "currentMonthlyExpenses", formatCurrencyInput(e.target.value))}
                                                                         className="w-full h-[48px] sm:h-[50px] bg-white border border-[#e9e9e9] rounded-[12px] px-4 text-[14px] text-[#44475b] placeholder-[#8b8b8b] focus:outline-none focus:border-[#04b488] transition-colors shadow-2xs"
                                                                         type="text"
-                                                                        placeholder="₹ 50,000"
+                                                                        placeholder=""
                                                                     />
                                                                 </div>
                                                             </div>
@@ -2252,7 +2339,7 @@ export default function GoalIdentificationStep({
                                                                             onChange={(e) => updateGoalField(goal.id, "pensionAmount", formatCurrencyInput(e.target.value))}
                                                                             className="w-full h-[48px] sm:h-[50px] bg-white border border-[#e9e9e9] rounded-[12px] px-4 text-[14px] text-[#44475b] placeholder-[#8b8b8b] focus:outline-none focus:border-[#04b488] transition-colors shadow-2xs"
                                                                             type="text"
-                                                                            placeholder="₹ 50,000"
+                                                                            placeholder=""
                                                                         />
                                                                     </div>
                                                                 )}

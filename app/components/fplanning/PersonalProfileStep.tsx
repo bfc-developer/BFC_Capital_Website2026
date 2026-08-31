@@ -125,19 +125,8 @@ export default function PersonalProfileStep({
             // Allow only digits
             processedValue = value.replace(/\D/g, "");
         } else if (name === "aadharNo") {
-            // Format Aadhaar as XXXX-XXXX-XXXX
-            const digits = value.replace(/\D/g, "");
-            let formatted = "";
-            if (digits.length > 0) {
-                formatted += digits.substring(0, 4);
-            }
-            if (digits.length > 4) {
-                formatted += "-" + digits.substring(4, 8);
-            }
-            if (digits.length > 8) {
-                formatted += "-" + digits.substring(8, 12);
-            }
-            processedValue = formatted;
+            // Take only the last 4 digits of Aadhaar
+            processedValue = value.replace(/\D/g, "").slice(0, 4);
         }
 
         activeSetter((prev: any) => ({
@@ -195,8 +184,8 @@ export default function PersonalProfileStep({
 
         if (activeData.aadharNo && activeData.aadharNo.trim()) {
             const cleanAadhar = activeData.aadharNo.replace(/[\s-]/g, "");
-            if (!/^\d{12}$/.test(cleanAadhar)) {
-                validationErrors.aadharNo = "Aadhar number must be exactly 12 digits.";
+            if (!/^\d{4}$/.test(cleanAadhar)) {
+                validationErrors.aadharNo = "Aadhaar number must be the last 4 digits.";
             }
         }
 
@@ -396,14 +385,14 @@ export default function PersonalProfileStep({
                         </div>
                         <div>
                             <label className="block text-[13px] font-medium text-[#44475b] mb-2">
-                                Aadhar No.
+                                Aadhaar No. (Last 4 Digits)
                             </label>
                             <input
                                 className={`w-full h-[44px] sm:h-[46px] bg-white border rounded-[10px] px-3 text-[13px] text-[#44475b] placeholder-[#8b8b8b] focus:outline-none transition-colors ${errors.aadharNo ? "border-red-500 focus:border-red-500" : "border-[#e9e9e9] focus:border-[#06A358]"
                                     }`}
                                 type="text"
-                                maxLength={14}
-                                placeholder="XXXX-XXXX-XXXX"
+                                maxLength={4}
+                                placeholder="Enter last 4 digits"
                                 name="aadharNo"
                                 value={activeData.aadharNo}
                                 onChange={handleChange}
@@ -412,7 +401,7 @@ export default function PersonalProfileStep({
                         </div>
                         <div>
                             <label className="block text-[13px] font-medium text-[#44475b] mb-2">
-                                Upload Aadhar Card
+                                Upload Masked Aadhaar
                             </label>
                             <FileField
                                 file={activeData.aadharFile}

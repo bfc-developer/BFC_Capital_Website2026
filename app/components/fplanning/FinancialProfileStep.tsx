@@ -3,6 +3,10 @@ import { Trash2, Plus } from "lucide-react";
 import StepActions from "./StepActions";
 import { formatIndianAmount, parseIndianAmount } from "./formatters";
 
+const sanitizeAlphaNumeric = (value: string) => {
+  return value.replace(/[^a-zA-Z0-9\s]/g, "").replace(/^[^a-zA-Z]+/, "");
+};
+
 interface Item {
   id: number;
   title: string;
@@ -99,8 +103,8 @@ export default function FinancialProfileStep({
           amount: (item.monthlyAmount !== null && item.monthlyAmount !== undefined && item.monthlyAmount !== "")
             ? formatIndianAmount(item.monthlyAmount)
             : ((item.amount !== null && item.amount !== undefined && item.amount !== "")
-                ? formatIndianAmount(item.amount)
-                : ""),
+              ? formatIndianAmount(item.amount)
+              : ""),
         }));
       if (mapped.length > 0) {
         setIncome(mapped);
@@ -118,8 +122,8 @@ export default function FinancialProfileStep({
           amount: (item.amount !== null && item.amount !== undefined && item.amount !== "")
             ? formatIndianAmount(item.amount)
             : ((item.monthlyAmount !== null && item.monthlyAmount !== undefined && item.monthlyAmount !== "")
-                ? formatIndianAmount(item.monthlyAmount)
-                : ""),
+              ? formatIndianAmount(item.monthlyAmount)
+              : ""),
         }));
       if (mapped.length > 0) {
         setDeductions(mapped);
@@ -137,8 +141,8 @@ export default function FinancialProfileStep({
           amount: (item.amount !== null && item.amount !== undefined && item.amount !== "")
             ? formatIndianAmount(item.amount)
             : ((item.monthlyAmount !== null && item.monthlyAmount !== undefined && item.monthlyAmount !== "")
-                ? formatIndianAmount(item.monthlyAmount)
-                : ""),
+              ? formatIndianAmount(item.monthlyAmount)
+              : ""),
         }));
       if (mapped.length > 0) {
         setExpenses(mapped);
@@ -156,8 +160,8 @@ export default function FinancialProfileStep({
           amount: (item.monthlyAmount !== null && item.monthlyAmount !== undefined && item.monthlyAmount !== "")
             ? formatIndianAmount(item.monthlyAmount)
             : ((item.amount !== null && item.amount !== undefined && item.amount !== "")
-                ? formatIndianAmount(item.amount)
-                : ""),
+              ? formatIndianAmount(item.amount)
+              : ""),
         }));
       if (mapped.length > 0) {
         setInvestments(mapped);
@@ -450,10 +454,10 @@ export default function FinancialProfileStep({
     // 1. Gross Inflow validation
     if (!income[0] || !income[0].title.trim()) {
       validationErrors[`income_0_title`] = "Source of inflow is required.";
-    } else if (/\d/.test(income[0].title)) {
-      validationErrors[`income_0_title`] = "Source of inflow must not contain numbers.";
-    } else if (!/^[a-zA-Z\s]+$/.test(income[0].title.trim())) {
-      validationErrors[`income_0_title`] = "Source of inflow must contain only alphabets and spaces.";
+    } else if (!/^[a-zA-Z]/.test(income[0].title.trim())) {
+      validationErrors[`income_0_title`] = "Source of inflow must start with an alphabet.";
+    } else if (!/^[a-zA-Z][a-zA-Z0-9\s]*$/.test(income[0].title.trim())) {
+      validationErrors[`income_0_title`] = "Source of inflow must contain only letters, numbers, and spaces.";
     }
 
     if (!income[0] || !income[0].amount.trim()) {
@@ -469,10 +473,10 @@ export default function FinancialProfileStep({
         if (hasTitle || hasAmount) {
           if (!hasTitle) {
             validationErrors[`income_${idx}_title`] = "Source of inflow is required.";
-          } else if (/\d/.test(item.title)) {
-            validationErrors[`income_${idx}_title`] = "Source of inflow must not contain numbers.";
-          } else if (!/^[a-zA-Z\s]+$/.test(item.title.trim())) {
-            validationErrors[`income_${idx}_title`] = "Source of inflow must contain only alphabets and spaces.";
+          } else if (!/^[a-zA-Z]/.test(item.title.trim())) {
+            validationErrors[`income_${idx}_title`] = "Source of inflow must start with an alphabet.";
+          } else if (!/^[a-zA-Z][a-zA-Z0-9\s]*$/.test(item.title.trim())) {
+            validationErrors[`income_${idx}_title`] = "Source of inflow must contain only letters, numbers, and spaces.";
           }
 
           if (!hasAmount) {
@@ -488,10 +492,10 @@ export default function FinancialProfileStep({
     deductions.forEach((item, idx) => {
       if (!item.title.trim()) {
         validationErrors[`deduction_${idx}_title`] = "Deduction detail is required.";
-      } else if (/\d/.test(item.title)) {
-        validationErrors[`deduction_${idx}_title`] = "Deduction detail must not contain numbers.";
-      } else if (!/^[a-zA-Z\s]+$/.test(item.title.trim())) {
-        validationErrors[`deduction_${idx}_title`] = "Deduction detail must contain only alphabets and spaces.";
+      } else if (!/^[a-zA-Z]/.test(item.title.trim())) {
+        validationErrors[`deduction_${idx}_title`] = "Deduction detail must start with an alphabet.";
+      } else if (!/^[a-zA-Z][a-zA-Z0-9\s]*$/.test(item.title.trim())) {
+        validationErrors[`deduction_${idx}_title`] = "Deduction detail must contain only letters, numbers, and spaces.";
       }
 
       if (!item.amount.trim()) {
@@ -505,10 +509,10 @@ export default function FinancialProfileStep({
     expenses.forEach((item, idx) => {
       if (!item.title.trim()) {
         validationErrors[`expense_${idx}_title`] = "Expense detail is required.";
-      } else if (/\d/.test(item.title)) {
-        validationErrors[`expense_${idx}_title`] = "Expense detail must not contain numbers.";
-      } else if (!/^[a-zA-Z\s]+$/.test(item.title.trim())) {
-        validationErrors[`expense_${idx}_title`] = "Expense detail must contain only alphabets and spaces.";
+      } else if (!/^[a-zA-Z]/.test(item.title.trim())) {
+        validationErrors[`expense_${idx}_title`] = "Expense detail must start with an alphabet.";
+      } else if (!/^[a-zA-Z][a-zA-Z0-9\s]*$/.test(item.title.trim())) {
+        validationErrors[`expense_${idx}_title`] = "Expense detail must contain only letters, numbers, and spaces.";
       }
 
       if (!item.amount.trim()) {
@@ -547,10 +551,10 @@ export default function FinancialProfileStep({
     Investments.forEach((item, idx) => {
       if (!item.title.trim()) {
         validationErrors[`investment_${idx}_title`] = "Investment name is required.";
-      } else if (/\d/.test(item.title)) {
-        validationErrors[`investment_${idx}_title`] = "Investment name must not contain numbers.";
-      } else if (!/^[a-zA-Z\s]+$/.test(item.title.trim())) {
-        validationErrors[`investment_${idx}_title`] = "Investment name must contain only alphabets and spaces.";
+      } else if (!/^[a-zA-Z]/.test(item.title.trim())) {
+        validationErrors[`investment_${idx}_title`] = "Investment name must start with an alphabet.";
+      } else if (!/^[a-zA-Z][a-zA-Z0-9\s]*$/.test(item.title.trim())) {
+        validationErrors[`investment_${idx}_title`] = "Investment name must contain only letters, numbers, and spaces.";
       }
 
       if (!item.amount.trim()) {
@@ -564,10 +568,10 @@ export default function FinancialProfileStep({
     insurepre.forEach((item, idx) => {
       if (!item.policyName.trim()) {
         validationErrors[`insurance_${idx}_policyName`] = "Policy name is required.";
-      } else if (/\d/.test(item.policyName)) {
-        validationErrors[`insurance_${idx}_policyName`] = "Policy name must not contain numbers.";
-      } else if (!/^[a-zA-Z\s]+$/.test(item.policyName.trim())) {
-        validationErrors[`insurance_${idx}_policyName`] = "Policy name must contain only alphabets and spaces.";
+      } else if (!/^[a-zA-Z]/.test(item.policyName.trim())) {
+        validationErrors[`insurance_${idx}_policyName`] = "Policy name must start with an alphabet.";
+      } else if (!/^[a-zA-Z][a-zA-Z0-9\s]*$/.test(item.policyName.trim())) {
+        validationErrors[`insurance_${idx}_policyName`] = "Policy name must contain only letters, numbers, and spaces.";
       }
 
       if (item.policyNumber.trim() && !/^\d+$/.test(item.policyNumber.trim())) {
@@ -601,10 +605,10 @@ export default function FinancialProfileStep({
       }
       if (!item.investmentName.trim()) {
         validationErrors[`tax_${idx}_investmentName`] = "Investment name is required.";
-      } else if (/\d/.test(item.investmentName)) {
-        validationErrors[`tax_${idx}_investmentName`] = "Investment name must not contain numbers.";
-      } else if (!/^[a-zA-Z\s]+$/.test(item.investmentName.trim())) {
-        validationErrors[`tax_${idx}_investmentName`] = "Investment name must contain only alphabets and spaces.";
+      } else if (!/^[a-zA-Z]/.test(item.investmentName.trim())) {
+        validationErrors[`tax_${idx}_investmentName`] = "Investment name must start with an alphabet.";
+      } else if (!/^[a-zA-Z][a-zA-Z0-9\s]*$/.test(item.investmentName.trim())) {
+        validationErrors[`tax_${idx}_investmentName`] = "Investment name must contain only letters, numbers, and spaces.";
       }
 
       if (!item.amount.trim()) {
@@ -730,7 +734,7 @@ export default function FinancialProfileStep({
             amountLabel="Monthly Amount"
             item={item}
             onTitle={(value) => {
-              const filtered = value.replace(/[^a-zA-Z\s]/g, "");
+              const filtered = sanitizeAlphaNumeric(value);
               updateItem(income, setIncome, item.id, "title", filtered);
               setErrors(prev => ({ ...prev, [`income_${idx}_title`]: "" }));
             }}
@@ -769,7 +773,7 @@ export default function FinancialProfileStep({
             amountLabel="Amount"
             item={item}
             onTitle={(value) => {
-              const filtered = value.replace(/[^a-zA-Z\s]/g, "");
+              const filtered = sanitizeAlphaNumeric(value);
               updateItem(deductions, setDeductions, item.id, "title", filtered);
               setErrors(prev => ({ ...prev, [`deduction_${idx}_title`]: "" }));
             }}
@@ -808,7 +812,7 @@ export default function FinancialProfileStep({
             amountLabel="Amount"
             item={item}
             onTitle={(value) => {
-              const filtered = value.replace(/[^a-zA-Z\s]/g, "");
+              const filtered = sanitizeAlphaNumeric(value);
               updateItem(expenses, setExpenses, item.id, "title", filtered);
               setErrors(prev => ({ ...prev, [`expense_${idx}_title`]: "" }));
             }}
@@ -994,7 +998,7 @@ export default function FinancialProfileStep({
             amountLabel="Monthly Amount"
             item={item}
             onTitle={(value) => {
-              const filtered = value.replace(/[^a-zA-Z\s]/g, "");
+              const filtered = sanitizeAlphaNumeric(value);
               updateItem(Investments, setInvestments, item.id, "title", filtered);
               setErrors(prev => ({ ...prev, [`investment_${idx}_title`]: "" }));
             }}
@@ -1041,12 +1045,16 @@ export default function FinancialProfileStep({
                 name={`insurance_${idx}_policyName`}
                 value={item.policyName}
                 onChange={(e) => {
-                  updateinsurePremium(item.id, "policyName", e.target.value.replace(/[^a-zA-Z\s]/g, ""));
+                  updateinsurePremium(item.id, "policyName", sanitizeAlphaNumeric(e.target.value));
                   setErrors(prev => ({ ...prev, [`insurance_${idx}_policyName`]: "" }));
                 }}
                 onKeyDown={(e) => {
                   if (e.ctrlKey || e.metaKey || e.altKey) return;
-                  if (e.key.length === 1 && !/^[a-zA-Z\s]$/.test(e.key)) e.preventDefault();
+                  if (e.key.length === 1 && !/^[a-zA-Z]$/.test(e.key) && (e.currentTarget.selectionStart === 0 || !e.currentTarget.value)) {
+                    e.preventDefault();
+                  } else if (e.key.length === 1 && !/^[a-zA-Z0-9\s]$/.test(e.key)) {
+                    e.preventDefault();
+                  }
                 }}
                 className={`w-full h-[44px] sm:h-[46px] bg-white border rounded-[10px] px-3 text-[13px] text-[#44475b] placeholder-[#8b8b8b] focus:outline-none transition-colors ${errors[`insurance_${idx}_policyName`] ? "border-red-500 focus:border-red-500" : "border-[#e9e9e9] focus:border-[#04b488]"
                   }`}
@@ -1211,111 +1219,6 @@ export default function FinancialProfileStep({
         ))}
       </Section>
 
-      <Section
-        title="Other Tax Saving Investments"
-        buttonText="Add Tax Saving"
-        buttonColor="gray"
-        onAdd={othertaxsave}
-      >
-        {othertax.map((item, idx) => (
-          <div key={item.id} className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-6 xl:grid-cols-12 gap-4 items-start"
-          >
-
-            <div className="lg:col-span-3">
-
-              <label className="block text-[13px] font-medium text-[#44475b] mb-2">
-                Date
-                <span className="text-red-600"> *</span>
-              </label>
-              <input
-                name={`tax_${idx}_date`}
-                value={item.date}
-                onChange={(e) => {
-                  updateOthertax(item.id, "date", e.target.value);
-                  setErrors(prev => ({ ...prev, [`tax_${idx}_date`]: "" }));
-                }}
-                className={`w-full h-[44px] sm:h-[46px] bg-white border rounded-[10px] px-3 text-[13px] text-[#44475b] placeholder-[#8b8b8b] focus:outline-none transition-colors ${errors[`tax_${idx}_date`] ? "border-red-500 focus:border-red-500" : "border-[#e9e9e9] focus:border-[#04b488]"
-                  }`}
-                type="date"
-                placeholder="DD/MM/YYYY"
-              />
-              {errors[`tax_${idx}_date`] && <p className="text-red-500 text-[11px] mt-1">{errors[`tax_${idx}_date`]}</p>}
-            </div>
-
-            <div className="lg:col-span-3">
-
-              <label className="block text-[13px] font-medium text-[#44475b] mb-2">
-                Investment Name
-                <span className="text-red-600"> *</span>
-              </label>
-              <input
-                name={`tax_${idx}_investmentName`}
-                value={item.investmentName}
-                onChange={(e) => {
-                  updateOthertax(item.id, "investmentName", e.target.value.replace(/[^a-zA-Z\s]/g, ""));
-                  setErrors(prev => ({ ...prev, [`tax_${idx}_investmentName`]: "" }));
-                }}
-                onKeyDown={(e) => {
-                  if (e.ctrlKey || e.metaKey || e.altKey) return;
-                  if (e.key.length === 1 && !/^[a-zA-Z\s]$/.test(e.key)) e.preventDefault();
-                }}
-                className={`w-full h-[44px] sm:h-[46px] bg-white border rounded-[10px] px-3 text-[13px] text-[#44475b] placeholder-[#8b8b8b] focus:outline-none transition-colors ${errors[`tax_${idx}_investmentName`] ? "border-red-500 focus:border-red-500" : "border-[#e9e9e9] focus:border-[#04b488]"
-                  }`}
-                type="text"
-                placeholder="e.g. Public Provident Fund or NPS"
-              />
-              {errors[`tax_${idx}_investmentName`] && <p className="text-red-500 text-[11px] mt-1">{errors[`tax_${idx}_investmentName`]}</p>}
-            </div>
-
-            <div className="lg:col-span-3">
-
-              <label className="block text-[13px] font-medium text-[#44475b] mb-2">
-                Amount
-                <span className="text-red-600"> *</span>
-              </label>
-              <input
-                name={`tax_${idx}_amount`}
-                value={item.amount}
-                onChange={(e) => {
-                  updateOthertax(item.id, "amount", formatIndianAmount(e.target.value));
-                  setErrors(prev => ({ ...prev, [`tax_${idx}_amount`]: "" }));
-                }}
-                onWheel={(e) => e.currentTarget.blur()}
-                onKeyDown={(e) => {
-                  if (e.ctrlKey || e.metaKey || e.altKey) return;
-                  if (e.key === "ArrowUp" || e.key === "ArrowDown") e.preventDefault();
-                  if (e.key.length === 1 && !/^\d$/.test(e.key)) e.preventDefault();
-                }}
-                className={`w-full h-[44px] sm:h-[46px] bg-white border rounded-[10px] px-3 text-[13px] text-[#44475b] placeholder-[#8b8b8b] focus:outline-none transition-colors ${errors[`tax_${idx}_amount`] ? "border-red-500 focus:border-red-500" : "border-[#e9e9e9] focus:border-[#04b488]"
-                  }`}
-                type="text"
-                inputMode="numeric"
-                placeholder="₹"
-              />
-              {errors[`tax_${idx}_amount`] && <p className="text-red-500 text-[11px] mt-1">{errors[`tax_${idx}_amount`]}</p>}
-            </div>
-
-            <div className="lg:col-span-1 flex lg:justify-center mt-7 lg:mt-7">
-              <button
-                type="button"
-                onClick={() => {
-                  removeotherTax(item.id);
-                  setErrors(prev => {
-                    const copy = { ...prev };
-                    delete copy[`tax_${idx}_date`];
-                    delete copy[`tax_${idx}_investmentName`];
-                    delete copy[`tax_${idx}_amount`];
-                    return copy;
-                  });
-                }}
-                className="h-10 w-10 rounded-full cursor-pointer bg-[#DB4437] text-white flex items-center justify-center hover:bg-red-600 transition"
-              >
-                <Trash2 size={18} />
-              </button>
-            </div>
-          </div>
-        ))}
-      </Section>
 
       <section className="bg-white border border-[#e9e9e9] rounded-[10px] px-3 text-[13px] text-[#44475b] placeholder-[#8b8b8b] focus:outline-none focus:border-[#04b488] transition-colors p-4 mt-8">
         <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-5">
@@ -1486,18 +1389,19 @@ function Row({
 
         <input
           name={`${prefix}_title`}
-          className={`w-full h-[44px] sm:h-[46px] bg-white border rounded-[10px] px-3 text-[13px] text-[#44475b] placeholder-[#8b8b8b] focus:outline-none transition-colors ${
-            titleError ? "border-red-500 focus:border-red-500" : "border-[#e9e9e9] focus:border-[#04b488]"
-          }`}
+          className={`w-full h-[44px] sm:h-[46px] bg-white border rounded-[10px] px-3 text-[13px] text-[#44475b] placeholder-[#8b8b8b] focus:outline-none transition-colors ${titleError ? "border-red-500 focus:border-red-500" : "border-[#e9e9e9] focus:border-[#04b488]"
+            }`}
           type="text"
           value={item.title}
           onKeyDown={(e) => {
             if (e.ctrlKey || e.metaKey || e.altKey) return;
-            if (e.key.length === 1 && !/^[a-zA-Z\s]$/.test(e.key)) {
+            if (e.key.length === 1 && !/^[a-zA-Z]$/.test(e.key) && (e.currentTarget.selectionStart === 0 || !e.currentTarget.value)) {
+              e.preventDefault();
+            } else if (e.key.length === 1 && !/^[a-zA-Z0-9\s]$/.test(e.key)) {
               e.preventDefault();
             }
           }}
-          onChange={(e) => onTitle(e.target.value.replace(/[^a-zA-Z\s]/g, ""))}
+          onChange={(e) => onTitle(sanitizeAlphaNumeric(e.target.value))}
           placeholder={titlePlaceholder}
         />
         {titleError && <p className="text-red-500 text-[11px] mt-1">{titleError}</p>}
@@ -1512,9 +1416,8 @@ function Row({
 
         <input
           name={`${prefix}_amount`}
-          className={`w-full h-[44px] sm:h-[46px] bg-white border rounded-[10px] px-3 text-[13px] text-[#44475b] placeholder-[#8b8b8b] focus:outline-none transition-colors ${
-            amountError ? "border-red-500 focus:border-red-500" : "border-[#e9e9e9] focus:border-[#04b488]"
-          }`}
+          className={`w-full h-[44px] sm:h-[46px] bg-white border rounded-[10px] px-3 text-[13px] text-[#44475b] placeholder-[#8b8b8b] focus:outline-none transition-colors ${amountError ? "border-red-500 focus:border-red-500" : "border-[#e9e9e9] focus:border-[#04b488]"
+            }`}
           type="text"
           inputMode="numeric"
           value={item.amount}

@@ -180,3 +180,27 @@ textarea {
     font-size: 32px;
   }
 }
+
+/* Custom Scrollbar for Dropdowns and Scheme Lists */
+.custom-scheme-scrollbar {
+  scrollbar-width: thin;
+  scrollbar-color: #024B39 #f1f5f9;
+}
+
+.custom-scheme-scrollbar::-webkit-scrollbar {
+  width: 6px;
+}
+
+.custom-scheme-scrollbar::-webkit-scrollbar-track {
+  background: #f8fafc;
+  border-radius: 4px;
+}
+
+.custom-scheme-scrollbar::-webkit-scrollbar-thumb {
+  background: #cbd5e1;
+  border-radius: 4px;
+}
+
+.custom-scheme-scrollbar::-webkit-scrollbar-thumb:hover {
+  background: #024B39;
+}

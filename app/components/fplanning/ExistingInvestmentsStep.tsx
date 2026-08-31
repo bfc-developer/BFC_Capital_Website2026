@@ -4,6 +4,7 @@ import { Plus, Trash2 } from "lucide-react";
 import StepActions from "./StepActions";
 import { apiBaseURL, endpoints } from "../urls/URLS";
 import { formatIndianAmount, parseIndianAmount } from "./formatters";
+import SearchableSchemeSelect from "./SearchableSchemeSelect";
 
 interface Entry {
     id: number;
@@ -42,6 +43,7 @@ interface Entry {
     mfHoldingPeriod?: string;
     mfSchemesList?: string[];
     mfAmcsList?: any[];
+    isSchemesLoading?: boolean;
 
     // Real Estate
     reType?: string;
@@ -499,6 +501,23 @@ export default function ExistingInvestmentsStep({
                 console.error("fetchWmsSchemesForAsset: Invalid amcCode", amcCode);
                 return;
             }
+
+            // Set loading state
+            setAssets((prev) =>
+                prev.map((card) =>
+                    card.id === cardId
+                        ? {
+                            ...card,
+                            items: card.items.map((item) =>
+                                item.id === itemId
+                                    ? { ...item, isSchemesLoading: true }
+                                    : item
+                            ),
+                        }
+                        : card
+                )
+            );
+
             const payload = { amccode: amcCodeNum };
             console.log("fetchWmsSchemesForAsset payload:", payload);
             const response = await fetch("https://0tjhjpc5-7000.inc1.devtunnels.ms/api/users/get-scheme", {
@@ -537,7 +556,7 @@ export default function ExistingInvestmentsStep({
                                 ...card,
                                 items: card.items.map((item) =>
                                     item.id === itemId
-                                        ? { ...item, mfSchemesList: schemeNames }
+                                        ? { ...item, mfSchemesList: schemeNames, isSchemesLoading: false }
                                         : item
                                 )
                             }
@@ -558,6 +577,21 @@ export default function ExistingInvestmentsStep({
         // Fallback: Call standard local scheme filter if WMS fails (so the user is never stuck)
         if (catCode && subCategoryName) {
             fetchSchemesForAsset(cardId, itemId, catCode, subCategoryName, amcCode);
+        } else {
+            setAssets((prev) =>
+                prev.map((card) =>
+                    card.id === cardId
+                        ? {
+                            ...card,
+                            items: card.items.map((item) =>
+                                item.id === itemId
+                                    ? { ...item, isSchemesLoading: false }
+                                    : item
+                            ),
+                        }
+                        : card
+                )
+            );
         }
     };
 
@@ -614,7 +648,7 @@ export default function ExistingInvestmentsStep({
                                 ...card,
                                 items: card.items.map((item) =>
                                     item.id === itemId
-                                        ? { ...item, mfSchemesList: [] }
+                                        ? { ...item, mfSchemesList: [], isSchemesLoading: false }
                                         : item
                                 )
                             }
@@ -634,7 +668,7 @@ export default function ExistingInvestmentsStep({
                                 ...card,
                                 items: card.items.map((item) =>
                                     item.id === itemId
-                                        ? { ...item, mfSchemesList: json.data.map((s: any) => s.scheme) }
+                                        ? { ...item, mfSchemesList: json.data.map((s: any) => s.scheme), isSchemesLoading: false }
                                         : item
                                 )
                             }
@@ -650,7 +684,7 @@ export default function ExistingInvestmentsStep({
                                 ...card,
                                 items: card.items.map((item) =>
                                     item.id === itemId
-                                        ? { ...item, mfSchemesList: [] }
+                                        ? { ...item, mfSchemesList: [], isSchemesLoading: false }
                                         : item
                                 )
                             }
@@ -660,6 +694,20 @@ export default function ExistingInvestmentsStep({
             }
         } catch (error) {
             console.error("Error fetching schemes:", error);
+            setAssets((prev) =>
+                prev.map((card) =>
+                    card.id === cardId
+                        ? {
+                            ...card,
+                            items: card.items.map((item) =>
+                                item.id === itemId
+                                    ? { ...item, isSchemesLoading: false }
+                                    : item
+                            ),
+                        }
+                        : card
+                )
+            );
         }
     };
 
@@ -919,8 +967,7 @@ export default function ExistingInvestmentsStep({
                     if (!a.mfAmount || parseIndianAmount(a.mfAmount) <= 0) newErrors[`${a.id}_mfAmount`] = "Please enter amount.";
                     if (!a.mfCurrentValue || parseIndianAmount(a.mfCurrentValue) <= 0) newErrors[`${a.id}_mfCurrentValue`] = "Please enter current value.";
                     if (!a.mfExpectedReturn || Number(a.mfExpectedReturn) < 0) newErrors[`${a.id}_mfExpectedReturn`] = "Please enter expected return.";
-                    if (!a.mfDate) newErrors[`${a.id}_mfDate`] = "Date is required.";
-                    if (!a.mfHoldingPeriod || Number(a.mfHoldingPeriod) <= 0) newErrors[`${a.id}_mfHoldingPeriod`] = "Please enter holding period.";
+                    if (a.mfHoldingPeriod && Number(a.mfHoldingPeriod) <= 0) newErrors[`${a.id}_mfHoldingPeriod`] = "Please enter a valid holding period.";
                 } else if (card.assetClass === "Real Estate") {
                     if (!a.reType) newErrors[`${a.id}_reType`] = "Type is required.";
                     if (a.reCity?.trim() && /\d/.test(a.reCity)) {
@@ -1009,8 +1056,8 @@ export default function ExistingInvestmentsStep({
                         formatted.mfAmount = parseIndianAmount(a.mfAmount);
                         formatted.mfCurrentValue = parseIndianAmount(a.mfCurrentValue);
                         formatted.mfExpectedReturn = Number(a.mfExpectedReturn);
-                        formatted.mfDate = a.mfDate ? new Date(a.mfDate) : undefined;
-                        formatted.mfHoldingPeriod = Number(a.mfHoldingPeriod);
+                        formatted.mfDate = a.mfDate ? new Date(a.mfDate) : null;
+                        formatted.mfHoldingPeriod = a.mfHoldingPeriod !== undefined && a.mfHoldingPeriod !== "" ? Number(a.mfHoldingPeriod) : null;
                     } else if (card.assetClass === "Real Estate") {
                         formatted.reType = a.reType;
                         formatted.reCity = a.reCity || "";
@@ -1564,20 +1611,24 @@ export default function ExistingInvestmentsStep({
                                                         <label className="block text-[13px] font-medium text-[#44475b] mb-2">
                                                             Scheme Name <span className="text-red-600"> *</span>
                                                         </label>
-                                                        <select
+                                                        <SearchableSchemeSelect
                                                             id={`${item.id}_mfSchemeName`}
                                                             value={item.mfSchemeName || ""}
-                                                            onChange={(e) => updateAssetField(asset.id, item.id, "mfSchemeName", e.target.value)}
-                                                            className={`cursor-pointer w-full h-[44px] sm:h-[46px] bg-white border rounded-[10px] px-3 text-[13px] text-[#44475b] focus:outline-none transition-colors ${errors[`${item.id}_mfSchemeName`] ? "border-red-500 focus:border-red-500" : "border-[#e9e9e9] focus:border-[#04b488]"
-                                                                }`}
-                                                        >
-                                                            <option value="">Select Scheme</option>
-                                                            {item.mfSchemesList?.map((schemeName) => (
-                                                                <option key={schemeName} value={schemeName}>
-                                                                    {schemeName}
-                                                                </option>
-                                                            ))}
-                                                        </select>
+                                                            options={item.mfSchemesList || []}
+                                                            isLoading={item.isSchemesLoading || false}
+                                                            disabled={!item.mfAmc}
+                                                            placeholder={
+                                                                item.isSchemesLoading
+                                                                    ? "Loading schemes..."
+                                                                    : !item.mfAmc
+                                                                    ? "Select AMC first"
+                                                                    : "Select Scheme"
+                                                            }
+                                                            hasError={!!errors[`${item.id}_mfSchemeName`]}
+                                                            onChange={(selectedScheme) =>
+                                                                updateAssetField(asset.id, item.id, "mfSchemeName", selectedScheme)
+                                                            }
+                                                        />
                                                         {errors[`${item.id}_mfSchemeName`] && <p className="text-red-500 text-[11px] mt-1">{errors[`${item.id}_mfSchemeName`]}</p>}
                                                     </div>
 
@@ -1652,7 +1703,7 @@ export default function ExistingInvestmentsStep({
 
                                                     <div className="mb-3">
                                                         <label className="block text-[13px] font-medium text-[#44475b] mb-2">
-                                                            Date of Investment <span className="text-red-600"> *</span>
+                                                            Date of Investment
                                                         </label>
                                                         <input
                                                             id={`${item.id}_mfDate`}
@@ -1667,7 +1718,7 @@ export default function ExistingInvestmentsStep({
 
                                                     <div className="mb-3">
                                                         <label className="block text-[13px] font-medium text-[#44475b] mb-2">
-                                                            Holding Period (Yrs) <span className="text-red-600"> *</span>
+                                                            Holding Period (Yrs)
                                                         </label>
                                                         <input
                                                             id={`${item.id}_mfHoldingPeriod`}
