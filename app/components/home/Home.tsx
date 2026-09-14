@@ -1587,10 +1587,12 @@ const Home = () => {
                         Website:
                       </span>{" "}
                       <a
-                        href="https://bfccapital.com/"
+                        href="https://bfccapital.com"
+                        target="_blank"
+                        rel="noopener noreferrer"
                         className="hover:text-[#001EFE]"
                       >
-                        https://bfccapital.com/
+                        https://bfccapital.com
                       </a>
                     </p>
                     <p className="mb-0 break-words">
@@ -1599,6 +1601,8 @@ const Home = () => {
                       </span>{" "}
                       <a
                         href="https://www.facebook.com/bfccapitalindia"
+                        target="_blank"
+                        rel="noopener noreferrer"
                         className="hover:text-[#001EFE]"
                       >
                         https://www.facebook.com/bfccapitalindia
@@ -1610,6 +1614,8 @@ const Home = () => {
                       </span>{" "}
                       <a
                         href="https://www.instagram.com/bfccapitalindia"
+                        target="_blank"
+                        rel="noopener noreferrer"
                         className="hover:text-[#001EFE]"
                       >
                         https://www.instagram.com/bfccapitalindia
@@ -1620,10 +1626,12 @@ const Home = () => {
                         LinkedIn:
                       </span>{" "}
                       <a
-                        href="https://www.linkedin.com/company/bfccapitalpvt.ltd/"
+                        href="https://www.linkedin.com/company/bfccapital"
+                        target="_blank"
+                        rel="noopener noreferrer"
                         className="hover:text-[#001EFE]"
                       >
-                        https://www.linkedin.com/company/bfccapitalpvt.ltd/
+                        https://www.linkedin.com/company/bfccapital
                       </a>
                     </p>
                     <p className="mb-0 break-words">
@@ -1632,6 +1640,8 @@ const Home = () => {
                       </span>{" "}
                       <a
                         href="https://x.com/BFCCapital"
+                        target="_blank"
+                        rel="noopener noreferrer"
                         className="hover:text-[#001EFE]"
                       >
                         https://x.com/BFCCapital
@@ -1642,10 +1652,12 @@ const Home = () => {
                         YouTube:
                       </span>{" "}
                       <a
-                        href="https://youtube.com/@bfccapitalpvtltd"
+                        href="https://www.youtube.com/@bfccapitalindia"
+                        target="_blank"
+                        rel="noopener noreferrer"
                         className="hover:text-[#001EFE]"
                       >
-                        https://youtube.com/@bfccapitalpvtltd
+                        https://www.youtube.com/@bfccapitalindia
                       </a>
                     </p>
                   </div>
@@ -1656,10 +1668,12 @@ const Home = () => {
                         Website:
                       </span>{" "}
                       <a
-                        href="https://prodigypro.co.in/"
+                        href="https://prodigypro.co.in"
+                        target="_blank"
+                        rel="noopener noreferrer"
                         className="hover:text-[#001EFE]"
                       >
-                        https://prodigypro.co.in/
+                        https://prodigypro.co.in
                       </a>
                     </p>
                     <p className="mb-0 break-words">
@@ -1667,10 +1681,12 @@ const Home = () => {
                         Facebook:
                       </span>{" "}
                       <a
-                        href="https://www.facebook.com/profile.php?id=61591880938605"
+                        href="https://www.facebook.com/prodigyprobybfccapital"
+                        target="_blank"
+                        rel="noopener noreferrer"
                         className="hover:text-[#001EFE]"
                       >
-                        https://www.facebook.com/profile.php?id=61591880938605
+                        https://www.facebook.com/prodigyprobybfccapital
                       </a>
                     </p>
                     <p className="mb-0 break-words">
@@ -1678,10 +1694,12 @@ const Home = () => {
                         Instagram:
                       </span>{" "}
                       <a
-                        href="https://www.instagram.com/prodigyprobybfc/?hl=en"
+                        href="https://www.instagram.com/prodigyprobybfc"
+                        target="_blank"
+                        rel="noopener noreferrer"
                         className="hover:text-[#001EFE]"
                       >
-                        https://www.instagram.com/prodigyprobybfc/?hl=en
+                        https://www.instagram.com/prodigyprobybfc
                       </a>
                     </p>
                     <p className="mb-0 break-words">
@@ -1690,6 +1708,8 @@ const Home = () => {
                       </span>{" "}
                       <a
                         href="https://x.com/prodigyprobybfc"
+                        target="_blank"
+                        rel="noopener noreferrer"
                         className="hover:text-[#001EFE]"
                       >
                         https://x.com/prodigyprobybfc
@@ -1701,6 +1721,8 @@ const Home = () => {
                       </span>{" "}
                       <a
                         href="https://www.linkedin.com/company/prodigyprobybfc"
+                        target="_blank"
+                        rel="noopener noreferrer"
                         className="hover:text-[#001EFE]"
                       >
                         https://www.linkedin.com/company/prodigyprobybfc
@@ -1711,12 +1733,12 @@ const Home = () => {
                         YouTube:
                       </span>{" "}
                       <a
-                        href=" https://www.youtube.com/@ProdigyProbyBFC
-"
+                        href="https://www.youtube.com/@ProdigyProbyBFC"
+                        target="_blank"
+                        rel="noopener noreferrer"
                         className="hover:text-[#001EFE]"
                       >
                         https://www.youtube.com/@ProdigyProbyBFC
-
                       </a>
                     </p>
                   </div>

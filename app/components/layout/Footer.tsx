@@ -111,7 +111,7 @@ const Footer = () => {
                                 </Link>
                             </div>
                             <div className="cursor-pointer hover:scale-110 transition-transform">
-                                <Link href="https://youtube.com/@bfccapitalpvtltd" target="_blank" rel="noopener noreferrer">
+                                <Link href="https://www.youtube.com/@bfccapitalindia" target="_blank" rel="noopener noreferrer">
                                     <Image src="/SocialMedia/YT.svg" alt="YouTube" width={36} height={36} />
                                 </Link>
                             </div>
@@ -121,7 +121,7 @@ const Footer = () => {
                                 </Link>
                             </div>
                             <div className="cursor-pointer hover:scale-110 transition-transform">
-                                <Link href="https://www.linkedin.com/company/bfccapitalpvt.ltd/" target="_blank" rel="noopener noreferrer">
+                                <Link href="https://www.linkedin.com/company/bfccapital" target="_blank" rel="noopener noreferrer">
                                     <Image src="/SocialMedia/LinkedIn.svg" alt="LinkedIn" width={36} height={36} />
                                 </Link>
                             </div>
