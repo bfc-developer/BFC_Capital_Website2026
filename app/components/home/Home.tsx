@@ -1609,10 +1609,10 @@ const Home = () => {
                         Instagram:
                       </span>{" "}
                       <a
-                        href="https://www.instagram.com/bfccapitalpvtltd/"
+                        href="https://www.instagram.com/bfccapitalindia"
                         className="hover:text-[#001EFE]"
                       >
-                        https://www.instagram.com/bfccapitalpvtltd/
+                        https://www.instagram.com/bfccapitalindia
                       </a>
                     </p>
                     <p className="mb-0 break-words">
@@ -1620,10 +1620,10 @@ const Home = () => {
                         LinkedIn:
                       </span>{" "}
                       <a
-                        href="https://www.linkedin.com/company/bfccapitalpvtltd/"
+                        href="https://www.linkedin.com/company/bfccapitalpvt.ltd/"
                         className="hover:text-[#001EFE]"
                       >
-                        https://www.linkedin.com/company/bfccapitalpvtltd/
+                        https://www.linkedin.com/company/bfccapitalpvt.ltd/
                       </a>
                     </p>
                     <p className="mb-0 break-words">
@@ -1631,10 +1631,10 @@ const Home = () => {
                         Twitter:
                       </span>{" "}
                       <a
-                        href="https://x.com/BFCCapital/"
+                        href="https://x.com/BFCCapital"
                         className="hover:text-[#001EFE]"
                       >
-                        https://x.com/BFCCapital/
+                        https://x.com/BFCCapital
                       </a>
                     </p>
                     <p className="mb-0 break-words">
@@ -1642,10 +1642,10 @@ const Home = () => {
                         YouTube:
                       </span>{" "}
                       <a
-                        href="https://www.youtube.com/@bfccapitalpvtltd"
+                        href="https://youtube.com/@bfccapitalpvtltd"
                         className="hover:text-[#001EFE]"
                       >
-                        https://www.youtube.com/@bfccapitalpvtltd
+                        https://youtube.com/@bfccapitalpvtltd
                       </a>
                     </p>
                   </div>
