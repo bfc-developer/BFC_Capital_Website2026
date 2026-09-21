@@ -51,7 +51,7 @@ const HeroSection = () => {
       type: "wealth",
       image: "/Home/BFC-YTThumbnail.webp",
       title: "Crafting Wealth, Curating Portfolios –",
-      highlight: "20+ Years of Excellence.",
+      highlight: "22+ Years of Excellence.",
     },
 
     {
@@ -135,9 +135,9 @@ const HeroSection = () => {
                   Assets Under <br /> Management
                 </p>
               </div>
-              <div className="flex  flex-col items-center justify-center w-25 h-25 md:w-40 md:h-40 rounded-full font-inter border-gradient-blue-green shadow-xl p-1" aria-label="Retail Client Base: 16000+">
+              <div className="flex  flex-col items-center justify-center w-25 h-25 md:w-40 md:h-40 rounded-full font-inter border-gradient-blue-green shadow-xl p-1" aria-label="Retail Client Base: 17000+">
                 <h2 className="text-[14px] md:text-2xl font-extrabold text-[#44475B] font-inter">
-                  16000+
+                  17000+
                 </h2>
                 <p className="text-[7px] md:text-[12px]  text-gray-600 font-semibold text-center font-inter mt-1 uppercase tracking-wide">
                   Retail Client <br /> Base
@@ -156,7 +156,7 @@ const HeroSection = () => {
                   22+
                 </h2>
                 <p className="text-[7px] md:text-[12px] md:text-xs text-gray-600  font-inter font-semibold text-center mt-1 uppercase tracking-wide">
-                  Managers
+                  Wealth Managers
                 </p>
               </div>
             </div>

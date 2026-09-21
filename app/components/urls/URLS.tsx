@@ -7,6 +7,7 @@ export const APPSTORE_URL = "https://apps.apple.com/in/app/prodigy-pro-mutual-fu
 export const SipWithAnnualIncrease_URL = "https://prodigypro-new.bfcsofttech.in/api/v2/calculators/sip-with-annual-increase"
 // export const WMS_url = "https://0tjhjpc5-7000.inc1.devtunnels.ms/api/";
 export const WMS_url = "https://wms.bfccapital.com/api/"
+// export const WMS_url = "http://localhost:7000/api/"
 export const wms_URL = WMS_url;
 export const endpoints = {
     bestMutualFunds: "best-mutual-funds?populate=*",
