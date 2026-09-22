@@ -346,7 +346,7 @@ export default function BookSessionButton({ buttonText, className }: BookSession
             setSubmitError('');
             setOtpError('');
             setOtpSuccessMessage('');
-            const payload = { email: trimmedEmail };
+            const payload = { email: trimmedEmail,domain:"BFC_CAPITAL" };
             const encodedPayload = btoa(JSON.stringify(payload));
             fetch(`${wms_URL}${endpoints.sendOTP}`, {
                 method: "POST",
@@ -424,6 +424,7 @@ export default function BookSessionButton({ buttonText, className }: BookSession
 
         const localApiPayload: any = {
             fullName: name,
+            domain:"BFC_CAPITAL",
             mobileNumber: normalizedMobile,
             email: email.trim(),
             selectedDate: selectedDate,
