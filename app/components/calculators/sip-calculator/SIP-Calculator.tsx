@@ -53,9 +53,9 @@ export default function Sipcalculators() {
     const [expectedRateOfReturn, setExpectedRateOfReturn] =
         useState<string | number>(16.5);
 
-    const [gains, setGains] = useState<number>(3017292);
+    const [gains, setGains] = useState<number>(2850926);
     const [totalYear, setTotalYear] = useState<number>(10);
-    const [totalGains, setTotalGains] = useState<number>(3058780);
+    const [totalGains, setTotalGains] = useState<number>(2850926);
     const [totalMonthlySaving, setTotalMonthlySaving] = useState<number>(1200000);
     const [oneMonthSaving, setOneMonthSaving] = useState<number>(10000);
     const [investmentPeriod1, setInvestmentPeriod1] = useState<number>(10);
@@ -70,13 +70,15 @@ export default function Sipcalculators() {
         }
         return xAxisArray;
     };
-
+const annualRateToMonthlyRate = (R: number) => {
+    return Math.pow(1 + R / 100, 1 / 12) - 1;
+  };
     const valuesForGraph = (
         monthlySavingVal: number,
         rateVal: number,
         currentTotalYear: number
     ): { marketValues: number[]; investedValues: number[] } => {
-        const monthlyRate = Number(rateVal) / 12 / 100;
+        const monthlyRate = annualRateToMonthlyRate(Number(rateVal));
 
         const yearPoints: number[] = [];
         if (currentTotalYear > 16) {
@@ -133,7 +135,7 @@ export default function Sipcalculators() {
             return;
         }
         else {
-            let monthlyRate = Number(expectedRateOfReturn) / 12 / 100;
+            let monthlyRate = annualRateToMonthlyRate(Number(expectedRateOfReturn));
             let months = investmentPeriod * 12;
             let futureValue =
                 ((monthlySaving * (Math.pow(1 + monthlyRate, months) - 1)) /
